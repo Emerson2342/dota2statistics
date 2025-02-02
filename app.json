@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Dota 2 Statics",
+    "slug": "dota2",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./src/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./src/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#002c3a"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/images/icon.png",
+        "backgroundColor": "#fff"
+      },
+      "package": "com.missinhoo.Dota2"
+    },
+    "web": {
+      "favicon": "./src/images/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f378759e-7ae4-44ae-8bcf-d339513332f2"
+      }
+    },
+    "owner": "emerson2342",
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-4117477719356991~3860269281"
+        }
+      ]
+    ]
+  }
+}

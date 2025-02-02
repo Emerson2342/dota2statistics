@@ -1,0 +1,538 @@
+import { RouteProp } from "@react-navigation/native";
+import { Dispatch, SetStateAction } from "react";
+
+export interface PlayerModel {
+  profile: {
+    name: string;
+    account_id: number;
+    personaname: string;
+    avatarfull: string;
+  };
+  rank_tier: number;
+  leaderboard_rank: null;
+}
+
+export interface FavoritesContextType {
+  addFavoritePlayer: (player: PlayerModel) => void;
+  removeFavoritePlayer: (playerId: number) => void;
+  favoritesPlayers: PlayerModel[] | [];
+}
+
+export interface User {
+  email: string;
+  id_Steam: string;
+  isPremium: boolean;
+}
+export interface SearchUserResult {
+  account_id: number;
+  personaname: string;
+  avatarfull: string;
+}
+
+export interface ThemeColor {
+  dark: string;
+  semidark: string;
+  standard: string;
+  semilight: string;
+  light: string;
+}
+
+export interface FontModel {
+  font1: string;
+  font2: string;
+  font3: string;
+}
+
+export type HandleCloseInterface = () => void;
+
+export interface Friend {
+  friend: string;
+  idFriend: number;
+}
+
+export interface FriendDetailsModel {
+  friend: string;
+  idFriend: number;
+  avatar?: string;
+  personaname?: string;
+  name?: string;
+  account_id: number;
+  medal?: number;
+  att: string;
+  profile?: {
+    account_id?: number;
+    personaname?: string;
+    avatarfull?: string;
+    name?: string;
+  };
+  rank_tier?: number;
+  leaderboard_rank?: null;
+}
+
+export interface RecentMatches {
+  match_id: number;
+  radiant_win: boolean;
+  hero_id: number;
+  player_slot: number;
+  start_time: number;
+  duration: number;
+  game_mode: number;
+  lobby_type: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  average_rank: number;
+  xp_per_min: number;
+  gold_per_min: number;
+  hero_damage: number;
+  tower_damage: number;
+  hero_healing: number;
+  last_hits: number;
+  lane: number | null;
+  lane_role: number | null;
+  leaver_status: number;
+}
+
+export interface HeroInfo {
+  heroId: number;
+  winCount: number;
+  lossCount: number;
+}
+export interface WinrateHero {
+  heroId: number;
+  localized_name: string;
+  vitorias: number;
+  derrotas: number;
+}
+
+export interface WL {
+  player: {
+    heroId: number;
+    winCount: number;
+    lossCount: number;
+    matchCount: number;
+  };
+}
+export interface Hero {
+  displayName: string;
+  id: number;
+}
+
+// export interface Heroes {
+//   id: number;
+//   name: string;
+//   localized_name: string;
+//   primary_attr: string;
+//   attack_type: string;
+//   roles: string[];
+//   legs: number;
+// }
+
+export interface HeroAbilitiesDetailsModel {
+  abilities: string[];
+  facets: FacetsModel[];
+}
+
+export interface HeroAbilitiesDescriptionsModel {
+  dname?: string;
+  is_innate?: boolean;
+  behavior?: string | string[];
+  dmg_type?: string | string[];
+  bkbpierce?: string | string[];
+  dispellable?: string;
+  target_team?: string | string[];
+  target_type?: string | string[];
+  desc?: string;
+  lore?: string;
+  mc?: string | string[];
+  cd?: string | string[];
+  img?: string;
+}
+
+export interface TalentsModel {
+  name: string;
+  level: number;
+}
+
+export interface FacetsModel {
+  id: number;
+  name: string;
+  icon: string;
+  color: string;
+  gradient_id: number;
+  title: string;
+  description: string;
+}
+
+export interface MatchLeagueInfo {
+  RadName: string | undefined;
+  DireName: string | undefined;
+  LeagueName: string;
+}
+
+export interface MatchDetailsModel {
+  players: Player[];
+  radiant_win: boolean;
+  duration: number;
+  start_time: number;
+  match_id: number;
+  tower_status_radiant: number;
+  tower_status_dire: number;
+  barracks_status_radiant: number;
+  barracks_status_dire: number;
+  game_mode: number;
+  radiant_score: number;
+  dire_score: number;
+  picks_bans: [
+    {
+      is_pick: boolean;
+      hero_id: number;
+      team: number;
+      order: number;
+    }
+  ];
+  radiant_gold_adv: number[];
+  radiant_xp_adv: number[];
+}
+
+export interface Player {
+  account_id: number;
+  win: number;
+  lose: number;
+  duration: number;
+  hero_id: number;
+  item_0: number;
+  item_1: number;
+  item_2: number;
+  item_3: number;
+  item_4: number;
+  item_5: number;
+  backpack_0: number;
+  backpack_1: number;
+  backpack_2: number;
+  item_neutral: number;
+  start_time: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  last_hits: number;
+  denies: number;
+  gold_per_min: number;
+  total_xp: number;
+  xp_per_min: number;
+  level: number;
+  net_worth: number;
+  aghanims_scepter: number;
+  aghanims_shard: number;
+  hero_damage: number;
+  tower_damage: number;
+  hero_healing: number;
+  isRadiant: boolean;
+  rank_tier: number;
+  personaname: string | null;
+  name: string | null;
+  benchmarks: {
+    gold_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    xp_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    kills_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    last_hits_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    hero_damage_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    hero_healing_per_min: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+    tower_damage: {
+      raw?: number | null;
+      pct?: number | null;
+    };
+  };
+  ability_upgrades_arr: [number];
+}
+
+export interface ItemsModel {
+  nome: string;
+  id: number;
+  img: string;
+  dname: string;
+}
+
+export interface PlayerDetails {
+  id: number;
+  localized_name: string;
+  resultado: string;
+  match_id: number;
+  account_id: number;
+  win: number;
+  lose: number;
+  duration: number;
+  start_time: number;
+  hero_id: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  last_hits: number;
+  denies: number;
+  gold_per_min: number;
+  xp_per_min: number;
+  level: number;
+  net_worth: number;
+  aghanims_scepter: number;
+  aghanims_shard: number;
+  hero_damage: number;
+  tower_damage: number;
+  hero_healing: number;
+}
+
+export interface Item {
+  nome: string;
+  id: number;
+  img: string;
+  dname: string;
+}
+
+export interface AghanimModel {
+  hero_name: string;
+  hero_id: number;
+  has_scepter: boolean;
+  scepter_desc: string;
+  scepter_skill_name: string;
+  scepter_new_skill: boolean;
+  has_shard: boolean;
+  shard_desc: string;
+  shard_skill_name: string;
+  shard_new_skill: boolean;
+}
+
+export interface HeroDetailsJson {
+  [key: string]: HeroDetailsModel;
+}
+
+export interface HeroDetailsModel {
+  id: number;
+  name: string;
+  primary_attr: string;
+  attack_type: string;
+  roles: string[];
+  img: string;
+  icon: string;
+  base_health: number;
+  base_health_regen: number;
+  base_mana: number;
+  base_mana_regen: number;
+  base_armor: number;
+  base_mr: number;
+  base_attack_min: number;
+  base_attack_max: number;
+  base_str: number;
+  base_agi: number;
+  base_int: number;
+  str_gain: number;
+  agi_gain: number;
+  int_gain: number;
+  attack_range: number;
+  projectile_speed: number;
+  attack_rate: number;
+  base_attack_time: number;
+  attack_point: number;
+  move_speed: number;
+  turn_rate: number;
+  cm_enabled: boolean;
+  legs: number;
+  day_vision: number;
+  night_vision: number;
+  localized_name: string;
+}
+
+export interface ItemPopularityData {
+  start_game_items: Record<string, number>;
+  early_game_items: Record<string, number>;
+  mid_game_items: Record<string, number>;
+  late_game_items: Record<string, number>;
+}
+export interface HeroItemsListPopularity {
+  id: number | undefined;
+  item: ItemPopularityData;
+}
+export interface HeroBenchmarksData {
+  hero_id: number | undefined;
+  result: HeroBenchmarksResult;
+}
+
+export interface HeroLore {
+  [key: string]: string;
+}
+
+export interface HeroAbilitiesDetailsJson {
+  [key: string]: HeroAbilitiesDetailsModel;
+}
+
+export interface HeroAbilitiesDescriptionsJson {
+  [key: string]: HeroAbilitiesDescriptionsModel;
+}
+
+export interface HeroBenchmarksResult {
+  gold_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  xp_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  kills_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  last_hits_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  hero_damage_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  hero_healing_per_min: {
+    percentile: number;
+    value: number;
+  }[];
+  tower_damage: {
+    percentile: number;
+    value: number;
+  }[];
+}
+
+export interface HeroesAvarage {
+  hero_id: number;
+  gold_per_min: number;
+  xp_per_min: number;
+  kills: number;
+  last_hits: number;
+  hero_damage: number;
+  tower_damage: number;
+  hero_healing: number;
+}
+
+export interface MatchDetailsIndex {
+  idMatchIndex: string | undefined;
+  setIdMatchIndex: Dispatch<SetStateAction<string | undefined>>;
+  idPlayerIndex: string | undefined;
+  setIdPlayerIndex: Dispatch<SetStateAction<string | undefined>>;
+}
+
+export type RootStackParamList = {
+  Bottom: undefined;
+  MatchDetails: {
+    MatchDetailsIndex: number;
+    PlayerIdIndex: string | null;
+    RadiantName: string | undefined;
+    DireName: string | undefined;
+    LeagueNameIndex: string | null;
+  };
+  PlayerProfile: {
+    PlayerId: string;
+  };
+  LeagueDetails: {
+    LeagueIdIndex: number;
+    LeagueName: string;
+  };
+  HeroDetails: {
+    heroDetails: HeroDetailsModel;
+  };
+};
+
+export interface StorageService {
+  getItem: <T>(key: string) => Promise<T | null>;
+  setItem: <T>(key: string, value: T) => Promise<void>;
+  removeItem: (key: string) => Promise<void>;
+}
+
+export type MatchDetailsRouteProp = RouteProp<
+  RootStackParamList,
+  "MatchDetails"
+>;
+export type LeagueDetailsRouteProp = RouteProp<
+  RootStackParamList,
+  "LeagueDetails"
+>;
+export type PlayerProfileRouteProp = RouteProp<
+  RootStackParamList,
+  "PlayerProfile"
+>;
+
+export type HeroDetailsRouteProp = RouteProp<RootStackParamList, "HeroDetails">;
+
+export interface MatchDetailsProps {
+  route: MatchDetailsRouteProp;
+}
+
+export interface LeagueDetailsProps {
+  route: LeagueDetailsRouteProp;
+}
+
+export interface PlayerProfileProps {
+  route: PlayerProfileRouteProp;
+}
+
+export interface HeroDetailsProps {
+  route: HeroDetailsRouteProp;
+}
+export interface League {
+  leagueid: number;
+  ticket: string | null;
+  banner: string | null;
+  tier: string;
+  name: string;
+}
+
+export interface LeagueMatches {
+  match_id: number;
+  radiant_win: boolean;
+  start_time: number;
+  duration: number;
+  leagueid: number;
+  league_name: string | null;
+  radiant_name: string | null;
+  dire_name: string | null;
+  radiant_score: number;
+  dire_score: number;
+  radiant_team_id: number;
+  radiant_team_name: string | null;
+  dire_team_id: number;
+  dire_team_name: string | null;
+  series_id: number;
+  series_type: number;
+}
+
+export interface Team {
+  team_id: number;
+  rating: number;
+  wins: number;
+  losses: number;
+  last_match_time: number;
+  name: string;
+  tag: string;
+  logo_url: string;
+}
+
+export interface TeamPlayer {
+  account_id: number;
+  name: string;
+  games_played: number;
+  wins: number;
+  is_current_team_member: boolean;
+}
