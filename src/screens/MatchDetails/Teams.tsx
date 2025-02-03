@@ -16,6 +16,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
+import { StackNavigationProp } from "@react-navigation/stack";
 export function Teams({
   matchDetails,
   RadiantName,
@@ -32,7 +33,7 @@ export function Teams({
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const navigation =
     useNavigation<
-      BottomTabNavigationProp<RootStackParamList, "PlayerProfile">
+      StackNavigationProp<RootStackParamList, "PlayerProfile">
     >();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const messageText = englishLanguage

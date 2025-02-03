@@ -16,7 +16,7 @@ export function ModalFavoritePlayers({
   message: string;
   handleClose: () => void;
   removePlayer: () => void;
-  addPlayer: () => void;
+    addPlayer?: () => void;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -25,7 +25,7 @@ export function ModalFavoritePlayers({
 
   const handleConfirm = () => {
     if (addAction) {
-      addPlayer();
+      addPlayer?.();
     } else {
       removePlayer();
     }

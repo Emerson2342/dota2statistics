@@ -86,7 +86,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
             >
               <FontAwesome
                 name={playerFound ? "star" : "star-o"}
-                color={"orange"}
+                color={playerFound ? "orange" : "#fff"}
                 size={30}
               />
             </TouchableOpacity>
