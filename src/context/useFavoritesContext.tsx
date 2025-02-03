@@ -67,10 +67,7 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
   useEffect(() => {
     const saveAsyncData = async () => {
       try {
-        await storageAsync.setItem(
-          "favoritesPlayers",
-          JSON.stringify(favoritesPlayers)
-        );
+        await storageAsync.setItem("favoritesPlayers", favoritesPlayers);
       } catch (error) {
         console.error(
           "Erro ao salvar lista de jogadores favoritos armazenados: ",

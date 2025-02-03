@@ -112,7 +112,12 @@ export function ProfileHeader({
     <View style={{ flex: 1 }}>
       <BannerAds />
       <View
-        style={[styles.profile, { flex: heroesId.length > 10 ? 0.58 : 0.7 }]}
+        style={[
+          styles.profile,
+          {
+            flex: heroesId.length > 10 ? 0.5 : 0.65,
+          },
+        ]}
       >
         <View style={styles.infoContainer}>
           <View style={styles.imgContainer}>
@@ -189,8 +194,7 @@ export function ProfileHeader({
         style={{
           alignItems: "center",
           justifyContent: "center",
-          flex: heroesId.length > 10 ? 0.42 : 0.3,
-          paddingVertical: "1.7%",
+          flex: heroesId.length > 10 ? 0.5 : 0.35,
         }}
       >
         <FlatList

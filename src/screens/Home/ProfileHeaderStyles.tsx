@@ -6,7 +6,6 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
     profile: {
       alignItems: "center",
       backgroundColor: colors.semidark,
-      marginTop: "3%",
       borderRadius: 5,
       width: "97%",
       alignSelf: "center",

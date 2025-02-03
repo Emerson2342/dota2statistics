@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Image,
   FlatList,
+  Keyboard,
 } from "react-native";
 
 import { createStyles } from "./styles";
@@ -45,6 +46,7 @@ export const FindPlayer = () => {
     const searchPlayerUrl = `${SEARCH_PLAYER_BASE_URL}${text}`;
     await searchPlayersByName(searchPlayerUrl, setUsersSearch);
     setInputText("");
+    Keyboard.dismiss();
     setIsLoading(false);
   };
 
@@ -101,7 +103,7 @@ export const FindPlayer = () => {
           iconColor={ColorTheme.semidark}
           placeholderTextColor={ColorTheme.semilight}
           onIconPress={() => handleSearch(inputText)}
-        //dense
+          //dense
         />
       </View>
       {isLoading ? (
@@ -148,8 +150,8 @@ export const FindPlayer = () => {
                 ? `Results for "${textSearch}"`
                 : `Resultados para "${textSearch}"`
               : englishLanguage
-                ? `No results found for "${textSearch}"`
-                : `Nenhum resultado encontrado para "${textSearch}"`}
+              ? `No results found for "${textSearch}"`
+              : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
 
           <FlatList

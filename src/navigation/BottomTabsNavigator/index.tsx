@@ -13,8 +13,9 @@ import {
 } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ModalSettings } from "../../../src/components/Modals/ModalSettings";
+import { Favorites } from "../../../src/screens/Favorites";
 
 const Tab = createBottomTabNavigator();
 const width = Dimensions.get("window").width;
@@ -93,6 +94,23 @@ export function BottomTabsNavigator() {
                 size={25}
                 color={ColorTheme.standard}
                 name={focused ? "search" : "search-outline"}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          headerTitle: englishLanguage ? "Favorites" : "Favoritos",
+          tabBarLabel: englishLanguage ? "Favorites" : "Favoritos",
+          tabBarIcon: ({ focused }) => {
+            return (
+              <FontAwesome
+                size={25}
+                color={ColorTheme.standard}
+                name={focused ? "star" : "star-o"}
               />
             );
           },

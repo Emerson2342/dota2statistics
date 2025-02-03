@@ -148,14 +148,14 @@ export function Profile() {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, overflow: "hidden" }}>
-        <View style={{ flex: 0.4 }}>
+        <View style={{ flex: 0.35 }}>
           <ProfileHeader
             player={player}
             heroesId={heroesPlayedId}
             recentMatches={recentMatches}
           />
         </View>
-        <View style={{ flex: proMatchesOpen ? 0 : 0.46 }}>
+        <View style={{ flex: proMatchesOpen ? 0 : 0.5 }}>
           <View style={{ flex: 1, paddingBottom: "1%" }}>
             <LastMatches
               playerId={player.profile.account_id.toString()}
@@ -166,7 +166,7 @@ export function Profile() {
         </View>
         <TouchableOpacity
           onPress={() => openProMatches()}
-          style={{ flex: proMatchesOpen ? 0.6 : 0.14 }}
+          style={{ flex: proMatchesOpen ? 0.6 : 0.15 }}
         >
           <ProMatches proMatchesOpen={proMatchesOpen} />
         </TouchableOpacity>
