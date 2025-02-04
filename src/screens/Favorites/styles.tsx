@@ -28,6 +28,16 @@ export const createStyles = (Colors: ThemeColor) =>
       width: "43%",
       aspectRatio: 1,
     },
+    rankText: {
+      color: "#fff",
+      position: 'absolute',
+      left: 13,
+      top: 31.5,
+      width: "27%",
+      textAlign: "center",
+      fontWeight: "bold",
+      fontSize: 7
+    },
     imageProfile: {
       width: "37%",
       aspectRatio: 1,

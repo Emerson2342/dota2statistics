@@ -72,13 +72,11 @@ export function Favorites() {
           justifyContent: "center"
         }}
       >
-
         <MaterialCommunityIcons name="delete" color={"red"} size={23} />
       </RectButton>);
     };
 
     return (
-
       <Swipeable
         onSwipeableOpen={() => handleDeletePlayer(item.profile.account_id)}
         renderLeftActions={renderLeftActions}>
@@ -91,6 +89,7 @@ export function Favorites() {
               source={{ uri: `${Medal(item.rank_tier)}` }}
               style={styles.imageMedal}
             />
+            <Text style={styles.rankText}>{item?.leaderboard_rank}</Text>
             <Image style={styles.imageProfile} src={item.profile.avatarfull} />
           </View>
           <Text style={styles.textProfileName}>
@@ -110,17 +109,17 @@ export function Favorites() {
         <Text
           style={{ display: favoritesPlayers.length == 0 ? "flex" : "none", fontFamily: "QuickSand-Semibold", textAlign: "center", fontSize: 17 }}
         >{englishLanguage ? "Empty List" : "Lista Vazia"}</Text>
-        <ScrollView>
+        <ScrollView style={{
+          marginTop: "3%",
+          marginBottom: "3%",
+          maxHeight: "91%"
+        }}>
 
-        <FlatList
-          style={{}}
+          <FlatList
           data={favoritesPlayers}
           renderItem={({ item }) => (<SwipeableItem item={item} />)}
           keyExtractor={(item) => item.profile.account_id.toString()}
-          contentContainerStyle={{
-            marginTop: "13%",
-            maxHeight: "80%"
-          }}
+            scrollEnabled={false}
           />
         </ScrollView>
       </View>
