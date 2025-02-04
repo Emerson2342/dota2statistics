@@ -7,7 +7,7 @@ const IntTheme: ThemeColor = {
   semidark: "#004054",
   standard: "#006480",
   semilight: "#336676",
-  light: "#d5eae7"
+  light: "#deebfc"
   //light: "#a2cad2",
 
 };

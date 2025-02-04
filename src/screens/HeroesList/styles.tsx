@@ -6,7 +6,6 @@ export const createStyles = (colors: ThemeColor) =>
     container: {
       flex: 1,
       backgroundColor: "#eee",
-      paddingTop: "5%",
       width: "97%",
       alignSelf: "center",
       alignItems: "center",
@@ -21,8 +20,7 @@ export const createStyles = (colors: ThemeColor) =>
       backgroundColor: "#fff",
       textAlign: "center",
       fontFamily: "QuickSand-Semibold",
-
-      margin: "5%",
+      margin: "3%",
     },
     buttonClearSearch: {
       backgroundColor: colors.semidark,

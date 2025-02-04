@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
-import { Searchbar, TextInput } from "react-native-paper";
+import { Searchbar } from "react-native-paper";
 import { createStyles } from "./styles";
 
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -102,12 +102,8 @@ export function ListaDeHerois() {
   };
 
   const HandleSearchHero = (text: string) => {
-    //alert(textInputSearch);
-
-    if (textInputSearch.length < 3) {
-      alert("Favor digitar ao menos 3 caracteres");
-      return;
-    } else {
+    //alert(textInputSearch);   
+    setTextInputSearch(text)
       const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
         hero.localized_name
           .toLowerCase()
@@ -115,12 +111,11 @@ export function ListaDeHerois() {
           .includes(text.toLowerCase().trim())
       );
       setHereoesSearched(heroesToSearch);
-      setTextResult(text);
-      setTextInputSearch("");
-    }
+    setTextResult(text);
   };
 
   const HandleClearSearchResults = () => {
+    setTextInputSearch("")
     setTextResult(undefined);
     setHereoesSearched(undefined);
   };
@@ -181,8 +176,8 @@ export function ListaDeHerois() {
           elevation={3}
           iconColor={ColorTheme.semidark}
           placeholderTextColor={ColorTheme.semilight}
-          onChangeText={(text) => setTextInputSearch(text)}
-          onIconPress={() => HandleSearchHero(textInputSearch)}
+          onChangeText={(text) => HandleSearchHero(text)}
+          onClearIconPress={() => HandleClearSearchResults()}
         />
       </View>
       <View
@@ -190,22 +185,9 @@ export function ListaDeHerois() {
           display: textResult ? "flex" : "none",
           width: "95%",
           alignItems: "center",
+          marginBottom: '3%'
         }}
       >
-        <TouchableOpacity
-          style={styles.buttonClearSearch}
-          onPress={() => HandleClearSearchResults()}
-        >
-          <Text
-            style={{
-              color: "#fff",
-              fontFamily: "QuickSand-Semibold",
-              alignItems: "center",
-            }}
-          >
-            {englishLanguage ? "Clear Results" : "Limpar Resultados"}
-          </Text>
-        </TouchableOpacity>
         <Text style={{ fontFamily: "QuickSand-Semibold" }}>
           {textSearchResult}
         </Text>
