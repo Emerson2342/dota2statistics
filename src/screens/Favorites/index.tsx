@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  ScrollView,
 } from "react-native";
 
 import { createStyles } from "./styles";
@@ -14,12 +15,11 @@ import { useTheme } from "../../../src/context/useThemeContext";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
 import { PlayerModel, RootStackParamList } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { useNavigation } from "@react-navigation/native";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
-import { ModalFavoritePlayers } from "../../../src/components/Modals/ModalFavoritePlayer";
+import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
 
@@ -78,6 +78,7 @@ export function Favorites() {
     };
 
     return (
+
       <Swipeable
         onSwipeableOpen={() => handleDeletePlayer(item.profile.account_id)}
         renderLeftActions={renderLeftActions}>
@@ -109,6 +110,8 @@ export function Favorites() {
         <Text
           style={{ display: favoritesPlayers.length == 0 ? "flex" : "none", fontFamily: "QuickSand-Semibold", textAlign: "center", fontSize: 17 }}
         >{englishLanguage ? "Empty List" : "Lista Vazia"}</Text>
+        <ScrollView>
+
         <FlatList
           style={{}}
           data={favoritesPlayers}
@@ -118,7 +121,8 @@ export function Favorites() {
             marginTop: "13%",
             maxHeight: "80%"
           }}
-        />
+          />
+        </ScrollView>
       </View>
       <Modal
         transparent={true}
@@ -138,8 +142,7 @@ export function Favorites() {
         animationType="fade"
         statusBarTranslucent={true}
       >
-        <ModalFavoritePlayers
-          addAction={false}
+        <ModalRemoveFavoritePlayer
           message={modalMessageRemove}
           removePlayer={() => removeFavoritePlayer(playerIdIndex ?? 0)}
           handleClose={() => setModalFavoritesVisible(false)}

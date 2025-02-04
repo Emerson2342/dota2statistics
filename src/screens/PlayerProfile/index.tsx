@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
-import { ModalFavoritePlayers } from "../../../src/components/Modals/ModalFavoritePlayer";
+import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
 
 export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const { PlayerId } = route.params;
@@ -35,7 +35,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
-  const [isAddingPlayer, setIsAddindPlayer] = useState(true);
 
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"
@@ -47,10 +46,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
   const [status, setStatus] = useState<number>();
 
-  const modalMessageAdd = englishLanguage
-    ? "Do you wish add this player in the favorite list?"
-    : "Deseja adicionar este jogado na lista de favoritos?";
-
   const modalMessageRemove = englishLanguage
     ? "Do you wish remove this player from the favorite list?"
     : "Vocë deseja remover este jogador da lista de favoritos?";
@@ -61,27 +56,33 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     }
   }, []);
 
-  console.log(JSON.stringify(favoritesPlayers, null, 2));
+  const playerFound = favoritesPlayers.find(
+    (p) => p.profile.account_id.toString() == PlayerId
+  );
+
+  const handleFavorites = () => {
+    if (playerFound) {
+      setModalFavoritesVisible(true);
+      return;
+    }
+    if (player) {
+      addFavoritePlayer(player);
+    }
+  };
+
 
   useEffect(() => {
-    const playerFound = favoritesPlayers.find(
-      (p) => p.profile.account_id.toString() == PlayerId
-    );
-    if (playerFound) {
-      setIsAddindPlayer(false);
-    } else {
-      setIsAddindPlayer(true);
-    }
+
     console.log(
       "Lista de Jogadores Favoritos:" +
-        JSON.stringify(favoritesPlayers, null, 2)
+      JSON.stringify(favoritesPlayers, null, 2)
     );
     navigation.setOptions({
       headerRight: () => {
         return (
           <View style={{ width: "50%" }}>
             <TouchableOpacity
-              onPress={() => setModalFavoritesVisible(true)}
+              onPress={() => handleFavorites()}
               style={{ width: "100%", marginRight: 15, alignItems: "center" }}
             >
               <FontAwesome
@@ -94,7 +95,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         );
       },
     });
-  }, [favoritesPlayers]);
+  }, [favoritesPlayers, player]);
 
   const handleSearch = async () => {
     console.log("entrou na busca do jogador: id " + PlayerId);
@@ -156,10 +157,8 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         statusBarTranslucent={true}
       >
         {player ? (
-          <ModalFavoritePlayers
-            addAction={isAddingPlayer}
-            message={isAddingPlayer ? modalMessageAdd : modalMessageRemove}
-            addPlayer={() => addFavoritePlayer(player)}
+          <ModalRemoveFavoritePlayer
+            message={modalMessageRemove}
             removePlayer={() => removeFavoritePlayer(player.profile.account_id)}
             handleClose={() => setModalFavoritesVisible(false)}
           />

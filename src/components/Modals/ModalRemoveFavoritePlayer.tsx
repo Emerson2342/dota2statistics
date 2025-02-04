@@ -1,22 +1,18 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { PlayerModel, ThemeColor } from "../../../src/services/props";
+import { useSettingsContext } from "../../context/useSettingsContext";
+import { useTheme } from "../../context/useThemeContext";
+import { PlayerModel, ThemeColor } from "../../services/props";
 
-export function ModalFavoritePlayers({
-  addAction,
+export function ModalRemoveFavoritePlayer({
   message,
   handleClose,
   removePlayer,
-  addPlayer,
 }: {
-  addAction: boolean;
   message: string;
   handleClose: () => void;
   removePlayer: () => void;
-    addPlayer?: () => void;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -24,11 +20,7 @@ export function ModalFavoritePlayers({
   const styles = createStyles(ColorTheme);
 
   const handleConfirm = () => {
-    if (addAction) {
-      addPlayer?.();
-    } else {
-      removePlayer();
-    }
+    removePlayer();
     handleClose();
   };
 
