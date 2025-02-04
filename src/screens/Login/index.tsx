@@ -97,10 +97,11 @@ export function Login() {
         const errorCode = error.code;
         setPassword("");
         console.log(errorCode);
-        if (errorCode === "auth/invalid-credential") {
+        if (errorCode === "auth/invalid-credential" || errorCode === "auth/invalid-email") {
           setModalMessageVisible(true);
           setMessageText(loginPasswordError);
-        } else {
+        }
+        else {
           setModalMessageVisible(true);
           setMessageText(errorCode);
         }

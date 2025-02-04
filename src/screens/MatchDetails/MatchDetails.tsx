@@ -21,16 +21,15 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../constants/player";
 import { BannerAds } from "../../components/BannerAds";
-import { MotiView } from "moti";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { useMatchesDetailsListContext } from "../../context/useMatchesDetailsListContext";
 import { useTheme } from "../../context/useThemeContext";
 import { GraficsGoldAndXp } from "./Grafic";
 import { Abilities } from "./Abilities";
 import { Items } from "./Items";
 import { Header } from "./Header";
 import { Teams } from "./Teams";
-import { useNavigation } from "@react-navigation/native";
+import { AsyncStorageService } from "../../../src/services/StorageService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const {
@@ -41,22 +40,37 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     LeagueNameIndex,
   } = route.params;
 
-  const navigation = useNavigation();
   const { englishLanguage } = useSettingsContext();
-  const { matchesDetailsList, setMatchesDetailsList } =
-    useMatchesDetailsListContext();
+  const [matchesDetailsList, setMatchesDetailsList] = useState<MatchDetailsModel[]>([]);
+
   const { ColorTheme } = useTheme();
 
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
-  //const [isFetching, setIsFetching] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const styles = createStyles(ColorTheme);
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
+
+  const loadMatchesList = async () => {
+    try {
+      const storedMachesList = await AsyncStorage.getItem("matchesDetailsList");
+      if (storedMachesList) {
+        const parsedList = JSON.parse(storedMachesList);
+        console.log("Tamanho da lista das partidas carregada:", parsedList.length);
+        setMatchesDetailsList(parsedList);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar dados do AsyncStorage:", error);
+    }
+  };
+
+
   useEffect(() => {
-    console.log("Renderizou");
+    loadMatchesList();
+
     const fetchMatchDetails = async () => {
       const match =
         MatchDetailsIndex &&
@@ -73,9 +87,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         await handleSearchMatche();
       }
     };
-
     fetchMatchDetails();
   }, [route.params]);
+
+
 
   let heroDamageRad = 0;
   let heroDamageDire = 0;
@@ -207,7 +222,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (updatedMatchesList.length > 20) {
         updatedMatchesList = updatedMatchesList.slice(1);
       }
-      setMatchesDetailsList(updatedMatchesList);
+      AsyncStorage.setItem("matchesDetailsList", JSON.stringify(updatedMatchesList))
+        .then(() => console.log("Lista salva no AsyncStorage:", updatedMatchesList.length))
+        .catch((error) => console.error("Erro ao salvar AsyncStorage:", error));
+
     } catch (error) {
       console.error("Erro buscar partida: " + error);
     } finally {

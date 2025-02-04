@@ -109,11 +109,7 @@ export function Favorites() {
         <Text
           style={{ display: favoritesPlayers.length == 0 ? "flex" : "none", fontFamily: "QuickSand-Semibold", textAlign: "center", fontSize: 17 }}
         >{englishLanguage ? "Empty List" : "Lista Vazia"}</Text>
-        <ScrollView style={{
-          marginTop: "3%",
-          marginBottom: "3%",
-          maxHeight: "91%"
-        }}>
+        <ScrollView style={styles.scrollView}>
 
           <FlatList
           data={favoritesPlayers}

@@ -37,7 +37,7 @@ export const RefreshProvider: React.FC<RefreshProviderProps> = ({
 }) => {
   const [refreshProfile, setRefreshProfile] = useState<boolean>(false);
 
-  /*   useEffect(() => {
+  useEffect(() => {
       const loadStoredData = async () => {
         try {
           const storedRefreshProfile = await AsyncStorage.getItem(
@@ -53,9 +53,8 @@ export const RefreshProvider: React.FC<RefreshProviderProps> = ({
       };
   
       loadStoredData();
-    }, []); */
-
-  /*   useEffect(() => {
+    }, []);
+  useEffect(() => {
       const saveAsyncData = async () => {
         try {
           await AsyncStorage.setItem(
@@ -67,7 +66,7 @@ export const RefreshProvider: React.FC<RefreshProviderProps> = ({
         }
       };
       saveAsyncData();
-    }, [refreshProfile]); */
+     }, [refreshProfile]); 
 
   return (
     <RefreshContext.Provider

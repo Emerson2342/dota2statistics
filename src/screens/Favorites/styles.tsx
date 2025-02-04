@@ -8,6 +8,11 @@ export const createStyles = (Colors: ThemeColor) =>
       width: "100%",
       backgroundColor: "#ddd",
     },
+    scrollView: {
+      marginTop: "3%",
+      marginBottom: "3%",
+      maxHeight: "91%"
+    },
     itemContent: {
       flexDirection: "row",
       alignItems: "center",

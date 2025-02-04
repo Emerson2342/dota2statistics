@@ -43,18 +43,18 @@ import {
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { getItemsByHero } from "../../API";
-import { useHeroItemListContext } from "../../context/useHeroItemsListContext";
 import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
 
   const { englishLanguage } = useSettingsContext();
-  const { heroItemsList, setHeroItemsList } = useHeroItemListContext();
+  const [heroItemsList, setHeroItemsList] = useState<HeroItemsListPopularity[] | []>([]);
 
   const [itemData, setItemData] = useState<ItemPopularityData>();
   useState<HeroBenchmarksResult>();
@@ -66,6 +66,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const [abilitiesDesc, setAbilitiesDesc] = useState<
     HeroAbilitiesDescriptionsModel[] | []
   >([]);
+
+  const storageAsync = new AsyncStorageService();
 
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
 
@@ -84,6 +86,21 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       abilities?.abilities?.map((a) => heroAbilitiesDescriptions[a]);
     setAbilitiesDesc(abilitiesResult ?? []);
   };
+
+
+  useEffect(() => {
+    const saveData = async () => {
+      try {
+        await storageAsync.setItem("heroItemsList", heroItemsList);
+      } catch (error) {
+        console.error("Erro ao salvar dados no AsyncStorage:", error);
+      }
+    };
+
+    saveData();
+  }, [heroItemsList]);
+
+
 
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
@@ -112,6 +129,20 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
         }, 200);
       }
     };
+
+    const loadData = async () => {
+      try {
+        const storedHeroItemsList = await storageAsync.getItem<HeroItemsListPopularity[]>("heroItemsList");
+        if (storedHeroItemsList)
+          setHeroItemsList(storedHeroItemsList);
+
+
+      } catch (error) {
+        console.error("Erro ao carregar dados do AsyncStorage:", error);
+      }
+    };
+
+    loadData();
 
     fetchItems();
   }, []);

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -24,10 +24,10 @@ import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
-import { useLeagueListContext } from "../../../src/context/useLeaguesListContext";
 import { useTeamsListContext } from "../../../src/context/useTeamContext";
 import { useFonts } from "expo-font";
 import { BannerAds } from "../../../src/components/BannerAds";
+import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function Leagues() {
   const navigation =
@@ -37,7 +37,7 @@ export function Leagues() {
 
   const styles = createStyles(ColorTheme);
 
-  const { leagueList, setLeagueList } = useLeagueListContext();
+  const [leagueList, setLeagueList] = useState<League[] | []>([]);
   const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
   const { setTeamsList } = useTeamsListContext();
 
@@ -53,6 +53,36 @@ export function Leagues() {
       LeagueName: name,
     });
   };
+
+  const asyncStorage = new AsyncStorageService();
+
+  useEffect(() => {
+    const loadStoredData = async () => {
+      try {
+        const storedLeagueList = await asyncStorage.getItem<League[]>("leagueList");
+
+        if (storedLeagueList !== null) {
+          setLeagueList(storedLeagueList);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados armazenados", error);
+      }
+    };
+
+    loadStoredData();
+  }, []);
+
+  useEffect(() => {
+    const saveAsyncData = async () => {
+      try {
+        await asyncStorage.setItem("leagueList", leagueList);
+      } catch (error) {
+        console.error("Erro ao salvar dados no AsyncStorage:", error);
+      }
+    };
+    saveAsyncData();
+  }, [leagueList]);
+
 
   useFocusEffect(
     useCallback(() => {
