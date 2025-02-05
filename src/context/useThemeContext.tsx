@@ -16,7 +16,7 @@ const AgiTheme: ThemeColor = {
   semidark: "#0d5030",
   standard: "#2f6b48",
   semilight: "#3d7359",
-  light: "#C6E7CE"
+  light: "#DAF1DB"
   //light: "#a9d8bf",
 };
 
@@ -25,7 +25,7 @@ const StrTheme: ThemeColor = {
   semidark: "#540000",
   standard: "#903333",
   semilight: "#763333",
-  light: "#f7d8dc",
+  light: "#FBEAEC",
   //light: "#d7b0b0",
 };
 interface ThemeContextType {
