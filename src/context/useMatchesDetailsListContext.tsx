@@ -30,7 +30,7 @@ interface MactchesDetailsListProviderProps {
 }
 
 //criação do provider
-export const MactchesDetailsListProvider: React.FC<
+export const MatchesDetailsListProvider: React.FC<
     MactchesDetailsListProviderProps
 > = ({ children }) => {
     const [matchesDetailsList, setMatchesDetailsList] = useState<

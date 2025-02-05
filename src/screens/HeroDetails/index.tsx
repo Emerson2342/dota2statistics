@@ -49,12 +49,14 @@ import { FlatList } from "react-native-gesture-handler";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { AsyncStorageService } from "../../../src/services/StorageService";
+import { useHeroItemListContext } from "../../../src/context/useHeroItemsListContext";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
 
   const { englishLanguage } = useSettingsContext();
-  const [heroItemsList, setHeroItemsList] = useState<HeroItemsListPopularity[] | []>([]);
+
+  const { heroItemsList, setHeroItemsList } = useHeroItemListContext();
 
   const [itemData, setItemData] = useState<ItemPopularityData>();
   useState<HeroBenchmarksResult>();
@@ -86,20 +88,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       abilities?.abilities?.map((a) => heroAbilitiesDescriptions[a]);
     setAbilitiesDesc(abilitiesResult ?? []);
   };
-
-
-  useEffect(() => {
-    const saveData = async () => {
-      try {
-        await storageAsync.setItem("heroItemsList", heroItemsList);
-      } catch (error) {
-        console.error("Erro ao salvar dados no AsyncStorage:", error);
-      }
-    };
-
-    saveData();
-  }, [heroItemsList]);
-
 
 
   useEffect(() => {
