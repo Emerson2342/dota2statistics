@@ -40,7 +40,6 @@ export function Profile() {
     setRecentMatches,
     heroesPlayedId,
     setHeroesPlayedId,
-    proMatches,
     setProMatches,
   } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
@@ -166,7 +165,7 @@ export function Profile() {
         </View>
         <TouchableOpacity
           onPress={() => openProMatches()}
-          style={{ flex: proMatchesOpen ? 0.6 : 0.15 }}
+          style={{ flex: proMatchesOpen ? 0.65 : 0.15 }}
         >
           <ProMatches proMatchesOpen={proMatchesOpen} />
         </TouchableOpacity>

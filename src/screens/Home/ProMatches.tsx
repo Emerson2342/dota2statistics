@@ -1,21 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  FlatList,
-  Dimensions,
   Animated,
-  Easing,
 } from "react-native";
 
 import { createStylesStatics } from "./ProMatchesStyles";
 
 import {
-  FontModel,
   LeagueMatches,
-  MatchLeagueInfo,
   RootStackParamList,
 } from "../../services/props";
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -24,7 +19,6 @@ import { usePlayerContext } from "../../context/usePlayerContex";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
-import { resourceUsage } from "process";
 
 export function ProMatches({ proMatchesOpen }: { proMatchesOpen: boolean }) {
   const navigation =

@@ -139,6 +139,7 @@ export function Header({
           </View>
         </View>
       </View>
+      <Text style={styles.textId}>{englishLanguage ? "Match Id: " : "Id da Partida"}{matchDetails?.match_id}</Text>
     </View>
   );
 }
@@ -163,14 +164,17 @@ const createStyles = (colors: ThemeColor) =>
     teamName: {
       color: colors.standard,
       fontFamily: "QuickSand-Bold",
-      //fontSize: 17,
       textAlign: "center",
       width: "87%",
     },
     teamScore: {
       color: colors.standard,
       fontFamily: "QuickSand-Bold",
-      //fontSize: 15,
       alignSelf: "center",
     },
+    textId: {
+      fontFamily: "QuickSand-Semibold",
+      textAlign: "center",
+      color: "#777"
+    }
   });

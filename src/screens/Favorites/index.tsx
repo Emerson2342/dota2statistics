@@ -105,7 +105,7 @@ export function Favorites() {
   return (
     <View style={styles.container}>
       <BannerAds />
-      <View>
+      <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
         <Text
           style={{ display: favoritesPlayers.length == 0 ? "flex" : "none", fontFamily: "QuickSand-Semibold", textAlign: "center", fontSize: 17 }}
         >{englishLanguage ? "Empty List" : "Lista Vazia"}</Text>

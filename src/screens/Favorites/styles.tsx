@@ -9,9 +9,7 @@ export const createStyles = (Colors: ThemeColor) =>
       backgroundColor: "#ddd",
     },
     scrollView: {
-      marginTop: "3%",
-      marginBottom: "3%",
-      maxHeight: "91%"
+      //paddingTop: "7%"
     },
     itemContent: {
       flexDirection: "row",
