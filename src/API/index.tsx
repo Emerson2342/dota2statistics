@@ -8,6 +8,8 @@ import {
   HeroBenchmarksData,
   ItemPopularityData,
   LeagueMatches,
+  MatchDetailsModel,
+  Player,
   PlayerModel,
   RecentMatches,
   SearchUserResult,
@@ -53,6 +55,85 @@ export const getProMatches = async (
   const orderedProMatches = data.sort((a, b) => b.start_time - a.start_time);
   const newList = orderedProMatches.slice(0, 30);
   setProMatches(newList);
+};
+
+export const getMatchDetails = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    const data = (await response.json()) as MatchDetailsModel;
+    if (data) {
+      const matchDataResponse: MatchDetailsModel = {
+        players: data.players.map(
+          (player: any): Player => ({
+            account_id: player.account_id,
+            win: player.win,
+            lose: player.lose,
+            duration: player.duration,
+            personaname: player.personaname,
+            name: player.name,
+            hero_id: player.hero_id,
+            item_0: player.item_0,
+            item_1: player.item_1,
+            item_2: player.item_2,
+            item_3: player.item_3,
+            item_4: player.item_4,
+            item_5: player.item_5,
+            backpack_0: player.backpack_0,
+            backpack_1: player.backpack_1,
+            backpack_2: player.backpack_2,
+            item_neutral: player.item_neutral,
+            start_time: player.start_time,
+            kills: player.kills,
+            deaths: player.deaths,
+            assists: player.assists,
+            last_hits: player.last_hits,
+            denies: player.denies,
+            gold_per_min: player.gold_per_min,
+            total_xp: player.total_xp,
+            xp_per_min: player.xp_per_min,
+            level: player.level,
+            net_worth: player.net_worth,
+            aghanims_scepter: player.aghanims_scepter,
+            aghanims_shard: player.aghanims_shard,
+            hero_damage: player.hero_damage,
+            tower_damage: player.tower_damage,
+            hero_healing: player.hero_healing,
+            isRadiant: player.isRadiant,
+            rank_tier: player.rank_tier,
+            benchmarks: {
+              gold_per_min: player.benchmarks?.gold_per_min,
+              xp_per_min: player.benchmarks?.xp_per_min,
+              kills_per_min: player.benchmarks?.kills_per_min,
+              last_hits_per_min: player.benchmarks?.last_hits_per_min,
+              hero_damage_per_min: player.benchmarks?.hero_damage_per_min,
+              hero_healing_per_min: player.benchmarks?.hero_healing_per_min,
+              tower_damage: player.benchmarks?.tower_damage,
+            },
+            ability_upgrades_arr: player.ability_upgrades_arr,
+          })
+        ),
+        radiant_win: data.radiant_win,
+        duration: data.duration,
+        start_time: data.start_time,
+        match_id: data.match_id,
+        tower_status_radiant: data.tower_status_radiant,
+        tower_status_dire: data.tower_status_dire,
+        barracks_status_radiant: data.barracks_status_radiant,
+        barracks_status_dire: data.barracks_status_dire,
+        game_mode: data.game_mode,
+        radiant_score: data.radiant_score,
+        dire_score: data.dire_score,
+        picks_bans: data.picks_bans,
+        radiant_gold_adv: data.radiant_gold_adv,
+        radiant_xp_adv: data.radiant_xp_adv,
+      };
+      return matchDataResponse;
+    }
+
+  } catch (error) {
+    console.error("Erro buscar partida: " + error);
+    return null;
+  }
 };
 
 export const getRecentMatches = async (

@@ -28,8 +28,8 @@ import { Abilities } from "./Abilities";
 import { Items } from "./Items";
 import { Header } from "./Header";
 import { Teams } from "./Teams";
-import { AsyncStorageService } from "../../../src/services/StorageService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getMatchDetails } from "../../../src/API";
+import { useMatchesDetailsListContext } from "../../../src/context/useMatchesDetailsListContext";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const {
@@ -41,35 +41,17 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   } = route.params;
 
   const { englishLanguage } = useSettingsContext();
-  const [matchesDetailsList, setMatchesDetailsList] = useState<MatchDetailsModel[]>([]);
+  const { matchesDetailsList, setMatchesDetailsList } = useMatchesDetailsListContext();
+
 
   const { ColorTheme } = useTheme();
 
-  const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
-    null
-  );
+  const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
   const styles = createStyles(ColorTheme);
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
-
-  const loadMatchesList = async () => {
-    try {
-      const storedMachesList = await AsyncStorage.getItem("matchesDetailsList");
-      if (storedMachesList) {
-        const parsedList = JSON.parse(storedMachesList);
-        console.log("Tamanho da lista das partidas carregada:", parsedList.length);
-        setMatchesDetailsList(parsedList);
-      }
-    } catch (error) {
-      console.error("Erro ao carregar dados do AsyncStorage:", error);
-    }
-  };
-
-
   useEffect(() => {
-    loadMatchesList();
 
     const fetchMatchDetails = async () => {
       const match =
@@ -81,16 +63,14 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         console.log("Partida Encontrada");
         setTimeout(() => {
           setMatchDetails(match);
-          setIsLoading(false);
         }, 200);
       } else {
-        await handleSearchMatche();
+        await handleSearchMatche(); 
+
       }
     };
     fetchMatchDetails();
   }, [route.params]);
-
-
 
   let heroDamageRad = 0;
   let heroDamageDire = 0;
@@ -147,100 +127,28 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const resultTowerRadBar = 11 - (towerRad?.split("1").length - 1);
   const resultTowerDireBar = 11 - (towerDire?.split("1").length - 1);
 
-  const fetchGetMatchDetailsData = async (url: string) => {
-    try {
-      const response = await fetch(url);
-      const data = (await response.json()) as MatchDetailsModel;
-      const matchDataResponse: MatchDetailsModel = {
-        players: data.players.map(
-          (player: any): Player => ({
-            account_id: player.account_id,
-            win: player.win,
-            lose: player.lose,
-            duration: player.duration,
-            personaname: player.personaname,
-            name: player.name,
-            hero_id: player.hero_id,
-            item_0: player.item_0,
-            item_1: player.item_1,
-            item_2: player.item_2,
-            item_3: player.item_3,
-            item_4: player.item_4,
-            item_5: player.item_5,
-            backpack_0: player.backpack_0,
-            backpack_1: player.backpack_1,
-            backpack_2: player.backpack_2,
-            item_neutral: player.item_neutral,
-            start_time: player.start_time,
-            kills: player.kills,
-            deaths: player.deaths,
-            assists: player.assists,
-            last_hits: player.last_hits,
-            denies: player.denies,
-            gold_per_min: player.gold_per_min,
-            total_xp: player.total_xp,
-            xp_per_min: player.xp_per_min,
-            level: player.level,
-            net_worth: player.net_worth,
-            aghanims_scepter: player.aghanims_scepter,
-            aghanims_shard: player.aghanims_shard,
-            hero_damage: player.hero_damage,
-            tower_damage: player.tower_damage,
-            hero_healing: player.hero_healing,
-            isRadiant: player.isRadiant,
-            rank_tier: player.rank_tier,
-            benchmarks: {
-              gold_per_min: player.benchmarks?.gold_per_min,
-              xp_per_min: player.benchmarks?.xp_per_min,
-              kills_per_min: player.benchmarks?.kills_per_min,
-              last_hits_per_min: player.benchmarks?.last_hits_per_min,
-              hero_damage_per_min: player.benchmarks?.hero_damage_per_min,
-              hero_healing_per_min: player.benchmarks?.hero_healing_per_min,
-              tower_damage: player.benchmarks?.tower_damage,
-            },
-            ability_upgrades_arr: player.ability_upgrades_arr,
-          })
-        ),
-        radiant_win: data.radiant_win,
-        duration: data.duration,
-        start_time: data.start_time,
-        match_id: data.match_id,
-        tower_status_radiant: data.tower_status_radiant,
-        tower_status_dire: data.tower_status_dire,
-        barracks_status_radiant: data.barracks_status_radiant,
-        barracks_status_dire: data.barracks_status_dire,
-        game_mode: data.game_mode,
-        radiant_score: data.radiant_score,
-        dire_score: data.dire_score,
-        picks_bans: data.picks_bans,
-        radiant_gold_adv: data.radiant_gold_adv,
-        radiant_xp_adv: data.radiant_xp_adv,
-      };
 
-      setMatchDetails(matchDataResponse);
-      let updatedMatchesList = [...matchesDetailsList, matchDataResponse];
-      if (updatedMatchesList.length > 20) {
-        updatedMatchesList = updatedMatchesList.slice(1);
-      }
-      AsyncStorage.setItem("matchesDetailsList", JSON.stringify(updatedMatchesList))
-        .then(() => console.log("Lista salva no AsyncStorage:", updatedMatchesList.length))
-        .catch((error) => console.error("Erro ao salvar AsyncStorage:", error));
-
-    } catch (error) {
-      console.error("Erro buscar partida: " + error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   async function handleSearchMatche() {
-    if (!MatchDetailsIndex) return;
+
     try {
+      //setIsLoading(true);
       const recentMatchesUrl = `${MATCHE_DETAILS_API_BASE_URL}${MatchDetailsIndex}`;
-      await fetchGetMatchDetailsData(recentMatchesUrl);
-      console.log("Partida buscada no servidor");
+      const matchDataResponse = await getMatchDetails(recentMatchesUrl);
+      if (matchDataResponse) {
+        setMatchDetails(matchDataResponse)
+        let updatedMatchesList = [...matchesDetailsList, matchDataResponse];
+        if (updatedMatchesList.length > 20) {
+          updatedMatchesList = updatedMatchesList.slice(1);
+        }
+
+        setMatchesDetailsList(updatedMatchesList);
+        console.log("Partida buscada no servidor");
+        //setIsLoading(false);
+      }
     } catch (error) {
       console.log("Erro ao buscar detalhes da partida:", error);
+      //setIsLoading(false);
     }
   }
 
@@ -312,7 +220,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   return (
     <View style={styles.container}>
-      {!isLoading && matchDetails ? (
+      {matchDetails ? (
         <View style={{ flex: 1 }}>
           <Header
             LeagueNameIndex={LeagueNameIndex}

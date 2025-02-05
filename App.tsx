@@ -15,6 +15,7 @@ import { useFonts } from "expo-font";
 import { PaperProvider } from 'react-native-paper';
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
 import { RefreshProvider } from "./src/context/useRefreshContext";
+import { MactchesDetailsListProvider } from "./src/context/useMatchesDetailsListContext";
 
 export default function App() {
   mobileAds()
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <SettingsProvider>
+        <MactchesDetailsListProvider>
         <ThemeProvider>
           <PlayerProvider>
             <ProfileProvider>
@@ -48,6 +50,7 @@ export default function App() {
             </ProfileProvider>
           </PlayerProvider>
         </ThemeProvider>
+        </MactchesDetailsListProvider>
       </SettingsProvider>
     </NavigationContainer>
   );
