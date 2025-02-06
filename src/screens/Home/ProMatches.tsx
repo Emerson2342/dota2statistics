@@ -5,29 +5,37 @@ import {
   ScrollView,
   TouchableOpacity,
   Animated,
+  Dimensions,
 } from "react-native";
 
 import { createStylesStatics } from "./ProMatchesStyles";
 
-import {
-  LeagueMatches,
-  RootStackParamList,
-} from "../../services/props";
+import { LeagueMatches, RootStackParamList } from "../../services/props";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FlatList } from "react-native-gesture-handler";
 
-export function ProMatches({ proMatchesOpen }: { proMatchesOpen: boolean }) {
+export function ProMatches({
+  proMatchesOpen,
+  onClick,
+}: {
+  proMatchesOpen: boolean;
+  onClick: () => void;
+}) {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, "LeagueDetails">>();
+  const navigationLeagueMatches =
+    useNavigation<StackNavigationProp<RootStackParamList, "LeagueDetails">>();
+
   const { englishLanguage } = useSettingsContext();
   const { proMatches } = usePlayerContext();
   const { ColorTheme } = useTheme();
 
-  const list = proMatchesOpen ? proMatches : proMatches.slice(0, 2);
+  const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
 
   const handleGoToMatch = (
     matchIndex: number,
@@ -43,11 +51,113 @@ export function ProMatches({ proMatchesOpen }: { proMatchesOpen: boolean }) {
       LeagueNameIndex: leagueName || null,
     });
   };
+
+  const handleGoToLeagueMatches = (
+    LeagueIdIndex: number,
+    LeagueName: string | null
+  ) => {
+    navigation.navigate("LeagueDetails", {
+      LeagueIdIndex: LeagueIdIndex,
+      LeagueName: LeagueName ?? "",
+    });
+  };
+
   const styles = createStylesStatics(ColorTheme);
+
+  const renderList = ({
+    item,
+    index,
+  }: {
+    item: LeagueMatches;
+    index: number;
+  }) => {
+    return (
+      <View key={index} style={styles.matchContainer}>
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <Text style={styles.leagueName} numberOfLines={1}>
+            {item.league_name}
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <View style={styles.teamRow}>
+            <Text
+              style={[
+                styles.teamName,
+                {
+                  color: item.radiant_win ? "#257848" : "#9a2525",
+                },
+              ]}
+            >
+              {item.radiant_name || "Radiant"}
+            </Text>
+            <Text
+              style={[
+                styles.score,
+                { color: item.radiant_win ? "#257848" : "#9a2525" },
+              ]}
+            >
+              {item.radiant_score}
+            </Text>
+          </View>
+          <View style={styles.teamRow}>
+            <Text
+              style={[
+                styles.score,
+                { color: item.radiant_win ? "#9a2525" : "#257848" },
+              ]}
+            >
+              {item.dire_score}
+            </Text>
+            <Text
+              style={[
+                styles.teamName,
+                { color: item.radiant_win ? "#9a2525" : "#257848" },
+              ]}
+            >
+              {item.dire_name || "Dire"}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.linkContainer}>
+          <View style={{ width: "50%", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() =>
+                handleGoToLeagueMatches(item.leagueid, item.league_name)
+              }
+              style={styles.buttonContainer}
+            >
+              <Text style={styles.textButton}>
+                {englishLanguage ? "Tournament " : "Campeonato "}
+                <Feather name="external-link" />
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ width: "50%", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() =>
+                handleGoToMatch(
+                  item.match_id,
+                  item.league_name,
+                  item.radiant_name,
+                  item.dire_name
+                )
+              }
+              style={styles.buttonContainer}
+            >
+              <Text style={styles.textButton}>
+                {englishLanguage ? "Match " : "Partida "}
+                <Feather name="external-link" />
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
+      <TouchableOpacity onPress={() => onClick()} style={styles.titleContainer}>
         <Text style={styles.textTitle}>
           {englishLanguage
             ? "Last Pro Matches"
@@ -59,71 +169,16 @@ export function ProMatches({ proMatchesOpen }: { proMatchesOpen: boolean }) {
             color={"#fff"}
           />
         </Text>
-      </View>
-      <ScrollView style={{ paddingHorizontal: "1.7%" }}>
-        <View style={styles.content}>
-          {list.map((item: LeagueMatches, index: number) => {
-            return (
-              <Animated.View key={index} style={styles.matchContainer}>
-                <TouchableOpacity
-                  onPress={() =>
-                    handleGoToMatch(
-                      item.match_id,
-                      item.league_name,
-                      item.radiant_name,
-                      item.dire_name
-                    )
-                  }
-                >
-                  <Text
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
-                    style={styles.leagueName}
-                  >
-                    {item.league_name}
-                  </Text>
-                  <View style={styles.teamRow}>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: item.radiant_win ? "#257848" : "#9a2525" },
-                      ]}
-                    >
-                      {item.radiant_score}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.teamName,
-                        { color: item.radiant_win ? "#257848" : "#9a2525" },
-                      ]}
-                    >
-                      {item.radiant_name || "Radiant"}
-                    </Text>
-                  </View>
-                  <View style={styles.teamRow}>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: item.radiant_win ? "#9a2525" : "#257848" },
-                      ]}
-                    >
-                      {item.dire_score}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.teamName,
-                        { color: item.radiant_win ? "#9a2525" : "#257848" },
-                      ]}
-                    >
-                      {item.dire_name || "Dire"}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </Animated.View>
-            );
-          })}
-        </View>
-      </ScrollView>
+      </TouchableOpacity>
+
+      <FlatList
+        data={list}
+        renderItem={renderList}
+        keyExtractor={(item) => item.match_id.toString()}
+        initialNumToRender={15}
+        maxToRenderPerBatch={15}
+        scrollEnabled={proMatchesOpen}
+      />
     </View>
   );
 }

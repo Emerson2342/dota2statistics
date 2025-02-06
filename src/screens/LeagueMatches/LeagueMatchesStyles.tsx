@@ -7,7 +7,7 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       alignItems: "center",
       flex: 1,
       width: "100%",
-      backgroundColor: "#e5e5e5",
+      backgroundColor: "#eee",
     },
     titleText: {
       fontSize: 20,
