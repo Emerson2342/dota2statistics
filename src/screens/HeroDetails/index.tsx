@@ -50,6 +50,7 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { useHeroItemListContext } from "../../../src/context/useHeroItemsListContext";
+import { MD3Colors, ProgressBar } from "react-native-paper";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
@@ -89,7 +90,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     setAbilitiesDesc(abilitiesResult ?? []);
   };
 
-
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
 
@@ -120,11 +120,10 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
     const loadData = async () => {
       try {
-        const storedHeroItemsList = await storageAsync.getItem<HeroItemsListPopularity[]>("heroItemsList");
-        if (storedHeroItemsList)
-          setHeroItemsList(storedHeroItemsList);
-
-
+        const storedHeroItemsList = await storageAsync.getItem<
+          HeroItemsListPopularity[]
+        >("heroItemsList");
+        if (storedHeroItemsList) setHeroItemsList(storedHeroItemsList);
       } catch (error) {
         console.error("Erro ao carregar dados do AsyncStorage:", error);
       }
@@ -182,18 +181,18 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       break;
   }
   //replace for loading useEffect
-  if (!itemData) {
-    return (
-      <View style={styles.activeIndicator}>
-        <ActivityIndicator color={ColorTheme.semidark} size={"large"} />
-        <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-          {englishLanguage
-            ? "Loading hero details..."
-            : "Carregando detalhes do herói..."}
-        </Text>
-      </View>
-    );
-  }
+  // if (!itemData) {
+  //   return (
+  //     <View style={styles.activeIndicator}>
+  //       <ActivityIndicator color={ColorTheme.semidark} size={"large"} />
+  //       <Text style={{ fontFamily: "QuickSand-Semibold" }}>
+  //         {englishLanguage
+  //           ? "Loading hero details..."
+  //           : "Carregando detalhes do herói..."}
+  //       </Text>
+  //     </View>
+  //   );
+  // }
 
   const baseAttMin = heroDetails.base_attack_min + baseAttack;
   const baseAttMax = heroDetails.base_attack_max + baseAttack;
@@ -537,60 +536,64 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
           >
             {englishLanguage ? "Popular Items" : "Itens Populares"}
           </Text>
-          <View style={{ width: "100%" }}>
-            <Text style={styles.textItems}>Start Game</Text>
-            <View style={[styles.itemContainer]}>
-              {Object.keys(itemData.start_game_items)
-                .map((itemId) => getItemImage(itemId))
-                .filter((uri) => uri !== null)
-                .map((uri, index) => (
-                  <Image
-                    key={index}
-                    style={[styles.itemImg]}
-                    source={{ uri }}
-                  />
-                ))}
+          {itemData ? (
+            <View style={{ width: "100%" }}>
+              <Text style={styles.textItems}>Start Game</Text>
+              <View style={[styles.itemContainer]}>
+                {Object.keys(itemData.start_game_items)
+                  .map((itemId) => getItemImage(itemId))
+                  .filter((uri) => uri !== null)
+                  .map((uri, index) => (
+                    <Image
+                      key={index}
+                      style={[styles.itemImg]}
+                      source={{ uri }}
+                    />
+                  ))}
+              </View>
+              <Text style={styles.textItems}>Early Game</Text>
+              <View style={styles.itemContainer}>
+                {Object.keys(itemData.early_game_items)
+                  .map((itemId) => getItemImage(itemId))
+                  .filter((uri) => uri !== null)
+                  .map((uri, index) => (
+                    <Image
+                      key={index}
+                      style={[styles.itemImg]}
+                      source={{ uri }}
+                    />
+                  ))}
+              </View>
+              <Text style={styles.textItems}>Mid Game</Text>
+              <View style={styles.itemContainer}>
+                {Object.keys(itemData.mid_game_items)
+                  .map((itemId) => getItemImage(itemId))
+                  .filter((uri) => uri !== null)
+                  .map((uri, index) => (
+                    <Image
+                      key={index}
+                      style={[styles.itemImg]}
+                      source={{ uri }}
+                    />
+                  ))}
+              </View>
+              <Text style={styles.textItems}>Late Game</Text>
+              <View style={styles.itemContainer}>
+                {Object.keys(itemData.late_game_items)
+                  .map((itemId) => getItemImage(itemId))
+                  .filter((uri) => uri !== null)
+                  .map((uri, index) => (
+                    <Image
+                      key={index}
+                      style={[styles.itemImg]}
+                      source={{ uri }}
+                    />
+                  ))}
+              </View>
             </View>
-            <Text style={styles.textItems}>Early Game</Text>
-            <View style={styles.itemContainer}>
-              {Object.keys(itemData.early_game_items)
-                .map((itemId) => getItemImage(itemId))
-                .filter((uri) => uri !== null)
-                .map((uri, index) => (
-                  <Image
-                    key={index}
-                    style={[styles.itemImg]}
-                    source={{ uri }}
-                  />
-                ))}
-            </View>
-            <Text style={styles.textItems}>Mid Game</Text>
-            <View style={styles.itemContainer}>
-              {Object.keys(itemData.mid_game_items)
-                .map((itemId) => getItemImage(itemId))
-                .filter((uri) => uri !== null)
-                .map((uri, index) => (
-                  <Image
-                    key={index}
-                    style={[styles.itemImg]}
-                    source={{ uri }}
-                  />
-                ))}
-            </View>
-            <Text style={styles.textItems}>Late Game</Text>
-            <View style={styles.itemContainer}>
-              {Object.keys(itemData.late_game_items)
-                .map((itemId) => getItemImage(itemId))
-                .filter((uri) => uri !== null)
-                .map((uri, index) => (
-                  <Image
-                    key={index}
-                    style={[styles.itemImg]}
-                    source={{ uri }}
-                  />
-                ))}
-            </View>
-          </View>
+          ) : (
+            <ActivityIndicator color={ColorTheme.semidark} />
+          )}
         </View>
       </ScrollView>
       <BannerAds />

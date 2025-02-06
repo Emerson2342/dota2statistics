@@ -52,12 +52,4 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: Dimensions.get("screen").width * 0.03,
       width: "100%",
     },
-    button: {
-      flexDirection: "row",
-      justifyContent: "center",
-      padding: "2%",
-      margin: "3%",
-      width: "20%",
-      alignItems: "center",
-    },
   });

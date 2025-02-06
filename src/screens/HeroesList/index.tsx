@@ -29,7 +29,6 @@ export function ListaDeHerois() {
     HeroDetailsModel[] | undefined
   >(undefined);
   const [textResult, setTextResult] = useState<string | undefined>();
-  const [currentPage, setCurrentPage] = useState(1);
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
@@ -52,8 +51,8 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-        ? `No results found for: "${textResult}"`
-        : `Nenhum resultado encontrado para: "${textResult}"`;
+      ? `No results found for: "${textResult}"`
+      : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const sortedList =
@@ -61,37 +60,8 @@ export function ListaDeHerois() {
       ? heroesSearched.sort(ordenar)
       : heroArray.sort(ordenar);
 
-  const startIndex = (currentPage - 1) * ITEMS_PAGE;
-  const endIndex = startIndex + ITEMS_PAGE;
-
   const currentItems =
-    heroesSearched != undefined
-      ? heroesSearched
-      : sortedList.slice(startIndex, endIndex);
-
-  let totalPages = sortedList.length / ITEMS_PAGE;
-
-  if (!Number.isInteger(totalPages)) {
-    totalPages = Math.ceil(totalPages);
-  }
-
-  const pagination = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  const firstPage: boolean =
-    heroesSearched != undefined ? false : currentPage > 1;
-  const lastPage: boolean =
-    heroesSearched != undefined ? false : endIndex < sortedList.length;
-
-  const goToNextPage = () => {
-    if (endIndex < sortedList.length) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
+    heroesSearched != undefined ? heroesSearched : sortedList;
 
   const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
     if (heroDetails) {
@@ -102,20 +72,20 @@ export function ListaDeHerois() {
   };
 
   const HandleSearchHero = (text: string) => {
-    //alert(textInputSearch);   
-    setTextInputSearch(text)
-      const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
-        hero.localized_name
-          .toLowerCase()
-          .trim()
-          .includes(text.toLowerCase().trim())
-      );
-      setHereoesSearched(heroesToSearch);
+    //alert(textInputSearch);
+    setTextInputSearch(text);
+    const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
+      hero.localized_name
+        .toLowerCase()
+        .trim()
+        .includes(text.toLowerCase().trim())
+    );
+    setHereoesSearched(heroesToSearch);
     setTextResult(text);
   };
 
   const HandleClearSearchResults = () => {
-    setTextInputSearch("")
+    setTextInputSearch("");
     setTextResult(undefined);
     setHereoesSearched(undefined);
   };
@@ -185,7 +155,7 @@ export function ListaDeHerois() {
           display: textResult ? "flex" : "none",
           width: "95%",
           alignItems: "center",
-          marginBottom: '3%'
+          marginBottom: "3%",
         }}
       >
         <Text style={{ fontFamily: "QuickSand-Semibold" }}>
@@ -206,52 +176,8 @@ export function ListaDeHerois() {
           keyExtractor={(item) => item.id.toString()}
           numColumns={COLUMNS}
           key={COLUMNS}
+          initialNumToRender={50}
         />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "75%",
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => goToPreviousPage()}
-          style={firstPage ? styles.button : [styles.button, { opacity: 0.3 }]}
-          disabled={firstPage ? false : true}
-        >
-          <Feather name="chevron-left" color={ColorTheme.semidark} size={30} />
-        </TouchableOpacity>
-        <View
-          style={{
-            justifyContent: "center",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          {pagination.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  width: item === currentPage ? 10 : 7,
-                  height: item === currentPage ? 10 : 7,
-                  backgroundColor:
-                    item === currentPage ? ColorTheme.standard : "#aaa",
-                  borderRadius: 30,
-                  margin: 5,
-                }}
-              />
-            );
-          })}
-        </View>
-        <TouchableOpacity
-          onPress={() => goToNextPage()}
-          style={lastPage ? styles.button : [styles.button, { opacity: 0.3 }]}
-          disabled={lastPage ? false : true}
-        >
-          <Feather name="chevron-right" color={ColorTheme.semidark} size={30} />
-        </TouchableOpacity>
       </View>
     </View>
   );
