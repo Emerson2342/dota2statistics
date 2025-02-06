@@ -33,13 +33,13 @@ export const createStyles = (Colors: ThemeColor) =>
     },
     rankText: {
       color: "#fff",
-      position: 'absolute',
-      left: 13,
-      top: 31.5,
+      position: "absolute",
+      left: 13.7,
+      top: 32.7,
       width: "27%",
       textAlign: "center",
       fontWeight: "bold",
-      fontSize: 7
+      fontSize: 7,
     },
     imageProfile: {
       width: "37%",
