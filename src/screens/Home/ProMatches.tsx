@@ -34,8 +34,9 @@ export function ProMatches({
   const { englishLanguage } = useSettingsContext();
   const { proMatches } = usePlayerContext();
   const { ColorTheme } = useTheme();
+  const styles = createStylesStatics(ColorTheme);
 
-  const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
+  // const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
 
   const handleGoToMatch = (
     matchIndex: number,
@@ -62,7 +63,30 @@ export function ProMatches({
     });
   };
 
-  const styles = createStylesStatics(ColorTheme);
+  let formattedDuration: string;
+  let formattedTime: string;
+
+  const dataFormatted = (item: LeagueMatches) => {
+    if (proMatches) {
+      const startDate = new Date(item?.start_time * 1000);
+      const durationInMinutes = item?.duration;
+      const hours = Math.floor(durationInMinutes / 60);
+      const minutes = durationInMinutes % 60;
+
+      const formattedHours = String(hours).padStart(2, "0");
+      const formattedMinutes = String(minutes).padStart(2, "0");
+      formattedDuration = `${formattedHours}:${formattedMinutes}`;
+
+      const hoursDate = startDate.getHours();
+      const minutesDate = startDate.getMinutes();
+
+      formattedTime = `${startDate.toLocaleDateString(
+        englishLanguage ? "en-US" : "pt-BR"
+      )}-${hoursDate.toString().padStart(2, "0")}:${minutesDate
+        .toString()
+        .padStart(2, "0")}`;
+    }
+  };
 
   const renderList = ({
     item,
@@ -71,6 +95,8 @@ export function ProMatches({
     item: LeagueMatches;
     index: number;
   }) => {
+    dataFormatted(item);
+
     return (
       <View key={index} style={styles.matchContainer}>
         <View style={{ flexDirection: "row", width: "100%" }}>
@@ -117,6 +143,11 @@ export function ProMatches({
               {item.dire_name || "Dire"}
             </Text>
           </View>
+        </View>
+        <View>
+          <Text>
+            {formattedDuration} - {formattedTime}
+          </Text>
         </View>
         <View style={styles.linkContainer}>
           <View style={{ width: "50%", alignItems: "center" }}>
@@ -172,11 +203,11 @@ export function ProMatches({
       </TouchableOpacity>
 
       <FlatList
-        data={list}
+        data={proMatches}
         renderItem={renderList}
         keyExtractor={(item) => item.match_id.toString()}
-        initialNumToRender={15}
-        maxToRenderPerBatch={15}
+        initialNumToRender={5}
+        maxToRenderPerBatch={10}
         scrollEnabled={proMatchesOpen}
       />
     </View>
