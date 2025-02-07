@@ -59,7 +59,9 @@ export function Leagues() {
   useEffect(() => {
     const loadStoredData = async () => {
       try {
-        const storedLeagueList = await asyncStorage.getItem<League[]>("leagueList");
+        const storedLeagueList = await asyncStorage.getItem<League[]>(
+          "leagueList"
+        );
 
         if (storedLeagueList !== null) {
           setLeagueList(storedLeagueList);
@@ -83,7 +85,6 @@ export function Leagues() {
     saveAsyncData();
   }, [leagueList]);
 
-
   useFocusEffect(
     useCallback(() => {
       if (
@@ -92,7 +93,7 @@ export function Leagues() {
       ) {
         loadLeagues();
         loadTeamsList();
-        alert("Entrou");
+        alert("Entrou no endpoint");
       }
     }, [leagueTimestamp])
   );

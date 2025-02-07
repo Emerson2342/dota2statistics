@@ -5,31 +5,31 @@ import { ThemeColor } from "../../services/props";
 import Logo from "../../images/logoLogin.png";
 
 export function InitialScreen() {
-    const { ColorTheme } = useTheme();
+  const { ColorTheme } = useTheme();
 
-    const styles = createStyles(ColorTheme);
+  const styles = createStyles(ColorTheme);
 
-    return (
-        <View style={styles.container}>
-            <Image style={{ width: "23%", resizeMode: "contain" }} source={Logo} />
-            <Text style={styles.nameText}>Dota 2 Analytics</Text>
-            <ActivityIndicator color={"#fff"} size={"large"} />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Image style={{ width: "23%", resizeMode: "contain" }} source={Logo} />
+      <Text style={styles.nameText}>Dota 2 Statistics</Text>
+      <ActivityIndicator color={"#fff"} size={"large"} />
+    </View>
+  );
 }
 
 const createStyles = (colors: ThemeColor) =>
-    StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: colors.dark,
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        nameText: {
-            fontFamily: "QuickSand-Bold",
-            fontSize: 15,
-            color: "#fff",
-            marginBottom: "15%",
-        },
-    });
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.dark,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    nameText: {
+      fontFamily: "QuickSand-Bold",
+      fontSize: 15,
+      color: "#fff",
+      marginBottom: "15%",
+    },
+  });

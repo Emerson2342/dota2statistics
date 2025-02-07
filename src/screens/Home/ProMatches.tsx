@@ -34,27 +34,31 @@ export function ProMatches({
   const styles = createStylesStatics(ColorTheme);
 
   const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
+  const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const formattedTimeMatch = list.map((item) => {
     const startDate = new Date(item?.start_time * 1000);
+
     const durationInMinutes = item?.duration;
-    const hours = Math.floor(durationInMinutes / 60);
-    const minutes = durationInMinutes % 60;
+    const startHour = Math.floor(durationInMinutes / 60);
+    const startMinutes = durationInMinutes % 60;
 
-    const formattedHours = String(hours).padStart(2, "0");
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedDuration = `${formattedHours}:${formattedMinutes}`;
+    const formattedHours = String(startHour).padStart(2, "0");
+    const formattedMinutes = String(startMinutes).padStart(2, "0");
+    const formattedDuration = `${formattedHours}min ${formattedMinutes}s`;
 
-    const hoursDate = startDate.getHours();
-    const minutesDate = startDate.getMinutes();
+    const matchEndTime = item?.start_time + item?.duration;
+    const timeSinceEnd = currentTimestamp - matchEndTime;
+    const hours = Math.floor(timeSinceEnd / 3600);
+    const minutes = Math.floor((timeSinceEnd % 3600) / 60);
 
-    const formattedTime = `${startDate.toLocaleDateString(
-      englishLanguage ? "en-US" : "pt-BR"
-    )}-${hoursDate.toString().padStart(2, "0")}:${minutesDate
-      .toString()
-      .padStart(2, "0")}`;
+    const formattedEndHours = String(hours).padStart(2, "0");
+    const formattedEndMinutes = String(minutes).padStart(2, "0");
+    const formattedEndDuration = `${formattedEndHours}h${formattedEndMinutes}min`;
 
-    return { ...item, formattedDuration, formattedTime };
+    const endedTime = `${formattedEndDuration}`;
+
+    return { ...item, formattedEndDuration, formattedDuration };
   });
 
   const handleGoToMatch = (
@@ -84,12 +88,12 @@ export function ProMatches({
 
   const ProMatchItem = ({
     item,
+    formattedEndDuration,
     formattedDuration,
-    formattedTime,
   }: {
     item: LeagueMatches;
+    formattedEndDuration: string;
     formattedDuration: string;
-    formattedTime: string;
   }) => {
     return (
       <View key={item.match_id} style={styles.matchContainer}>
@@ -145,13 +149,14 @@ export function ProMatches({
         </View>
         <View style={styles.timeContainer}>
           <Text style={styles.textData}>
-            {englishLanguage ? "Date: " : "Data: "}
-            {formattedTime}
+            {englishLanguage ? "Duration: " : "Duração: "}
+            {formattedDuration}
           </Text>
 
           <Text style={styles.textData}>
-            {englishLanguage ? "Duration: " : "Duração: "}
-            {formattedDuration}
+            {englishLanguage
+              ? `Finished ${formattedEndDuration} ago`
+              : `Finalizado ${formattedEndDuration} atrás`}
           </Text>
         </View>
         <View style={styles.linkContainer}>
@@ -212,8 +217,8 @@ export function ProMatches({
         renderItem={({ item }) => (
           <ProMatchItem
             item={item}
+            formattedEndDuration={item.formattedEndDuration}
             formattedDuration={item.formattedDuration}
-            formattedTime={item.formattedTime}
           />
         )}
         keyExtractor={(item) => item.match_id.toString()}
