@@ -53,7 +53,7 @@ export const getProMatches = async (
   const response = await fetch(PRO_MATCHES_URL);
   const data = (await response.json()) as LeagueMatches[];
   const orderedProMatches = data.sort((a, b) => b.start_time - a.start_time);
-  const newList = orderedProMatches.slice(0, 50);
+  const newList = orderedProMatches.slice(0, 20);
   setProMatches(newList);
 };
 
@@ -129,7 +129,6 @@ export const getMatchDetails = async (url: string) => {
       };
       return matchDataResponse;
     }
-
   } catch (error) {
     console.error("Erro buscar partida: " + error);
     return null;

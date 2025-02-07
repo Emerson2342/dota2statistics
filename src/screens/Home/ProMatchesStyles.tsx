@@ -35,25 +35,24 @@ export const createStylesStatics = (colors: ThemeColor) =>
     matchContainer: {
       width: "97%",
       alignSelf: "center",
-      marginBottom: "1%",
+      marginBottom: "0.5%",
       backgroundColor: "#fff",
       borderRadius: 3,
     },
     leagueName: {
       fontFamily: "QuickSand-Bold",
       color: colors.dark,
-      fontSize: 13,
+      fontSize: Dimensions.get("window").width * 0.037,
       textAlign: "center",
       flexWrap: "nowrap",
-      borderBottomColor: "#aaa",
+      borderBottomColor: "#ddd",
       borderBottomWidth: 1,
-      marginBottom: "1%",
       width: "100%",
     },
     teamRow: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: "1%",
+      //marginBottom: "1%",
       width: "50%",
     },
     score: {
@@ -85,5 +84,14 @@ export const createStylesStatics = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
       padding: "1.5%",
       fontSize: Dimensions.get("screen").width * 0.027,
+    },
+    timeContainer: {
+      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "space-around",
+    },
+    textData: {
+      fontFamily: "QuickSand-Semibold",
+      fontSize: Dimensions.get("screen").width * 0.03,
     },
   });

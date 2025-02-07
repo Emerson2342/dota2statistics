@@ -26,17 +26,36 @@ export function ProMatches({
   proMatchesOpen: boolean;
   onClick: () => void;
 }) {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "LeagueDetails">>();
-  const navigationLeagueMatches =
-    useNavigation<StackNavigationProp<RootStackParamList, "LeagueDetails">>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { englishLanguage } = useSettingsContext();
   const { proMatches } = usePlayerContext();
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
 
-  // const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
+  const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
+
+  const formattedTimeMatch = list.map((item) => {
+    const startDate = new Date(item?.start_time * 1000);
+    const durationInMinutes = item?.duration;
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = durationInMinutes % 60;
+
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedDuration = `${formattedHours}:${formattedMinutes}`;
+
+    const hoursDate = startDate.getHours();
+    const minutesDate = startDate.getMinutes();
+
+    const formattedTime = `${startDate.toLocaleDateString(
+      englishLanguage ? "en-US" : "pt-BR"
+    )}-${hoursDate.toString().padStart(2, "0")}:${minutesDate
+      .toString()
+      .padStart(2, "0")}`;
+
+    return { ...item, formattedDuration, formattedTime };
+  });
 
   const handleGoToMatch = (
     matchIndex: number,
@@ -63,48 +82,28 @@ export function ProMatches({
     });
   };
 
-  let formattedDuration: string;
-  let formattedTime: string;
-
-  const dataFormatted = (item: LeagueMatches) => {
-    if (proMatches) {
-      const startDate = new Date(item?.start_time * 1000);
-      const durationInMinutes = item?.duration;
-      const hours = Math.floor(durationInMinutes / 60);
-      const minutes = durationInMinutes % 60;
-
-      const formattedHours = String(hours).padStart(2, "0");
-      const formattedMinutes = String(minutes).padStart(2, "0");
-      formattedDuration = `${formattedHours}:${formattedMinutes}`;
-
-      const hoursDate = startDate.getHours();
-      const minutesDate = startDate.getMinutes();
-
-      formattedTime = `${startDate.toLocaleDateString(
-        englishLanguage ? "en-US" : "pt-BR"
-      )}-${hoursDate.toString().padStart(2, "0")}:${minutesDate
-        .toString()
-        .padStart(2, "0")}`;
-    }
-  };
-
-  const renderList = ({
+  const ProMatchItem = ({
     item,
-    index,
+    formattedDuration,
+    formattedTime,
   }: {
     item: LeagueMatches;
-    index: number;
+    formattedDuration: string;
+    formattedTime: string;
   }) => {
-    dataFormatted(item);
-
     return (
-      <View key={index} style={styles.matchContainer}>
+      <View key={item.match_id} style={styles.matchContainer}>
         <View style={{ flexDirection: "row", width: "100%" }}>
           <Text style={styles.leagueName} numberOfLines={1}>
             {item.league_name}
           </Text>
         </View>
-        <View style={{ flexDirection: "row", width: "100%" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+          }}
+        >
           <View style={styles.teamRow}>
             <Text
               style={[
@@ -144,9 +143,15 @@ export function ProMatches({
             </Text>
           </View>
         </View>
-        <View>
-          <Text>
-            {formattedDuration} - {formattedTime}
+        <View style={styles.timeContainer}>
+          <Text style={styles.textData}>
+            {englishLanguage ? "Date: " : "Data: "}
+            {formattedTime}
+          </Text>
+
+          <Text style={styles.textData}>
+            {englishLanguage ? "Duration: " : "Duração: "}
+            {formattedDuration}
           </Text>
         </View>
         <View style={styles.linkContainer}>
@@ -203,8 +208,14 @@ export function ProMatches({
       </TouchableOpacity>
 
       <FlatList
-        data={proMatches}
-        renderItem={renderList}
+        data={formattedTimeMatch}
+        renderItem={({ item }) => (
+          <ProMatchItem
+            item={item}
+            formattedDuration={item.formattedDuration}
+            formattedTime={item.formattedTime}
+          />
+        )}
         keyExtractor={(item) => item.match_id.toString()}
         initialNumToRender={5}
         maxToRenderPerBatch={10}

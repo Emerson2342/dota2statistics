@@ -154,7 +154,7 @@ export function Profile() {
             recentMatches={recentMatches}
           />
         </View>
-        <View style={{ flex: proMatchesOpen ? 0 : 0.49 }}>
+        <View style={{ flex: proMatchesOpen ? 0 : 0.47 }}>
           <View style={{ flex: 1, paddingBottom: "1%" }}>
             <LastMatches
               playerId={player.profile.account_id.toString()}
@@ -163,7 +163,7 @@ export function Profile() {
             />
           </View>
         </View>
-        <View style={{ flex: proMatchesOpen ? 0.65 : 0.16 }}>
+        <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
           <ProMatches
             onClick={() => openProMatches()}
             proMatchesOpen={proMatchesOpen}

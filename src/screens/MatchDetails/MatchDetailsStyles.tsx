@@ -8,7 +8,7 @@ export const createStyles = (colors: ThemeColor) =>
     container: {
       flex: 1,
       width: "100%",
-      backgroundColor: "#ddd",
+      backgroundColor: "#eee",
     },
     carregando: {
       color: "#fff",

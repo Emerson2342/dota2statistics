@@ -139,7 +139,10 @@ export function Header({
           </View>
         </View>
       </View>
-      <Text style={styles.textId}>{englishLanguage ? "Match Id: " : "Id da Partida"}{matchDetails?.match_id}</Text>
+      <Text style={styles.textId}>
+        {englishLanguage ? "Match Id: " : "Id da Partida: "}
+        {matchDetails?.match_id}
+      </Text>
     </View>
   );
 }
@@ -175,6 +178,6 @@ const createStyles = (colors: ThemeColor) =>
     textId: {
       fontFamily: "QuickSand-Semibold",
       textAlign: "center",
-      color: "#777"
-    }
+      color: "#777",
+    },
   });
