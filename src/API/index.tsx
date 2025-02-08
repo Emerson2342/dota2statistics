@@ -32,6 +32,7 @@ export const getSearchPlayer = async (
     leaderboard_rank: data.leaderboard_rank || null,
   };
   setPlayer(playerData);
+  console.log("Buscou dados");
 };
 
 export const searchPlayersByName = async (

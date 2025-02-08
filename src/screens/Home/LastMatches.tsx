@@ -4,11 +4,9 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Modal,
   FlatList,
   Image,
   RefreshControl,
-  ScrollView,
   Dimensions,
 } from "react-native";
 import { createStyles } from "./LastMatchesStyles";
@@ -40,8 +38,6 @@ export function LastMatches({
     useNavigation<StackNavigationProp<RootStackParamList, "MatchDetails">>();
 
   const { englishLanguage } = useSettingsContext();
-  //const [matchIndex, setMatchIndex] = useState<number>(0);
-  //const [idPlayerIndex, setIdPlayerIndex] = useState<string | null>(null);
 
   const { player } = usePlayerContext();
   const { ColorTheme } = useTheme();
@@ -50,14 +46,8 @@ export function LastMatches({
 
   const styles = createStyles(ColorTheme);
 
-  const [refreshing, setRefreshing] = useState(false);
-
   const refresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-      onRefresh();
-    }, 1000);
+    onRefresh();
   }, []);
 
   const handleGoToMatch = (
@@ -254,7 +244,7 @@ export function LastMatches({
         initialNumToRender={20}
         refreshControl={
           <RefreshControl
-            refreshing={refreshing}
+            refreshing={false}
             onRefresh={refresh}
             colors={[
               ColorTheme.light,

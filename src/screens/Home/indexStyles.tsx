@@ -24,4 +24,10 @@ export const createStyles = (colors: ThemeColor) =>
       color: "orange",
       fontSize: 20,
     },
+    textLoading: {
+      fontFamily: "QuickSand-Bold",
+      fontSize: 15,
+      color: colors.dark,
+      marginBottom: "1%",
+    },
   });

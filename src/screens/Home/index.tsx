@@ -1,12 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  LayoutAnimation,
-  Pressable,
-} from "react-native";
+import { Text, View, ActivityIndicator, LayoutAnimation } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -25,7 +18,6 @@ import {
   getSearchPlayer,
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
-import { BannerAds } from "../../../src/components/BannerAds";
 
 export function Profile() {
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
@@ -46,7 +38,7 @@ export function Profile() {
 
   const { refreshProfile, setRefreshProfile } = useRefreshContext();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [httpStatus, setHttpStatus] = useState<number>(200);
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
@@ -66,12 +58,12 @@ export function Profile() {
     : "Erro interno no servidor. Por favor, tente mais tarde";
 
   const handleLoadData = async () => {
+    setIsLoading(true);
     const connectionInfo = await NetInfo.fetch();
     setIsConnected(connectionInfo.isConnected);
     console.log("Conetado? " + isConnected);
 
     setPlayerTimestamp(currentTimestamp);
-    setIsLoading(true);
     setTimeout(async () => {
       await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
@@ -98,6 +90,7 @@ export function Profile() {
       ) {
         handleLoadData();
       }
+      setIsLoading(false);
     }, [playerTimestamp, profile])
   );
 
@@ -107,19 +100,10 @@ export function Profile() {
       console.log("Entrou useEffect");
       handleLoadData();
     }
+    setIsLoading(false);
   }, [profile, refreshProfile]);
 
   //alert(JSON.stringify(profile, null, 2))
-
-  if (isLoading) {
-    return (
-      <ActivityIndicator
-        style={{ flex: 1, justifyContent: "center" }}
-        size="large"
-        color={ColorTheme.semidark}
-      />
-    );
-  }
 
   //alert(JSON.stringify(player, null, 2))
   if (player == null || (player?.profile.account_id == 0 && !isLoading)) {
@@ -132,37 +116,42 @@ export function Profile() {
     );
   }
 
-  if (isConnected == false) {
-    return (
-      <View style={styles.erroMessage}>
-        <Text style={styles.textErro}>
-          {englishLanguage
-            ? "Please, verify your connection!"
-            : "Por favor, verifique sua conexão!"}
-        </Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, overflow: "hidden" }}>
-        <View style={{ flex: 0.35 }}>
-          <ProfileHeader
-            player={player}
-            heroesId={heroesPlayedId}
-            recentMatches={recentMatches}
-          />
-        </View>
-        <View style={{ flex: proMatchesOpen ? 0 : 0.47 }}>
-          <View style={{ flex: 1, paddingBottom: "1%" }}>
-            <LastMatches
-              playerId={player.profile.account_id.toString()}
-              onRefresh={() => handleLoadData()}
-              recentMatches={recentMatches}
-            />
+      <View style={{ flex: 1 }}>
+        {isLoading ? (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flex: proMatchesOpen ? 0.35 : 0.82,
+            }}
+          >
+            <ActivityIndicator color={ColorTheme.dark} />
+            <Text style={styles.textLoading}>
+              {englishLanguage ? "Loading..." : "Carregando..."}
+            </Text>
           </View>
-        </View>
+        ) : (
+          <>
+            <View style={{ flex: 0.35 }}>
+              <ProfileHeader
+                player={player}
+                heroesId={heroesPlayedId}
+                recentMatches={recentMatches}
+              />
+            </View>
+            <View style={{ flex: proMatchesOpen ? 0 : 0.47 }}>
+              <View style={{ flex: 1, paddingBottom: "1%" }}>
+                <LastMatches
+                  playerId={player.profile.account_id.toString()}
+                  onRefresh={() => handleLoadData()}
+                  recentMatches={recentMatches}
+                />
+              </View>
+            </View>
+          </>
+        )}
         <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
           <ProMatches
             onClick={() => openProMatches()}

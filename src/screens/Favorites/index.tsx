@@ -38,15 +38,12 @@ export function Favorites() {
 
   const modalMessageRemove = englishLanguage
     ? "Do you wish remove this player from the favorite list?"
-    : "Vocë deseja remover este jogador da lista de favoritos?";
+    : "Você deseja remover este jogador da lista de favoritos?";
 
   const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParamList, "PlayerProfile">
-    >();
+    useNavigation<StackNavigationProp<RootStackParamList, "PlayerProfile">>();
 
   const styles = createStyles(ColorTheme);
-
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {
@@ -58,33 +55,34 @@ export function Favorites() {
 
   const handleDeletePlayer = (id: number) => {
     setModalFavoritesVisible(true);
-    setPlayerIdIndex(id)
-  }
-
+    setPlayerIdIndex(id);
+  };
 
   const SwipeableItem = ({ item }: { item: PlayerModel }) => {
-
     const renderLeftActions = (progress: any, dragX: any) => {
-      return (<RectButton
-        style={{
-          paddingLeft: "7%",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <MaterialCommunityIcons name="delete" color={"red"} size={23} />
-      </RectButton>);
+      return (
+        <RectButton
+          style={{
+            paddingLeft: "7%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MaterialCommunityIcons name="delete" color={"red"} size={23} />
+        </RectButton>
+      );
     };
 
     return (
       <Swipeable
         onSwipeableOpen={() => handleDeletePlayer(item.profile.account_id)}
-        renderLeftActions={renderLeftActions}>
+        renderLeftActions={renderLeftActions}
+      >
         <TouchableOpacity
           onPress={() => HandleNavigateToProfile(item.profile.account_id)}
-          style={styles.itemContent} >
-          <View
-            style={styles.imgContainer}>
+          style={styles.itemContent}
+        >
+          <View style={styles.imgContainer}>
             <Image
               source={{ uri: `${Medal(item.rank_tier)}` }}
               style={styles.imageMedal}
@@ -107,14 +105,20 @@ export function Favorites() {
       <BannerAds />
       <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
         <Text
-          style={{ display: favoritesPlayers.length == 0 ? "flex" : "none", fontFamily: "QuickSand-Semibold", textAlign: "center", fontSize: 17 }}
-        >{englishLanguage ? "Empty List" : "Lista Vazia"}</Text>
+          style={{
+            display: favoritesPlayers.length == 0 ? "flex" : "none",
+            fontFamily: "QuickSand-Semibold",
+            textAlign: "center",
+            fontSize: 17,
+          }}
+        >
+          {englishLanguage ? "Empty List" : "Lista Vazia"}
+        </Text>
         <ScrollView style={styles.scrollView}>
-
           <FlatList
-          data={favoritesPlayers}
-          renderItem={({ item }) => (<SwipeableItem item={item} />)}
-          keyExtractor={(item) => item.profile.account_id.toString()}
+            data={favoritesPlayers}
+            renderItem={({ item }) => <SwipeableItem item={item} />}
+            keyExtractor={(item) => item.profile.account_id.toString()}
             scrollEnabled={false}
           />
         </ScrollView>

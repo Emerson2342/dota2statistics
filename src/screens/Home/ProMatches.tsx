@@ -37,8 +37,6 @@ export function ProMatches({
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const formattedTimeMatch = list.map((item) => {
-    const startDate = new Date(item?.start_time * 1000);
-
     const durationInMinutes = item?.duration;
     const startHour = Math.floor(durationInMinutes / 60);
     const startMinutes = durationInMinutes % 60;
@@ -54,9 +52,10 @@ export function ProMatches({
 
     const formattedEndHours = String(hours).padStart(2, "0");
     const formattedEndMinutes = String(minutes).padStart(2, "0");
-    const formattedEndDuration = `${formattedEndHours}h${formattedEndMinutes}min`;
-
-    const endedTime = `${formattedEndDuration}`;
+    const formattedEndDuration =
+      formattedEndHours == "00"
+        ? `${formattedEndMinutes}min`
+        : `${formattedEndHours}h${formattedEndMinutes}min`;
 
     return { ...item, formattedEndDuration, formattedDuration };
   });

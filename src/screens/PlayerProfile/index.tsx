@@ -49,7 +49,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
   const modalMessageRemove = englishLanguage
     ? "Do you wish remove this player from the favorite list?"
-    : "Vocë deseja remover este jogador da lista de favoritos?";
+    : "Você deseja remover este jogador da lista de favoritos?";
 
   useEffect(() => {
     if (PlayerId) {
@@ -72,10 +72,9 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   };
 
   useEffect(() => {
-
     console.log(
       "Lista de Jogadores Favoritos:" +
-      JSON.stringify(favoritesPlayers, null, 2)
+        JSON.stringify(favoritesPlayers, null, 2)
     );
     navigation.setOptions({
       headerRight: () => {
