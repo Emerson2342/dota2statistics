@@ -52,4 +52,8 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: Dimensions.get("screen").width * 0.03,
       width: "100%",
     },
+    textLoading: {
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
+    },
   });

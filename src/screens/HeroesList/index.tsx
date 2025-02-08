@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { Searchbar } from "react-native-paper";
 import { createStyles } from "./styles";
 
@@ -19,7 +26,6 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 
 const COLUMNS: number = 2;
-const ITEMS_PAGE = 26;
 
 export function ListaDeHerois() {
   const { englishLanguage } = useSettingsContext();
@@ -29,6 +35,8 @@ export function ListaDeHerois() {
     HeroDetailsModel[] | undefined
   >(undefined);
   const [textResult, setTextResult] = useState<string | undefined>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
@@ -44,6 +52,13 @@ export function ListaDeHerois() {
     }
     return 0;
   };
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+      setIsLoading(false);
+    }, 500);
+  }, []);
 
   const textSearchResult =
     heroesSearched && heroesSearched?.length > 0
@@ -54,7 +69,6 @@ export function ListaDeHerois() {
       ? `No results found for: "${textResult}"`
       : `Nenhum resultado encontrado para: "${textResult}"`;
 
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const sortedList =
     heroesSearched != undefined
       ? heroesSearched.sort(ordenar)
@@ -72,16 +86,21 @@ export function ListaDeHerois() {
   };
 
   const HandleSearchHero = (text: string) => {
+    setIsLoading(true);
     //alert(textInputSearch);
     setTextInputSearch(text);
-    const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
-      hero.localized_name
-        .toLowerCase()
-        .trim()
-        .includes(text.toLowerCase().trim())
-    );
-    setHereoesSearched(heroesToSearch);
-    setTextResult(text);
+
+    setTimeout(() => {
+      const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
+        hero.localized_name
+          .toLowerCase()
+          .trim()
+          .includes(text.toLowerCase().trim())
+      );
+      setHereoesSearched(heroesToSearch);
+      setTextResult(text);
+      setIsLoading(false);
+    }, 300);
   };
 
   const HandleClearSearchResults = () => {
@@ -168,16 +187,27 @@ export function ListaDeHerois() {
           width: "100%",
         }}
       >
-        <FlatList
-          data={currentItems}
-          renderItem={({ item }) => (
-            <RenderItem item={item as HeroDetailsModel} />
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={COLUMNS}
-          key={COLUMNS}
-          initialNumToRender={50}
-        />
+        {isLoading ? (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <ActivityIndicator size={30} color={ColorTheme.semidark} />
+            <Text style={styles.textLoading}>
+              {englishLanguage ? "Loading heroes..." : "Carregando heróis..."}
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            data={currentItems}
+            renderItem={({ item }) => (
+              <RenderItem item={item as HeroDetailsModel} />
+            )}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={COLUMNS}
+            key={COLUMNS}
+            initialNumToRender={50}
+          />
+        )}
       </View>
     </View>
   );
