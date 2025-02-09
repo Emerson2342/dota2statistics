@@ -10,6 +10,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       width: "97%",
       alignSelf: "center",
       padding: "3%",
+      marginTop: "1%",
       paddingTop: 0,
       paddingBottom: 0,
     },
