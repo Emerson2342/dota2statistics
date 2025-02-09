@@ -92,6 +92,7 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
+          backgroundColor: ColorTheme.light,
         }}
       >
         <ActivityIndicator size={30} color={ColorTheme.semidark} />
