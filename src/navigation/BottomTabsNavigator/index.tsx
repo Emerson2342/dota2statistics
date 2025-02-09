@@ -48,7 +48,6 @@ export function BottomTabsNavigator() {
             </Modal>
           </View>
         ),
-        // headerShown: false,
         headerStyle: {
           backgroundColor: ColorTheme.dark,
         },
@@ -63,6 +62,8 @@ export function BottomTabsNavigator() {
           fontFamily: "QuickSand-Bold",
           color: ColorTheme.semidark,
         },
+        tabBarActiveTintColor: ColorTheme.semidark,
+        tabBarInactiveTintColor: ColorTheme.semidark,
       }}
     >
       <Tab.Screen
@@ -71,11 +72,11 @@ export function BottomTabsNavigator() {
         options={{
           headerTitle: englishLanguage ? "My Profile" : "Meu Perfil",
           tabBarLabel: englishLanguage ? "My Profile" : "Meu Perfil",
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({ focused, color }) => {
             return (
               <Ionicons
                 size={25}
-                color={ColorTheme.standard}
+                color={color}
                 name={focused ? "person" : "person-outline"}
               />
             );
@@ -88,11 +89,11 @@ export function BottomTabsNavigator() {
         options={{
           headerTitle: englishLanguage ? "Search" : "Pesquisar",
           tabBarLabel: englishLanguage ? "Search" : "Pesquisar",
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({ focused, color }) => {
             return (
               <Ionicons
                 size={25}
-                color={ColorTheme.standard}
+                color={color}
                 name={focused ? "search" : "search-outline"}
               />
             );
@@ -105,11 +106,11 @@ export function BottomTabsNavigator() {
         options={{
           headerTitle: englishLanguage ? "Favorites" : "Favoritos",
           tabBarLabel: englishLanguage ? "Favorites" : "Favoritos",
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({ focused, color }) => {
             return (
               <FontAwesome
                 size={25}
-                color={ColorTheme.standard}
+                color={color}
                 name={focused ? "star" : "star-o"}
               />
             );
@@ -122,11 +123,11 @@ export function BottomTabsNavigator() {
         options={{
           headerTitle: englishLanguage ? "Tournament" : "Campeonatos",
           tabBarLabel: englishLanguage ? "Tournament" : "Campeonatos",
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({ focused, color }) => {
             return (
               <Ionicons
                 size={25}
-                color={ColorTheme.standard}
+                color={color}
                 name={focused ? "trophy" : "trophy-outline"}
               />
             );
@@ -139,11 +140,11 @@ export function BottomTabsNavigator() {
         options={{
           headerTitle: englishLanguage ? "Heroes" : "Heróis",
           tabBarLabel: englishLanguage ? "Heroes" : "Heróis",
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: ({ focused, color }) => {
             return (
               <Ionicons
                 size={25}
-                color={ColorTheme.semidark}
+                color={color}
                 name={focused ? "people" : "people-outline"}
               />
             );

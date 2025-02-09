@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   LayoutAnimation,
   BackHandler,
-  Alert,
+  Modal,
 } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { createStyles } from "./indexStyles";
@@ -16,7 +16,12 @@ import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { ProMatches } from "./ProMatches";
 import { useTheme } from "../../context/useThemeContext";
-import { useFocusEffect } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useNavigationState,
+  useRoute,
+} from "@react-navigation/native";
 import { useTimestampContext } from "../../context/useTimestampContext";
 import { useRefreshContext } from "../../context/useRefreshContext";
 import {
@@ -25,6 +30,8 @@ import {
   getSearchPlayer,
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
+import { ModalExitApp } from "../../../src/components/Modals/ModalExitApp";
+import { BottomNavigationProps } from "react-native-paper";
 
 export function Profile() {
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
@@ -46,10 +53,14 @@ export function Profile() {
   const { refreshProfile, setRefreshProfile } = useRefreshContext();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [modalExitApp, setModalExitApp] = useState(false);
 
   const [httpStatus, setHttpStatus] = useState<number>(200);
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
   const styles = createStyles(ColorTheme);
+
+  const navigation = useNavigation();
+  const tabIndex = useNavigationState((state) => state?.index ?? 0);
 
   const handleProMatches = (isExitingApp: boolean) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -87,25 +98,40 @@ export function Profile() {
       setRefreshProfile(false);
     }, 500);
   };
+
+  const state = navigation.getState();
+  const isStack = state?.routes && state?.routes?.length > 1; // Verifica se há mais de uma tela no histórico
+  const canGoBack = navigation.canGoBack();
   // alert(JSON.stringify(profile, null, 2))
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
-        if (proMatchesOpen) {
-          handleProMatches(true);
+        // if (proMatchesOpen) {
+        //   handleProMatches(true);
+        //   //alert("Entrou para fechar promatches");
+        //   return true;
+        // }
+
+        if (isStack && canGoBack) {
+          navigation.goBack();
+          return true;
         } else {
-          Alert.alert("Atenção", "Você deseja sair?", [
-            { text: "Cancelar", onPress: () => null, style: "cancel" },
-            { text: "OK", onPress: () => BackHandler.exitApp() },
-          ]);
+          if (tabIndex === 0) {
+            setModalExitApp(true);
+            //alert("Entrou route Home");
+            return true;
+          } else {
+            navigation.goBack();
+            //alert("Entrou no else");
+            return true;
+          }
         }
-        return true;
       }
     );
     return () => backHandler.remove();
-  }, [proMatchesOpen]);
+  }, [proMatchesOpen, tabIndex]);
 
   useFocusEffect(
     useCallback(() => {
@@ -184,6 +210,18 @@ export function Profile() {
           />
         </View>
       </View>
+      <Modal
+        visible={modalExitApp}
+        transparent={true}
+        animationType="fade"
+        statusBarTranslucent={true}
+      >
+        <ModalExitApp
+          isVisible={modalExitApp}
+          handleClose={() => setModalExitApp(false)}
+          handleExitApp={() => BackHandler.exitApp()}
+        />
+      </Modal>
     </View>
   );
 }
