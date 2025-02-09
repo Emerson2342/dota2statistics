@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Text, View, ActivityIndicator, LayoutAnimation } from "react-native";
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  LayoutAnimation,
+  BackHandler,
+  Alert,
+} from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -44,9 +51,9 @@ export function Profile() {
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
   const styles = createStyles(ColorTheme);
 
-  const openProMatches = () => {
+  const handleProMatches = (isExitingApp: boolean) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setProMatchesOpen(!proMatchesOpen);
+    setProMatchesOpen(isExitingApp ? false : !proMatchesOpen);
   };
 
   const erro404 = englishLanguage
@@ -81,6 +88,24 @@ export function Profile() {
     }, 500);
   };
   // alert(JSON.stringify(profile, null, 2))
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        if (proMatchesOpen) {
+          handleProMatches(true);
+        } else {
+          Alert.alert("Atenção", "Você deseja sair?", [
+            { text: "Cancelar", onPress: () => null, style: "cancel" },
+            { text: "OK", onPress: () => BackHandler.exitApp() },
+          ]);
+        }
+        return true;
+      }
+    );
+    return () => backHandler.remove();
+  }, [proMatchesOpen]);
 
   useFocusEffect(
     useCallback(() => {
@@ -154,7 +179,7 @@ export function Profile() {
         )}
         <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
           <ProMatches
-            onClick={() => openProMatches()}
+            onClick={() => handleProMatches(false)}
             proMatchesOpen={proMatchesOpen}
           />
         </View>
