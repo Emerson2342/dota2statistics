@@ -6,7 +6,7 @@ export const createStyles = (Colors: ThemeColor) =>
     container: {
       flex: 1,
       width: "100%",
-      backgroundColor: "#ddd",
+      backgroundColor: Colors.light,
     },
     scrollView: {
       //paddingTop: "7%"

@@ -151,7 +151,7 @@ export function LastMatches({
         style={[
           styles.listContainer,
           {
-            backgroundColor: index % 2 === 0 ? ColorTheme.light : "#fff",
+            backgroundColor: index % 2 === 0 ? "#fff" : ColorTheme.light,
           },
         ]}
       >

@@ -7,6 +7,7 @@ export const createStyles = (colors: ThemeColor) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+      backgroundColor: colors.light,
     },
     inputContainer: {
       marginTop: "3%",
