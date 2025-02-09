@@ -1,7 +1,6 @@
 import "react-native-reanimated";
 import "react-native-gesture-handler";
 import "expo-dev-client";
-import { StatusBar } from "react-native";
 import { PlayerProvider } from "./src/context/usePlayerContex";
 import { SettingsProvider } from "./src/context/useSettingsContext";
 import { Routes } from "./src/routes/routes";
@@ -12,11 +11,9 @@ import { TeamsListProvider } from "./src/context/useTeamContext";
 import { TimestampProvider } from "./src/context/useTimestampContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
 import { RefreshProvider } from "./src/context/useRefreshContext";
-import { MatchesDetailsListProvider } from "./src/context/useMatchesDetailsListContext";
-import { HeroItemListProvider } from "./src/context/useHeroItemsListContext";
 
 export default function App() {
   mobileAds()
@@ -33,9 +30,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <SettingsProvider>
-        <MatchesDetailsListProvider>
-          <HeroItemListProvider>
-
         <ThemeProvider>
           <PlayerProvider>
             <ProfileProvider>
@@ -53,8 +47,6 @@ export default function App() {
             </ProfileProvider>
           </PlayerProvider>
         </ThemeProvider>
-          </HeroItemListProvider>
-        </MatchesDetailsListProvider>
       </SettingsProvider>
     </NavigationContainer>
   );

@@ -49,15 +49,11 @@ import { FlatList } from "react-native-gesture-handler";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { AsyncStorageService } from "../../../src/services/StorageService";
-import { useHeroItemListContext } from "../../../src/context/useHeroItemsListContext";
-import { MD3Colors, ProgressBar } from "react-native-paper";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
 
   const { englishLanguage } = useSettingsContext();
-
-  const { heroItemsList, setHeroItemsList } = useHeroItemListContext();
 
   const [itemData, setItemData] = useState<ItemPopularityData>();
   useState<HeroBenchmarksResult>();
@@ -77,8 +73,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const aghanimHeroSelected = aaghanimDescription.find(
     (h) => h.hero_id === heroDetails.id
   );
-
-  const heroItemIndex = heroItemsList.find((h) => h.id === heroDetails.id);
   const styles = createStyles(ColorTheme);
 
   const HandleGetAbilities = () => {
@@ -97,41 +91,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     setHeroLore(LoreJson[heroDetails.name]);
     const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
     setAbilities(heroAbilities[heroDetails.name]);
-
-    const fetchItems = async () => {
-      if (!heroItemIndex) {
-        console.log("Entrou no endpoint items");
-        const responseDataItems = await getItemsByHero(heroDetails.id);
-        if (responseDataItems) {
-          setItemData(responseDataItems);
-          const newHeroItems: HeroItemsListPopularity = {
-            id: heroDetails.id,
-            item: responseDataItems,
-          };
-          setHeroItemsList((prevList) => [...prevList, newHeroItems]);
-        }
-      } else {
-        setTimeout(() => {
-          setItemData(heroItemIndex.item);
-          console.log("Não entrou no endpoint items");
-        }, 200);
-      }
-    };
-
-    const loadData = async () => {
-      try {
-        const storedHeroItemsList = await storageAsync.getItem<
-          HeroItemsListPopularity[]
-        >("heroItemsList");
-        if (storedHeroItemsList) setHeroItemsList(storedHeroItemsList);
-      } catch (error) {
-        console.error("Erro ao carregar dados do AsyncStorage:", error);
-      }
-    };
-
-    loadData();
-
-    fetchItems();
   }, []);
 
   useEffect(() => {
@@ -180,20 +139,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       }
       break;
   }
-  //replace for loading useEffect
-  // if (!itemData) {
-  //   return (
-  //     <View style={styles.activeIndicator}>
-  //       <ActivityIndicator color={ColorTheme.semidark} size={"large"} />
-  //       <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-  //         {englishLanguage
-  //           ? "Loading hero details..."
-  //           : "Carregando detalhes do herói..."}
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-
   const baseAttMin = heroDetails.base_attack_min + baseAttack;
   const baseAttMax = heroDetails.base_attack_max + baseAttack;
   const baseHelth = 120 + heroDetails.base_str * 22;
@@ -527,73 +472,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               );
             })}
           </View>
-        </View>
-
-        <View style={styles.itemsContainer}>
-          <Text
-            style={styles.titleText}
-            onLongPress={() => alert(heroItemsList.length)}
-          >
-            {englishLanguage ? "Popular Items" : "Itens Populares"}
-          </Text>
-          {itemData ? (
-            <View style={{ width: "100%" }}>
-              <Text style={styles.textItems}>Start Game</Text>
-              <View style={[styles.itemContainer]}>
-                {Object.keys(itemData.start_game_items)
-                  .map((itemId) => getItemImage(itemId))
-                  .filter((uri) => uri !== null)
-                  .map((uri, index) => (
-                    <Image
-                      key={index}
-                      style={[styles.itemImg]}
-                      source={{ uri }}
-                    />
-                  ))}
-              </View>
-              <Text style={styles.textItems}>Early Game</Text>
-              <View style={styles.itemContainer}>
-                {Object.keys(itemData.early_game_items)
-                  .map((itemId) => getItemImage(itemId))
-                  .filter((uri) => uri !== null)
-                  .map((uri, index) => (
-                    <Image
-                      key={index}
-                      style={[styles.itemImg]}
-                      source={{ uri }}
-                    />
-                  ))}
-              </View>
-              <Text style={styles.textItems}>Mid Game</Text>
-              <View style={styles.itemContainer}>
-                {Object.keys(itemData.mid_game_items)
-                  .map((itemId) => getItemImage(itemId))
-                  .filter((uri) => uri !== null)
-                  .map((uri, index) => (
-                    <Image
-                      key={index}
-                      style={[styles.itemImg]}
-                      source={{ uri }}
-                    />
-                  ))}
-              </View>
-              <Text style={styles.textItems}>Late Game</Text>
-              <View style={styles.itemContainer}>
-                {Object.keys(itemData.late_game_items)
-                  .map((itemId) => getItemImage(itemId))
-                  .filter((uri) => uri !== null)
-                  .map((uri, index) => (
-                    <Image
-                      key={index}
-                      style={[styles.itemImg]}
-                      source={{ uri }}
-                    />
-                  ))}
-              </View>
-            </View>
-          ) : (
-            <ActivityIndicator color={ColorTheme.semidark} />
-          )}
         </View>
       </ScrollView>
       <BannerAds />
