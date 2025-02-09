@@ -173,7 +173,13 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     const coolDown = coolDownTime(item?.cd);
 
     return (
-      <View style={styles.ablitityContainer} key={index}>
+      <View
+        style={[
+          styles.ablitityContainer,
+          { borderTopWidth: index == 0 ? 0 : 1, borderColor: "#ccc" },
+        ]}
+        key={index}
+      >
         <Text style={styles.titleAbility}>{item?.dname}</Text>
         <View style={styles.abilityContent}>
           <View style={styles.content1}>
@@ -413,6 +419,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             />
           </View>
           {/* Aghanim e Shard */}
+        </View>
+        <View style={styles.itemsContainer}>
           <View style={styles.facetsContainer}>
             <Text style={styles.titleText}>
               {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
@@ -426,6 +434,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               </Text>
             </View>
           </View>
+        </View>
+        <View style={styles.itemsContainer}>
           <View
             style={[
               styles.facetsContainer,
@@ -445,7 +455,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               </Text>
             </View>
           </View>
-
+        </View>
+        <View style={styles.itemsContainer}>
           {/* Facetas */}
           <View style={styles.facetsContainer}>
             <Text style={styles.titleText}>
@@ -453,20 +464,21 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             </Text>
 
             {abilities?.facets.map((facets, index) => {
-              console.log("Faceta " + facets.name);
               return (
                 <View
                   key={index}
                   style={{
                     width: "100%",
-                    alignItems: "center",
+                    borderTopWidth: index == 0 ? 0 : 1,
+                    borderColor: "#ccc",
+                    //alignItems: "center",
                   }}
                 >
                   <Text style={styles.textTitle2} key={index}>
                     {facets.title}
                   </Text>
                   <Text style={styles.textDescription}>
-                    {"      " + facets.description}
+                    {" " + facets.description}
                   </Text>
                 </View>
               );

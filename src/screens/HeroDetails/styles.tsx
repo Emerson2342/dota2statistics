@@ -10,6 +10,7 @@ export const createStyles = (colors: ThemeColor) =>
       width: "100%",
       alignSelf: "center",
       justifyContent: "center",
+      backgroundColor: colors.light,
     },
 
     activeIndicator: {
@@ -122,10 +123,8 @@ export const createStyles = (colors: ThemeColor) =>
     ablitityContainer: {
       paddingHorizontal: "1%",
       width: "99%",
-      borderWidth: 1,
       borderRadius: 5,
       marginBottom: "3.7%",
-      borderColor: "#ccc",
     },
     titleAbility: {
       textAlign: "center",
@@ -180,6 +179,7 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 7,
       alignItems: "center",
       elevation: 7,
+      width: "95%",
     },
     attContainer: {
       flexDirection: "row",
@@ -217,7 +217,7 @@ export const createStyles = (colors: ThemeColor) =>
       flexWrap: "wrap",
       justifyContent: "center",
       paddingBottom: "3%",
-      // width: '100%'
+      width: "100%",
     },
     button: {
       margin: "2%",
