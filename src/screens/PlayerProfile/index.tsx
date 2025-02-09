@@ -35,7 +35,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
-  const [playerIndex, setPlayerIndex] = useState<PlayerModel>();
 
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"

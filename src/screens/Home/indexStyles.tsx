@@ -5,7 +5,7 @@ export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.light,
+      backgroundColor: "#fff",
     },
     textbutton: {
       textAlign: "center",

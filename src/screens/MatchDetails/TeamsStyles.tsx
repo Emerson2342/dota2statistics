@@ -12,11 +12,12 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 9,
     },
     headerContainer: {
-      backgroundColor: colors.semidark,
+      backgroundColor: "#46B462",
       width: "100%",
-      borderTopLeftRadius: 7,
-      borderTopRightRadius: 7,
-      // marginTop: "3%",
+      borderColor: "#ccc",
+      borderBottomWidth: 1,
+      borderTopStartRadius: 7,
+      borderTopEndRadius: 7,
     },
     title: {
       fontSize: width * 0.045,
@@ -26,7 +27,7 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textHeader: {
       fontSize: width * 0.025,
-      color: "#ccc",
+      color: "#ddd",
       fontFamily: "QuickSand-Bold",
     },
     detailsContainer: {

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Text, View, ActivityIndicator, LayoutAnimation } from "react-native";
-import NetInfo from "@react-native-community/netinfo";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -18,9 +17,10 @@ import {
   getSearchPlayer,
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
+import { RecentMatches } from "../../../src/services/props";
+import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function Profile() {
-  const [isConnected, setIsConnected] = useState<boolean | null>(null);
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
   const { playerTimestamp, setPlayerTimestamp } = useTimestampContext();
@@ -28,8 +28,6 @@ export function Profile() {
   const {
     player,
     setPlayer,
-    recentMatches,
-    setRecentMatches,
     heroesPlayedId,
     setHeroesPlayedId,
     setProMatches,
@@ -42,7 +40,14 @@ export function Profile() {
 
   const [httpStatus, setHttpStatus] = useState<number>(200);
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
+
+  const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
+
+  const [loadedList, setLoadedList] = useState(false);
+
   const styles = createStyles(ColorTheme);
+
+  const storage = new AsyncStorageService();
 
   const handleProMatches = (isExitingApp: boolean) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -59,9 +64,6 @@ export function Profile() {
 
   const handleLoadData = async () => {
     setIsLoading(true);
-    const connectionInfo = await NetInfo.fetch();
-    setIsConnected(connectionInfo.isConnected);
-    console.log("Conetado? " + isConnected);
 
     setPlayerTimestamp(currentTimestamp);
     setTimeout(async () => {
@@ -82,6 +84,39 @@ export function Profile() {
   };
 
   // alert(JSON.stringify(profile, null, 2))
+
+  useEffect(() => {
+    const loadRecentMatches = async () => {
+      try {
+        const storedRecentMatches = await storage.getItem<RecentMatches[]>(
+          "recentMatches"
+        );
+        if (storedRecentMatches) {
+          setRecentMatches(storedRecentMatches);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados do AsyncStorage:", error);
+      } finally {
+        setLoadedList(true);
+      }
+    };
+
+    loadRecentMatches();
+  }, []);
+
+  useEffect(() => {
+    if (loadedList) {
+      const saveRecentMatches = async () => {
+        try {
+          await storage.setItem("recentMatches", recentMatches);
+        } catch (error) {
+          console.error("Erro ao salvar dados no AsyncStorage:", error);
+        }
+      };
+
+      saveRecentMatches();
+    }
+  }, [recentMatches, loadedList]);
 
   useFocusEffect(
     useCallback(() => {

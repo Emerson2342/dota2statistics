@@ -8,18 +8,11 @@ import React, {
   SetStateAction,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  LeagueMatches,
-  PlayerModel,
-  RecentMatches,
-  WL,
-} from "../services/props";
+import { LeagueMatches, PlayerModel, RecentMatches } from "../services/props";
 
 interface PlayerContextData {
   player: PlayerModel | null;
   setPlayer: Dispatch<SetStateAction<PlayerModel | null>>;
-  recentMatches: RecentMatches[] | [];
-  setRecentMatches: Dispatch<SetStateAction<RecentMatches[] | []>>;
   heroesPlayedId: number[] | [];
   setHeroesPlayedId: Dispatch<SetStateAction<number[] | []>>;
   proMatches: LeagueMatches[] | [];
@@ -32,7 +25,6 @@ interface PlayerProviderProps {
 }
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [player, setPlayer] = useState<PlayerModel | null>(null);
-  const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
 
@@ -40,7 +32,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     const loadData = async () => {
       try {
         const storedPlayerData = await AsyncStorage.getItem("playerData");
-        const storedRecentMatches = await AsyncStorage.getItem("recentMatches");
         const storeHeroesPlayedId = await AsyncStorage.getItem(
           "heroesPlayedId"
         );
@@ -48,9 +39,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
         if (storedPlayerData) {
           setPlayer(JSON.parse(storedPlayerData));
-        }
-        if (storedRecentMatches) {
-          setRecentMatches(JSON.parse(storedRecentMatches));
         }
         if (storeHeroesPlayedId) {
           setHeroesPlayedId(JSON.parse(storeHeroesPlayedId));
@@ -70,10 +58,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     const saveData = async () => {
       try {
         await AsyncStorage.setItem("playerData", JSON.stringify(player));
-        await AsyncStorage.setItem(
-          "recentMatches",
-          JSON.stringify(recentMatches)
-        );
+
         await AsyncStorage.setItem(
           "heroesPlayedId",
           JSON.stringify(heroesPlayedId)
@@ -85,13 +70,11 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     };
 
     saveData();
-  }, [player, recentMatches, heroesPlayedId, proMatches]);
+  }, [player, heroesPlayedId, proMatches]);
 
   const contextValue: PlayerContextData = {
     player,
-    recentMatches,
     setPlayer,
-    setRecentMatches,
     heroesPlayedId,
     setHeroesPlayedId,
     proMatches,

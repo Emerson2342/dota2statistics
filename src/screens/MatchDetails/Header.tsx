@@ -74,7 +74,7 @@ export function Header({
           </View>
           <Text
             style={{
-              color: ColorTheme.standard,
+              color: ColorTheme.semidark,
               fontFamily: "QuickSand-Semibold",
             }}
           >
@@ -104,7 +104,7 @@ export function Header({
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
-                color: "#000",
+                color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
@@ -112,7 +112,7 @@ export function Header({
             </Text>
             <Text
               style={{
-                color: "#000",
+                color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
@@ -122,7 +122,7 @@ export function Header({
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
-                color: "#000",
+                color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
@@ -130,7 +130,7 @@ export function Header({
             </Text>
             <Text
               style={{
-                color: "#000",
+                color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
@@ -152,6 +152,10 @@ const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       alignSelf: "center",
+      backgroundColor: "#fff",
+      margin: "3%",
+      borderRadius: 9,
+      padding: "1%",
     },
     textTitleLeague: {
       fontSize: width * 0.05,
@@ -163,21 +167,23 @@ const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
       width: "48%",
       justifyContent: "flex-end",
+      alignItems: "center",
     },
     teamName: {
-      color: colors.standard,
+      color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       textAlign: "center",
       width: "87%",
     },
     teamScore: {
-      color: colors.standard,
+      color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       alignSelf: "center",
+      fontSize: 17,
     },
     textId: {
       fontFamily: "QuickSand-Semibold",
       textAlign: "center",
-      color: "#777",
+      color: colors.semidark,
     },
   });

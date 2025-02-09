@@ -13,7 +13,6 @@ import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { Medal } from "../../components/Medals/MedalsList";
 import { createStyles } from "./TeamsStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -32,9 +31,7 @@ export function Teams({
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParamList, "PlayerProfile">
-    >();
+    useNavigation<StackNavigationProp<RootStackParamList, "PlayerProfile">>();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const messageText = englishLanguage
     ? "This profile is private"
@@ -67,14 +64,21 @@ export function Teams({
     players,
     teamName,
     radiantWin,
+    isRadiant,
   }: {
     players: Player[];
     teamName: string;
     radiantWin: boolean;
+    isRadiant: boolean;
   }) => {
     return (
       <View style={{ alignItems: "center" }}>
-        <View style={styles.headerContainer}>
+        <View
+          style={[
+            styles.headerContainer,
+            { backgroundColor: isRadiant ? "green" : "#9e0303" },
+          ]}
+        >
           <Text
             style={[
               styles.title,
@@ -174,8 +178,7 @@ export function Teams({
                 player.account_id &&
                 PlayerIdIndex === player.account_id.toString()
                   ? {
-                      backgroundColor: "#fff700ff",
-                      borderColor: "#ccc",
+                      backgroundColor: "#FFD700",
                       borderRadius: 3,
                       padding: "0.5%",
                       marginTop: index == 0 ? 0 : "1%",
@@ -184,7 +187,6 @@ export function Teams({
                     }
                   : {
                       backgroundColor: "#fff",
-                      borderColor: "#ccc",
                       marginTop: index == 0 ? 0 : "1%",
                       padding: "0.5%",
                       borderRadius: 3,
@@ -382,6 +384,7 @@ export function Teams({
               players={item.players.slice(0, 5)}
               teamName={RadiantName ? RadiantName : radName}
               radiantWin={item.radiant_win}
+              isRadiant={true}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
@@ -396,6 +399,7 @@ export function Teams({
               players={item.players.slice(5, 10)}
               teamName={DireName ? DireName : direName}
               radiantWin={!item.radiant_win}
+              isRadiant={false}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
