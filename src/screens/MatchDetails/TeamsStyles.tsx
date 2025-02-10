@@ -12,7 +12,7 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 9,
     },
     headerContainer: {
-      backgroundColor: "#46B462",
+      backgroundColor: colors.semidark,
       width: "100%",
       borderColor: "#ccc",
       borderBottomWidth: 1,

@@ -76,7 +76,7 @@ export function Teams({
         <View
           style={[
             styles.headerContainer,
-            { backgroundColor: isRadiant ? "green" : "#9e0303" },
+            // { backgroundColor: isRadiant ? "green" : "#9e0303" },
           ]}
         >
           <Text

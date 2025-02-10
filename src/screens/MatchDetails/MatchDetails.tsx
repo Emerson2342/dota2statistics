@@ -348,7 +348,12 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                             { width: `${heroDamDireBar}%` },
                           ]}
                         />
-                        <Text style={styles.textResult}> {heroDamageDire}</Text>
+                        <Text style={styles.textResult}>
+                          {" "}
+                          {heroDamageDire.toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR"
+                          )}
+                        </Text>
                       </View>
                       <Text style={styles.textTitle}>Tower Damage</Text>
                       <View style={{ flexDirection: "row", width: "70%" }}>

@@ -1,9 +1,17 @@
-import React from "react";
-import { View, Text, Image, FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
+  RootStackParamList,
   ThemeColor,
 } from "../../services/props";
 import AbilitiesList from "../../components/Heroes/abilitiesIdsList.json";
@@ -15,6 +23,8 @@ import {
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 export function Abilities({
   matchDetails,
@@ -28,11 +38,34 @@ export function Abilities({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
+  // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
   const styles = createStyles(ColorTheme);
-  const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+  // const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHeroList(Object.values(HeroesDetails) as HeroDetailsModel[]);
+    }, 500);
+  }, []);
+
+  const HandleGoToHeroDetails = (heroId: number | undefined) => {
+    if (heroId) {
+      const heroIndex = heroList.find((h) => h.id === heroId);
+      if (heroIndex) {
+        console.log("Herói Selecionado: " + heroIndex?.localized_name);
+        navigation.navigate("HeroDetails", { heroDetails: heroIndex });
+      } else {
+        console.log("Hero não encontrado!");
+      }
+    }
+  };
 
   const RenderAbilityes = ({ players }: { players: Player[] }) => {
     return (
@@ -73,7 +106,8 @@ export function Abilities({
                   <></>
                 )}
 
-                <View
+                <TouchableOpacity
+                  onPress={() => HandleGoToHeroDetails(player.hero_id)}
                   style={{
                     flexDirection: "row",
                     width: "100%",
@@ -119,7 +153,7 @@ export function Abilities({
                         )}
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               </View>
             );
           })}
