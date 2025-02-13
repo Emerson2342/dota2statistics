@@ -79,6 +79,8 @@ export const getMatchDetails = async (url: string) => {
             item_3: player.item_3,
             item_4: player.item_4,
             item_5: player.item_5,
+            killed: player.killed,
+            killed_by: player.killed_by,
             backpack_0: player.backpack_0,
             backpack_1: player.backpack_1,
             backpack_2: player.backpack_2,

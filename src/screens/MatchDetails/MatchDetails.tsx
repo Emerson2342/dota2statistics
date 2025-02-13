@@ -30,6 +30,7 @@ import { Header } from "./Header";
 import { Teams } from "./Teams";
 import { getMatchDetails } from "../../../src/API";
 import { AsyncStorageService } from "../../../src/services/StorageService";
+import { HeroKillsDetails } from "./KillsDetails";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const {
@@ -308,6 +309,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   DireName={DireName}
                   matchDetails={matchDetails}
                 />
+              </View>
+              <View style={styles.containerItem}>
+                <HeroKillsDetails matchDetails={matchDetails} />
               </View>
 
               <View

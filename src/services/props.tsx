@@ -211,6 +211,8 @@ export interface Player {
   backpack_1: number;
   backpack_2: number;
   item_neutral: number;
+  killed: Kill;
+  killed_by: KilledBy;
   start_time: number;
   kills: number;
   deaths: number;
@@ -262,6 +264,14 @@ export interface Player {
     };
   };
   ability_upgrades_arr: [number];
+}
+
+export interface Kill {
+  [key: string]: number;
+}
+
+export interface KilledBy {
+  [key: string]: number;
 }
 
 export interface ItemsModel {

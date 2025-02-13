@@ -16,7 +16,7 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
     useSettingsContext();
 
-  const { setPlayer, setRecentMatches, setHeroesPlayedId } = usePlayerContext();
+  const { setPlayer, setHeroesPlayedId } = usePlayerContext();
   const { setProfile } = useProfileContext();
   const { setPlayerTimestamp } = useTimestampContext();
   const { profile } = useProfileContext();
@@ -39,7 +39,6 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
       setProfile(null);
       setPlayerTimestamp(null);
       setPlayer(null);
-      setRecentMatches([]);
       setHeroesPlayedId([]);
       await signOut(auth);
       console.log("Usuário deslogado");
