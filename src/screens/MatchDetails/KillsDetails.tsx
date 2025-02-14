@@ -1,16 +1,42 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import { MatchDetailsModel, Player } from "../../../src/services/props";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  HeroDetailsModel,
+  KillDetails,
+  MatchDetailsModel,
+  Player,
+} from "../../../src/services/props";
+
+import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import {
+  PICTURE_HERO_BASE_FULL_URL,
+  PICTURE_HERO_BASE_URL,
+} from "../../../src/constants/player";
+import { useSettingsContext } from "../../../src/context/useSettingsContext";
 
 export function HeroKillsDetails({
   matchDetails,
+  direName,
+  radName,
 }: {
   matchDetails: MatchDetailsModel;
+  direName: string;
+  radName: string;
 }) {
-  const killsDetails = matchDetails.players.map((player) => {
-    // if (!player.killed) return [];
+  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+  const { englishLanguage } = useSettingsContext();
 
-    const heroPlayerIndex = player.hero_id;
+  const killsDetails: KillDetails[] = matchDetails.players.map((player) => {
+    const heroIndex = heroArray.find((hero) => hero.id === player.hero_id);
+
+    const heroName = heroIndex?.img ?? "";
+    const playerName = player.name
+      ? player.name
+      : player.personaname
+      ? player.personaname
+      : englishLanguage
+      ? "Private Profile"
+      : "Perfil Privado";
 
     const kills = player.killed
       ? Object.entries(player.killed)
@@ -30,31 +56,138 @@ export function HeroKillsDetails({
           }))
       : [];
 
-    return { heroPlayerIndex, kills, killedBy };
+    return { playerName, heroName, kills, killedBy };
   });
 
-  alert(JSON.stringify(killsDetails, null, 2));
+  //alert(JSON.stringify(killsDetails, null, 2));
 
-  const renderItem = ({ item, index }: { item: Player; index: number }) => {
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: KillDetails;
+    index: number;
+  }) => {
+    const imgSource = PICTURE_HERO_BASE_URL + item.heroName;
+
     return (
       <View>
-        {/* {Object.entries(item.killed).map(([hero, count], index) => (
-          <Text key={index}>
-            {hero}: {count}x
-          </Text>
-        ))} */}
+        <Text
+          style={[
+            styles.textTeamName,
+            { display: index == 0 ? "flex" : "none" },
+          ]}
+        >
+          {radName}
+        </Text>
+        <Text
+          style={[
+            styles.textTeamName,
+            {
+              display: index == 5 ? "flex" : "none",
+              borderTopWidth: index == 5 ? 1 : 0,
+              borderColor: "#ccc",
+              marginTop: index == 5 ? 7 : 0,
+            },
+          ]}
+        >
+          {direName}
+        </Text>
+        <Text style={styles.textPlayerName}>{item.playerName}</Text>
+        <View style={styles.flatListRender}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "45%",
+              justifyContent: "flex-end",
+            }}
+          >
+            {item.kills.map((hero, index) => {
+              const heroKill =
+                PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
+              return (
+                <View key={index} style={{ flexDirection: "row" }}>
+                  <View>
+                    <Text style={styles.textKills}>{hero.count}x</Text>
+                    <View style={styles.imgContainer}>
+                      <Image
+                        style={{ width: 23, height: 23, borderRadius: 5 }}
+                        source={{ uri: heroKill }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+          <View style={{ alignSelf: "center", width: "10%" }}>
+            <Image
+              style={{ width: 35, height: 40, borderRadius: 5 }}
+              source={{
+                uri: imgSource,
+              }}
+            />
+          </View>
+          <View style={{ flexDirection: "row", width: "45%" }}>
+            {item.killedBy.map((hero, index) => {
+              const heroKill =
+                PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
+              return (
+                <View
+                  key={index}
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                >
+                  <View>
+                    <Text style={styles.textKills}>{hero.count}x</Text>
+                    <View
+                      style={[
+                        styles.imgContainer,
+                        { backgroundColor: "#000", borderColor: "red" },
+                      ]}
+                    >
+                      <Image
+                        style={{
+                          width: 23,
+                          height: 23,
+                          borderRadius: 5,
+                          opacity: 0.53,
+                        }}
+                        source={{ uri: heroKill }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </View>
       </View>
     );
   };
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.textTeamName, { fontSize: 19 }]}>
+        {englishLanguage ? "Kills Details" : "Detalhes de Mortes"}
+      </Text>
+      <View
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <Text style={styles.textTeamName}>
+          {englishLanguage ? "Kills" : "Mortes"}
+        </Text>
+        <Text style={styles.textTeamName}>
+          {englishLanguage ? "Defeated By" : "Morto por"}
+        </Text>
+      </View>
       <FlatList
-        data={matchDetails.players.filter(
-          (player) => player.killed && player.killed_by
-        )}
+        data={killsDetails}
         renderItem={renderItem}
-        keyExtractor={(item) => item.account_id.toString()}
+        keyExtractor={(item) => item.heroName.toString()}
         scrollEnabled={false}
       />
     </View>
@@ -64,8 +197,38 @@ export function HeroKillsDetails({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
+    width: "95%",
     justifyContent: "center",
+    alignSelf: "center",
     alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "5%",
+  },
+  textPlayerName: {
+    textAlign: "center",
+    fontFamily: "QuickSand-Semibold",
+    fontSize: 10,
+    color: "#888",
+  },
+  textTeamName: {
+    textAlign: "center",
+    fontFamily: "QuickSand-Bold",
+  },
+  flatListRender: {
+    flexDirection: "row",
+    alignItems: "center",
+    //justifyContent: "center",
+  },
+  textKills: {
+    fontFamily: "QuickSand-Semibold",
+    color: "#555",
+    fontSize: 10,
+    textAlign: "center",
+  },
+  imgContainer: {
+    borderWidth: 1.75,
+    borderColor: "#229f22",
+    borderRadius: 7,
+    marginHorizontal: 1,
   },
 });

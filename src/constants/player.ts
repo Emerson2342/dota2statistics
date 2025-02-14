@@ -10,6 +10,9 @@ export const MATCHE_DETAILS_API_BASE_URL =
 
 export const PICTURE_HERO_BASE_URL = "https://cdn.cloudflare.steamstatic.com";
 
+export const PICTURE_HERO_BASE_FULL_URL =
+  "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/";
+
 export const AGHANIMSHARD_URL =
   "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403";
 

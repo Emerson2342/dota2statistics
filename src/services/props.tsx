@@ -266,6 +266,13 @@ export interface Player {
   ability_upgrades_arr: [number];
 }
 
+export interface KillDetails {
+  playerName: string;
+  heroName: string;
+  kills: { heroName: string; count: number }[];
+  killedBy: { heroName: string; count: number }[];
+}
+
 export interface Kill {
   [key: string]: number;
 }

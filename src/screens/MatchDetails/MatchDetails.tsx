@@ -54,6 +54,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
+  const radName = englishLanguage ? "Radiant" : "Iluminados";
+  const direName = englishLanguage ? "Dire" : "Temidos";
 
   const styles = createStyles(ColorTheme);
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
@@ -311,7 +313,11 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                 />
               </View>
               <View style={styles.containerItem}>
-                <HeroKillsDetails matchDetails={matchDetails} />
+                <HeroKillsDetails
+                  matchDetails={matchDetails}
+                  direName={DireName ?? direName}
+                  radName={RadiantName ?? radName}
+                />
               </View>
 
               <View

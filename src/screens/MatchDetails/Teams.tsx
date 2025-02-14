@@ -64,12 +64,12 @@ export function Teams({
     players,
     teamName,
     radiantWin,
-    isRadiant,
-  }: {
+  }: //isRadiant,
+  {
     players: Player[];
     teamName: string;
     radiantWin: boolean;
-    isRadiant: boolean;
+    //isRadiant: boolean;
   }) => {
     return (
       <View style={{ alignItems: "center" }}>
@@ -384,7 +384,7 @@ export function Teams({
               players={item.players.slice(0, 5)}
               teamName={RadiantName ? RadiantName : radName}
               radiantWin={item.radiant_win}
-              isRadiant={true}
+              //isRadiant={true}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
@@ -399,7 +399,7 @@ export function Teams({
               players={item.players.slice(5, 10)}
               teamName={DireName ? DireName : direName}
               radiantWin={!item.radiant_win}
-              isRadiant={false}
+              //isRadiant={false}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
