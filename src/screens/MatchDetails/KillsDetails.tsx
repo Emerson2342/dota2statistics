@@ -4,7 +4,6 @@ import {
   HeroDetailsModel,
   KillDetails,
   MatchDetailsModel,
-  Player,
 } from "../../../src/services/props";
 
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
@@ -13,6 +12,7 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { useTheme } from "../../../src/context/useThemeContext";
 
 export function HeroKillsDetails({
   matchDetails,
@@ -25,6 +25,13 @@ export function HeroKillsDetails({
 }) {
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const { englishLanguage } = useSettingsContext();
+  const { ColorTheme } = useTheme();
+
+  const validPlayers = matchDetails.players.filter(
+    (player) => player.killed || player.killed_by
+  );
+
+  if (validPlayers.length === 0) return null;
 
   const killsDetails: KillDetails[] = matchDetails.players.map((player) => {
     const heroIndex = heroArray.find((hero) => hero.id === player.hero_id);
@@ -75,7 +82,10 @@ export function HeroKillsDetails({
         <Text
           style={[
             styles.textTeamName,
-            { display: index == 0 ? "flex" : "none" },
+            {
+              display: index == 0 ? "flex" : "none", color: ColorTheme.standard, borderTopWidth: index == 0 ? 1 : 0,
+              borderColor: ColorTheme.standard,
+            },
           ]}
         >
           {radName}
@@ -86,8 +96,9 @@ export function HeroKillsDetails({
             {
               display: index == 5 ? "flex" : "none",
               borderTopWidth: index == 5 ? 1 : 0,
-              borderColor: "#ccc",
+              borderColor: ColorTheme.standard,
               marginTop: index == 5 ? 7 : 0,
+              color: ColorTheme.standard
             },
           ]}
         >
@@ -111,7 +122,7 @@ export function HeroKillsDetails({
                     <Text style={styles.textKills}>{hero.count}x</Text>
                     <View style={styles.imgContainer}>
                       <Image
-                        style={{ width: 23, height: 23, borderRadius: 5 }}
+                        style={styles.imgHero}
                         source={{ uri: heroKill }}
                       />
                     </View>
@@ -122,7 +133,7 @@ export function HeroKillsDetails({
           </View>
           <View style={{ alignSelf: "center", width: "10%" }}>
             <Image
-              style={{ width: 35, height: 40, borderRadius: 5 }}
+              style={{ width: 37, aspectRatio: 1, borderRadius: 50 }}
               source={{
                 uri: imgSource,
               }}
@@ -146,12 +157,7 @@ export function HeroKillsDetails({
                       ]}
                     >
                       <Image
-                        style={{
-                          width: 23,
-                          height: 23,
-                          borderRadius: 5,
-                          opacity: 0.53,
-                        }}
+                        style={[styles.imgHero, { opacity: 0.7 }]}
                         source={{ uri: heroKill }}
                       />
                     </View>
@@ -167,7 +173,7 @@ export function HeroKillsDetails({
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.textTeamName, { fontSize: 19 }]}>
+      <Text style={[styles.textTeamName, { fontSize: 19, color: ColorTheme.semidark }]}>
         {englishLanguage ? "Kills Details" : "Detalhes de Mortes"}
       </Text>
       <View
@@ -177,11 +183,11 @@ export function HeroKillsDetails({
           justifyContent: "space-around",
         }}
       >
-        <Text style={styles.textTeamName}>
+        <Text style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
           {englishLanguage ? "Kills" : "Mortes"}
         </Text>
-        <Text style={styles.textTeamName}>
-          {englishLanguage ? "Defeated By" : "Morto por"}
+        <Text style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
+          {englishLanguage ? "Deaths By" : "Morto por"}
         </Text>
       </View>
       <FlatList
@@ -225,10 +231,15 @@ const styles = StyleSheet.create({
     fontSize: 10,
     textAlign: "center",
   },
+  imgHero: {
+    width: 23,
+    height: 23,
+    borderRadius: 30,
+  },
   imgContainer: {
     borderWidth: 1.75,
     borderColor: "#229f22",
-    borderRadius: 7,
+    borderRadius: 30,
     marginHorizontal: 1,
   },
 });
