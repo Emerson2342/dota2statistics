@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Modal } from 'react-native';
-import { FriendDetailsModel, HandleCloseInterface } from '../../screens/Home/props';
-import { useFriendsListContext } from '../../context/useFriendsListContext';
 import { useSettingsContext } from '../../../src/context/useSettingsContext';
 import { createStyles } from './ModalAddFriendsStyles';
 import { ModalMessage } from './ModalMessage';
 import { useTheme } from '../../../src/context/useThemeContext';
+import { FriendDetailsModel, HandleCloseInterface } from '../../../src/services/props';
 
 
 export function ModalAddFriends({ handleClose }: { handleClose: HandleCloseInterface }) {
@@ -114,3 +113,7 @@ export function ModalAddFriends({ handleClose }: { handleClose: HandleCloseInter
         </View>
     );
 }
+function useFriendsListContext(): { friendsList: any; setFriendsList: any; } {
+    throw new Error('Function not implemented.');
+}
+

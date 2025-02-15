@@ -48,6 +48,19 @@ export const searchPlayersByName = async (
   }
 };
 
+export const getSearchLeagueMatches = async (url: string,
+  setLeagueMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
+) => {
+  try {
+    const response = await fetch(url);
+    const data = (await response.json()) as LeagueMatches[];
+    setLeagueMatches(data);
+  } catch (error: any) {
+    console.log("Erro ao tentar buscar lsita de campeonatos. " + error.toString());
+  };
+}
+
+
 export const getProMatches = async (
   setProMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
 ) => {

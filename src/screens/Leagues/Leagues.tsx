@@ -93,7 +93,6 @@ export function Leagues() {
       ) {
         loadLeagues();
         loadTeamsList();
-        alert("Entrou no endpoint");
       }
     }, [leagueTimestamp])
   );

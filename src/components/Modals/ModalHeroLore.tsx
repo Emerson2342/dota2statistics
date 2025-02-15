@@ -8,8 +8,9 @@ import {
   Dimensions,
 } from "react-native";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { ThemeColor } from "../../../src/screens/Home/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { ThemeColor } from "../../../src/services/props";
+import { BannerAds } from "../BannerAds";
 
 export function ModaHeroLore({
   handleClose,
@@ -29,21 +30,26 @@ export function ModaHeroLore({
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.textName}>{localizedName}</Text>
-        <ScrollView>
-          <Text style={styles.textLore}>
-            {"  "} {loreText}
-          </Text>
-        </ScrollView>
-        <TouchableOpacity
-          style={styles.buttonClose}
-          onPress={() => handleClose()}
-        >
-          <Text style={styles.textButton}>
-            {englishLanguage ? "Close" : "Fechar"}
-          </Text>
-        </TouchableOpacity>
+
+      <BannerAds />
+      <View style={{ flex: 0.9, justifyContent: 'center', alignItems: "center", width: '100%' }}>
+
+        <View style={styles.content}>
+          <Text style={styles.textName}>{localizedName}</Text>
+          <ScrollView>
+            <Text style={styles.textLore}>
+              {"  "} {loreText}
+            </Text>
+          </ScrollView>
+          <TouchableOpacity
+            style={styles.buttonClose}
+            onPress={() => handleClose()}
+          >
+            <Text style={styles.textButton}>
+              {englishLanguage ? "Close" : "Fechar"}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -54,11 +60,11 @@ const CreateStyles = (colors: ThemeColor) =>
     container: {
       flex: 1,
       backgroundColor: "rgba(0,0,0,0.7)",
-      justifyContent: "center",
       alignItems: "center",
+      justifyContent: 'center'
     },
     content: {
-      maxHeight: "57%",
+      maxHeight: "93%",
       alignItems: "center",
       width: "85%",
       padding: "5%",

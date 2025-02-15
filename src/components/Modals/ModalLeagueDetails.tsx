@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 import { styles } from './ModalLeagueDetailsStyles';
-import { HandleCloseInterface, League } from '../../screens/Home/props';
+import { HandleCloseInterface } from '../../../src/services/props';
+
 
 
 export function ModalLeagueDetails({ leagueId, handleClose }: { leagueId: number, handleClose: HandleCloseInterface }) {

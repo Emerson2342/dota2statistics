@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { ThemeColor } from '../../screens/Home/props';
+import { ThemeColor } from '../../../src/services/props';
 
 
-export const createStyles = (colors:ThemeColor ) => StyleSheet.create({
+export const createStyles = (colors: ThemeColor) => StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.7)',

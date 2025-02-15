@@ -24,6 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { BannerAds } from "../../components/BannerAds";
+import { getSearchLeagueMatches } from "../../../src/API";
 
 export function LeagueDetails({ route }: LeagueDetailsProps) {
   const navigation =
@@ -56,31 +57,19 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
   const { teamsList } = useTeamsListContext();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [modalMessage, setModalMessage] = useState(false);
-  const [erroMessage, setErrorMessage] = useState<string>("");
 
   const { englishLanguage } = useSettingsContext();
 
   const result = englishLanguage ? "Winner" : "Vencedor";
 
-  const getSearchLeagueMatches = async (url: any) => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(url);
-      const data = (await response.json()) as LeagueMatches[];
-      setLeagueMatches(data);
-    } catch (error: any) {
-      setErrorMessage(error);
-      setModalMessage(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
   useEffect(() => {
-    const handleLoadLeagueMatches = () => {
+    const handleLoadLeagueMatches = async () => {
+      setIsLoading(true);
       const searchLeagues = `${LEAGUES_BASE_URL}${LeagueIdIndex}/matches`;
       console.log(searchLeagues);
-      getSearchLeagueMatches(searchLeagues);
+      await getSearchLeagueMatches(searchLeagues, setLeagueMatches);
+      setIsLoading(false);
     };
     handleLoadLeagueMatches();
   }, []);

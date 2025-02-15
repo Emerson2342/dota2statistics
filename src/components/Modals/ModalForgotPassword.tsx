@@ -5,10 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { HandleCloseInterface } from "../../screens/Home/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { createStyles } from "./ModalCreateAccount";
+import { HandleCloseInterface } from "../../../src/services/props";
 
 export function ModalForgotPassword({ handleClose }: { handleClose: HandleCloseInterface }) {
   const [email, setEmail] = useState<string>();

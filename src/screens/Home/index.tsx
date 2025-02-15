@@ -70,7 +70,6 @@ export function Profile() {
       await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);
-      //alert("Trouxe dados do endpoint - " + playerTimestamp);
 
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
       await getRecentMatches(
