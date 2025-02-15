@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Text, View, ActivityIndicator, LayoutAnimation } from "react-native";
+import { Text, View, ActivityIndicator, LayoutAnimation, ScrollView } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";

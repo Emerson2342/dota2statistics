@@ -30,6 +30,9 @@ export const createStyles = (colors: ThemeColor) =>
       marginBottom: "1%",
       padding: "2.1%",
     },
+    radioButtonContainer: {
+
+    },
     listaHeroi: {
       width: "49%",
       backgroundColor: "#fff",

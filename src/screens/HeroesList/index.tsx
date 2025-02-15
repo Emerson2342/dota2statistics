@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   FlatList,
   Text,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { Searchbar, RadioButton } from "react-native-paper";
 import { createStyles } from "./styles";
 
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -15,7 +15,6 @@ import { HeroDetailsModel, RootStackParamList } from "../../services/props";
 
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { Feather } from "@expo/vector-icons";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
 import IntImg from "../../images/int.png";
 import AgiImg from "../../images/agi.png";
@@ -24,6 +23,7 @@ import AllImg from "../../images/all.png";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
+import { Feather, Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const COLUMNS: number = 2;
 
@@ -37,6 +37,7 @@ export function ListaDeHerois() {
   const [textResult, setTextResult] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
+  const [attSelected, setAttSelected] = useState("");
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
@@ -66,13 +67,15 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-      ? `No results found for: "${textResult}"`
-      : `Nenhum resultado encontrado para: "${textResult}"`;
+        ? `No results found for: "${textResult}"`
+        : `Nenhum resultado encontrado para: "${textResult}"`;
 
-  const sortedList =
-    heroesSearched != undefined
-      ? heroesSearched.sort(ordenar)
-      : heroArray.sort(ordenar);
+  const sortedList = useMemo(() => {
+    return heroesSearched !== undefined
+      ? [...heroesSearched].sort(ordenar)
+      : [...heroArray].sort(ordenar);
+  }, [heroesSearched, heroArray]);
+
 
   const currentItems =
     heroesSearched != undefined ? heroesSearched : sortedList;
@@ -87,7 +90,6 @@ export function ListaDeHerois() {
 
   const HandleSearchHero = (text: string) => {
     setIsLoading(true);
-    //alert(textInputSearch);
     setTextInputSearch(text);
 
     setTimeout(() => {
@@ -108,6 +110,12 @@ export function ListaDeHerois() {
     setTextResult(undefined);
     setHereoesSearched(undefined);
   };
+
+  const handleSelectAtt = useCallback((att: string) => {
+    setTimeout(() => {
+      setAttSelected(att);
+    }, 0)
+  }, []);
 
   const RenderItem = React.memo(({ item }: { item: HeroDetailsModel }) => {
     let attImage;
@@ -169,6 +177,43 @@ export function ListaDeHerois() {
           onClearIconPress={() => HandleClearSearchResults()}
         />
       </View>
+      <View style={styles.radioButtonContainer}>
+        <RadioButton
+          value="agi"
+          status={attSelected == "agi" ? 'checked' : 'unchecked'}
+          onPress={() => handleSelectAtt('agi')}
+          color="#3ac53a"
+          uncheckedColor="#3ac53a"
+        />
+        <RadioButton
+          value="int"
+          status={attSelected == "int" ? 'checked' : 'unchecked'}
+          onPress={() => handleSelectAtt('int')}
+          color="#1d92b7"
+          uncheckedColor="#1d92b7"
+        />
+        <RadioButton
+          value="str"
+          status={attSelected == "str" ? 'checked' : 'unchecked'}
+          onPress={() => handleSelectAtt('str')}
+          color="#8e2121"
+          uncheckedColor="#8e2121"
+        />
+        <RadioButton
+          value="all"
+          status={attSelected == "all" ? 'checked' : 'unchecked'}
+          onPress={() => handleSelectAtt('all')}
+          color="#333"
+          uncheckedColor="#333"
+        />
+        <RadioButton
+          value=""
+          status={attSelected == "" ? 'checked' : 'unchecked'}
+          onPress={() => handleSelectAtt('')}
+          color="#333"
+          uncheckedColor="#333"
+        />
+      </View>
       <View
         style={{
           display: textResult ? "flex" : "none",
@@ -206,6 +251,7 @@ export function ListaDeHerois() {
             numColumns={COLUMNS}
             key={COLUMNS}
             initialNumToRender={50}
+            removeClippedSubviews={true}
           />
         )}
       </View>

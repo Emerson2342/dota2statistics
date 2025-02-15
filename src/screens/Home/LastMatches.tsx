@@ -130,7 +130,7 @@ export function LastMatches({
     const team = item.player_slot < 5 ? 1 : 2;
     const resultadoFinal =
       (team == 1 && item.radiant_win == true) ||
-      (team == 2 && item.radiant_win == false)
+        (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
