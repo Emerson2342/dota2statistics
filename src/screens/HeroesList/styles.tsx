@@ -31,7 +31,15 @@ export const createStyles = (colors: ThemeColor) =>
       padding: "2.1%",
     },
     radioButtonContainer: {
-
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "97%",
+      marginTop: "3%",
+      marginBottom: "3%",
+    },
+    radioButtonContent: {
+      flexDirection: "row",
+      alignItems: "center",
     },
     listaHeroi: {
       width: "49%",
@@ -47,6 +55,10 @@ export const createStyles = (colors: ThemeColor) =>
       width: Dimensions.get("screen").width * 0.1,
       height: Dimensions.get("screen").width * 0.065,
       borderRadius: 3,
+    },
+    imageRadioButton: {
+      width: 27,
+      height: 27,
     },
     nameHeroText: {
       color: colors.semidark,

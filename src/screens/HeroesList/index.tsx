@@ -6,6 +6,7 @@ import {
   View,
   Image,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import { Searchbar, RadioButton } from "react-native-paper";
 import { createStyles } from "./styles";
@@ -23,7 +24,6 @@ import AllImg from "../../images/all.png";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
-import { Feather, Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const COLUMNS: number = 2;
 
@@ -38,6 +38,7 @@ export function ListaDeHerois() {
   const [isLoading, setIsLoading] = useState(false);
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [attSelected, setAttSelected] = useState("");
+  const [currentItems, setCurrentItems] = useState<HeroDetailsModel[] | []>([]);
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
@@ -55,11 +56,22 @@ export function ListaDeHerois() {
   };
   useEffect(() => {
     setIsLoading(true);
+
+    const baseList = heroesSearched !== undefined ? heroesSearched : sortedList;
+
+    if (attSelected == "") {
+      setCurrentItems(baseList);
+    } else {
+      setCurrentItems(
+        baseList.filter((hero) => hero.primary_attr === attSelected)
+      );
+    }
     setTimeout(() => {
       setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+
       setIsLoading(false);
     }, 500);
-  }, []);
+  }, [attSelected, heroesSearched]);
 
   const textSearchResult =
     heroesSearched && heroesSearched?.length > 0
@@ -67,18 +79,14 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-        ? `No results found for: "${textResult}"`
-        : `Nenhum resultado encontrado para: "${textResult}"`;
+      ? `No results found for: "${textResult}"`
+      : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const sortedList = useMemo(() => {
     return heroesSearched !== undefined
       ? [...heroesSearched].sort(ordenar)
       : [...heroArray].sort(ordenar);
   }, [heroesSearched, heroArray]);
-
-
-  const currentItems =
-    heroesSearched != undefined ? heroesSearched : sortedList;
 
   const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
     if (heroDetails) {
@@ -91,6 +99,7 @@ export function ListaDeHerois() {
   const HandleSearchHero = (text: string) => {
     setIsLoading(true);
     setTextInputSearch(text);
+    setAttSelected("");
 
     setTimeout(() => {
       const heroesToSearch: HeroDetailsModel[] = heroArray.filter((hero) =>
@@ -101,6 +110,7 @@ export function ListaDeHerois() {
       );
       setHereoesSearched(heroesToSearch);
       setTextResult(text);
+      Keyboard.dismiss();
       setIsLoading(false);
     }, 300);
   };
@@ -111,11 +121,13 @@ export function ListaDeHerois() {
     setHereoesSearched(undefined);
   };
 
-  const handleSelectAtt = useCallback((att: string) => {
+  const handleSelectAtt = (att: string) => {
+    setAttSelected(att);
+    setIsLoading(true);
     setTimeout(() => {
-      setAttSelected(att);
-    }, 0)
-  }, []);
+      setIsLoading(false);
+    }, 175);
+  };
 
   const RenderItem = React.memo(({ item }: { item: HeroDetailsModel }) => {
     let attImage;
@@ -178,41 +190,70 @@ export function ListaDeHerois() {
         />
       </View>
       <View style={styles.radioButtonContainer}>
-        <RadioButton
-          value="agi"
-          status={attSelected == "agi" ? 'checked' : 'unchecked'}
-          onPress={() => handleSelectAtt('agi')}
-          color="#3ac53a"
-          uncheckedColor="#3ac53a"
-        />
-        <RadioButton
-          value="int"
-          status={attSelected == "int" ? 'checked' : 'unchecked'}
-          onPress={() => handleSelectAtt('int')}
-          color="#1d92b7"
-          uncheckedColor="#1d92b7"
-        />
-        <RadioButton
-          value="str"
-          status={attSelected == "str" ? 'checked' : 'unchecked'}
-          onPress={() => handleSelectAtt('str')}
-          color="#8e2121"
-          uncheckedColor="#8e2121"
-        />
-        <RadioButton
-          value="all"
-          status={attSelected == "all" ? 'checked' : 'unchecked'}
-          onPress={() => handleSelectAtt('all')}
-          color="#333"
-          uncheckedColor="#333"
-        />
-        <RadioButton
-          value=""
-          status={attSelected == "" ? 'checked' : 'unchecked'}
-          onPress={() => handleSelectAtt('')}
-          color="#333"
-          uncheckedColor="#333"
-        />
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <RadioButton
+            value=""
+            status={attSelected == "" ? "checked" : "unchecked"}
+            onPress={() => handleSelectAtt("")}
+            color="#333"
+            uncheckedColor="#333"
+          />
+          <Text
+            style={{
+              textAlign: "center",
+              height: 27,
+              fontFamily: "QuickSand-Bold",
+              fontSize: 17,
+            }}
+          >
+            {englishLanguage ? "All" : "Todos"}
+          </Text>
+        </View>
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <RadioButton
+            value="agi"
+            status={attSelected == "agi" ? "checked" : "unchecked"}
+            onPress={() => handleSelectAtt("agi")}
+            color={ColorTheme.semidark}
+            uncheckedColor={ColorTheme.semidark}
+          />
+          <Image style={[styles.imageRadioButton]} source={AgiImg} />
+        </View>
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <RadioButton
+            value="int"
+            status={attSelected == "int" ? "checked" : "unchecked"}
+            onPress={() => handleSelectAtt("int")}
+            color={ColorTheme.semidark}
+            uncheckedColor={ColorTheme.semidark}
+          />
+          <Image style={[styles.imageRadioButton]} source={IntImg} />
+        </View>
+        <View style={{ alignItems: "center", flexDirection: "row" }}>
+          <RadioButton
+            value="str"
+            status={attSelected == "str" ? "checked" : "unchecked"}
+            onPress={() => handleSelectAtt("str")}
+            color={ColorTheme.semidark}
+            uncheckedColor={ColorTheme.semidark}
+          />
+          <Image style={[styles.imageRadioButton]} source={StrImg} />
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <RadioButton
+            value="all"
+            status={attSelected == "all" ? "checked" : "unchecked"}
+            onPress={() => handleSelectAtt("all")}
+            color={ColorTheme.semidark}
+            uncheckedColor={ColorTheme.semidark}
+          />
+          <Image style={[styles.imageRadioButton]} source={AllImg} />
+        </View>
       </View>
       <View
         style={{
@@ -230,6 +271,7 @@ export function ListaDeHerois() {
         style={{
           flex: 1,
           width: "100%",
+          marginBottom: "3%",
         }}
       >
         {isLoading ? (
