@@ -37,9 +37,23 @@ export const createStyles = (colors: ThemeColor) =>
       marginTop: "3%",
       marginBottom: "3%",
     },
+    buttonOptions: {
+      width: "15%",
+      alignItems: "center",
+      borderRadius: 5,
+      padding: 5,
+      borderColor: colors.standard,
+    },
     radioButtonContent: {
       flexDirection: "row",
       alignItems: "center",
+    },
+    textAll: {
+      textAlign: "center",
+      height: 27,
+      fontFamily: "QuickSand-Bold",
+      fontSize: 15,
+      color: colors.semidark,
     },
     listaHeroi: {
       width: "49%",

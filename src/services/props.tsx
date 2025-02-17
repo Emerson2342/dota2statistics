@@ -21,7 +21,6 @@ export interface FavoritesContextType {
 export interface User {
   email: string;
   id_Steam: string;
-  isPremium: boolean;
 }
 export interface SearchUserResult {
   account_id: number;

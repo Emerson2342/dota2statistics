@@ -8,7 +8,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "./ModalMyAccount";
 import { signOut } from "firebase/auth";
-import { auth } from "../../services/firebaseConfig";
+import { auth, db2 } from "../../services/firebaseConfig";
 import { useTimestampContext } from "../../context/useTimestampContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 
@@ -17,9 +17,8 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
     useSettingsContext();
 
   const { setPlayer, setHeroesPlayedId } = usePlayerContext();
-  const { setProfile } = useProfileContext();
+  const { profile, setProfile } = useProfileContext();
   const { setPlayerTimestamp } = useTimestampContext();
-  const { profile } = useProfileContext();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);

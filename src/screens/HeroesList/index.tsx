@@ -7,6 +7,7 @@ import {
   Image,
   ActivityIndicator,
   Keyboard,
+  Button,
 } from "react-native";
 import { Searchbar, RadioButton } from "react-native-paper";
 import { createStyles } from "./styles";
@@ -38,7 +39,7 @@ export function ListaDeHerois() {
   const [isLoading, setIsLoading] = useState(false);
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [attSelected, setAttSelected] = useState("");
-  const [currentItems, setCurrentItems] = useState<HeroDetailsModel[] | []>([]);
+  const [currentItems, setCurrentItems] = useState<HeroDetailsModel[]>([]);
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
@@ -54,24 +55,34 @@ export function ListaDeHerois() {
     }
     return 0;
   };
-  useEffect(() => {
-    setIsLoading(true);
 
+  const sortedList = useMemo(() => {
+    return heroesSearched !== undefined
+      ? [...heroesSearched].sort(ordenar)
+      : [...heroArray].sort(ordenar);
+  }, [heroesSearched, heroArray]);
+
+  useEffect(() => {
     const baseList = heroesSearched !== undefined ? heroesSearched : sortedList;
 
     if (attSelected == "") {
-      setCurrentItems(baseList);
+      setCurrentItems(sortedList);
     } else {
       setCurrentItems(
         baseList.filter((hero) => hero.primary_attr === attSelected)
       );
     }
+  }, [attSelected, heroesSearched, sortedList]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
     setTimeout(() => {
       setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
 
       setIsLoading(false);
     }, 500);
-  }, [attSelected, heroesSearched]);
+  }, []);
 
   const textSearchResult =
     heroesSearched && heroesSearched?.length > 0
@@ -81,12 +92,6 @@ export function ListaDeHerois() {
       : englishLanguage
       ? `No results found for: "${textResult}"`
       : `Nenhum resultado encontrado para: "${textResult}"`;
-
-  const sortedList = useMemo(() => {
-    return heroesSearched !== undefined
-      ? [...heroesSearched].sort(ordenar)
-      : [...heroArray].sort(ordenar);
-  }, [heroesSearched, heroArray]);
 
   const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
     if (heroDetails) {
@@ -122,6 +127,7 @@ export function ListaDeHerois() {
   };
 
   const handleSelectAtt = (att: string) => {
+    if (att === attSelected) return;
     setAttSelected(att);
     setIsLoading(true);
     setTimeout(() => {
@@ -190,70 +196,76 @@ export function ListaDeHerois() {
         />
       </View>
       <View style={styles.radioButtonContainer}>
-        <View style={{ alignItems: "center", flexDirection: "row" }}>
-          <RadioButton
-            value=""
-            status={attSelected == "" ? "checked" : "unchecked"}
-            onPress={() => handleSelectAtt("")}
-            color="#333"
-            uncheckedColor="#333"
-          />
+        <TouchableOpacity
+          style={[
+            styles.buttonOptions,
+            {
+              backgroundColor:
+                attSelected === "" ? ColorTheme.standard : "transparent",
+            },
+          ]}
+          onPress={() => handleSelectAtt("")}
+        >
           <Text
-            style={{
-              textAlign: "center",
-              height: 27,
-              fontFamily: "QuickSand-Bold",
-              fontSize: 17,
-            }}
+            style={[
+              styles.textAll,
+              {
+                color: attSelected === "" ? "#fff" : ColorTheme.semidark,
+                opacity: attSelected === "" ? 1 : 0.3,
+              },
+            ]}
           >
             {englishLanguage ? "All" : "Todos"}
           </Text>
-        </View>
-        <View style={{ alignItems: "center", flexDirection: "row" }}>
-          <RadioButton
-            value="agi"
-            status={attSelected == "agi" ? "checked" : "unchecked"}
-            onPress={() => handleSelectAtt("agi")}
-            color={ColorTheme.semidark}
-            uncheckedColor={ColorTheme.semidark}
-          />
-          <Image style={[styles.imageRadioButton]} source={AgiImg} />
-        </View>
-        <View style={{ alignItems: "center", flexDirection: "row" }}>
-          <RadioButton
-            value="int"
-            status={attSelected == "int" ? "checked" : "unchecked"}
-            onPress={() => handleSelectAtt("int")}
-            color={ColorTheme.semidark}
-            uncheckedColor={ColorTheme.semidark}
-          />
-          <Image style={[styles.imageRadioButton]} source={IntImg} />
-        </View>
-        <View style={{ alignItems: "center", flexDirection: "row" }}>
-          <RadioButton
-            value="str"
-            status={attSelected == "str" ? "checked" : "unchecked"}
-            onPress={() => handleSelectAtt("str")}
-            color={ColorTheme.semidark}
-            uncheckedColor={ColorTheme.semidark}
-          />
-          <Image style={[styles.imageRadioButton]} source={StrImg} />
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-          }}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonOptions}
+          onPress={() => handleSelectAtt("agi")}
         >
-          <RadioButton
-            value="all"
-            status={attSelected == "all" ? "checked" : "unchecked"}
-            onPress={() => handleSelectAtt("all")}
-            color={ColorTheme.semidark}
-            uncheckedColor={ColorTheme.semidark}
+          <Image
+            style={[
+              styles.imageRadioButton,
+              { opacity: attSelected === "agi" ? 1 : 0.3 },
+            ]}
+            source={AgiImg}
           />
-          <Image style={[styles.imageRadioButton]} source={AllImg} />
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonOptions}
+          onPress={() => handleSelectAtt("int")}
+        >
+          <Image
+            style={[
+              styles.imageRadioButton,
+              { opacity: attSelected === "int" ? 1 : 0.3 },
+            ]}
+            source={IntImg}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonOptions}
+          onPress={() => handleSelectAtt("str")}
+        >
+          <Image
+            style={[
+              styles.imageRadioButton,
+              { opacity: attSelected === "str" ? 1 : 0.3 },
+            ]}
+            source={StrImg}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonOptions}
+          onPress={() => handleSelectAtt("all")}
+        >
+          <Image
+            style={[
+              styles.imageRadioButton,
+              { opacity: attSelected === "all" ? 1 : 0.3 },
+            ]}
+            source={AllImg}
+          />
+        </TouchableOpacity>
       </View>
       <View
         style={{

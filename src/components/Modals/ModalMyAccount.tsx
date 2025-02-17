@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Modal,
 } from "react-native";
 import { HandleCloseInterface, ThemeColor, User } from "../../services/props";
 import { useTheme } from "../../../src/context/useThemeContext";
@@ -13,6 +14,10 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
 import { useRefreshContext } from "../../../src/context/useRefreshContext";
+import { doc, setDoc } from "firebase/firestore";
+import { db2 } from "../../../src/services/firebaseConfig";
+import { ModalLoading } from "./ModalLoading";
+import { ModalMessage } from "./ModalMessage";
 
 export default function ModalMyAccount({
   handleClose,
@@ -26,18 +31,48 @@ export default function ModalMyAccount({
   const [user, setUser] = useState<User>({
     email: profile?.email ?? "",
     id_Steam: profile?.id_Steam ?? "",
-    isPremium: profile?.isPremium ?? false,
   });
+  const [modalMessageVisible, setModalMessageVisible] = useState(false);
+  const [textTitle, setTextTitle] = useState("");
+  const [textMessage, setTextMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const { ColorTheme } = useTheme();
 
+  const messageSuccess = englishLanguage
+    ? "Id Steam success changed!"
+    : "Id alterado com sucesso!";
+
+  const messageError = englishLanguage
+    ? "Error trying to change Steam ID"
+    : "Erro ao tentar alterar o Id da Steam";
+
   const handleSave = () => {
+    if (profile?.id_Steam === user.id_Steam) return;
+    handleChangeIdSteam();
     setProfile(user);
-    handleClose();
     setPlayerTimestamp(currentTimestamp);
     setRefreshProfile(true);
+  };
+
+  const handleChangeIdSteam = async () => {
+    try {
+      setIsLoading(true);
+      if (profile == null) return;
+      await setDoc(doc(db2, "Profile", profile.email ?? ""), {
+        email: profile.email,
+        id_Steam: user.id_Steam,
+      });
+      setTextMessage(messageSuccess);
+    } catch (error) {
+      console.log("Erro ao criar banco de dados: " + error);
+      setTextMessage(messageError);
+    } finally {
+      setIsLoading(false);
+      setModalMessageVisible(true);
+    }
   };
 
   const styles = createStyles(ColorTheme);
@@ -136,6 +171,21 @@ export default function ModalMyAccount({
           </TouchableOpacity>
         </View>
       </View>
+      <Modal
+        visible={modalMessageVisible}
+        animationType="fade"
+        statusBarTranslucent={true}
+        transparent={true}
+      >
+        <ModalMessage
+          handleClose={() => setModalMessageVisible(false)}
+          message={textMessage}
+          title=""
+        />
+      </Modal>
+      <Modal transparent={true} statusBarTranslucent={true} visible={isLoading}>
+        <ModalLoading />
+      </Modal>
     </View>
   );
 }

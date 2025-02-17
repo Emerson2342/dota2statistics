@@ -46,9 +46,6 @@ export function ModalCreateAccount({
     ? "Password should be at least 6 characters"
     : "Senha deve ter pelo menos 6 caracteres";
 
-  const messageUserSuccessEng = "User created successfully!";
-  const messageUserSuccessPor = "Usuário criado com sucesso";
-
   const messageUserErrorEng = "Error trying to create user: ";
   const messageUserErrorPor = "Erro ao tentar criar usuário: ";
 
@@ -58,7 +55,6 @@ export function ModalCreateAccount({
   const [newUser, setNewUser] = useState<User>({
     email: "",
     id_Steam: "",
-    isPremium: false,
   });
   const { setProfile } = useProfileContext();
 
@@ -95,7 +91,6 @@ export function ModalCreateAccount({
       await setDoc(doc(db2, "Profile", newUser.email), {
         email: newUser.email,
         id_Steam: newUser.id_Steam,
-        isPremium: false,
       });
     } catch (error) {
       console.log("Erro ao criar banco de dados: " + error);
@@ -111,10 +106,6 @@ export function ModalCreateAccount({
         createProfile();
         setProfile(newUser);
         console.log(user);
-        /*  handleClose();
-         setTitleMessage("");
-         setTextMessage(englishLanguage ? messageUserSuccessEng : messageUserSuccessPor);
-         setModalMessageVisible(true); */
       })
       .catch((error) => {
         const errorCode = error.code;
