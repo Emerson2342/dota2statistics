@@ -14,8 +14,8 @@ interface TimestampContextType {
   setLeagueTimestamp: Dispatch<SetStateAction<number | null>>;
   playerTimestamp: number | null;
   setPlayerTimestamp: Dispatch<SetStateAction<number | null>>;
-  heroDetailsTimestamp: number | null;
-  setHeroesDetailsTimestamp: Dispatch<SetStateAction<number | null>>;
+  accountTimestamp: number | null;
+  setAccountTimestamp: Dispatch<SetStateAction<number | null>>;
 }
 
 const TimestampContext = createContext<TimestampContextType | undefined>(
@@ -41,7 +41,7 @@ export const TimestampProvider: React.FC<TimestampProviderProps> = ({
 }) => {
   const [leagueTimestamp, setLeagueTimestamp] = useState<number | null>(null);
   const [playerTimestamp, setPlayerTimestamp] = useState<number | null>(null);
-  const [heroDetailsTimestamp, setHeroesDetailsTimestamp] = useState<number | null>(null);
+  const [accountTimestamp, setAccountTimestamp] = useState<number | null>(null);
 
   useEffect(() => {
     const loadStoredData = async () => {
@@ -52,7 +52,9 @@ export const TimestampProvider: React.FC<TimestampProviderProps> = ({
         const storedPlayerTimestamp = await AsyncStorage.getItem(
           "playerTimestamp"
         );
-        const storedheroDetailsTimestamp = await AsyncStorage.getItem("heroesDetailsTimestamp");
+        const storedAccountTimestamp = await AsyncStorage.getItem(
+          "accountTimestamp"
+        );
 
         if (storedLeagueTimestamp !== null) {
           setLeagueTimestamp(JSON.parse(storedLeagueTimestamp));
@@ -60,8 +62,9 @@ export const TimestampProvider: React.FC<TimestampProviderProps> = ({
         if (storedPlayerTimestamp !== null) {
           setPlayerTimestamp(JSON.parse(storedPlayerTimestamp));
         }
-        if (storedheroDetailsTimestamp !== null)
-          setHeroesDetailsTimestamp(JSON.parse(storedheroDetailsTimestamp));
+        if (storedAccountTimestamp !== null) {
+          setAccountTimestamp(JSON.parse(storedAccountTimestamp));
+        }
       } catch (error) {
         console.error("Erro ao carregar dados armazenados", error);
       }
@@ -81,13 +84,16 @@ export const TimestampProvider: React.FC<TimestampProviderProps> = ({
           "playerTimestamp",
           JSON.stringify(playerTimestamp)
         );
-        await AsyncStorage.setItem("heroesDetailsTimestamp", JSON.stringify(heroDetailsTimestamp));
+        await AsyncStorage.setItem(
+          "accountTimestamp",
+          JSON.stringify(accountTimestamp)
+        );
       } catch (error) {
         console.error("Erro ao salvar dados no AsyncStorage:", error);
       }
     };
     saveAsyncData();
-  }, [leagueTimestamp, playerTimestamp]);
+  }, [leagueTimestamp, playerTimestamp, accountTimestamp]);
 
   return (
     <TimestampContext.Provider
@@ -96,8 +102,8 @@ export const TimestampProvider: React.FC<TimestampProviderProps> = ({
         setLeagueTimestamp,
         playerTimestamp,
         setPlayerTimestamp,
-        heroDetailsTimestamp,
-        setHeroesDetailsTimestamp
+        accountTimestamp,
+        setAccountTimestamp,
       }}
     >
       {children}

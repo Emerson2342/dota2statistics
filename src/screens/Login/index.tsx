@@ -35,20 +35,17 @@ export function Login() {
 
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
-
   const [modalForgotPasswordVisible, setModalPasswordVisible] =
     useState<boolean>(false);
 
   const [modalCreateAccountVisible, setModalCreateAccountVisible] =
     useState<boolean>(false);
 
-  const { refreshProfile, setRefreshProfile } = useRefreshContext();
+  const { setRefreshProfile } = useRefreshContext();
 
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [modalResetPassword, setModalResetPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [databaseVersion, setDatabaseVersion] = useState<string>("");
   const [modalMessageVisible, setModalMessageVisible] =
     useState<boolean>(false);
 
@@ -91,17 +88,18 @@ export function Login() {
         const user = userCredential.user;
         console.log("Usuário loggado: " + user.email);
         setRefreshProfile(true);
-        console.log("Atualizar perfil?" + refreshProfile);
       })
       .catch((error) => {
         const errorCode = error.code;
         setPassword("");
         console.log(errorCode);
-        if (errorCode === "auth/invalid-credential" || errorCode === "auth/invalid-email") {
+        if (
+          errorCode === "auth/invalid-credential" ||
+          errorCode === "auth/invalid-email"
+        ) {
           setModalMessageVisible(true);
           setMessageText(loginPasswordError);
-        }
-        else {
+        } else {
           setModalMessageVisible(true);
           setMessageText(errorCode);
         }

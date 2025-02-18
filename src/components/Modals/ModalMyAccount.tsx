@@ -26,14 +26,14 @@ export default function ModalMyAccount({
 }) {
   const { setRefreshProfile } = useRefreshContext();
   const { profile, setProfile } = useProfileContext();
-  const { setPlayerTimestamp } = useTimestampContext();
+  const { setPlayerTimestamp, accountTimestamp, setAccountTimestamp } =
+    useTimestampContext();
   const { englishLanguage } = useSettingsContext();
   const [user, setUser] = useState<User>({
     email: profile?.email ?? "",
     id_Steam: profile?.id_Steam ?? "",
   });
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
-  const [textTitle, setTextTitle] = useState("");
   const [textMessage, setTextMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +42,8 @@ export default function ModalMyAccount({
   const { ColorTheme } = useTheme();
 
   const messageSuccess = englishLanguage
-    ? "Id Steam success changed!"
-    : "Id alterado com sucesso!";
+    ? "Steam ID successfully changed"
+    : "Id da alterado com sucesso!";
 
   const messageError = englishLanguage
     ? "Error trying to change Steam ID"
@@ -51,7 +51,21 @@ export default function ModalMyAccount({
 
   const handleSave = () => {
     if (profile?.id_Steam === user.id_Steam) return;
-    handleChangeIdSteam();
+    if (
+      accountTimestamp == null ||
+      accountTimestamp + 86400 < currentTimestamp
+    ) {
+      handleChangeIdSteam();
+      alert("Salvou no banco");
+      setAccountTimestamp(currentTimestamp);
+      setTimeout(() => {
+        console.log("Novo TimesStamp: " + accountTimestamp);
+      }, 175);
+    }
+    setTextMessage(messageSuccess);
+
+    setModalMessageVisible(true);
+    console.log("TimeStamp atual: " + accountTimestamp);
     setProfile(user);
     setPlayerTimestamp(currentTimestamp);
     setRefreshProfile(true);
@@ -61,17 +75,16 @@ export default function ModalMyAccount({
     try {
       setIsLoading(true);
       if (profile == null) return;
+
       await setDoc(doc(db2, "Profile", profile.email ?? ""), {
         email: profile.email,
         id_Steam: user.id_Steam,
       });
-      setTextMessage(messageSuccess);
     } catch (error) {
       console.log("Erro ao criar banco de dados: " + error);
       setTextMessage(messageError);
     } finally {
       setIsLoading(false);
-      setModalMessageVisible(true);
     }
   };
 
@@ -158,6 +171,7 @@ export default function ModalMyAccount({
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onLongPress={() => alert(accountTimestamp)}
             onPress={() => handleSave()}
             //onPress={() => alert(JSON.stringify(user, null, 2))}
             style={[
@@ -179,8 +193,8 @@ export default function ModalMyAccount({
       >
         <ModalMessage
           handleClose={() => setModalMessageVisible(false)}
-          message={textMessage}
-          title=""
+          message=""
+          title={textMessage}
         />
       </Modal>
       <Modal transparent={true} statusBarTranslucent={true} visible={isLoading}>

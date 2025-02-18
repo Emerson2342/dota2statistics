@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Text, View, ActivityIndicator, LayoutAnimation, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  LayoutAnimation,
+  ScrollView,
+} from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -23,7 +29,8 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 export function Profile() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { playerTimestamp, setPlayerTimestamp } = useTimestampContext();
+  const { playerTimestamp, setPlayerTimestamp, accountTimestamp } =
+    useTimestampContext();
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const {
     player,
@@ -37,6 +44,8 @@ export function Profile() {
   const { refreshProfile, setRefreshProfile } = useRefreshContext();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  //alert(currentTimestamp);
 
   const [httpStatus, setHttpStatus] = useState<number>(200);
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
