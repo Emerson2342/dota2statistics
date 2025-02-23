@@ -71,11 +71,20 @@ export const createStyles = (Colors: ThemeColor) =>
       color: "white",
     },
     buttonSave: {
-      backgroundColor: Colors.semidark,
-      borderRadius: 7,
+      backgroundColor: Colors.standard,
+      elevation: 7,
       padding: "2%",
       margin: "3%",
       width: "50%",
       alignItems: "center",
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
+    },
+    textAboutUs: {
+      marginVertical: 17,
+      fontFamily: "QuickSand-Semibold",
+      color: "#aaa",
     },
   });

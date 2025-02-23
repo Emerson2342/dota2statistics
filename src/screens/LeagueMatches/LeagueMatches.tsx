@@ -62,7 +62,6 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
 
   const result = englishLanguage ? "Winner" : "Vencedor";
 
-
   useEffect(() => {
     const handleLoadLeagueMatches = async () => {
       setIsLoading(true);
@@ -85,7 +84,13 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
         }}
       >
         <ActivityIndicator size={30} color={ColorTheme.semidark} />
-        <Text style={{ paddingTop: "3%", color: ColorTheme.dark }}>
+        <Text
+          style={{
+            paddingTop: "3%",
+            color: ColorTheme.dark,
+            fontFamily: "QuickSand-Bold",
+          }}
+        >
           {englishLanguage ? "Loading.." : "Carregando..."}
         </Text>
         <View style={{ alignSelf: "flex-end" }}>

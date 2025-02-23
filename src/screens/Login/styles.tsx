@@ -72,7 +72,11 @@ export const createStyles = (colors: ThemeColor) =>
       width: "55%",
       backgroundColor: colors.semidark,
       padding: "1%",
-      borderRadius: 5,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
+      elevation: 7,
       alignItems: "center",
     },
     textButton: {
@@ -80,5 +84,10 @@ export const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Bold",
       color: "#fff",
       padding: "1.5%",
+    },
+    textAboutUs: {
+      marginVertical: 17,
+      fontFamily: "QuickSand-Semibold",
+      color: "#aaa",
     },
   });

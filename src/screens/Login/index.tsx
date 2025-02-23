@@ -27,6 +27,7 @@ import { useRefreshContext } from "../../../src/context/useRefreshContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import Logo from "../../images/logoLogin.png";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { ModalAboutUs } from "../../../src/components/Modals/ModalAboutUs";
 
 export function Login() {
   const { setProfile } = useProfileContext();
@@ -39,6 +40,8 @@ export function Login() {
     useState<boolean>(false);
 
   const [modalCreateAccountVisible, setModalCreateAccountVisible] =
+    useState<boolean>(false);
+  const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
 
   const { setRefreshProfile } = useRefreshContext();
@@ -203,6 +206,19 @@ export function Login() {
             </Text>
           </View>
         </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+          }}
+        >
+          <Text
+            onPress={() => setModalAboutUsVisible(true)}
+            style={styles.textAboutUs}
+          >
+            {englishLanguage ? "About Us" : "Sobre Nós"}
+          </Text>
+        </View>
       </Animated.View>
       <Modal
         transparent={true}
@@ -248,6 +264,14 @@ export function Login() {
         <ModalForgotPassword
           handleClose={() => setModalPasswordVisible(false)}
         />
+      </Modal>
+      <Modal
+        visible={modalAboutUsVisible}
+        transparent={true}
+        animationType="fade"
+        statusBarTranslucent={true}
+      >
+        <ModalAboutUs handleClose={() => setModalAboutUsVisible(false)} />
       </Modal>
     </View>
   );

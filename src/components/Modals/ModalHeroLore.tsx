@@ -30,10 +30,15 @@ export function ModaHeroLore({
 
   return (
     <View style={styles.container}>
-
       <BannerAds />
-      <View style={{ flex: 0.9, justifyContent: 'center', alignItems: "center", width: '100%' }}>
-
+      <View
+        style={{
+          flex: 0.9,
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
         <View style={styles.content}>
           <Text style={styles.textName}>{localizedName}</Text>
           <ScrollView>
@@ -61,7 +66,7 @@ const CreateStyles = (colors: ThemeColor) =>
       flex: 1,
       backgroundColor: "rgba(0,0,0,0.7)",
       alignItems: "center",
-      justifyContent: 'center'
+      justifyContent: "center",
     },
     content: {
       maxHeight: "93%",
@@ -85,7 +90,10 @@ const CreateStyles = (colors: ThemeColor) =>
       backgroundColor: colors.semidark,
       width: "35%",
       marginTop: "7%",
-      borderRadius: 5,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
     },
     textButton: {
       color: "#fff",

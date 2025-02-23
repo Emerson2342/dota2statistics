@@ -83,12 +83,18 @@ const createStyles = (colors: ThemeColor) =>
     button: {
       backgroundColor: colors.semidark,
       width: "45%",
-      borderRadius: 3,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
     },
     buttonCancel: {
       width: "45%",
       borderWidth: 1,
-      borderRadius: 3,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
     },
     textButton: {
       color: "#fff",

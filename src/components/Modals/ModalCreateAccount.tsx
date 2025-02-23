@@ -265,7 +265,11 @@ export const createStyles = (colors: ThemeColor) =>
       width: "45%",
       alignItems: "center",
       backgroundColor: "#fff",
-      borderRadius: 5,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
+      elevation: 7,
       borderWidth: 1,
     },
     buttonCreate: {

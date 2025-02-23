@@ -56,7 +56,10 @@ const createStyles = (colors: ThemeColor) =>
     button: {
       backgroundColor: colors.semidark,
       alignSelf: "center",
-      borderRadius: 5,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
       marginTop: "5%",
     },
     textButton: {

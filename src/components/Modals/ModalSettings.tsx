@@ -1,5 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ActivityIndicator,
+} from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { createStyles } from "./ModalSettingStyles";
@@ -7,8 +13,9 @@ import { useTheme } from "../../context/useThemeContext";
 import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "./ModalMyAccount";
+import { ModalAboutUs } from "./ModalAboutUs";
 import { signOut } from "firebase/auth";
-import { auth, db2 } from "../../services/firebaseConfig";
+import { auth } from "../../services/firebaseConfig";
 import { useTimestampContext } from "../../context/useTimestampContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 
@@ -22,6 +29,9 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalAboutUsVisible, setModalAboutUsVisible] =
+    useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { ColorTheme } = useTheme();
   useFocusEffect(
@@ -30,6 +40,15 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
       setSelectTheme(globalTheme);
     }, [englishLanguage, globalTheme])
   );
+
+  const handleSaveChanges = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setEnglishLanguage(isEnglish);
+      setGlobalTheme(selectTheme);
+      setIsLoading(false);
+    }, 300);
+  };
 
   const styles = createStyles(ColorTheme);
 
@@ -130,7 +149,8 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                       { display: isEnglish ? "none" : "flex" },
                     ]}
                   >
-                    Alguns dados serão apresentados apenas na linguagem Inglês
+                    Mesmo configurado em Português, alguns dados serão
+                    apresentados em Inglês
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -220,20 +240,17 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                 <FontAwesome name="sign-out" size={17} />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.buttonSave}
-              onPress={() => {
-                setEnglishLanguage(isEnglish);
-                setGlobalTheme(selectTheme);
-              }}
-            >
-              <Text style={styles.textButton}>
-                {englishLanguage ? "Save Changes" : "Salvar"}
-              </Text>
-            </TouchableOpacity>
           </View>
           <TouchableOpacity
             style={styles.buttonSave}
+            onPress={() => handleSaveChanges()}
+          >
+            <Text style={styles.textButton}>
+              {englishLanguage ? "Save Changes" : "Salvar"}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
             onPress={() => handleClose()}
           >
             <Text style={styles.textButton}>
@@ -241,6 +258,12 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
             </Text>
           </TouchableOpacity>
         </View>
+        <Text
+          onPress={() => setModalAboutUsVisible(true)}
+          style={styles.textAboutUs}
+        >
+          {englishLanguage ? "About Us" : "Sobre Nós"}
+        </Text>
         <Modal
           visible={modalVisible}
           transparent={true}
@@ -248,6 +271,35 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
           statusBarTranslucent={true}
         >
           <ModalMyAccount handleClose={() => setModalVisible(false)} />
+        </Modal>
+        <Modal
+          visible={modalAboutUsVisible}
+          transparent={true}
+          animationType="fade"
+          statusBarTranslucent={true}
+        >
+          <ModalAboutUs handleClose={() => setModalAboutUsVisible(false)} />
+        </Modal>
+        <Modal visible={isLoading} transparent={true}>
+          <View
+            style={{
+              backgroundColor: "rgba(0,0,0,0.7)",
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ActivityIndicator size={35} color={ColorTheme.light} />
+            <Text
+              style={{
+                color: ColorTheme.light,
+                margin: 15,
+                fontFamily: "QuickSand-Bold",
+              }}
+            >
+              {englishLanguage ? "Saving..." : "Salvando..."}
+            </Text>
+          </View>
         </Modal>
       </View>
     </View>

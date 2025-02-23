@@ -40,7 +40,12 @@ import { useTheme } from "../../context/useThemeContext";
 import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
@@ -282,10 +287,15 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
         </View>
       ) : (
         <View style={styles.container}>
-          <TouchableOpacity
-            onPress={() => setModalHeroLore(true)}
-            style={styles.headerContainer}
-          >
+          <View style={styles.headerContainer}>
+            <TouchableOpacity onPress={() => setModalHeroLore(true)}>
+              <Ionicons
+                name="information-circle"
+                color={"orange"}
+                style={{ position: "absolute", margin: 5, right: 3 }}
+                size={27}
+              />
+            </TouchableOpacity>
             <Text style={styles.nameText}>{heroDetails.localized_name}</Text>
             <View
               style={{
@@ -436,7 +446,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 </View>
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
 
           <ScrollView>
             <View style={styles.itemsContainer}>

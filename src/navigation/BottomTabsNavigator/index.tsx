@@ -10,6 +10,7 @@ import {
   View,
   StyleSheet,
   Modal,
+  Text,
 } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
@@ -156,6 +157,11 @@ export function BottomTabsNavigator() {
 }
 
 const styles = StyleSheet.create({
+  aboutUsButton: {
+    width: "100%",
+    marginLeft: 23,
+    alignItems: "center",
+  },
   helpButton: {
     width: "100%",
     marginRight: 23,

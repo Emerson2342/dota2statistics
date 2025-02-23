@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Dimensions,
+} from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 
 export function ModalMessage({
@@ -44,14 +50,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleText: {
-    fontSize: Dimensions.get('screen').width * 0.05,
+    fontSize: Dimensions.get("screen").width * 0.05,
     fontFamily: "QuickSand-Bold",
     textAlign: "center",
     paddingTop: "2%",
     paddingBottom: "5%",
   },
   textMessage: {
-    fontSize: Dimensions.get('screen').width * 0.037,
+    fontSize: Dimensions.get("screen").width * 0.037,
     color: "#8e8e8e",
     fontFamily: "QuickSand-Semibold",
   },
@@ -61,6 +67,10 @@ const styles = StyleSheet.create({
     padding: "3%",
     marginTop: "10%",
     borderRadius: 3,
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15,
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15,
   },
   textButton: {
     paddingHorizontal: "9%",

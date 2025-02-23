@@ -174,10 +174,7 @@ export default function ModalMyAccount({
             onLongPress={() => alert(accountTimestamp)}
             onPress={() => handleSave()}
             //onPress={() => alert(JSON.stringify(user, null, 2))}
-            style={[
-              styles.buttonContent,
-              { backgroundColor: ColorTheme.semidark },
-            ]}
+            style={[styles.buttonContent, { backgroundColor: ColorTheme.dark }]}
           >
             <Text style={{ color: "#fff", fontFamily: "QuickSand-Semibold" }}>
               {englishLanguage ? "Save" : "Salvar"}
@@ -261,8 +258,12 @@ const createStyles = (colors: ThemeColor) =>
       width: "48%",
       alignItems: "center",
       padding: "2%",
-      borderRadius: 5,
+      borderTopStartRadius: 15,
+      borderTopEndRadius: 15,
+      borderBottomStartRadius: 15,
+      borderBottomEndRadius: 15,
+      elevation: 7,
       borderWidth: 1,
-      borderColor: colors.semidark,
+      borderColor: colors.dark,
     },
   });

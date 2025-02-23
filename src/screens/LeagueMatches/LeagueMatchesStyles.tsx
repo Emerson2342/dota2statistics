@@ -14,8 +14,7 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       fontFamily: Font.font2,
       textAlign: "center",
       color: Color.semidark,
-      marginTop: "3%",
-      marginBottom: "3%",
+      margin: "3%",
     },
     matchesGroup: {
       alignSelf: "center",

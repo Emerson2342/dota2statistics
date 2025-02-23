@@ -1,8 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { ThemeColor, FontModel } from "../../services/props";
 
-const width = Dimensions.get("window").width;
-
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
