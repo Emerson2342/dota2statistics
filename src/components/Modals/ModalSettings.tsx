@@ -102,7 +102,7 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                       name={isEnglish ? "check-square" : "square"}
                       size={15}
                     />{" "}
-                    {englishLanguage ? "English" : "Inglês"}
+                    {englishLanguage ? "English (EN-US)" : "Inglês (EN-US)"}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -120,7 +120,17 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                       name={isEnglish ? "square" : "check-square"}
                       size={15}
                     />{" "}
-                    {englishLanguage ? "Portuguese" : "Português"}
+                    {englishLanguage
+                      ? "Portuguese (PT-BR)"
+                      : "Português (PT-BR) "}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textAlert,
+                      { display: isEnglish ? "none" : "flex" },
+                    ]}
+                  >
+                    Alguns dados serão apresentados apenas na linguagem Inglês
                   </Text>
                 </TouchableOpacity>
               </View>

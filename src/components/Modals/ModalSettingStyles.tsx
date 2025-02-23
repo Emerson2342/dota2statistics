@@ -25,6 +25,12 @@ export const createStyles = (Colors: ThemeColor) =>
       color: "orange",
       textAlign: "center",
     },
+    textAlert: {
+      fontFamily: "QuickSand-Semibold",
+      color: "#e15a5a",
+      textAlign: "center",
+      marginVertical: 15,
+    },
     profile: {
       fontSize: 15,
       fontFamily: "QuickSand-Bold",
