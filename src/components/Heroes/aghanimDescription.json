@@ -1,18 +1,18 @@
 [
   {
-    "hero_name": "antimage",
+    "hero_name": "npc_dota_hero_antimage",
     "hero_id": 1,
     "has_scepter": true,
     "scepter_desc": "After casting Blink, your next Mana Break within 5s burns an additional 20% max mana and prevents the target from regenerating or gaining mana for a short duration. This debuff is undispellable. Blink Cooldown reduced by 1s.",
     "scepter_skill_name": "Blink",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Counterspell Ally may be activated to create an anti-magic shell around an allied hero that blocks any targeted spells. Any time a spell is blocked by Counterspell or Counterspell Ally, an illusion of Anti-Mage will be created next to the enemy.",
+    "shard_desc": "Counterspell Ally may be activated to create an anti-magic shell around an allied hero that blocks and reflects any targeted spells. Any time a spell is blocked by Counterspell or Counterspell Ally, an illusion of Anti-Mage will be created next to the enemy.",
     "shard_skill_name": "Counterspell Ally",
     "shard_new_skill": true
   },
   {
-    "hero_name": "axe",
+    "hero_name": "npc_dota_hero_axe",
     "hero_id": 2,
     "has_scepter": true,
     "scepter_desc": "Counter Helix now applies a stacking debuff to enemies hit by it that causes them to deal less total attack damage to Axe. Counter Helix no longer has a cooldown and its counter advances when Axe attacks.",
@@ -24,7 +24,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "bane",
+    "hero_name": "npc_dota_hero_bane",
     "hero_id": 3,
     "has_scepter": true,
     "scepter_desc": "Reduces Fiend's Grip cooldown by 45. Fiend's Grip now creates two uncontrollable illusions that are also channeling Fiend's Grip on the target. Illusions take 200% incoming damage and immediately die if they are interrupted. Damage does not stack.",
@@ -36,19 +36,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "bloodseeker",
+    "hero_name": "npc_dota_hero_bloodseeker",
     "hero_id": 4,
     "has_scepter": true,
-    "scepter_desc": "Bloodseeker sprays his blood continuously in the area around him, losing health to damage and slow his enemies. While active, Sanguivore's healing is increased. Cannot be turned off while on cooldown. \n\nAdditionally, passively turns all your overheal from your own abilities into an all damage barrier up to 50% of Bloodseeker's Max Health. Barrier amount decays by 0.5% per second.",
-    "scepter_skill_name": "Blood Mist",
-    "scepter_new_skill": true,
+    "scepter_desc": "Bloodseeker heals for =30% of the Pure damage he deals.",
+    "scepter_skill_name": "Sanguivore",
+    "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Bloodrage attacks now deal 35 pure damage and heals Bloodseeker for that amount. Only works for Bloodseeker.",
-    "shard_skill_name": "Bloodrage",
+    "shard_desc": "Passively turns all Bloodseeker's overheal from his own abilities into an all damage barrier up to 50% of Bloodseeker's Max Health. Barrier amount decays by 1.5% per second",
+    "shard_skill_name": "Sanguivore",
     "shard_new_skill": false
   },
   {
-    "hero_name": "crystal_maiden",
+    "hero_name": "npc_dota_hero_crystal_maiden",
     "hero_id": 5,
     "has_scepter": true,
     "scepter_desc": "Allows you to move, cast and attack during Freezing Field. Can still be interrupted by enemies. You move 75% slower during this. Increases total number of explosions by 20%. Applies Frostbite to any unit that has been standing in the Freezing Field for over 2.5s.",
@@ -60,7 +60,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "drow_ranger",
+    "hero_name": "npc_dota_hero_drow_ranger",
     "hero_id": 6,
     "has_scepter": true,
     "scepter_desc": "Frost Arrows now apply a Hypothermia stack to enemies, increasing damage from Frost Arrows and reducing their regeneration per stack. If an enemy dies with Hypothermia stacks, they burst and deal damage per stack and slow in an area around it.",
@@ -72,7 +72,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "earthshaker",
+    "hero_name": "npc_dota_hero_earthshaker",
     "hero_id": 7,
     "has_scepter": true,
     "scepter_desc": "Enchant Totem becomes a ground target ability, causing Earthshaker to jump in the air and land at the target spot, casting Enchant Totem there.  Self-casting the ability will behave in the original form, without jumping. Grants Enchant Totem a cleaving attack.",
@@ -84,7 +84,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "juggernaut",
+    "hero_name": "npc_dota_hero_juggernaut",
     "hero_id": 8,
     "has_scepter": true,
     "scepter_desc": "Performs a short Omnislash for 1 seconds.",
@@ -96,19 +96,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "mirana",
+    "hero_name": "npc_dota_hero_mirana",
     "hero_id": 9,
     "has_scepter": true,
     "scepter_desc": "Causes Sacred Arrow to release a Starstorm on enemies along the travel path of the primary arrow, releasing a second Starstorm that deals less damage to the impacted unit.",
     "scepter_skill_name": "Sacred Arrow",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Upon landing, launches a projectile along Sagan's leap path, dealing damage and slowing units affected and guarantees them to be hit with a secondary Starstorm if that spell is cast. Leap does not break Moonlight Shadow invisibility.\n\n Can be put on alt-cast to choose the distance and facing direction of the jump. \n\nGrants 1 bonus charge(s).",
+    "shard_desc": "Grants +1 Leap charge. Attacks during the Leap buff critically strike for 150% damage.",
     "shard_skill_name": "Leap",
     "shard_new_skill": false
   },
   {
-    "hero_name": "morphling",
+    "hero_name": "npc_dota_hero_morphling",
     "hero_id": 10,
     "has_scepter": true,
     "scepter_desc": "Adds an alt-cast to Morph. When enabled, a strong illusion is created of the target hero that can cast all of the hero's basic abilities. If the illusion is alive when Morphling toggles the ability, he will take the place of the illusion, destroying it.",
@@ -120,7 +120,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "nevermore",
+    "hero_name": "npc_dota_hero_nevermore",
     "hero_id": 11,
     "has_scepter": true,
     "scepter_desc": "Increases max souls.",
@@ -132,10 +132,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "phantom_lancer",
+    "hero_name": "npc_dota_hero_phantom_lancer",
     "hero_id": 12,
     "has_scepter": true,
-    "scepter_desc": "Spirit Lance bounces twice on enemies, prioritizing Heroes. Increases Spirit Lance illusion damage.",
+    "scepter_desc": "Spirit Lance bounces once on enemies, prioritizing Heroes. Increases Spirit Lance illusion damage.",
     "scepter_skill_name": "Spirit Lance",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -144,7 +144,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "puck",
+    "hero_name": "npc_dota_hero_puck",
     "hero_id": 13,
     "has_scepter": true,
     "scepter_desc": "All enemies affected by Dream Coil are attacked at a rate equal to 90% of Puck's attack rate. The attacks continue while the target is stunned if they break the Dream Coil.",
@@ -156,31 +156,31 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "pudge",
+    "hero_name": "npc_dota_hero_pudge",
     "hero_id": 14,
     "has_scepter": true,
     "scepter_desc": "Increases Rot radius and damage, and causes it to reduce enemy health regen.",
     "scepter_skill_name": "Rot",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Decreases cooldown, and allows targeting an ally with bonus cast range to swallow them and heal them for a percentage of their max health per second.",
-    "shard_skill_name": "Dismember",
+    "shard_desc": "When Meat Hook hits an enemy, it deals bonus damage based on the distance pulled.\n\nWhen Meat Hook hits an ally, Meat Hook's cooldown is reduced by 50%.",
+    "shard_skill_name": "Meat Hook",
     "shard_new_skill": false
   },
   {
-    "hero_name": "razor",
+    "hero_name": "npc_dota_hero_razor",
     "hero_id": 15,
     "has_scepter": true,
     "scepter_desc": "Causes Eye of the Storm to strike two different units instead of one and can damage structures. When striking buildings, it will only target towers, barracks, and the Ancient.",
     "scepter_skill_name": "Eye of the Storm",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Increases Cast Range. Allows Static Link to be put on alt-cast to pull Razor and his Target towards at each other at a speed of 75.",
+    "shard_desc": "Increases Cast Range. Slows Razor's target by 1x the amount of damage stolen while the link is active.",
     "shard_skill_name": "Static Link",
     "shard_new_skill": false
   },
   {
-    "hero_name": "sand_king",
+    "hero_name": "npc_dota_hero_sand_king",
     "hero_id": 16,
     "has_scepter": true,
     "scepter_desc": "When the pulses start, 3 Stinger attack areas are created every =0.5s at random locations, each measuring 15% of the Epicenter's current radius, that apply =50% of Stinger damage to enemies hit. Shard pulses cause 1 attack(s).",
@@ -192,7 +192,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "storm_spirit",
+    "hero_name": "npc_dota_hero_storm_spirit",
     "hero_id": 17,
     "has_scepter": true,
     "scepter_desc": "Electric Vortex affects all enemies within a radius around Storm Spirit.",
@@ -204,7 +204,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "sven",
+    "hero_name": "npc_dota_hero_sven",
     "hero_id": 18,
     "has_scepter": true,
     "scepter_desc": "Increases cast range and applies a basic dispel on the target. Can be cast on invulnerable targets. If alt-cast, it deals an additional 180 damage and Sven travels with the Storm Hammer.",
@@ -216,7 +216,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "tiny",
+    "hero_name": "npc_dota_hero_tiny",
     "hero_id": 19,
     "has_scepter": true,
     "scepter_desc": "CHANNELED - Tiny channels to throw random trees within range towards the targeted area. Deals Tiny's attack damage to enemies in that area with each tree thrown.",
@@ -228,7 +228,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "vengefulspirit",
+    "hero_name": "npc_dota_hero_vengefulspirit",
     "hero_id": 20,
     "has_scepter": true,
     "scepter_desc": "Upon death, creates a strong illusion of Vengeful Spirit that deals and takes full damage and can cast all of her spells. If the illusion is alive when Vengeful Spirit respawn, she will take its place. XP earned by her illusion is given to her. Strong Illusions are not instantly killed by spells.",
@@ -240,7 +240,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "windrunner",
+    "hero_name": "npc_dota_hero_windrunner",
     "hero_id": 21,
     "has_scepter": true,
     "scepter_desc": "Windrun reduces physical damage taken by 45%, and grants invisibility that is not broken by attacking or casting spells.",
@@ -252,7 +252,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "zuus",
+    "hero_name": "npc_dota_hero_zuus",
     "hero_id": 22,
     "has_scepter": true,
     "scepter_desc": "Creates a storm cloud anywhere on the map that automatically casts Lightning Bolt on nearby enemies.",
@@ -264,7 +264,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "kunkka",
+    "hero_name": "npc_dota_hero_kunkka",
     "hero_id": 23,
     "has_scepter": true,
     "scepter_desc": "Ghostship creates a fleet of 2 ships at the target point on a 2.5 second interval. Each ship now also fires 3 waves of cannonballs from the port and starboard side that deal 40% of Ghostship's damage as they pass through enemies.",
@@ -276,19 +276,19 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "lina",
+    "hero_name": "npc_dota_hero_lina",
     "hero_id": 25,
     "has_scepter": true,
     "scepter_desc": "Grants Lina unobstructed movement and increases her spell damage and magic resistance. Grants max fiery soul stacks on activation.",
     "scepter_skill_name": "Flame Cloak",
     "scepter_new_skill": true,
     "has_shard": true,
-    "shard_desc": "Lina's abilities deal 25 more damage for each Fiery Soul Charge.",
-    "shard_skill_name": "Fiery Soul",
+    "shard_desc": "75% of the damage dealt is converted to an all damage barrier for Lina. Barrier lasts for 10s.",
+    "shard_skill_name": "Laguna Blade",
     "shard_new_skill": false
   },
   {
-    "hero_name": "lion",
+    "hero_name": "npc_dota_hero_lion",
     "hero_id": 26,
     "has_scepter": true,
     "scepter_desc": "Increases damage. Decreases cooldown. Finger of Death hits all units in a small area.",
@@ -300,22 +300,22 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "shadow_shaman",
+    "hero_name": "npc_dota_hero_shadow_shaman",
     "hero_id": 27,
     "has_scepter": true,
-    "scepter_desc": "Causes Serpent Wards to have split shot, attacking two units for full damage.",
-    "scepter_skill_name": "Mass Serpent Ward",
+    "scepter_desc": "Increase cast range. Every 0.9 seconds, shackled units emit a radial Ether Shock hitting all other units within 600 of the target for 100% of Ether Shock's normal damage. Shackles can now also be cast on allies and Mass Serpent Wards that stay within 2000 units of Shadow Shaman. Allied units are not disabled by Shackle.",
+    "scepter_skill_name": "Shackles",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Shackles creates 4 Serpent Wards attacking the target. Increases Shackles cast range by 75. Serpent wards lasts =2.5 seconds after Shackles end.",
-    "shard_skill_name": "Shackles",
+    "shard_desc": "Increases the amount of time incoming damage is reduced to 1.5 seconds. When Fowl Play is triggered, Shadow Shaman becomes invulnerable for .1 seconds and 3 additional uncontrollable chickens are created that last for 3 seconds. While Shadow Shaman is transformed, he can now use items.",
+    "shard_skill_name": "Fowl Play",
     "shard_new_skill": false
   },
   {
-    "hero_name": "slardar",
+    "hero_name": "npc_dota_hero_slardar",
     "hero_id": 28,
     "has_scepter": true,
-    "scepter_desc": "Provides additional HP Regen, Armor and Status Resistance while in a puddle or in the river.",
+    "scepter_desc": "Provides additional HP Regen, Armor and Status Resistance while in a puddle, trail, or river. Increases puddle/trail radius by 80% and puddle/trail duration by 5s.",
     "scepter_skill_name": "Seaborn Sentinel",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -324,7 +324,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "tidehunter",
+    "hero_name": "npc_dota_hero_tidehunter",
     "hero_id": 29,
     "has_scepter": true,
     "scepter_desc": "Gush becomes a ground targeted wave ability that affects enemy units in a line.  Decreases cooldown.",
@@ -336,7 +336,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "witch_doctor",
+    "hero_name": "npc_dota_hero_witch_doctor",
     "hero_id": 30,
     "has_scepter": true,
     "scepter_desc": "Death Ward attacks bounce between nearby enemies.",
@@ -348,19 +348,19 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "lich",
+    "hero_name": "npc_dota_hero_lich",
     "hero_id": 31,
     "has_scepter": true,
-    "scepter_desc": "Sinister Gaze becomes an Area of Effect ability, affecting units within a radius of 400 in the target area.",
+    "scepter_desc": "Sinister Gaze becomes an Area of Effect ability, affecting units within a radius of 400 in the target area. Sinister Gaze allows Lich to cast other abilities while channeling it.",
     "scepter_skill_name": "Sinister Gaze",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Creates an Ice Spire at the target spot, slowing enemies around it. Can take 5 hero hits or 10 creep hits and when destroyed it will create a Frost Blast around it.\n\nChain Frost can be cast on the Spire and can bounce to the Spire if there are no other enemies in range.\n\nLich can cast Frost Shield on the Spire. Each Frost Shield tick will heal the spire by 1 hero attack.",
+    "shard_desc": "Creates an Ice Spire at the target spot, slowing enemies around it. Can take 5 hero hits or 10 creep hits and when destroyed it will create a Frost Blast around it.\n\nChain Frost can be cast on the Spire and can bounce to the Spire and damage the spire by 1 hero attack if there are no other enemies in range.\n\nLich can cast Frost Shield on the Spire. Each Frost Shield tick will heal the spire by 1 hero attack.",
     "shard_skill_name": "Ice Spire",
     "shard_new_skill": true
   },
   {
-    "hero_name": "riki",
+    "hero_name": "npc_dota_hero_riki",
     "hero_id": 32,
     "has_scepter": true,
     "scepter_desc": "Increases cast range, number of attacks and allows you to target an allied hero, hiding inside them for the duration.  Each attack hits an additional target.",
@@ -372,22 +372,22 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "enigma",
+    "hero_name": "npc_dota_hero_enigma",
     "hero_id": 33,
     "has_scepter": true,
     "scepter_desc": "Black Hole deals additional damage equivalent to 4% of the unit's Max Health per second and does a non-interrupting pull towards it in a 1200 AoE. Pulls at a rate of 175.",
     "scepter_skill_name": "Black Hole",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Increases Malefice stun duration by 0.35s and creates an Eidolon next to the target every instance of Malefice stun. These Eidolons will not multiply further.",
+    "shard_desc": "Increases Malefice stun duration by 0.30s and creates an Eidolon next to the target every instance of Malefice stun. These Eidolons will not multiply further.",
     "shard_skill_name": "Malefice",
     "shard_new_skill": false
   },
   {
-    "hero_name": "tinker",
+    "hero_name": "npc_dota_hero_tinker",
     "hero_id": 34,
     "has_scepter": true,
-    "scepter_desc": "Upgrades Tinker's Laser into a Shrink Ray, reducing the main target's size, current health, and maximum health by 10% (stacking). The laser bounces once on the farthest target up to 700 range from the primary one, prioritizing heroes.",
+    "scepter_desc": "Upgrades Tinker's Laser into a Shrink Ray, reducing the main target's size, current health, and maximum health by 15% (stacking). The laser bounces once on the farthest target up to 700 range from the primary one, prioritizing heroes.",
     "scepter_skill_name": "Laser",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -396,7 +396,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "sniper",
+    "hero_name": "npc_dota_hero_sniper",
     "hero_id": 35,
     "has_scepter": true,
     "scepter_desc": "Causes Assassinate to fire quicker and stun the enemy target.",
@@ -408,7 +408,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "necrolyte",
+    "hero_name": "npc_dota_hero_necrolyte",
     "hero_id": 36,
     "has_scepter": true,
     "scepter_desc": "Heartstopper Aura's Health Decay is increased by 50% of Necrophos's current health regeneration.",
@@ -420,7 +420,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "warlock",
+    "hero_name": "npc_dota_hero_warlock",
     "hero_id": 37,
     "has_scepter": true,
     "scepter_desc": "Calls 2 Golems.",
@@ -432,22 +432,22 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "beastmaster",
+    "hero_name": "npc_dota_hero_beastmaster",
     "hero_id": 38,
     "has_scepter": true,
     "scepter_desc": "Attacks from Beastmaster or a nearby unit he controls will cause him bang his drum, dealing damage to nearby units and  healing Beastmaster and units under his control for a portion of the damage dealt. Every attack decreases the interval between drum hits down to a minimum of 0.5s between hits after 20 attacks. If no attacks are made, the intervals gradually increase.\n\nUsing Primal Roar counts as 10/15/20 attacks, based on the current level of Primal Roar.",
     "scepter_skill_name": "Drums of Slom",
     "scepter_new_skill": true,
     "has_shard": true,
-    "shard_desc": "Reduces Hawk cooldown by 10s and summons an additional Hawk.",
+    "shard_desc": "Increases Hawk duration by 5s and summons an additional Hawk.",
     "shard_skill_name": "Call of the Wild Hawk",
     "shard_new_skill": false
   },
   {
-    "hero_name": "queenofpain",
+    "hero_name": "npc_dota_hero_queenofpain",
     "hero_id": 39,
     "has_scepter": true,
-    "scepter_desc": "Causes Shadow Strike to become a 375 AoE Spell, and have increased initial damage. When Shadow Strike ends or is re-applied to an enemy Hero, the target emits a Scream of Pain, hitting any nearby enemies.",
+    "scepter_desc": "Causes Shadow Strike to become a 375 AoE Spell. When Shadow Strike ends or is re-applied to an enemy Hero, the target emits a Scream of Pain, hitting any nearby enemies.",
     "scepter_skill_name": "Shadow Strike",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -456,7 +456,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "venomancer",
+    "hero_name": "npc_dota_hero_venomancer",
     "hero_id": 40,
     "has_scepter": true,
     "scepter_desc": "Increases base damage per debuff. Plague Wards also deal Septic Shock damage based on their attack damage.",
@@ -468,7 +468,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "faceless_void",
+    "hero_name": "npc_dota_hero_faceless_void",
     "hero_id": 41,
     "has_scepter": true,
     "scepter_desc": "Applies a Time Lock to all units at the landing destination.",
@@ -480,7 +480,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "skeleton_king",
+    "hero_name": "npc_dota_hero_skeleton_king",
     "hero_id": 42,
     "has_scepter": true,
     "scepter_desc": "Reduces cooldown.",
@@ -492,7 +492,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "death_prophet",
+    "hero_name": "npc_dota_hero_death_prophet",
     "hero_id": 43,
     "has_scepter": true,
     "scepter_desc": "Whenever an enemy is affected by Death Prophet's spells or when she attacks an enemy, a ghost will fly out, slow and hit the enemy for an increased bonus of its usual damage then return to her with life.",
@@ -504,7 +504,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "phantom_assassin",
+    "hero_name": "npc_dota_hero_phantom_assassin",
     "hero_id": 44,
     "has_scepter": true,
     "scepter_desc": "Causes Blur to have instant cast time and applies a dispel. Any time Phantom Assassin gets a hero kill, her abilities are refreshed. Reduces cooldown.",
@@ -516,7 +516,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "pugna",
+    "hero_name": "npc_dota_hero_pugna",
     "hero_id": 45,
     "has_scepter": true,
     "scepter_desc": "Reduces cooldown by 3.5s. When targeting an enemy hero, Pugna reduces their outgoing spell damage by 8% per second up to a maximum of 75% and increases his own, up to a maximum of 100%. When draining through a Nether Ward using Shard, the rate of increase/decrease is 4% instead. Debuff lasts 8 seconds.",
@@ -528,10 +528,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "templar_assassin",
+    "hero_name": "npc_dota_hero_templar_assassin",
     "hero_id": 46,
     "has_scepter": true,
-    "scepter_desc": "CHANNELED - Allows Templar Assassin to teleport to any Psionic Trap after channeling for 2 seconds, detonating it upon arrival as if it was fully charged and instantly dealing 300 bonus damage. Channeling Psionic Projection does not break Meld.",
+    "scepter_desc": "CHANNELED - Allows Templar Assassin to teleport to any Psionic Trap after channeling for 2 seconds, detonating it upon arrival as if it was fully charged and instantly dealing 375 bonus damage. Channeling Psionic Projection does not break Meld.",
     "scepter_skill_name": "Psionic Projection",
     "scepter_new_skill": true,
     "has_shard": true,
@@ -540,10 +540,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "viper",
+    "hero_name": "npc_dota_hero_viper",
     "hero_id": 47,
     "has_scepter": true,
-    "scepter_desc": "Viper slams into the ground, splattering each enemy in a 500 AoE for 4 seconds with the effect of Corrosive Skin.",
+    "scepter_desc": "Viper slams into the ground, releasing a Nethertoxin and splattering each enemy in a 500 AoE for 4 seconds with the effect of Corrosive Skin.",
     "scepter_skill_name": "Nosedive",
     "scepter_new_skill": true,
     "has_shard": true,
@@ -552,7 +552,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "luna",
+    "hero_name": "npc_dota_hero_luna",
     "hero_id": 48,
     "has_scepter": true,
     "scepter_desc": "Allows Luna to cast Eclipse on an allied unit or herself and have its effects follow them, or cast it on an area. Increases total beams, reduces duration, removes the limit on beams per unit, and makes the beams appear twice as fast.",
@@ -564,7 +564,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "dragon_knight",
+    "hero_name": "npc_dota_hero_dragon_knight",
     "hero_id": 49,
     "has_scepter": true,
     "scepter_desc": "Increases the level of Dragon Form by adding a Level 4 Black Dragon, that increases damage, and effectiveness of the Wyrm's Wrath attacks.",
@@ -576,19 +576,19 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "dazzle",
+    "hero_name": "npc_dota_hero_dazzle",
     "hero_id": 50,
     "has_scepter": true,
     "scepter_desc": "Shadow Wave can now target and bounce between enemies in addition to allies. When bouncing to an enemy, they will take damage and heal nearby allies equal to 150% of the normal healing and damage values. Dazzle will also perform an attack against any enemy that Shadow Wave bounces to.",
     "scepter_skill_name": "Shadow Wave",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Causes Poison Touch to hex affected targets for 1.6 seconds.",
-    "shard_skill_name": "Poison Touch",
+    "shard_desc": "Nothl Projection can be cast while Dazzle is disabled. Increases healing done while in the Nothl Realm.",
+    "shard_skill_name": "Nothl Projection",
     "shard_new_skill": false
   },
   {
-    "hero_name": "rattletrap",
+    "hero_name": "npc_dota_hero_rattletrap",
     "hero_id": 51,
     "has_scepter": true,
     "scepter_desc": "Supercharges Clockwerks abilities: Battery Assault affects all enemies in its range; Clockwerk's attack speed in Power Cogs is increased; Rocket Flares have a reduced cooldown and fire additional rockets to either side of the target; Hookshot stun radius and duration is increased; Jetpack moves faster. Clockwerk's movement and attack speed becomes slowed to a crawl after the duration runs out.",
@@ -600,7 +600,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "leshrac",
+    "hero_name": "npc_dota_hero_leshrac",
     "hero_id": 52,
     "has_scepter": true,
     "scepter_desc": "Causes Leshrac and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases Leshrac's speed rather than reducing it. Does not cause Leshrac to take amplified damage.",
@@ -612,7 +612,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "furion",
+    "hero_name": "npc_dota_hero_furion",
     "hero_id": 53,
     "has_scepter": true,
     "scepter_desc": "Lowers cooldown by 25s. Entangles all enemies it hits. Duration scales from 1.5s up to 3.0s seconds at max bounce.",
@@ -624,7 +624,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "life_stealer",
+    "hero_name": "npc_dota_hero_life_stealer",
     "hero_id": 54,
     "has_scepter": true,
     "scepter_desc": "Increases cast range and reduces cooldown to =20s.  Infest may target enemy heroes for a short duration, disarming them and attacking them from the inside while increasing Lifestealer's regeneration rate.",
@@ -636,7 +636,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "dark_seer",
+    "hero_name": "npc_dota_hero_dark_seer",
     "hero_id": 55,
     "has_scepter": true,
     "scepter_desc": "Passive ability. Causes Dark Seer's next attack on a hero to have True Strike, knock a replica out of the victim, damaging and stunning them based on how far Dark Seer has moved in the past 3.0 seconds. Max power is reached after 1100 distance moved.",
@@ -648,7 +648,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "clinkz",
+    "hero_name": "npc_dota_hero_clinkz",
     "hero_id": 56,
     "has_scepter": true,
     "scepter_desc": "Increases Skeleton Archer health.",
@@ -660,7 +660,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "omniknight",
+    "hero_name": "npc_dota_hero_omniknight",
     "hero_id": 57,
     "has_scepter": true,
     "scepter_desc": "Guardian Angel has global cast range, increased radius, and affects buildings. Amplifies health regeneration and incoming heals for the duration.",
@@ -672,7 +672,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "enchantress",
+    "hero_name": "npc_dota_hero_enchantress",
     "hero_id": 58,
     "has_scepter": true,
     "scepter_desc": "Enchantress roots an enemy unit. All creeps, ally, enemy and neutral within a radius will gain bonus movement and attack speed and attack the chosen target for 6 seconds.",
@@ -684,7 +684,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "huskar",
+    "hero_name": "npc_dota_hero_huskar",
     "hero_id": 59,
     "has_scepter": true,
     "scepter_desc": "Forces the enemy target to attack Huskar and increases cast range.",
@@ -696,7 +696,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "night_stalker",
+    "hero_name": "npc_dota_hero_night_stalker",
     "hero_id": 60,
     "has_scepter": true,
     "scepter_desc": "Reduces cooldown of Crippling Fear and it becomes a toggled ability that takes a percentage of max mana per second to maintain after the initial duration time.",
@@ -708,7 +708,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "broodmother",
+    "hero_name": "npc_dota_hero_broodmother",
     "hero_id": 61,
     "has_scepter": true,
     "scepter_desc": "Broodmother may create up to 5 invisible web lines touching any existing web. Enemy Heroes that cross the web line will spring the trap, becoming rooted, revealed in fog, and take damage over time.  Multiple Heroes can trip on the same line until it's destroyed after being initially triggered.  Broodmother's team is alerted via the minimap when an enemy has triggered the snare.",
@@ -720,7 +720,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "bounty_hunter",
+    "hero_name": "npc_dota_hero_bounty_hunter",
     "hero_id": 62,
     "has_scepter": true,
     "scepter_desc": "Increases cast range and applies Jinada on hit.",
@@ -732,7 +732,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "weaver",
+    "hero_name": "npc_dota_hero_weaver",
     "hero_id": 63,
     "has_scepter": true,
     "scepter_desc": "Time Lapse may target allied Heroes with 500 cast range.",
@@ -744,19 +744,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "jakiro",
+    "hero_name": "npc_dota_hero_jakiro",
     "hero_id": 64,
     "has_scepter": true,
     "scepter_desc": "Increases Macropyre duration, width and causes it to deal Pure damage. Jakiro emits two walls of ice along the edges of the Macropyre that slow any enemies trying to cross them by 60%.",
     "scepter_skill_name": "Macropyre",
     "scepter_new_skill": false,
-    "has_shard": false,
-    "shard_desc": "",
-    "shard_skill_name": "",
+    "has_shard": true,
+    "shard_desc": "Jakiro's Liquid Frost no longer shares a cooldown with Liquid Fire.",
+    "shard_skill_name": "Liquid Frost",
     "shard_new_skill": false
   },
   {
-    "hero_name": "batrider",
+    "hero_name": "npc_dota_hero_batrider",
     "hero_id": 65,
     "has_scepter": true,
     "scepter_desc": "Flaming Lasso grabs both its target, as well as the target's nearest allied hero within 650 units. The secondary target is tethered to the first.",
@@ -768,11 +768,11 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "chen",
+    "hero_name": "npc_dota_hero_chen",
     "hero_id": 66,
     "has_scepter": true,
-    "scepter_desc": "HP Regen Aura becomes global and affects all allied units.",
-    "scepter_skill_name": "Divine Favor",
+    "scepter_desc": "Grants persuaded creeps the Martyrdom ability. Sacrifice the life of this unit to instantly heal an ally for 30% of the unit's current health.",
+    "scepter_skill_name": "Holy Persuasion",
     "scepter_new_skill": false,
     "has_shard": true,
     "shard_desc": "Allows Holy Persuasion to target Ancient creeps. Can control up to 1/2/3 Ancient creeps based on Hand of God's level. Additionally levels up some abilities of creeps by 1 level.",
@@ -780,7 +780,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "spectre",
+    "hero_name": "npc_dota_hero_spectre",
     "hero_id": 67,
     "has_scepter": true,
     "scepter_desc": "Creates a spectral nemesis to attack each enemy hero. Illusions spawned from this ability follow the same rules as Shadow Step illusions and can also be swapped to by using Reality.",
@@ -792,10 +792,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "ancient_apparition",
+    "hero_name": "npc_dota_hero_ancient_apparition",
     "hero_id": 68,
     "has_scepter": true,
-    "scepter_desc": "Removes cooldown and reduces manacost by 50%.",
+    "scepter_desc": "Removes cooldown and reduces manacost by 40%.",
     "scepter_skill_name": "Chilling Touch",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -804,19 +804,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "doom_bringer",
+    "hero_name": "npc_dota_hero_doom_bringer",
     "hero_id": 69,
     "has_scepter": true,
     "scepter_desc": "Allies in a 300 radius around the doomed target also suffer the effects of Doom. Allows Doom to be self-cast to affect enemies around himself with Doom.",
     "scepter_skill_name": "Doom",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Heals Doom and his controlled units for 60% of the damage dealt.",
+    "shard_desc": "Heals Doom and his controlled units for 60% of the damage value.",
     "shard_skill_name": "Scorched Earth",
     "shard_new_skill": false
   },
   {
-    "hero_name": "ursa",
+    "hero_name": "npc_dota_hero_ursa",
     "hero_id": 70,
     "has_scepter": true,
     "scepter_desc": "Reduces cooldown and allows Ursa to use Enrage while disabled.",
@@ -828,7 +828,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "spirit_breaker",
+    "hero_name": "npc_dota_hero_spirit_breaker",
     "hero_id": 71,
     "has_scepter": true,
     "scepter_desc": "Barathrum distorts the fabric of planar space, increasing his own magic resistance and redirecting enemy hero spells in a radius towards him.",
@@ -840,7 +840,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "gyrocopter",
+    "hero_name": "npc_dota_hero_gyrocopter",
     "hero_id": 72,
     "has_scepter": true,
     "scepter_desc": "Adds a Side Gunner that at random attacks enemy units near Gyrocopter. When Flak Cannon is active, side gunner attacks 2 units instead. Prioritizes furthest unit away within its range.",
@@ -852,11 +852,11 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "alchemist",
+    "hero_name": "npc_dota_hero_alchemist",
     "hero_id": 73,
     "has_scepter": true,
     "scepter_desc": "Alchemist melts down Aghanim's Scepter to grant an allied hero all Aghanim's Scepter upgrades. Alchemist will gain bonus damage and spell amplification for each gifted Scepter.",
-    "scepter_skill_name": "Chemical Rage",
+    "scepter_skill_name": "Greevil's Greed",
     "scepter_new_skill": false,
     "has_shard": true,
     "shard_desc": "Alchemist throws a potion at an ally, applying a basic dispel and giving them attack speed, movement speed and HP regen.\n\nDISPEL TYPE: Basic Dispel",
@@ -864,31 +864,31 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "invoker",
+    "hero_name": "npc_dota_hero_invoker",
     "hero_id": 74,
     "has_scepter": true,
-    "scepter_desc": "Creates a Cataclysm when Sun Strike is double tapped. Puts it on a 100 second cooldown. Creates 2 visible Sun Strikes within %cataclysm_min_range%-%cataclysm_max_range% range of each enemy hero. Additionally Increases the level of Quas, Wex and Exort by 1.",
-    "scepter_skill_name": "Sun Strike",
+    "scepter_desc": "Grants 1 current and max levels.",
+    "scepter_skill_name": "Exort",
     "scepter_new_skill": false,
-    "has_shard": true,
-    "shard_desc": "Increases damage for each point of mana drained by EMP and pulls enemy units into the EMP's center at 150 units per second.",
-    "shard_skill_name": "E.M.P.",
+    "has_shard": false,
+    "shard_desc": "",
+    "shard_skill_name": "",
     "shard_new_skill": false
   },
   {
-    "hero_name": "silencer",
+    "hero_name": "npc_dota_hero_silencer",
     "hero_id": 75,
     "has_scepter": true,
     "scepter_desc": "Global Silence applies Arcane Curse to heroes.",
     "scepter_skill_name": "Global Silence",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Increases the Intelligence stolen per kill to 3.",
+    "shard_desc": "Increases the Intelligence stolen per kill.",
     "shard_skill_name": "Brain Drain",
     "shard_new_skill": false
   },
   {
-    "hero_name": "obsidian_destroyer",
+    "hero_name": "npc_dota_hero_obsidian_destroyer",
     "hero_id": 76,
     "has_scepter": true,
     "scepter_desc": "Damage that would bring Outworld Destroyer below 20% health triggers a strong dispel. In addition, when the effect is triggered Outworld Destroyer consumes of all his mana to create an all damage barrier equal to 65% of his maximum mana that lasts for 15 seconds. This effect can occur every 80 seconds and cannot be refreshed.",
@@ -900,7 +900,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "lycan",
+    "hero_name": "npc_dota_hero_lycan",
     "hero_id": 77,
     "has_scepter": true,
     "scepter_desc": "Lycan bites an ally, granting them Shapeshift properties. Lycan and the bitten target gain 40% Lifesteal and share the healing effect of Lifesteal with each other as long as they are within 1200 range of each other.",
@@ -912,7 +912,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "brewmaster",
+    "hero_name": "npc_dota_hero_brewmaster",
     "hero_id": 78,
     "has_scepter": true,
     "scepter_desc": "Creates a Brewling based on Brewmaster's current Drunken Brawler Stance.\n\nA new Brewling cannot be resummoned for 3s if the current one takes damage from enemy Heroes or hero-controlled units. If the Brewling dies, the ability goes on cooldown for 70 seconds.\n\nOnly one Brewling can exist at a time. If Brewmaster uses Primal Split, the existing Brewling disappears.",
@@ -924,7 +924,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "shadow_demon",
+    "hero_name": "npc_dota_hero_shadow_demon",
     "hero_id": 79,
     "has_scepter": true,
     "scepter_desc": "Cooldown is removed, replaced with 2 charges that replenish every 70 65 60 seconds. Also causes Demonic Purge to break its target's passive abilities while active.",
@@ -936,7 +936,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "lone_druid",
+    "hero_name": "npc_dota_hero_lone_druid",
     "hero_id": 80,
     "has_scepter": true,
     "scepter_desc": "Lone Druid severs his link to his Spirit Bear, and connects to the target allied hero, sharing the Spirit Link bonuses with them for 20s. Armor sharing and attack speed are increased by 35%. Damage done by the ally heals Lone Druid, as well as the other way around.\n\n The Spirit Bear is feared for the duration of the transformation, unless he has his own Aghanim's Scepter.",
@@ -948,7 +948,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "chaos_knight",
+    "hero_name": "npc_dota_hero_chaos_knight",
     "hero_id": 81,
     "has_scepter": true,
     "scepter_desc": "Creates an illusion of allied heroes globally. Creates an additional illusion for Chaos Knight as well.",
@@ -960,7 +960,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "meepo",
+    "hero_name": "npc_dota_hero_meepo",
     "hero_id": 82,
     "has_scepter": true,
     "scepter_desc": "In MegaMeepo form, Meepo flings the topmost meepo towards a target within a %AbilityCastRange% range, dealing damage and slowing their movement speed.",
@@ -972,7 +972,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "treant",
+    "hero_name": "npc_dota_hero_treant",
     "hero_id": 83,
     "has_scepter": true,
     "scepter_desc": "Treant Protector enchants a tree, which grants him unobstructed vision in that location. If Overgrowth is cast, units within a radius of an enchanted tree will be entangled and damaged. Passively causes all trees to respawn much faster.",
@@ -984,7 +984,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "ogre_magi",
+    "hero_name": "npc_dota_hero_ogre_magi",
     "hero_id": 84,
     "has_scepter": true,
     "scepter_desc": "Blasts an enemy unit with a wave of fire, dealing 150 + 1.5x Ogre's Strength in damage and stunning the target. Its mana cost is 35% of Ogre Magi's current mana.",
@@ -996,7 +996,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "undying",
+    "hero_name": "npc_dota_hero_undying",
     "hero_id": 85,
     "has_scepter": true,
     "scepter_desc": "Increases strength steal.",
@@ -1008,7 +1008,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "rubick",
+    "hero_name": "npc_dota_hero_rubick",
     "hero_id": 86,
     "has_scepter": true,
     "scepter_desc": "Increases the number of spells that can be stolen to 2. Increases cast range, and upgrades spells to their Scepter version.",
@@ -1020,7 +1020,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "disruptor",
+    "hero_name": "npc_dota_hero_disruptor",
     "hero_id": 87,
     "has_scepter": true,
     "scepter_desc": "Mutes items.",
@@ -1032,7 +1032,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "nyx_assassin",
+    "hero_name": "npc_dota_hero_nyx_assassin",
     "hero_id": 88,
     "has_scepter": true,
     "scepter_desc": "Nyx Assassin buries himself beneath the battlefield over a short duration. Once burrowed, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While burrowed, Nyx Assassin is stationary, unable to attack, and invisible. Nyx gains damage reduction from all damage sources.",
@@ -1044,7 +1044,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "naga_siren",
+    "hero_name": "npc_dota_hero_naga_siren",
     "hero_id": 89,
     "has_scepter": true,
     "scepter_desc": "Increases cast range and projectile speed.  Allows Ensnare to target and affect Debuff Immune units.",
@@ -1056,7 +1056,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "keeper_of_the_light",
+    "hero_name": "npc_dota_hero_keeper_of_the_light",
     "hero_id": 90,
     "has_scepter": true,
     "scepter_desc": "Summons Ignis Fatuus at the targeted area. Alternates on and off, drawing enemies closer with its mesmerising flicker.",
@@ -1068,19 +1068,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "wisp",
+    "hero_name": "npc_dota_hero_wisp",
     "hero_id": 91,
     "has_scepter": true,
     "scepter_desc": "Spirits now passively spawn around Io constantly every second up to the max. Spirits colliding with enemy Heroes slows them briefly. Can be activated to explode spirits.",
     "scepter_skill_name": "Spirits",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Grants Overcharge Slow Resistance. Io also gains Spell Lifesteal and can now share Spell Lifesteal with its tethered target.",
-    "shard_skill_name": "Overcharge",
+    "shard_desc": "Tether damages enemies touching it. Io is healed for 50% of the damage done.",
+    "shard_skill_name": "Tether",
     "shard_new_skill": false
   },
   {
-    "hero_name": "visage",
+    "hero_name": "npc_dota_hero_visage",
     "hero_id": 92,
     "has_scepter": true,
     "scepter_desc": "Turns Visage and familiars invisible, granting Visage bonus movement speed and upgrading its movement type to flying. When Visage or its familiars leave invisibility they deal more damage for a short duration. Lasts 30 seconds. Invisibility ends when attacking or casting.",
@@ -1092,7 +1092,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "slark",
+    "hero_name": "npc_dota_hero_slark",
     "hero_id": 93,
     "has_scepter": true,
     "scepter_desc": "Provides charges and increases range.",
@@ -1104,31 +1104,31 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "medusa",
+    "hero_name": "npc_dota_hero_medusa",
     "hero_id": 94,
     "has_scepter": true,
-    "scepter_desc": "Causes Mystic Snake to turn enemies hit into stone. Stone duration increases with each bounce of the Mystic Snake.",
-    "scepter_skill_name": "Mystic Snake",
+    "scepter_desc": "Allows on-hit effects to apply to the secondary attacks from Split Shot. Increases arrow count.",
+    "scepter_skill_name": "Split Shot",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "When Medusa is targeted with a spell, a single-target Mystic Snake is sent back towards the enemy.",
+    "shard_desc": "When Medusa is targeted with a spell, a single-target Mystic Snake is sent back towards the enemy that turns them into stone for 1s.",
     "shard_skill_name": "Cold Blooded",
     "shard_new_skill": true
   },
   {
-    "hero_name": "troll_warlord",
+    "hero_name": "npc_dota_hero_troll_warlord",
     "hero_id": 95,
     "has_scepter": true,
     "scepter_desc": "Causes Whirling Axes (Melee) to dispel Troll Warlord. Reduces cooldown and mana cost.\n\nDISPEL TYPE: Basic Dispel",
     "scepter_skill_name": "Whirling Axes (Melee)",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Increases max Fervor stacks by 3 and grants Troll 16% + 3% chance per Fervor stack of firing an additional ranged attack to any unit within its ranged attack range plus =175.",
+    "shard_desc": "Grants Troll 16% + 3% chance per Fervor stack of firing an additional ranged attack to any unit within its ranged attack range plus =175.",
     "shard_skill_name": "Fervor",
     "shard_new_skill": false
   },
   {
-    "hero_name": "centaur",
+    "hero_name": "npc_dota_hero_centaur",
     "hero_id": 96,
     "has_scepter": true,
     "scepter_desc": "Centaur hitches a cart behind him. While active, Centaur gains the benefit of Stampede for the current level of Stampede, and can cast Hitch a Ride on a target ally.",
@@ -1140,19 +1140,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "magnataur",
+    "hero_name": "npc_dota_hero_magnataur",
     "hero_id": 97,
     "has_scepter": true,
     "scepter_desc": "Magnus tosses any enemies in front of him, launching them to his rear. Enemies take damage, spend 0.6 seconds in the air, and are stunned while in the air and an additional amount of time after landing.",
     "scepter_skill_name": "Horn Toss",
     "scepter_new_skill": true,
     "has_shard": true,
-    "shard_desc": "Increases range, and causes Shockwave to return towards the caster's original cast location after reaching max length, hitting enemies a second time for 75% of the damage.",
-    "shard_skill_name": "Shockwave",
+    "shard_desc": "Increases range and deals additional damage when skewering enemies into trees or cliffs.",
+    "shard_skill_name": "Skewer",
     "shard_new_skill": false
   },
   {
-    "hero_name": "shredder",
+    "hero_name": "npc_dota_hero_shredder",
     "hero_id": 98,
     "has_scepter": true,
     "scepter_desc": "Reactive Armor can now be activated to get max stacks and 200 damage barrier. Grants Timbersaw 100 + 75 barrier amount per second for each enemy hero within %radius% radius of Timbersaw up to a maximum of 800. After 8 seconds, Timbersaw deals damage to every hero within %explosion_radius% radius equal to 200 + his remaining barrier amount and loses all of his barrier.",
@@ -1164,7 +1164,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "bristleback",
+    "hero_name": "npc_dota_hero_bristleback",
     "hero_id": 99,
     "has_scepter": true,
     "scepter_desc": "Adds active ability to Bristleback. Bristleback rotates towards the targeted direction and, after 0.5s, forcefully ejects 5 sequential Quill Sprays in a tight conical pattern out of his back every 0.4s. Bristleback's facing is locked during this time, he is disarmed, and his speed is reduced by -40%.",
@@ -1176,7 +1176,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "tusk",
+    "hero_name": "npc_dota_hero_tusk",
     "hero_id": 100,
     "has_scepter": true,
     "scepter_desc": "Kicks the closest enemy unit in the drawn direction, stunning, damaging, and slowing them. Also deals damage to all heroes within 250 radius of its landing area. Cooldown is reduced by 50% if kicking a creep.",
@@ -1188,10 +1188,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "skywrath_mage",
+    "hero_name": "npc_dota_hero_skywrath_mage",
     "hero_id": 101,
     "has_scepter": true,
-    "scepter_desc": "When Skywrath Mage casts Mystic Flare, another Mystic Flare will be created on the position of a different random target enemy within 700 range. Heroes will take priority.",
+    "scepter_desc": "When Skywrath Mage casts Mystic Flare, another Mystic Flare will be created on the position of a different random target enemy within 500 range of the original target. Heroes will take priority.",
     "scepter_skill_name": "Mystic Flare",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -1200,7 +1200,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "abaddon",
+    "hero_name": "npc_dota_hero_abaddon",
     "hero_id": 102,
     "has_scepter": true,
     "scepter_desc": "Increases duration. While Borrowed Time is active, anytime an ally takes more than 550 damage while within 900 range of Abaddon, an individual Mist Coil will automatically fire towards that ally.",
@@ -1212,7 +1212,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "elder_titan",
+    "hero_name": "npc_dota_hero_elder_titan",
     "hero_id": 103,
     "has_scepter": true,
     "scepter_desc": "Causes Elder Titan to become debuff immune and gain 50% magic resistance for 2 seconds per affected enemy Hero when the spirit returns.",
@@ -1224,19 +1224,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "legion_commander",
+    "hero_name": "npc_dota_hero_legion_commander",
     "hero_id": 104,
     "has_scepter": true,
     "scepter_desc": "Increases Duel duration.  Legion Commander is debuff immune for the duration of the Duel.",
     "scepter_skill_name": "Duel",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Increases Duel damage by 8 per win. Applies retroactively.",
+    "shard_desc": "Increases Duel damage by 5 per win. Applies retroactively.",
     "shard_skill_name": "Duel",
     "shard_new_skill": false
   },
   {
-    "hero_name": "techies",
+    "hero_name": "npc_dota_hero_techies",
     "hero_id": 105,
     "has_scepter": true,
     "scepter_desc": "Increases radius and duration of Minefield Sign. When an enemy hero walks within %trigger_radius% units of a minefield sign, the 1000 units area around the sign will become a minefield for 10 seconds, dealing damage to enemy units any time they move within its area. Minefield Sign is destroyed after this effect ends.",
@@ -1248,7 +1248,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "ember_spirit",
+    "hero_name": "npc_dota_hero_ember_spirit",
     "hero_id": 106,
     "has_scepter": true,
     "scepter_desc": "Increases cast range, initial remnant speed, and maximum charges.",
@@ -1260,7 +1260,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "earth_spirit",
+    "hero_name": "npc_dota_hero_earth_spirit",
     "hero_id": 107,
     "has_scepter": true,
     "scepter_desc": "Earth Spirit temporarily enchants a hero, granting them the properties of a Stone Remnant. After a short duration the remnant shatters, releasing the hero and damaging nearby enemies. < br>\nCan be cast on Stone Remnants. Has a 5 second cooldown when used that way.\nHas a larger cast range when cast on an ally hero.",
@@ -1272,7 +1272,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "abyssal_underlord",
+    "hero_name": "npc_dota_hero_abyssal_underlord",
     "hero_id": 108,
     "has_scepter": true,
     "scepter_desc": "Summons a Pit of Malice around each of the portals. Reduces cooldown.",
@@ -1284,7 +1284,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "terrorblade",
+    "hero_name": "npc_dota_hero_terrorblade",
     "hero_id": 109,
     "has_scepter": true,
     "scepter_desc": "Causes a wave to travel outwards in all directions forcing enemy heroes to become Feared upon impact and dealing damage, and grants Terrorblade Metamorphosis for a short time.",
@@ -1296,7 +1296,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "phoenix",
+    "hero_name": "npc_dota_hero_phoenix",
     "hero_id": 110,
     "has_scepter": true,
     "scepter_desc": "Increases number of attacks to destroy Supernova and allows Phoenix to cast Supernova on an allied hero, bringing both into the sun to be reborn together.",
@@ -1308,10 +1308,10 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "oracle",
+    "hero_name": "npc_dota_hero_oracle",
     "hero_id": 111,
     "has_scepter": true,
-    "scepter_desc": "Causes False Promise to have a 0.15 second fade delay invisibility and grants the ally 25% bonus Spell Damage and 0.25 reduced Base Attack Time.",
+    "scepter_desc": "Causes False Promise to have a 0.15 second fade delay invisibility and grants the ally 30% bonus Spell Damage and 0.25 reduced Base Attack Time.",
     "scepter_skill_name": "False Promise",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -1320,7 +1320,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "winter_wyvern",
+    "hero_name": "npc_dota_hero_winter_wyvern",
     "hero_id": 112,
     "has_scepter": true,
     "scepter_desc": "Causes Arctic Burn to be a toggle ability, draining mana every second when active. Removes limit on number of attacks per target. Increases Winter Wyvern's movement speed.",
@@ -1332,19 +1332,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "arc_warden",
+    "hero_name": "npc_dota_hero_arc_warden",
     "hero_id": 113,
     "has_scepter": true,
-    "scepter_desc": "Causes Spark Wraiths to spawn a new Spark Wraith after impacting an enemy, which then starts its 2.0 second activation period. The new Spark Wraiths last 15 seconds and has a radius of 225",
-    "scepter_skill_name": "Spark Wraith",
+    "scepter_desc": "Flux silences when the target is alone, deals more damage, and lasts longer.",
+    "scepter_skill_name": "Flux",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Magnetic Field slows enemies and enemy attack projectiles while they are in it. Also provides allies inside with increased attack projectile speed. Increases the radius by 75.",
-    "shard_skill_name": "Magnetic Field",
+    "shard_desc": "When Spark Wraith activates, a secondary Spark Wraith will fuse to the next closest target that deals =80.0% damage. Increases Spark Wraith search radius.",
+    "shard_skill_name": "Spark Wraith",
     "shard_new_skill": false
   },
   {
-    "hero_name": "monkey_king",
+    "hero_name": "npc_dota_hero_monkey_king",
     "hero_id": 114,
     "has_scepter": true,
     "scepter_desc": "Spawns a monkey soldier near Monkey King at regular intervals. Soldiers do not spawn while invisible or on trees. Soldiers only attack buildings when Monkey King himself is nearby. Soldiers can now gain Jingu Mastery charges independently.",
@@ -1356,19 +1356,19 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "dark_willow",
+    "hero_name": "npc_dota_hero_dark_willow",
     "hero_id": 119,
     "has_scepter": true,
     "scepter_desc": "Attacking no longer takes Dark Willow out of Shadow Realm. Each attack still has bonus damage based on the duration of the buff.",
     "scepter_skill_name": "Shadow Realm",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Cursed Crown creates 4 brambles in a 175 radius around the target after the counter ends. Triggers even upon dispel. Reduces stun delay by 1 second.",
+    "shard_desc": "Cursed Crown creates 4 brambles in a 175 radius around the target after the counter ends. Triggers even upon dispel. Cursed Crown cooldown reduced by 1.5 seconds.",
     "shard_skill_name": "Cursed Crown",
     "shard_new_skill": false
   },
   {
-    "hero_name": "pangolier",
+    "hero_name": "npc_dota_hero_pangolier",
     "hero_id": 120,
     "has_scepter": true,
     "scepter_desc": "Causes Shield Crash to cast a 2-attack Swashbuckle every 90 degrees around your hero.",
@@ -1380,22 +1380,22 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "grimstroke",
+    "hero_name": "npc_dota_hero_grimstroke",
     "hero_id": 121,
     "has_scepter": true,
     "scepter_desc": "Creates an ink illusion of a target enemy hero. Illusion is debuff immune, has 95% magic resistance, and has bonus movement speed and attack damage.",
     "scepter_skill_name": "Dark Portrait",
     "scepter_new_skill": true,
     "has_shard": true,
-    "shard_desc": "Causes Ink Swell to deal 30% more damage and heal the target for 30% of the damage Ink Swell deals. Upon expiration, the target will receive a strong dispel.\n\nDISPEL TYPE: Strong Dispel",
+    "shard_desc": "Ink Swell dispels the allied unit when cast. Causes Ink Swell to deal 40% more damage and heal the target for 40% of the damage Ink Swell deals.\n\nDISPEL TYPE: Basic Dispel",
     "shard_skill_name": "Ink Swell",
     "shard_new_skill": false
   },
   {
-    "hero_name": "hoodwink",
+    "hero_name": "npc_dota_hero_hoodwink",
     "hero_id": 123,
     "has_scepter": true,
-    "scepter_desc": "Decreases wind-up time and increases arrow speed.",
+    "scepter_desc": "Increases arrow speed and movement speed slow.",
     "scepter_skill_name": "Sharpshooter",
     "scepter_new_skill": false,
     "has_shard": true,
@@ -1404,7 +1404,7 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "void_spirit",
+    "hero_name": "npc_dota_hero_void_spirit",
     "hero_id": 126,
     "has_scepter": true,
     "scepter_desc": "Causes Resonant Pulse to silence and gain 2 charges.",
@@ -1416,7 +1416,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "snapfire",
+    "hero_name": "npc_dota_hero_snapfire",
     "hero_id": 128,
     "has_scepter": true,
     "scepter_desc": "Mortimer spits out the unit that's in his mouth, causing impact damage and stun in a large area. The glob leaves a pool of firespit based on the current level of Mortimer Kisses, that slows and applies damage over time. Spit Out has a no minimum launch range.",
@@ -1428,7 +1428,7 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "mars",
+    "hero_name": "npc_dota_hero_mars",
     "hero_id": 129,
     "has_scepter": true,
     "scepter_desc": "Creates 4 invulnerable soldiers on both sides of Mars front while Bulwark is toggled on. Soldiers move alongside Mars, dealing his attacks that have bonus damage, knock back and slow approaching enemies. An enemy can only be attacked by one soldier at a time.",
@@ -1440,43 +1440,43 @@
     "shard_new_skill": false
   },
   {
-    "hero_name": "ringmaster",
+    "hero_name": "npc_dota_hero_ringmaster",
     "hero_id": 131,
     "has_scepter": true,
     "scepter_desc": "Escape Act has 2 charges. When the box pops open, Impalement Art daggers are thrown in all directions, and all enemies in an =225 radius take =300 damage.",
     "scepter_skill_name": "Escape Act",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Ringmaster shines a spotlight that sweeps over an area. Enemies in the light have a chance to miss their attacks and are revealed if invisible. Illusions hit by the beam fade away, losing a percentage of their maximum health each second. These effects linger for 0.3 seconds after leaving the light.",
+    "shard_desc": "Ringmaster shines 3 spotlights that sweep over an area. Enemies in the light have a chance to miss their attacks and are revealed if invisible. Illusions hit by the beam fade away, losing a percentage of their maximum health each second. These effects linger for 0.3 seconds after leaving the light.",
     "shard_skill_name": "Spotlight",
     "shard_new_skill": true
   },
   {
-    "hero_name": "dawnbreaker",
+    "hero_name": "npc_dota_hero_dawnbreaker",
     "hero_id": 135,
     "has_scepter": true,
-    "scepter_desc": "Reduces the channel time and increases the healing and total duration of Solar Guardian's air time. Causes allies in the destination area to have evasion while Dawnbreaker is airborne. Solar Guardian can be cast again after take off to land early. While airborne, the landing point of Solar Guardian can be moved at a speed of 200.",
+    "scepter_desc": "Solar Guardian's aura now lingers for 3s after landing and follows Dawnbreaker around. Solar Guardian's heal per pulse is increased. Channel time and air time is reduced.",
     "scepter_skill_name": "Solar Guardian",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Dawnbreaker gains debuff immunity, 50% magic resistance, and free movement during Starbreaker. Dawnbreaker is slowed by 25% down to a minimum of 215.",
+    "shard_desc": "Dawnbreaker gains debuff immunity, 50% magic resistance, and free movement during Starbreaker. Dawnbreaker is slowed by 35% down to a minimum of 215.",
     "shard_skill_name": "Starbreaker",
     "shard_new_skill": false
   },
   {
-    "hero_name": "marci",
+    "hero_name": "npc_dota_hero_marci",
     "hero_id": 136,
     "has_scepter": true,
     "scepter_desc": "Reduces Unleash cooldown by 10.0 seconds and causes Unleash to apply a basic dispel on Marci. While Unleash is Active, all of Marci's abilities unleash pulses when cast. All of Marci's unleash pulses will silence units for 1 seconds.\n\nDISPEL TYPE: Basic Dispel",
     "scepter_skill_name": "Unleash",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Decreases the cooldown of Rebound, it can be cast on enemies, and causes Marci to also get the speed boost when she casts it.",
+    "shard_desc": "Increases damage. Rebound can be cast on enemies, and causes Marci to also get the speed boost when she casts it.",
     "shard_skill_name": "Rebound",
     "shard_new_skill": false
   },
   {
-    "hero_name": "primal_beast",
+    "hero_name": "npc_dota_hero_primal_beast",
     "hero_id": 137,
     "has_scepter": true,
     "scepter_desc": "When Primal Beast activates Uproar, he releases 3 waves of 2 projectiles per stack of uproar each in a circle around him. Projectiles deal damage and Break enemies hit. After a short delay, each projectile splinters in two.",
@@ -1488,27 +1488,27 @@
     "shard_new_skill": true
   },
   {
-    "hero_name": "muerta",
+    "hero_name": "npc_dota_hero_muerta",
     "hero_id": 138,
     "has_scepter": true,
-    "scepter_desc": "Muerta precisely shoots a hero in their soul, separating it from their physical body and knocking it 150 units away.\nThe soul is untargetable, muted, disarmed, and invulnerable for 4 seconds.\nThe body is stunned and has 35% damage reduction for this duration.\n\nAfter the effect ends the hero's soul is forcefully returned to their body applying a strong dispel. The soul will survive until the end of the effect even if the hero is killed.",
-    "scepter_skill_name": "Parting Shot",
-    "scepter_new_skill": true,
+    "scepter_desc": "Dead Shot damage is increased. Dead Shot expands after it ricochets and pierces through enemy heroes as it fears them.",
+    "scepter_skill_name": "Dead Shot",
+    "scepter_new_skill": false,
     "has_shard": true,
     "shard_desc": "Muerta gains 30% Spell Lifesteal during Pierce the Veil.\nWhile Pierce the Veil is active Muerta permanently gains 2% spell amplification each time she kills an enemy Hero or they die in her vicinity. Bonus applies retroactively.",
     "shard_skill_name": "Pierce the Veil",
     "shard_new_skill": false
   },
   {
-    "hero_name": "kez",
+    "hero_name": "npc_dota_hero_kez",
     "hero_id": 145,
     "has_scepter": true,
-    "scepter_desc": "Casting any weapon ability refreshes the cooldown of Switch Discipline.\n\nThe first ability Kez casts 3 seconds after using Switch Discipline will not set its alternate weapon ability on cooldown.",
+    "scepter_desc": "Casting any weapon ability refreshes the cooldown of Switch Discipline.\n\nCasting a weapon ability that would set its alternate weapon ability on cooldown does not do so if it's the first one used within 3 seconds after casting Switch Discipline.",
     "scepter_skill_name": "Switch Discipline",
     "scepter_new_skill": false,
     "has_shard": true,
-    "shard_desc": "Passively grants 10 movement speed, and an additional 10 movement speed per Marked enemy.",
-    "shard_skill_name": "Shodo Sai",
+    "shard_desc": "Kez may activate the ability to impale the target with his attack, briefly stunning himself and the target in place. The target's debuff bursts, removing it and causing the attack to deal bonus damage based on the stack amount.",
+    "shard_skill_name": "Kazurai Katana",
     "shard_new_skill": false
   }
 ]

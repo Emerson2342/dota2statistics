@@ -161,6 +161,7 @@ export interface FacetsModel {
   gradient_id: number;
   title: string;
   description: string;
+  abilities?: string[];
 }
 
 export interface MatchLeagueInfo {

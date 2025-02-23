@@ -512,6 +512,29 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                       <Text style={styles.textDescription}>
                         {" " + facets.description}
                       </Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: 7,
+                          marginBottom: 7,
+                        }}
+                      >
+                        {facets.abilities &&
+                          facets.abilities?.map((abi, index) => {
+                            const imgFacet = ITEM_IMAGE_BASE_URL + abi + ".png";
+                            return (
+                              <Image
+                                key={index}
+                                width={35}
+                                height={35}
+                                source={{ uri: imgFacet }}
+                                style={{ borderRadius: 7, marginHorizontal: 5 }}
+                              />
+                            );
+                          })}
+                      </View>
                     </View>
                   );
                 })}
