@@ -9,10 +9,8 @@ import {
   Modal,
 } from "react-native";
 import {
-  AGHANIMSHARD_URL,
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
-  PICTURE_ITEM_BASE_URL,
 } from "../../constants/player";
 import { createStyles } from "./styles";
 import int from "../../images/int.png";
@@ -22,6 +20,7 @@ import all from "../../images/all.png";
 import boots from "../../images/boots.png";
 
 import HeroLoreJson from "../../constants/Lore.json";
+import HeroLorePtBrJson from "../../constants/LorePtBr.json";
 import AbilitiesDetailsJson from "../../components/Heroes/AbilitiesDetails.json";
 import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
 
@@ -62,6 +61,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   >([]);
 
   const [loadingAbilit, setLoadingAbilit] = useState(true);
+  const [loreJson, setLoreJson] = useState<HeroLore>(HeroLoreJson);
 
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
 
@@ -79,12 +79,15 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     (h) => h.hero_id === heroDetails.id
   );
 
-  const LoreJson: HeroLore = HeroLoreJson;
+  //const LoreJson: HeroLore = HeroLoreJson;
   const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
+
+
     setTimeout(() => {
-      setHeroLore(LoreJson[heroDetails.name]);
+      setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson)
+      setHeroLore(loreJson[heroDetails.name]);
       setAbilities(heroAbilities[heroDetails.name]);
       setLoadingAbilit(false);
     }, 375);
