@@ -57,9 +57,6 @@ export function LastMatches({
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: matchIdIndex,
       PlayerIdIndex: playerIdIndex,
-      RadiantName: undefined,
-      DireName: undefined,
-      LeagueNameIndex: null,
     });
   };
 

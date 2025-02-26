@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import { createStyles } from "./MatchDetailsStyles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
@@ -36,9 +37,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const {
     MatchDetailsIndex,
     PlayerIdIndex,
-    RadiantName,
-    DireName,
-    LeagueNameIndex,
   } = route.params;
 
   const { englishLanguage } = useSettingsContext();
@@ -54,6 +52,15 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    console.log("Carregando");
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  }, []);
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
@@ -104,9 +111,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-            MatchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
+          MatchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
         );
         setMatchDetails(match);
       } else {
@@ -272,7 +279,13 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           <Header
             matchDetails={matchDetails}
           />
-          <ScrollView style={{ marginTop: "2%" }}>
+          <ScrollView style={{ marginTop: "2%" }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                enabled={false}
+              />} >
             <View style={{ alignItems: "center" }}>
               <Teams
                 matchDetails={matchDetails}
@@ -295,23 +308,23 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                 <Items
                   playerIndex={PlayerIdIndex}
                   matchDetails={matchDetails}
-                  RadName={RadiantName}
-                  DireName={DireName}
+                  RadName={matchDetails?.radiant_team?.name ?? radName}
+                  DireName={matchDetails?.dire_team?.name ?? direName}
                 />
               </View>
 
               <View style={styles.containerItem}>
                 <Abilities
-                  RadName={RadiantName}
-                  DireName={DireName}
+                  RadName={matchDetails?.radiant_team?.name ?? radName}
+                  DireName={matchDetails?.dire_team?.name ?? direName}
                   matchDetails={matchDetails}
                 />
               </View>
               <View style={styles.containerItem}>
                 <HeroKillsDetails
                   matchDetails={matchDetails}
-                  direName={DireName ?? direName}
-                  radName={RadiantName ?? radName}
+                  radName={matchDetails?.radiant_team?.name ?? radName}
+                  direName={matchDetails?.dire_team?.name ?? direName}
                 />
               </View>
 
@@ -522,8 +535,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   <GraficsGoldAndXp
                     radiant_gold_adv={matchDetails.radiant_gold_adv}
                     radiant_xp_adv={matchDetails.radiant_xp_adv}
-                    RadiantName={RadiantName}
-                    DireName={DireName}
+                    RadiantName={matchDetails?.radiant_team?.name ?? direName}
+                    DireName={matchDetails?.dire_team?.name ?? direName}
                   />
                 </View>
               )}

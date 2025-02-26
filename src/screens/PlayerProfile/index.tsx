@@ -56,9 +56,15 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     }
   }, []);
 
-  const playerFound = favoritesPlayers.find(
-    (p) => p.profile.account_id.toString() == PlayerId
+  const playerFound = (favoritesPlayers).find(
+    (p) => p.profile.account_id.toString() === PlayerId
   );
+
+
+
+  //const playerFound = false;
+
+  console.log("Lista de jogadores pro: " + JSON.stringify(favoritesPlayers, null, 2));
 
   const handleFavorites = () => {
     if (playerFound) {

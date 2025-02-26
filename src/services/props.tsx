@@ -465,9 +465,6 @@ export type RootStackParamList = {
   MatchDetails: {
     MatchDetailsIndex: number;
     PlayerIdIndex: string | null;
-    RadiantName: string | undefined;
-    DireName: string | undefined;
-    LeagueNameIndex: string | null;
   };
   PlayerProfile: {
     PlayerId: string;

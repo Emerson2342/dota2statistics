@@ -41,7 +41,6 @@ import { BannerAds } from "../../../src/components/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
 import {
   Feather,
-  FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
@@ -83,11 +82,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
-
-
     setTimeout(() => {
-      setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson)
-      setHeroLore(loreJson[heroDetails.name]);
       setAbilities(heroAbilities[heroDetails.name]);
       setLoadingAbilit(false);
     }, 375);
@@ -95,6 +90,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
   useEffect(() => {
     HandleGetAbilities();
+    setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
+    setHeroLore(loreJson[heroDetails.name]);
   }, [abilities]);
 
   let fontImage = PICTURE_HERO_BASE_URL + heroDetails.img;
@@ -294,7 +291,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             <TouchableOpacity onPress={() => setModalHeroLore(true)}>
               <Ionicons
                 name="information-circle"
-                color={"orange"}
+                color={"#fff"}
                 style={{ position: "absolute", margin: 5, right: 3 }}
                 size={27}
               />

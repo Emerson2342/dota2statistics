@@ -62,16 +62,10 @@ export function ProMatches({
 
   const handleGoToMatch = (
     matchIndex: number,
-    leagueName: string | null,
-    radName: string | null,
-    direName: string | null
   ) => {
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: matchIndex,
       PlayerIdIndex: null,
-      RadiantName: radName || undefined,
-      DireName: direName || undefined,
-      LeagueNameIndex: leagueName || null,
     });
   };
 
@@ -175,12 +169,7 @@ export function ProMatches({
           <View style={{ width: "50%", alignItems: "center" }}>
             <TouchableOpacity
               onPress={() =>
-                handleGoToMatch(
-                  item.match_id,
-                  item.league_name,
-                  item.radiant_name,
-                  item.dire_name
-                )
+                handleGoToMatch(item.match_id)
               }
               style={styles.buttonContainer}
             >

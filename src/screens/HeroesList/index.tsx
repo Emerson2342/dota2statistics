@@ -90,8 +90,8 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-      ? `No results found for: "${textResult}"`
-      : `Nenhum resultado encontrado para: "${textResult}"`;
+        ? `No results found for: "${textResult}"`
+        : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
     if (heroDetails) {
@@ -115,9 +115,12 @@ export function ListaDeHerois() {
       );
       setHereoesSearched(heroesToSearch);
       setTextResult(text);
-      Keyboard.dismiss();
       setIsLoading(false);
     }, 300);
+
+    setTimeout(() => {
+      Keyboard.dismiss();
+    }, 3000)
   };
 
   const HandleClearSearchResults = () => {
