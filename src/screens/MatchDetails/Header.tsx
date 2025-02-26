@@ -4,17 +4,7 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { MatchDetailsModel, ThemeColor } from "../../services/props";
 
-export function Header({
-  LeagueNameIndex,
-  RadiantName,
-  DireName,
-  matchDetails,
-}: {
-  LeagueNameIndex: string | null;
-  RadiantName: string | undefined;
-  DireName: string | undefined;
-  matchDetails: MatchDetailsModel | null;
-}) {
+export function Header({ matchDetails }: { matchDetails: MatchDetailsModel | null; }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 
@@ -44,16 +34,17 @@ export function Header({
       .padStart(2, "0")}`;
   }
 
+
   const styles = createStyles(ColorTheme);
   return (
     <View style={styles.container}>
       <Text
         style={[
           styles.textTitleLeague,
-          { display: LeagueNameIndex ? "flex" : "none" },
+          { display: matchDetails?.league?.name ? "flex" : "none" },
         ]}
       >
-        {LeagueNameIndex}
+        {matchDetails?.league?.name ?? ""}
       </Text>
       <View style={{ width: "100%", alignItems: "center" }}>
         <View
@@ -68,7 +59,7 @@ export function Header({
               numberOfLines={1}
               style={[styles.teamName, { textAlign: "right" }]}
             >
-              {RadiantName ? RadiantName : radName}{" "}
+              {matchDetails?.radiant_team?.name ?? radName}{" "}
             </Text>
             <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
           </View>
@@ -90,7 +81,7 @@ export function Header({
               style={[styles.teamName, { textAlign: "left" }]}
             >
               {" "}
-              {DireName ? DireName : direName}
+              {matchDetails?.dire_team?.name ?? direName}
             </Text>
           </View>
         </View>
@@ -184,6 +175,6 @@ const createStyles = (colors: ThemeColor) =>
     textId: {
       fontFamily: "QuickSand-Semibold",
       textAlign: "center",
-      color: colors.semidark,
+      color: "#aaa",
     },
   });

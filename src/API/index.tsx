@@ -142,6 +142,9 @@ export const getMatchDetails = async (url: string) => {
         picks_bans: data.picks_bans,
         radiant_gold_adv: data.radiant_gold_adv,
         radiant_xp_adv: data.radiant_xp_adv,
+        league: data.league,
+        radiant_team: data.radiant_team,
+        dire_team: data.dire_team
       };
       return matchDataResponse;
     }

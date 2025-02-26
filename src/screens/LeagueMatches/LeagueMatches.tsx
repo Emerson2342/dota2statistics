@@ -181,7 +181,7 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
             {item.radiant_win ? "" : result}
           </Text>
         </View>
-        <View
+        {/* <View
           style={[
             styles.imageContainer,
             {
@@ -218,7 +218,7 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
               <View style={styles.imageTeam} />
             )}
           </View>
-        </View>
+        </View> */}
         <View style={styles.teamContainer}>
           <View style={styles.singleTeamContainer}>
             <Text style={[styles.teamName, {}]}>

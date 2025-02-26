@@ -193,6 +193,25 @@ export interface MatchDetailsModel {
   ];
   radiant_gold_adv: number[];
   radiant_xp_adv: number[];
+  league?: {
+    leagueid?: number;
+    ticket?: any;
+    banner?: any;
+    tier?: string;
+    name?: string;
+  };
+  radiant_team?: {
+    team_id?: number;
+    name?: string;
+    tag?: string;
+    logo_url?: string;
+  }
+  dire_team?: {
+    team_id?: number;
+    name?: string;
+    tag?: string;
+    logo_url?: string;
+  }
 }
 
 export interface Player {

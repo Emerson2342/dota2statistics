@@ -60,13 +60,6 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       width: "100%",
       justifyContent: "space-evenly",
     },
-    imageContent: {
-      width: "10%",
-      alignItems: "center",
-      backgroundColor: "#000",
-      borderRadius: 50,
-      display: "none",
-    },
     imageTeam: {
       width: "100%",
       aspectRatio: 1,

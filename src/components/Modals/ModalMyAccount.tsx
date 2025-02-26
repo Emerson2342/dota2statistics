@@ -50,7 +50,7 @@ export default function ModalMyAccount({
     : "Erro ao tentar alterar o Id da Steam";
 
   const handleSave = () => {
-    if (profile?.id_Steam === user.id_Steam) return;
+    //if (profile?.id_Steam === user.id_Steam) return;
     if (
       accountTimestamp == null ||
       accountTimestamp + 86400 < currentTimestamp

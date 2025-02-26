@@ -270,17 +270,12 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       {matchDetails ? (
         <View style={{ flex: 1 }}>
           <Header
-            LeagueNameIndex={LeagueNameIndex}
-            RadiantName={RadiantName}
-            DireName={DireName}
             matchDetails={matchDetails}
           />
           <ScrollView style={{ marginTop: "2%" }}>
             <View style={{ alignItems: "center" }}>
               <Teams
                 matchDetails={matchDetails}
-                RadiantName={RadiantName}
-                DireName={DireName}
                 PlayerIdIndex={PlayerIdIndex}
               />
 

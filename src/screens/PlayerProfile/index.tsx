@@ -71,10 +71,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   };
 
   useEffect(() => {
-    console.log(
-      "Lista de Jogadores Favoritos:" +
-        JSON.stringify(favoritesPlayers, null, 2)
-    );
     navigation.setOptions({
       headerRight: () => {
         return (

@@ -18,13 +18,9 @@ import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
 export function Teams({
   matchDetails,
-  RadiantName,
-  DireName,
   PlayerIdIndex,
 }: {
-  matchDetails: MatchDetailsModel | null;
-  RadiantName: string | undefined;
-  DireName: string | undefined;
+    matchDetails: MatchDetailsModel | null;
   PlayerIdIndex: string | null;
 }) {
   const { englishLanguage } = useSettingsContext();
@@ -382,7 +378,7 @@ export function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(0, 5)}
-              teamName={RadiantName ? RadiantName : radName}
+              teamName={matchDetails?.radiant_team?.name ?? radName}
               radiantWin={item.radiant_win}
               //isRadiant={true}
             />
@@ -397,7 +393,7 @@ export function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(5, 10)}
-              teamName={DireName ? DireName : direName}
+              teamName={matchDetails?.dire_team?.name ?? direName}
               radiantWin={!item.radiant_win}
               //isRadiant={false}
             />
