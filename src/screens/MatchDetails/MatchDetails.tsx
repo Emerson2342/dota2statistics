@@ -54,13 +54,26 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   );
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = async () => {
+
     setRefreshing(true);
-    console.log("Carregando");
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1500);
-  }, []);
+    const match =
+      MatchDetailsIndex &&
+      matchesDetailsList.find(
+        (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
+      );
+    if (match) {
+      console.log("entrou");
+      setMatchDetails(null);
+      const prevList = matchesDetailsList.filter((m) => m.match_id != match.match_id);
+      setMatchesDetailsList(prevList);
+      await handleSearchMatche();
+    }
+    setRefreshing(false);
+
+  };
+
+
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
@@ -71,7 +84,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     const loadMatchesList = async () => {
       try {
         const storedMatchesList = await storage.getItem<MatchDetailsModel[]>(
-          "matchesDetailsList1"
+          "matchesDetailsList"
         );
         if (storedMatchesList) {
           setMatchesDetailsList(storedMatchesList);
@@ -86,15 +99,16 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     loadMatchesList();
   }, []);
 
+  const saveMatchesDetailsList = async () => {
+    try {
+      await storage.setItem("matchesDetailsList", matchesDetailsList);
+    } catch (error) {
+      console.error("Erro ao salvar dados no AsyncStorage:", error);
+    }
+  };
+
   useEffect(() => {
     if (loadedeList) {
-      const saveMatchesDetailsList = async () => {
-        try {
-          await storage.setItem("matchesDetailsList1", matchesDetailsList);
-        } catch (error) {
-          console.error("Erro ao salvar dados no AsyncStorage:", error);
-        }
-      };
 
       saveMatchesDetailsList();
     }
@@ -284,7 +298,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
-                enabled={false}
+                enabled={matchDetails.radiant_gold_adv && matchDetails.radiant_gold_adv.length < 1}
               />} >
             <View style={{ alignItems: "center" }}>
               <Teams
