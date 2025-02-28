@@ -142,7 +142,7 @@ export const createStyles = (colors: ThemeColor) =>
       width: "45%",
     },
     facetsContainer: {
-      flexWrap: "wrap",
+      //flexWrap: "wrap",
       alignItems: "center",
       justifyContent: "center",
       width: "100%",

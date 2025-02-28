@@ -39,11 +39,7 @@ import { useTheme } from "../../context/useThemeContext";
 import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
-import {
-  Feather,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
@@ -478,13 +474,13 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 </View>
               </View>
             </View>
-            <View style={styles.itemsContainer}>
-              <View
-                style={[
-                  styles.facetsContainer,
-                  { display: aghanimHeroSelected?.has_shard ? "flex" : "none" },
-                ]}
-              >
+            <View
+              style={[
+                styles.itemsContainer,
+                { display: aghanimHeroSelected?.has_shard ? "flex" : "none" },
+              ]}
+            >
+              <View style={styles.facetsContainer}>
                 <Text style={styles.titleText}>
                   {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
                 </Text>
@@ -511,6 +507,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                       key={index}
                       style={{
                         width: "100%",
+                        // backgroundColor: "purple",
                         borderTopWidth: index == 0 ? 0 : 1,
                         borderColor: "#ccc",
                         //alignItems: "center",
