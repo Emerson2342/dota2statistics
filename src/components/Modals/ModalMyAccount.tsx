@@ -37,43 +37,43 @@ export default function ModalMyAccount({
   const [textMessage, setTextMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const titleMessage = englishLanguage ? "Message" : "Mensagem";
+
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const { ColorTheme } = useTheme();
 
   const messageSuccess = englishLanguage
     ? "Steam ID successfully changed"
-    : "Id da alterado com sucesso!";
+    : "Id da Steam alterado com sucesso!";
 
   const messageError = englishLanguage
     ? "Error trying to change Steam ID"
     : "Erro ao tentar alterar o Id da Steam";
 
   const handleSave = () => {
-    //if (profile?.id_Steam === user.id_Steam) return;
-    if (
-      accountTimestamp == null ||
-      accountTimestamp + 86400 < currentTimestamp
-    ) {
-      handleChangeIdSteam();
-      alert("Salvou no banco");
-      setAccountTimestamp(currentTimestamp);
-      setTimeout(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      if (
+        accountTimestamp == null ||
+        accountTimestamp + 86400 < currentTimestamp
+      ) {
+        handleChangeIdSteam();
+        setAccountTimestamp(currentTimestamp);
         console.log("Novo TimesStamp: " + accountTimestamp);
-      }, 175);
-    }
-    setTextMessage(messageSuccess);
-
-    setModalMessageVisible(true);
-    console.log("TimeStamp atual: " + accountTimestamp);
-    setProfile(user);
-    setPlayerTimestamp(currentTimestamp);
-    setRefreshProfile(true);
+      }
+      setTextMessage(messageSuccess);
+      setModalMessageVisible(true);
+      setIsLoading(false);
+      console.log("TimeStamp atual: " + accountTimestamp);
+      setProfile(user);
+      setPlayerTimestamp(currentTimestamp);
+      setRefreshProfile(true);
+    }, 300);
   };
 
   const handleChangeIdSteam = async () => {
     try {
-      setIsLoading(true);
       if (profile == null) return;
 
       await setDoc(doc(db2, "Profile", profile.email ?? ""), {
@@ -83,8 +83,6 @@ export default function ModalMyAccount({
     } catch (error) {
       console.log("Erro ao criar banco de dados: " + error);
       setTextMessage(messageError);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -190,8 +188,8 @@ export default function ModalMyAccount({
       >
         <ModalMessage
           handleClose={() => setModalMessageVisible(false)}
-          message=""
-          title={textMessage}
+          message={textMessage}
+          title={titleMessage}
         />
       </Modal>
       <Modal transparent={true} statusBarTranslucent={true} visible={isLoading}>
