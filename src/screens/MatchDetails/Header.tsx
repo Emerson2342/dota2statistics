@@ -1,19 +1,39 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { MatchDetailsModel, ThemeColor } from "../../services/props";
+import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
+import { Ionicons } from "@expo/vector-icons";
 
-export function Header({ matchDetails }: { matchDetails: MatchDetailsModel | null; }) {
+export function Header({
+  matchDetails,
+}: {
+  matchDetails: MatchDetailsModel | null;
+}) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-
+  const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const radName = englishLanguage ? "Radiant" : "Iluminados";
+
+  const textWarning = englishLanguage
+    ? "This match does not have detailed data available. For more details, access the OpenDota link and request a match analysis. Once analyzed, please refresh the page by pulling down the screen."
+    : "Esta partida não tem dados detalhados disponíveis. Para mais informações, acesse o site do OpenDota e solicite a análise. O OpenDota é um serviço externo e pode exigir tempo para processar os dados. " +
+      "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
+
   const direName = englishLanguage ? "Dire" : "Temidos";
 
   let formattedDuration;
   let formattedTime;
 
+  const styles = createStyles(ColorTheme);
   if (matchDetails) {
     const startDate = new Date(matchDetails?.start_time * 1000);
     const durationInMinutes = matchDetails?.duration;
@@ -34,8 +54,6 @@ export function Header({ matchDetails }: { matchDetails: MatchDetailsModel | nul
       .padStart(2, "0")}`;
   }
 
-
-  const styles = createStyles(ColorTheme);
   return (
     <View style={styles.container}>
       <Text
@@ -130,10 +148,47 @@ export function Header({ matchDetails }: { matchDetails: MatchDetailsModel | nul
           </View>
         </View>
       </View>
-      <Text style={styles.textId}>
-        {englishLanguage ? "Match Id: " : "Id da Partida: "}
-        {matchDetails?.match_id}
-      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "3%",
+          marginBottom: "3%",
+        }}
+      >
+        <Text style={styles.textId}>
+          {englishLanguage ? "Match Id: " : "Id da Partida: "}
+          {matchDetails?.match_id}
+        </Text>
+        <TouchableOpacity
+          style={{
+            marginLeft: 3,
+            display:
+              matchDetails?.radiant_gold_adv &&
+              matchDetails.radiant_gold_adv.length > 0
+                ? "none"
+                : "flex",
+          }}
+          onPress={() => setModalMessageVisible(true)}
+        >
+          <Ionicons name="warning" color={"orange"} size={17} />
+        </TouchableOpacity>
+      </View>
+      <Modal
+        visible={modalMessageVisible}
+        animationType="fade"
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <ModalMessage
+          handleClose={() => setModalMessageVisible(false)}
+          title={englishLanguage ? "Attencion" : "Atenção"}
+          message={textWarning}
+          link={true}
+          matchId={matchDetails?.match_id}
+        />
+      </Modal>
     </View>
   );
 }

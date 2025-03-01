@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  Modal,
   RefreshControl,
 } from "react-native";
 import { createStyles } from "./MatchDetailsStyles";
@@ -34,10 +35,7 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
-  const {
-    MatchDetailsIndex,
-    PlayerIdIndex,
-  } = route.params;
+  const { MatchDetailsIndex, PlayerIdIndex } = route.params;
 
   const { englishLanguage } = useSettingsContext();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
@@ -55,7 +53,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
-
     setRefreshing(true);
     const match =
       MatchDetailsIndex &&
@@ -65,14 +62,14 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     if (match) {
       console.log("entrou");
       setMatchDetails(null);
-      const prevList = matchesDetailsList.filter((m) => m.match_id != match.match_id);
+      const prevList = matchesDetailsList.filter(
+        (m) => m.match_id != match.match_id
+      );
       setMatchesDetailsList(prevList);
       await handleSearchMatche();
     }
     setRefreshing(false);
-
   };
-
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -109,7 +106,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   useEffect(() => {
     if (loadedeList) {
-
       saveMatchesDetailsList();
     }
   }, [matchesDetailsList, loadedeList]);
@@ -125,9 +121,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-          MatchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
+            MatchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
         );
         setMatchDetails(match);
       } else {
@@ -290,16 +286,21 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     <View style={styles.container}>
       {matchDetails ? (
         <View style={{ flex: 1 }}>
-          <Header
-            matchDetails={matchDetails}
-          />
-          <ScrollView style={{ marginTop: "2%" }}
+          <Header matchDetails={matchDetails} />
+
+          <ScrollView
+            style={{ marginTop: "2%" }}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
-                enabled={matchDetails.radiant_gold_adv && matchDetails.radiant_gold_adv.length < 1}
-              />} >
+                enabled={
+                  matchDetails.radiant_gold_adv &&
+                  matchDetails.radiant_gold_adv.length < 1
+                }
+              />
+            }
+          >
             <View style={{ alignItems: "center" }}>
               <Teams
                 matchDetails={matchDetails}

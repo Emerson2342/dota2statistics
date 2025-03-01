@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Linking,
 } from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 
@@ -12,18 +13,42 @@ export function ModalMessage({
   handleClose,
   message,
   title,
+  link,
+  matchId,
 }: {
   handleClose(): void;
   message: string;
   title: string;
+  link?: boolean;
+  matchId?: number;
 }) {
   const { englishLanguage } = useSettingsContext();
+
+  const openDotaUrl = `https://opendota.com/matches/${matchId?.toString()}`;
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.textMessage}>{message}</Text>
+        <Text style={styles.textMessage}>
+          {"   "}
+          {message}
+        </Text>
+        <TouchableOpacity
+          style={{ display: link ? "flex" : "none" }}
+          onPress={() => Linking.openURL(openDotaUrl)}
+        >
+          <Text
+            style={{
+              marginTop: 15,
+              color: "blue",
+              textDecorationLine: "underline",
+              fontStyle: "italic",
+            }}
+          >
+            {englishLanguage ? "Access OpenDota" : " Acessar OpenDota"}
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => handleClose()}>
           <Text style={styles.textButton}>
             {englishLanguage ? "Close" : "Fechar"}
@@ -60,6 +85,7 @@ const styles = StyleSheet.create({
     fontSize: Dimensions.get("screen").width * 0.037,
     color: "#8e8e8e",
     fontFamily: "QuickSand-Semibold",
+    textAlign: "justify",
   },
   button: {
     backgroundColor: "#111",
