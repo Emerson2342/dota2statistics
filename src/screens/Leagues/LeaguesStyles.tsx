@@ -8,7 +8,7 @@ export const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
-      backgroundColor: colors.light,
+      //backgroundColor: colors.light,
     },
     containerCards: {
       alignSelf: "center",

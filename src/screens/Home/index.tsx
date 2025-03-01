@@ -147,9 +147,6 @@ export function Profile() {
     setIsLoading(false);
   }, [profile, refreshProfile]);
 
-  //alert(JSON.stringify(profile, null, 2))
-
-  //alert(JSON.stringify(player, null, 2))
   if (player == null || (player?.profile.account_id == 0 && !isLoading)) {
     return (
       <View style={styles.erroMessage}>

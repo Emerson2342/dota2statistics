@@ -20,7 +20,7 @@ export function Teams({
   matchDetails,
   PlayerIdIndex,
 }: {
-    matchDetails: MatchDetailsModel | null;
+  matchDetails: MatchDetailsModel | null;
   PlayerIdIndex: string | null;
 }) {
   const { englishLanguage } = useSettingsContext();
@@ -169,7 +169,7 @@ export function Teams({
                   : false
               }
               key={index}
-              style={
+              style={[
                 player &&
                 player.account_id &&
                 PlayerIdIndex === player.account_id.toString()
@@ -188,8 +188,9 @@ export function Teams({
                       borderRadius: 3,
                       borderTopEndRadius: index == 0 ? 0 : 3,
                       borderTopStartRadius: index === 0 ? 0 : 3,
-                    }
-              }
+                    },
+                {},
+              ]}
             >
               <View style={{ flexDirection: "row" }}>
                 <Text numberOfLines={1} style={styles.lvlText}>

@@ -14,21 +14,18 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "./ModalMyAccount";
 import { ModalAboutUs } from "./ModalAboutUs";
-import { signOut } from "firebase/auth";
-import { auth } from "../../services/firebaseConfig";
-import { useTimestampContext } from "../../context/useTimestampContext";
-import { usePlayerContext } from "../../context/usePlayerContex";
+import { ModalConfirmLogOut } from "./ModalConfirmLogout";
 
 export function ModalSettings({ handleClose }: { handleClose: () => void }) {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
     useSettingsContext();
 
-  const { setPlayer, setHeroesPlayedId } = usePlayerContext();
-  const { profile, setProfile } = useProfileContext();
-  const { setPlayerTimestamp } = useTimestampContext();
+  const { profile } = useProfileContext();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalConfirmLogOutVisible, setModalConfirmLogOutVisible] =
+    useState(false);
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,18 +49,6 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
 
   const styles = createStyles(ColorTheme);
 
-  const handleSignOut = async () => {
-    try {
-      setProfile(null);
-      setPlayerTimestamp(null);
-      setPlayer(null);
-      setHeroesPlayedId([]);
-      await signOut(auth);
-      console.log("Usuário deslogado");
-    } catch (error) {
-      console.error("Erro ao deslogar o usuário:", error);
-    }
-  };
   return (
     <View style={styles.mainContainer}>
       <View
@@ -85,7 +70,7 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
             Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
           </Text>
           <TouchableOpacity
-            style={styles.buttonSave}
+            style={[styles.buttonSave, { marginTop: 15 }]}
             onPress={() => setModalVisible(true)}
           >
             <Text style={styles.textButton}>
@@ -221,49 +206,60 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => handleSignOut()}
+              <View
                 style={{
-                  justifyContent: "center",
-                  alignItems: "center",
                   flexDirection: "row",
+                  width: "100%",
+                  justifyContent: "space-evenly",
                 }}
               >
-                <Text
+                <TouchableOpacity
+                  onPress={() => setModalConfirmLogOutVisible(true)}
                   style={{
-                    color: ColorTheme.semidark,
-                    fontFamily: "QuickSand-Bold",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
                   }}
                 >
-                  {englishLanguage ? "Log Out " : "Sair "}
+                  <Text
+                    style={{
+                      color: ColorTheme.semidark,
+                      fontFamily: "QuickSand-Bold",
+                    }}
+                  >
+                    {englishLanguage ? "Log Out " : "Sair "}
+                  </Text>
+                  <FontAwesome name="sign-out" size={17} />
+                </TouchableOpacity>
+                <Text
+                  onPress={() => setModalAboutUsVisible(true)}
+                  style={styles.textAboutUs}
+                >
+                  {englishLanguage ? "About Us" : "Sobre Nós"}
                 </Text>
-                <FontAwesome name="sign-out" size={17} />
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.buttonSave}
-            onPress={() => handleSaveChanges()}
-          >
-            <Text style={styles.textButton}>
-              {englishLanguage ? "Save Changes" : "Salvar"}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
-            onPress={() => handleClose()}
-          >
-            <Text style={styles.textButton}>
-              {englishLanguage ? "Close" : "Fechar"}
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonSave}
+              onPress={() => handleClose()}
+            >
+              <Text style={styles.textButton}>
+                {englishLanguage ? "Close" : "Fechar"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
+              onPress={() => handleSaveChanges()}
+            >
+              <Text style={[styles.textButton, { color: "#fff" }]}>
+                {englishLanguage ? "Save Changes" : "Salvar"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text
-          onPress={() => setModalAboutUsVisible(true)}
-          style={styles.textAboutUs}
-        >
-          {englishLanguage ? "About Us" : "Sobre Nós"}
-        </Text>
+
         <Modal
           visible={modalVisible}
           transparent={true}
@@ -300,6 +296,16 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
               {englishLanguage ? "Saving..." : "Salvando..."}
             </Text>
           </View>
+        </Modal>
+        <Modal
+          visible={modalConfirmLogOutVisible}
+          transparent={true}
+          statusBarTranslucent={true}
+          animationType="fade"
+        >
+          <ModalConfirmLogOut
+            handleClose={() => setModalConfirmLogOutVisible(false)}
+          />
         </Modal>
       </View>
     </View>

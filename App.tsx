@@ -14,6 +14,7 @@ import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
 import { RefreshProvider } from "./src/context/useRefreshContext";
+import { View, Text, StyleSheet } from "react-native";
 
 export default function App() {
   mobileAds()
@@ -38,7 +39,12 @@ export default function App() {
                   <TimestampProvider>
                     <PaperProvider>
                       <FavoritesProvider>
-                        <Routes />
+                        <View style={{ flex: 1 }}>
+                          <View style={styles.betaTag}>
+                            <Text style={styles.betaText}>BETA</Text>
+                          </View>
+                          <Routes />
+                        </View>
                       </FavoritesProvider>
                     </PaperProvider>
                   </TimestampProvider>
@@ -51,3 +57,20 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  betaTag: {
+    position: "absolute",
+    alignSelf: "center",
+    backgroundColor: "red",
+    paddingHorizontal: "3%",
+    borderRadius: 7,
+    zIndex: 999,
+  },
+  betaText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 13,
+    textAlign: "center",
+  },
+});

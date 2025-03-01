@@ -19,10 +19,9 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textErro: {
       textAlign: "center",
-      width: "90%",
-      fontWeight: "bold",
-      color: "orange",
-      fontSize: 20,
+      padding: "5%",
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
     },
     textLoading: {
       fontFamily: "QuickSand-Bold",

@@ -202,6 +202,7 @@ const createStyles = (colors: ThemeColor) =>
       margin: "3%",
       borderRadius: 9,
       padding: "1%",
+      elevation: 7,
     },
     textTitleLeague: {
       fontSize: width * 0.05,

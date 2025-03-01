@@ -41,6 +41,7 @@ export const createStyles = (colors: ThemeColor) =>
       marginBottom: "3%",
       borderRadius: 9,
       backgroundColor: "#fff",
+      elevation: 7,
     },
     detailsContainer: {
       width: "100%",

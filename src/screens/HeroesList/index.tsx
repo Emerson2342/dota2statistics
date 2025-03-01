@@ -90,8 +90,8 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-        ? `No results found for: "${textResult}"`
-        : `Nenhum resultado encontrado para: "${textResult}"`;
+      ? `No results found for: "${textResult}"`
+      : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
     if (heroDetails) {
@@ -120,7 +120,7 @@ export function ListaDeHerois() {
 
     setTimeout(() => {
       Keyboard.dismiss();
-    }, 3000)
+    }, 3000);
   };
 
   const HandleClearSearchResults = () => {
@@ -204,7 +204,7 @@ export function ListaDeHerois() {
             styles.buttonOptions,
             {
               backgroundColor:
-                attSelected === "" ? ColorTheme.standard : "transparent",
+                attSelected === "" ? ColorTheme.semidark : "transparent",
             },
           ]}
           onPress={() => handleSelectAtt("")}

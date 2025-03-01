@@ -5,7 +5,7 @@ export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.light,
+      //backgroundColor: colors.light,
       width: "97%",
       alignSelf: "center",
       alignItems: "center",
@@ -53,7 +53,6 @@ export const createStyles = (colors: ThemeColor) =>
       height: 27,
       fontFamily: "QuickSand-Bold",
       fontSize: 15,
-      color: colors.semidark,
     },
     listaHeroi: {
       width: "49%",

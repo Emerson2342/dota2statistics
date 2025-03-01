@@ -549,7 +549,9 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             </View>
           </ScrollView>
 
-          <BannerAds />
+          <View style={{ paddingTop: 7 }}>
+            <BannerAds />
+          </View>
           <View
             style={{
               alignItems: "center",

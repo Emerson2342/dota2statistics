@@ -557,7 +557,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               )}
             </View>
           </ScrollView>
-          <BannerAds />
+          <View style={{ marginTop: 7 }}>
+            <BannerAds />
+          </View>
         </View>
       ) : (
         <View style={{ flex: 1, justifyContent: "center" }}>

@@ -47,6 +47,8 @@ export const createStyles = (Colors: ThemeColor) =>
     optionsContainer: {
       //padding: '5%',
       width: "100%",
+      borderTopWidth: 1,
+      borderColor: Colors.standard,
     },
 
     textOptions: {
@@ -54,12 +56,11 @@ export const createStyles = (Colors: ThemeColor) =>
       color: "#888",
     },
     buttonContainer: {
+      marginBottom: "7%",
       alignItems: "center",
       flexDirection: "row",
-      // width: '100%',
+      width: "100%",
       justifyContent: "space-around",
-      paddingTop: "3%",
-      paddingBottom: "3%",
     },
     options: {
       width: "100%",
@@ -68,19 +69,21 @@ export const createStyles = (Colors: ThemeColor) =>
     textButton: {
       fontSize: 15,
       fontFamily: "QuickSand-Semibold",
-      color: "white",
+      color: Colors.dark,
     },
     buttonSave: {
-      backgroundColor: Colors.standard,
+      //backgroundColor: Colors.standard,
+      backgroundColor: Colors.light,
       elevation: 7,
       padding: "2%",
-      margin: "3%",
-      width: "50%",
+      width: "45%",
       alignItems: "center",
       borderTopStartRadius: 15,
       borderTopEndRadius: 15,
       borderBottomStartRadius: 15,
       borderBottomEndRadius: 15,
+      borderWidth: 1,
+      borderColor: Colors.dark,
     },
     textAboutUs: {
       marginVertical: 17,
