@@ -37,8 +37,8 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
 
   const erro404 = englishLanguage
-    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
-    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
+    ? "Unable to access player data. The profile may be set to private."
+    : "Não foi possível acessar os dados do jogador. Perfil pode estar como privado.";
 
   const erro500 = englishLanguage
     ? "Internal server error. Please, try again later"
@@ -56,15 +56,9 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     }
   }, []);
 
-  const playerFound = (favoritesPlayers).find(
+  const playerFound = favoritesPlayers.find(
     (p) => p.profile.account_id.toString() === PlayerId
   );
-
-
-
-  //const playerFound = false;
-
-  console.log("Lista de jogadores pro: " + JSON.stringify(favoritesPlayers, null, 2));
 
   const handleFavorites = () => {
     if (playerFound) {
