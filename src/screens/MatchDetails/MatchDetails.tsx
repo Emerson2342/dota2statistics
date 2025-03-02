@@ -540,25 +540,28 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                 </View>
               </View>
 
-              {matchDetails.radiant_gold_adv && matchDetails.radiant_xp_adv && (
-                <View
-                  style={[
-                    styles.containerItem,
-                    {
-                      padding: "1%",
-                      paddingBottom: "3%",
-                      paddingTop: "3%",
-                    },
-                  ]}
-                >
-                  <GraficsGoldAndXp
-                    radiant_gold_adv={matchDetails.radiant_gold_adv}
-                    radiant_xp_adv={matchDetails.radiant_xp_adv}
-                    RadiantName={matchDetails?.radiant_team?.name ?? direName}
-                    DireName={matchDetails?.dire_team?.name ?? direName}
-                  />
-                </View>
-              )}
+              {matchDetails.radiant_gold_adv &&
+                matchDetails.radiant_gold_adv.length > 0 &&
+                matchDetails.radiant_xp_adv &&
+                matchDetails.radiant_xp_adv.length > 0 && (
+                  <View
+                    style={[
+                      styles.containerItem,
+                      {
+                        padding: "1%",
+                        paddingBottom: "3%",
+                        paddingTop: "3%",
+                      },
+                    ]}
+                  >
+                    <GraficsGoldAndXp
+                      radiant_gold_adv={matchDetails.radiant_gold_adv}
+                      radiant_xp_adv={matchDetails.radiant_xp_adv}
+                      RadiantName={matchDetails?.radiant_team?.name ?? direName}
+                      DireName={matchDetails?.dire_team?.name ?? direName}
+                    />
+                  </View>
+                )}
             </View>
           </ScrollView>
           <View style={{ marginTop: 7 }}>
