@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,17 +10,17 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { searchPlayersByName } from "../../../src/API";
-import { SEARCH_PLAYER_BASE_URL } from "../../../src/constants/player";
+import { useSettingsContext } from "../../context/useSettingsContext";
+import { useTheme } from "../../context/useThemeContext";
+import { searchPlayersByName } from "../../API";
+import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
 import { RootStackParamList, SearchUserResult } from "../../services/props";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/BannerAds";
 import { ProgressBar, MD3Colors, Searchbar } from "react-native-paper";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 
-export const FindPlayer = () => {
+export const Search = () => {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
@@ -91,6 +91,7 @@ export const FindPlayer = () => {
   return (
     <View style={styles.container}>
       <BannerAds />
+
       <View style={styles.inputContainer}>
         <Searchbar
           style={styles.textInput}

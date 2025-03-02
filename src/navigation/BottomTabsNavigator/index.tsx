@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Profile } from "../../../src/screens/Home";
 import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
-import { FindPlayer } from "../../../src/screens/FindPlayer";
 import {
   Dimensions,
   TouchableOpacity,
@@ -17,6 +16,7 @@ import { useTheme } from "../../../src/context/useThemeContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ModalSettings } from "../../../src/components/Modals/ModalSettings";
 import { Favorites } from "../../../src/screens/Favorites";
+import { Search } from "../../../src/screens/Search";
 
 const Tab = createBottomTabNavigator();
 const width = Dimensions.get("window").width;
@@ -86,7 +86,7 @@ export function BottomTabsNavigator() {
       />
       <Tab.Screen
         name="Search"
-        component={FindPlayer}
+        component={Search}
         options={{
           headerTitle: englishLanguage ? "Search" : "Pesquisar",
           tabBarLabel: englishLanguage ? "Search" : "Pesquisar",
