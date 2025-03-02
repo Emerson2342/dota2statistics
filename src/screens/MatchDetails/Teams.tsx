@@ -69,12 +69,7 @@ export function Teams({
   }) => {
     return (
       <View style={{ alignItems: "center" }}>
-        <View
-          style={[
-            styles.headerContainer,
-            // { backgroundColor: isRadiant ? "green" : "#9e0303" },
-          ]}
-        >
+        <View style={[styles.headerContainer]}>
           <Text
             style={[
               styles.title,
@@ -88,6 +83,7 @@ export function Teams({
             {winner}
           </Text>
           <Text style={[styles.title, {}]}>{teamName}</Text>
+
           <View
             style={[
               styles.detailsContainer,
@@ -174,7 +170,7 @@ export function Teams({
                 player.account_id &&
                 PlayerIdIndex === player.account_id.toString()
                   ? {
-                      backgroundColor: "#FFD700",
+                      backgroundColor: "#f7eba6",
                       borderRadius: 3,
                       padding: "0.5%",
                       marginTop: index == 0 ? 0 : "1%",
@@ -411,7 +407,6 @@ export function Teams({
           <ModalMessage
             handleClose={() => setModalMessageVisible(false)}
             title="Ops..."
-            //error={true}
             message={messageText}
           />
         </Modal>

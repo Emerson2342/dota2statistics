@@ -28,6 +28,9 @@ export const Search = () => {
   const [textSearch, setTextSearch] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
+  const textEmpty = englishLanguage
+    ? "Search typing Steam ID or Nickname"
+    : "Procure digitando o ID da steam ou apelido";
 
   const navigation =
     useNavigation<
@@ -154,7 +157,14 @@ export const Search = () => {
               ? `No results found for "${textSearch}"`
               : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
-
+          <Text
+            style={[
+              styles.emptyList,
+              { display: usersSearch.length === 0 ? "flex" : "none" },
+            ]}
+          >
+            {textEmpty}
+          </Text>
           <FlatList
             data={usersSearch}
             renderItem={renderPlayersList}

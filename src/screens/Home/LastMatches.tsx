@@ -11,7 +11,9 @@ import {
 } from "react-native";
 import { createStyles } from "./LastMatchesStyles";
 import {
+  GameModeNames,
   HeroDetailsModel,
+  LobbyTypeNames,
   RecentMatches,
   RootStackParamList,
 } from "../../services/props";
@@ -24,6 +26,7 @@ import { useTheme } from "../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
+import { GameMode, LobbyType } from "../../../src/services/enum";
 
 export function LastMatches({
   playerId,
@@ -52,11 +55,15 @@ export function LastMatches({
 
   const handleGoToMatch = (
     matchIdIndex: number,
-    playerIdIndex: string | null
+    playerIdIndex: string | null,
+    lobbyType?: string,
+    gameMode?: string
   ) => {
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: matchIdIndex,
       PlayerIdIndex: playerIdIndex,
+      LobbyType: lobbyType,
+      GameMode: gameMode,
     });
   };
 
@@ -79,55 +86,17 @@ export function LastMatches({
     const hoursDate = startDate.getHours();
     const minutesDate = startDate.getMinutes();
 
+    const lobbyTypeValue = item.lobby_type as LobbyType;
+    const gameModeValue = item.game_mode as GameMode;
+
     const formattedTime = `${hoursDate
       .toString()
       .padStart(2, "0")}:${minutesDate.toString().padStart(2, "0")}`;
 
-    const lobbyType = {
-      0: "Casual",
-      1: "Practice",
-      2: "Tournament",
-      3: "Tutorial",
-      4: "Bots",
-      5: "Team Match",
-      6: "Solo Queue",
-      7: "Ranked",
-      9: "Solo Mid",
-    };
-
-    const gameMode = {
-      0: "Unknown",
-      1: "All Pick",
-      2: "Captains Mode",
-      3: "Random Draft",
-      4: "Single Draft",
-      5: "Team All Random",
-      6: "Intro",
-      7: "Diretide",
-      8: "Reverse Captain Mode",
-      9: "Greeviling",
-      10: "Tutorial",
-      11: "Mid Only",
-      12: "Least Played",
-      13: "Limited Heroes",
-      14: "Compendium",
-      15: "Custom",
-      16: "Captains Draft",
-      17: "Balanced Draft",
-      18: "Ability draft",
-      19: "Event",
-      20: "Rd Death Match",
-      21: "1v1 Mid",
-      22: "All Draft",
-      23: "Turbo",
-      24: "Mutation",
-      25: "Coach Challenge",
-    };
-
     const team = item.player_slot < 5 ? 1 : 2;
     const resultadoFinal =
       (team == 1 && item.radiant_win == true) ||
-        (team == 2 && item.radiant_win == false)
+      (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
@@ -141,7 +110,9 @@ export function LastMatches({
             item.match_id,
             playerId
               ? playerId
-              : player && player?.profile.account_id.toString()
+              : player && player?.profile.account_id.toString(),
+            LobbyTypeNames[lobbyTypeValue].toString(),
+            GameModeNames[gameModeValue].toString()
           )
         }
         key={index}
@@ -187,10 +158,10 @@ export function LastMatches({
               },
             ]}
           >
-            {lobbyType[item.lobby_type as keyof typeof lobbyType]}
+            {LobbyTypeNames[lobbyTypeValue]}
           </Text>
           <Text style={[styles.textList, { color: ColorTheme.dark }]}>
-            {gameMode[item.game_mode as keyof typeof gameMode]}
+            {GameModeNames[gameModeValue]}
           </Text>
         </View>
         <Text style={[styles.textList, { width: "10%" }]}>

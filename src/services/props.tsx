@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { Dispatch, SetStateAction } from "react";
+import { GameMode, LobbyType } from "./enum";
 
 export interface PlayerModel {
   profile: {
@@ -91,6 +92,47 @@ export interface RecentMatches {
   lane_role: number | null;
   leaver_status: number;
 }
+
+export const LobbyTypeNames: Record<LobbyType, string> = {
+  [LobbyType.Casual]: "Casual",
+  [LobbyType.Practice]: "Practice",
+  [LobbyType.Tournament]: "Tournament",
+  [LobbyType.Tutorial]: "Tutorial",
+  [LobbyType.Bots]: "Bots",
+  [LobbyType.TeamMatch]: "Team Match",
+  [LobbyType.SoloQueue]: "Solo Queue",
+  [LobbyType.Ranked]: "Ranked",
+  [LobbyType.SoloMid]: "Solo Mid",
+};
+
+export const GameModeNames: Record<GameMode, string> = {
+  [GameMode.Unknown]: "Unknown",
+  [GameMode.AllPick]: "All Pick",
+  [GameMode.CaptainsMode]: "Captains Mode",
+  [GameMode.RandomDraft]: "Random Draft",
+  [GameMode.SingleDraft]: "Single Draft",
+  [GameMode.TeamAllRandom]: "Team All Random",
+  [GameMode.Intro]: "Intro",
+  [GameMode.Diretide]: "Diretide",
+  [GameMode.ReverseCaptainMode]: "Reverse Captain Mode",
+  [GameMode.Greeviling]: "Greeviling",
+  [GameMode.Tutorial]: "Tutorial",
+  [GameMode.MidOnly]: "Mid Only",
+  [GameMode.LeastPlayed]: "Least Played",
+  [GameMode.LimitedHeroes]: "Limited Heroes",
+  [GameMode.Compendium]: "Compendium",
+  [GameMode.Custom]: "Custom",
+  [GameMode.CaptainsDraft]: "Captains Draft",
+  [GameMode.BalancedDraft]: "Balanced Draft",
+  [GameMode.AbilityDraft]: "Ability draft",
+  [GameMode.Event]: "Event",
+  [GameMode.RdDeathMatch]: "Rd Death Match",
+  [GameMode.OneVsOneMid]: "1v1 Mid",
+  [GameMode.AllDraft]: "All Draft",
+  [GameMode.Turbo]: "Turbo",
+  [GameMode.Mutation]: "Mutation",
+  [GameMode.CoachChallenge]: "Coach Challenge",
+};
 
 export interface HeroInfo {
   heroId: number;
@@ -195,13 +237,13 @@ export interface MatchDetailsModel {
     name?: string;
     tag?: string;
     logo_url?: string;
-  }
+  };
   dire_team?: {
     team_id?: number;
     name?: string;
     tag?: string;
     logo_url?: string;
-  }
+  };
 }
 
 export interface Player {
@@ -465,6 +507,8 @@ export type RootStackParamList = {
   MatchDetails: {
     MatchDetailsIndex: number;
     PlayerIdIndex: string | null;
+    LobbyType?: string;
+    GameMode?: string;
   };
   PlayerProfile: {
     PlayerId: string;

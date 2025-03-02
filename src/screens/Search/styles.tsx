@@ -44,4 +44,10 @@ export const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
     },
+    emptyList: {
+      textAlign: "center",
+      padding: "5%",
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
+    },
   });

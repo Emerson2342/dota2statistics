@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Modal,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
@@ -15,8 +16,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 export function Header({
   matchDetails,
+  lobbyType,
+  gameMode,
 }: {
   matchDetails: MatchDetailsModel | null;
+  lobbyType?: string;
+  gameMode?: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -56,50 +61,79 @@ export function Header({
 
   return (
     <View style={styles.container}>
-      <Text
-        style={[
-          styles.textTitleLeague,
-          { display: matchDetails?.league?.name ? "flex" : "none" },
-        ]}
-      >
-        {matchDetails?.league?.name ?? ""}
+      <Text style={styles.textTitleLeague}>
+        {matchDetails?.league?.name ?? `${lobbyType} - ${gameMode}`}
       </Text>
       <View style={{ width: "100%", alignItems: "center" }}>
         <View
           style={{
             flexDirection: "row",
+            justifyContent: "space-between",
             width: "100%",
-            alignItems: "center",
           }}
         >
-          <View style={styles.scoreContainer}>
+          <View
+            style={{
+              width: "50%",
+              alignItems: "center",
+            }}
+          >
+            {matchDetails?.radiant_team?.logo_url ? (
+              <Image
+                source={{ uri: matchDetails.radiant_team.logo_url }}
+                style={{
+                  width: 37,
+                  aspectRatio: 1,
+                  backgroundColor: "#000",
+                  borderRadius: 7,
+                }}
+              />
+            ) : (
+              <View
+                style={{
+                  width: matchDetails?.dire_team?.logo_url ? 37 : 0,
+                  height: matchDetails?.dire_team?.logo_url ? 37 : 0,
+                }}
+              />
+            )}
+            <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
             <Text
               numberOfLines={1}
-              style={[styles.teamName, { textAlign: "right" }]}
+              style={[styles.teamName, { textAlign: "center" }]}
             >
               {matchDetails?.radiant_team?.name ?? radName}{" "}
             </Text>
-            <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
           </View>
-          <Text
+          <View
             style={{
-              color: ColorTheme.semidark,
-              fontFamily: "QuickSand-Semibold",
+              width: "50%",
+              alignItems: "center",
             }}
           >
-            {" "}
-            X{" "}
-          </Text>
-          <View
-            style={[styles.scoreContainer, { justifyContent: "flex-start" }]}
-          >
+            {matchDetails?.dire_team?.logo_url ? (
+              <Image
+                source={{ uri: matchDetails.dire_team.logo_url }}
+                style={{
+                  width: 37,
+                  aspectRatio: 1,
+                  backgroundColor: "#000",
+                  borderRadius: 7,
+                }}
+              />
+            ) : (
+              <View
+                style={{
+                  width: matchDetails?.radiant_team?.logo_url ? 37 : 0,
+                  height: matchDetails?.radiant_team?.logo_url ? 37 : 0,
+                }}
+              />
+            )}
             <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
             <Text
               numberOfLines={1}
-              style={[styles.teamName, { textAlign: "left" }]}
+              style={[styles.teamName, { textAlign: "center" }]}
             >
-              {" "}
-              {matchDetails?.dire_team?.name ?? direName}
+              {matchDetails?.dire_team?.name ?? direName}{" "}
             </Text>
           </View>
         </View>
@@ -209,6 +243,10 @@ const createStyles = (colors: ThemeColor) =>
       color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       textAlign: "center",
+      borderBottomWidth: 1,
+      borderColor: "#ccc",
+      marginBottom: 7,
+      paddingBottom: 7,
     },
     scoreContainer: {
       flexDirection: "row",

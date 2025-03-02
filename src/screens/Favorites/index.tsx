@@ -31,6 +31,9 @@ export function Favorites() {
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [playerIdIndex, setPlayerIdIndex] = useState<number>();
+  const textEmpty = englishLanguage
+    ? "Empty List. To add, select as favorite on the header of Profile Player."
+    : "Lista Vazia. Para adicionar, selecione como favorito no topo do Perfil do Jogador.";
 
   const messageText = englishLanguage
     ? "This profile is private"
@@ -105,14 +108,14 @@ export function Favorites() {
       <BannerAds />
       <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
         <Text
-          style={{
-            display: favoritesPlayers.length == 0 ? "flex" : "none",
-            fontFamily: "QuickSand-Semibold",
-            textAlign: "center",
-            fontSize: 17,
-          }}
+          style={[
+            styles.emptyList,
+            {
+              display: favoritesPlayers.length == 0 ? "flex" : "none",
+            },
+          ]}
         >
-          {englishLanguage ? "Empty List" : "Lista Vazia"}
+          {textEmpty}
         </Text>
         <ScrollView style={styles.scrollView}>
           <FlatList

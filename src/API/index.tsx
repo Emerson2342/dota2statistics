@@ -48,7 +48,8 @@ export const searchPlayersByName = async (
   }
 };
 
-export const getSearchLeagueMatches = async (url: string,
+export const getSearchLeagueMatches = async (
+  url: string,
   setLeagueMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
 ) => {
   try {
@@ -56,10 +57,11 @@ export const getSearchLeagueMatches = async (url: string,
     const data = (await response.json()) as LeagueMatches[];
     setLeagueMatches(data);
   } catch (error: any) {
-    console.log("Erro ao tentar buscar lsita de campeonatos. " + error.toString());
-  };
-}
-
+    console.log(
+      "Erro ao tentar buscar lsita de campeonatos. " + error.toString()
+    );
+  }
+};
 
 export const getProMatches = async (
   setProMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
@@ -144,7 +146,7 @@ export const getMatchDetails = async (url: string) => {
         radiant_xp_adv: data.radiant_xp_adv,
         league: data.league,
         radiant_team: data.radiant_team,
-        dire_team: data.dire_team
+        dire_team: data.dire_team,
       };
       return matchDataResponse;
     }
@@ -246,6 +248,14 @@ export const getHeroBenchMarks = async (heroId: number | undefined) => {
     return filteredData;
   } catch (error) {
     console.error("Erro ao buscar os dados da API benchmarcks: ", error);
+    return null;
+  }
+};
+
+export const getTeamPlayers = async (teamId: number) => {
+  try {
+  } catch (error) {
+    console.error("Erro ao buscar jogadores por time: ", error);
     return null;
   }
 };

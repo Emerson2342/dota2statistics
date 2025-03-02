@@ -35,7 +35,8 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
-  const { MatchDetailsIndex, PlayerIdIndex } = route.params;
+  const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
+    route.params;
 
   const { englishLanguage } = useSettingsContext();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
@@ -60,7 +61,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
       );
     if (match) {
-      console.log("entrou");
       setMatchDetails(null);
       const prevList = matchesDetailsList.filter(
         (m) => m.match_id != match.match_id
@@ -286,7 +286,11 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     <View style={styles.container}>
       {matchDetails ? (
         <View style={{ flex: 1 }}>
-          <Header matchDetails={matchDetails} />
+          <Header
+            matchDetails={matchDetails}
+            lobbyType={LobbyType}
+            gameMode={GameMode}
+          />
 
           <ScrollView
             style={{ marginTop: "2%" }}
