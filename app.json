@@ -22,7 +22,8 @@
         "foregroundImage": "./src/images/icon.png",
         "backgroundColor": "#fff"
       },
-      "package": "com.missinhoo.Dota2"
+      "package": "com.missinhoo.Dota2",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./src/images/icon.png"
