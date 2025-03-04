@@ -17,7 +17,7 @@ import { ModalForgotPassword } from "../../components/Modals/ModalForgotPassword
 import { createStyles } from "./styles";
 import { ModalCreateAccount } from "../../components/Modals/ModalCreateAccount";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db2 } from "../../../src/services/firebaseConfig";
+import { auth, db } from "../../../src/services/firebaseConfig";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { ModalLoading } from "../../../src/components/Modals/ModalLoading";
 import { doc, getDoc } from "firebase/firestore";
@@ -44,7 +44,7 @@ export function Login() {
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
 
-  const { setRefreshProfile } = useRefreshContext();
+  //const { refreshProfile, setRefreshProfile } = useRefreshContext();
 
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -67,7 +67,7 @@ export function Login() {
     ? "Please, fill all the data!"
     : "Favor preencher todos os dados!";
   const getUserData = async () => {
-    const docRef = doc(db2, "Profile", login);
+    const docRef = doc(db, "Profile", login);
     const docSnap = await getDoc(docRef);
 
     const data = docSnap.data() as User;
@@ -90,7 +90,7 @@ export function Login() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Usuário loggado: " + user.email);
-        setRefreshProfile(true);
+        //setRefreshProfile(!refreshProfile);
       })
       .catch((error) => {
         const errorCode = error.code;

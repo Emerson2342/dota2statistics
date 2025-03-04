@@ -29,8 +29,8 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 export function Profile() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { playerTimestamp, setPlayerTimestamp, accountTimestamp } =
-    useTimestampContext();
+  //const { playerTimestamp, setPlayerTimestamp } =
+  // useTimestampContext();
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const {
     player,
@@ -41,7 +41,7 @@ export function Profile() {
   } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
 
-  const { refreshProfile, setRefreshProfile } = useRefreshContext();
+  //const { refreshProfile, setRefreshProfile } = useRefreshContext();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -74,7 +74,7 @@ export function Profile() {
   const handleLoadData = async () => {
     setIsLoading(true);
 
-    setPlayerTimestamp(currentTimestamp);
+    // setPlayerTimestamp(currentTimestamp);
     setTimeout(async () => {
       await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
@@ -87,7 +87,7 @@ export function Profile() {
         setHeroesPlayedId
       );
       setIsLoading(false);
-      setRefreshProfile(false);
+      //setRefreshProfile(false);
     }, 500);
   };
 
@@ -126,18 +126,30 @@ export function Profile() {
     }
   }, [recentMatches, loadedList]);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (
-        (playerTimestamp == null || playerTimestamp + 300 < currentTimestamp) &&
-        !refreshProfile
-      ) {
-        handleLoadData();
-      }
-      setIsLoading(false);
-    }, [playerTimestamp, profile])
-  );
+  /*
+  useEffect(() => {
+    if (playerTimestamp == null || playerTimestamp + 300 < currentTimestamp) {
+      handleLoadData();
+    }
+    setIsLoading(false);
+  }, [playerTimestamp, profile, refreshProfile]);
+  
+  useEffect(() => {    
+    handleLoadData();
+    
+    setIsLoading(false);
+  }, [ profile]);
+  
+  */
 
+  useEffect(() => {
+    console.log(profile);
+    console.log("Entrou useEffect");
+    handleLoadData();
+    setIsLoading(false);
+  }, [profile]);
+
+  /*
   useEffect(() => {
     console.log(profile);
     if (refreshProfile) {
@@ -146,7 +158,8 @@ export function Profile() {
     }
     setIsLoading(false);
   }, [profile, refreshProfile]);
-
+  
+  */
   if (player == null || (player?.profile.account_id == 0 && !isLoading)) {
     return (
       <View style={styles.erroMessage}>

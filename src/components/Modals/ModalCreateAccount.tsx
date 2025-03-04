@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { HandleCloseInterface, ThemeColor, User } from "../../services/props";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db2 } from "../../services/firebaseConfig";
+import { auth, db } from "../../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { ModalMessage } from "./ModalMessage";
 import { ModalLoading } from "./ModalLoading";
@@ -88,7 +88,7 @@ export function ModalCreateAccount({
 
   const createProfile = async () => {
     try {
-      await setDoc(doc(db2, "Profile", newUser.email), {
+      await setDoc(doc(db, "Profile", newUser.email), {
         email: newUser.email,
         id_Steam: newUser.id_Steam,
       });

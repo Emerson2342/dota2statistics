@@ -26,11 +26,13 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalConfirmLogOutVisible, setModalConfirmLogOutVisible] =
     useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { ColorTheme } = useTheme();
+
   useFocusEffect(
     useCallback(() => {
       setIsEnglish(englishLanguage);
@@ -46,6 +48,14 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
       setIsLoading(false);
     }, 300);
   };
+
+  const handleAccount = (deleteAccountProps: boolean) => {
+    if (deleteAccountProps)
+      setDeleteAccount(true);
+    else
+      setDeleteAccount(false);
+    setModalConfirmLogOutVisible(true);
+  }
 
   const styles = createStyles(ColorTheme);
 
@@ -211,15 +221,12 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                   flexDirection: "row",
                   width: "100%",
                   justifyContent: "space-evenly",
+                  marginVertical: 15
                 }}
               >
                 <TouchableOpacity
-                  onPress={() => setModalConfirmLogOutVisible(true)}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
+                  onPress={() => handleAccount(false)}
+                  style={styles.buttonLogout}
                 >
                   <Text
                     style={{
@@ -231,12 +238,21 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
                   </Text>
                   <FontAwesome name="sign-out" size={17} />
                 </TouchableOpacity>
-                <Text
-                  onPress={() => setModalAboutUsVisible(true)}
-                  style={styles.textAboutUs}
+                <TouchableOpacity
+                  onPress={() => handleAccount(true)}
+                  style={styles.buttonLogout}
                 >
-                  {englishLanguage ? "About Us" : "Sobre Nós"}
-                </Text>
+                  <Text
+                    style={{
+                      color: "#a73737",
+                      fontFamily: "QuickSand-Bold",
+                    }}
+                  >
+                    {englishLanguage ? "Delete Account " : "Apagar Conta "}
+                  </Text>
+                  <FontAwesome name="trash" size={17} color={"#a73737"} />
+                </TouchableOpacity>
+
               </View>
             </View>
           </View>
@@ -258,6 +274,12 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
               </Text>
             </TouchableOpacity>
           </View>
+          <Text
+            onPress={() => setModalAboutUsVisible(true)}
+            style={styles.textAboutUs}
+          >
+            {englishLanguage ? "About Us" : "Sobre Nós"}
+          </Text>
         </View>
 
         <Modal
@@ -305,6 +327,7 @@ export function ModalSettings({ handleClose }: { handleClose: () => void }) {
         >
           <ModalConfirmLogOut
             handleClose={() => setModalConfirmLogOutVisible(false)}
+            deleteAccount={deleteAccount}
           />
         </Modal>
       </View>

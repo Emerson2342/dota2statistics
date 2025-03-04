@@ -1,45 +1,67 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { signOut } from "firebase/auth";
-import { auth } from "../../services/firebaseConfig";
+import { auth, db } from "../../services/firebaseConfig";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { usePlayerContext } from "../../../src/context/usePlayerContex";
 import { useProfileContext } from "../../../src/context/useProfileContext";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
+import { doc, deleteDoc } from "firebase/firestore";
+import { deleteUser } from "firebase/auth";
+
 
 export function ModalConfirmLogOut({
   handleClose,
+  deleteAccount
 }: {
-  handleClose: () => void;
+  handleClose: () => void, deleteAccount: boolean;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const { setPlayer, setHeroesPlayedId } = usePlayerContext();
-  const { setProfile } = useProfileContext();
-  const { setPlayerTimestamp } = useTimestampContext();
+  const { profile, setProfile } = useProfileContext();
+  // const { setPlayerTimestamp } = useTimestampContext();
 
-  const text = englishLanguage
+
+  const textLogout = englishLanguage
     ? "Do you really want to log out?"
     : "Deseja realmente sair?";
 
+  const textDeleteAccount = englishLanguage
+    ? "Do you really want to delete your account?"
+    : "Deseja realmente apagar sua conta?";
+
+  const textMessage = deleteAccount ? textDeleteAccount : textLogout
+
   const handleSignOut = async () => {
+    const user = auth.currentUser;
+
     try {
       setProfile(null);
-      setPlayerTimestamp(null);
+      // setPlayerTimestamp(null);
       setPlayer(null);
       setHeroesPlayedId([]);
-      await signOut(auth);
+
+      if (deleteAccount && user) {
+        await deleteDoc(doc(db, "Profile", profile?.email ?? ""));
+        await deleteUser(user);
+        console.log("Conta excluída com sucesso.");
+      } else {
+        await signOut(auth);
+      }
       console.log("Usuário deslogado");
     } catch (error) {
       console.error("Erro ao deslogar o usuário:", error);
     }
   };
 
+
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.text}>{text}</Text>
+        <Text style={styles.text}>{textMessage}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[

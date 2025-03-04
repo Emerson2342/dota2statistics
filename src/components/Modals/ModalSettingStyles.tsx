@@ -56,11 +56,16 @@ export const createStyles = (Colors: ThemeColor) =>
       color: "#888",
     },
     buttonContainer: {
-      marginBottom: "7%",
+      marginBottom: "3%",
       alignItems: "center",
       flexDirection: "row",
       width: "100%",
       justifyContent: "space-around",
+    },
+    buttonLogout: {
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
     },
     options: {
       width: "100%",
@@ -72,7 +77,6 @@ export const createStyles = (Colors: ThemeColor) =>
       color: Colors.dark,
     },
     buttonSave: {
-      //backgroundColor: Colors.standard,
       backgroundColor: Colors.light,
       elevation: 7,
       padding: "2%",
@@ -86,7 +90,7 @@ export const createStyles = (Colors: ThemeColor) =>
       borderColor: Colors.dark,
     },
     textAboutUs: {
-      marginVertical: 17,
+      marginVertical: 7,
       fontFamily: "QuickSand-Semibold",
       color: "#aaa",
     },

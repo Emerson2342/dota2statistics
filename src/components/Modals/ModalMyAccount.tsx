@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
 import { useRefreshContext } from "../../../src/context/useRefreshContext";
 import { doc, setDoc } from "firebase/firestore";
-import { db2 } from "../../../src/services/firebaseConfig";
+import { db } from "../../../src/services/firebaseConfig";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 
@@ -24,9 +24,12 @@ export default function ModalMyAccount({
 }: {
   handleClose: HandleCloseInterface;
 }) {
-  const { setRefreshProfile } = useRefreshContext();
+  // const { setRefreshProfile } = useRefreshContext();
   const { profile, setProfile } = useProfileContext();
-  const { setPlayerTimestamp, accountTimestamp, setAccountTimestamp } =
+  //const { setPlayerTimestamp, accountTimestamp, setAccountTimestamp } =
+  // useTimestampContext();
+
+  const { accountTimestamp, setAccountTimestamp } =
     useTimestampContext();
   const { englishLanguage } = useSettingsContext();
   const [user, setUser] = useState<User>({
@@ -51,7 +54,7 @@ export default function ModalMyAccount({
     ? "Error trying to change Steam ID"
     : "Erro ao tentar alterar o Id da Steam";
 
-  const handleSave = () => {
+  /*const handleSave = () => {
     setIsLoading(true);
     setTimeout(() => {
       if (
@@ -71,12 +74,34 @@ export default function ModalMyAccount({
       setRefreshProfile(true);
     }, 300);
   };
+  */
+
+  const handleSave = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      if (
+        accountTimestamp == null ||
+        accountTimestamp + 86400 < currentTimestamp
+      ) {
+        handleChangeIdSteam();
+        setAccountTimestamp(currentTimestamp);
+        console.log("Novo TimesStamp: " + accountTimestamp);
+      }
+      setTextMessage(messageSuccess);
+      setModalMessageVisible(true);
+      setIsLoading(false);
+      console.log("TimeStamp atual: " + accountTimestamp);
+      setProfile(user);
+      //setPlayerTimestamp(currentTimestamp);
+      //setRefreshProfile(true);
+    }, 300);
+  };
 
   const handleChangeIdSteam = async () => {
     try {
       if (profile == null) return;
 
-      await setDoc(doc(db2, "Profile", profile.email ?? ""), {
+      await setDoc(doc(db, "Profile", profile.email ?? ""), {
         email: profile.email,
         id_Steam: user.id_Steam,
       });
@@ -143,7 +168,7 @@ export default function ModalMyAccount({
                 ...prevState,
                 id_Steam: profile?.id_Steam ?? "",
               }));
-              setPlayerTimestamp(currentTimestamp);
+              //setPlayerTimestamp(currentTimestamp);
             }}
           >
             <Ionicons

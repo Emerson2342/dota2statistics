@@ -148,7 +148,6 @@ export const getMatchDetails = async (url: string) => {
         radiant_team: data.radiant_team,
         dire_team: data.dire_team,
       };
-      console.log("Saiu");
       return matchDataResponse;
     }
   } catch (error) {
