@@ -27,7 +27,7 @@ export const createStyles = (colors: ThemeColor) =>
     textTitleHeader: {
       color: colors.dark,
       textAlign: "center",
-      fontSize: 13,
+      fontSize: Dimensions.get("screen").width * 0.03,
       fontFamily: "QuickSand-Semibold",
     },
     listTitle: {
