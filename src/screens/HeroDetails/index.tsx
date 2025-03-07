@@ -254,6 +254,17 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
           {"     "}
           {item?.desc}
         </Text>
+        <Text
+          style={{
+            display: item?.lore ? "flex" : "none",
+            fontFamily: "QuickSand-Semibold",
+            color: "#aaa",
+            marginTop: 9,
+            textAlign: "center",
+          }}
+        >
+          "{item?.lore}"
+        </Text>
       </View>
     );
   };
