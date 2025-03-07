@@ -144,7 +144,7 @@ export function LastMatches({
             <MaterialIcons name="thumb-down" size={17} color="#9a0c28" />
           )}
         </Text>
-        <Text style={[styles.textList, { width: "28%" }]}>
+        <Text style={[styles.textList, { width: "32%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </Text>
@@ -200,10 +200,10 @@ export function LastMatches({
         <Text style={[styles.textTitleHeader, { width: "17%" }]}>
           {englishLanguage ? "Mode" : "Modo"}
         </Text>
-        <Text style={[styles.textTitleHeader, { width: "15%" }]}>
+        <Text style={[styles.textTitleHeader, { width: "13%" }]}>
           {englishLanguage ? "Duration" : "Duração"}
         </Text>
-        <Text style={[styles.textTitleHeader, { width: "15%" }]}>K/D/A</Text>
+        <Text style={[styles.textTitleHeader, { width: "13%" }]}>K/D/A</Text>
       </View>
       <FlatList
         data={recentMatches}

@@ -7,7 +7,7 @@ const testeId = "ca-app-pub-3940256099942544/6300978111";
 
 export function BannerAds() {
   return (
-    <View style={{ display: "flex" }}>
+    <View style={{ display: "none" }}>
       <BannerAd
         unitId={testeId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
