@@ -8,13 +8,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {
+  HeroAbilitiesDescriptionsJson,
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
   RootStackParamList,
   ThemeColor,
 } from "../../services/props";
-import AbilitiesDescription from "../../components/Heroes/AbilitiesDescriptions.json";
+import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
 import TalentTree from "../../components/Heroes/talentTree.jpg";
 import {
   ITEM_IMAGE_BASE_URL,
@@ -55,19 +56,13 @@ export function Damage({
     }, 500);
   }, []);
 
-  const HandleGoToHeroDetails = (heroId: number | undefined) => {
-    if (heroId) {
-      const heroIndex = heroList.find((h) => h.id === heroId);
-      if (heroIndex) {
-        console.log("Herói Selecionado: " + heroIndex?.localized_name);
-        navigation.navigate("HeroDetails", { heroDetails: heroIndex });
-      } else {
-        console.log("Hero não encontrado!");
-      }
-    }
-  };
-
   const RenderDamage = ({ players }: { players: Player[] }) => {
+    const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
+      AbilitiesDescriptionsJson;
+
+    var magicDamage;
+    var physicalDamage: number;
+    var pureDamage;
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
@@ -89,9 +84,7 @@ export function Damage({
                   >
                     {RadName ? RadName : radName}
                   </Text>
-                ) : (
-                  <></>
-                )}
+                ) : null}
 
                 {index === 5 ? (
                   <Text
@@ -102,12 +95,9 @@ export function Damage({
                   >
                     {DireName ? DireName : direName}
                   </Text>
-                ) : (
-                  <></>
-                )}
+                ) : null}
 
                 <TouchableOpacity
-                  //onPress={() => HandleGoToHeroDetails(player.hero_id)}
                   style={{
                     flexDirection: "row",
                     width: "100%",
@@ -120,17 +110,62 @@ export function Damage({
                       source={{ uri: imgSource }}
                     />
                   </View>
+
+                  {/* Renderizando as habilidades recebidas */}
                   <View style={styles.imageAbilityWrapper}>
                     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                       {player.damage_inflictor_received &&
                         Object.entries(player.damage_inflictor_received).map(
-                          ([ability, damage], index) => (
-                            <View key={index} style={{ margin: 5 }}>
-                              <Text>
-                                {ability} - {damage}
-                              </Text>
-                            </View>
-                          )
+                          ([ability, damage], index) => {
+                            // Verifica se a habilidade existe no objeto
+                            if (!(ability in heroAbilitiesDescriptions)) {
+                              return null; // Se não existir, ignora
+                            }
+
+                            // Acessa a habilidade de forma segura
+                            const abilityInfo =
+                              heroAbilitiesDescriptions[ability];
+
+                            if (abilityInfo?.dmg_type === "Physical") {
+                              physicalDamage += damage;
+                            }
+
+                            return (
+                              <View
+                                key={index}
+                                style={{ alignItems: "center", margin: 5 }}
+                              >
+                                {/* Imagem da Habilidade */}
+                                {abilityInfo?.img && (
+                                  <Image
+                                    src={`${PICTURE_HERO_BASE_URL}${abilityInfo?.img}`}
+                                    style={{
+                                      width: 40,
+                                      height: 40,
+                                      borderRadius: 5,
+                                    }}
+                                  />
+                                )}
+
+                                {/* Nome da Habilidade */}
+                                <Text
+                                  style={{ fontSize: 12, fontWeight: "bold" }}
+                                >
+                                  {abilityInfo?.dname}
+                                </Text>
+
+                                {/* Tipo de Dano */}
+                                <Text style={{ fontSize: 12, color: "gray" }}>
+                                  {abilityInfo?.dmg_type}
+                                </Text>
+
+                                {/* Dano Recebido */}
+                                <Text style={{ fontSize: 12, color: "red" }}>
+                                  Dano: {damage}
+                                </Text>
+                              </View>
+                            );
+                          }
                         )}
                     </View>
                   </View>

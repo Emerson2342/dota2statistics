@@ -15597,6 +15597,7 @@
       "Passive",
       "Hidden"
     ],
+    "dmg_type": "Magical",
     "dispellable": "No",
     "desc": "Phoenix deals 4.5% of his missing health as magic damage to all enemies in a 400 radius every second.",
     "img": "/apps/dota2/images/dota_react/abilities/phoenix_dying_light.png"
