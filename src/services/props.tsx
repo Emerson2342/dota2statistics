@@ -315,6 +315,9 @@ export interface Player {
     };
   };
   ability_upgrades_arr: [number];
+  damage_inflictor_received?: {
+    [key: string]: number;
+  };
 }
 
 export interface KillDetails {

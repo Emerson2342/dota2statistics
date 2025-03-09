@@ -128,6 +128,7 @@ export const getMatchDetails = async (url: string) => {
               tower_damage: player.benchmarks?.tower_damage,
             },
             ability_upgrades_arr: player.ability_upgrades_arr,
+            damage_inflictor_received: player.damage_inflictor_received,
           })
         ),
         radiant_win: data.radiant_win,

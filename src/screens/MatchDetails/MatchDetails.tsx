@@ -33,6 +33,7 @@ import { Teams } from "./Teams";
 import { getMatchDetails } from "../../../src/API";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
+import { Damage } from "./Damage";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -282,6 +283,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
       {matchDetails ? (
@@ -298,10 +300,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
-                enabled={
-                  matchDetails.radiant_gold_adv &&
-                  matchDetails.radiant_gold_adv.length < 1
-                }
+                // enabled={
+                //   matchDetails.radiant_gold_adv &&
+                //   matchDetails.radiant_gold_adv.length < 1
+                // }
               />
             }
           >
@@ -339,6 +341,16 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   matchDetails={matchDetails}
                 />
               </View>
+              {matchDetails.players[0]?.damage_inflictor_received ? (
+                <View style={styles.containerItem}>
+                  <Damage
+                    RadName={matchDetails?.radiant_team?.name ?? radName}
+                    DireName={matchDetails?.dire_team?.name ?? direName}
+                    matchDetails={matchDetails}
+                  />
+                </View>
+              ) : null}
+
               <View style={styles.containerItem}>
                 <HeroKillsDetails
                   matchDetails={matchDetails}
@@ -557,7 +569,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                     <GraficsGoldAndXp
                       radiant_gold_adv={matchDetails.radiant_gold_adv}
                       radiant_xp_adv={matchDetails.radiant_xp_adv}
-                      RadiantName={matchDetails?.radiant_team?.name ?? direName}
+                      RadiantName={matchDetails?.radiant_team?.name ?? radName}
                       DireName={matchDetails?.dire_team?.name ?? direName}
                     />
                   </View>
