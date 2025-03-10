@@ -117,12 +117,12 @@ export function Damage({
                       {player.damage_inflictor_received &&
                         Object.entries(player.damage_inflictor_received).map(
                           ([ability, damage], index) => {
-                            // Verifica se a habilidade existe no objeto
+
                             if (!(ability in heroAbilitiesDescriptions)) {
-                              return null; // Se não existir, ignora
+                              return null; 
                             }
 
-                            // Acessa a habilidade de forma segura
+
                             const abilityInfo =
                               heroAbilitiesDescriptions[ability];
 
@@ -135,7 +135,6 @@ export function Damage({
                                 key={index}
                                 style={{ alignItems: "center", margin: 5 }}
                               >
-                                {/* Imagem da Habilidade */}
                                 {abilityInfo?.img && (
                                   <Image
                                     src={`${PICTURE_HERO_BASE_URL}${abilityInfo?.img}`}
@@ -147,21 +146,21 @@ export function Damage({
                                   />
                                 )}
 
-                                {/* Nome da Habilidade */}
+
                                 <Text
                                   style={{ fontSize: 12, fontWeight: "bold" }}
                                 >
                                   {abilityInfo?.dname}
                                 </Text>
 
-                                {/* Tipo de Dano */}
+
                                 <Text style={{ fontSize: 12, color: "gray" }}>
                                   {abilityInfo?.dmg_type}
                                 </Text>
 
-                                {/* Dano Recebido */}
+
                                 <Text style={{ fontSize: 12, color: "red" }}>
-                                  Dano: {damage}
+                                  {damage}
                                 </Text>
                               </View>
                             );

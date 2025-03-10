@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { FontModel, ThemeColor } from "../../services/props";
 
 export const createStyles = (colors: ThemeColor, Font: FontModel) =>
@@ -39,8 +39,8 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       fontFamily: Font.font1,
     },
     imgHero: {
-      width: 35,
-      height: 35,
+      width: Dimensions.get('screen').width * 0.083,
+      aspectRatio: 1,
       borderRadius: 35,
       borderWidth: 1,
       borderColor: colors.standard,

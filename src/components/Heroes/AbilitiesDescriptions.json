@@ -847,6 +847,7 @@
   "earthshaker_enchant_totem": {
     "dname": "Enchant Totem",
     "behavior": "No Target",
+    "dmg_type": "Physical",
     "dispellable": "Yes",
     "target_team": "Enemy",
     "target_type": [
@@ -14780,6 +14781,7 @@
       "No Target",
       "Instant Cast"
     ],
+    "dmg_type": "Magical",
     "dispellable": "No",
     "desc": "When activated, all damage dealt to you will heal instead of harm. Most negative buffs will also be removed. If the ability is not on cooldown, it will automatically activate if your health falls below 400.\n\nDISPEL TYPE: Strong Dispel",
     "lore": "The most unnatural of all the gifts of the Font of Avernus, this power defies mortal understanding.  What should hurt, instead heals; and what should kill gives strength anew.",
@@ -17941,6 +17943,7 @@
       "No Target",
       "Instant Cast"
     ],
+    "dmg_type": "Physical",
     "dispellable": "No",
     "desc": "The Beast's temper causes every instance of 50 hero damage or more to grant a stack of Uproar. \n\n When activated, Primal Beast releases a roar that slows surrounding enemies and grants the Beast additional attack damage and armor for 7 seconds based on his current stacks of Uproar.",
     "lore": "Already draped in a broken patchwork of barding and chains upon appearing in the mistwoods, the Beast tolerates no further attempts at subjugation.",
