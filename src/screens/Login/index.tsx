@@ -167,7 +167,6 @@ export function Login() {
             <TextInput
               style={styles.textInput}
               textAlign="center"
-              value={login}
               onChangeText={(loginText) =>
                 setLogin(loginText.toLowerCase().trim())
               }
@@ -180,7 +179,6 @@ export function Login() {
             <TextInput
               style={styles.textInput}
               textAlign="center"
-              value={password}
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />

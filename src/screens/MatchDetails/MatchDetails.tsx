@@ -341,7 +341,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   matchDetails={matchDetails}
                 />
               </View>
-              {matchDetails.players[0]?.damage_inflictor_received ? (
+              {!matchDetails.players[0]?.damage_inflictor_received ? (
                 <View style={styles.containerItem}>
                   <Damage
                     RadName={matchDetails?.radiant_team?.name ?? radName}
