@@ -318,6 +318,9 @@ export interface Player {
   damage_inflictor_received?: {
     [key: string]: number;
   };
+  damage_inflictor?: {
+    [key: string]: number;
+  };
 }
 
 export interface KillDetails {
@@ -336,10 +339,9 @@ export interface KilledBy {
 }
 
 export interface ItemsModel {
-  nome: string;
-  id: number;
-  img: string;
-  dname: string;
+  id?: number;
+  img?: string;
+  dname?: string;
 }
 
 export interface PlayerDetails {
@@ -454,6 +456,10 @@ export interface HeroAbilitiesDetailsJson {
 
 export interface HeroAbilitiesDescriptionsJson {
   [key: string]: HeroAbilitiesDescriptionsModel;
+}
+
+export interface ItemsJson {
+  [key: string]: ItemsModel;
 }
 
 export interface HeroBenchmarksResult {

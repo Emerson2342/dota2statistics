@@ -129,6 +129,7 @@ export const getMatchDetails = async (url: string) => {
             },
             ability_upgrades_arr: player.ability_upgrades_arr,
             damage_inflictor_received: player.damage_inflictor_received,
+            damage_inflictor: player.damage_inflictor,
           })
         ),
         radiant_win: data.radiant_win,

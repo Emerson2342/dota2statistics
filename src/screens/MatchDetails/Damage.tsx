@@ -6,16 +6,20 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import {
   HeroAbilitiesDescriptionsJson,
   HeroDetailsModel,
+  ItemsJson,
+  ItemsModel,
   MatchDetailsModel,
   Player,
   RootStackParamList,
   ThemeColor,
 } from "../../services/props";
 import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
+import ItemsList from "../../components/Itens/itemsList.json";
 import TalentTree from "../../components/Heroes/talentTree.jpg";
 import {
   ITEM_IMAGE_BASE_URL,
@@ -26,6 +30,7 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export function Damage({
   matchDetails,
@@ -60,13 +65,10 @@ export function Damage({
     const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
       AbilitiesDescriptionsJson;
 
-    var magicDamage;
-    var physicalDamage: number;
-    var pureDamage;
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
-          {englishLanguage ? "Damage Received" : "Dano Recebido"}
+          {englishLanguage ? "Damage Received" : "Dano Causado"}
         </Text>
         {players &&
           players.map((player: Player, index: number) => {
@@ -97,7 +99,7 @@ export function Damage({
                   </Text>
                 ) : null}
 
-                <TouchableOpacity
+                <View
                   style={{
                     flexDirection: "row",
                     width: "100%",
@@ -110,65 +112,78 @@ export function Damage({
                       source={{ uri: imgSource }}
                     />
                   </View>
-
-                  {/* Renderizando as habilidades recebidas */}
                   <View style={styles.imageAbilityWrapper}>
                     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                      {player.damage_inflictor_received &&
-                        Object.entries(player.damage_inflictor_received).map(
-                          ([ability, damage], index) => {
-
-                            if (!(ability in heroAbilitiesDescriptions)) {
-                              return null; 
-                            }
-
-
+                      {player.damage_inflictor &&
+                        Object.entries(player.damage_inflictor)
+                          .sort(([a], [b]) =>
+                            a === "null" ? -1 : b === "null" ? 1 : 0
+                          )
+                          .map(([ability, damage], index) => {
                             const abilityInfo =
                               heroAbilitiesDescriptions[ability];
 
-                            if (abilityInfo?.dmg_type === "Physical") {
-                              physicalDamage += damage;
-                            }
-
+                            const itemInfo = ItemsList.find(
+                              (i) => i.name === ability
+                            );
+                            console.log(ability);
                             return (
                               <View
                                 key={index}
-                                style={{ alignItems: "center", margin: 5 }}
+                                style={{
+                                  alignItems: "center",
+                                  margin: 3,
+                                }}
                               >
                                 {abilityInfo?.img && (
                                   <Image
                                     src={`${PICTURE_HERO_BASE_URL}${abilityInfo?.img}`}
                                     style={{
-                                      width: 40,
-                                      height: 40,
+                                      width:
+                                        Dimensions.get("screen").width * 0.07,
+                                      aspectRatio: 1,
                                       borderRadius: 5,
                                     }}
                                   />
                                 )}
-
-
+                                {itemInfo?.img && (
+                                  <Image
+                                    src={`${PICTURE_HERO_BASE_URL}${itemInfo?.img}`}
+                                    style={{
+                                      width:
+                                        Dimensions.get("screen").width * 0.07,
+                                      aspectRatio: 1,
+                                      borderRadius: 5,
+                                    }}
+                                  />
+                                )}
+                                {ability === "null" ? (
+                                  <MaterialCommunityIcons
+                                    name="sword"
+                                    size={Dimensions.get("screen").width * 0.07}
+                                    color={"#000"}
+                                  />
+                                ) : (
+                                  <></>
+                                )}
                                 <Text
-                                  style={{ fontSize: 12, fontWeight: "bold" }}
+                                  style={{
+                                    fontFamily: "QuickSand-Semibold",
+                                    fontSize:
+                                      Dimensions.get("screen").width * 0.027,
+                                    color: "#888",
+                                  }}
                                 >
-                                  {abilityInfo?.dname}
-                                </Text>
-
-
-                                <Text style={{ fontSize: 12, color: "gray" }}>
-                                  {abilityInfo?.dmg_type}
-                                </Text>
-
-
-                                <Text style={{ fontSize: 12, color: "red" }}>
-                                  {damage}
+                                  {damage.toLocaleString(
+                                    englishLanguage ? "en-US" : "pt-BR"
+                                  )}
                                 </Text>
                               </View>
                             );
-                          }
-                        )}
+                          })}
                     </View>
                   </View>
-                </TouchableOpacity>
+                </View>
               </View>
             );
           })}
