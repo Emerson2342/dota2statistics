@@ -44,8 +44,6 @@ export function Damage({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
   // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
 
@@ -126,7 +124,6 @@ export function Damage({
                             const itemInfo = ItemsList.find(
                               (i) => i.name === ability
                             );
-                            console.log(ability);
                             return (
                               <View
                                 key={index}

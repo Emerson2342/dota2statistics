@@ -13,6 +13,7 @@ import {
 import { createStyles } from "./MatchDetailsStyles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import {
+  GoldPlayers,
   HeroDetailsModel,
   MatchDetailsModel,
   MatchDetailsProps,
@@ -25,7 +26,7 @@ import {
 import { BannerAds } from "../../components/BannerAds";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { GraficsGoldAndXp } from "./Grafic";
+import { GraficsGoldAndXpTeam } from "./GraficsGoldAndXpTeam";
 import { Abilities } from "./Abilities";
 import { Items } from "./Items";
 import { Header } from "./Header";
@@ -34,6 +35,7 @@ import { getMatchDetails } from "../../../src/API";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 import { Damage } from "./Damage";
+import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -52,6 +54,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
+
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -77,6 +80,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   const styles = createStyles(ColorTheme);
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  useEffect(() => {
+    if (!matchDetails) return; // Garante que só executa quando houver dados
+  }, [matchDetails]); // Agora o efeito roda sempre que matchDetails for atualizado
 
   useEffect(() => {
     const loadMatchesList = async () => {
@@ -113,6 +120,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   useEffect(() => {
     if (!loadedeList) return;
+
     const fetchMatchDetails = async () => {
       const match =
         MatchDetailsIndex &&
@@ -551,7 +559,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   </View>
                 </View>
               </View>
-
               {matchDetails.radiant_gold_adv &&
                 matchDetails.radiant_gold_adv.length > 0 &&
                 matchDetails.radiant_xp_adv &&
@@ -566,7 +573,28 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                       },
                     ]}
                   >
-                    <GraficsGoldAndXp
+                    <GraficsGoldPlayers
+                      matchDetails={matchDetails}
+                      RadiantName={matchDetails?.radiant_team?.name ?? radName}
+                      DireName={matchDetails?.dire_team?.name ?? direName}
+                    />
+                  </View>
+                )}
+              {matchDetails.radiant_gold_adv &&
+                matchDetails.radiant_gold_adv.length > 0 &&
+                matchDetails.radiant_xp_adv &&
+                matchDetails.radiant_xp_adv.length > 0 && (
+                  <View
+                    style={[
+                      styles.containerItem,
+                      {
+                        padding: "1%",
+                        paddingBottom: "3%",
+                        paddingTop: "3%",
+                      },
+                    ]}
+                  >
+                    <GraficsGoldAndXpTeam
                       radiant_gold_adv={matchDetails.radiant_gold_adv}
                       radiant_xp_adv={matchDetails.radiant_xp_adv}
                       RadiantName={matchDetails?.radiant_team?.name ?? radName}

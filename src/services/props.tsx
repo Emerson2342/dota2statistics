@@ -321,6 +321,12 @@ export interface Player {
   damage_inflictor?: {
     [key: string]: number;
   };
+  gold_t?: number[];
+}
+
+export interface GoldPlayers {
+  hero_id: number;
+  gold_t: number[] | [];
 }
 
 export interface KillDetails {

@@ -1,15 +1,13 @@
 import React from "react";
 import { View, Dimensions, TextInput, Text, StyleSheet } from "react-native";
-import { CartesianChart, Line, useChartPressState } from "victory-native";
+import { CartesianChart, Line } from "victory-native";
 import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { useFonts } from "expo-font";
-import { FontModel } from "../../services/props";
 
 Animated.addWhitelistedNativeProps({ text: true });
 
-export const GraficsGoldAndXp = ({
+export const GraficsGoldAndXpTeam = ({
   radiant_gold_adv,
   radiant_xp_adv,
   RadiantName,
