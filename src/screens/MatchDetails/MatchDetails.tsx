@@ -559,27 +559,26 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                   </View>
                 </View>
               </View>
-              {matchDetails.radiant_gold_adv &&
-                matchDetails.radiant_gold_adv.length > 0 &&
-                matchDetails.radiant_xp_adv &&
-                matchDetails.radiant_xp_adv.length > 0 && (
-                  <View
-                    style={[
-                      styles.containerItem,
-                      {
-                        padding: "1%",
-                        paddingBottom: "3%",
-                        paddingTop: "3%",
-                      },
-                    ]}
-                  >
-                    <GraficsGoldPlayers
-                      matchDetails={matchDetails}
-                      RadiantName={matchDetails?.radiant_team?.name ?? radName}
-                      DireName={matchDetails?.dire_team?.name ?? direName}
-                    />
-                  </View>
-                )}
+              {matchDetails.players.length > 0 &&
+              matchDetails.players[0].gold_t &&
+              matchDetails.players[0].gold_t.length > 0 ? (
+                <View
+                  style={[
+                    styles.containerItem,
+                    {
+                      padding: "1%",
+                      paddingBottom: "3%",
+                      paddingTop: "3%",
+                    },
+                  ]}
+                >
+                  <GraficsGoldPlayers
+                    matchDetails={matchDetails}
+                    RadiantName={matchDetails?.radiant_team?.name ?? radName}
+                    DireName={matchDetails?.dire_team?.name ?? direName}
+                  />
+                </View>
+              ) : null}
               {matchDetails.radiant_gold_adv &&
                 matchDetails.radiant_gold_adv.length > 0 &&
                 matchDetails.radiant_xp_adv &&

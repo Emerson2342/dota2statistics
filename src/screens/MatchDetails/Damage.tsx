@@ -66,7 +66,7 @@ export function Damage({
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
-          {englishLanguage ? "Damage Received" : "Dano Causado"}
+          {englishLanguage ? "Damage Inflictor" : "Origem do Dano"}
         </Text>
         {players &&
           players.map((player: Player, index: number) => {

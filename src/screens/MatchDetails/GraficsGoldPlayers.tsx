@@ -20,6 +20,7 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import { useTheme } from "../../../src/context/useThemeContext";
 
 Animated.addWhitelistedNativeProps({ text: true });
 
@@ -33,6 +34,7 @@ export const GraficsGoldPlayers = ({
   DireName: string | undefined;
 }) => {
   const { englishLanguage } = useSettingsContext();
+  const { ColorTheme } = useTheme();
 
   const [hero1Selected, setHero1Selected] = useState(true);
   const [hero2Selected, setHero2Selected] = useState(false);
@@ -45,7 +47,7 @@ export const GraficsGoldPlayers = ({
   const [hero9Selected, setHero9Selected] = useState(false);
   const [hero10Selected, setHero10Selected] = useState(false);
 
-  const font = useFont(require("../../Fonts/Quicksand_SemiBold.ttf"));
+  const font = useFont(require("../../Fonts/Quicksand_Bold.ttf"));
 
   const player1 = matchDetails.players[0].gold_t ?? [];
   const player2 = matchDetails.players[1].gold_t ?? [];
@@ -76,14 +78,14 @@ export const GraficsGoldPlayers = ({
   const colors = [
     "#FF5733",
     "#3366FF",
-    "#33FF57",
+    "#c587f8",
     "#FF33A8",
     "#FFD700",
     "#800080",
-    "#00CED1",
-    "#FF4500",
-    "#008000",
-    "#8B0000",
+    "#05a1a3",
+    "#00FFFF",
+    "#7efc7e",
+    "#1d1a1a",
   ];
 
   const colorHero1 = hero1Selected ? colors[0] : "transparent";
@@ -98,77 +100,101 @@ export const GraficsGoldPlayers = ({
   const colorHero10 = hero10Selected ? colors[9] : "transparent";
 
   const width = Dimensions.get("screen").width * 0.93;
+  const height = Dimensions.get("screen").height * 0.59;
 
-  const handleSelectHero = (index: number) => {
+  const handleSelectHero = (index: number): boolean => {
     if (index === 0) {
       setHero1Selected(!hero1Selected);
+      return !hero1Selected;
     }
     if (index === 1) {
       setHero2Selected(!hero2Selected);
+      return !hero2Selected;
     }
     if (index === 2) {
-      console.log(index);
       setHero3Selected(!hero3Selected);
+      return !hero3Selected;
     }
     if (index === 3) {
-      console.log(index);
       setHero4Selected(!hero4Selected);
+      return !hero4Selected;
     }
     if (index === 4) {
-      console.log(index);
       setHero5Selected(!hero5Selected);
+      return !hero5Selected;
     }
     if (index === 5) {
-      console.log(index);
       setHero6Selected(!hero6Selected);
+      return !hero6Selected;
     }
     if (index === 6) {
-      console.log(index);
       setHero7Selected(!hero7Selected);
+      return !hero7Selected;
     }
     if (index === 7) {
-      console.log(index);
       setHero8Selected(!hero8Selected);
+      return !hero8Selected;
     }
     if (index === 8) {
-      console.log(index);
       setHero9Selected(!hero9Selected);
+      return !hero9Selected;
     }
     if (index === 9) {
-      console.log(index);
       setHero10Selected(!hero10Selected);
+      return !hero10Selected;
     }
+    return false;
   };
 
   return (
-    <View style={{ width: width, height: 350 }}>
+    <View style={{ width: width, height: height }}>
+      <Text
+        style={[
+          styles.textTeamName,
+          { fontSize: 19, color: ColorTheme.semidark },
+        ]}
+      >
+        {englishLanguage
+          ? "Net Worth Evolution"
+          : "Evolução do Patrimônio Líquido"}
+      </Text>
       <Text style={[styles.textGraphic, { color: "green" }]}>
         {RadiantName}
       </Text>
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <View style={styles.heroButtonContainer}>
         {matchDetails.players.slice(0, 5).map((player, index) => {
           const hero = heroArray.find((hero) => hero.id === player.hero_id);
-          const borderColor = colors[index];
 
           const heroImage = PICTURE_HERO_BASE_URL + hero?.img;
           return (
             <View key={index}>
-              <TouchableOpacity onPress={() => handleSelectHero(index)}>
+              <TouchableOpacity
+                style={{
+                  borderRadius: 3,
+                  borderBottomWidth: 7,
+                  borderColor:
+                    index === 0 && hero1Selected
+                      ? colors[0]
+                      : index === 1 && hero2Selected
+                      ? colors[1]
+                      : index === 2 && hero3Selected
+                      ? colors[2]
+                      : index === 3 && hero4Selected
+                      ? colors[3]
+                      : index === 4 && hero5Selected
+                      ? colors[4]
+                      : "transparent",
+                }}
+                onPress={() => handleSelectHero(index)}
+              >
                 <Image
                   src={heroImage}
-                  style={{
-                    borderWidth: 1.7,
-                    borderColor: borderColor,
-                    width: width * 0.1,
-                    borderRadius: 37,
-                    aspectRatio: 1,
-                  }}
+                  style={[
+                    styles.heroImage,
+                    {
+                      width: width * 0.13,
+                    },
+                  ]}
                 />
               </TouchableOpacity>
             </View>
@@ -191,8 +217,9 @@ export const GraficsGoldPlayers = ({
           "player10",
         ]}
         axisOptions={{
-          tickCount: 9,
+          tickCount: 10,
           font: font,
+          lineWidth: 0.3,
           labelOffset: { x: 0, y: 0 },
           labelPosition: "outset",
           formatXLabel: (value) => `${value}`,
@@ -269,30 +296,41 @@ export const GraficsGoldPlayers = ({
         )}
       </CartesianChart>
       <Text style={styles.textGraphic}>{DireName}</Text>
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <View style={styles.heroButtonContainer}>
         {matchDetails.players.slice(5, 10).map((player, index) => {
           const hero = heroArray.find((hero) => hero.id === player.hero_id);
 
           const heroImage = PICTURE_HERO_BASE_URL + hero?.img;
-          const borderColor = colors[index + 5];
           return (
             <View key={index}>
-              <TouchableOpacity onPress={() => handleSelectHero(index + 5)}>
+              <TouchableOpacity
+                style={{
+                  borderBottomLeftRadius: 3,
+                  borderBottomRightRadius: 3,
+                  borderBottomWidth: 7,
+                  borderBottomColor:
+                    index === 0 && hero6Selected
+                      ? colors[5]
+                      : index === 1 && hero7Selected
+                      ? colors[6]
+                      : index === 2 && hero8Selected
+                      ? colors[7]
+                      : index === 3 && hero9Selected
+                      ? colors[8]
+                      : index === 4 && hero10Selected
+                      ? colors[9]
+                      : "transparent",
+                }}
+                onPress={() => handleSelectHero(index + 5)}
+              >
                 <Image
                   src={heroImage}
-                  style={{
-                    borderWidth: 1.7,
-                    borderColor: borderColor,
-                    width: width * 0.1,
-                    borderRadius: 37,
-                    aspectRatio: 1,
-                  }}
+                  style={[
+                    styles.heroImage,
+                    {
+                      width: width * 0.13,
+                    },
+                  ]}
                 />
               </TouchableOpacity>
             </View>
@@ -315,7 +353,7 @@ export const GraficsGoldPlayers = ({
         style={{
           alignSelf: "center",
           marginTop: 17,
-          backgroundColor: "#f13e3e",
+          backgroundColor: ColorTheme.semidark,
           borderRadius: 7,
         }}
       >
@@ -330,10 +368,30 @@ export const GraficsGoldPlayers = ({
 };
 
 const styles = StyleSheet.create({
+  textTeamName: {
+    textAlign: "center",
+    fontFamily: "QuickSand-Bold",
+  },
   textGraphic: {
     textAlign: "center",
-    fontSize: 17,
+    fontSize: Dimensions.get("screen").width * 0.037,
+    marginBottom: 3,
+    marginTop: 15,
     color: "#ff0000",
     fontFamily: "QuickSand-Semibold",
+  },
+  heroButtonContainer: {
+    width: "90%",
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 9,
+    marginTop: 9,
+  },
+  heroImage: {
+    //borderRadius: 1.7,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 9,
+    aspectRatio: 1.5,
   },
 });

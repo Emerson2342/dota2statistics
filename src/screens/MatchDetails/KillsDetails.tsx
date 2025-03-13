@@ -83,7 +83,9 @@ export function HeroKillsDetails({
           style={[
             styles.textTeamName,
             {
-              display: index == 0 ? "flex" : "none", color: ColorTheme.standard, borderTopWidth: index == 0 ? 1 : 0,
+              display: index == 0 ? "flex" : "none",
+              color: ColorTheme.standard,
+              borderTopWidth: index == 0 ? 1 : 0,
               borderColor: ColorTheme.standard,
             },
           ]}
@@ -98,7 +100,7 @@ export function HeroKillsDetails({
               borderTopWidth: index == 5 ? 1 : 0,
               borderColor: ColorTheme.standard,
               marginTop: index == 5 ? 7 : 0,
-              color: ColorTheme.standard
+              color: ColorTheme.standard,
             },
           ]}
         >
@@ -173,7 +175,12 @@ export function HeroKillsDetails({
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.textTeamName, { fontSize: 19, color: ColorTheme.semidark }]}>
+      <Text
+        style={[
+          styles.textTeamName,
+          { fontSize: 19, color: ColorTheme.semidark },
+        ]}
+      >
         {englishLanguage ? "Kills Details" : "Detalhes de Mortes"}
       </Text>
       <View
