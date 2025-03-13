@@ -151,12 +151,28 @@ export const GraficsGoldPlayers = ({
       <Text
         style={[
           styles.textTeamName,
-          { fontSize: 19, color: ColorTheme.semidark },
+          {
+            fontSize: Dimensions.get("screen").width * 0.05,
+            color: ColorTheme.semidark,
+          },
         ]}
       >
         {englishLanguage
           ? "Net Worth Evolution"
           : "Evolução do Patrimônio Líquido"}
+      </Text>
+      <Text
+        style={[
+          styles.textTeamName,
+          {
+            fontSize: Dimensions.get("screen").width * 0.03,
+            color: ColorTheme.semilight,
+          },
+        ]}
+      >
+        {englishLanguage
+          ? "*Click on a hero to see the evolution."
+          : "*Clique em um herói para ver a evolução."}
       </Text>
       <Text style={[styles.textGraphic, { color: "green" }]}>
         {RadiantName}
