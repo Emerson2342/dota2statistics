@@ -10,10 +10,16 @@ import {
   Modal,
   RefreshControl,
   useWindowDimensions,
+  Dimensions,
 } from "react-native";
 import { createStyles } from "./MatchDetailsStyles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { TabView, SceneMap } from "react-native-tab-view";
+import {
+  TabView,
+  SceneMap,
+  TabBar,
+  SceneRendererProps,
+} from "react-native-tab-view";
 import {
   GoldPlayers,
   HeroDetailsModel,
@@ -38,6 +44,8 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
+import { Snackbar } from "react-native-paper";
+import { on } from "events";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -50,6 +58,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [loadedeList, setLoadedList] = useState(false);
 
   const storage = useMemo(() => new AsyncStorageService(), []);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   const { ColorTheme } = useTheme();
 
@@ -64,203 +74,62 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return <HomeComponent />;
+          return matchDetails ? <HomeComponent /> : <LoadingMatchDetails />;
         case "second":
-          return <HomeComponent1 />;
+          return matchDetails ? <HomeComponent1 /> : <LoadingMatchDetails />;
         default:
           return null;
       }
     },
-    [matchDetails]
+    [matchDetails, refreshing]
   );
+
+  const LoadingMatchDetails = () => {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <View
+          style={{
+            flex: 0.9,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color={ColorTheme.standard} />
+          <Text style={{ fontFamily: "QuickSand-Semibold" }}>
+            {englishLanguage ? "Loading match..." : "Carregando partida..."}
+          </Text>
+        </View>
+        <BannerAds />
+      </View>
+    );
+  };
 
   const HomeComponent = React.memo(() => {
     return (
-      <ScrollView>
-        <Header
-          matchDetails={matchDetails}
-          lobbyType={LobbyType}
-          gameMode={GameMode}
-        />
-        <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
-        {matchDetails &&
-        matchDetails.picks_bans &&
-        matchDetails.picks_bans.length > 0 ? (
-          <View style={styles.containerItem}>
-            <FlatList
-              data={matchDetails ? [matchDetails] : []}
-              renderItem={renderItemBans}
-              keyExtractor={(item) => item.match_id.toString()}
-              scrollEnabled={false}
-            />
-          </View>
-        ) : (
-          <></>
-        )}
-        <View
-          style={[
-            styles.containerItem,
-            {
-              padding: "1%",
-              paddingBottom: "3%",
-              paddingTop: "3%",
-            },
-          ]}
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
-          <Text style={styles.title}>Performance</Text>
-          <View style={styles.detailsContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={styles.detailsContent}>
-                <View style={{ width: "100%" }}>
-                  <Text style={styles.textTitle}>Hero Damage</Text>
-                  <View style={{ flexDirection: "row", width: "70%" }}>
-                    <Text
-                      style={[
-                        styles.barRadiant,
-                        { width: `${heroDamRadBar}%` },
-                      ]}
-                    />
-                    <Text style={styles.textResult}>
-                      {" "}
-                      {heroDamageRad.toLocaleString(
-                        englishLanguage ? "en-US" : "pt-BR"
-                      )}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barDire, { width: `${heroDamDireBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {heroDamageDire.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-                <Text style={styles.textTitle}>Tower Damage</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barRadiant, { width: `${towerDamRadBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {towerDamageRad.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barDire, { width: `${towerDamDireBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {towerDamageDire.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-
-                <Text style={styles.textTitle}>Networth</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barRadiant, { width: `${netWorthRadBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {netWorthRad.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barDire, { width: `${netWorthDireBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {netWorthDire.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.detailsContent}>
-                <Text style={styles.textTitle}>Healing</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barRadiant, { width: `${healingRadBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {healingRad.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barDire, { width: `${healingDireBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {healingDire.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                </View>
-                <Text style={styles.textTitle}>
-                  {englishLanguage ? "Towers Destroied" : "Torres Destruídas"}
-                </Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[
-                      styles.barRadiant,
-                      { width: `${(resultTowerDireBar / 11) * 100}%` },
-                    ]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {resultTowerDireBar}/11
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[
-                      styles.barDire,
-                      { width: `${(resultTowerRadBar / 11) * 100}%` },
-                    ]}
-                  />
-                  <Text style={styles.textResult}> {resultTowerRadBar}/11</Text>
-                </View>
-
-                <Text style={styles.textTitle}>Xp</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
-                    style={[styles.barRadiant, { width: `${xpRadBar}%` }]}
-                  />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {xpRad.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text style={[styles.barDire, { width: `${xpDireBar}%` }]} />
-                  <Text style={styles.textResult}>
-                    {" "}
-                    {xpDire.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
-                  </Text>
-                </View>
-              </View>
+          <Header
+            matchDetails={matchDetails}
+            lobbyType={LobbyType}
+            gameMode={GameMode}
+          />
+          <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
+          {matchDetails &&
+          matchDetails.picks_bans &&
+          matchDetails.picks_bans.map((p) => p.is_pick) ? (
+            <View style={styles.containerItem}>
+              <FlatList
+                data={matchDetails ? [matchDetails] : []}
+                renderItem={renderItemBans}
+                keyExtractor={(item) => item.match_id.toString()}
+                scrollEnabled={false}
+              />
             </View>
-          </View>
-        </View>
-        {matchDetails &&
-        matchDetails.players.length > 0 &&
-        matchDetails.players[0].gold_t &&
-        matchDetails.players[0].gold_t.length > 0 ? (
+          ) : null}
           <View
             style={[
               styles.containerItem,
@@ -271,30 +140,220 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               },
             ]}
           >
-            <GraficsGoldPlayers
-              matchDetails={matchDetails}
-              RadiantName={matchDetails?.radiant_team?.name ?? radName}
-              DireName={matchDetails?.dire_team?.name ?? direName}
-            />
+            <Text style={styles.title}>Performance</Text>
+            <View style={styles.detailsContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={styles.detailsContent}>
+                  <View style={{ width: "100%" }}>
+                    <Text style={styles.textTitle}>Hero Damage</Text>
+                    <View style={{ flexDirection: "row", width: "70%" }}>
+                      <Text
+                        style={[
+                          styles.barRadiant,
+                          { width: `${heroDamRadBar}%` },
+                        ]}
+                      />
+                      <Text style={styles.textResult}>
+                        {" "}
+                        {heroDamageRad.toLocaleString(
+                          englishLanguage ? "en-US" : "pt-BR"
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barDire, { width: `${heroDamDireBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {heroDamageDire.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <Text style={styles.textTitle}>Tower Damage</Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barRadiant,
+                        { width: `${towerDamRadBar}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {towerDamageRad.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barDire, { width: `${towerDamDireBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {towerDamageDire.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+
+                  <Text style={styles.textTitle}>Networth</Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barRadiant,
+                        { width: `${netWorthRadBar}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {netWorthRad.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barDire, { width: `${netWorthDireBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {netWorthDire.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.detailsContent}>
+                  <Text style={styles.textTitle}>Healing</Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barRadiant,
+                        { width: `${healingRadBar}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {healingRad.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barDire, { width: `${healingDireBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {healingDire.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <Text style={styles.textTitle}>
+                    {englishLanguage ? "Towers Destroied" : "Torres Destruídas"}
+                  </Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barRadiant,
+                        { width: `${(resultTowerDireBar / 11) * 100}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {resultTowerDireBar}/11
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barDire,
+                        { width: `${(resultTowerRadBar / 11) * 100}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {resultTowerRadBar}/11
+                    </Text>
+                  </View>
+
+                  <Text style={styles.textTitle}>Xp</Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barRadiant, { width: `${xpRadBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {xpRad.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[styles.barDire, { width: `${xpDireBar}%` }]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {xpDire.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
           </View>
-        ) : null}
-      </ScrollView>
+          {matchDetails &&
+            matchDetails.radiant_gold_adv &&
+            matchDetails.radiant_gold_adv.length > 0 &&
+            matchDetails.radiant_xp_adv &&
+            matchDetails.radiant_xp_adv.length > 0 && (
+              <View
+                style={[
+                  styles.containerItem,
+                  {
+                    padding: "1%",
+                    paddingBottom: "7%",
+                    paddingTop: "3%",
+                  },
+                ]}
+              >
+                <GraficsGoldAndXpTeam
+                  radiant_gold_adv={matchDetails.radiant_gold_adv}
+                  radiant_xp_adv={matchDetails.radiant_xp_adv}
+                  RadiantName={matchDetails?.radiant_team?.name ?? radName}
+                  DireName={matchDetails?.dire_team?.name ?? direName}
+                />
+              </View>
+            )}
+        </ScrollView>
+        <BannerAds />
+      </View>
     );
   });
 
   const HomeComponent1 = React.memo(() => {
     return (
-      <ScrollView>
-        <View style={styles.containerItem}>
-          {matchDetails ? (
-            <HeroKillsDetails
-              matchDetails={matchDetails}
-              radName={matchDetails?.radiant_team?.name ?? radName}
-              direName={matchDetails?.dire_team?.name ?? direName}
-            />
-          ) : null}
-        </View>
-        <View style={styles.containerItem}>
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <View style={[styles.containerItem, { marginTop: "3%" }]}>
+            {matchDetails ? (
+              <HeroKillsDetails
+                matchDetails={matchDetails}
+                radName={matchDetails?.radiant_team?.name ?? radName}
+                direName={matchDetails?.dire_team?.name ?? direName}
+              />
+            ) : null}
+          </View>
           {matchDetails && matchDetails.players[0]?.damage_inflictor ? (
             <View style={styles.containerItem}>
               <Damage
@@ -304,20 +363,21 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               />
             </View>
           ) : null}
-          {matchDetails ? (
-            <Items
-              playerIndex={PlayerIdIndex}
-              matchDetails={matchDetails}
-              RadName={matchDetails?.radiant_team?.name ?? radName}
-              DireName={matchDetails?.dire_team?.name ?? direName}
-            />
-          ) : null}
-        </View>
-        {matchDetails &&
-          matchDetails.radiant_gold_adv &&
-          matchDetails.radiant_gold_adv.length > 0 &&
-          matchDetails.radiant_xp_adv &&
-          matchDetails.radiant_xp_adv.length > 0 && (
+          <View style={styles.containerItem}>
+            {matchDetails ? (
+              <Items
+                playerIndex={PlayerIdIndex}
+                matchDetails={matchDetails}
+                RadName={matchDetails?.radiant_team?.name ?? radName}
+                DireName={matchDetails?.dire_team?.name ?? direName}
+              />
+            ) : null}
+          </View>
+
+          {matchDetails &&
+          matchDetails.players.length > 0 &&
+          matchDetails.players[0].gold_t &&
+          matchDetails.players[0].gold_t.length > 0 ? (
             <View
               style={[
                 styles.containerItem,
@@ -328,42 +388,44 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
                 },
               ]}
             >
-              <GraficsGoldAndXpTeam
-                radiant_gold_adv={matchDetails.radiant_gold_adv}
-                radiant_xp_adv={matchDetails.radiant_xp_adv}
+              <GraficsGoldPlayers
+                matchDetails={matchDetails}
                 RadiantName={matchDetails?.radiant_team?.name ?? radName}
                 DireName={matchDetails?.dire_team?.name ?? direName}
               />
             </View>
-          )}
-      </ScrollView>
+          ) : null}
+        </ScrollView>
+        <BannerAds />
+      </View>
     );
   });
 
   const routes = [
-    { key: "first", title: "First" },
-    { key: "second", title: "Second" },
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    {
+      key: "second",
+      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
+    },
   ];
 
-  const [refreshing, setRefreshing] = useState(false);
-
-  // const onRefresh = async () => {
-  //   setRefreshing(true);
-  //   const match =
-  //     MatchDetailsIndex &&
-  //     matchesDetailsList.find(
-  //       (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
-  //     );
-  //   if (match) {
-  //     setMatchDetails(null);
-  //     const prevList = matchesDetailsList.filter(
-  //       (m) => m.match_id != match.match_id
-  //     );
-  //     setMatchesDetailsList(prevList);
-  //     await handleSearchMatche();
-  //   }
-  //   setRefreshing(false);
-  // };
+  const onRefresh = async () => {
+    setRefreshing(true);
+    const match =
+      MatchDetailsIndex &&
+      matchesDetailsList.find(
+        (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
+      );
+    if (match) {
+      setMatchDetails(null);
+      const prevList = matchesDetailsList.filter(
+        (m) => m.match_id != match.match_id
+      );
+      setMatchesDetailsList(prevList);
+      await handleSearchMatche();
+    }
+    setRefreshing(false);
+  };
 
   const radName = useMemo(
     () => (englishLanguage ? "Radiant" : "Iluminados"),
@@ -536,6 +598,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
     const renderItemBans = ({ item }: { item: MatchDetailsModel }) => {
       const heroBans = item.picks_bans?.filter((h) => !h.is_pick) || [];
+      if (heroBans.length === 0) return null;
 
       return (
         <View style={{ marginTop: "1%", marginBottom: "3%" }}>
@@ -659,13 +722,30 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   //Tab-View
 
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: ColorTheme.semidark }}
+      activeColor={ColorTheme.dark}
+      inactiveColor={ColorTheme.standard}
+      style={{ backgroundColor: ColorTheme.light }}
+    />
+  );
+
   return (
     <TabView
+      renderTabBar={renderTabBar}
       navigationState={{ index, routes }}
       renderScene={renderScene1}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
-      lazy={true}
+      //lazy={true}
+      commonOptions={{
+        labelStyle: {
+          fontSize: Dimensions.get("screen").width * 0.037,
+          fontFamily: "QuickSand-Semibold",
+        },
+      }}
     />
   );
 };
