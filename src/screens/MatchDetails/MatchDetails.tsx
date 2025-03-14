@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import {
   View,
   Text,
@@ -60,8 +60,22 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
 
-  const renderScene = SceneMap({
-    first: () => (
+  const renderScene1 = useCallback(
+    ({ route }: any) => {
+      switch (route.key) {
+        case "first":
+          return <HomeComponent />;
+        case "second":
+          return <HomeComponent1 />;
+        default:
+          return null;
+      }
+    },
+    [matchDetails]
+  );
+
+  const HomeComponent = React.memo(() => {
+    return (
       <ScrollView>
         <Header
           matchDetails={matchDetails}
@@ -265,8 +279,11 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           </View>
         ) : null}
       </ScrollView>
-    ),
-    second: () => (
+    );
+  });
+
+  const HomeComponent1 = React.memo(() => {
+    return (
       <ScrollView>
         <View style={styles.containerItem}>
           {matchDetails ? (
@@ -320,7 +337,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
             </View>
           )}
       </ScrollView>
-    ),
+    );
   });
 
   const routes = [
@@ -642,31 +659,13 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   //Tab-View
 
-  // if (!matchDetails)
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center" }}>
-  //       <View
-  //         style={{
-  //           flex: 0.9,
-  //           alignItems: "center",
-  //           justifyContent: "center",
-  //         }}
-  //       >
-  //         <ActivityIndicator size="large" color={ColorTheme.standard} />
-  //         <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-  //           {englishLanguage ? "Loading match..." : "Carregando partida..."}
-  //         </Text>
-  //       </View>
-  //       <BannerAds />
-  //     </View>
-  //   );
-
   return (
     <TabView
       navigationState={{ index, routes }}
-      renderScene={renderScene}
+      renderScene={renderScene1}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
+      lazy={true}
     />
   );
 };
