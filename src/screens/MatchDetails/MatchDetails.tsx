@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,11 @@ import {
   TouchableOpacity,
   Modal,
   RefreshControl,
+  useWindowDimensions,
 } from "react-native";
 import { createStyles } from "./MatchDetailsStyles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import { TabView, SceneMap } from "react-native-tab-view";
 import {
   GoldPlayers,
   HeroDetailsModel,
@@ -47,7 +49,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   >([]);
   const [loadedeList, setLoadedList] = useState(false);
 
-  const storage = new AsyncStorageService();
+  const storage = useMemo(() => new AsyncStorageService(), []);
 
   const { ColorTheme } = useTheme();
 
@@ -55,35 +57,315 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     null
   );
 
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
+
+  const renderScene = SceneMap({
+    first: () => (
+      <ScrollView>
+        <Header
+          matchDetails={matchDetails}
+          lobbyType={LobbyType}
+          gameMode={GameMode}
+        />
+        <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
+        {matchDetails &&
+        matchDetails.picks_bans &&
+        matchDetails.picks_bans.length > 0 ? (
+          <View style={styles.containerItem}>
+            <FlatList
+              data={matchDetails ? [matchDetails] : []}
+              renderItem={renderItemBans}
+              keyExtractor={(item) => item.match_id.toString()}
+              scrollEnabled={false}
+            />
+          </View>
+        ) : (
+          <></>
+        )}
+        <View
+          style={[
+            styles.containerItem,
+            {
+              padding: "1%",
+              paddingBottom: "3%",
+              paddingTop: "3%",
+            },
+          ]}
+        >
+          <Text style={styles.title}>Performance</Text>
+          <View style={styles.detailsContainer}>
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.detailsContent}>
+                <View style={{ width: "100%" }}>
+                  <Text style={styles.textTitle}>Hero Damage</Text>
+                  <View style={{ flexDirection: "row", width: "70%" }}>
+                    <Text
+                      style={[
+                        styles.barRadiant,
+                        { width: `${heroDamRadBar}%` },
+                      ]}
+                    />
+                    <Text style={styles.textResult}>
+                      {" "}
+                      {heroDamageRad.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barDire, { width: `${heroDamDireBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {heroDamageDire.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+                <Text style={styles.textTitle}>Tower Damage</Text>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barRadiant, { width: `${towerDamRadBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {towerDamageRad.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barDire, { width: `${towerDamDireBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {towerDamageDire.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+
+                <Text style={styles.textTitle}>Networth</Text>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barRadiant, { width: `${netWorthRadBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {netWorthRad.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barDire, { width: `${netWorthDireBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {netWorthDire.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.detailsContent}>
+                <Text style={styles.textTitle}>Healing</Text>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barRadiant, { width: `${healingRadBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {healingRad.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barDire, { width: `${healingDireBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {healingDire.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                </View>
+                <Text style={styles.textTitle}>
+                  {englishLanguage ? "Towers Destroied" : "Torres Destruídas"}
+                </Text>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[
+                      styles.barRadiant,
+                      { width: `${(resultTowerDireBar / 11) * 100}%` },
+                    ]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {resultTowerDireBar}/11
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[
+                      styles.barDire,
+                      { width: `${(resultTowerRadBar / 11) * 100}%` },
+                    ]}
+                  />
+                  <Text style={styles.textResult}> {resultTowerRadBar}/11</Text>
+                </View>
+
+                <Text style={styles.textTitle}>Xp</Text>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text
+                    style={[styles.barRadiant, { width: `${xpRadBar}%` }]}
+                  />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {xpRad.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "70%" }}>
+                  <Text style={[styles.barDire, { width: `${xpDireBar}%` }]} />
+                  <Text style={styles.textResult}>
+                    {" "}
+                    {xpDire.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        {matchDetails &&
+        matchDetails.players.length > 0 &&
+        matchDetails.players[0].gold_t &&
+        matchDetails.players[0].gold_t.length > 0 ? (
+          <View
+            style={[
+              styles.containerItem,
+              {
+                padding: "1%",
+                paddingBottom: "3%",
+                paddingTop: "3%",
+              },
+            ]}
+          >
+            <GraficsGoldPlayers
+              matchDetails={matchDetails}
+              RadiantName={matchDetails?.radiant_team?.name ?? radName}
+              DireName={matchDetails?.dire_team?.name ?? direName}
+            />
+          </View>
+        ) : null}
+      </ScrollView>
+    ),
+    second: () => (
+      <ScrollView>
+        <View style={styles.containerItem}>
+          {matchDetails ? (
+            <HeroKillsDetails
+              matchDetails={matchDetails}
+              radName={matchDetails?.radiant_team?.name ?? radName}
+              direName={matchDetails?.dire_team?.name ?? direName}
+            />
+          ) : null}
+        </View>
+        <View style={styles.containerItem}>
+          {matchDetails && matchDetails.players[0]?.damage_inflictor ? (
+            <View style={styles.containerItem}>
+              <Damage
+                RadName={matchDetails?.radiant_team?.name ?? radName}
+                DireName={matchDetails?.dire_team?.name ?? direName}
+                matchDetails={matchDetails}
+              />
+            </View>
+          ) : null}
+          {matchDetails ? (
+            <Items
+              playerIndex={PlayerIdIndex}
+              matchDetails={matchDetails}
+              RadName={matchDetails?.radiant_team?.name ?? radName}
+              DireName={matchDetails?.dire_team?.name ?? direName}
+            />
+          ) : null}
+        </View>
+        {matchDetails &&
+          matchDetails.radiant_gold_adv &&
+          matchDetails.radiant_gold_adv.length > 0 &&
+          matchDetails.radiant_xp_adv &&
+          matchDetails.radiant_xp_adv.length > 0 && (
+            <View
+              style={[
+                styles.containerItem,
+                {
+                  padding: "1%",
+                  paddingBottom: "3%",
+                  paddingTop: "3%",
+                },
+              ]}
+            >
+              <GraficsGoldAndXpTeam
+                radiant_gold_adv={matchDetails.radiant_gold_adv}
+                radiant_xp_adv={matchDetails.radiant_xp_adv}
+                RadiantName={matchDetails?.radiant_team?.name ?? radName}
+                DireName={matchDetails?.dire_team?.name ?? direName}
+              />
+            </View>
+          )}
+      </ScrollView>
+    ),
+  });
+
+  const routes = [
+    { key: "first", title: "First" },
+    { key: "second", title: "Second" },
+  ];
+
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-    const match =
-      MatchDetailsIndex &&
-      matchesDetailsList.find(
-        (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
-      );
-    if (match) {
-      setMatchDetails(null);
-      const prevList = matchesDetailsList.filter(
-        (m) => m.match_id != match.match_id
-      );
-      setMatchesDetailsList(prevList);
-      await handleSearchMatche();
-    }
-    setRefreshing(false);
-  };
+  // const onRefresh = async () => {
+  //   setRefreshing(true);
+  //   const match =
+  //     MatchDetailsIndex &&
+  //     matchesDetailsList.find(
+  //       (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
+  //     );
+  //   if (match) {
+  //     setMatchDetails(null);
+  //     const prevList = matchesDetailsList.filter(
+  //       (m) => m.match_id != match.match_id
+  //     );
+  //     setMatchesDetailsList(prevList);
+  //     await handleSearchMatche();
+  //   }
+  //   setRefreshing(false);
+  // };
 
-  const radName = englishLanguage ? "Radiant" : "Iluminados";
-  const direName = englishLanguage ? "Dire" : "Temidos";
+  const radName = useMemo(
+    () => (englishLanguage ? "Radiant" : "Iluminados"),
+    [englishLanguage]
+  );
+  const direName = useMemo(
+    () => (englishLanguage ? "Dire" : "Temidos"),
+    [englishLanguage]
+  );
 
-  const styles = createStyles(ColorTheme);
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+  const styles = useMemo(() => createStyles(ColorTheme), [ColorTheme]);
+  const heroArray = useMemo(
+    () => Object.values(HeroesDetails) as HeroDetailsModel[],
+    [HeroesDetails]
+  );
 
   useEffect(() => {
-    if (!matchDetails) return; // Garante que só executa quando houver dados
-  }, [matchDetails]); // Agora o efeito roda sempre que matchDetails for atualizado
+    if (!matchDetails) return;
+  }, [matchDetails]);
 
   useEffect(() => {
     const loadMatchesList = async () => {
@@ -92,7 +374,15 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           "matchesDetailsList"
         );
         if (storedMatchesList) {
-          setMatchesDetailsList(storedMatchesList);
+          // Evita atualizar o estado se o valor for igual ao anterior
+          setMatchesDetailsList((prevList) => {
+            if (
+              JSON.stringify(prevList) !== JSON.stringify(storedMatchesList)
+            ) {
+              return storedMatchesList;
+            }
+            return prevList;
+          });
         }
       } catch (error) {
         console.error("Erro ao carregar dados do AsyncStorage:", error);
@@ -113,7 +403,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   };
 
   useEffect(() => {
-    if (loadedeList) {
+    if (loadedeList && matchesDetailsList.length > 0) {
       saveMatchesDetailsList();
     }
   }, [matchesDetailsList, loadedeList]);
@@ -171,459 +461,212 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     });
   };
 
-  let heroDamageRad = 0;
-  let heroDamageDire = 0;
-  let healingRad = 0;
-  let healingDire = 0;
-  let netWorthRad = 0;
-  let netWorthDire = 0;
-  let towerDamageRad = 0;
-  let towerDamageDire = 0;
-  let xpRad = 0;
-  let xpDire = 0;
+  const stats = useMemo(() => {
+    let heroDamageRad = 0;
+    let heroDamageDire = 0;
+    let healingRad = 0;
+    let healingDire = 0;
+    let netWorthRad = 0;
+    let netWorthDire = 0;
+    let towerDamageRad = 0;
+    let towerDamageDire = 0;
+    let xpRad = 0;
+    let xpDire = 0;
 
-  matchDetails?.players.slice(0, 5).forEach((p: Player) => {
-    heroDamageRad += p.hero_damage;
-    healingRad += p.hero_healing;
-    netWorthRad += p.net_worth;
-    towerDamageRad += p.tower_damage;
-    xpRad += p.total_xp;
-  });
+    matchDetails?.players.slice(0, 5).forEach((p: Player) => {
+      heroDamageRad += p.hero_damage;
+      healingRad += p.hero_healing;
+      netWorthRad += p.net_worth;
+      towerDamageRad += p.tower_damage;
+      xpRad += p.total_xp;
+    });
 
-  matchDetails?.players.slice(5, 10).forEach((p: Player) => {
-    heroDamageDire += p.hero_damage;
-    healingDire += p.hero_healing;
-    netWorthDire += p.net_worth;
-    towerDamageDire += p.tower_damage;
-    xpDire += p.total_xp;
-  });
+    matchDetails?.players.slice(5, 10).forEach((p: Player) => {
+      heroDamageDire += p.hero_damage;
+      healingDire += p.hero_healing;
+      netWorthDire += p.net_worth;
+      towerDamageDire += p.tower_damage;
+      xpDire += p.total_xp;
+    });
+    const heroDamRadBar =
+      (heroDamageRad / Math.max(heroDamageRad, heroDamageDire)) * 100;
+    const heroDamDireBar =
+      (heroDamageDire / Math.max(heroDamageRad, heroDamageDire)) * 100;
 
-  const heroDamRadBar =
-    (heroDamageRad / Math.max(heroDamageRad, heroDamageDire)) * 100;
-  const heroDamDireBar =
-    (heroDamageDire / Math.max(heroDamageRad, heroDamageDire)) * 100;
+    const towerDamRadBar =
+      (towerDamageRad / Math.max(towerDamageRad, towerDamageDire)) * 100;
+    const towerDamDireBar =
+      (towerDamageDire / Math.max(towerDamageRad, towerDamageDire)) * 100;
 
-  const towerDamRadBar =
-    (towerDamageRad / Math.max(towerDamageRad, towerDamageDire)) * 100;
-  const towerDamDireBar =
-    (towerDamageDire / Math.max(towerDamageRad, towerDamageDire)) * 100;
+    const healingRadBar =
+      (healingRad / Math.max(healingRad, healingDire)) * 100;
+    const healingDireBar =
+      (healingDire / Math.max(healingRad, healingDire)) * 100;
 
-  const healingRadBar = (healingRad / Math.max(healingRad, healingDire)) * 100;
-  const healingDireBar =
-    (healingDire / Math.max(healingRad, healingDire)) * 100;
+    const netWorthRadBar =
+      (netWorthRad / Math.max(netWorthRad, netWorthDire)) * 100;
+    const netWorthDireBar =
+      (netWorthDire / Math.max(netWorthRad, netWorthDire)) * 100;
 
-  const netWorthRadBar =
-    (netWorthRad / Math.max(netWorthRad, netWorthDire)) * 100;
-  const netWorthDireBar =
-    (netWorthDire / Math.max(netWorthRad, netWorthDire)) * 100;
+    const xpRadBar = (xpRad / Math.max(xpRad, xpDire)) * 100;
+    const xpDireBar = (xpDire / Math.max(xpRad, xpDire)) * 100;
 
-  const xpRadBar = (xpRad / Math.max(xpRad, xpDire)) * 100;
-  const xpDireBar = (xpDire / Math.max(xpRad, xpDire)) * 100;
+    const towerRad = matchDetails?.tower_status_radiant.toString(2) || "0";
+    const towerDire = matchDetails?.tower_status_dire.toString(2) || "0";
 
-  const towerRad = matchDetails?.tower_status_radiant.toString(2) || "0";
-  const towerDire = matchDetails?.tower_status_dire.toString(2) || "0";
+    const resultTowerRadBar = 11 - (towerRad?.split("1").length - 1);
+    const resultTowerDireBar = 11 - (towerDire?.split("1").length - 1);
 
-  const resultTowerRadBar = 11 - (towerRad?.split("1").length - 1);
-  const resultTowerDireBar = 11 - (towerDire?.split("1").length - 1);
+    const renderItemBans = ({ item }: { item: MatchDetailsModel }) => {
+      const heroBans = item.picks_bans?.filter((h) => !h.is_pick) || [];
 
-  const renderItemBans = ({ item }: { item: MatchDetailsModel }) => {
-    const heroBans = item.picks_bans?.filter((h) => !h.is_pick) || [];
-
-    return (
-      <View style={{ marginTop: "1%", marginBottom: "3%" }}>
-        <Text style={styles.title}>
-          {englishLanguage ? "Heroes Banned" : "Heróis Banidos"}
-        </Text>
-        <View
-          style={{
-            justifyContent: "center",
-            flexWrap: "wrap",
-            flexDirection: "row",
-          }}
-        >
-          {heroBans.map((ban, index) => {
-            const hero = heroArray.find((h) => h.id === ban.hero_id);
-            let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
-            return (
-              <View
-                key={index}
-                style={{
-                  borderRadius: 5,
-                  margin: 1,
-                  backgroundColor: "#000",
-                  overflow: "hidden",
-                }}
-              >
-                <Image
-                  style={[
-                    styles.imageHeroItems,
-                    { width: 30, height: 30, opacity: 0.7 },
-                  ]}
-                  source={{
-                    uri: imgSource,
-                  }}
-                />
-
-                <View
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <View
-                    style={{
-                      width: "130%",
-                      height: 3,
-                      backgroundColor: "#981a33",
-                      transform: [{ rotate: "30deg" }],
-                    }}
-                  />
-                </View>
-              </View>
-            );
-          })}
-        </View>
-      </View>
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      {matchDetails ? (
-        <View style={{ flex: 1 }}>
-          <Header
-            matchDetails={matchDetails}
-            lobbyType={LobbyType}
-            gameMode={GameMode}
-          />
-
-          <ScrollView
-            style={{ marginTop: "2%" }}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                // enabled={
-                //   matchDetails.radiant_gold_adv &&
-                //   matchDetails.radiant_gold_adv.length < 1
-                // }
-              />
-            }
-          >
-            <View style={{ alignItems: "center" }}>
-              <Teams
-                matchDetails={matchDetails}
-                PlayerIdIndex={PlayerIdIndex}
-              />
-
-              {matchDetails.picks_bans && matchDetails.picks_bans.length > 0 ? (
-                <View style={styles.containerItem}>
-                  <FlatList
-                    data={matchDetails ? [matchDetails] : []}
-                    renderItem={renderItemBans}
-                    keyExtractor={(item) => item.match_id.toString()}
-                    scrollEnabled={false}
-                  />
-                </View>
-              ) : (
-                <></>
-              )}
-              <View style={styles.containerItem}>
-                <Items
-                  playerIndex={PlayerIdIndex}
-                  matchDetails={matchDetails}
-                  RadName={matchDetails?.radiant_team?.name ?? radName}
-                  DireName={matchDetails?.dire_team?.name ?? direName}
-                />
-              </View>
-
-              <View style={styles.containerItem}>
-                <Abilities
-                  RadName={matchDetails?.radiant_team?.name ?? radName}
-                  DireName={matchDetails?.dire_team?.name ?? direName}
-                  matchDetails={matchDetails}
-                />
-              </View>
-              {matchDetails.players[0]?.damage_inflictor ? (
-                <View style={styles.containerItem}>
-                  <Damage
-                    RadName={matchDetails?.radiant_team?.name ?? radName}
-                    DireName={matchDetails?.dire_team?.name ?? direName}
-                    matchDetails={matchDetails}
-                  />
-                </View>
-              ) : null}
-
-              <View style={styles.containerItem}>
-                <HeroKillsDetails
-                  matchDetails={matchDetails}
-                  radName={matchDetails?.radiant_team?.name ?? radName}
-                  direName={matchDetails?.dire_team?.name ?? direName}
-                />
-              </View>
-
-              <View
-                style={[
-                  styles.containerItem,
-                  {
-                    padding: "1%",
-                    paddingBottom: "3%",
-                    paddingTop: "3%",
-                  },
-                ]}
-              >
-                <Text style={styles.title}>Performance</Text>
-                <View style={styles.detailsContainer}>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={styles.detailsContent}>
-                      <View style={{ width: "100%" }}>
-                        <Text style={styles.textTitle}>Hero Damage</Text>
-                        <View style={{ flexDirection: "row", width: "70%" }}>
-                          <Text
-                            style={[
-                              styles.barRadiant,
-                              { width: `${heroDamRadBar}%` },
-                            ]}
-                          />
-                          <Text style={styles.textResult}>
-                            {" "}
-                            {heroDamageRad.toLocaleString(
-                              englishLanguage ? "en-US" : "pt-BR"
-                            )}
-                          </Text>
-                        </View>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barDire,
-                            { width: `${heroDamDireBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {heroDamageDire.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <Text style={styles.textTitle}>Tower Damage</Text>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barRadiant,
-                            { width: `${towerDamRadBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {towerDamageRad.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barDire,
-                            { width: `${towerDamDireBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {towerDamageDire.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-
-                      <Text style={styles.textTitle}>Networth</Text>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barRadiant,
-                            { width: `${netWorthRadBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {netWorthRad.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barDire,
-                            { width: `${netWorthDireBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {netWorthDire.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.detailsContent}>
-                      <Text style={styles.textTitle}>Healing</Text>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barRadiant,
-                            { width: `${healingRadBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {healingRad.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barDire,
-                            { width: `${healingDireBar}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {healingDire.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <Text style={styles.textTitle}>
-                        {englishLanguage
-                          ? "Towers Destroied"
-                          : "Torres Destruídas"}
-                      </Text>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barRadiant,
-                            { width: `${(resultTowerDireBar / 11) * 100}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {resultTowerDireBar}/11
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[
-                            styles.barDire,
-                            { width: `${(resultTowerRadBar / 11) * 100}%` },
-                          ]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {resultTowerRadBar}/11
-                        </Text>
-                      </View>
-
-                      <Text style={styles.textTitle}>Xp</Text>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[styles.barRadiant, { width: `${xpRadBar}%` }]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {xpRad.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: "row", width: "70%" }}>
-                        <Text
-                          style={[styles.barDire, { width: `${xpDireBar}%` }]}
-                        />
-                        <Text style={styles.textResult}>
-                          {" "}
-                          {xpDire.toLocaleString(
-                            englishLanguage ? "en-US" : "pt-BR"
-                          )}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              {matchDetails.players.length > 0 &&
-              matchDetails.players[0].gold_t &&
-              matchDetails.players[0].gold_t.length > 0 ? (
-                <View
-                  style={[
-                    styles.containerItem,
-                    {
-                      padding: "1%",
-                      paddingBottom: "3%",
-                      paddingTop: "3%",
-                    },
-                  ]}
-                >
-                  <GraficsGoldPlayers
-                    matchDetails={matchDetails}
-                    RadiantName={matchDetails?.radiant_team?.name ?? radName}
-                    DireName={matchDetails?.dire_team?.name ?? direName}
-                  />
-                </View>
-              ) : null}
-              {matchDetails.radiant_gold_adv &&
-                matchDetails.radiant_gold_adv.length > 0 &&
-                matchDetails.radiant_xp_adv &&
-                matchDetails.radiant_xp_adv.length > 0 && (
-                  <View
-                    style={[
-                      styles.containerItem,
-                      {
-                        padding: "1%",
-                        paddingBottom: "3%",
-                        paddingTop: "3%",
-                      },
-                    ]}
-                  >
-                    <GraficsGoldAndXpTeam
-                      radiant_gold_adv={matchDetails.radiant_gold_adv}
-                      radiant_xp_adv={matchDetails.radiant_xp_adv}
-                      RadiantName={matchDetails?.radiant_team?.name ?? radName}
-                      DireName={matchDetails?.dire_team?.name ?? direName}
-                    />
-                  </View>
-                )}
-            </View>
-          </ScrollView>
-          <View style={{ marginTop: 7 }}>
-            <BannerAds />
-          </View>
-        </View>
-      ) : (
-        <View style={{ flex: 1, justifyContent: "center" }}>
+      return (
+        <View style={{ marginTop: "1%", marginBottom: "3%" }}>
+          <Text style={styles.title}>
+            {englishLanguage ? "Heroes Banned" : "Heróis Banidos"}
+          </Text>
           <View
             style={{
-              flex: 0.9,
-              alignItems: "center",
               justifyContent: "center",
+              flexWrap: "wrap",
+              flexDirection: "row",
             }}
           >
-            <ActivityIndicator size="large" color={ColorTheme.standard} />
-            <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-              {englishLanguage ? "Loading match..." : "Carregando partida..."}
-            </Text>
+            {heroBans.map((ban, index) => {
+              const hero = heroArray.find((h) => h.id === ban.hero_id);
+              let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
+              return (
+                <View
+                  key={index}
+                  style={{
+                    borderRadius: 5,
+                    margin: 1,
+                    backgroundColor: "#000",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    style={[
+                      styles.imageHeroItems,
+                      { width: 30, height: 30, opacity: 0.7 },
+                    ]}
+                    source={{
+                      uri: imgSource,
+                    }}
+                  />
+
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: "130%",
+                        height: 3,
+                        backgroundColor: "#981a33",
+                        transform: [{ rotate: "30deg" }],
+                      }}
+                    />
+                  </View>
+                </View>
+              );
+            })}
           </View>
-          <BannerAds />
         </View>
-      )}
-    </View>
+      );
+    };
+
+    return {
+      towerDamageRad,
+      towerDamageDire,
+      netWorthRad,
+      healingDire,
+      netWorthDire,
+      xpRad,
+      xpDire,
+      heroDamageRad,
+      heroDamageDire,
+      healingRad,
+      heroDamRadBar,
+      heroDamDireBar,
+      towerDamRadBar,
+      towerDamDireBar,
+      healingRadBar,
+      healingDireBar,
+      netWorthRadBar,
+      netWorthDireBar,
+      xpRadBar,
+      xpDireBar,
+      towerRad,
+      towerDire,
+      resultTowerRadBar,
+      resultTowerDireBar,
+      renderItemBans,
+    };
+  }, [matchDetails?.players]);
+
+  const {
+    netWorthRad,
+    netWorthDire,
+    towerDamageRad,
+    towerDamageDire,
+    xpRad,
+    xpDire,
+    heroDamageRad,
+    healingDire,
+    heroDamageDire,
+    healingRad,
+    heroDamRadBar,
+    heroDamDireBar,
+    towerDamRadBar,
+    towerDamDireBar,
+    healingRadBar,
+    healingDireBar,
+    netWorthRadBar,
+    netWorthDireBar,
+    xpRadBar,
+    xpDireBar,
+    towerRad,
+    towerDire,
+    resultTowerRadBar,
+    resultTowerDireBar,
+    renderItemBans,
+  } = stats;
+
+  //Tab-View
+
+  // if (!matchDetails)
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center" }}>
+  //       <View
+  //         style={{
+  //           flex: 0.9,
+  //           alignItems: "center",
+  //           justifyContent: "center",
+  //         }}
+  //       >
+  //         <ActivityIndicator size="large" color={ColorTheme.standard} />
+  //         <Text style={{ fontFamily: "QuickSand-Semibold" }}>
+  //           {englishLanguage ? "Loading match..." : "Carregando partida..."}
+  //         </Text>
+  //       </View>
+  //       <BannerAds />
+  //     </View>
+  //   );
+
+  return (
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+    />
   );
 };
