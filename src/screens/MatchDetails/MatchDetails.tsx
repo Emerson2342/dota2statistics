@@ -725,10 +725,17 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: ColorTheme.semidark }}
-      activeColor={ColorTheme.dark}
-      inactiveColor={ColorTheme.standard}
-      style={{ backgroundColor: ColorTheme.light }}
+      indicatorStyle={{
+        backgroundColor: "transparent",
+      }}
+      activeColor={"#fff"}
+      inactiveColor={"#888"}
+      style={{
+        backgroundColor: ColorTheme.semidark,
+        margin: "3%",
+        borderRadius: 29,
+        elevation: 7,
+      }}
     />
   );
 
@@ -739,11 +746,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       renderScene={renderScene1}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
-      //lazy={true}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
-          fontFamily: "QuickSand-Semibold",
+          fontFamily: "QuickSand-Bold",
         },
       }}
     />

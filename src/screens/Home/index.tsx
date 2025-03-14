@@ -18,19 +18,19 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useTimestampContext } from "../../context/useTimestampContext";
 import { useRefreshContext } from "../../context/useRefreshContext";
 import {
+  getHeroesPlayed,
   getProMatches,
   getRecentMatches,
   getSearchPlayer,
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
-import { RecentMatches } from "../../../src/services/props";
+import { HeroesPlayed, RecentMatches } from "../../../src/services/props";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function Profile() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { playerTimestamp, setPlayerTimestamp, accountTimestamp } =
-    useTimestampContext();
+  const { playerTimestamp, setPlayerTimestamp } = useTimestampContext();
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const {
     player,
@@ -51,12 +51,9 @@ export function Profile() {
   const [proMatchesOpen, setProMatchesOpen] = useState(false);
 
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
-
-  const [loadedList, setLoadedList] = useState(false);
+  const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
 
   const styles = createStyles(ColorTheme);
-
-  const storage = new AsyncStorageService();
 
   const handleProMatches = (isExitingApp: boolean) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -74,78 +71,85 @@ export function Profile() {
   const handleLoadData = async () => {
     setIsLoading(true);
 
-    setPlayerTimestamp(currentTimestamp);
     setTimeout(async () => {
       await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);
 
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
+
       await getRecentMatches(
         recentMatchesUrl,
         setRecentMatches,
         setHeroesPlayedId
       );
+
+      const heroesPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
+
+      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayer);
+      if (heroesPlayedResponse) setHeroesPlayed(heroesPlayedResponse);
+
+      //console.log(JSON.stringify(heroesPlayedResponse, null, 2));
+
       setIsLoading(false);
-      setRefreshProfile(false);
+      // setRefreshProfile(false);
     }, 500);
   };
 
   // alert(JSON.stringify(profile, null, 2))
 
-  useEffect(() => {
-    const loadRecentMatches = async () => {
-      try {
-        const storedRecentMatches = await storage.getItem<RecentMatches[]>(
-          "recentMatches"
-        );
-        if (storedRecentMatches) {
-          setRecentMatches(storedRecentMatches);
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados do AsyncStorage:", error);
-      } finally {
-        setLoadedList(true);
-      }
-    };
+  // useEffect(() => {
+  //   const loadRecentMatches = async () => {
+  //     try {
+  //       const storedRecentMatches = await storage.getItem<RecentMatches[]>(
+  //         "recentMatches"
+  //       );
+  //       if (storedRecentMatches) {
+  //         setRecentMatches(storedRecentMatches);
+  //       }
+  //     } catch (error) {
+  //       console.error("Erro ao carregar dados do AsyncStorage:", error);
+  //     } finally {
+  //       setLoadedList(true);
+  //     }
+  //   };
 
-    loadRecentMatches();
-  }, []);
+  //   loadRecentMatches();
+  // }, []);
 
-  useEffect(() => {
-    if (loadedList) {
-      const saveRecentMatches = async () => {
-        try {
-          await storage.setItem("recentMatches", recentMatches);
-        } catch (error) {
-          console.error("Erro ao salvar dados no AsyncStorage:", error);
-        }
-      };
+  // useEffect(() => {
+  //   if (loadedList) {
+  //     const saveRecentMatches = async () => {
+  //       try {
+  //         await storage.setItem("recentMatches", recentMatches);
+  //       } catch (error) {
+  //         console.error("Erro ao salvar dados no AsyncStorage:", error);
+  //       }
+  //     };
 
-      saveRecentMatches();
-    }
-  }, [recentMatches, loadedList]);
+  //     saveRecentMatches();
+  //   }
+  // }, [recentMatches, loadedList]);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (
-        (playerTimestamp == null || playerTimestamp + 300 < currentTimestamp) &&
-        !refreshProfile
-      ) {
-        handleLoadData();
-      }
-      setIsLoading(false);
-    }, [playerTimestamp, profile])
-  );
+  // useEffect(
+  //   useCallback(() => {
+  //     handleLoadData();
+  //   }, [])
+  // );
 
   useEffect(() => {
-    console.log(profile);
-    if (refreshProfile) {
-      console.log("Entrou useEffect");
-      handleLoadData();
-    }
-    setIsLoading(false);
-  }, [profile, refreshProfile]);
+    console.log("******************************");
+    handleLoadData();
+  }, [profile]);
+
+  // useEffect(() => {
+  //   console.log(profile);
+  //   if (refreshProfile) {
+  //     console.log("Entrou useEffect");
+  //     handleLoadData();
+  //   }
+  //   setIsLoading(false);
+  // }, [profile, refreshProfile]);
 
   if (player == null || (player?.profile.account_id == 0 && !isLoading)) {
     return (

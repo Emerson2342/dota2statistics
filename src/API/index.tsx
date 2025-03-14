@@ -6,6 +6,7 @@ import {
 } from "../constants/player";
 import {
   HeroBenchmarksData,
+  HeroesPlayed,
   ItemPopularityData,
   LeagueMatches,
   MatchDetailsModel,
@@ -19,6 +20,7 @@ export const getSearchPlayer = async (
   url: string,
   setPlayer: React.Dispatch<React.SetStateAction<PlayerModel | null>>
 ) => {
+  console.log("Endpoint searchPlayerUser: " + url);
   const response = await fetch(url);
   const data = (await response.json()) as PlayerModel;
   const playerData: PlayerModel = {
@@ -32,7 +34,6 @@ export const getSearchPlayer = async (
     leaderboard_rank: data.leaderboard_rank || null,
   };
   setPlayer(playerData);
-  console.log("Buscou dados");
 };
 
 export const searchPlayersByName = async (
@@ -40,6 +41,7 @@ export const searchPlayersByName = async (
   setUsersSearch: React.Dispatch<React.SetStateAction<SearchUserResult[] | []>>
 ) => {
   try {
+    console.log("Endpoint searchPlayers: " + url);
     const response = await fetch(url);
     const data = (await response.json()) as SearchUserResult[];
     setUsersSearch(data);
@@ -53,6 +55,7 @@ export const getSearchLeagueMatches = async (
   setLeagueMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
 ) => {
   try {
+    console.log("Endpoint leagueMatches: " + url);
     const response = await fetch(url);
     const data = (await response.json()) as LeagueMatches[];
     setLeagueMatches(data);
@@ -66,6 +69,7 @@ export const getSearchLeagueMatches = async (
 export const getProMatches = async (
   setProMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
 ) => {
+  console.log("Endpoint proMatches: " + PRO_MATCHES_URL);
   const response = await fetch(PRO_MATCHES_URL);
   const data = (await response.json()) as LeagueMatches[];
   const orderedProMatches = data.sort((a, b) => b.start_time - a.start_time);
@@ -75,6 +79,7 @@ export const getProMatches = async (
 
 export const getMatchDetails = async (url: string) => {
   try {
+    console.log("Endpoint matchDetails: " + url);
     const response = await fetch(url);
     const data = (await response.json()) as MatchDetailsModel;
     if (data) {
@@ -168,6 +173,7 @@ export const getRecentMatches = async (
   const response = await fetch(url);
   try {
     if (response.status < 201) {
+      console.log("Endpoint recentMatches: " + url);
       const data = (await response.json()) as RecentMatches[];
       const matchDataResponse: RecentMatches[] = data.map((match) => ({
         match_id: match.match_id,
@@ -205,61 +211,13 @@ export const getRecentMatches = async (
   }
 };
 
-export const getItemsByHero = async (heroId: number | undefined) => {
+export const getHeroesPlayed = async (url: string) => {
   try {
-    const itemPopularity = HERO_ITEM_BASE_URL + `/${heroId}/itemPopularity`;
-    const response = await fetch(itemPopularity);
-    const data = (await response.json()) as ItemPopularityData;
-    return data;
-  } catch (error) {
-    console.error("Erro ao buscar os dados da API heroItems:", error);
-    return null;
-  }
-};
-
-export const getHeroBenchMarks = async (heroId: number | undefined) => {
-  try {
-    const benchmarks = HERO_BENCHMARCKS_BASE_URL + `${heroId}`;
-    const response = await fetch(benchmarks);
-    const data = (await response.json()) as HeroBenchmarksData;
-
-    const filteredData: HeroBenchmarksData = {
-      hero_id: heroId,
-      result: {
-        gold_per_min: data.result.gold_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        xp_per_min: data.result.xp_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        kills_per_min: data.result.kills_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        last_hits_per_min: data.result.last_hits_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        hero_damage_per_min: data.result.hero_damage_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        hero_healing_per_min: data.result.hero_healing_per_min.filter(
-          (item) => item.percentile === 0.5
-        ),
-        tower_damage: data.result.tower_damage.filter(
-          (item) => item.percentile === 0.5
-        ),
-      },
-    };
-    return filteredData;
-  } catch (error) {
-    console.error("Erro ao buscar os dados da API benchmarcks: ", error);
-    return null;
-  }
-};
-
-export const getTeamPlayers = async (teamId: number) => {
-  try {
-  } catch (error) {
-    console.error("Erro ao buscar jogadores por time: ", error);
-    return null;
+    console.log("Endpoint heroesPlayed: " + url);
+    const response = await fetch(url);
+    const data = (await response.json()) as HeroesPlayed[];
+    return data.slice(0, 20);
+  } catch (error: any) {
+    console.log("Erro ao buscar herois jogados: " + error.message);
   }
 };
