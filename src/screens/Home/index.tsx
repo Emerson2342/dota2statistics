@@ -5,6 +5,8 @@ import {
   ActivityIndicator,
   LayoutAnimation,
   ScrollView,
+  useWindowDimensions,
+  Dimensions,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -26,6 +28,8 @@ import {
 import { LastMatches } from "./LastMatches";
 import { HeroesPlayed, RecentMatches } from "../../../src/services/props";
 import { AsyncStorageService } from "../../../src/services/StorageService";
+import { BannerAds } from "../../../src/components/BannerAds";
+import { TabBar, TabView } from "react-native-tab-view";
 
 export function Profile() {
   const { profile } = useProfileContext();
@@ -55,11 +59,55 @@ export function Profile() {
 
   const styles = createStyles(ColorTheme);
 
-  const handleProMatches = (isExitingApp: boolean) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setProMatchesOpen(isExitingApp ? false : !proMatchesOpen);
-  };
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
 
+  const renderScene1 = useCallback(
+    ({ route }: any) => {
+      switch (route.key) {
+        case "first":
+          return profile ? <HomeComponent /> : <LoadingMatchDetails />;
+        case "second":
+          return matchDetails ? <HomeComponent1 /> : <LoadingMatchDetails />;
+        default:
+          return null;
+      }
+    },
+    [profile, recentMatches]
+  );
+
+  const HomeComponent1 = React.memo(() => {
+    return (
+      <View>
+        <View style={{ flex: 0.35 }}>
+          <ProfileHeader
+            player={player}
+            heroesId={heroesPlayedId}
+            recentMatches={recentMatches}
+          />
+        </View>
+        <View style={{ flex: 0.65 }}>
+          <View style={{ flex: 1, paddingBottom: "1%" }}>
+            {player ? (
+              <LastMatches
+                playerId={player.profile.account_id.toString()}
+                onRefresh={() => handleLoadData()}
+                recentMatches={recentMatches}
+              />
+            ) : null}
+          </View>
+        </View>
+      </View>
+    );
+  });
+
+  const routes = [
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    {
+      key: "second",
+      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
+    },
+  ];
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"
     : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
@@ -139,7 +187,7 @@ export function Profile() {
 
   useEffect(() => {
     console.log("******************************");
-    handleLoadData();
+    //handleLoadData();
   }, [profile]);
 
   // useEffect(() => {
@@ -161,6 +209,39 @@ export function Profile() {
     );
   }
 
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{
+        backgroundColor: "transparent",
+      }}
+      activeColor={"#fff"}
+      inactiveColor={"#888"}
+      style={{
+        backgroundColor: ColorTheme.semidark,
+        margin: "3%",
+        borderRadius: 29,
+        elevation: 7,
+      }}
+    />
+  );
+
+  return (
+    <TabView
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene1}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+      commonOptions={{
+        labelStyle: {
+          fontSize: Dimensions.get("screen").width * 0.037,
+          fontFamily: "QuickSand-Bold",
+        },
+      }}
+    />
+  );
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
@@ -169,7 +250,7 @@ export function Profile() {
             style={{
               justifyContent: "center",
               alignItems: "center",
-              flex: proMatchesOpen ? 0.35 : 0.82,
+              flex: 0.82,
             }}
           >
             <ActivityIndicator color={ColorTheme.dark} />
@@ -179,6 +260,7 @@ export function Profile() {
           </View>
         ) : (
           <>
+            <BannerAds />
             <View style={{ flex: 0.35 }}>
               <ProfileHeader
                 player={player}
@@ -186,7 +268,7 @@ export function Profile() {
                 recentMatches={recentMatches}
               />
             </View>
-            <View style={{ flex: proMatchesOpen ? 0 : 0.47 }}>
+            <View style={{ flex: 0.65 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 <LastMatches
                   playerId={player.profile.account_id.toString()}
@@ -197,12 +279,12 @@ export function Profile() {
             </View>
           </>
         )}
-        <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
+        {/* <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
           <ProMatches
             onClick={() => handleProMatches(false)}
             proMatchesOpen={proMatchesOpen}
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );

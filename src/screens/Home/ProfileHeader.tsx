@@ -110,7 +110,6 @@ export function ProfileHeader({
 
   return (
     <View style={{ flex: 1 }}>
-      <BannerAds />
       <View
         style={[
           styles.profile,
