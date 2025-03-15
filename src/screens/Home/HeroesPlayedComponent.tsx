@@ -5,25 +5,40 @@ import { useSettingsContext } from '../../../src/context/useSettingsContext';
 import { useTheme } from '../../../src/context/useThemeContext';
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from '../../../src/constants/player';
+import { RadioButton } from 'react-native-paper';
 
 
 export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: HeroesPlayed[] }) {
 
 
     const { englishLanguage } = useSettingsContext();
-    const { ColorTheme } = useTheme();
-    const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([])
+    const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
+    const [checked, setChecked] = useState('mostPlayed');
+    const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(HeroesPlayedList);
+
+
 
 
     const width = Dimensions.get('screen').width * 0.23;
     const height = Dimensions.get('screen').width * 0.13;
 
-
     useEffect(() => {
         setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-
-
     }, []);
+
+    const ordLastPlayed = () => {
+        setOrderedList(prevHeroArray =>
+            [...prevHeroArray].sort((a, b) => b.last_played - a.last_played)
+        );
+    }
+
+    const ordMostPlayed = () => {
+        setOrderedList(HeroesPlayedList);
+    }
+
+
+
+
 
     const RenderItem = ({ item, index }: { item: HeroesPlayed, index: number }) => {
 
@@ -37,7 +52,9 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
 
         const heroIndex = heroArray.find((hero) => hero.id === item.hero_id);
 
-        const winrate = ((item.win / item.games) * 100)
+        const winrate = ((item.win / item.games) * 100);
+
+
 
         return (
             <View style={{ width: "100%", display: item.games > 0 ? "flex" : "none", backgroundColor: "#fff", margin: 3, borderRadius: 9, padding: 7 }}>
@@ -65,10 +82,29 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
 
     return (
         <View style={styles.container}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '75%' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <RadioButton
+                        value="mostPlayed"
+                        status={checked === 'mostPlayed' ? 'checked' : 'unchecked'}
+                        onPress={() => { setChecked('mostPlayed'); ordMostPlayed() }}
+                    />
+                    <Text>{englishLanguage ? "Most Played" : "Mais Jogados"}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <RadioButton
+                        value="lastTimePlayed"
+                        status={checked === 'lastTimePlayed' ? 'checked' : 'unchecked'}
+                        onPress={() => { setChecked('lastTimePlayed'); ordLastPlayed() }}
+                    />
+                    <Text>{englishLanguage ? "Last Played" : "Últimos Jogados"}</Text>
+                </View>
+            </View>
+
             <ScrollView contentContainerStyle={{ width: "100%", alignItems: "center" }}>
 
                 <FlatList
-                    data={HeroesPlayedList}
+                    data={orderedList}
                     renderItem={RenderItem}
                     keyExtractor={(item) => item.hero_id.toLocaleString()}
                     scrollEnabled={false}
@@ -85,7 +121,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        width: "100%"
+        width: "100%",
+        paddingTop: 7,
     },
     textHeroName: {
         fontFamily: "QuickSand-Bold",

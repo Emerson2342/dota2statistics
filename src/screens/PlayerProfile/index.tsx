@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, Modal } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, Modal, useWindowDimensions, Dimensions } from "react-native";
 
 import { createStyles } from "./styles";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { getRecentMatches, getSearchPlayer } from "../../API";
+import { getHeroesPlayed, getRecentMatches, getSearchPlayer } from "../../API";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import {
   PlayerModel,
   PlayerProfileProps,
   RecentMatches,
+  HeroesPlayed
 } from "../../services/props";
 import { ProfileHeader } from "../Home/ProfileHeader";
 import { LastMatches } from "../Home/LastMatches";
@@ -18,6 +19,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
+import { HeroesPlayedComponent } from "../Home/HeroesPlayedComponent";
+import { TabBar, TabView } from "react-native-tab-view";
 
 export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const { PlayerId } = route.params;
@@ -32,9 +35,34 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const styles = createStyles(ColorTheme);
   const [player, setPlayer] = useState<PlayerModel | null>(null);
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
+  const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
+
+  const renderScene = useCallback(
+    ({ route }: any) => {
+      switch (route.key) {
+        case "first":
+          //return isLoading ? <Text>Carregou</Text> : <Text>Carregando</Text>;
+          return !isLoading ? <Header /> : <Loading />;
+        case "heroesPlayed":
+          return !isLoading ? <HeroesPlayed /> : <Loading />;
+        default:
+          return null;
+      }
+    },
+    [recentMatches, heroesPlayed, PlayerId, heroesPlayedId, isLoading]
+  );
+
+  const routes = [
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    { key: "heroesPlayed", title: englishLanguage ? "Heroes Played" : "Heróis Jogados" }
+  ];
+
+
 
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."
@@ -51,9 +79,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     : "Você deseja remover este jogador da lista de favoritos?";
 
   useEffect(() => {
-    if (PlayerId) {
-      handleSearch();
-    }
+    handleSearch();
   }, []);
 
   const playerFound = favoritesPlayers.find(
@@ -92,74 +118,169 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   }, [favoritesPlayers, player]);
 
   const handleSearch = async () => {
-    console.log("entrou na busca do jogador: id " + PlayerId);
-    setIsLoading(true);
+    setTimeout(async () => {
+      console.log("entrou na busca do jogador: id " + PlayerId);
 
-    const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}`;
-    const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/recentMatches`;
-    await getSearchPlayer(searchPlayer, setPlayer);
-    // const result = ;
-    setStatus(
-      await getRecentMatches(
-        recentMatchesUrl,
-        setRecentMatches,
-        setHeroesPlayedId
-      )
-    );
-    setIsLoading(false);
+      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}`;
+      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/recentMatches`;
+      await getSearchPlayer(searchPlayer, setPlayer);
+      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
+
+      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
+      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) setHeroesPlayed(heroesPlayedResponse);
+
+      console.log("Tamanho da lista de heroes: " + heroesPlayedResponse?.length);
+      console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
+      // const result = ;
+      setStatus(
+        await getRecentMatches(
+          recentMatchesUrl,
+          setRecentMatches,
+          setHeroesPlayedId
+        )
+      );
+      setIsLoading(false);
+    }, 500)
   };
 
   if (recentMatches.length === 0 && !isLoading)
     return <Text style={styles.textMessage}>{erro404}</Text>;
 
-  return (
-    <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator
-          style={{ flex: 0.9 }}
-          color={ColorTheme.semidark}
-          size={30}
-        />
-      ) : (
-        <View style={styles.bodyContainer}>
-          {player && player.profile.account_id != 0 ? (
-            <>
-              <View style={{ flex: heroesPlayedId.length > 10 ? 0.4 : 0.37 }}>
-                <ProfileHeader
-                  player={player}
-                  heroesId={heroesPlayedId}
-                  recentMatches={recentMatches}
-                />
+  const Loading = React.memo(() => {
+    return (<View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 0.82,
+      }}
+    >
+      <ActivityIndicator color={ColorTheme.dark} />
+      <Text style={styles.textLoading}>
+        {englishLanguage ? "Loading..." : "Carregando..."}
+      </Text>
+    </View>)
+  })
+
+  const HeroesPlayed = React.memo(() => {
+    return (<HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />)
+  })
+
+  const Header = React.memo(() => {
+    return (
+      <View style={styles.container}>
+        {Number(PlayerId) == 0 ? <View style={styles.erroMessage}>
+          <Text style={styles.textErro}>
+            {erro404}
+          </Text>
+        </View> :
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.3 : 0.25 }}>
+              <ProfileHeader
+                player={player}
+                heroesId={heroesPlayedId}
+                recentMatches={recentMatches}
+              />
+            </View>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.75 }}>
+              <View style={{ flex: 1, paddingBottom: "1%" }}>
+                {player ? (
+                  <LastMatches
+                    playerId={PlayerId}
+                    onRefresh={() => handleSearch()}
+                    recentMatches={recentMatches}
+                  />
+                ) : null}
               </View>
-              <View style={{ flex: heroesPlayedId.length > 10 ? 0.6 : 0.63 }}>
-                <LastMatches
-                  playerId={PlayerId}
-                  recentMatches={recentMatches}
-                  onRefresh={() => Promise<void>}
-                />
-              </View>
-            </>
-          ) : (
-            <Text style={styles.textMessage}>{erro404}</Text>
-          )}
-        </View>
-      )}
-      <Modal
-        visible={modalFavoritesVisible}
-        transparent={true}
-        animationType="fade"
-        statusBarTranslucent={true}
-      >
-        {player ? (
-          <ModalRemoveFavoritePlayer
-            message={modalMessageRemove}
-            removePlayer={() => removeFavoritePlayer(player.profile.account_id)}
-            handleClose={() => setModalFavoritesVisible(false)}
-          />
-        ) : (
-          <></>
-        )}
-      </Modal>
-    </View>
+            </View>
+          </View>
+        }
+      </View>
+    );
+  });
+
+
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{
+        backgroundColor: "orange",
+      }}
+      activeColor={"#fff"}
+      inactiveColor={"#888"}
+      style={{
+        backgroundColor: ColorTheme.semidark,
+
+      }}
+    />
   );
-};
+  return (
+    <TabView
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+      lazy={true}
+      commonOptions={{
+        labelStyle: {
+          fontSize: Dimensions.get("screen").width * 0.037,
+          fontFamily: "QuickSand-Bold",
+          textAlign: "center"
+        },
+      }}
+    />
+  );
+}
+
+
+//   return (
+//     <View style={styles.container}>
+//       {isLoading ? (
+//         <ActivityIndicator
+//           style={{ flex: 0.9 }}
+//           color={ColorTheme.semidark}
+//           size={30}
+//         />
+//       ) : (
+//         <View style={styles.bodyContainer}>
+//           {player && player.profile.account_id != 0 ? (
+//             <>
+//               <View style={{ flex: 0.3 }}>
+//                 <ProfileHeader
+//                   player={player}
+//                   heroesId={heroesPlayedId}
+//                   recentMatches={recentMatches}
+//                 />
+//               </View>
+//               <View style={{ flex: 0.7 }}>
+//                 <LastMatches
+//                   playerId={PlayerId}
+//                   recentMatches={recentMatches}
+//                   onRefresh={() => Promise<void>}
+//                 />
+//               </View>
+//             </>
+//           ) : (
+//             <Text style={styles.textMessage}>{erro404}</Text>
+//           )}
+//         </View>
+//       )}
+//       <Modal
+//         visible={modalFavoritesVisible}
+//         transparent={true}
+//         animationType="fade"
+//         statusBarTranslucent={true}
+//       >
+//         {player ? (
+//           <ModalRemoveFavoritePlayer
+//             message={modalMessageRemove}
+//             removePlayer={() => removeFavoritePlayer(player.profile.account_id)}
+//             handleClose={() => setModalFavoritesVisible(false)}
+//           />
+//         ) : (
+//           <></>
+//         )}
+//       </Modal>
+//     </View>
+//   );
+// };

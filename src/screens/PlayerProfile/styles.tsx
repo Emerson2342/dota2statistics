@@ -7,6 +7,8 @@ export const createStyles = (colors: ThemeColor) =>
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            marginTop: 7,
+            marginBottom: 7
         },
         inputContainer: {
             flex: 0.07,
@@ -45,5 +47,22 @@ export const createStyles = (colors: ThemeColor) =>
             padding: "5%",
             fontFamily: "QuickSand-Semibold",
             color: colors.semidark,
+        },
+        textErro: {
+            textAlign: "center",
+            padding: "5%",
+            fontFamily: "QuickSand-Semibold",
+            color: colors.semidark,
+        },
+        textLoading: {
+            fontFamily: "QuickSand-Bold",
+            fontSize: 15,
+            color: colors.dark,
+            marginBottom: "1%",
+        },
+        erroMessage: {
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 0.7,
         },
     });

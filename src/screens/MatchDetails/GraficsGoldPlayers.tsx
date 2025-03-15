@@ -37,15 +37,15 @@ export const GraficsGoldPlayers = ({
   const { ColorTheme } = useTheme();
 
   const [hero1Selected, setHero1Selected] = useState(true);
-  const [hero2Selected, setHero2Selected] = useState(false);
-  const [hero3Selected, setHero3Selected] = useState(false);
-  const [hero4Selected, setHero4Selected] = useState(false);
-  const [hero5Selected, setHero5Selected] = useState(false);
+  const [hero2Selected, setHero2Selected] = useState(true);
+  const [hero3Selected, setHero3Selected] = useState(true);
+  const [hero4Selected, setHero4Selected] = useState(true);
+  const [hero5Selected, setHero5Selected] = useState(true);
   const [hero6Selected, setHero6Selected] = useState(true);
-  const [hero7Selected, setHero7Selected] = useState(false);
-  const [hero8Selected, setHero8Selected] = useState(false);
-  const [hero9Selected, setHero9Selected] = useState(false);
-  const [hero10Selected, setHero10Selected] = useState(false);
+  const [hero7Selected, setHero7Selected] = useState(true);
+  const [hero8Selected, setHero8Selected] = useState(true);
+  const [hero9Selected, setHero9Selected] = useState(true);
+  const [hero10Selected, setHero10Selected] = useState(true);
 
   const font = useFont(require("../../Fonts/Quicksand_Bold.ttf"));
 
@@ -192,14 +192,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                      ? colors[1]
-                      : index === 2 && hero3Selected
-                      ? colors[2]
-                      : index === 3 && hero4Selected
-                      ? colors[3]
-                      : index === 4 && hero5Selected
-                      ? colors[4]
-                      : "transparent",
+                        ? colors[1]
+                        : index === 2 && hero3Selected
+                          ? colors[2]
+                          : index === 3 && hero4Selected
+                            ? colors[3]
+                            : index === 4 && hero5Selected
+                              ? colors[4]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -328,14 +328,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                      ? colors[6]
-                      : index === 2 && hero8Selected
-                      ? colors[7]
-                      : index === 3 && hero9Selected
-                      ? colors[8]
-                      : index === 4 && hero10Selected
-                      ? colors[9]
-                      : "transparent",
+                        ? colors[6]
+                        : index === 2 && hero8Selected
+                          ? colors[7]
+                          : index === 3 && hero9Selected
+                            ? colors[8]
+                            : index === 4 && hero10Selected
+                              ? colors[9]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >

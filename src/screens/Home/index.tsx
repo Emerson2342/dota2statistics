@@ -41,8 +41,6 @@ export function Profile() {
   const [isLoading, setIsLoading] = useState(true);
 
 
-  const [httpStatus, setHttpStatus] = useState<number>(200);
-
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
 
@@ -64,7 +62,7 @@ export function Profile() {
           return null;
       }
     },
-    [profile, recentMatches]
+    [profile, recentMatches, heroesPlayed, heroesPlayedId]
   );
 
   const Loading = React.memo(() => {
@@ -91,7 +89,7 @@ export function Profile() {
       <View style={styles.container}>
         {player == null || player.profile.account_id == 0 ? <View style={styles.erroMessage}>
           <Text style={styles.textErro}>
-            {httpStatus > 450 ? erro500 : erro404}
+            {erro404}
           </Text>
         </View> :
           <View style={{ flex: 1 }}>
@@ -151,12 +149,13 @@ export function Profile() {
         setHeroesPlayedId
       );
 
-      const heroesPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
+      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
 
-      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayer);
-      if (heroesPlayedResponse) setHeroesPlayed(heroesPlayedResponse);
+      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
+      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) setHeroesPlayed(heroesPlayedResponse);
 
-      //console.log(JSON.stringify(heroesPlayedResponse, null, 2));
+      console.log("Tamanho da lista de heroes: " + heroesPlayedResponse?.length);
+      console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
       setIsLoading(false);
     }, 500);
   };
