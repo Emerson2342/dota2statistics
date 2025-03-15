@@ -15,9 +15,10 @@
             }
         },
         "preview2": {
-            "android": {
-                "gradleCommand": ":app:assembleRelease"
-            }
+           "android": {
+                "buildType": "apk",
+                 "autoIncrement": true
+      }
         },
         "preview3": {
             "developmentClient": true

@@ -180,7 +180,6 @@ export function Profile() {
       }}
     />
   );
-
   return (
     <TabView
       renderTabBar={renderTabBar}
@@ -193,6 +192,7 @@ export function Profile() {
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
           fontFamily: "QuickSand-Bold",
+          textAlign: "center"
         },
       }}
     />

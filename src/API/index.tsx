@@ -216,7 +216,9 @@ export const getHeroesPlayed = async (url: string) => {
     console.log("Endpoint heroesPlayed: " + url);
     const response = await fetch(url);
     const data = (await response.json()) as HeroesPlayed[];
-    return data.slice(0, 20);
+    if (Array.isArray(data))
+      return data.slice(0, 50);
+
   } catch (error: any) {
     console.log("Erro ao buscar herois jogados: " + error.message);
   }
