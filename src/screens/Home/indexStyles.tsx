@@ -6,6 +6,7 @@ export const createStyles = (colors: ThemeColor) =>
     container: {
       flex: 1,
       backgroundColor: "#fff",
+      paddingTop: 5,
     },
     textbutton: {
       textAlign: "center",

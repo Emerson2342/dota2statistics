@@ -114,7 +114,7 @@ export function ProfileHeader({
         style={[
           styles.profile,
           {
-            flex: heroesId.length > 10 ? 0.5 : 0.65,
+            flex: 0.6,
           },
         ]}
       >
@@ -193,7 +193,7 @@ export function ProfileHeader({
         style={{
           alignItems: "center",
           justifyContent: "center",
-          flex: heroesId.length > 10 ? 0.5 : 0.35,
+          flex: 0.4,
         }}
       >
         <FlatList

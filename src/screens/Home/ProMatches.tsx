@@ -19,13 +19,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
 
-export function ProMatches({
-  proMatchesOpen,
-  onClick,
-}: {
-  proMatchesOpen: boolean;
-  onClick: () => void;
-}) {
+export function ProMatches() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { englishLanguage } = useSettingsContext();
@@ -33,10 +27,9 @@ export function ProMatches({
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
 
-  const list = proMatchesOpen ? proMatches : proMatches.slice(0, 1);
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
-  const formattedTimeMatch = list.map((item) => {
+  const formattedTimeMatch = proMatches.map((item) => {
     const durationInMinutes = item?.duration;
     const startHour = Math.floor(durationInMinutes / 60);
     const startMinutes = durationInMinutes % 60;
@@ -186,34 +179,22 @@ export function ProMatches({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => onClick()} style={styles.titleContainer}>
-        <Text style={styles.textTitle}>
-          {englishLanguage
-            ? "Last Pro Matches"
-            : "Últimas Partidas Profissionais"}
-          {"   "}
-          <Feather
-            name={proMatchesOpen ? "chevrons-down" : "chevrons-up"}
-            size={20}
-            color={"#fff"}
-          />
-        </Text>
-      </TouchableOpacity>
-
-      <FlatList
-        data={formattedTimeMatch}
-        renderItem={({ item }) => (
-          <ProMatchItem
-            item={item}
-            formattedEndDuration={item.formattedEndDuration}
-            formattedDuration={item.formattedDuration}
-          />
-        )}
-        keyExtractor={(item) => item.match_id.toString()}
-        initialNumToRender={5}
-        maxToRenderPerBatch={10}
-        scrollEnabled={proMatchesOpen}
-      />
+      <ScrollView>
+        <FlatList
+          data={formattedTimeMatch}
+          renderItem={({ item }) => (
+            <ProMatchItem
+              item={item}
+              formattedEndDuration={item.formattedEndDuration}
+              formattedDuration={item.formattedDuration}
+            />
+          )}
+          keyExtractor={(item) => item.match_id.toString()}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
+          scrollEnabled={false}
+        />
+      </ScrollView>
     </View>
   );
 }

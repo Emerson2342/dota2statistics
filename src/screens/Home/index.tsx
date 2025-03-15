@@ -3,8 +3,6 @@ import {
   Text,
   View,
   ActivityIndicator,
-  LayoutAnimation,
-  ScrollView,
   useWindowDimensions,
   Dimensions,
 } from "react-native";
@@ -16,9 +14,6 @@ import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { ProMatches } from "./ProMatches";
 import { useTheme } from "../../context/useThemeContext";
-import { useFocusEffect } from "@react-navigation/native";
-import { useTimestampContext } from "../../context/useTimestampContext";
-import { useRefreshContext } from "../../context/useRefreshContext";
 import {
   getHeroesPlayed,
   getProMatches,
@@ -27,15 +22,13 @@ import {
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
 import { HeroesPlayed, RecentMatches } from "../../../src/services/props";
-import { AsyncStorageService } from "../../../src/services/StorageService";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
+import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 
 export function Profile() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { playerTimestamp, setPlayerTimestamp } = useTimestampContext();
-  const currentTimestamp = Math.floor(Date.now() / 1000);
   const {
     player,
     setPlayer,
@@ -45,14 +38,10 @@ export function Profile() {
   } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
 
-  const { refreshProfile, setRefreshProfile } = useRefreshContext();
-
   const [isLoading, setIsLoading] = useState(true);
 
-  //alert(currentTimestamp);
 
   const [httpStatus, setHttpStatus] = useState<number>(200);
-  const [proMatchesOpen, setProMatchesOpen] = useState(false);
 
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
@@ -62,13 +51,15 @@ export function Profile() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
 
-  const renderScene1 = useCallback(
+  const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return profile ? <HomeComponent /> : <LoadingMatchDetails />;
+          return isLoading ? <Header /> : <Loading />;
+        case "heroesPlayed":
+          return isLoading ? <HeroesPlayed /> : <Loading />;
         case "second":
-          return matchDetails ? <HomeComponent1 /> : <LoadingMatchDetails />;
+          return isLoading ? <ProMatches /> : <Loading />;
         default:
           return null;
       }
@@ -76,36 +67,64 @@ export function Profile() {
     [profile, recentMatches]
   );
 
-  const HomeComponent1 = React.memo(() => {
+  const Loading = React.memo(() => {
+    return (<View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 0.82,
+      }}
+    >
+      <ActivityIndicator color={ColorTheme.dark} />
+      <Text style={styles.textLoading}>
+        {englishLanguage ? "Loading..." : "Carregando..."}
+      </Text>
+    </View>)
+  })
+
+  const HeroesPlayed = React.memo(() => {
+    return (<HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />)
+  })
+
+  const Header = React.memo(() => {
     return (
-      <View>
-        <View style={{ flex: 0.35 }}>
-          <ProfileHeader
-            player={player}
-            heroesId={heroesPlayedId}
-            recentMatches={recentMatches}
-          />
-        </View>
-        <View style={{ flex: 0.65 }}>
-          <View style={{ flex: 1, paddingBottom: "1%" }}>
-            {player ? (
-              <LastMatches
-                playerId={player.profile.account_id.toString()}
-                onRefresh={() => handleLoadData()}
+      <View style={styles.container}>
+        {player == null || player.profile.account_id == 0 ? <View style={styles.erroMessage}>
+          <Text style={styles.textErro}>
+            {httpStatus > 450 ? erro500 : erro404}
+          </Text>
+        </View> :
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 0.25 }}>
+              <ProfileHeader
+                player={player}
+                heroesId={heroesPlayedId}
                 recentMatches={recentMatches}
               />
-            ) : null}
+            </View>
+            <View style={{ flex: 0.75 }}>
+              <View style={{ flex: 1, paddingBottom: "1%" }}>
+                {player ? (
+                  <LastMatches
+                    playerId={player.profile.account_id.toString()}
+                    onRefresh={() => handleLoadData()}
+                    recentMatches={recentMatches}
+                  />
+                ) : null}
+              </View>
+            </View>
           </View>
-        </View>
+        }
       </View>
     );
   });
 
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    { key: "heroesPlayed", title: englishLanguage ? "Heroes Played" : "Heróis Jogados" },
     {
       key: "second",
-      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
+      title: englishLanguage ? "Pro Matches" : "Partidas Profissionais",
     },
   ];
   const erro404 = englishLanguage
@@ -138,90 +157,26 @@ export function Profile() {
       if (heroesPlayedResponse) setHeroesPlayed(heroesPlayedResponse);
 
       //console.log(JSON.stringify(heroesPlayedResponse, null, 2));
-
       setIsLoading(false);
-      // setRefreshProfile(false);
     }, 500);
   };
 
-  // alert(JSON.stringify(profile, null, 2))
-
-  // useEffect(() => {
-  //   const loadRecentMatches = async () => {
-  //     try {
-  //       const storedRecentMatches = await storage.getItem<RecentMatches[]>(
-  //         "recentMatches"
-  //       );
-  //       if (storedRecentMatches) {
-  //         setRecentMatches(storedRecentMatches);
-  //       }
-  //     } catch (error) {
-  //       console.error("Erro ao carregar dados do AsyncStorage:", error);
-  //     } finally {
-  //       setLoadedList(true);
-  //     }
-  //   };
-
-  //   loadRecentMatches();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (loadedList) {
-  //     const saveRecentMatches = async () => {
-  //       try {
-  //         await storage.setItem("recentMatches", recentMatches);
-  //       } catch (error) {
-  //         console.error("Erro ao salvar dados no AsyncStorage:", error);
-  //       }
-  //     };
-
-  //     saveRecentMatches();
-  //   }
-  // }, [recentMatches, loadedList]);
-
-  // useEffect(
-  //   useCallback(() => {
-  //     handleLoadData();
-  //   }, [])
-  // );
-
   useEffect(() => {
     console.log("******************************");
-    //handleLoadData();
+    handleLoadData();
   }, [profile]);
-
-  // useEffect(() => {
-  //   console.log(profile);
-  //   if (refreshProfile) {
-  //     console.log("Entrou useEffect");
-  //     handleLoadData();
-  //   }
-  //   setIsLoading(false);
-  // }, [profile, refreshProfile]);
-
-  if (player == null || (player?.profile.account_id == 0 && !isLoading)) {
-    return (
-      <View style={styles.erroMessage}>
-        <Text style={styles.textErro}>
-          {httpStatus > 450 ? erro500 : erro404}
-        </Text>
-      </View>
-    );
-  }
 
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
       indicatorStyle={{
-        backgroundColor: "transparent",
+        backgroundColor: "orange",
       }}
       activeColor={"#fff"}
       inactiveColor={"#888"}
       style={{
         backgroundColor: ColorTheme.semidark,
-        margin: "3%",
-        borderRadius: 29,
-        elevation: 7,
+
       }}
     />
   );
@@ -230,9 +185,10 @@ export function Profile() {
     <TabView
       renderTabBar={renderTabBar}
       navigationState={{ index, routes }}
-      renderScene={renderScene1}
+      renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
+      lazy={true}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
@@ -242,50 +198,5 @@ export function Profile() {
     />
   );
 
-  return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 0.82,
-            }}
-          >
-            <ActivityIndicator color={ColorTheme.dark} />
-            <Text style={styles.textLoading}>
-              {englishLanguage ? "Loading..." : "Carregando..."}
-            </Text>
-          </View>
-        ) : (
-          <>
-            <BannerAds />
-            <View style={{ flex: 0.35 }}>
-              <ProfileHeader
-                player={player}
-                heroesId={heroesPlayedId}
-                recentMatches={recentMatches}
-              />
-            </View>
-            <View style={{ flex: 0.65 }}>
-              <View style={{ flex: 1, paddingBottom: "1%" }}>
-                <LastMatches
-                  playerId={player.profile.account_id.toString()}
-                  onRefresh={() => handleLoadData()}
-                  recentMatches={recentMatches}
-                />
-              </View>
-            </View>
-          </>
-        )}
-        {/* <View style={{ flex: proMatchesOpen ? 0.65 : 0.18 }}>
-          <ProMatches
-            onClick={() => handleProMatches(false)}
-            proMatchesOpen={proMatchesOpen}
-          />
-        </View> */}
-      </View>
-    </View>
-  );
+
 }
