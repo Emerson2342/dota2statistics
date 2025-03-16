@@ -200,7 +200,7 @@ export function LastMatches({
         <Text style={[styles.textTitleHeader, { width: "17%" }]}>
           {englishLanguage ? "Mode" : "Modo"}
         </Text>
-        <Text style={[styles.textTitleHeader, { width: "13%" }]}>
+        <Text style={[styles.textTitleHeader, { width: "15%" }]}>
           {englishLanguage ? "Duration" : "Duração"}
         </Text>
         <Text style={[styles.textTitleHeader, { width: "13%" }]}>K/D/A</Text>

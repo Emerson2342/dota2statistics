@@ -228,43 +228,53 @@ export function TeamFights({
               </View>
               <View
                 style={{
-                  flexDirection: "row",
-                  width: "100%",
+                  width: "98%",
                   justifyContent: "flex-start",
+                  alignItems: "center",
                   marginHorizontal: "1%",
+                  display:
+                    Object.entries(player?.killed).length > 0 ? "flex" : "none",
                 }}
               >
-                {Object.entries(player?.killed).map(
-                  ([heroName, usageCount]: [string, number], index: number) => {
-                    const clearHeroName = heroName.replace(
-                      "npc_dota_hero_",
-                      ""
-                    );
+                <Text style={styles.textLabel}>
+                  {englishLanguage ? "Heroes Killed" : "Heróis Mortos"}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  {Object.entries(player?.killed).map(
+                    (
+                      [heroName, usageCount]: [string, number],
+                      index: number
+                    ) => {
+                      const clearHeroName = heroName.replace(
+                        "npc_dota_hero_",
+                        ""
+                      );
 
-                    const item = heroArray.find(
-                      (i) => i.name === clearHeroName
-                    );
+                      const item = heroArray.find(
+                        (i) => i.name === clearHeroName
+                      );
 
-                    const itemImage = PICTURE_HERO_BASE_URL + item?.img;
+                      const itemImage = PICTURE_HERO_BASE_URL + item?.img;
 
-                    return (
-                      <View
-                        key={index}
-                        style={{
-                          alignItems: "center",
-                        }}
-                      >
-                        <Image
-                          source={{ uri: itemImage }}
-                          style={[
-                            styles.itemImage,
-                            { width: widthImage * 0.7, aspectRatio: 1.5 },
-                          ]}
-                        />
-                      </View>
-                    );
-                  }
-                )}
+                      return (
+                        <View
+                          key={index}
+                          style={{
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: itemImage }}
+                            style={[
+                              styles.itemImage,
+                              { width: widthImage * 0.7, aspectRatio: 1.5 },
+                            ]}
+                          />
+                        </View>
+                      );
+                    }
+                  )}
+                </View>
               </View>
             </View>
           );
@@ -280,6 +290,7 @@ export function TeamFights({
         renderItem={renderItem}
         keyExtractor={(item) => item.start.toString()}
         initialNumToRender={3}
+        windowSize={3}
       />
     </View>
   );
