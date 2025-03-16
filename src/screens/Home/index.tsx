@@ -40,7 +40,6 @@ export function Profile() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
 
@@ -53,45 +52,47 @@ export function Profile() {
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return isLoading ? <Header /> : <Loading />;
+          return isLoading ? <Loading key={Date.now()} /> : <Header />;
         case "heroesPlayed":
-          return isLoading ? <HeroesPlayed /> : <Loading />;
+          return isLoading ? <Loading key={Date.now()} /> : <HeroesPlayed />;
         case "second":
-          return isLoading ? <ProMatches /> : <Loading />;
+          return isLoading ? <Loading key={Date.now()} /> : <ProMatches />;
         default:
           return null;
       }
     },
-    [profile, recentMatches, heroesPlayed, heroesPlayedId]
+    [profile, recentMatches, heroesPlayed, heroesPlayedId, isLoading]
   );
 
   const Loading = React.memo(() => {
-    return (<View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        flex: 0.82,
-      }}
-    >
-      <ActivityIndicator color={ColorTheme.dark} />
-      <Text style={styles.textLoading}>
-        {englishLanguage ? "Loading..." : "Carregando..."}
-      </Text>
-    </View>)
-  })
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 0.82,
+        }}
+      >
+        <ActivityIndicator color={ColorTheme.dark} />
+        <Text style={styles.textLoading}>
+          {englishLanguage ? "Loading..." : "Carregando..."}
+        </Text>
+      </View>
+    );
+  });
 
   const HeroesPlayed = React.memo(() => {
-    return (<HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />)
-  })
+    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
+  });
 
   const Header = React.memo(() => {
     return (
       <View style={styles.container}>
-        {player == null || player.profile.account_id == 0 ? <View style={styles.erroMessage}>
-          <Text style={styles.textErro}>
-            {erro404}
-          </Text>
-        </View> :
+        {player == null || player.profile.account_id == 0 ? (
+          <View style={styles.erroMessage}>
+            <Text style={styles.textErro}>{erro404}</Text>
+          </View>
+        ) : (
           <View style={{ flex: 1 }}>
             <View style={{ flex: 0.25 }}>
               <ProfileHeader
@@ -112,14 +113,17 @@ export function Profile() {
               </View>
             </View>
           </View>
-        }
+        )}
       </View>
     );
   });
 
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
-    { key: "heroesPlayed", title: englishLanguage ? "Heroes Played" : "Heróis Jogados" },
+    {
+      key: "heroesPlayed",
+      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+    },
     {
       key: "second",
       title: englishLanguage ? "Pro Matches" : "Partidas Profissionais",
@@ -135,6 +139,7 @@ export function Profile() {
 
   const handleLoadData = async () => {
     setIsLoading(true);
+    console.log("Entrou");
 
     setTimeout(async () => {
       await getProMatches(setProMatches);
@@ -152,17 +157,23 @@ export function Profile() {
       const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
 
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
-      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) setHeroesPlayed(heroesPlayedResponse);
+      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
+        setHeroesPlayed(heroesPlayedResponse);
 
-      console.log("Tamanho da lista de heroes: " + heroesPlayedResponse?.length);
+      console.log(
+        "Tamanho da lista de heroes: " + heroesPlayedResponse?.length
+      );
       console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
       setIsLoading(false);
+      console.log("Final - " + isLoading);
     }, 500);
   };
 
   useEffect(() => {
     console.log("******************************");
+    setIsLoading(true);
     handleLoadData();
+    setIsLoading(false);
   }, [profile]);
 
   const renderTabBar = (props: any) => (
@@ -175,10 +186,10 @@ export function Profile() {
       inactiveColor={"#888"}
       style={{
         backgroundColor: ColorTheme.semidark,
-
       }}
     />
   );
+
   return (
     <TabView
       renderTabBar={renderTabBar}
@@ -191,11 +202,9 @@ export function Profile() {
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
           fontFamily: "QuickSand-Bold",
-          textAlign: "center"
+          textAlign: "center",
         },
       }}
     />
   );
-
-
 }

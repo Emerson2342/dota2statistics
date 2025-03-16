@@ -212,7 +212,35 @@ export interface HeroesPlayed {
   against_win: number;
 }
 
+export interface PlayerTeamFight {
+  ability_uses: {
+    [key: string]: number;
+  };
+  item_uses: {
+    [key: string]: number;
+  };
+  killed: {
+    [key: string]: number;
+  };
+  deaths: number;
+  buybacks: number;
+  damage: number;
+  healing: number;
+  gold_delta: number;
+  xp_delta: number;
+  xp_start?: number;
+  xp_end?: number;
+}
+
+export interface TeamFightModel {
+  start: number;
+  end?: number;
+  deaths?: number;
+  players?: PlayerTeamFight[];
+}
+
 export interface MatchDetailsModel {
+  teamfights?: TeamFightModel[];
   players: Player[];
   radiant_win: boolean;
   duration: number;
@@ -388,9 +416,10 @@ export interface PlayerDetails {
 }
 
 export interface Item {
-  nome: string;
+  name: string;
   id: number;
   img: string;
+  dmg_type?: string;
   dname: string;
 }
 

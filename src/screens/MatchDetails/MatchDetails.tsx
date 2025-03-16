@@ -46,6 +46,9 @@ import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 import { Snackbar } from "react-native-paper";
 import { on } from "events";
+import { TeamFights } from "./TeamFights";
+import { time } from "console";
+import { title } from "process";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -56,7 +59,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     MatchDetailsModel[]
   >([]);
   const [loadedeList, setLoadedList] = useState(false);
-
+  //Wconst [];
   const storage = useMemo(() => new AsyncStorageService(), []);
 
   const [refreshing, setRefreshing] = useState(false);
@@ -77,6 +80,12 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           return matchDetails ? <HomeComponent /> : <LoadingMatchDetails />;
         case "second":
           return matchDetails ? <HomeComponent1 /> : <LoadingMatchDetails />;
+        case "third":
+          return matchDetails ? (
+            <TeamFightComponent />
+          ) : (
+            <LoadingMatchDetails />
+          );
         default:
           return null;
       }
@@ -119,8 +128,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-            matchDetails.picks_bans &&
-            matchDetails.picks_bans.map((p) => p.is_pick) ? (
+          matchDetails.picks_bans &&
+          matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -375,9 +384,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           </View>
 
           {matchDetails &&
-            matchDetails.players.length > 0 &&
-            matchDetails.players[0].gold_t &&
-            matchDetails.players[0].gold_t.length > 0 ? (
+          matchDetails.players.length > 0 &&
+          matchDetails.players[0].gold_t &&
+          matchDetails.players[0].gold_t.length > 0 ? (
             <View
               style={[
                 styles.containerItem,
@@ -401,12 +410,22 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     );
   });
 
+  const TeamFightComponent = React.memo(() => {
+    return (
+      <TeamFights
+        heroesId={matchDetails?.players.map((h) => h.hero_id) || []}
+        teamFights={matchDetails?.teamfights || []}
+      />
+    );
+  });
+
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
       key: "second",
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
+    { key: "third", title: "Team Fights" },
   ];
 
   const onRefresh = async () => {
@@ -499,9 +518,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-          MatchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
+            MatchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
         );
         setMatchDetails(match);
       } else {
@@ -730,7 +749,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       inactiveColor={"#888"}
       style={{
         backgroundColor: ColorTheme.semidark,
-
       }}
     />
   );

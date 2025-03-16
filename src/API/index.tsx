@@ -155,6 +155,7 @@ export const getMatchDetails = async (url: string) => {
         league: data.league,
         radiant_team: data.radiant_team,
         dire_team: data.dire_team,
+        teamfights: data.teamfights,
       };
       console.log("Saiu");
       return matchDataResponse;
@@ -218,7 +219,6 @@ export const getHeroesPlayed = async (url: string) => {
     const data = (await response.json()) as HeroesPlayed[];
     console.log("Raw data recebido:", data.length);
     return data.slice(0, 50);
-
   } catch (error: any) {
     console.log("Erro ao buscar herois jogados: " + error.message);
   }
