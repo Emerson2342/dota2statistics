@@ -27,8 +27,14 @@ export const styles = StyleSheet.create({
     margin: 1.5,
   },
   textLabel: {
+    textAlign: "center",
     fontFamily: "QuickSand-Semibold",
     fontSize: Dimensions.get("screen").width * 0.03,
   },
-  textData: { color: "#4e9332" },
+  textData: {
+    fontFamily: "QuickSand-Semibold",
+    fontSize: Dimensions.get("screen").width * 0.03,
+    color: "#4e9332",
+    textAlign: "center",
+  },
 });

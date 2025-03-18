@@ -40,6 +40,7 @@ export function TeamFights({
 
   const renderItem = ({ item }: { item: TeamFightModel }) => {
     let formattedTime;
+    let endTime;
     if (item.start) {
       const minute = Math.floor(item.start / 60);
       const seconds = item.start && item.start % 60;
@@ -49,13 +50,81 @@ export function TeamFights({
 
       formattedTime = `${formattedHours}:${formattedMinutes}`;
     }
+    if (item.end) {
+      const minute = Math.floor(item.end / 60);
+      const seconds = item.end && item.end % 60;
+
+      const formattedHours = String(minute).padStart(2, "0");
+      const formattedMinutes = String(seconds).padStart(2, "0");
+
+      endTime = `${formattedHours}:${formattedMinutes}`;
+    }
 
     return (
       <View style={styles.renderItemContainer}>
         <Text style={styles.textTime}>
           {englishLanguage ? "Time: " : "Hora: "}
-          {formattedTime}
+          {formattedTime} - {endTime}
         </Text>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignSelf: "flex-end",
+            justifyContent: "space-around",
+            width: "87%",
+            alignItems: "baseline",
+          }}
+        >
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "25%", backgroundColor: "#cece" },
+            ]}
+          >
+            Dano Causado
+          </Text>
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "15%", backgroundColor: "#fafa" },
+            ]}
+          >
+            Cura
+          </Text>
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "15%", backgroundColor: "#cece" },
+            ]}
+          >
+            Xp Ganho
+          </Text>
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "15%", backgroundColor: "#fafa" },
+            ]}
+          >
+            Gold
+          </Text>
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "20%", backgroundColor: "#cece" },
+            ]}
+          >
+            Mortes
+          </Text>
+          <Text
+            style={[
+              styles.textLabel,
+              { width: "10%", backgroundColor: "#fafa" },
+            ]}
+          >
+            BBs
+          </Text>
+        </View>
 
         {item.players?.map((player: PlayerTeamFight, indexPlayer: number) => {
           const teste = heroesId[indexPlayer];
@@ -73,17 +142,13 @@ export function TeamFights({
                 borderColor: "#ccc",
               }}
             >
-              <View
-                style={{
-                  flexDirection: "row",
-                  margin: "1%",
-                }}
-              >
+              <View style={{ flexDirection: "row" }}>
                 <View
                   style={{
-                    marginRight: 3,
                     alignItems: "flex-start",
                     justifyContent: "center",
+                    width: "13%",
+                    backgroundColor: "purple",
                   }}
                 >
                   <Image
@@ -98,69 +163,74 @@ export function TeamFights({
                 <View
                   style={{
                     flexDirection: "row",
-                    width: "80%",
+                    width: "87%",
                     justifyContent: "space-between",
                   }}
                 >
-                  <View>
-                    <Text style={styles.textLabel}>
-                      {englishLanguage ? "Damage: " : "Dano Causado: "}
-                      <Text style={styles.textData}>
-                        {player.damage.toLocaleString(
-                          englishLanguage ? "en-US" : "pt-BR"
-                        )}
-                      </Text>
-                    </Text>
-                    <Text style={styles.textLabel}>
-                      Gold:{" "}
-                      <Text
-                        style={[
-                          styles.textData,
-                          { color: player.gold_delta < 0 ? "red" : "#4e9332" },
-                        ]}
-                      >
-                        {player.gold_delta.toLocaleString(
-                          englishLanguage ? "en-US" : "pt-BR"
-                        )}
-                      </Text>
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={styles.textLabel}>
-                      Xp:{" "}
-                      <Text style={styles.textData}>
-                        {player.xp_delta.toLocaleString(
-                          englishLanguage ? "en-US" : "pt-BR"
-                        )}
-                      </Text>
-                    </Text>
-                    <Text style={styles.textLabel}>
-                      {englishLanguage ? "Healing: " : "Cura: "}{" "}
-                      <Text style={styles.textData}>
-                        {player.healing.toLocaleString(
-                          englishLanguage ? "en-US" : "pt-BR"
-                        )}
-                      </Text>
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={styles.textLabel}>
-                      {englishLanguage ? "Deaths" : "Mortes"}{" "}
-                      <Text
-                        style={[
-                          styles.textData,
-                          { color: player.deaths == 0 ? "#4e9332" : "red" },
-                        ]}
-                      >
-                        {" "}
-                        {player.deaths}
-                      </Text>
-                    </Text>
-                    <Text style={styles.textLabel}>
-                      Buybacks:{" "}
-                      <Text style={styles.textData}>{player.buybacks}</Text>
-                    </Text>
-                  </View>
+                  <Text
+                    style={[
+                      styles.textData,
+                      { width: "25%", backgroundColor: "#cece" },
+                    ]}
+                  >
+                    {player.damage.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textData,
+                      {
+                        color: player.gold_delta < 0 ? "red" : "#4e9332",
+                        width: "15%",
+                        backgroundColor: "#fafa",
+                      },
+                    ]}
+                  >
+                    {player.gold_delta.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textData,
+                      { width: "15%", backgroundColor: "#cece" },
+                    ]}
+                  >
+                    {player.xp_delta.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textData,
+                      { width: "15%", backgroundColor: "#fafa" },
+                    ]}
+                  >
+                    {player.healing.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR"
+                    )}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textData,
+                      {
+                        color: player.deaths == 0 ? "#4e9332" : "red",
+                        width: "20%",
+                        backgroundColor: "#cece",
+                      },
+                    ]}
+                  >
+                    {player.deaths}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textData,
+                      { width: "10%", backgroundColor: "#fafa" },
+                    ]}
+                  >
+                    {player.buybacks}
+                  </Text>
                 </View>
               </View>
               <View
@@ -169,6 +239,7 @@ export function TeamFights({
                   width: "100%",
                   justifyContent: "flex-start",
                   marginHorizontal: "1%",
+                  display: "none",
                 }}
               >
                 <View style={styles.containerImage}>
@@ -233,7 +304,7 @@ export function TeamFights({
                   alignItems: "center",
                   marginHorizontal: "1%",
                   display:
-                    Object.entries(player?.killed).length > 0 ? "flex" : "none",
+                    Object.entries(player?.killed).length > 0 ? "none" : "none",
                 }}
               >
                 <Text style={styles.textLabel}>
