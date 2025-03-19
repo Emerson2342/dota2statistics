@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
   containerImage: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    width: "47%",
     flexWrap: "wrap",
   },
   itemImage: {

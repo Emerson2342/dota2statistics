@@ -1,52 +1,29 @@
-import React, { useMemo } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  Dimensions,
-  useWindowDimensions,
-  ListRenderItem,
-} from "react-native";
+import React from "react";
+import { View, Text, Image, FlatList, Dimensions } from "react-native";
 
 import { styles } from "./TeamFightsStyle";
 import {
-  HeroAbilitiesDescriptionsJson,
   HeroAbilitiesDescriptionsModel,
-  HeroDetailsModel,
-  Item,
   PlayerTeamFight,
   TeamFightModel,
 } from "../../../src/services/props";
-import Items from "../../components/Itens/itemsList.json";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import AbililitiesDescription from "../../components/Heroes/AbilitiesDescriptions.json";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import {
+  ITEM_IMAGE_BASE_URL,
+  PICTURE_HERO_BASE_URL,
+} from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { BannerAds } from "../../../src/components/BannerAds";
 
 export function TeamFights({
   teamFights,
-  heroesId,
+  heroNames,
 }: {
   teamFights: TeamFightModel[] | undefined;
-  heroesId: number[];
+  heroNames: string[];
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const widthImage = Dimensions.get("screen").height * 0.05;
-
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-
-  const heroMap = useMemo(() => {
-    return heroArray.reduce((acc, hero) => {
-      acc[hero.id] = hero;
-      return acc;
-    }, {} as Record<number, HeroDetailsModel>);
-  }, [heroArray]);
-
-  const itemsArray = Items as Item[];
 
   const renderItem = ({ item }: { item: TeamFightModel }) => {
     let formattedTime;
@@ -95,10 +72,13 @@ export function TeamFights({
         </View>
 
         {item.players?.map((player: PlayerTeamFight, indexPlayer: number) => {
-          const teste = heroesId[indexPlayer];
+          const heroName = heroNames[indexPlayer];
 
-          const heroIndex = heroMap[teste];
-          let imgSource = PICTURE_HERO_BASE_URL + heroIndex?.img;
+          let imgSource =
+            PICTURE_HERO_BASE_URL +
+            "/apps/dota2/images/dota_react/heroes/" +
+            heroName +
+            ".png?";
 
           return (
             <View
@@ -184,18 +164,14 @@ export function TeamFights({
                       marginHorizontal: "1%",
                     }}
                   >
-                    <View style={styles.containerImage}>
+                    <View style={[styles.containerImage, { width: "35%" }]}>
                       {Object.entries(player.ability_uses).map(
                         (
                           [abilityName, usageCount]: [string, number],
                           index: number
                         ) => {
-                          const ability: HeroAbilitiesDescriptionsModel =
-                            AbililitiesDescription[
-                              abilityName as keyof typeof AbililitiesDescription
-                            ];
                           const abilityImage =
-                            PICTURE_HERO_BASE_URL + ability?.img;
+                            ITEM_IMAGE_BASE_URL + abilityName + ".png";
 
                           return (
                             <View
@@ -213,17 +189,17 @@ export function TeamFights({
                         }
                       )}
                     </View>
-                    <View style={styles.containerImage}>
+                    <View style={[styles.containerImage, { width: "35%" }]}>
                       {Object.entries(player?.item_uses).map(
                         (
                           [itemName, usageCount]: [string, number],
                           index: number
                         ) => {
-                          const item = itemsArray.find(
-                            (i) => i.name === itemName
-                          );
-
-                          const itemImage = PICTURE_HERO_BASE_URL + item?.img;
+                          const itemImage =
+                            PICTURE_HERO_BASE_URL +
+                            "/apps/dota2/images/dota_react/items/" +
+                            itemName +
+                            ".png";
 
                           return (
                             <View
@@ -241,58 +217,48 @@ export function TeamFights({
                         }
                       )}
                     </View>
+
+                    <View style={[styles.containerImage, { width: "30%" }]}>
+                      {Object.entries(player?.killed).map(
+                        (
+                          [heroName, usageCount]: [string, number],
+                          index: number
+                        ) => {
+                          const clearHeroName = heroName.replace(
+                            "npc_dota_hero_",
+                            ""
+                          );
+
+                          let imgSource =
+                            PICTURE_HERO_BASE_URL +
+                            "/apps/dota2/images/dota_react/heroes/" +
+                            clearHeroName +
+                            ".png?";
+
+                          return (
+                            <View
+                              key={index}
+                              style={{
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                source={{ uri: imgSource }}
+                                style={[
+                                  styles.itemImage,
+                                  {
+                                    width:
+                                      Dimensions.get("screen").width * 0.057,
+                                    aspectRatio: 1.5,
+                                  },
+                                ]}
+                              />
+                            </View>
+                          );
+                        }
+                      )}
+                    </View>
                   </View>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: "98%",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  marginHorizontal: "1%",
-                  display:
-                    Object.entries(player?.killed).length > 0 ? "none" : "none",
-                }}
-              >
-                <Text style={styles.textLabel}>
-                  {englishLanguage ? "Heroes Killed" : "Heróis Mortos"}
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  {Object.entries(player?.killed).map(
-                    (
-                      [heroName, usageCount]: [string, number],
-                      index: number
-                    ) => {
-                      const clearHeroName = heroName.replace(
-                        "npc_dota_hero_",
-                        ""
-                      );
-
-                      const item = heroArray.find(
-                        (i) => i.name === clearHeroName
-                      );
-
-                      const itemImage = PICTURE_HERO_BASE_URL + item?.img;
-
-                      return (
-                        <View
-                          key={index}
-                          style={{
-                            alignItems: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: itemImage }}
-                            style={[
-                              styles.itemImage,
-                              { width: widthImage * 0.7, aspectRatio: 1.5 },
-                            ]}
-                          />
-                        </View>
-                      );
-                    }
-                  )}
                 </View>
               </View>
             </View>
@@ -308,9 +274,10 @@ export function TeamFights({
         data={teamFights}
         renderItem={renderItem}
         keyExtractor={(item) => item.start.toString()}
-        initialNumToRender={10}
+        initialNumToRender={4}
+        maxToRenderPerBatch={3}
+        windowSize={3}
         scrollEnabled={false}
-        maxToRenderPerBatch={10}
       />
     </View>
   );

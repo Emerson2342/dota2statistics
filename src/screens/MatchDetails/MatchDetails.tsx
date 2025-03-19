@@ -6,22 +6,14 @@ import {
   FlatList,
   ActivityIndicator,
   ScrollView,
-  TouchableOpacity,
-  Modal,
   RefreshControl,
   useWindowDimensions,
   Dimensions,
 } from "react-native";
 import { createStyles } from "./MatchDetailsStyles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import { TabView, TabBar } from "react-native-tab-view";
 import {
-  TabView,
-  SceneMap,
-  TabBar,
-  SceneRendererProps,
-} from "react-native-tab-view";
-import {
-  GoldPlayers,
   HeroDetailsModel,
   MatchDetailsModel,
   MatchDetailsProps,
@@ -111,7 +103,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   const HomeComponent = React.memo(() => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
         <ScrollView
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -344,7 +336,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   const HomeComponent1 = React.memo(() => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
         <ScrollView
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -407,11 +399,18 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   });
 
   const TeamFightComponent = React.memo(() => {
+    const heroMap = useMemo(() => {
+      return Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
+    }, [heroArray]);
+
+    const heroNames =
+      matchDetails?.players.map((player) => heroMap[player.hero_id]) || [];
+
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
           <TeamFights
-            heroesId={matchDetails?.players.map((h) => h.hero_id) || []}
+            heroNames={heroNames}
             teamFights={matchDetails?.teamfights || []}
           />
         </ScrollView>
