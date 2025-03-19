@@ -44,11 +44,7 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
-import { Snackbar } from "react-native-paper";
-import { on } from "events";
 import { TeamFights } from "./TeamFights";
-import { time } from "console";
-import { title } from "process";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -412,10 +408,15 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   const TeamFightComponent = React.memo(() => {
     return (
-      <TeamFights
-        heroesId={matchDetails?.players.map((h) => h.hero_id) || []}
-        teamFights={matchDetails?.teamfights || []}
-      />
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <TeamFights
+            heroesId={matchDetails?.players.map((h) => h.hero_id) || []}
+            teamFights={matchDetails?.teamfights || []}
+          />
+        </ScrollView>
+        <BannerAds />
+      </View>
     );
   });
 
@@ -764,6 +765,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
           fontFamily: "QuickSand-Bold",
+          textAlign: "center",
         },
       }}
     />

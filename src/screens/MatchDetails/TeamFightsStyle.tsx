@@ -7,6 +7,13 @@ export const styles = StyleSheet.create({
     color: "orange",
     textAlign: "center",
   },
+  headerContainer: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+    justifyContent: "space-around",
+    width: "87%",
+    alignItems: "baseline",
+  },
   renderItemContainer: {
     backgroundColor: "#fff",
     margin: "1.7%",
@@ -21,7 +28,7 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   itemImage: {
-    width: 23,
+    width: Dimensions.get("screen").width * 0.037,
     aspectRatio: 1,
     borderRadius: 3,
     margin: 1.5,
@@ -33,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   textData: {
     fontFamily: "QuickSand-Semibold",
-    fontSize: Dimensions.get("screen").width * 0.03,
+    fontSize: Dimensions.get("screen").width * 0.027,
     color: "#4e9332",
     textAlign: "center",
   },

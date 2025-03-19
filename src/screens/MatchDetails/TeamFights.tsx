@@ -23,6 +23,8 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import AbililitiesDescription from "../../components/Heroes/AbilitiesDescriptions.json";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import { useTheme } from "../../../src/context/useThemeContext";
+import { BannerAds } from "../../../src/components/BannerAds";
 
 export function TeamFights({
   teamFights,
@@ -32,9 +34,17 @@ export function TeamFights({
   heroesId: number[];
 }) {
   const { englishLanguage } = useSettingsContext();
+  const { ColorTheme } = useTheme();
   const widthImage = Dimensions.get("screen").height * 0.05;
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  const heroMap = useMemo(() => {
+    return heroArray.reduce((acc, hero) => {
+      acc[hero.id] = hero;
+      return acc;
+    }, {} as Record<number, HeroDetailsModel>);
+  }, [heroArray]);
 
   const itemsArray = Items as Item[];
 
@@ -61,84 +71,40 @@ export function TeamFights({
     }
 
     return (
-      <View style={styles.renderItemContainer}>
+      <View style={[styles.renderItemContainer]}>
         <Text style={styles.textTime}>
           {englishLanguage ? "Time: " : "Hora: "}
           {formattedTime} - {endTime}
         </Text>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignSelf: "flex-end",
-            justifyContent: "space-around",
-            width: "87%",
-            alignItems: "baseline",
-          }}
-        >
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "25%", backgroundColor: "#cece" },
-            ]}
-          >
-            Dano Causado
+        <View style={styles.headerContainer}>
+          <Text style={[styles.textLabel, { width: "25%" }]}>
+            {englishLanguage ? "Damage Caused" : "Dano Causado"}
           </Text>
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "15%", backgroundColor: "#fafa" },
-            ]}
-          >
-            Cura
+          <Text style={[styles.textLabel, { width: "15%" }]}>Gold</Text>
+          <Text style={[styles.textLabel, { width: "15%" }]}>
+            {englishLanguage ? "Xp Earned" : "Xp Ganho"}
           </Text>
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "15%", backgroundColor: "#cece" },
-            ]}
-          >
-            Xp Ganho
+          <Text style={[styles.textLabel, { width: "15%" }]}>
+            {englishLanguage ? "Healing" : "Cura"}
           </Text>
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "15%", backgroundColor: "#fafa" },
-            ]}
-          >
-            Gold
+          <Text style={[styles.textLabel, { width: "20%" }]}>
+            {englishLanguage ? "Deaths" : "Mortes"}
           </Text>
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "20%", backgroundColor: "#cece" },
-            ]}
-          >
-            Mortes
-          </Text>
-          <Text
-            style={[
-              styles.textLabel,
-              { width: "10%", backgroundColor: "#fafa" },
-            ]}
-          >
-            BBs
-          </Text>
+          <Text style={[styles.textLabel, { width: "10%" }]}>BBs</Text>
         </View>
 
         {item.players?.map((player: PlayerTeamFight, indexPlayer: number) => {
           const teste = heroesId[indexPlayer];
 
-          const heroIndex = heroArray.find((h) => h.id === teste);
+          const heroIndex = heroMap[teste];
           let imgSource = PICTURE_HERO_BASE_URL + heroIndex?.img;
 
           return (
             <View
               key={indexPlayer}
               style={{
-                borderTopWidth: indexPlayer === 0 ? 0 : 1,
-                paddingTop: 3,
-                paddingBottom: 3,
+                borderTopWidth: 1,
                 borderColor: "#ccc",
               }}
             >
@@ -148,7 +114,6 @@ export function TeamFights({
                     alignItems: "flex-start",
                     justifyContent: "center",
                     width: "13%",
-                    backgroundColor: "purple",
                   }}
                 >
                   <Image
@@ -160,143 +125,126 @@ export function TeamFights({
                     }}
                   />
                 </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    width: "87%",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.textData,
-                      { width: "25%", backgroundColor: "#cece" },
-                    ]}
+                <View style={{ width: "87%" }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    {player.damage.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.textData,
-                      {
-                        color: player.gold_delta < 0 ? "red" : "#4e9332",
-                        width: "15%",
-                        backgroundColor: "#fafa",
-                      },
-                    ]}
+                    <Text style={[styles.textData, { width: "25%" }]}>
+                      {player.damage.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.textData,
+                        {
+                          color: player.gold_delta < 0 ? "red" : "#4e9332",
+                          width: "15%",
+                        },
+                      ]}
+                    >
+                      {player.gold_delta.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                    <Text style={[styles.textData, { width: "15%" }]}>
+                      {player.xp_delta.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                    <Text style={[styles.textData, { width: "15%" }]}>
+                      {player.healing.toLocaleString(
+                        englishLanguage ? "en-US" : "pt-BR"
+                      )}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.textData,
+                        {
+                          color: player.deaths == 0 ? "#4e9332" : "red",
+                          width: "20%",
+                        },
+                      ]}
+                    >
+                      {player.deaths}
+                    </Text>
+                    <Text style={[styles.textData, { width: "10%" }]}>
+                      {player.buybacks}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      width: "100%",
+                      justifyContent: "flex-start",
+                      marginHorizontal: "1%",
+                    }}
                   >
-                    {player.gold_delta.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.textData,
-                      { width: "15%", backgroundColor: "#cece" },
-                    ]}
-                  >
-                    {player.xp_delta.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.textData,
-                      { width: "15%", backgroundColor: "#fafa" },
-                    ]}
-                  >
-                    {player.healing.toLocaleString(
-                      englishLanguage ? "en-US" : "pt-BR"
-                    )}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.textData,
-                      {
-                        color: player.deaths == 0 ? "#4e9332" : "red",
-                        width: "20%",
-                        backgroundColor: "#cece",
-                      },
-                    ]}
-                  >
-                    {player.deaths}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.textData,
-                      { width: "10%", backgroundColor: "#fafa" },
-                    ]}
-                  >
-                    {player.buybacks}
-                  </Text>
+                    <View style={styles.containerImage}>
+                      {Object.entries(player.ability_uses).map(
+                        (
+                          [abilityName, usageCount]: [string, number],
+                          index: number
+                        ) => {
+                          const ability: HeroAbilitiesDescriptionsModel =
+                            AbililitiesDescription[
+                              abilityName as keyof typeof AbililitiesDescription
+                            ];
+                          const abilityImage =
+                            PICTURE_HERO_BASE_URL + ability?.img;
+
+                          return (
+                            <View
+                              key={index}
+                              style={{
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                source={{ uri: abilityImage }}
+                                style={styles.itemImage}
+                              />
+                            </View>
+                          );
+                        }
+                      )}
+                    </View>
+                    <View style={styles.containerImage}>
+                      {Object.entries(player?.item_uses).map(
+                        (
+                          [itemName, usageCount]: [string, number],
+                          index: number
+                        ) => {
+                          const item = itemsArray.find(
+                            (i) => i.name === itemName
+                          );
+
+                          const itemImage = PICTURE_HERO_BASE_URL + item?.img;
+
+                          return (
+                            <View
+                              key={index}
+                              style={{
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                source={{ uri: itemImage }}
+                                style={styles.itemImage}
+                              />
+                            </View>
+                          );
+                        }
+                      )}
+                    </View>
+                  </View>
                 </View>
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  justifyContent: "flex-start",
-                  marginHorizontal: "1%",
-                  display: "none",
-                }}
-              >
-                <View style={styles.containerImage}>
-                  {Object.entries(player.ability_uses).map(
-                    (
-                      [abilityName, usageCount]: [string, number],
-                      index: number
-                    ) => {
-                      const ability: HeroAbilitiesDescriptionsModel =
-                        AbililitiesDescription[
-                          abilityName as keyof typeof AbililitiesDescription
-                        ];
-                      const abilityImage = PICTURE_HERO_BASE_URL + ability?.img;
 
-                      return (
-                        <View
-                          key={index}
-                          style={{
-                            alignItems: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: abilityImage }}
-                            style={styles.itemImage}
-                          />
-                        </View>
-                      );
-                    }
-                  )}
-                </View>
-                <View style={styles.containerImage}>
-                  {Object.entries(player?.item_uses).map(
-                    (
-                      [itemName, usageCount]: [string, number],
-                      index: number
-                    ) => {
-                      const item = itemsArray.find((i) => i.name === itemName);
-
-                      const itemImage = PICTURE_HERO_BASE_URL + item?.img;
-
-                      return (
-                        <View
-                          key={index}
-                          style={{
-                            alignItems: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: itemImage }}
-                            style={styles.itemImage}
-                          />
-                        </View>
-                      );
-                    }
-                  )}
-                </View>
-              </View>
               <View
                 style={{
                   width: "98%",
@@ -355,13 +303,14 @@ export function TeamFights({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
       <FlatList
         data={teamFights}
         renderItem={renderItem}
         keyExtractor={(item) => item.start.toString()}
-        initialNumToRender={3}
-        windowSize={3}
+        initialNumToRender={10}
+        scrollEnabled={false}
+        maxToRenderPerBatch={10}
       />
     </View>
   );

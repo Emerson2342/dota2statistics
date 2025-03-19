@@ -18,6 +18,8 @@ export const createStyles = (colors: ThemeColor) =>
       width: "95%",
       borderRadius: 3,
       padding: "3%",
+      borderWidth: 1,
+      borderColor: colors.semidark,
     },
     textLeagueName: {
       fontFamily: "QuickSand-Bold",

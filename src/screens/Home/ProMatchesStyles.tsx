@@ -40,7 +40,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       borderWidth: 1,
       borderColor: colors.semidark,
       paddingTop: "1.7%",
-      paddingBottom: "1.7%"
+      paddingBottom: "1.7%",
     },
     leagueName: {
       fontFamily: "QuickSand-Bold",
