@@ -27,7 +27,6 @@ import { BannerAds } from "../../components/BannerAds";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { GraficsGoldAndXpTeam } from "./GraficsGoldAndXpTeam";
-import { Abilities } from "./Abilities";
 import { Items } from "./Items";
 import { Header } from "./Header";
 import { Teams } from "./Teams";

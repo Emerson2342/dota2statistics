@@ -139,11 +139,11 @@ export function Profile() {
 
   const handleLoadData = async () => {
     setIsLoading(true);
-    console.log("Entrou");
-
     setTimeout(async () => {
+      console.log("Entrou");
       await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
+      console.log("Carregando********************");
       await getSearchPlayer(searchPlayer, setPlayer);
 
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
@@ -165,15 +165,11 @@ export function Profile() {
       );
       console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
       setIsLoading(false);
-      console.log("Final - " + isLoading);
     }, 500);
   };
 
   useEffect(() => {
-    console.log("******************************");
-    setIsLoading(true);
     handleLoadData();
-    setIsLoading(false);
   }, [profile]);
 
   const renderTabBar = (props: any) => (

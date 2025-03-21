@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text, Image, FlatList, Dimensions } from "react-native";
 
 import { styles } from "./TeamFightsStyle";
@@ -24,8 +24,21 @@ export function TeamFights({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const widthImage = Dimensions.get("screen").height * 0.05;
+  const heightBar = Dimensions.get("screen").width * 0.02;
 
-  const renderItem = ({ item }: { item: TeamFightModel }) => {
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: TeamFightModel;
+    index: number;
+  }) => {
+    const maxDamage =
+      (teamFights ?? [])[index]?.players?.reduce(
+        (max, d) => (d.damage > max ? d.damage : max),
+        0
+      ) ?? 0;
+
     let formattedTime;
     let endTime;
     if (item.start) {
@@ -112,11 +125,32 @@ export function TeamFights({
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text style={[styles.textData, { width: "25%" }]}>
-                      {player.damage.toLocaleString(
-                        englishLanguage ? "en-US" : "pt-BR"
-                      )}
-                    </Text>
+                    <View style={{ width: "25%" }}>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={[styles.textData, { width: "35%" }]}>
+                          {(item?.players ?? [])[indexPlayer].damage}
+                        </Text>
+                        <View
+                          style={{ width: "65%", justifyContent: "center" }}
+                        >
+                          <Text
+                            style={[
+                              styles.textData,
+                              {
+                                height: heightBar,
+                                backgroundColor: "#981a33",
+                                borderRadius: 3,
+                                width: `${
+                                  ((item?.players ?? [])[indexPlayer].damage /
+                                    maxDamage) *
+                                  100
+                                }%`,
+                              },
+                            ]}
+                          />
+                        </View>
+                      </View>
+                    </View>
                     <Text
                       style={[
                         styles.textData,
