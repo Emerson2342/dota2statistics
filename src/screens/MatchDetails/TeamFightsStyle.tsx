@@ -10,9 +10,11 @@ export const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-    justifyContent: "space-around",
+    //justifyContent: "space-around",
     width: "87%",
     alignItems: "baseline",
+    marginTop: 3,
+    marginBottom: 3
   },
   renderItemContainer: {
     backgroundColor: "#fff",
