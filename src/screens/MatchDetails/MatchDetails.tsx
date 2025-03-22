@@ -115,8 +115,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-          matchDetails.picks_bans &&
-          matchDetails.picks_bans.map((p) => p.is_pick) ? (
+            matchDetails.picks_bans &&
+            matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -371,9 +371,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           </View>
 
           {matchDetails &&
-          matchDetails.players.length > 0 &&
-          matchDetails.players[0].gold_t &&
-          matchDetails.players[0].gold_t.length > 0 ? (
+            matchDetails.players.length > 0 &&
+            matchDetails.players[0].gold_t &&
+            matchDetails.players[0].gold_t.length > 0 ? (
             <View
               style={[
                 styles.containerItem,
@@ -411,6 +411,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           <TeamFights
             heroNames={heroNames}
             teamFights={matchDetails?.teamfights || []}
+            radTeamName={matchDetails?.radiant_team?.name ?? radName}
+            direTeamName={matchDetails?.dire_team?.name ?? direName}
           />
         </ScrollView>
         <BannerAds />
@@ -517,9 +519,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-            MatchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
+          MatchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
         );
         setMatchDetails(match);
       } else {
@@ -761,7 +763,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       initialLayout={{ width: layout.width }}
       commonOptions={{
         labelStyle: {
-          fontSize: Dimensions.get("screen").width * 0.037,
+          fontSize: Dimensions.get("screen").width * 0.027,
           fontFamily: "QuickSand-Bold",
           textAlign: "center",
         },

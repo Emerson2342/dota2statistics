@@ -3,31 +3,28 @@
         "appVersionSource": "remote"
     },
     "build": {
+        "test": {
+           "android": {
+                "buildType": "apk",
+                 "autoIncrement": true
+            }
+        },
         "development": {
             "developmentClient": true,
             "distribution": "internal",
             "autoIncrement": true
         },
-        "preview": {
+        "production": {
             "android": {
                 "buildType": "app-bundle",
                 "autoIncrement": true
             }
-        },
-        "preview2": {
-           "android": {
-                "buildType": "apk",
-                 "autoIncrement": true
-      }
-        },
+        },        
         "preview3": {
             "developmentClient": true
         },
         "preview4": {
             "distribution": "internal"
-        },
-        "production": {
-            "autoIncrement": true
         }
     }
 }

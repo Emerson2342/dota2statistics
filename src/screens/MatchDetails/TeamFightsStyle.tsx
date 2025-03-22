@@ -10,11 +10,12 @@ export const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignSelf: "flex-end",
-    //justifyContent: "space-around",
     width: "87%",
     alignItems: "baseline",
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 3,
+    borderBottomWidth: 1,
+    borderColor: "#ccc"
   },
   renderItemContainer: {
     backgroundColor: "#fff",
@@ -22,6 +23,12 @@ export const styles = StyleSheet.create({
     padding: "1.7%",
     borderRadius: 9,
     elevation: 7,
+  },
+  textTeam: {
+    fontFamily: "QuickSand-Bold",
+    textAlign: "center",
+    marginTop: 7,
+    marginBottom: 7
   },
   containerImage: {
     flexDirection: "row",
@@ -42,7 +49,7 @@ export const styles = StyleSheet.create({
   textData: {
     fontFamily: "QuickSand-Semibold",
     fontSize: Dimensions.get("screen").width * 0.027,
-    color: "#4e9332",
+    color: "#333",
     textAlign: "center",
   },
 });
