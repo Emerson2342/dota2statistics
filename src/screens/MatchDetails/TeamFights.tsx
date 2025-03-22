@@ -1,4 +1,10 @@
-import React, { useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   View,
   Text,
@@ -20,7 +26,7 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { BarChart, LineChart } from "react-native-charts-wrapper";
+import { BarChart } from "react-native-charts-wrapper";
 import {
   FontAwesome,
   FontAwesome5,
@@ -28,6 +34,8 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
+import { useFocusEffect } from "@react-navigation/native";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
@@ -46,6 +54,7 @@ export function TeamFights({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const widthImage = Dimensions.get("screen").height * 0.03;
+  const damageBarHeight = Dimensions.get("window").height * 0.05;
 
   const iconSize = Dimensions.get("screen").width * 0.037;
 
@@ -56,49 +65,6 @@ export function TeamFights({
     item: TeamFightModel;
     index: number;
   }) => {
-    const maxDamage =
-      (teamFights ?? [])[index]?.players?.reduce(
-        (max, d) => (d.damage > max ? d.damage : max),
-        0
-      ) ?? 0;
-
-    const state = {
-      data: {
-        dataSets: [
-          {
-            values: [
-              { y: -224.1 },
-              { y: 238.5 },
-              { y: 1280.1 },
-              { y: -442.3 },
-              { y: -2280.1 },
-            ],
-            label: "Zero line dataset",
-            config: {
-              colors: [RED, GREEN, GREEN, RED, RED],
-            },
-          },
-        ],
-      },
-      xAxis: {
-        enabled: false,
-      },
-      yAxis: {
-        left: {
-          drawLabels: false,
-          drawAxisLine: false,
-          drawGridLines: false,
-          zeroLine: {
-            enabled: true,
-            lineWidth: 1.5,
-          },
-        },
-        right: {
-          enabled: false,
-        },
-      },
-    };
-
     let formattedTime;
     let endTime;
     if (item.start) {
@@ -120,6 +86,79 @@ export function TeamFights({
       endTime = `${formattedHours}:${formattedMinutes}`;
     }
 
+    const damageArray = item.players?.map((h) => h.damage) || [];
+
+    const formattedDataRad = damageArray
+      .slice(0, 5)
+      .map((value) => ({ y: value }));
+
+    const formattedDataDire = damageArray
+      .slice(5, 10)
+      .map((value) => ({ y: value }));
+
+    const stateRad = {
+      data: {
+        dataSets: [
+          {
+            values: formattedDataRad,
+            label: "Zero line dataset",
+            config: {
+              colors: [GREEN],
+            },
+          },
+        ],
+      },
+      xAxis: {
+        enabled: false,
+      },
+      yAxis: {
+        left: {
+          drawLabels: false,
+          drawAxisLine: false,
+          drawGridLines: false,
+
+          zeroLine: {
+            enabled: true,
+          },
+        },
+        right: {
+          enabled: false,
+        },
+      },
+    };
+
+    const stateDire = {
+      data: {
+        dataSets: [
+          {
+            values: formattedDataDire,
+            label: "Zero line dataset",
+            config: {
+              color: GREEN,
+            },
+          },
+        ],
+      },
+      // pinchZoom: true,
+      xAxis: {
+        enabled: false,
+      },
+      yAxis: {
+        left: {
+          drawLabels: false,
+          drawAxisLine: false,
+          drawGridLines: false,
+
+          zeroLine: {
+            enabled: true,
+          },
+        },
+        right: {
+          enabled: false,
+        },
+      },
+    };
+
     return (
       <View style={[styles.renderItemContainer]}>
         <Text style={styles.textTime}>
@@ -129,32 +168,53 @@ export function TeamFights({
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View>
             <Text>{radTeamName}</Text>
-            <View style={{ flexDirection: "row" }}>
-              {item.players
-                ?.slice(0, 5)
-                .map((player: PlayerTeamFight, indexPlayer: number) => {
-                  const heroName = heroNames[indexPlayer];
+            <View>
+              <View style={{ flexDirection: "row" }}>
+                {item.players
+                  ?.slice(0, 5)
+                  .map((player: PlayerTeamFight, indexPlayer: number) => {
+                    const heroName = heroNames[indexPlayer];
 
-                  let imgSource =
-                    PICTURE_HERO_BASE_URL +
-                    "/apps/dota2/images/dota_react/heroes/" +
-                    heroName +
-                    ".png?";
+                    let imgSource =
+                      PICTURE_HERO_BASE_URL +
+                      "/apps/dota2/images/dota_react/heroes/" +
+                      heroName +
+                      ".png?";
 
-                  return (
-                    <View key={indexPlayer}>
-                      <Image
-                        source={{ uri: imgSource }}
-                        style={{
-                          width: widthImage,
-                          height: widthImage,
-                          borderRadius: 3,
-                          marginHorizontal: 1,
-                        }}
-                      />
-                    </View>
-                  );
-                })}
+                    return (
+                      <View key={indexPlayer}>
+                        <Image
+                          source={{ uri: imgSource }}
+                          style={{
+                            width: widthImage,
+                            height: widthImage,
+                            borderRadius: 3,
+                            marginHorizontal: 1,
+                          }}
+                        />
+                      </View>
+                    );
+                  })}
+              </View>
+              <View style={{ width: "100%", paddingTop: "7%" }}>
+                <BarChart
+                  style={{
+                    height: damageBarHeight,
+                  }}
+                  borderWidth={1}
+                  borderColor={RED}
+                  data={stateRad.data}
+                  yAxis={stateRad.yAxis}
+                  xAxis={stateRad.xAxis}
+                  chartDescription={{ text: "" }}
+                  animation={{
+                    durationY: 3000,
+                    easingY: "EaseInOutQuart",
+                  }}
+                  legend={{ enabled: false }}
+                  viewPortOffsets={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                />
+              </View>
             </View>
           </View>
           <View>
@@ -187,19 +247,25 @@ export function TeamFights({
                   );
                 })}
             </View>
+            <View style={{ width: "100%", paddingTop: "7%" }}>
+              <BarChart
+                style={{
+                  height: damageBarHeight,
+                }}
+                data={stateDire.data}
+                yAxis={stateDire.yAxis}
+                xAxis={stateDire.xAxis}
+                doubleTapToZoomEnabled={false}
+                chartDescription={{ text: "" }}
+                animation={{
+                  durationY: 3000,
+                  easingY: "EaseInOutQuart",
+                }}
+                legend={{ enabled: false }}
+                viewPortOffsets={{ left: 0, top: 0, right: 0, bottom: 0 }}
+              />
+            </View>
           </View>
-        </View>
-        <View>
-          <BarChart
-            style={{ flex: 1 }}
-            data={state.data}
-            xAxis={state.xAxis}
-            yAxis={state.yAxis}
-            chartDescription={{ text: "" }}
-            legend={{ enabled: false }}
-            onSelect={() => alert("Opa")}
-            onChange={(event) => alert(event.nativeEvent)}
-          />
         </View>
       </View>
       /*
