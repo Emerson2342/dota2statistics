@@ -1,5 +1,12 @@
 import React, { useMemo } from "react";
-import { View, Text, Image, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  Dimensions,
+  processColor,
+} from "react-native";
 
 import { styles } from "./TeamFightsStyle";
 import {
@@ -13,22 +20,32 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { BarChart, LineChart } from "react-native-charts-wrapper";
+import {
+  FontAwesome,
+  FontAwesome5,
+  FontAwesome6,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+
+const GREEN = processColor("#71BD6A");
+const RED = processColor("#D14B5A");
 
 export function TeamFights({
   teamFights,
   heroNames,
   radTeamName,
-  direTeamName
+  direTeamName,
 }: {
   teamFights: TeamFightModel[] | undefined;
   heroNames: string[];
-  radTeamName: string,
-  direTeamName: string
+  radTeamName: string;
+  direTeamName: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-  const widthImage = Dimensions.get("screen").height * 0.05;
+  const widthImage = Dimensions.get("screen").height * 0.03;
 
   const iconSize = Dimensions.get("screen").width * 0.037;
 
@@ -44,6 +61,43 @@ export function TeamFights({
         (max, d) => (d.damage > max ? d.damage : max),
         0
       ) ?? 0;
+
+    const state = {
+      data: {
+        dataSets: [
+          {
+            values: [
+              { y: -224.1 },
+              { y: 238.5 },
+              { y: 1280.1 },
+              { y: -442.3 },
+              { y: -2280.1 },
+            ],
+            label: "Zero line dataset",
+            config: {
+              colors: [RED, GREEN, GREEN, RED, RED],
+            },
+          },
+        ],
+      },
+      xAxis: {
+        enabled: false,
+      },
+      yAxis: {
+        left: {
+          drawLabels: false,
+          drawAxisLine: false,
+          drawGridLines: false,
+          zeroLine: {
+            enabled: true,
+            lineWidth: 1.5,
+          },
+        },
+        right: {
+          enabled: false,
+        },
+      },
+    };
 
     let formattedTime;
     let endTime;
@@ -72,7 +126,88 @@ export function TeamFights({
           {englishLanguage ? "Time: " : "Hora: "}
           {formattedTime} - {endTime}
         </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View>
+            <Text>{radTeamName}</Text>
+            <View style={{ flexDirection: "row" }}>
+              {item.players
+                ?.slice(0, 5)
+                .map((player: PlayerTeamFight, indexPlayer: number) => {
+                  const heroName = heroNames[indexPlayer];
 
+                  let imgSource =
+                    PICTURE_HERO_BASE_URL +
+                    "/apps/dota2/images/dota_react/heroes/" +
+                    heroName +
+                    ".png?";
+
+                  return (
+                    <View key={indexPlayer}>
+                      <Image
+                        source={{ uri: imgSource }}
+                        style={{
+                          width: widthImage,
+                          height: widthImage,
+                          borderRadius: 3,
+                          marginHorizontal: 1,
+                        }}
+                      />
+                    </View>
+                  );
+                })}
+            </View>
+          </View>
+          <View>
+            <Text>{direTeamName}</Text>
+
+            <View style={{ flexDirection: "row" }}>
+              {item.players
+                ?.slice(5, 10)
+                .map((player: PlayerTeamFight, indexPlayer: number) => {
+                  const heroName = heroNames[indexPlayer + 5];
+
+                  let imgSource =
+                    PICTURE_HERO_BASE_URL +
+                    "/apps/dota2/images/dota_react/heroes/" +
+                    heroName +
+                    ".png?";
+
+                  return (
+                    <View key={indexPlayer}>
+                      <Image
+                        source={{ uri: imgSource }}
+                        style={{
+                          width: widthImage,
+                          height: widthImage,
+                          borderRadius: 3,
+                          marginHorizontal: 1,
+                        }}
+                      />
+                    </View>
+                  );
+                })}
+            </View>
+          </View>
+        </View>
+        <View>
+          <BarChart
+            style={{ flex: 1 }}
+            data={state.data}
+            xAxis={state.xAxis}
+            yAxis={state.yAxis}
+            chartDescription={{ text: "" }}
+            legend={{ enabled: false }}
+            onSelect={() => alert("Opa")}
+            onChange={(event) => alert(event.nativeEvent)}
+          />
+        </View>
+      </View>
+      /*
+      <View style={[styles.renderItemContainer]}>
+        <Text style={styles.textTime}>
+          {englishLanguage ? "Time: " : "Hora: "}
+          {formattedTime} - {endTime}
+        </Text>
 
         {item.players?.map((player: PlayerTeamFight, indexPlayer: number) => {
           const heroName = heroNames[indexPlayer];
@@ -91,15 +226,34 @@ export function TeamFights({
                 borderColor: "#ccc",
               }}
             >
-              <Text style={[styles.textTeam, { display: indexPlayer === 0 ? "flex" : "none" }]}>{radTeamName}</Text>
-              <Text style={[styles.textTeam, { display: indexPlayer === 5 ? "flex" : "none" }]}>{direTeamName}</Text>
+              <Text
+                style={[
+                  styles.textTeam,
+                  { display: indexPlayer === 0 ? "flex" : "none" },
+                ]}
+              >
+                {radTeamName}
+              </Text>
+              <Text
+                style={[
+                  styles.textTeam,
+                  { display: indexPlayer === 5 ? "flex" : "none" },
+                ]}
+              >
+                {direTeamName}
+              </Text>
 
-              <View style={[styles.headerContainer, { display: indexPlayer === 0 || indexPlayer === 5 ? "flex" : "none" }]}>
+              <View
+                style={[
+                  styles.headerContainer,
+                  {
+                    display:
+                      indexPlayer === 0 || indexPlayer === 5 ? "flex" : "none",
+                  },
+                ]}
+              >
                 <View style={{ alignItems: "center", width: "18%" }}>
-                  <MaterialCommunityIcons
-                    name="sword"
-                    size={iconSize}
-                  />
+                  <MaterialCommunityIcons name="sword" size={iconSize} />
                 </View>
                 <View style={{ width: "32%", flexDirection: "row" }}>
                   <View style={{ width: "35%", alignItems: "center" }}>
@@ -124,11 +278,13 @@ export function TeamFights({
                     />
                   </View>
                 </View>
-                <View style={{ alignItems: "center", width: "28%" }}>
+                <View style={{ width: "28%" }}>
                   <Text style={styles.textLabel}>Skills</Text>
                 </View>
-                <View style={{ alignItems: "center", width: "22%" }}>
-                  <Text style={styles.textLabel}>{englishLanguage ? "Items" : "Itens"}</Text>
+                <View style={{ width: "22%" }}>
+                  <Text style={styles.textLabel}>
+                    {englishLanguage ? "Items" : "Itens"}
+                  </Text>
                 </View>
               </View>
 
@@ -140,21 +296,22 @@ export function TeamFights({
                     width: "13%",
                   }}
                 >
-                  <View style={{
-                    width: widthImage,
-                    aspectRatio: 1.5,
-                    borderRadius: 3,
-                    backgroundColor: "black",
-                    position: "absolute"
-                  }} />
+                  <View
+                    style={{
+                      width: widthImage,
+                      aspectRatio: 1.5,
+                      borderRadius: 3,
+                      backgroundColor: "black",
+                      position: "absolute",
+                    }}
+                  />
                   <Image
                     source={{ uri: imgSource }}
                     style={{
                       width: widthImage,
                       aspectRatio: 1.5,
                       borderRadius: 3,
-                      opacity: player.deaths > 0 ? 0.5 : 1
-
+                      opacity: player.deaths > 0 ? 0.5 : 1,
                     }}
                   />
                   <View
@@ -166,7 +323,7 @@ export function TeamFights({
                       height: "100%",
                       justifyContent: "center",
                       alignItems: "center",
-                      display: player.deaths > 0 ? "flex" : "none"
+                      display: player.deaths > 0 ? "flex" : "none",
                     }}
                   >
                     <View
@@ -186,20 +343,24 @@ export function TeamFights({
                       justifyContent: "space-between",
                     }}
                   >
-                    <View style={{ width: "18%", }}>
-                      <Text style={[styles.textData, { textAlign: 'left' }]}>
-                        {(item?.players ?? [])[indexPlayer].damage.toLocaleString(englishLanguage ? "en-us" : "pt-BR")}
+                    <View style={{ width: "18%" }}>
+                      <Text style={[styles.textData, { textAlign: "left" }]}>
+                        {(item?.players ?? [])[
+                          indexPlayer
+                        ].damage.toLocaleString(
+                          englishLanguage ? "en-us" : "pt-BR"
+                        )}
                       </Text>
-                      <View
-                        style={{ flexDirection: 'row' }}
-                      >
+                      <View style={{ flexDirection: "row" }}>
                         <View
                           style={{
-                            height: Dimensions.get('screen').width * 0.027,
-                            backgroundColor: "#981a33", width: `${((item?.players ?? [])[indexPlayer].damage /
-                              maxDamage) *
+                            height: Dimensions.get("screen").width * 0.027,
+                            backgroundColor: "#981a33",
+                            width: `${
+                              ((item?.players ?? [])[indexPlayer].damage /
+                                maxDamage) *
                               100
-                              }%`,
+                            }%`,
                           }}
                         />
                       </View>
@@ -324,7 +485,7 @@ export function TeamFights({
             </View>
           );
         })}
-      </View>
+      </View>*/
     );
   };
 

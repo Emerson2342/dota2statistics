@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     marginTop: 3,
     marginBottom: 3,
     borderBottomWidth: 1,
-    borderColor: "#ccc"
+    borderColor: "#ccc",
   },
   renderItemContainer: {
     backgroundColor: "#fff",
@@ -28,12 +28,10 @@ export const styles = StyleSheet.create({
     fontFamily: "QuickSand-Bold",
     textAlign: "center",
     marginTop: 7,
-    marginBottom: 7
+    marginBottom: 7,
   },
   containerImage: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    flexWrap: "wrap",
   },
   itemImage: {
     width: Dimensions.get("screen").width * 0.037,
@@ -42,7 +40,6 @@ export const styles = StyleSheet.create({
     margin: 1.5,
   },
   textLabel: {
-    textAlign: "center",
     fontFamily: "QuickSand-Semibold",
     fontSize: Dimensions.get("screen").width * 0.03,
   },
