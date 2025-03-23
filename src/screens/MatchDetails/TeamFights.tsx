@@ -14,7 +14,7 @@ import {
   processColor,
 } from "react-native";
 
-import { styles } from "./TeamFightsStyle";
+import { createStyles } from "./TeamFightsStyle";
 import {
   HeroAbilitiesDescriptionsModel,
   PlayerTeamFight,
@@ -46,6 +46,8 @@ export function TeamFights({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
+
+  const styles = createStyles(ColorTheme);
   const widthImage = Dimensions.get("screen").height * 0.03;
 
   const iconSize = Dimensions.get("screen").width * 0.037;
@@ -153,30 +155,39 @@ export function TeamFights({
                     );
                   })}
               </View>
-              <View style={{ width: "100%", paddingTop: "7%" }}>
+              <View
+                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              >
                 <BarCarComponent
                   formattedData={formattedDataDamageRad}
                   color={RED}
                 />
               </View>
-              <View style={{ width: "100%", paddingTop: "7%" }}>
+              <View
+                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              >
                 <BarCarComponent
                   formattedData={formattedDataXpRad}
                   color={GREEN}
                 />
               </View>
-              <View style={{ width: "100%", paddingTop: "7%" }}>
+              <View
+                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              >
                 <BarCarComponent
                   formattedData={formattedDataGoldRad}
                   color={GOLD}
                 />
               </View>
-              <View style={{ width: "100%", paddingTop: "7%" }}>
+              {/* <View style={{ width: "100%", paddingTop: "7%" }}>
                 <BarCarComponent
                   formattedData={formattedHealingRad}
                   color={BLUE}
                 />
-              </View>
+              </View> */}
+              <Text style={styles.textLabel}>
+                {englishLanguage ? "Abilities" : "Habilidades"}
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 {item.players
                   ?.slice(0, 5)
@@ -205,6 +216,55 @@ export function TeamFights({
                               >
                                 <Image
                                   source={{ uri: abilityImage }}
+                                  style={styles.itemImage}
+                                />
+                              </View>
+                            );
+                          }
+                        )}
+                      </View>
+                    );
+                  })}
+              </View>
+              <Text style={styles.textLabel}>
+                {englishLanguage ? "Items" : "Itens"}
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                {item.players
+                  ?.slice(0, 5)
+                  .map((player: PlayerTeamFight, indexPlayerItem: number) => {
+                    const items = Object.entries(player.item_uses);
+
+                    if (items.length === 0)
+                      return (
+                        <View
+                          key={indexPlayerItem + 331}
+                          style={styles.itemImage}
+                        />
+                      );
+
+                    return (
+                      <View key={indexPlayerItem}>
+                        {Object.entries(player?.item_uses).map(
+                          (
+                            [itemName, usageCount]: [string, number],
+                            index: number
+                          ) => {
+                            const itemImage =
+                              PICTURE_HERO_BASE_URL +
+                              "/apps/dota2/images/dota_react/items/" +
+                              itemName +
+                              ".png";
+
+                            return (
+                              <View
+                                key={index}
+                                style={{
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Image
+                                  source={{ uri: itemImage }}
                                   style={styles.itemImage}
                                 />
                               </View>
@@ -247,30 +307,39 @@ export function TeamFights({
                   );
                 })}
             </View>
-            <View style={{ width: "100%", paddingTop: "7%" }}>
+            <View
+              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+            >
               <BarCarComponent
                 formattedData={formattedDataDamageDire}
                 color={RED}
               />
             </View>
-            <View style={{ width: "100%", paddingTop: "7%" }}>
+            <View
+              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+            >
               <BarCarComponent
                 formattedData={formattedDataXpDire}
                 color={GREEN}
               />
             </View>
-            <View style={{ width: "100%", paddingTop: "7%" }}>
+            <View
+              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+            >
               <BarCarComponent
                 formattedData={formttedDataGoldDire}
                 color={GOLD}
               />
             </View>
-            <View style={{ width: "100%", paddingTop: "7%" }}>
+            {/* <View style={{ width: "100%", paddingTop: "7%" }}>
               <BarCarComponent
                 formattedData={formattedHealingDire}
                 color={BLUE}
               />
-            </View>
+            </View> */}
+            <Text style={styles.textLabel}>
+              {englishLanguage ? "Abilities" : "Habilidades"}
+            </Text>
             <View style={{ flexDirection: "row" }}>
               {item.players
                 ?.slice(5, 10)
@@ -278,7 +347,9 @@ export function TeamFights({
                   const abilities = Object.entries(player.ability_uses);
 
                   if (abilities.length === 0)
-                    return <View style={styles.itemImage} />;
+                    return (
+                      <View key={indexPlayer + 50} style={styles.itemImage} />
+                    );
 
                   return (
                     <View key={indexPlayer}>
@@ -299,6 +370,55 @@ export function TeamFights({
                             >
                               <Image
                                 source={{ uri: abilityImage }}
+                                style={styles.itemImage}
+                              />
+                            </View>
+                          );
+                        }
+                      )}
+                    </View>
+                  );
+                })}
+            </View>
+            <Text style={styles.textLabel}>
+              {englishLanguage ? "Items" : "Itens"}
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              {item.players
+                ?.slice(5, 10)
+                .map((player: PlayerTeamFight, indexPlayerItem: number) => {
+                  const items = Object.entries(player.item_uses);
+
+                  if (items.length === 0)
+                    return (
+                      <View
+                        key={indexPlayerItem + 331}
+                        style={styles.itemImage}
+                      />
+                    );
+
+                  return (
+                    <View key={indexPlayerItem}>
+                      {Object.entries(player?.item_uses).map(
+                        (
+                          [itemName, usageCount]: [string, number],
+                          index: number
+                        ) => {
+                          const itemImage =
+                            PICTURE_HERO_BASE_URL +
+                            "/apps/dota2/images/dota_react/items/" +
+                            itemName +
+                            ".png";
+
+                          return (
+                            <View
+                              key={index}
+                              style={{
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                source={{ uri: itemImage }}
                                 style={styles.itemImage}
                               />
                             </View>
