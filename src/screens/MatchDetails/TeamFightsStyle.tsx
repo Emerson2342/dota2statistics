@@ -36,7 +36,7 @@ export const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
     },
     itemImage: {
-      width: Dimensions.get("screen").width * 0.063,
+      width: Dimensions.get("window").width * 0.067,
       aspectRatio: 1,
       borderRadius: 3,
       margin: Dimensions.get("screen").width * 0.003,
@@ -47,10 +47,11 @@ export const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       color: colors.semidark,
     },
-    textData: {
-      fontFamily: "QuickSand-Semibold",
-      fontSize: Dimensions.get("screen").width * 0.027,
-      color: "#333",
+    textTitle: {
+      fontFamily: "QuickSand-Bold",
+      fontSize: Dimensions.get("screen").width * 0.04,
+      // padding: 3,
+      color: colors.semidark,
       textAlign: "center",
     },
   });

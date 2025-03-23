@@ -92,7 +92,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         >
           <ActivityIndicator size="large" color={ColorTheme.standard} />
           <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-            {englishLanguage ? "Loading match..." : "Carregando partida..."}
+            {englishLanguage ? "Loading..." : "Carregando..."}
           </Text>
         </View>
         <BannerAds />
@@ -761,6 +761,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       renderScene={renderScene1}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
+      lazy={true}
+      renderLazyPlaceholder={() => <LoadingMatchDetails />}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.027,

@@ -46,7 +46,6 @@ export function BarCarComponent({
       },
     },
   };
-
   return (
     <BarChart
       style={{
@@ -58,7 +57,9 @@ export function BarCarComponent({
       doubleTapToZoomEnabled={false}
       chartDescription={{ text: "" }}
       animation={{
-        durationY: 3000,
+        durationX: 3500,
+        durationY: 3500,
+        easingX: "EaseInOutQuart",
         easingY: "EaseInOutQuart",
       }}
       legend={{ enabled: false }}
