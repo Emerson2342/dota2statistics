@@ -26,19 +26,12 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { BarChart } from "react-native-charts-wrapper";
-import {
-  FontAwesome,
-  FontAwesome5,
-  FontAwesome6,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
-import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
-import { useFocusEffect } from "@react-navigation/native";
+import { BarCarComponent } from "./BarCharComponent";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
+const GOLD = processColor("#DAA520");
+const BLUE = processColor("#219FD5");
 
 export function TeamFights({
   teamFights,
@@ -54,7 +47,6 @@ export function TeamFights({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const widthImage = Dimensions.get("screen").height * 0.03;
-  const damageBarHeight = Dimensions.get("window").height * 0.05;
 
   const iconSize = Dimensions.get("screen").width * 0.037;
 
@@ -88,76 +80,41 @@ export function TeamFights({
 
     const damageArray = item.players?.map((h) => h.damage) || [];
 
-    const formattedDataRad = damageArray
+    const goldArray = item.players?.map((h) => h.gold_delta) || [];
+
+    const xpArray = item.players?.map((h) => h.xp_delta) || [];
+
+    const healingArray = item.players?.map((h) => h.healing) || [];
+
+    const formattedDataDamageRad = damageArray
       .slice(0, 5)
       .map((value) => ({ y: value }));
 
-    const formattedDataDire = damageArray
+    const formattedDataDamageDire = damageArray
       .slice(5, 10)
       .map((value) => ({ y: value }));
 
-    const stateRad = {
-      data: {
-        dataSets: [
-          {
-            values: formattedDataRad,
-            label: "Zero line dataset",
-            config: {
-              colors: [GREEN],
-            },
-          },
-        ],
-      },
-      xAxis: {
-        enabled: false,
-      },
-      yAxis: {
-        left: {
-          drawLabels: false,
-          drawAxisLine: false,
-          drawGridLines: false,
+    const formattedDataGoldRad = goldArray
+      .slice(0, 5)
+      .map((value) => ({ y: value }));
 
-          zeroLine: {
-            enabled: true,
-          },
-        },
-        right: {
-          enabled: false,
-        },
-      },
-    };
+    const formattedDataXpRad = xpArray
+      .slice(0, 5)
+      .map((value) => ({ y: value }));
+    const formattedDataXpDire = xpArray
+      .slice(0, 5)
+      .map((value) => ({ y: value }));
 
-    const stateDire = {
-      data: {
-        dataSets: [
-          {
-            values: formattedDataDire,
-            label: "Zero line dataset",
-            config: {
-              color: GREEN,
-            },
-          },
-        ],
-      },
-      // pinchZoom: true,
-      xAxis: {
-        enabled: false,
-      },
-      yAxis: {
-        left: {
-          drawLabels: false,
-          drawAxisLine: false,
-          drawGridLines: false,
+    const formttedDataGoldDire = goldArray
+      .slice(5, 10)
+      .map((value) => ({ y: value }));
 
-          zeroLine: {
-            enabled: true,
-          },
-        },
-        right: {
-          enabled: false,
-        },
-      },
-    };
+    const formattedHealingRad = healingArray
+      .slice(0, 5)
+      .map((value) => ({ y: value }));
+    const formattedHealingDire = healingArray
+      .slice(5, 10)
+      .map((value) => ({ y: value }));
 
     return (
       <View style={[styles.renderItemContainer]}>
@@ -197,23 +154,66 @@ export function TeamFights({
                   })}
               </View>
               <View style={{ width: "100%", paddingTop: "7%" }}>
-                <BarChart
-                  style={{
-                    height: damageBarHeight,
-                  }}
-                  borderWidth={1}
-                  borderColor={RED}
-                  data={stateRad.data}
-                  yAxis={stateRad.yAxis}
-                  xAxis={stateRad.xAxis}
-                  chartDescription={{ text: "" }}
-                  animation={{
-                    durationY: 3000,
-                    easingY: "EaseInOutQuart",
-                  }}
-                  legend={{ enabled: false }}
-                  viewPortOffsets={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                <BarCarComponent
+                  formattedData={formattedDataDamageRad}
+                  color={RED}
                 />
+              </View>
+              <View style={{ width: "100%", paddingTop: "7%" }}>
+                <BarCarComponent
+                  formattedData={formattedDataXpRad}
+                  color={GREEN}
+                />
+              </View>
+              <View style={{ width: "100%", paddingTop: "7%" }}>
+                <BarCarComponent
+                  formattedData={formattedDataGoldRad}
+                  color={GOLD}
+                />
+              </View>
+              <View style={{ width: "100%", paddingTop: "7%" }}>
+                <BarCarComponent
+                  formattedData={formattedHealingRad}
+                  color={BLUE}
+                />
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                {item.players
+                  ?.slice(0, 5)
+                  .map((player: PlayerTeamFight, indexPlayer: number) => {
+                    const abilities = Object.entries(player.ability_uses);
+
+                    if (abilities.length === 0)
+                      return <View style={styles.itemImage} />;
+
+                    return (
+                      <View key={indexPlayer}>
+                        {Object.entries(player.ability_uses).map(
+                          (
+                            [abilityName, usageCount]: [string, number],
+                            index: number
+                          ) => {
+                            const abilityImage =
+                              ITEM_IMAGE_BASE_URL + abilityName + ".png";
+
+                            return (
+                              <View
+                                key={index}
+                                style={{
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Image
+                                  source={{ uri: abilityImage }}
+                                  style={styles.itemImage}
+                                />
+                              </View>
+                            );
+                          }
+                        )}
+                      </View>
+                    );
+                  })}
               </View>
             </View>
           </View>
@@ -248,22 +248,66 @@ export function TeamFights({
                 })}
             </View>
             <View style={{ width: "100%", paddingTop: "7%" }}>
-              <BarChart
-                style={{
-                  height: damageBarHeight,
-                }}
-                data={stateDire.data}
-                yAxis={stateDire.yAxis}
-                xAxis={stateDire.xAxis}
-                doubleTapToZoomEnabled={false}
-                chartDescription={{ text: "" }}
-                animation={{
-                  durationY: 3000,
-                  easingY: "EaseInOutQuart",
-                }}
-                legend={{ enabled: false }}
-                viewPortOffsets={{ left: 0, top: 0, right: 0, bottom: 0 }}
+              <BarCarComponent
+                formattedData={formattedDataDamageDire}
+                color={RED}
               />
+            </View>
+            <View style={{ width: "100%", paddingTop: "7%" }}>
+              <BarCarComponent
+                formattedData={formattedDataXpDire}
+                color={GREEN}
+              />
+            </View>
+            <View style={{ width: "100%", paddingTop: "7%" }}>
+              <BarCarComponent
+                formattedData={formttedDataGoldDire}
+                color={GOLD}
+              />
+            </View>
+            <View style={{ width: "100%", paddingTop: "7%" }}>
+              <BarCarComponent
+                formattedData={formattedHealingDire}
+                color={BLUE}
+              />
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              {item.players
+                ?.slice(5, 10)
+                .map((player: PlayerTeamFight, indexPlayer: number) => {
+                  const abilities = Object.entries(player.ability_uses);
+
+                  if (abilities.length === 0)
+                    return <View style={styles.itemImage} />;
+
+                  return (
+                    <View key={indexPlayer}>
+                      {Object.entries(player.ability_uses).map(
+                        (
+                          [abilityName, usageCount]: [string, number],
+                          index: number
+                        ) => {
+                          const abilityImage =
+                            ITEM_IMAGE_BASE_URL + abilityName + ".png";
+
+                          return (
+                            <View
+                              key={index}
+                              style={{
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                source={{ uri: abilityImage }}
+                                style={styles.itemImage}
+                              />
+                            </View>
+                          );
+                        }
+                      )}
+                    </View>
+                  );
+                })}
             </View>
           </View>
         </View>

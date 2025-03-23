@@ -410,7 +410,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         <ScrollView>
           <TeamFights
             heroNames={heroNames}
-            teamFights={matchDetails?.teamfights?.slice(0, 1) || []}
+            teamFights={matchDetails?.teamfights || []}
             radTeamName={matchDetails?.radiant_team?.name ?? radName}
             direTeamName={matchDetails?.dire_team?.name ?? direName}
           />

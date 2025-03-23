@@ -34,10 +34,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
   },
   itemImage: {
-    width: Dimensions.get("screen").width * 0.037,
+    width: Dimensions.get("screen").width * 0.063,
     aspectRatio: 1,
     borderRadius: 3,
-    margin: 1.5,
+    margin: Dimensions.get("screen").width * 0.003,
   },
   textLabel: {
     fontFamily: "QuickSand-Semibold",
