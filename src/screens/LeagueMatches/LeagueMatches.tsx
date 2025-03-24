@@ -100,18 +100,10 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
     );
   }
 
-  const handleGoToMatch = (
-    matchIndex: number,
-    leagueName: string | null,
-    radName: string | undefined,
-    direName: string | undefined
-  ) => {
+  const handleGoToMatch = (matchIndex: number) => {
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: matchIndex,
       PlayerIdIndex: null,
-      RadiantName: radName || undefined,
-      DireName: direName || undefined,
-      LeagueNameIndex: leagueName || null,
     });
   };
 
@@ -164,14 +156,7 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
             borderColor: "#ccc",
           },
         ]}
-        onPress={() =>
-          handleGoToMatch(
-            item.match_id,
-            LeagueName,
-            teamRad?.name,
-            teamDire?.name
-          )
-        }
+        onPress={() => handleGoToMatch(item.match_id)}
       >
         <View style={styles.resultContainer}>
           <Text style={styles.textResult}>

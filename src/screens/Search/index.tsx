@@ -16,7 +16,12 @@ import { searchPlayersByName } from "../../API";
 import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
 import { RootStackParamList, SearchUserResult } from "../../services/props";
 import { BannerAds } from "../../components/BannerAds";
-import { ProgressBar, MD3Colors, Searchbar } from "react-native-paper";
+import {
+  ProgressBar,
+  MD3Colors,
+  Searchbar,
+  RadioButton,
+} from "react-native-paper";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 
@@ -27,17 +32,17 @@ export const Search = () => {
   const [inputText, setInputText] = useState("");
   const [textSearch, setTextSearch] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const [searchType, setSearchType] = useState("player");
+
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
   const textEmpty = englishLanguage
     ? "Search typing Steam ID or Nickname"
     : "Procure digitando o ID da steam ou apelido";
 
   const navigation =
-    useNavigation<
-      BottomTabNavigationProp<RootStackParamList, "PlayerProfile">
-    >();
+    useNavigation<BottomTabNavigationProp<RootStackParamList>>();
 
-  const handleSearch = async (text: string) => {
+  const handleSearchPlayer = async (text: string) => {
     if (text.length < 4) {
       alert("Favor digitar mais do que 3 letras");
       return;
@@ -91,6 +96,13 @@ export const Search = () => {
     );
   };
 
+  const handleGoToMatch = (matchIndex: string) => {
+    navigation.navigate("MatchDetails", {
+      MatchDetailsIndex: parseInt(matchIndex),
+      PlayerIdIndex: null,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <BannerAds />
@@ -100,16 +112,40 @@ export const Search = () => {
           style={styles.textInput}
           placeholder={englishLanguage ? "Search Player" : "Procurar Jogador"}
           value={inputText}
-          // activeUnderlineColor={ColorTheme.standard}
-          //textColor={ColorTheme.semidark}
           onChangeText={(textInput) => setInputText(textInput)}
           elevation={3}
           iconColor={ColorTheme.semidark}
           placeholderTextColor={ColorTheme.semilight}
-          onIconPress={() => handleSearch(inputText)}
+          onIconPress={() => handleSearchPlayer(inputText)}
           //dense
         />
       </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          width: "50%",
+          justifyContent: "space-around",
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <RadioButton
+            value="player"
+            status={searchType == "player" ? "checked" : "unchecked"}
+            onPress={() => setSearchType("player")}
+          />
+          <Text>{englishLanguage ? "Profile" : "Perfil"}</Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <RadioButton
+            value="match"
+            status={searchType === "match" ? "checked" : "unchecked"}
+            onPress={() => setSearchType("match")}
+          />
+          <Text>{englishLanguage ? "Match" : "Partida"}</Text>
+        </View>
+      </View>
+
       {isLoading ? (
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}

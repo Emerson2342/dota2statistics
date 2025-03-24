@@ -27,6 +27,7 @@ import {
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BarCarComponent } from "./BarCharComponent";
+import { opacity } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
@@ -133,11 +134,45 @@ export function TeamFights({
                       ".png?";
 
                     return (
-                      <View key={indexPlayer}>
+                      <View
+                        style={[
+                          styles.itemImage,
+                          {
+                            backgroundColor:
+                              player.deaths > 0 ? "black" : "transparent",
+                            overflow: "hidden",
+                          },
+                        ]}
+                        key={indexPlayer}
+                      >
                         <Image
                           source={{ uri: imgSource }}
-                          style={styles.itemImage}
+                          style={[
+                            styles.itemImage,
+                            { opacity: player.deaths > 0 ? 0.45 : 1 },
+                          ]}
                         />
+                        <View
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            display: player.deaths > 0 ? "flex" : "none",
+                          }}
+                        >
+                          <View
+                            style={{
+                              width: "120%",
+                              height: 1.5,
+                              backgroundColor: "#981a33",
+                              transform: [{ rotate: "45deg" }],
+                            }}
+                          />
+                        </View>
                       </View>
                     );
                   })}
@@ -324,11 +359,45 @@ export function TeamFights({
                     ".png?";
 
                   return (
-                    <View key={indexPlayer}>
+                    <View
+                      style={[
+                        styles.itemImage,
+                        {
+                          backgroundColor:
+                            player.deaths > 0 ? "black" : "transparent",
+                          overflow: "hidden",
+                        },
+                      ]}
+                      key={indexPlayer}
+                    >
                       <Image
                         source={{ uri: imgSource }}
-                        style={styles.itemImage}
+                        style={[
+                          styles.itemImage,
+                          { opacity: player.deaths > 0 ? 0.45 : 1 },
+                        ]}
                       />
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          display: player.deaths > 0 ? "flex" : "none",
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: "120%",
+                            height: 1.5,
+                            backgroundColor: "#981a33",
+                            transform: [{ rotate: "45deg" }],
+                          }}
+                        />
+                      </View>
                     </View>
                   );
                 })}

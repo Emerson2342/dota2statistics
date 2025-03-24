@@ -36,6 +36,7 @@ import { HeroKillsDetails } from "./KillsDetails";
 import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 import { TeamFights } from "./TeamFights";
+import { Abilities } from "./Abilities";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -343,6 +344,26 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         >
           <View style={[styles.containerItem, { marginTop: "3%" }]}>
             {matchDetails ? (
+              <Abilities
+                matchDetails={matchDetails}
+                RadName={matchDetails?.radiant_team?.name ?? radName}
+                DireName={matchDetails?.dire_team?.name ?? direName}
+              />
+            ) : null}
+          </View>
+          <View style={styles.containerItem}>
+            {matchDetails ? (
+              <Items
+                playerIndex={PlayerIdIndex}
+                matchDetails={matchDetails}
+                RadName={matchDetails?.radiant_team?.name ?? radName}
+                DireName={matchDetails?.dire_team?.name ?? direName}
+              />
+            ) : null}
+          </View>
+
+          <View style={[styles.containerItem, { marginTop: "3%" }]}>
+            {matchDetails ? (
               <HeroKillsDetails
                 matchDetails={matchDetails}
                 radName={matchDetails?.radiant_team?.name ?? radName}
@@ -359,16 +380,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
               />
             </View>
           ) : null}
-          <View style={styles.containerItem}>
-            {matchDetails ? (
-              <Items
-                playerIndex={PlayerIdIndex}
-                matchDetails={matchDetails}
-                RadName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
-              />
-            ) : null}
-          </View>
 
           {matchDetails &&
           matchDetails.players.length > 0 &&
