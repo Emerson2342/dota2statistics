@@ -93,14 +93,14 @@ export function TeamFights({
       .slice(0, 5)
       .map((value) => ({ y: value }));
 
+    const formttedDataGoldDire = goldArray
+      .slice(5, 10)
+      .map((value) => ({ y: value }));
+
     const formattedDataXpRad = xpArray
       .slice(0, 5)
       .map((value) => ({ y: value }));
     const formattedDataXpDire = xpArray
-      .slice(0, 5)
-      .map((value) => ({ y: value }));
-
-    const formttedDataGoldDire = goldArray
       .slice(5, 10)
       .map((value) => ({ y: value }));
 

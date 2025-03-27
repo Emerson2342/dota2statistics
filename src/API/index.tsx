@@ -81,7 +81,14 @@ export const getMatchDetails = async (url: string) => {
   try {
     console.log("Endpoint matchDetails: " + url);
     const response = await fetch(url);
+
+    if (!response.ok) {
+      console.log("Erro na chamada da API: ", url, response.status);
+      return null;
+    }
+
     const data = (await response.json()) as MatchDetailsModel;
+
     if (data) {
       const matchDataResponse: MatchDetailsModel = {
         players: data.players.map(

@@ -103,6 +103,14 @@ export const Search = () => {
     });
   };
 
+  const handleSearch = async (input: string) => {
+    if (searchType == "player") {
+      await handleSearchPlayer(input);
+    } else {
+      handleGoToMatch(input);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <BannerAds />
@@ -116,7 +124,7 @@ export const Search = () => {
           elevation={3}
           iconColor={ColorTheme.semidark}
           placeholderTextColor={ColorTheme.semilight}
-          onIconPress={() => handleSearchPlayer(inputText)}
+          onIconPress={() => handleSearch(inputText)}
           //dense
         />
       </View>

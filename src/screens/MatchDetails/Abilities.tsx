@@ -71,7 +71,7 @@ export function Abilities({
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
-          {englishLanguage ? "Abilities" : "Construção de Habilidades"}
+          {englishLanguage ? "Skill Progression" : "Construção de Habilidades"}
         </Text>
         {players &&
           players.map((player: Player, index: number) => {

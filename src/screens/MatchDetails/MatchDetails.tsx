@@ -37,6 +37,7 @@ import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 import { TeamFights } from "./TeamFights";
 import { Abilities } from "./Abilities";
+import { unwatchFile } from "fs";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -46,6 +47,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]
   >([]);
+  const [apiResponseMatch, setApiResponseMatch] = useState(false);
+  const [loadingMatch, setLoadingMatch] = useState(true);
+
   const [loadedeList, setLoadedList] = useState(false);
   //Wconst [];
   const storage = useMemo(() => new AsyncStorageService(), []);
@@ -65,20 +69,16 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return matchDetails ? <HomeComponent /> : <LoadingMatchDetails />;
+          return <HomeComponent />;
         case "second":
-          return matchDetails ? <HomeComponent1 /> : <LoadingMatchDetails />;
+          return <HomeComponent1 />;
         case "third":
-          return matchDetails ? (
-            <TeamFightComponent />
-          ) : (
-            <LoadingMatchDetails />
-          );
+          return <TeamFightComponent />;
         default:
-          return null;
+          return <LoadingMatchDetails />;
       }
     },
-    [matchDetails, refreshing]
+    [matchDetails, refreshing, loadingMatch]
   );
 
   const LoadingMatchDetails = () => {
@@ -484,7 +484,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           "matchesDetailsList"
         );
         if (storedMatchesList) {
-          // Evita atualizar o estado se o valor for igual ao anterior
           setMatchesDetailsList((prevList) => {
             if (
               JSON.stringify(prevList) !== JSON.stringify(storedMatchesList)
@@ -535,6 +534,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
             matchesDetailsList.length
         );
         setMatchDetails(match);
+        setLoadingMatch(false);
       } else {
         await handleSearchMatche();
       }
@@ -543,8 +543,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   }, [route.params, loadedeList]);
 
   async function handleSearchMatche() {
+    setApiResponseMatch(false);
     try {
       //setIsLoading(true);
+      setLoadingMatch(true);
       const recentMatchesUrl = `${MATCHE_DETAILS_API_BASE_URL}${MatchDetailsIndex}`;
       const matchDataResponse = await getMatchDetails(recentMatchesUrl);
       if (matchDataResponse) {
@@ -552,12 +554,15 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         addMatchToList(matchDataResponse);
         console.log("Partida buscada no servidor ID: " + MatchDetailsIndex);
       }
+      setApiResponseMatch(true);
     } catch (error) {
       console.log(
         "Erro ao buscar detalhes da partida: ID " + MatchDetailsIndex,
         error
       );
       //setIsLoading(false);
+    } finally {
+      setLoadingMatch(false);
     }
   }
 
@@ -765,22 +770,35 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     />
   );
 
-  return (
-    <TabView
-      renderTabBar={renderTabBar}
-      navigationState={{ index, routes }}
-      renderScene={renderScene1}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-      lazy={true}
-      renderLazyPlaceholder={() => <LoadingMatchDetails />}
-      commonOptions={{
-        labelStyle: {
-          fontSize: Dimensions.get("screen").width * 0.027,
-          fontFamily: "QuickSand-Bold",
-          textAlign: "center",
-        },
-      }}
-    />
-  );
+  if (loadingMatch) return <LoadingMatchDetails />;
+  if (!matchDetails && apiResponseMatch)
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>
+          {englishLanguage
+            ? "Match not found. Please, check the ID MATCH!"
+            : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!"}
+        </Text>
+      </View>
+    );
+
+  if (matchDetails)
+    return (
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene1}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        lazy={true}
+        renderLazyPlaceholder={() => <LoadingMatchDetails />}
+        commonOptions={{
+          labelStyle: {
+            fontSize: Dimensions.get("screen").width * 0.027,
+            fontFamily: "QuickSand-Bold",
+            textAlign: "center",
+          },
+        }}
+      />
+    );
 };
