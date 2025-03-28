@@ -6,6 +6,7 @@ import { useTheme } from '../../../src/context/useThemeContext';
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from '../../../src/constants/player';
 import { RadioButton } from 'react-native-paper';
+import { BannerAds } from '../../../src/components/BannerAds';
 
 
 export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: HeroesPlayed[] }) {
@@ -15,12 +16,9 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
     const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
     const [checked, setChecked] = useState('mostPlayed');
     const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(HeroesPlayedList);
+    const { ColorTheme } = useTheme();
 
-
-
-
-    const width = Dimensions.get('screen').width * 0.23;
-    const height = Dimensions.get('screen').width * 0.13;
+    const width = Dimensions.get('screen').width * 0.13;
 
     useEffect(() => {
         setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
@@ -31,14 +29,9 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
             [...prevHeroArray].sort((a, b) => b.last_played - a.last_played)
         );
     }
-
     const ordMostPlayed = () => {
         setOrderedList(HeroesPlayedList);
     }
-
-
-
-
 
     const RenderItem = ({ item, index }: { item: HeroesPlayed, index: number }) => {
 
@@ -57,23 +50,28 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
 
 
         return (
-            <View style={{ width: "100%", display: item.games > 0 ? "flex" : "none", backgroundColor: "#fff", margin: 3, borderRadius: 9, padding: 7 }}>
-
+            <View style={styles.renderItemContainer}>
 
                 <Text style={styles.textHeroName}>{heroIndex?.localized_name}</Text>
-                <View style={{ flexDirection: "row", }}>
-                    <Image
-                        style={{ width: width, height: height, borderRadius: 7, marginRight: 15 }}
-                        source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
-                    />
-                    <View>
-                        <Text style={styles.textLabel}>Last Played:  <Text style={styles.textInfo}>{startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")} {formattedTime}</Text></Text>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: "center" }}>
+                    <View style={{ width: "10%" }}>
+
+                        <Image
+                            style={{ width: width, aspectRatio: 1.5, borderRadius: 7 }}
+                            source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
+                        />
+                    </View>
+                    <View style={{ width: "85%" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+
+                            <Text style={styles.textLabel}>{englishLanguage ? "Last Played:" : "Última vez jogado:"}  <Text style={styles.textInfo}>{startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")} {formattedTime}</Text></Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                            <Text style={styles.textLabel}>Winrate: <Text style={styles.textInfo}>{winrate.toFixed(2)}%</Text></Text>
 
                             <Text style={styles.textLabel}>{englishLanguage ? "Matches" : "Partidas"} : <Text style={styles.textInfo}>{item.games}</Text></Text>
                             <Text style={styles.textLabel}>{englishLanguage ? "Wins" : "Vitórias"} : <Text style={styles.textInfo}>{item.win}</Text></Text>
                         </View>
-                        <Text style={styles.textLabel}>Winrate: <Text style={styles.textInfo}>{winrate.toFixed(2)}%</Text></Text>
                     </View>
                 </View>
             </View>
@@ -81,7 +79,7 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '75%' }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
@@ -89,7 +87,7 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
                         status={checked === 'mostPlayed' ? 'checked' : 'unchecked'}
                         onPress={() => { setChecked('mostPlayed'); ordMostPlayed() }}
                     />
-                    <Text>{englishLanguage ? "Most Played" : "Mais Jogados"}</Text>
+                    <Text style={styles.textLabel}>{englishLanguage ? "Most Played" : "Mais Jogados"}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
@@ -97,7 +95,7 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
                         status={checked === 'lastTimePlayed' ? 'checked' : 'unchecked'}
                         onPress={() => { setChecked('lastTimePlayed'); ordLastPlayed() }}
                     />
-                    <Text>{englishLanguage ? "Last Played" : "Últimos Jogados"}</Text>
+                    <Text style={styles.textLabel}>{englishLanguage ? "Last Played" : "Últimos Jogados"}</Text>
                 </View>
             </View>
 
@@ -112,6 +110,7 @@ export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: 
                 />
 
             </ScrollView>
+            <BannerAds />
         </View>
     );
 }
@@ -137,6 +136,12 @@ const styles = StyleSheet.create({
     textInfo: {
         fontFamily: "QuickSand-Semibold",
         color: "#888"
+    },
+    renderItemContainer: {
+        padding: '1%',
+        margin: '1%',
+        backgroundColor: "#fff",
+        borderRadius: 9
     }
 
 });

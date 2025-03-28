@@ -8,8 +8,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       alignItems: "center",
       justifyContent: "space-around",
       width: "100%",
-      borderTopEndRadius: 17,
-      borderTopStartRadius: 17,
+      backgroundColor: colors.light
     },
     titleContainer: {
       width: "100%",
@@ -37,8 +36,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       margin: "1%",
       backgroundColor: "#fff",
       borderRadius: 7,
-      borderWidth: 1,
-      borderColor: colors.semidark,
       paddingTop: "1.7%",
       paddingBottom: "1.7%",
     },

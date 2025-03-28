@@ -119,12 +119,13 @@ export function Profile() {
             </View>
           </View>
         )}
+        <BannerAds />
       </View>
     );
   });
 
   const routes = [
-    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    { key: "first", title: englishLanguage ? "My Profile" : "Meu Perfil" },
     {
       key: "heroesPlayed",
       title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
@@ -137,10 +138,6 @@ export function Profile() {
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"
     : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
-
-  const erro500 = englishLanguage
-    ? "Internal server error. Please, try again later"
-    : "Erro interno no servidor. Por favor, tente mais tarde";
 
   const handleLoadData = async () => {
     setIsLoading(true);
@@ -203,7 +200,7 @@ export function Profile() {
       renderLazyPlaceholder={() => <Loading />}
       commonOptions={{
         labelStyle: {
-          fontSize: Dimensions.get("screen").width * 0.037,
+          fontSize: Dimensions.get("screen").width * 0.03,
           fontFamily: "QuickSand-Bold",
           textAlign: "center",
         },

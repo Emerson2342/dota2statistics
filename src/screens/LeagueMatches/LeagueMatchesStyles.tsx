@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { FontModel, ThemeColor } from "../../services/props";
 
 export const createStyles = (Color: ThemeColor, Font: FontModel) =>
@@ -9,12 +9,18 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       width: "100%",
       backgroundColor: Color.light,
     },
+    containerEmpty: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     titleText: {
       fontSize: 20,
       fontFamily: Font.font2,
       textAlign: "center",
       color: Color.semidark,
       margin: "3%",
+    },
+    emptyText: {
+      fontFamily: "QuickSand-Semibold",
+      color: Color.semidark,
+      fontSize: Dimensions.get('screen').width * 0.04
     },
     matchesGroup: {
       alignSelf: "center",

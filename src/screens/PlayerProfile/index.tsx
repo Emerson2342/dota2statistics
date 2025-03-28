@@ -21,6 +21,7 @@ import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesCon
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedComponent";
 import { TabBar, TabView } from "react-native-tab-view";
+import { BannerAds } from "../../../src/components/BannerAds";
 
 export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const { PlayerId } = route.params;
@@ -41,12 +42,12 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
+  const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
 
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          //return isLoading ? <Text>Carregou</Text> : <Text>Carregando</Text>;
           return !isLoading ? <Header /> : <Loading />;
         case "heroesPlayed":
           return !isLoading ? <HeroesPlayed /> : <Loading />;
@@ -54,7 +55,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
           return null;
       }
     },
-    [recentMatches, heroesPlayed, PlayerId, heroesPlayedId, isLoading]
+    [recentMatches, heroesPlayed, PlayerId, heroesPlayedId, isLoading, modalFavoritesVisible]
   );
 
   const routes = [
@@ -62,21 +63,17 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     { key: "heroesPlayed", title: englishLanguage ? "Heroes Played" : "Heróis Jogados" }
   ];
 
-
-
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."
     : "Não foi possível acessar os dados do jogador. Perfil pode estar como privado.";
 
-  const erro500 = englishLanguage
-    ? "Internal server error. Please, try again later"
-    : "Erro interno no servidor. Por favor, tente mais tarde";
-
-  const [status, setStatus] = useState<number>();
-
   const modalMessageRemove = englishLanguage
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
+
+
+  const [status, setStatus] = useState<number>();
+
 
   useEffect(() => {
     handleSearch();
@@ -86,8 +83,10 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     (p) => p.profile.account_id.toString() === PlayerId
   );
 
+
   const handleFavorites = () => {
     if (playerFound) {
+      setPlayerIdToRemove(playerFound.profile.account_id);
       setModalFavoritesVisible(true);
       return;
     }
@@ -192,8 +191,22 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
                 ) : null}
               </View>
             </View>
+
+            <Modal
+              visible={modalFavoritesVisible}
+              animationType="fade"
+              statusBarTranslucent={true}
+              transparent={true}
+            >
+              <ModalRemoveFavoritePlayer
+                handleClose={() => setModalFavoritesVisible(false)}
+                message={modalMessageRemove}
+                removePlayer={() => removeFavoritePlayer(playerIdToRemove)}
+              />
+            </Modal>
           </View>
         }
+        <BannerAds />
       </View>
     );
   });
@@ -220,6 +233,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
+      renderLazyPlaceholder={() => <Loading />}
       lazy={true}
       commonOptions={{
         labelStyle: {
@@ -231,56 +245,3 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     />
   );
 }
-
-
-//   return (
-//     <View style={styles.container}>
-//       {isLoading ? (
-//         <ActivityIndicator
-//           style={{ flex: 0.9 }}
-//           color={ColorTheme.semidark}
-//           size={30}
-//         />
-//       ) : (
-//         <View style={styles.bodyContainer}>
-//           {player && player.profile.account_id != 0 ? (
-//             <>
-//               <View style={{ flex: 0.3 }}>
-//                 <ProfileHeader
-//                   player={player}
-//                   heroesId={heroesPlayedId}
-//                   recentMatches={recentMatches}
-//                 />
-//               </View>
-//               <View style={{ flex: 0.7 }}>
-//                 <LastMatches
-//                   playerId={PlayerId}
-//                   recentMatches={recentMatches}
-//                   onRefresh={() => Promise<void>}
-//                 />
-//               </View>
-//             </>
-//           ) : (
-//             <Text style={styles.textMessage}>{erro404}</Text>
-//           )}
-//         </View>
-//       )}
-//       <Modal
-//         visible={modalFavoritesVisible}
-//         transparent={true}
-//         animationType="fade"
-//         statusBarTranslucent={true}
-//       >
-//         {player ? (
-//           <ModalRemoveFavoritePlayer
-//             message={modalMessageRemove}
-//             removePlayer={() => removeFavoritePlayer(player.profile.account_id)}
-//             handleClose={() => setModalFavoritesVisible(false)}
-//           />
-//         ) : (
-//           <></>
-//         )}
-//       </Modal>
-//     </View>
-//   );
-// };

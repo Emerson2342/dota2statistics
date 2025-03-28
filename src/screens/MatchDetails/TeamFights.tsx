@@ -16,27 +16,25 @@ import {
 
 import { createStyles } from "./TeamFightsStyle";
 import {
-  HeroAbilitiesDescriptionsModel,
   PlayerTeamFight,
   TeamFightModel,
 } from "../../../src/services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import {
-  HERO_ITEM_BASE_URL,
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_FULL_URL,
   PICTURE_HERO_BASE_URL,
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BarCarComponent } from "./BarCharComponent";
-import { opacity } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
+import { BannerAds } from "../../../src/components/BannerAds";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
 const GOLD = processColor("#DAA520");
 const BLUE = processColor("#219FD5");
 
-export function TeamFights({
+export function TeamFightsTab({
   teamFights,
   heroNames,
   radTeamName,
@@ -631,8 +629,8 @@ export function TeamFights({
         initialNumToRender={4}
         maxToRenderPerBatch={3}
         windowSize={3}
-        scrollEnabled={false}
       />
+      <BannerAds />
     </View>
   );
 }

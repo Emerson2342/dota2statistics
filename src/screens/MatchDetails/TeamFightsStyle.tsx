@@ -3,7 +3,7 @@ import { ThemeColor } from "../../../src/services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
-    container: {},
+    container: { flex: 1 },
     textTime: {
       fontFamily: "QuickSand-Bold",
       color: "orange",

@@ -35,8 +35,9 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { HeroKillsDetails } from "./KillsDetails";
 import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
-import { TeamFights } from "./TeamFights";
+import { TeamFightsTab } from "./TeamFights";
 import { Abilities } from "./Abilities";
+import { HeroDetailsTab } from "./HeroDetailsTab";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -74,7 +75,14 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         case "first":
           return <HomeComponent />;
         case "second":
-          return <HomeComponent1 />;
+          return <HeroDetailsTab
+            PlayerIdIndex={PlayerIdIndex}
+            matchDetails={matchDetails}
+            onRefresh={async () => await onRefresh()}
+            refreshing={refreshing}
+            radName={radName}
+            direName={direName}
+          />;
         case "third":
           return <TeamFightComponent />;
         default:
@@ -83,6 +91,24 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     },
     [matchDetails, refreshing, loadingMatch]
   );
+
+  const TeamFightComponent = React.memo(() => {
+    const heroMap = useMemo(() => {
+      return Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
+    }, [heroArray]);
+
+    const heroNames =
+      matchDetails?.players.map((player) => heroMap[player.hero_id]) || [];
+
+    return (
+      <TeamFightsTab
+        heroNames={heroNames}
+        teamFights={matchDetails?.teamfights || []}
+        radTeamName={matchDetails?.radiant_team?.name ?? radName}
+        direTeamName={matchDetails?.dire_team?.name ?? direName}
+      />
+    );
+  });
 
   const LoadingMatchDetails = () => {
     return (
@@ -119,8 +145,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-          matchDetails.picks_bans &&
-          matchDetails.picks_bans.map((p) => p.is_pick) ? (
+            matchDetails.picks_bans &&
+            matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -336,104 +362,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       </View>
     );
   });
-
-  const HomeComponent1 = React.memo(() => {
-    return (
-      <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        >
-          <View style={[styles.containerItem, { marginTop: "3%" }]}>
-            {matchDetails ? (
-              <Abilities
-                matchDetails={matchDetails}
-                RadName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
-              />
-            ) : null}
-          </View>
-          <View style={styles.containerItem}>
-            {matchDetails ? (
-              <Items
-                playerIndex={PlayerIdIndex}
-                matchDetails={matchDetails}
-                RadName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
-              />
-            ) : null}
-          </View>
-
-          <View style={[styles.containerItem, { marginTop: "3%" }]}>
-            {matchDetails ? (
-              <HeroKillsDetails
-                matchDetails={matchDetails}
-                radName={matchDetails?.radiant_team?.name ?? radName}
-                direName={matchDetails?.dire_team?.name ?? direName}
-              />
-            ) : null}
-          </View>
-          {matchDetails && matchDetails.players[0]?.damage_inflictor ? (
-            <View style={styles.containerItem}>
-              <Damage
-                RadName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
-                matchDetails={matchDetails}
-              />
-            </View>
-          ) : null}
-
-          {matchDetails &&
-          matchDetails.players.length > 0 &&
-          matchDetails.players[0].gold_t &&
-          matchDetails.players[0].gold_t.length > 0 ? (
-            <View
-              style={[
-                styles.containerItem,
-                {
-                  padding: "1%",
-                  paddingBottom: "3%",
-                  paddingTop: "3%",
-                },
-              ]}
-            >
-              <GraficsGoldPlayers
-                matchDetails={matchDetails}
-                RadiantName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
-              />
-            </View>
-          ) : null}
-        </ScrollView>
-        <BannerAds />
-      </View>
-    );
-  });
-
-  const TeamFightComponent = React.memo(() => {
-    const heroMap = useMemo(() => {
-      return Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
-    }, [heroArray]);
-
-    const heroNames =
-      matchDetails?.players.map((player) => heroMap[player.hero_id]) || [];
-
-    return (
-      <View style={{ flex: 1 }}>
-        <ScrollView>
-          <TeamFights
-            heroNames={heroNames}
-            teamFights={matchDetails?.teamfights || []}
-            radTeamName={matchDetails?.radiant_team?.name ?? radName}
-            direTeamName={matchDetails?.dire_team?.name ?? direName}
-          />
-        </ScrollView>
-        <BannerAds />
-      </View>
-    );
-  });
-
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
@@ -532,9 +460,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-            MatchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
+          MatchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);
@@ -548,7 +476,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   async function handleSearchMatche() {
     setApiResponseMatch(false);
     try {
-      //setIsLoading(true);
       setLoadingMatch(true);
       const recentMatchesUrl = `${MATCHE_DETAILS_API_BASE_URL}${MatchDetailsIndex}`;
       const matchDataResponse = await getMatchDetails(recentMatchesUrl);
@@ -563,7 +490,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         "Erro ao buscar detalhes da partida: ID " + MatchDetailsIndex,
         error
       );
-      //setIsLoading(false);
     } finally {
       setLoadingMatch(false);
     }
@@ -793,7 +719,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         renderLazyPlaceholder={() => <LoadingMatchDetails />}
         commonOptions={{
           labelStyle: {
-            fontSize: Dimensions.get("screen").width * 0.027,
+            fontSize: Dimensions.get("screen").width * 0.03,
             fontFamily: "QuickSand-Bold",
             textAlign: "center",
           },

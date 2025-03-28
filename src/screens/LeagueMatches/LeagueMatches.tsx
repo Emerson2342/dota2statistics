@@ -145,9 +145,6 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
     );
     const teamDireUrl = teamsList.find((t) => t.team_id === item.dire_team_id);
 
-    const urlRad = teamRadUrl?.logo_url;
-    const urlDire = teamDireUrl?.logo_url;
-
     return (
       <TouchableOpacity
         style={[
@@ -166,44 +163,6 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
             {item.radiant_win ? "" : result}
           </Text>
         </View>
-        {/* <View
-          style={[
-            styles.imageContainer,
-            {
-              display:
-                urlRad == undefined && urlDire == undefined ? "none" : "flex",
-            },
-          ]}
-        >
-          <View style={styles.imageContent}>
-            {urlRad ? (
-              <Image
-                style={styles.imageTeam}
-                source={{ uri: urlRad }}
-                resizeMode="contain"
-                onError={(e) =>
-                  console.log("Erro ao carregar imagem:", e.nativeEvent.error)
-                }
-              />
-            ) : (
-              <View style={styles.imageTeam} />
-            )}
-          </View>
-          <View style={styles.imageContent}>
-            {urlDire ? (
-              <Image
-                style={styles.imageTeam}
-                source={{ uri: urlDire }}
-                resizeMode="contain"
-                onError={(e) =>
-                  console.log("Erro ao carregar imagem:", e.nativeEvent.error)
-                }
-              />
-            ) : (
-              <View style={styles.imageTeam} />
-            )}
-          </View>
-        </View> */}
         <View style={styles.teamContainer}>
           <View style={styles.singleTeamContainer}>
             <Text style={[styles.teamName, {}]}>
@@ -255,12 +214,19 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>{LeagueName}</Text>
-      <FlatList
-        data={renderGroupedMatches}
-        renderItem={({ item }) => item}
-        initialNumToRender={20}
-        maxToRenderPerBatch={10}
-      />
+      {renderGroupedMatches.length > 0 ?
+
+        <FlatList
+          data={renderGroupedMatches}
+          renderItem={({ item }) => item}
+          initialNumToRender={20}
+          maxToRenderPerBatch={10}
+        />
+        :
+        <View style={styles.containerEmpty}>
+          <Text style={styles.emptyText}>{englishLanguage ? "No Matches Found" : "Nenhum partida encontrada"}</Text>
+        </View>
+      }
       <BannerAds />
     </View>
   );

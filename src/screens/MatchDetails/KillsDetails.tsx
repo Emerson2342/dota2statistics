@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, Dimensions } from "react-native";
 import {
   HeroDetailsModel,
   KillDetails,
@@ -40,27 +40,27 @@ export function HeroKillsDetails({
     const playerName = player.name
       ? player.name
       : player.personaname
-      ? player.personaname
-      : englishLanguage
-      ? "Private Profile"
-      : "Perfil Privado";
+        ? player.personaname
+        : englishLanguage
+          ? "Private Profile"
+          : "Perfil Privado";
 
     const kills = player.killed
       ? Object.entries(player.killed)
-          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-          .map(([heroName, count]) => ({
-            heroName: heroName.replace("npc_dota_hero_", ""),
-            count,
-          }))
+        .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+        .map(([heroName, count]) => ({
+          heroName: heroName.replace("npc_dota_hero_", ""),
+          count,
+        }))
       : [];
 
     const killedBy = player.killed_by
       ? Object.entries(player.killed_by)
-          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-          .map(([heroName, count]) => ({
-            heroName: heroName.replace("npc_dota_hero_", ""),
-            count,
-          }))
+        .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+        .map(([heroName, count]) => ({
+          heroName: heroName.replace("npc_dota_hero_", ""),
+          count,
+        }))
       : [];
 
     return { playerName, heroName, kills, killedBy };
@@ -133,9 +133,9 @@ export function HeroKillsDetails({
               );
             })}
           </View>
-          <View style={{ alignSelf: "center", width: "10%" }}>
+          <View style={{ alignSelf: "center" }}>
             <Image
-              style={{ width: 37, aspectRatio: 1, borderRadius: 50 }}
+              style={{ width: Dimensions.get('screen').width * 0.1, aspectRatio: 1, borderRadius: 7 }}
               source={{
                 uri: imgSource,
               }}
@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
   flatListRender: {
     flexDirection: "row",
     alignItems: "center",
-    //justifyContent: "center",
   },
   textKills: {
     fontFamily: "QuickSand-Semibold",
@@ -239,8 +238,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   imgHero: {
-    width: 23,
-    height: 23,
+    width: Dimensions.get('screen').width * 0.053,
+    aspectRatio: 1,
     borderRadius: 30,
   },
   imgContainer: {

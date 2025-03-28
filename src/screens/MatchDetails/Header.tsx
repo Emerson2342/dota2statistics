@@ -31,7 +31,7 @@ export function Header({
   const textWarning = englishLanguage
     ? "This match does not have detailed data available. For more details, access the OpenDota link and request a match analysis. Once analyzed, please refresh the page by pulling down the screen."
     : "Esta partida não tem dados detalhados disponíveis. Para mais informações, acesse o site do OpenDota e solicite a análise. O OpenDota é um serviço externo e pode exigir tempo para processar os dados. " +
-      "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
+    "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
 
   const direName = englishLanguage ? "Dire" : "Temidos";
 
@@ -79,15 +79,17 @@ export function Header({
             }}
           >
             {matchDetails?.radiant_team?.logo_url ? (
-              <Image
-                source={{ uri: matchDetails.radiant_team.logo_url }}
-                style={{
-                  width: 37,
-                  aspectRatio: 1,
-                  backgroundColor: "#000",
-                  borderRadius: 7,
-                }}
-              />
+              <View style={styles.shieldContainer}>
+                <Image
+                  source={{ uri: matchDetails.radiant_team.logo_url }}
+                  style={{
+                    width: 37,
+                    aspectRatio: 1,
+                    backgroundColor: "#000",
+                    borderRadius: 7,
+                  }}
+                />
+              </View>
             ) : (
               <View
                 style={{
@@ -96,13 +98,16 @@ export function Header({
                 }}
               />
             )}
-            <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
-            <Text
-              numberOfLines={1}
-              style={[styles.teamName, { textAlign: "center" }]}
-            >
-              {matchDetails?.radiant_team?.name ?? radName}{" "}
-            </Text>
+            <View style={{ flexDirection: 'row', width: "100%", alignItems: "center" }}>
+              <Text
+                numberOfLines={1}
+                style={[styles.teamName, { textAlign: "center" }]}
+              >
+                {matchDetails?.radiant_team?.name ?? radName}{" "}
+              </Text>
+              <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
+
+            </View>
           </View>
           <View
             style={{
@@ -111,15 +116,17 @@ export function Header({
             }}
           >
             {matchDetails?.dire_team?.logo_url ? (
-              <Image
-                source={{ uri: matchDetails.dire_team.logo_url }}
-                style={{
-                  width: 37,
-                  aspectRatio: 1,
-                  backgroundColor: "#000",
-                  borderRadius: 7,
-                }}
-              />
+              <View style={[styles.shieldContainer, { alignSelf: "flex-end" }]}>
+                <Image
+                  source={{ uri: matchDetails.dire_team.logo_url }}
+                  style={{
+                    width: 37,
+                    aspectRatio: 1,
+                    backgroundColor: "#000",
+                    borderRadius: 7,
+                  }}
+                />
+              </View>
             ) : (
               <View
                 style={{
@@ -128,13 +135,16 @@ export function Header({
                 }}
               />
             )}
-            <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
-            <Text
-              numberOfLines={1}
-              style={[styles.teamName, { textAlign: "center" }]}
-            >
-              {matchDetails?.dire_team?.name ?? direName}{" "}
-            </Text>
+            <View style={{ flexDirection: 'row' }}>
+
+              <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
+              <Text
+                numberOfLines={1}
+                style={[styles.teamName, { textAlign: "center" }]}
+              >
+                {matchDetails?.dire_team?.name ?? direName}{" "}
+              </Text>
+            </View>
           </View>
         </View>
         <View
@@ -200,7 +210,7 @@ export function Header({
             marginLeft: 3,
             display:
               matchDetails?.radiant_gold_adv &&
-              matchDetails.radiant_gold_adv.length > 0
+                matchDetails.radiant_gold_adv.length > 0
                 ? "none"
                 : "flex",
           }}
@@ -254,17 +264,23 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "flex-end",
       alignItems: "center",
     },
+    shieldContainer: {
+      width: "80%",
+      alignItems: "center",
+      alignSelf: "flex-start"
+    },
     teamName: {
       color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       textAlign: "center",
-      width: "87%",
+      width: "80%"
     },
     teamScore: {
       color: colors.semidark,
       fontFamily: "QuickSand-Bold",
-      alignSelf: "center",
-      fontSize: 17,
+      textAlign: "center",
+      fontSize: Dimensions.get('screen').width * 0.037,
+      width: "20%",
     },
     textId: {
       fontFamily: "QuickSand-Semibold",

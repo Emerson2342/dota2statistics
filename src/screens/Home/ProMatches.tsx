@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Animated,
-  Dimensions,
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
@@ -15,13 +13,11 @@ import { createStylesStatics } from "./ProMatchesStyles";
 import { LeagueMatches, RootStackParamList } from "../../services/props";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { usePlayerContext } from "../../context/usePlayerContex";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
-import { useStackedAreaPaths } from "victory-native";
-import { getProMatches } from "../../../src/API";
+import { BannerAds } from "../../../src/components/BannerAds";
 
 export function ProMatches({
   proMatches,
@@ -33,12 +29,10 @@ export function ProMatches({
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { englishLanguage } = useSettingsContext();
-  // const { proMatches } = usePlayerContext();
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
   const [loading, setLoading] = useState(false);
 
-  //const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
 
   const refresh = useCallback(async () => {
     console.log("Refresh pro matches");
@@ -235,11 +229,12 @@ export function ProMatches({
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
-          initialNumToRender={5}
+          initialNumToRender={10}
           maxToRenderPerBatch={10}
           scrollEnabled={false}
         />
       </ScrollView>
+      <BannerAds />
     </View>
   );
 }
