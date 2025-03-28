@@ -37,7 +37,6 @@ import { Damage } from "./Damage";
 import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 import { TeamFights } from "./TeamFights";
 import { Abilities } from "./Abilities";
-import { unwatchFile } from "fs";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -63,7 +62,11 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   );
 
   const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
+
+  const textMatchId = englishLanguage
+    ? "Match not found. Please, check the ID MATCH!"
+    : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!";
 
   const renderScene1 = useCallback(
     ({ route }: any) => {
@@ -773,12 +776,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   if (loadingMatch) return <LoadingMatchDetails />;
   if (!matchDetails && apiResponseMatch)
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>
-          {englishLanguage
-            ? "Match not found. Please, check the ID MATCH!"
-            : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!"}
-        </Text>
+      <View style={styles.matchIdContainer}>
+        <Text style={styles.textMatchId}>{textMatchId}</Text>
       </View>
     );
 

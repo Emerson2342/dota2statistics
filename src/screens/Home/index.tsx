@@ -21,7 +21,11 @@ import {
   getSearchPlayer,
 } from "../../../src/API";
 import { LastMatches } from "./LastMatches";
-import { HeroesPlayed, RecentMatches } from "../../../src/services/props";
+import {
+  HeroesPlayed,
+  LeagueMatches,
+  RecentMatches,
+} from "../../../src/services/props";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
@@ -29,19 +33,15 @@ import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 export function Profile() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const {
-    player,
-    setPlayer,
-    heroesPlayedId,
-    setHeroesPlayedId,
-    setProMatches,
-  } = usePlayerContext();
+  const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
+    usePlayerContext();
   const { englishLanguage } = useSettingsContext();
 
   const [isLoading, setIsLoading] = useState(true);
 
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
+  const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
 
   const styles = createStyles(ColorTheme);
 
@@ -52,11 +52,16 @@ export function Profile() {
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return isLoading ? <Loading key={Date.now()} /> : <Header />;
+          return <Header />;
         case "heroesPlayed":
-          return isLoading ? <Loading key={Date.now()} /> : <HeroesPlayed />;
+          return <HeroesPlayed />;
         case "second":
-          return isLoading ? <Loading key={Date.now()} /> : <ProMatches />;
+          return (
+            <ProMatches
+              onRefresh={async () => await getProMatches(setProMatches)}
+              proMatches={proMatches}
+            />
+          );
         default:
           return null;
       }
@@ -141,10 +146,10 @@ export function Profile() {
     setIsLoading(true);
     setTimeout(async () => {
       console.log("Entrou");
-      await getProMatches(setProMatches);
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       console.log("Carregando********************");
       await getSearchPlayer(searchPlayer, setPlayer);
+      await getProMatches(setProMatches);
 
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
 
@@ -186,6 +191,7 @@ export function Profile() {
     />
   );
 
+  if (isLoading) return <Loading />;
   return (
     <TabView
       renderTabBar={renderTabBar}
@@ -194,6 +200,7 @@ export function Profile() {
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
       lazy={true}
+      renderLazyPlaceholder={() => <Loading />}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,

@@ -100,4 +100,14 @@ export const createStyles = (colors: ThemeColor) =>
       margin: "1%",
       borderRadius: 3,
     },
+    matchIdContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    textMatchId: {
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
+      textAlign: "center",
+    },
   });

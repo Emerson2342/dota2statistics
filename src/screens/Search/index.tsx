@@ -35,9 +35,13 @@ export const Search = () => {
   const [searchType, setSearchType] = useState("player");
 
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
-  const textEmpty = englishLanguage
+  const textInfoProfile = englishLanguage
     ? "Search typing Steam ID or Nickname"
     : "Procure digitando o ID da steam ou apelido";
+
+  const textInfoMatch = englishLanguage
+    ? "Type the Match ID"
+    : "Digite o ID da Partida";
 
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList>>();
@@ -118,14 +122,13 @@ export const Search = () => {
       <View style={styles.inputContainer}>
         <Searchbar
           style={styles.textInput}
-          placeholder={englishLanguage ? "Search Player" : "Procurar Jogador"}
+          placeholder={englishLanguage ? "Search" : "Buscar"}
           value={inputText}
           onChangeText={(textInput) => setInputText(textInput)}
           elevation={3}
           iconColor={ColorTheme.semidark}
           placeholderTextColor={ColorTheme.semilight}
           onIconPress={() => handleSearch(inputText)}
-          //dense
         />
       </View>
 
@@ -207,7 +210,7 @@ export const Search = () => {
               { display: usersSearch.length === 0 ? "flex" : "none" },
             ]}
           >
-            {textEmpty}
+            {searchType === "player" ? textInfoProfile : textInfoMatch}
           </Text>
           <FlatList
             data={usersSearch}

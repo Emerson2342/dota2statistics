@@ -97,4 +97,10 @@ export const createStylesStatics = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
       fontSize: Dimensions.get("screen").width * 0.03,
     },
+    textLoading: {
+      fontFamily: "QuickSand-Bold",
+      fontSize: 15,
+      color: colors.dark,
+      marginBottom: "1%",
+    },
   });

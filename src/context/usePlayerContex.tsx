@@ -15,8 +15,6 @@ interface PlayerContextData {
   setPlayer: Dispatch<SetStateAction<PlayerModel | null>>;
   heroesPlayedId: number[] | [];
   setHeroesPlayedId: Dispatch<SetStateAction<number[] | []>>;
-  proMatches: LeagueMatches[] | [];
-  setProMatches: Dispatch<SetStateAction<LeagueMatches[] | []>>;
 }
 
 const PlayerContext = createContext<PlayerContextData | undefined>(undefined);
@@ -26,7 +24,6 @@ interface PlayerProviderProps {
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [player, setPlayer] = useState<PlayerModel | null>(null);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
-  const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -42,9 +39,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         }
         if (storeHeroesPlayedId) {
           setHeroesPlayedId(JSON.parse(storeHeroesPlayedId));
-        }
-        if (storedProMatches) {
-          setProMatches(JSON.parse(storedProMatches));
         }
       } catch (error) {
         console.error("Erro ao carregar dados do AsyncStorage:", error);
@@ -63,22 +57,19 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
           "heroesPlayedId",
           JSON.stringify(heroesPlayedId)
         );
-        await AsyncStorage.setItem("proMatches", JSON.stringify(proMatches));
       } catch (error) {
         console.error("Erro ao salvar dados no AsyncStorage:", error);
       }
     };
 
     saveData();
-  }, [player, heroesPlayedId, proMatches]);
+  }, [player, heroesPlayedId]);
 
   const contextValue: PlayerContextData = {
     player,
     setPlayer,
     heroesPlayedId,
     setHeroesPlayedId,
-    proMatches,
-    setProMatches,
   };
 
   return (

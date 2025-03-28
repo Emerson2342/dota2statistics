@@ -4,22 +4,20 @@
     },
     "build": {
         "test": {
-           "android": {
-                "buildType": "apk",
-                 "autoIncrement": true
+            "android": {
+                "buildType": "apk"
             }
         },
         "development": {
             "developmentClient": true,
-            "distribution": "internal",
-            "autoIncrement": true
+            "distribution": "internal"
         },
         "production": {
             "android": {
                 "buildType": "app-bundle",
                 "autoIncrement": true
             }
-        },        
+        },
         "preview3": {
             "developmentClient": true
         },

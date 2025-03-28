@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 
 import { createStylesStatics } from "./ProMatchesStyles";
@@ -18,14 +20,32 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
+import { useStackedAreaPaths } from "victory-native";
+import { getProMatches } from "../../../src/API";
 
-export function ProMatches() {
+export function ProMatches({
+  proMatches,
+  onRefresh,
+}: {
+  proMatches: LeagueMatches[] | [];
+  onRefresh: () => Promise<void>;
+}) {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { englishLanguage } = useSettingsContext();
-  const { proMatches } = usePlayerContext();
+  // const { proMatches } = usePlayerContext();
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
+  const [loading, setLoading] = useState(false);
+
+  //const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
+
+  const refresh = useCallback(async () => {
+    console.log("Refresh pro matches");
+    setLoading(true);
+    await onRefresh();
+    setLoading(false);
+  }, []);
 
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
@@ -53,9 +73,7 @@ export function ProMatches() {
     return { ...item, formattedEndDuration, formattedDuration };
   });
 
-  const handleGoToMatch = (
-    matchIndex: number,
-  ) => {
+  const handleGoToMatch = (matchIndex: number) => {
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: matchIndex,
       PlayerIdIndex: null,
@@ -161,9 +179,7 @@ export function ProMatches() {
           </View>
           <View style={{ width: "50%", alignItems: "center" }}>
             <TouchableOpacity
-              onPress={() =>
-                handleGoToMatch(item.match_id)
-              }
+              onPress={() => handleGoToMatch(item.match_id)}
               style={styles.buttonContainer}
             >
               <Text style={styles.textButton}>
@@ -177,9 +193,38 @@ export function ProMatches() {
     );
   };
 
+  if (loading)
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 0.82,
+        }}
+      >
+        <ActivityIndicator color={ColorTheme.dark} />
+        <Text style={styles.textLoading}>
+          {englishLanguage ? "Loading..." : "Carregando..."}
+        </Text>
+      </View>
+    );
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={refresh}
+            colors={[
+              ColorTheme.light,
+              ColorTheme.semilight,
+              ColorTheme.standard,
+            ]}
+            progressBackgroundColor={ColorTheme.dark}
+          />
+        }
+      >
         <FlatList
           data={formattedTimeMatch}
           renderItem={({ item }) => (
