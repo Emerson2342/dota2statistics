@@ -59,9 +59,13 @@ export function Damage({
     }, 500);
   }, []);
 
+  const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
+    AbilitiesDescriptionsJson;
+
+  const itemsMap = Object.fromEntries(ItemsList.map((item) => [item.name, item]));
+
   const RenderDamage = ({ players }: { players: Player[] }) => {
-    const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
-      AbilitiesDescriptionsJson;
+
 
     return (
       <View style={styles.contentItem}>
@@ -121,9 +125,7 @@ export function Damage({
                             const abilityInfo =
                               heroAbilitiesDescriptions[ability];
 
-                            const itemInfo = ItemsList.find(
-                              (i) => i.name === ability
-                            );
+                            const itemInfo = itemsMap[ability];
                             return (
                               <View
                                 key={index}

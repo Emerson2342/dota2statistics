@@ -99,14 +99,15 @@ export function Profile() {
           </View>
         ) : (
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 0.25 }}>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.3 : 0.27, marginTop: "1%" }}>
               <ProfileHeader
                 player={player}
                 heroesId={heroesPlayedId}
                 recentMatches={recentMatches}
               />
             </View>
-            <View style={{ flex: 0.75 }}>
+            {/* 0.3 e 0.7*/}
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.78 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 {player ? (
                   <LastMatches

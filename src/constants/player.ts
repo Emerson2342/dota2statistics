@@ -16,6 +16,9 @@ export const PICTURE_HERO_BASE_FULL_URL =
 export const AGHANIMSHARD_URL =
   "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403";
 
+export const ITEM_URL =
+  "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/";
+
 export const PICTURE_ITEM_BASE_URL = "https://cdn.cloudflare.steamstatic.com";
 
 export const HERO_ITEM_BASE_URL = "https://api.opendota.com/api/heroes";

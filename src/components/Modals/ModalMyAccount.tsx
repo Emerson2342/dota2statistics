@@ -58,7 +58,7 @@ export default function ModalMyAccount({
         accountTimestamp == null ||
         accountTimestamp + 86400 < currentTimestamp
       ) {
-        handleChangeIdSteam();
+        //handleChangeIdSteam();
         setAccountTimestamp(currentTimestamp);
         console.log("Novo TimesStamp: " + accountTimestamp);
       }
