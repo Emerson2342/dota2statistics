@@ -75,14 +75,16 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         case "first":
           return <HomeComponent />;
         case "second":
-          return <HeroDetailsTab
-            PlayerIdIndex={PlayerIdIndex}
-            matchDetails={matchDetails}
-            onRefresh={async () => await onRefresh()}
-            refreshing={refreshing}
-            radName={radName}
-            direName={direName}
-          />;
+          return (
+            <HeroDetailsTab
+              PlayerIdIndex={PlayerIdIndex}
+              matchDetails={matchDetails}
+              onRefresh={async () => await onRefresh()}
+              refreshing={refreshing}
+              radName={radName}
+              direName={direName}
+            />
+          );
         case "third":
           return <TeamFightComponent />;
         default:
@@ -145,8 +147,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-            matchDetails.picks_bans &&
-            matchDetails.picks_bans.map((p) => p.is_pick) ? (
+          matchDetails.picks_bans &&
+          matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -362,6 +364,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       </View>
     );
   });
+
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
@@ -369,6 +372,14 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
     { key: "third", title: "Team Fights" },
+  ];
+
+  const route2 = [
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    {
+      key: "second",
+      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
+    },
   ];
 
   const onRefresh = async () => {
@@ -460,9 +471,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-          MatchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
+            MatchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);
