@@ -125,7 +125,7 @@ export function Profile() {
             </View>
           </View>
         )}
-        {/* <BannerAds /> */}
+        <BannerAds />
       </View>
     );
   });
