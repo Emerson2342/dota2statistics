@@ -29,10 +29,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "82049a2f-fc2d-4ba2-aa31-e974e11ce97f"
+        "projectId": "f378759e-7ae4-44ae-8bcf-d339513332f2"
       }
     },
-    "owner": "missinhoo",
+    "owner": "emerson2342",
     "plugins": [
       [
         "react-native-google-mobile-ads",
