@@ -16,6 +16,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ModalHelpMatchDetails } from "../../../src/components/Modals/ModalHelpMatchDetails";
 export function Teams({
   matchDetails,
   PlayerIdIndex,
@@ -32,6 +34,7 @@ export function Teams({
   const messageText = englishLanguage
     ? "This profile is private"
     : "Este perfil é privado";
+  const [modalVisible, setModalVisible] = useState(false);
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -90,6 +93,15 @@ export function Teams({
               { backgroundColor: "transparent" },
             ]}
           >
+            <View style={styles.helpButton}>
+              <TouchableOpacity onPress={() => setModalVisible(true)}>
+                <MaterialCommunityIcons
+                  name="help-circle"
+                  color={"#fff"}
+                  size={15}
+                />
+              </TouchableOpacity>
+            </View>
             <View style={styles.cabecalho}>
               <Text style={[styles.k, styles.textHeader]}>K/D/A</Text>
               <Text style={[styles.lhs, styles.textHeader]}>LH</Text>
@@ -409,6 +421,14 @@ export function Teams({
             title="Ops..."
             message={messageText}
           />
+        </Modal>
+        <Modal
+          statusBarTranslucent={true}
+          visible={modalVisible}
+          transparent={true}
+          animationType="fade"
+        >
+          <ModalHelpMatchDetails handleClose={() => setModalVisible(false)} />
         </Modal>
       </View>
     </View>

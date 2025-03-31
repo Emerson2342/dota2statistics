@@ -99,7 +99,12 @@ export function Profile() {
           </View>
         ) : (
           <View style={{ flex: 1 }}>
-            <View style={{ flex: heroesPlayedId.length > 5 ? 0.3 : 0.27, marginTop: "1%" }}>
+            <View
+              style={{
+                flex: heroesPlayedId.length > 5 ? 0.33 : 0.27,
+                marginTop: "1%",
+              }}
+            >
               <ProfileHeader
                 player={player}
                 heroesId={heroesPlayedId}
@@ -107,7 +112,7 @@ export function Profile() {
               />
             </View>
             {/* 0.3 e 0.7*/}
-            <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.78 }}>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.67 : 0.78 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 {player ? (
                   <LastMatches
@@ -120,7 +125,7 @@ export function Profile() {
             </View>
           </View>
         )}
-        <BannerAds />
+        {/* <BannerAds /> */}
       </View>
     );
   });

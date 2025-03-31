@@ -36,17 +36,6 @@ export function BottomTabsNavigator() {
             >
               <Ionicons name="settings-outline" color={"#fff"} size={23} />
             </TouchableOpacity>
-
-            <Modal
-              statusBarTranslucent={true}
-              visible={modalSettingsVisible}
-              transparent={true}
-              animationType="fade"
-            >
-              <ModalSettings
-                handleClose={() => setModalSettingsVisible(false)}
-              />
-            </Modal>
           </View>
         ),
         headerStyle: {

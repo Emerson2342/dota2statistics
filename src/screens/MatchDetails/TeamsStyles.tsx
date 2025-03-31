@@ -11,6 +11,10 @@ export const createStyles = (colors: ThemeColor) =>
       marginBottom: "3%",
       borderRadius: 9,
     },
+    helpButton: {
+      alignItems: "center",
+      width: "17%",
+    },
     headerContainer: {
       backgroundColor: colors.semidark,
       width: "100%",
@@ -35,12 +39,13 @@ export const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
       padding: "1%",
       borderRadius: 5,
+      flexDirection: "row",
     },
     cabecalho: {
       flexDirection: "row",
       justifyContent: "center",
       width: "83%",
-      alignSelf: "flex-end",
+      alignSelf: "center",
     },
     k: {
       width: "18%",

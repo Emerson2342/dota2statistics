@@ -27,16 +27,11 @@ import { BannerAds } from "../../components/BannerAds";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { GraficsGoldAndXpTeam } from "./GraficsGoldAndXpTeam";
-import { Items } from "./Items";
 import { Header } from "./Header";
 import { Teams } from "./Teams";
 import { getMatchDetails } from "../../../src/API";
 import { AsyncStorageService } from "../../../src/services/StorageService";
-import { HeroKillsDetails } from "./KillsDetails";
-import { Damage } from "./Damage";
-import { GraficsGoldPlayers } from "./GraficsGoldPlayers";
 import { TeamFightsTab } from "./TeamFights";
-import { Abilities } from "./Abilities";
 import { HeroDetailsTab } from "./HeroDetailsTab";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
@@ -365,7 +360,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     );
   });
 
-  const routes = [
+  const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
       key: "second",
@@ -373,14 +368,14 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     },
     { key: "third", title: "Team Fights" },
   ];
+  const hasTeamFights =
+    matchDetails &&
+    matchDetails.radiant_gold_adv &&
+    matchDetails?.radiant_gold_adv.length > 0;
 
-  const route2 = [
-    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
-    {
-      key: "second",
-      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
-    },
-  ];
+  const filteredRoutes = allRoutes.filter(
+    (route) => route.key !== "third" || hasTeamFights
+  );
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -722,7 +717,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     return (
       <TabView
         renderTabBar={renderTabBar}
-        navigationState={{ index, routes }}
+        navigationState={{ index, routes: filteredRoutes }}
         renderScene={renderScene1}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}

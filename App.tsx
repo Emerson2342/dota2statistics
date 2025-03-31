@@ -39,12 +39,7 @@ export default function App() {
                   <TimestampProvider>
                     <PaperProvider>
                       <FavoritesProvider>
-                        <View style={{ flex: 1 }}>
-                          <View style={styles.betaTag}>
-                            <Text style={styles.betaText}>BETA</Text>
-                          </View>
-                          <Routes />
-                        </View>
+                        <Routes />
                       </FavoritesProvider>
                     </PaperProvider>
                   </TimestampProvider>

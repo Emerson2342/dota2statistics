@@ -1,15 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState } from "react";
+import React from "react";
 import { MatchDetails } from "../../screens/MatchDetails/MatchDetails";
 import { RootStackParamList } from "../../services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { LeagueDetails } from "../../screens/LeagueMatches/LeagueMatches";
 import { BottomTabsNavigator } from "../BottomTabsNavigator";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Modal, StyleSheet, View } from "react-native";
-import { ModalHelpMatchDetails } from "../../../src/components/Modals/ModalHelpMatchDetails";
 import { PlayerProfile } from "../../../src/screens/PlayerProfile";
 import { HeroDetailsScreen } from "../../../src/screens/HeroDetails";
 
@@ -18,8 +14,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 export function StackNavigator() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <Stack.Navigator>
@@ -56,31 +50,6 @@ export function StackNavigator() {
           },
           headerTintColor: "#fff",
           headerTitleAlign: "center",
-          headerRight: () => (
-            <View>
-              <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-                style={styles.helpButton}
-              >
-                <MaterialCommunityIcons
-                  name="help-circle"
-                  color={"#fff"}
-                  size={30}
-                />
-              </TouchableOpacity>
-
-              <Modal
-                statusBarTranslucent={true}
-                visible={modalVisible}
-                transparent={true}
-                animationType="fade"
-              >
-                <ModalHelpMatchDetails
-                  handleClose={() => setModalVisible(false)}
-                />
-              </Modal>
-            </View>
-          ),
         }}
       />
       <Stack.Screen
@@ -137,11 +106,3 @@ export function StackNavigator() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  helpButton: {
-    width: "100%",
-    marginRight: 15,
-    alignItems: "center",
-  },
-});

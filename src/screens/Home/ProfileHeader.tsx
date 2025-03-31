@@ -17,7 +17,6 @@ import { PICTURE_HERO_BASE_URL } from "../../constants/player";
 import { useTheme } from "../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { BannerAds } from "../../../src/components/BannerAds";
 
 const NUMBER_COLUMNS = 10;
 
@@ -114,7 +113,7 @@ export function ProfileHeader({
         style={[
           styles.profile,
           {
-            flex: heroesId.length > 5 ? 0.4 : 0.5,
+            flex: heroesId.length > 5 ? 0.5 : 0.6,
           },
         ]}
       >
@@ -193,7 +192,7 @@ export function ProfileHeader({
         style={{
           alignItems: "center",
           justifyContent: "center",
-          flex: heroesId.length > 5 ? 0.6 : 0.5
+          flex: heroesId.length > 5 ? 0.5 : 0.4,
         }}
       >
         <FlatList
