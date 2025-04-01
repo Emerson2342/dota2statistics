@@ -5,10 +5,7 @@ export const createStyles = (Colors: ThemeColor) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: "rgba(0,0,0,0.83)",
       alignItems: "center",
-      justifyContent: "center",
-      width: "100%",
     },
     container: {
       justifyContent: "center",

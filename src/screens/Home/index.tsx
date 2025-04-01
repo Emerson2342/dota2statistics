@@ -29,6 +29,7 @@ import {
 import { BannerAds } from "../../../src/components/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
+import { LastProMatches } from "./LastProMatches";
 
 export function Profile() {
   const { profile } = useProfileContext();
@@ -101,7 +102,7 @@ export function Profile() {
           <View style={{ flex: 1 }}>
             <View
               style={{
-                flex: heroesPlayedId.length > 5 ? 0.33 : 0.27,
+                flex: heroesPlayedId.length > 5 ? 0.35 : 0.28,
                 marginTop: "1%",
               }}
             >
@@ -112,7 +113,7 @@ export function Profile() {
               />
             </View>
             {/* 0.3 e 0.7*/}
-            <View style={{ flex: heroesPlayedId.length > 5 ? 0.67 : 0.78 }}>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.4 : 0.47 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 {player ? (
                   <LastMatches
@@ -122,6 +123,9 @@ export function Profile() {
                   />
                 ) : null}
               </View>
+            </View>
+            <View style={{ flex: 0.25 }}>
+              <LastProMatches proMatches={proMatches} />
             </View>
           </View>
         )}

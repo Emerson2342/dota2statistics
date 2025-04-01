@@ -117,8 +117,6 @@ export const Search = () => {
 
   return (
     <View style={styles.container}>
-      <BannerAds />
-
       <View style={styles.inputContainer}>
         <Searchbar
           style={styles.textInput}
@@ -220,6 +218,7 @@ export const Search = () => {
           />
         </View>
       )}
+      <BannerAds />
     </View>
   );
 };

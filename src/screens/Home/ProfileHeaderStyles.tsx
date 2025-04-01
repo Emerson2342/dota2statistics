@@ -10,7 +10,6 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       width: "97%",
       alignSelf: "center",
       padding: "3%",
-
     },
     infoContainer: {
       width: "100%",
@@ -25,7 +24,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       justifyContent: "center",
     },
     imgAvatar: {
-      width: "90%",
+      width: "80%",
       aspectRatio: 1,
       resizeMode: "contain",
       borderRadius: 7,
@@ -37,7 +36,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       fontFamily: Font.font1,
     },
     imgHero: {
-      width: Dimensions.get('screen').width * 0.083,
+      width: Dimensions.get("screen").width * 0.083,
       aspectRatio: 1,
       borderRadius: 35,
       borderWidth: 1,
@@ -51,8 +50,8 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
     textRank: {
       color: "#fff",
       position: "absolute",
-      top: 53,
-      left: 103,
+      top: 46,
+      left: 102,
       fontSize: 10,
       fontWeight: "bold",
       width: "23%",

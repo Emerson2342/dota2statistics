@@ -8,6 +8,7 @@ import { LeagueDetails } from "../../screens/LeagueMatches/LeagueMatches";
 import { BottomTabsNavigator } from "../BottomTabsNavigator";
 import { PlayerProfile } from "../../../src/screens/PlayerProfile";
 import { HeroDetailsScreen } from "../../../src/screens/HeroDetails";
+import { DrawerNavigator } from "../DrawerNavigator";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -19,7 +20,7 @@ export function StackNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Bottom"
-        component={BottomTabsNavigator}
+        component={DrawerNavigator}
         options={{
           headerShown: false,
           title: englishLanguage ? "Home" : "Principal",

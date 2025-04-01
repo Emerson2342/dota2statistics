@@ -151,7 +151,6 @@ export function Leagues() {
 
   return (
     <View style={styles.container}>
-      <BannerAds />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View>
           {isLoading ? (
@@ -179,6 +178,7 @@ export function Leagues() {
           message={erroMessage}
         />
       </Modal>
+      <BannerAds />
     </View>
   );
 }

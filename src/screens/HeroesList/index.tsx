@@ -185,7 +185,6 @@ export function ListaDeHerois() {
 
   return (
     <View style={styles.container}>
-      <BannerAds />
       <View style={styles.inputContainer}>
         <Searchbar
           placeholder={textInput}
@@ -312,6 +311,7 @@ export function ListaDeHerois() {
           />
         )}
       </View>
+      <BannerAds />
     </View>
   );
 }

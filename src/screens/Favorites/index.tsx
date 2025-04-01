@@ -105,7 +105,6 @@ export function Favorites() {
 
   return (
     <View style={styles.container}>
-      <BannerAds />
       <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
         <Text
           style={[
@@ -150,6 +149,7 @@ export function Favorites() {
           handleClose={() => setModalFavoritesVisible(false)}
         />
       </Modal>
+      <BannerAds />
     </View>
   );
 }

@@ -14,7 +14,6 @@ import {
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { ModalSettings } from "../../../src/components/Modals/ModalSettings";
 import { Favorites } from "../../../src/screens/Favorites";
 import { Search } from "../../../src/screens/Search";
 
@@ -28,16 +27,6 @@ export function BottomTabsNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerRight: () => (
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalSettingsVisible(true)}
-              style={styles.helpButton}
-            >
-              <Ionicons name="settings-outline" color={"#fff"} size={23} />
-            </TouchableOpacity>
-          </View>
-        ),
         headerStyle: {
           backgroundColor: ColorTheme.dark,
         },
