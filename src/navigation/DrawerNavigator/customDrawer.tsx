@@ -20,6 +20,7 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { ModalAboutUs } from "../../components/Modals/ModalAboutUs";
 import Constants from "expo-constants";
+import AvatarImg from "../../images/user.png";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerContext();
@@ -31,18 +32,15 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
 
+  const avatarSource = player?.profile.avatarfull
+    ? { uri: player?.profile.avatarfull }
+    : require("../../images/user.png");
+
   const styles = createStyles(ColorTheme);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={
-            player?.profile.avatarfull
-              ? { uri: player?.profile.avatarfull }
-              : require("../../images/user.png")
-          }
-          style={styles.image}
-        />
+        <Image source={avatarSource} style={styles.image} />
         <Text style={styles.textName}>
           {player?.profile.name != ""
             ? player?.profile.name
@@ -118,7 +116,9 @@ const createStyles = (colors: ThemeColor) =>
     },
     image: {
       width: Dimensions.get("screen").width * 0.27,
+      resizeMode: "contain",
       aspectRatio: 1,
+      height: undefined,
       borderRadius: 15,
     },
     drawerItems: {
