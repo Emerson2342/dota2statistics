@@ -6,6 +6,7 @@ export const createStyles = (Colors: ThemeColor) =>
     mainContainer: {
       flex: 1,
       alignItems: "center",
+      justifyContent: "center",
     },
     container: {
       justifyContent: "center",
@@ -81,10 +82,5 @@ export const createStyles = (Colors: ThemeColor) =>
       borderBottomEndRadius: 15,
       borderWidth: 1,
       borderColor: Colors.dark,
-    },
-    textAboutUs: {
-      marginVertical: 17,
-      fontFamily: "QuickSand-Semibold",
-      color: "#aaa",
     },
   });

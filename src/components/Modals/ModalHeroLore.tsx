@@ -6,17 +6,21 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  Image,
 } from "react-native";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { ThemeColor } from "../../../src/services/props";
 import { BannerAds } from "../BannerAds";
+import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
 
 export function ModaHeroLore({
+  urlImage,
   handleClose,
   localizedName,
   loreText,
 }: {
+  urlImage: string;
   handleClose: () => void;
   localizedName: string | undefined;
   loreText: string | undefined;
@@ -40,6 +44,10 @@ export function ModaHeroLore({
         }}
       >
         <View style={styles.content}>
+          <Image
+            style={styles.imgHero}
+            src={PICTURE_HERO_BASE_URL + urlImage}
+          />
           <Text style={styles.textName}>{localizedName}</Text>
           <ScrollView>
             <Text style={styles.textLore}>
@@ -67,6 +75,12 @@ const CreateStyles = (colors: ThemeColor) =>
       backgroundColor: "rgba(0,0,0,0.7)",
       alignItems: "center",
       justifyContent: "center",
+    },
+    imgHero: {
+      width: "37%",
+      aspectRatio: 1.7,
+      borderRadius: 9,
+      margin: 7,
     },
     content: {
       maxHeight: "93%",

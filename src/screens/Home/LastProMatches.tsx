@@ -69,7 +69,7 @@ export function LastProMatches({
       <Text style={styles.textTitle}>
         {englishLanguage
           ? "Last Pro Matches"
-          : "últimas Partidas Profissionais"}
+          : "Últimas Partidas Profissionais"}
       </Text>
       <FlatList
         data={proMatches.slice(0, 12)}

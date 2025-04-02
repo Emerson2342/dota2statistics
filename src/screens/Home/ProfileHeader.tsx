@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Dimensions,
+} from "react-native";
 
 import { createStyles } from "./ProfileHeaderStyles";
 import { Medal } from "../../components/Medals/MedalsList";
@@ -121,17 +128,20 @@ export function ProfileHeader({
           <View style={styles.imgContainer}>
             <View style={{ width: "50%", alignItems: "center" }}>
               <Image
-                source={{ uri: player?.profile.avatarfull }}
-                style={styles.imgAvatar}
-              />
-            </View>
-            <View style={{ width: "50%", alignItems: "center" }}>
-              <Image
                 source={{ uri: `${Medal(player?.rank_tier)}` }}
                 style={styles.imgAvatar}
               />
             </View>
-            <Text style={styles.textRank}>{player?.leaderboard_rank}</Text>
+            <Text
+              style={[
+                styles.textRank,
+                {
+                  display: player && player?.rank_tier < 80 ? "none" : "flex",
+                },
+              ]}
+            >
+              {player?.leaderboard_rank}1
+            </Text>
           </View>
           <View
             style={{
@@ -142,7 +152,10 @@ export function ProfileHeader({
             <Text
               style={[
                 styles.textProfile,
-                { color: ColorTheme.light, fontSize: 17 },
+                {
+                  color: ColorTheme.light,
+                  fontSize: Dimensions.get("screen").width * 0.05,
+                },
               ]}
             >
               {player?.profile.name === ""

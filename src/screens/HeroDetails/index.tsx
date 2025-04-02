@@ -576,6 +576,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             animationType="fade"
           >
             <ModaHeroLore
+              urlImage={heroDetails.img}
               handleClose={() => setModalHeroLore(false)}
               localizedName={heroDetails.localized_name}
               loreText={heroLore}

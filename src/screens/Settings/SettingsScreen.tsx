@@ -7,14 +7,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { Feather, FontAwesome } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
 import { useTheme } from "../../context/useThemeContext";
 import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "../../components/Modals/ModalMyAccount";
-import { ModalAboutUs } from "../../components/Modals/ModalAboutUs";
-import { ModalConfirmLogOut } from "../../components/Modals/ModalConfirmLogout";
 import { BannerAds } from "../../../src/components/BannerAds";
 
 export function SettingsScreen() {
@@ -25,10 +23,6 @@ export function SettingsScreen() {
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalConfirmLogOutVisible, setModalConfirmLogOutVisible] =
-    useState(false);
-  const [modalAboutUsVisible, setModalAboutUsVisible] =
-    useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { ColorTheme } = useTheme();
@@ -206,7 +200,7 @@ export function SettingsScreen() {
                 justifyContent: "space-evenly",
               }}
             >
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => setModalConfirmLogOutVisible(true)}
                 style={{
                   justifyContent: "center",
@@ -223,13 +217,7 @@ export function SettingsScreen() {
                   {englishLanguage ? "Log Out " : "Sair "}
                 </Text>
                 <FontAwesome name="sign-out" size={17} />
-              </TouchableOpacity>
-              <Text
-                onPress={() => setModalAboutUsVisible(true)}
-                style={styles.textAboutUs}
-              >
-                {englishLanguage ? "About Us" : "Sobre Nós"}
-              </Text>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -253,14 +241,7 @@ export function SettingsScreen() {
       >
         <ModalMyAccount handleClose={() => setModalVisible(false)} />
       </Modal>
-      <Modal
-        visible={modalAboutUsVisible}
-        transparent={true}
-        animationType="fade"
-        statusBarTranslucent={true}
-      >
-        <ModalAboutUs handleClose={() => setModalAboutUsVisible(false)} />
-      </Modal>
+
       <Modal visible={isLoading} transparent={true}>
         <View
           style={{
@@ -281,16 +262,6 @@ export function SettingsScreen() {
             {englishLanguage ? "Saving..." : "Salvando..."}
           </Text>
         </View>
-      </Modal>
-      <Modal
-        visible={modalConfirmLogOutVisible}
-        transparent={true}
-        statusBarTranslucent={true}
-        animationType="fade"
-      >
-        <ModalConfirmLogOut
-          handleClose={() => setModalConfirmLogOutVisible(false)}
-        />
       </Modal>
       <BannerAds />
     </View>
