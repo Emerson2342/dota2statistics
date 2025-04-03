@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { ThemeColor } from "../../../src/services/props";
+import { isUndefined } from "util";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -39,6 +40,7 @@ export const createStyles = (colors: ThemeColor) =>
       width: Dimensions.get("window").width * 0.067,
       aspectRatio: 1,
       borderRadius: 3,
+      height: undefined,
       margin: Dimensions.get("screen").width * 0.003,
     },
     textLabel: {

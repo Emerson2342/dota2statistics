@@ -97,41 +97,43 @@ export function Profile() {
   const Header = React.memo(() => {
     return (
       <View style={styles.container}>
-        {player == null || player.profile.account_id == 0 ? (
-          <View style={styles.erroMessage}>
-            <Text style={styles.textErro}>{erro404}</Text>
-          </View>
-        ) : (
-          <View style={{ flex: 1, marginBottom: 15 }}>
-            <View
-              style={{
-                flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
-                marginTop: "1%",
-              }}
-            >
-              <ProfileHeader
-                player={player}
-                heroesId={heroesPlayedId}
-                recentMatches={recentMatches}
-              />
+        <View style={{ flex: 1, marginBottom: 15 }}>
+          {player == null || player.profile.account_id == 0 ? (
+            <View style={styles.erroMessage}>
+              <Text style={styles.textErro}>{erro404}</Text>
             </View>
-            {/* 0.3 e 0.7*/}
-            <View style={{ flex: heroesPlayedId.length > 5 ? 0.45 : 0.47 }}>
-              <View style={{ flex: 1, paddingBottom: "1%" }}>
-                {player ? (
-                  <LastMatches
-                    playerId={player.profile.account_id.toString()}
-                    onRefresh={() => handleLoadData()}
-                    recentMatches={recentMatches}
-                  />
-                ) : null}
+          ) : (
+            <>
+              <View
+                style={{
+                  flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
+                  marginTop: "1%",
+                }}
+              >
+                <ProfileHeader
+                  player={player}
+                  heroesId={heroesPlayedId}
+                  recentMatches={recentMatches}
+                />
               </View>
-            </View>
-            <View style={{ flex: 0.25 }}>
-              <HeroesStats heroesStats={heroesStats} />
-            </View>
+              <View style={{ flex: heroesPlayedId.length > 5 ? 0.45 : 0.47 }}>
+                <View style={{ flex: 1, paddingBottom: "1%" }}>
+                  {player ? (
+                    <LastMatches
+                      playerId={player.profile.account_id.toString()}
+                      onRefresh={() => handleLoadData()}
+                      recentMatches={recentMatches}
+                    />
+                  ) : null}
+                </View>
+              </View>
+            </>
+          )}
+
+          <View style={{ flex: 0.25 }}>
+            <HeroesStats heroesStats={heroesStats} />
           </View>
-        )}
+        </View>
         <BannerAds />
       </View>
     );

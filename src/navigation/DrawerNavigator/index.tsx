@@ -24,6 +24,7 @@ import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { SettingsScreen } from "../../../src/screens/Settings/SettingsScreen";
 import { usePlayerContext } from "../../../src/context/usePlayerContex";
 import { CustomDrawerContent } from "./customDrawer";
+import { Ionicons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
@@ -56,13 +57,19 @@ export function DrawerNavigator() {
         component={Profile}
         options={{
           title: englishLanguage ? "Home" : "Principal",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
         }}
       />
       <Drawer.Screen
         name="HeroesList"
         component={ListaDeHerois}
         options={{
-          title: englishLanguage ? "Heroes" : "Heróis",
+          title: englishLanguage ? "Heroes List" : "Lista de Heróis",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="people-outline" size={size} color={color} />
+          ),
         }}
       />
       <Drawer.Screen
@@ -70,6 +77,9 @@ export function DrawerNavigator() {
         component={Search}
         options={{
           title: englishLanguage ? "Search" : "Pesquisar",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" size={size} color={color} />
+          ),
         }}
       />
       <Drawer.Screen
@@ -77,6 +87,9 @@ export function DrawerNavigator() {
         component={Favorites}
         options={{
           title: englishLanguage ? "Favorites" : "Favoritos",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="star-outline" size={size} color={color} />
+          ),
         }}
       />
       <Drawer.Screen
@@ -84,6 +97,9 @@ export function DrawerNavigator() {
         component={Leagues}
         options={{
           title: englishLanguage ? "Tournament" : "Campeonatos",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="trophy-outline" size={size} color={color} />
+          ),
         }}
       />
       <Drawer.Screen
@@ -91,6 +107,9 @@ export function DrawerNavigator() {
         component={SettingsScreen}
         options={{
           title: englishLanguage ? "Settings" : "Configurações",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings-outline" size={size} color={color} />
+          ),
         }}
       />
     </Drawer.Navigator>

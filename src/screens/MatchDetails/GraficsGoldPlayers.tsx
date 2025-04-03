@@ -85,7 +85,7 @@ export const GraficsGoldPlayers = ({
     "#05a1a3",
     "#00FFFF",
     "#7efc7e",
-    "#1d1a1a",
+    "#027b1c",
   ];
 
   const colorHero1 = hero1Selected ? colors[0] : "transparent";
@@ -192,14 +192,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                        ? colors[1]
-                        : index === 2 && hero3Selected
-                          ? colors[2]
-                          : index === 3 && hero4Selected
-                            ? colors[3]
-                            : index === 4 && hero5Selected
-                              ? colors[4]
-                              : "transparent",
+                      ? colors[1]
+                      : index === 2 && hero3Selected
+                      ? colors[2]
+                      : index === 3 && hero4Selected
+                      ? colors[3]
+                      : index === 4 && hero5Selected
+                      ? colors[4]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -328,14 +328,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                        ? colors[6]
-                        : index === 2 && hero8Selected
-                          ? colors[7]
-                          : index === 3 && hero9Selected
-                            ? colors[8]
-                            : index === 4 && hero10Selected
-                              ? colors[9]
-                              : "transparent",
+                      ? colors[6]
+                      : index === 2 && hero8Selected
+                      ? colors[7]
+                      : index === 3 && hero9Selected
+                      ? colors[8]
+                      : index === 4 && hero10Selected
+                      ? colors[9]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >

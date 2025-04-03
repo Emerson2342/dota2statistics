@@ -59,10 +59,11 @@ export function ModalCreateAccount({
   const { setProfile } = useProfileContext();
 
   const handleValidateInput = () => {
-    const checkFields = Object.values(newUser).some((v) => v === "");
-    const isNumeric = /^\d+$/.test(newUser.id_Steam.toString());
+    const checkEmail = newUser.email === "";
+    const isNumericSteamId =
+      newUser.id_Steam === "" || /^\d+$/.test(newUser.id_Steam.toString());
 
-    if (checkFields) {
+    if (checkEmail) {
       setTitleMessage(englishLanguage ? "Error" : "Erro");
       setTextMessage(
         englishLanguage ? messageErrorInputEng : messageErrorInputPor
@@ -70,7 +71,7 @@ export function ModalCreateAccount({
       setModalMessageVisible(true);
       return;
     }
-    if (!isNumeric) {
+    if (!isNumericSteamId) {
       setTitleMessage(englishLanguage ? "Error" : "Erro");
       setTextMessage(englishLanguage ? messageIdEnglish : messageIdPortuguese);
       setModalMessageVisible(true);

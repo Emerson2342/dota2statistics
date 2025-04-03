@@ -20,7 +20,6 @@ import {
 } from "../../services/props";
 import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
 import ItemsList from "../../components/Itens/itemsList.json";
-import TalentTree from "../../components/Heroes/talentTree.jpg";
 import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
@@ -28,9 +27,8 @@ import {
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import EmptyImage from "../../images/icon.png";
 
 export function Damage({
   matchDetails,
@@ -62,11 +60,11 @@ export function Damage({
   const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
     AbilitiesDescriptionsJson;
 
-  const itemsMap = Object.fromEntries(ItemsList.map((item) => [item.name, item]));
+  const itemsMap = Object.fromEntries(
+    ItemsList.map((item) => [item.name, item])
+  );
 
   const RenderDamage = ({ players }: { players: Player[] }) => {
-
-
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
@@ -135,15 +133,28 @@ export function Damage({
                                 }}
                               >
                                 {abilityInfo?.img && (
-                                  <Image
-                                    src={`${PICTURE_HERO_BASE_URL}${abilityInfo?.img}`}
-                                    style={{
-                                      width:
-                                        Dimensions.get("screen").width * 0.07,
-                                      aspectRatio: 1,
-                                      borderRadius: 5,
-                                    }}
-                                  />
+                                  <View>
+                                    <Image
+                                      source={EmptyImage}
+                                      style={{
+                                        width:
+                                          Dimensions.get("screen").width * 0.07,
+                                        height: undefined,
+                                        aspectRatio: 1,
+                                        borderRadius: 5,
+                                        position: "absolute",
+                                      }}
+                                    />
+                                    <Image
+                                      src={`${PICTURE_HERO_BASE_URL}${abilityInfo?.img}`}
+                                      style={{
+                                        width:
+                                          Dimensions.get("screen").width * 0.07,
+                                        aspectRatio: 1,
+                                        borderRadius: 5,
+                                      }}
+                                    />
+                                  </View>
                                 )}
                                 {itemInfo?.img && (
                                   <Image

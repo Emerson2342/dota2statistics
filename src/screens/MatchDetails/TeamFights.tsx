@@ -15,10 +15,7 @@ import {
 } from "react-native";
 
 import { createStyles } from "./TeamFightsStyle";
-import {
-  PlayerTeamFight,
-  TeamFightModel,
-} from "../../../src/services/props";
+import { PlayerTeamFight, TeamFightModel } from "../../../src/services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import {
   ITEM_IMAGE_BASE_URL,
@@ -28,6 +25,7 @@ import {
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BarCarComponent } from "./BarCharComponent";
 import { BannerAds } from "../../../src/components/BannerAds";
+import EmptyImage from "../../images/icon.png";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
@@ -292,6 +290,13 @@ export function TeamFightsTab({
                                 }}
                               >
                                 <Image
+                                  source={EmptyImage}
+                                  style={[
+                                    styles.itemImage,
+                                    { position: "absolute" },
+                                  ]}
+                                />
+                                <Image
                                   source={{ uri: abilityImage }}
                                   style={styles.itemImage}
                                 />
@@ -340,6 +345,13 @@ export function TeamFightsTab({
                                   alignItems: "center",
                                 }}
                               >
+                                <Image
+                                  source={EmptyImage}
+                                  style={[
+                                    styles.itemImage,
+                                    { position: "absolute" },
+                                  ]}
+                                />
                                 <Image
                                   source={{ uri: itemImage }}
                                   style={styles.itemImage}
@@ -554,6 +566,13 @@ export function TeamFightsTab({
                               }}
                             >
                               <Image
+                                source={EmptyImage}
+                                style={[
+                                  styles.itemImage,
+                                  { position: "absolute" },
+                                ]}
+                              />
+                              <Image
                                 source={{ uri: abilityImage }}
                                 style={styles.itemImage}
                               />
@@ -602,6 +621,13 @@ export function TeamFightsTab({
                                 alignItems: "center",
                               }}
                             >
+                              <Image
+                                source={EmptyImage}
+                                style={[
+                                  styles.itemImage,
+                                  { position: "absolute" },
+                                ]}
+                              />
                               <Image
                                 source={{ uri: itemImage }}
                                 style={styles.itemImage}
