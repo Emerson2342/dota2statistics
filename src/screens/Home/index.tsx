@@ -102,7 +102,7 @@ export function Profile() {
             <Text style={styles.textErro}>{erro404}</Text>
           </View>
         ) : (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, marginBottom: 15 }}>
             <View
               style={{
                 flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
@@ -138,7 +138,7 @@ export function Profile() {
   });
 
   const routes = [
-    { key: "first", title: englishLanguage ? "My Profile" : "Meu Perfil" },
+    { key: "first", title: englishLanguage ? "Home" : "Início" },
     {
       key: "heroesPlayed",
       title: englishLanguage ? "Heroes Played" : "Heróis Jogados",

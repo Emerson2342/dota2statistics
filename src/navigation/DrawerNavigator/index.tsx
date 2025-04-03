@@ -55,7 +55,7 @@ export function DrawerNavigator() {
         name="Home"
         component={Profile}
         options={{
-          title: englishLanguage ? "My Profile" : "Meu Perfil",
+          title: englishLanguage ? "Home" : "Principal",
         }}
       />
       <Drawer.Screen

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -37,9 +37,8 @@ export function HeroesStats({
 
   const bestWinrate = heroesStats
     .map((hero) => {
-      const totalPicks = hero.pub_pick + hero.turbo_picks;
-      const totalWins = hero.pub_win + hero.turbo_wins;
-      const winRate = totalPicks > 0 ? (totalWins / totalPicks) * 100 : 0;
+      const winRate =
+        hero.pub_pick > 0 ? (hero.pub_win / hero.pub_pick) * 100 : 0;
 
       return {
         ...hero,
@@ -50,14 +49,11 @@ export function HeroesStats({
 
   const mostPicked = heroesStats
     .map((hero) => {
-      const totalPicks = hero.pub_pick + hero.turbo_picks;
-
-      return {
-        ...hero,
-        totalPicks: totalPicks,
-      };
+      return hero;
     })
-    .sort((a, b) => b.totalPicks - a.totalPicks);
+    .sort((a, b) => b.pub_pick - a.pub_pick);
+
+  // const pickedSum = heroesStats.reduce((sum, h) => sum + h.pub_pick, 0);
 
   const GoToHeroDetails = (item: number) => {
     const heroDetails = heroArray.find((hero) => hero.id === item);
@@ -69,7 +65,7 @@ export function HeroesStats({
   };
 
   return (
-    <View style={{}}>
+    <View>
       <Text style={styles.textTitle}>
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
       </Text>
@@ -142,7 +138,6 @@ const createStyles = (colors: ThemeColor) =>
       paddingHorizontal: "7%",
       borderRadius: 7,
       backgroundColor: colors.semidark,
-      //width: "70%",
       alignSelf: "center",
     },
     text: {
