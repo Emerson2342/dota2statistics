@@ -24,7 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { BannerAds } from "../../components/BannerAds";
-import { getSearchLeagueMatches } from "../../../src/API";
+import { getSearchLeagueMatches } from "../../services/api";
 
 export function LeagueDetails({ route }: LeagueDetailsProps) {
   const navigation =
@@ -214,19 +214,20 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>{LeagueName}</Text>
-      {renderGroupedMatches.length > 0 ?
-
+      {renderGroupedMatches.length > 0 ? (
         <FlatList
           data={renderGroupedMatches}
           renderItem={({ item }) => item}
           initialNumToRender={20}
           maxToRenderPerBatch={10}
         />
-        :
+      ) : (
         <View style={styles.containerEmpty}>
-          <Text style={styles.emptyText}>{englishLanguage ? "No Matches Found" : "Nenhum partida encontrada"}</Text>
+          <Text style={styles.emptyText}>
+            {englishLanguage ? "No Matches Found" : "Nenhum partida encontrada"}
+          </Text>
         </View>
-      }
+      )}
       <BannerAds />
     </View>
   );

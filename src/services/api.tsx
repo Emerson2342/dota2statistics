@@ -2,19 +2,19 @@ import React from "react";
 import {
   HERO_BENCHMARCKS_BASE_URL,
   HERO_ITEM_BASE_URL,
+  HERO_STATS_URL,
   PRO_MATCHES_URL,
 } from "../constants/player";
 import {
-  HeroBenchmarksData,
   HeroesPlayed,
-  ItemPopularityData,
+  HeroStats,
   LeagueMatches,
   MatchDetailsModel,
   Player,
   PlayerModel,
   RecentMatches,
   SearchUserResult,
-} from "../services/props";
+} from "./props";
 
 export const getSearchPlayer = async (
   url: string,
@@ -228,5 +228,32 @@ export const getHeroesPlayed = async (url: string) => {
     return data.slice(0, 50);
   } catch (error: any) {
     console.log("Erro ao buscar herois jogados: " + error.message);
+  }
+};
+
+export const getHeroesStats = async (
+  setHeroStatsList: React.Dispatch<React.SetStateAction<HeroStats[] | []>>
+) => {
+  try {
+    console.log("Endpoint heroStats: " + HERO_STATS_URL);
+    const response = await fetch(HERO_STATS_URL);
+    const data = (await response.json()) as HeroStats[];
+
+    const filteredData = data.map((hero) => ({
+      id: hero.id,
+      localized_name: hero.localized_name,
+      img: hero.img,
+      turbo_picks: hero.turbo_picks,
+      turbo_picks_trend: hero.turbo_picks_trend,
+      turbo_wins: hero.turbo_wins,
+      turbo_winds_trend: hero.turbo_winds_trend,
+      pub_pick: hero.pub_pick,
+      pub_pick_trend: hero.pub_pick_trend,
+      pub_win: hero.pub_win,
+      pub_win_trend: hero.pub_win_trend,
+    }));
+    setHeroStatsList(filteredData);
+  } catch (error: any) {
+    console.log("Erro ao testar buscar Hero Stats: " + error.message);
   }
 };

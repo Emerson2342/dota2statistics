@@ -93,6 +93,22 @@ export interface RecentMatches {
   leaver_status: number;
 }
 
+export interface HeroStats {
+  id: number;
+  localized_name: string;
+  img: string;
+  turbo_picks: number;
+  turbo_picks_trend: number[];
+  turbo_wins: number;
+  turbo_winds_trend: number[];
+  pub_pick: number;
+  pub_pick_trend: number[];
+  pub_win: number;
+  pub_win_trend: number[];
+  winRate?: number;
+  totalPicks?: number;
+}
+
 export const LobbyTypeNames: Record<LobbyType, string> = {
   [LobbyType.Casual]: "Casual",
   [LobbyType.Practice]: "Practice",

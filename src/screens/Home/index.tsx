@@ -16,20 +16,22 @@ import { ProMatches } from "./ProMatches";
 import { useTheme } from "../../context/useThemeContext";
 import {
   getHeroesPlayed,
+  getHeroesStats,
   getProMatches,
   getRecentMatches,
   getSearchPlayer,
-} from "../../../src/API";
+} from "../../services/api";
 import { LastMatches } from "./LastMatches";
 import {
   HeroesPlayed,
+  HeroStats,
   LeagueMatches,
   RecentMatches,
 } from "../../../src/services/props";
 import { BannerAds } from "../../../src/components/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
-import { LastProMatches } from "./LastProMatches";
+import { HeroesStats } from "./HeroesStats";
 
 export function Profile() {
   const { profile } = useProfileContext();
@@ -43,6 +45,7 @@ export function Profile() {
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
+  const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
 
   const styles = createStyles(ColorTheme);
 
@@ -102,7 +105,7 @@ export function Profile() {
           <View style={{ flex: 1 }}>
             <View
               style={{
-                flex: heroesPlayedId.length > 5 ? 0.35 : 0.28,
+                flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
                 marginTop: "1%",
               }}
             >
@@ -113,7 +116,7 @@ export function Profile() {
               />
             </View>
             {/* 0.3 e 0.7*/}
-            <View style={{ flex: heroesPlayedId.length > 5 ? 0.4 : 0.47 }}>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.45 : 0.47 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 {player ? (
                   <LastMatches
@@ -125,7 +128,7 @@ export function Profile() {
               </View>
             </View>
             <View style={{ flex: 0.25 }}>
-              <LastProMatches proMatches={proMatches} />
+              <HeroesStats heroesStats={heroesStats} />
             </View>
           </View>
         )}
@@ -157,6 +160,7 @@ export function Profile() {
       console.log("Carregando********************");
       await getSearchPlayer(searchPlayer, setPlayer);
       await getProMatches(setProMatches);
+      await getHeroesStats(setHeroesStats);
 
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
 

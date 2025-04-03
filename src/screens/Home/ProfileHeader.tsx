@@ -23,7 +23,7 @@ import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "../../constants/player";
 import { useTheme } from "../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 const NUMBER_COLUMNS = 10;
 
@@ -45,7 +45,7 @@ export function ProfileHeader({
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const navigation =
-    useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
+    useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
 
   const styles = createStyles(ColorTheme, Font);
 
@@ -72,6 +72,15 @@ export function ProfileHeader({
     .toString()
     .replace(".", ",");
 
+  const GoToHeroDetails = (item: number | undefined) => {
+    const heroDetails = heroArray.find((hero) => hero.id === item);
+    if (heroDetails) {
+      navigation.navigate("HeroDetails", { heroDetails: heroDetails });
+    } else {
+      alert("Hero not found");
+    }
+  };
+
   const renderHeroesPlayed = ({
     item,
     index,
@@ -87,20 +96,12 @@ export function ProfileHeader({
       "/apps/dota2/images/dota_react/heroes/" +
       nomeHero +
       ".png?";
-    const GoToHeroDetails = () => {
-      const heroDetails = heroArray.find((hero) => hero.id === item);
-      if (heroDetails) {
-        navigation.navigate("HeroDetails", { heroDetails: heroDetails });
-      } else {
-        alert("Hero not found");
-      }
-    };
 
     return (
       <TouchableOpacity
         style={{ margin: "0.5%" }}
         onPress={() => {
-          GoToHeroDetails();
+          GoToHeroDetails(hero?.id);
         }}
       >
         <Image
@@ -128,21 +129,27 @@ export function ProfileHeader({
           <View style={styles.imgContainer}>
             <View style={{ width: "50%", alignItems: "center" }}>
               <Image
+                source={{ uri: player?.profile.avatarfull }}
+                style={styles.imgAvatar}
+              />
+            </View>
+            <View style={{ width: "50%", alignItems: "center" }}>
+              <Image
                 source={{ uri: `${Medal(player?.rank_tier)}` }}
                 style={styles.imgAvatar}
               />
             </View>
-            <Text
-              style={[
-                styles.textRank,
-                {
-                  display: player && player?.rank_tier < 80 ? "none" : "flex",
-                },
-              ]}
-            >
-              {player?.leaderboard_rank}1
-            </Text>
           </View>
+          <Text
+            style={[
+              styles.textRank,
+              {
+                display: player && player?.rank_tier < 80 ? "none" : "flex",
+              },
+            ]}
+          >
+            {player?.leaderboard_rank}1
+          </Text>
           <View
             style={{
               width: "55%",

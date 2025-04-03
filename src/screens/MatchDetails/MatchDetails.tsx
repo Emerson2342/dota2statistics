@@ -29,7 +29,7 @@ import { useTheme } from "../../context/useThemeContext";
 import { GraficsGoldAndXpTeam } from "./GraficsGoldAndXpTeam";
 import { Header } from "./Header";
 import { Teams } from "./Teams";
-import { getMatchDetails } from "../../../src/API";
+import { getMatchDetails } from "../../services/api";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { TeamFightsTab } from "./TeamFights";
 import { HeroDetailsTab } from "./HeroDetailsTab";

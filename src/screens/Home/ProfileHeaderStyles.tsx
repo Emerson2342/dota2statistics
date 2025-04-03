@@ -24,7 +24,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       justifyContent: "center",
     },
     imgAvatar: {
-      width: "100%",
+      width: "90%",
       aspectRatio: 1,
       resizeMode: "contain",
       borderRadius: 7,
@@ -50,8 +50,8 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
     textRank: {
       color: "#fff",
       position: "absolute",
-      top: 59,
-      left: 63,
+      top: 55,
+      left: 80,
       fontSize: Dimensions.get("screen").width * 0.03,
       fontWeight: "bold",
       width: "23%",

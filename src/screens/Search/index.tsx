@@ -12,7 +12,7 @@ import {
 import { createStyles } from "./styles";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { searchPlayersByName } from "../../API";
+import { searchPlayersByName } from "../../services/api";
 import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
 import { RootStackParamList, SearchUserResult } from "../../services/props";
 import { BannerAds } from "../../components/BannerAds";

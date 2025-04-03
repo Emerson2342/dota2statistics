@@ -37,3 +37,5 @@ export const LEAGUES_BASE_URL = "https://api.opendota.com/api/leagues/";
 export const TEAMS_BASE_URL = "https://api.opendota.com/api/teams";
 
 export const PRO_MATCHES_URL = "https://api.opendota.com/api/proMatches";
+
+export const HERO_STATS_URL = "https://api.opendota.com/api/heroStats";
