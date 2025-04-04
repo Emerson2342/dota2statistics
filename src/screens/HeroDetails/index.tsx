@@ -81,7 +81,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     setTimeout(() => {
       setAbilities(heroAbilities[heroDetails.name]);
       setLoadingAbilit(false);
-    }, 375);
+    }, 1759);
   }, []);
 
   useEffect(() => {
@@ -284,17 +284,20 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
             backgroundColor: ColorTheme.light,
           }}
         >
-          <ActivityIndicator size={30} color={ColorTheme.semidark} />
-          <Text
-            style={{
-              fontFamily: "QuickSand-Semibold",
-              color: ColorTheme.dark,
-            }}
-          >
-            {englishLanguage
-              ? "Loading hero details..."
-              : "Carregando detalhes do herói..."}
-          </Text>
+          <View style={{ flex: 0.9, justifyContent: "center" }}>
+            <ActivityIndicator size={30} color={ColorTheme.semidark} />
+            <Text
+              style={{
+                fontFamily: "QuickSand-Semibold",
+                color: ColorTheme.dark,
+              }}
+            >
+              {englishLanguage
+                ? "Loading hero details..."
+                : "Carregando detalhes do herói..."}
+            </Text>
+          </View>
+          <BannerAds />
         </View>
       ) : (
         <View style={styles.container}>

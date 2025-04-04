@@ -33,7 +33,6 @@ import { getMatchDetails } from "../../services/api";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { TeamFightsTab } from "./TeamFights";
 import { HeroDetailsTab } from "./HeroDetailsTab";
-import { InterstitialAds } from "../../../src/components/Admob/InterstitialAds";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -84,7 +83,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         case "third":
           return <TeamFightComponent />;
         default:
-          return <InterstitialAds />;
+          return LoadingMatchDetails;
       }
     },
     [matchDetails, refreshing, loadingMatch]
@@ -108,19 +107,22 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     );
   });
 
-  // const LoadingMatchDetails = () => {
-
-
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator size="large" color={ColorTheme.standard} />
-  //       <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
-  //         Carregando partida...
-  //       </Text>
-  //     </View>
-  //   );
-  // };
-
+  //const LoadingMatchDetails = () => {
+  const LoadingMatchDetails = useMemo(() => {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator size="large" color={ColorTheme.standard} />
+          <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
+            {englishLanguage
+              ? "Loading Match Details..."
+              : "Carregando Detalhes da Partida..."}
+          </Text>
+        </View>
+        <BannerAds />
+      </View>
+    );
+  }, [loadingMatch]);
 
   const HomeComponent = React.memo(() => {
     return (
@@ -700,7 +702,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     />
   );
 
-  if (loadingMatch) return <InterstitialAds />;
+  if (loadingMatch) return LoadingMatchDetails;
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
@@ -717,7 +719,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         lazy={true}
-        renderLazyPlaceholder={() => <InterstitialAds />}
+        renderLazyPlaceholder={() => LoadingMatchDetails}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,

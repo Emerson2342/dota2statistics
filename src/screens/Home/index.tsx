@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Text,
   View,
@@ -73,22 +73,32 @@ export function Profile() {
     [profile, recentMatches, heroesPlayed, heroesPlayedId, isLoading]
   );
 
-  const Loading = React.memo(() => {
+  const Loading = useMemo(() => {
+    console.log("Loading...");
     return (
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
-          flex: 0.82,
+          flex: 1,
         }}
       >
-        <ActivityIndicator color={ColorTheme.dark} />
-        <Text style={styles.textLoading}>
-          {englishLanguage ? "Loading..." : "Carregando..."}
-        </Text>
+        <View
+          style={{
+            flex: 0.8,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator color={ColorTheme.dark} />
+          <Text style={styles.textLoading}>
+            {englishLanguage ? "Loading..." : "Carregando..."}
+          </Text>
+        </View>
+        <BannerAds />
       </View>
     );
-  });
+  }, [isLoading]);
 
   const HeroesPlayed = React.memo(() => {
     return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
@@ -204,7 +214,7 @@ export function Profile() {
     />
   );
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return Loading;
   return (
     <TabView
       renderTabBar={renderTabBar}
@@ -213,7 +223,7 @@ export function Profile() {
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
       lazy={true}
-      renderLazyPlaceholder={() => <Loading />}
+      renderLazyPlaceholder={() => Loading}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.03,
