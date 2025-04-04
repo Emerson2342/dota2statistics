@@ -32,7 +32,7 @@ import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesCon
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedComponent";
 import { TabBar, TabView } from "react-native-tab-view";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 
 export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const { PlayerId } = route.params;

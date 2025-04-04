@@ -23,7 +23,7 @@ import {
   MATCHE_DETAILS_API_BASE_URL,
   PICTURE_HERO_BASE_URL,
 } from "../../constants/player";
-import { BannerAds } from "../../components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { GraficsGoldAndXpTeam } from "./GraficsGoldAndXpTeam";
@@ -33,6 +33,7 @@ import { getMatchDetails } from "../../services/api";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 import { TeamFightsTab } from "./TeamFights";
 import { HeroDetailsTab } from "./HeroDetailsTab";
+import { InterstitialAds } from "../../../src/components/Admob/InterstitialAds";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -83,7 +84,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         case "third":
           return <TeamFightComponent />;
         default:
-          return <LoadingMatchDetails />;
+          return <InterstitialAds />;
       }
     },
     [matchDetails, refreshing, loadingMatch]
@@ -107,25 +108,19 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     );
   });
 
-  const LoadingMatchDetails = () => {
-    return (
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <View
-          style={{
-            flex: 0.9,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <ActivityIndicator size="large" color={ColorTheme.standard} />
-          <Text style={{ fontFamily: "QuickSand-Semibold" }}>
-            {englishLanguage ? "Loading..." : "Carregando..."}
-          </Text>
-        </View>
-        <BannerAds />
-      </View>
-    );
-  };
+  // const LoadingMatchDetails = () => {
+
+
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator size="large" color={ColorTheme.standard} />
+  //       <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
+  //         Carregando partida...
+  //       </Text>
+  //     </View>
+  //   );
+  // };
+
 
   const HomeComponent = React.memo(() => {
     return (
@@ -705,7 +700,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     />
   );
 
-  if (loadingMatch) return <LoadingMatchDetails />;
+  if (loadingMatch) return <InterstitialAds />;
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
@@ -722,7 +717,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         lazy={true}
-        renderLazyPlaceholder={() => <LoadingMatchDetails />}
+        renderLazyPlaceholder={() => <InterstitialAds />}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,

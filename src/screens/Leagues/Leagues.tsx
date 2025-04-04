@@ -10,7 +10,6 @@ import {
 
 import { createStyles } from "./LeaguesStyles";
 import {
-  FontModel,
   League,
   RootStackParamList,
   Team,
@@ -25,8 +24,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
 import { useTeamsListContext } from "../../../src/context/useTeamContext";
-import { useFonts } from "expo-font";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function Leagues() {

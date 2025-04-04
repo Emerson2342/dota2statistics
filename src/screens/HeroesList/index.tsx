@@ -22,7 +22,7 @@ import IntImg from "../../images/int.png";
 import AgiImg from "../../images/agi.png";
 import StrImg from "../../images/str.png";
 import AllImg from "../../images/all.png";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 

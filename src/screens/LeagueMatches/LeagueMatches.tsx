@@ -23,7 +23,7 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
-import { BannerAds } from "../../components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { getSearchLeagueMatches } from "../../services/api";
 
 export function LeagueDetails({ route }: LeagueDetailsProps) {

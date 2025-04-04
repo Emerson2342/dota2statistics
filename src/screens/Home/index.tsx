@@ -28,7 +28,7 @@ import {
   LeagueMatches,
   RecentMatches,
 } from "../../../src/services/props";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 import { HeroesStats } from "./HeroesStats";

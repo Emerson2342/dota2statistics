@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 
 export function ProMatches({
   proMatches,

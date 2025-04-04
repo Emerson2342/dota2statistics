@@ -6,7 +6,7 @@ import { useTheme } from '../../../src/context/useThemeContext';
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from '../../../src/constants/player';
 import { RadioButton } from 'react-native-paper';
-import { BannerAds } from '../../../src/components/BannerAds';
+import { BannerAds } from '../../components/Admob/BannerAds';
 
 
 export function HeroesPlayedComponent({ HeroesPlayedList }: { HeroesPlayedList: HeroesPlayed[] }) {

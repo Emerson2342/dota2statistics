@@ -37,7 +37,7 @@ import {
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";

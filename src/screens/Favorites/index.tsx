@@ -16,7 +16,7 @@ import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesCon
 import { PlayerModel, RootStackParamList } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";

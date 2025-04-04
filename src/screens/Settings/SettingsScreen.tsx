@@ -13,7 +13,7 @@ import { useTheme } from "../../context/useThemeContext";
 import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "../../components/Modals/ModalMyAccount";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =

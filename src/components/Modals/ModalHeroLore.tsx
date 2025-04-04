@@ -11,7 +11,7 @@ import {
 import { useTheme } from "../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { ThemeColor } from "../../../src/services/props";
-import { BannerAds } from "../BannerAds";
+import { BannerAds } from "../Admob/BannerAds";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
 
 export function ModaHeroLore({

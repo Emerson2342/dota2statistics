@@ -24,7 +24,7 @@ import {
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BarCarComponent } from "./BarCharComponent";
-import { BannerAds } from "../../../src/components/BannerAds";
+import { BannerAds } from "../../components/Admob/BannerAds";
 import EmptyImage from "../../images/emptyImage.png";
 
 const GREEN = processColor("#71BD6A");

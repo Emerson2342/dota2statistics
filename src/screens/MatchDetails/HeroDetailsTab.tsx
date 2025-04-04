@@ -6,7 +6,7 @@ import { HeroKillsDetails } from './KillsDetails';
 import { Damage } from './Damage';
 import { Items } from './Items';
 import { Abilities } from './Abilities';
-import { BannerAds } from '../../../src/components/BannerAds';
+import { BannerAds } from '../../components/Admob/BannerAds';
 import { MatchDetailsModel } from '../../../src/services/props';
 
 
