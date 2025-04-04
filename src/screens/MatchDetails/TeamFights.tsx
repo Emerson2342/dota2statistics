@@ -130,7 +130,7 @@ export function TeamFightsTab({
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle}>{radTeamName}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>{radTeamName}</Text>
             <View>
               <View style={{ flexDirection: "row" }}>
                 {item.players
@@ -427,7 +427,7 @@ export function TeamFightsTab({
             </View>
           </View>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle}>{direTeamName}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>{direTeamName}</Text>
 
             <View style={{ flexDirection: "row" }}>
               {item.players

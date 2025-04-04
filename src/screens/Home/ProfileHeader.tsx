@@ -148,7 +148,7 @@ export function ProfileHeader({
               },
             ]}
           >
-            {player?.leaderboard_rank}1
+            {player?.leaderboard_rank}
           </Text>
           <View
             style={{
@@ -163,7 +163,7 @@ export function ProfileHeader({
                   color: ColorTheme.light,
                   fontSize: Dimensions.get("screen").width * 0.05,
                 },
-              ]}
+              ]} numberOfLines={2}
             >
               {player?.profile.name === ""
                 ? player?.profile.personaname

@@ -202,7 +202,6 @@ export function Damage({
                                   />
                                 ) : null}
                                 <Text
-                                  onPress={() => alert(itemInfo?.img)}
                                   style={{
                                     fontFamily: "QuickSand-Semibold",
                                     fontSize:

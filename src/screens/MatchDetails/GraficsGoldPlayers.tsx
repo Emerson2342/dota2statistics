@@ -47,7 +47,7 @@ export const GraficsGoldPlayers = ({
   const [hero9Selected, setHero9Selected] = useState(true);
   const [hero10Selected, setHero10Selected] = useState(true);
 
-  const font = useFont(require("../../Fonts/Quicksand_Bold.ttf"));
+  const font = useFont(require("../../Fonts/Quicksand_SemiBold.ttf"));
 
   const player1 = matchDetails.players[0].gold_t ?? [];
   const player2 = matchDetails.players[1].gold_t ?? [];
@@ -235,7 +235,12 @@ export const GraficsGoldPlayers = ({
         axisOptions={{
           tickCount: 10,
           font: font,
-          lineWidth: 0.3,
+          lineWidth: 0.3,  
+          axisSide: {
+            y: "right",
+            x: "bottom"
+          },
+
           labelOffset: { x: 0, y: 0 },
           labelPosition: "outset",
           formatXLabel: (value) => `${value}`,
