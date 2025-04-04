@@ -165,7 +165,11 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       <View
         style={[
           styles.ablitityContainer,
-          { borderTopWidth: index == 0 ? 0 : 1, borderColor: "#ccc" },
+          {
+            borderTopWidth: index == 0 ? 0 : 1,
+            borderColor: "#ccc",
+            display: item?.desc && item.dname ? "flex" : "none",
+          },
         ]}
         key={index}
       >
@@ -465,6 +469,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 <FlatList
                   data={abilitiesDesc}
                   renderItem={renderAbilitiesDescriptions}
+                  keyExtractor={(item, index) => index.toString()}
                   scrollEnabled={false}
                 />
               </View>

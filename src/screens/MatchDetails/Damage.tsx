@@ -28,7 +28,7 @@ import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import EmptyImage from "../../images/icon.png";
+import EmptyImage from "../../images/emptyImage.png";
 
 export function Damage({
   matchDetails,
@@ -157,15 +157,28 @@ export function Damage({
                                   </View>
                                 )}
                                 {itemInfo?.img && (
-                                  <Image
-                                    src={`${PICTURE_HERO_BASE_URL}${itemInfo?.img}`}
-                                    style={{
-                                      width:
-                                        Dimensions.get("screen").width * 0.07,
-                                      aspectRatio: 1,
-                                      borderRadius: 5,
-                                    }}
-                                  />
+                                  <View>
+                                    <Image
+                                      source={EmptyImage}
+                                      style={{
+                                        width:
+                                          Dimensions.get("screen").width * 0.07,
+                                        height: undefined,
+                                        aspectRatio: 1,
+                                        borderRadius: 5,
+                                        position: "absolute",
+                                      }}
+                                    />
+                                    <Image
+                                      src={`${PICTURE_HERO_BASE_URL}${itemInfo?.img}`}
+                                      style={{
+                                        width:
+                                          Dimensions.get("screen").width * 0.07,
+                                        aspectRatio: 1,
+                                        borderRadius: 5,
+                                      }}
+                                    />
+                                  </View>
                                 )}
                                 {ability === "null" ? (
                                   <MaterialCommunityIcons
@@ -173,10 +186,23 @@ export function Damage({
                                     size={Dimensions.get("screen").width * 0.07}
                                     color={"#000"}
                                   />
-                                ) : (
-                                  <></>
-                                )}
+                                ) : null}
+                                {!itemInfo &&
+                                !abilityInfo &&
+                                ability != "null" ? (
+                                  <Image
+                                    source={EmptyImage}
+                                    style={{
+                                      width:
+                                        Dimensions.get("screen").width * 0.07,
+                                      height: undefined,
+                                      aspectRatio: 1,
+                                      borderRadius: 5,
+                                    }}
+                                  />
+                                ) : null}
                                 <Text
+                                  onPress={() => alert(itemInfo?.img)}
                                   style={{
                                     fontFamily: "QuickSand-Semibold",
                                     fontSize:

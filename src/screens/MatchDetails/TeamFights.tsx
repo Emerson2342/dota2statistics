@@ -25,7 +25,7 @@ import {
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BarCarComponent } from "./BarCharComponent";
 import { BannerAds } from "../../../src/components/BannerAds";
-import EmptyImage from "../../images/icon.png";
+import EmptyImage from "../../images/emptyImage.png";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
@@ -109,6 +109,19 @@ export function TeamFightsTab({
       .slice(5, 10)
       .map((value) => ({ y: value }));
 
+    const emptyRadKilledList =
+      item &&
+      item.players &&
+      item.players
+        .slice(0, 5)
+        .every((player) => Object.keys(player.killed).length === 0);
+    const emptyDireKilledList =
+      item &&
+      item.players &&
+      item.players
+        .slice(5, 10)
+        .every((player) => Object.keys(player.killed).length === 0);
+
     return (
       <View style={[styles.renderItemContainer]}>
         <Text style={styles.textTime}>
@@ -137,7 +150,7 @@ export function TeamFightsTab({
                           styles.itemImage,
                           {
                             backgroundColor:
-                              player.deaths > 0 ? "black" : "transparent",
+                              player.deaths > 0 ? "red" : "transparent",
                             overflow: "hidden",
                           },
                         ]}
@@ -166,7 +179,7 @@ export function TeamFightsTab({
                             style={{
                               width: "120%",
                               height: 1.5,
-                              backgroundColor: "#981a33",
+                              backgroundColor: "#000",
                               transform: [{ rotate: "45deg" }],
                             }}
                           />
@@ -205,55 +218,61 @@ export function TeamFightsTab({
                   color={BLUE}
                 />
               </View> */}
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Kills" : "Abates"}
-              </Text>
-              <View style={{ flexDirection: "row" }}>
-                {item.players
-                  ?.slice(0, 5)
-                  .map((player: PlayerTeamFight, indexPlayer: number) => {
-                    const heroesKilled = Object.entries(player.killed);
-                    if (heroesKilled.length === 0)
-                      return (
-                        <View
-                          key={indexPlayer + 139}
-                          style={styles.itemImage}
-                        />
-                      );
+              {!emptyRadKilledList && (
+                <View>
+                  <Text style={styles.textLabel}>
+                    {englishLanguage ? "Kills" : "Abates"}
+                  </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    {item.players
+                      ?.slice(0, 5)
+                      .map((player: PlayerTeamFight, indexPlayer: number) => {
+                        const heroesKilled = Object.entries(player.killed);
+                        if (heroesKilled.length === 0)
+                          return (
+                            <View
+                              key={indexPlayer + 139}
+                              style={styles.itemImage}
+                            />
+                          );
 
-                    return (
-                      <View key={indexPlayer}>
-                        {Object.entries(player.killed).map(
-                          (
-                            [heroKilled, usageCount]: [string, number],
-                            index: number
-                          ) => {
-                            const heroName = heroKilled.replace(
-                              "npc_dota_hero_",
-                              ""
-                            );
-                            const heroImg =
-                              PICTURE_HERO_BASE_FULL_URL + heroName + ".png";
+                        return (
+                          <View key={indexPlayer}>
+                            {Object.entries(player.killed).map(
+                              (
+                                [heroKilled, usageCount]: [string, number],
+                                index: number
+                              ) => {
+                                const heroName = heroKilled.replace(
+                                  "npc_dota_hero_",
+                                  ""
+                                );
+                                const heroImg =
+                                  PICTURE_HERO_BASE_FULL_URL +
+                                  heroName +
+                                  ".png";
 
-                            return (
-                              <View
-                                key={index}
-                                style={{
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Image
-                                  source={{ uri: heroImg }}
-                                  style={styles.itemImage}
-                                />
-                              </View>
-                            );
-                          }
-                        )}
-                      </View>
-                    );
-                  })}
-              </View>
+                                return (
+                                  <View
+                                    key={index}
+                                    style={{
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <Image
+                                      source={{ uri: heroImg }}
+                                      style={styles.itemImage}
+                                    />
+                                  </View>
+                                );
+                              }
+                            )}
+                          </View>
+                        );
+                      })}
+                  </View>
+                </View>
+              )}
 
               <Text style={styles.textLabel}>
                 {englishLanguage ? "Abilities" : "Habilidades"}
@@ -380,7 +399,7 @@ export function TeamFightsTab({
                 alignItems: "center",
               }}
             >
-              <Text style={styles.textLabel}>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
                 {englishLanguage ? "Damage Caused" : "Dano Causado"}
               </Text>
             </View>
@@ -391,7 +410,9 @@ export function TeamFightsTab({
                 alignItems: "center",
               }}
             >
-              <Text style={styles.textLabel}>Xp</Text>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+                Xp
+              </Text>
             </View>
             <View
               style={{
@@ -400,7 +421,7 @@ export function TeamFightsTab({
                 alignItems: "center",
               }}
             >
-              <Text style={styles.textLabel}>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
                 {englishLanguage ? "Gold" : "Ouro"}
               </Text>
             </View>
@@ -426,7 +447,7 @@ export function TeamFightsTab({
                         styles.itemImage,
                         {
                           backgroundColor:
-                            player.deaths > 0 ? "black" : "transparent",
+                            player.deaths > 0 ? "red" : "transparent",
                           overflow: "hidden",
                         },
                       ]}
@@ -455,7 +476,7 @@ export function TeamFightsTab({
                           style={{
                             width: "120%",
                             height: 1.5,
-                            backgroundColor: "#981a33",
+                            backgroundColor: "#000",
                             transform: [{ rotate: "45deg" }],
                           }}
                         />
@@ -488,102 +509,110 @@ export function TeamFightsTab({
                 color={GOLD}
               />
             </View>
-            <Text style={styles.textLabel}>
-              {englishLanguage ? "Kills" : "Abates"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              {item.players
-                ?.slice(5, 10)
-                .map((player: PlayerTeamFight, indexPlayer: number) => {
-                  const heroesKilled = Object.entries(player.killed);
-                  if (heroesKilled.length === 0)
-                    return (
-                      <View key={indexPlayer + 139} style={styles.itemImage} />
-                    );
+            {!emptyDireKilledList && (
+              <View>
+                <Text style={styles.textLabel}>
+                  {englishLanguage ? "Kills" : "Abates"}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  {item.players
+                    ?.slice(5, 10)
+                    .map((player: PlayerTeamFight, indexPlayer: number) => {
+                      const heroesKilled = Object.entries(player.killed);
+                      if (heroesKilled.length === 0)
+                        return (
+                          <View key={indexPlayer} style={styles.itemImage} />
+                        );
 
-                  return (
-                    <View key={indexPlayer}>
-                      {Object.entries(player.killed).map(
-                        (
-                          [heroKilled, usageCount]: [string, number],
-                          index: number
-                        ) => {
-                          const heroName = heroKilled.replace(
-                            "npc_dota_hero_",
-                            ""
-                          );
-                          const heroImg =
-                            PICTURE_HERO_BASE_FULL_URL + heroName + ".png";
+                      return (
+                        <View key={indexPlayer}>
+                          {Object.entries(player.killed).map(
+                            (
+                              [heroKilled, usageCount]: [string, number],
+                              index: number
+                            ) => {
+                              const heroName = heroKilled.replace(
+                                "npc_dota_hero_",
+                                ""
+                              );
+                              const heroImg =
+                                PICTURE_HERO_BASE_FULL_URL + heroName + ".png";
 
-                          return (
-                            <View
-                              key={index}
-                              style={{
-                                alignItems: "center",
-                              }}
-                            >
-                              <Image
-                                source={{ uri: heroImg }}
-                                style={styles.itemImage}
-                              />
-                            </View>
-                          );
-                        }
-                      )}
-                    </View>
-                  );
-                })}
-            </View>
-            <Text style={styles.textLabel}>
-              {englishLanguage ? "Abilities" : "Habilidades"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              {item.players
-                ?.slice(5, 10)
-                .map((player: PlayerTeamFight, indexPlayer: number) => {
-                  const abilities = Object.entries(player.ability_uses);
+                              return (
+                                <View
+                                  key={index}
+                                  style={{
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Image
+                                    source={{ uri: heroImg }}
+                                    style={styles.itemImage}
+                                  />
+                                </View>
+                              );
+                            }
+                          )}
+                        </View>
+                      );
+                    })}
+                </View>
 
-                  if (abilities.length === 0)
-                    return (
-                      <View key={indexPlayer + 50} style={styles.itemImage} />
-                    );
+                <Text style={styles.textLabel}>
+                  {englishLanguage ? "Abilities" : "Habilidades"}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  {item.players
+                    ?.slice(5, 10)
+                    .map((player: PlayerTeamFight, indexPlayer: number) => {
+                      const abilities = Object.entries(player.ability_uses);
 
-                  return (
-                    <View key={indexPlayer}>
-                      {Object.entries(player.ability_uses).map(
-                        (
-                          [abilityName, usageCount]: [string, number],
-                          index: number
-                        ) => {
-                          const abilityImage =
-                            ITEM_IMAGE_BASE_URL + abilityName + ".png";
+                      if (abilities.length === 0)
+                        return (
+                          <View
+                            key={indexPlayer + 50}
+                            style={styles.itemImage}
+                          />
+                        );
 
-                          return (
-                            <View
-                              key={index}
-                              style={{
-                                alignItems: "center",
-                              }}
-                            >
-                              <Image
-                                source={EmptyImage}
-                                style={[
-                                  styles.itemImage,
-                                  { position: "absolute" },
-                                ]}
-                              />
-                              <Image
-                                source={{ uri: abilityImage }}
-                                style={styles.itemImage}
-                              />
-                            </View>
-                          );
-                        }
-                      )}
-                    </View>
-                  );
-                })}
-            </View>
+                      return (
+                        <View key={indexPlayer}>
+                          {Object.entries(player.ability_uses).map(
+                            (
+                              [abilityName, usageCount]: [string, number],
+                              index: number
+                            ) => {
+                              const abilityImage =
+                                ITEM_IMAGE_BASE_URL + abilityName + ".png";
+
+                              return (
+                                <View
+                                  key={index}
+                                  style={{
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Image
+                                    source={EmptyImage}
+                                    style={[
+                                      styles.itemImage,
+                                      { position: "absolute" },
+                                    ]}
+                                  />
+                                  <Image
+                                    source={{ uri: abilityImage }}
+                                    style={styles.itemImage}
+                                  />
+                                </View>
+                              );
+                            }
+                          )}
+                        </View>
+                      );
+                    })}
+                </View>
+              </View>
+            )}
             <Text style={styles.textLabel}>
               {englishLanguage ? "Items" : "Itens"}
             </Text>

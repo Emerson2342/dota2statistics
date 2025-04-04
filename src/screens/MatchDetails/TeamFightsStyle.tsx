@@ -48,6 +48,8 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: Dimensions.get("screen").width * 0.03,
       textAlign: "center",
       color: colors.semidark,
+      borderBottomWidth: 0.5,
+      marginBottom: 3,
     },
     textTitle: {
       fontFamily: "QuickSand-Bold",
