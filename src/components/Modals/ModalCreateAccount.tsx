@@ -144,7 +144,6 @@ export function ModalCreateAccount({
             placeholder="name@email.com"
             placeholderTextColor={"#ccc"}
             style={styles.input}
-            value={newUser.email.toLowerCase()}
             onChangeText={(email) =>
               setNewUser((prevState) => ({ ...prevState, email }))
             }
@@ -168,7 +167,6 @@ export function ModalCreateAccount({
             placeholder="*******"
             placeholderTextColor={"#ccc"}
             style={styles.input}
-            value={password}
             keyboardType="numeric"
             onChangeText={(text) => setPassword(text)}
           />
