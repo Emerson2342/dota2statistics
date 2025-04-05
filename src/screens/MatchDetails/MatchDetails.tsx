@@ -111,15 +111,12 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const LoadingMatchDetails = useMemo(() => {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <ActivityIndicator size="large" color={ColorTheme.standard} />
-          <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
-            {englishLanguage
-              ? "Loading Match Details..."
-              : "Carregando Detalhes da Partida..."}
-          </Text>
-        </View>
-        <BannerAds />
+        <ActivityIndicator size="large" color={ColorTheme.standard} />
+        <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
+          {englishLanguage
+            ? "Loading Match Details..."
+            : "Carregando Detalhes da Partida..."}
+        </Text>
       </View>
     );
   }, [loadingMatch]);
@@ -139,8 +136,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-          matchDetails.picks_bans &&
-          matchDetails.picks_bans.map((p) => p.is_pick) ? (
+            matchDetails.picks_bans &&
+            matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -463,9 +460,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-            MatchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
+          MatchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);

@@ -297,7 +297,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 : "Carregando detalhes do herói..."}
             </Text>
           </View>
-          <BannerAds />
         </View>
       ) : (
         <View style={styles.container}>
@@ -567,8 +566,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               </View>
             </View>
           </ScrollView>
-
-          <View style={{ paddingTop: 7 }}>
+          <View style={{ paddingTop: 3 }}>
             <BannerAds />
           </View>
           <View

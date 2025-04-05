@@ -114,6 +114,7 @@ export const Search = () => {
       handleGoToMatch(input);
     }
   };
+  console.log(inputText)
 
   return (
     <View style={styles.container}>
@@ -199,8 +200,8 @@ export const Search = () => {
                 ? `Results for "${textSearch}"`
                 : `Resultados para "${textSearch}"`
               : englishLanguage
-              ? `No results found for "${textSearch}"`
-              : `Nenhum resultado encontrado para "${textSearch}"`}
+                ? `No results found for "${textSearch}"`
+                : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
           <Text
             style={[

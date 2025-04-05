@@ -192,14 +192,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                      ? colors[1]
-                      : index === 2 && hero3Selected
-                      ? colors[2]
-                      : index === 3 && hero4Selected
-                      ? colors[3]
-                      : index === 4 && hero5Selected
-                      ? colors[4]
-                      : "transparent",
+                        ? colors[1]
+                        : index === 2 && hero3Selected
+                          ? colors[2]
+                          : index === 3 && hero4Selected
+                            ? colors[3]
+                            : index === 4 && hero5Selected
+                              ? colors[4]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -235,7 +235,7 @@ export const GraficsGoldPlayers = ({
         axisOptions={{
           tickCount: 10,
           font: font,
-          lineWidth: 0.3,  
+          lineWidth: 0.3,
           axisSide: {
             y: "right",
             x: "bottom"
@@ -333,14 +333,14 @@ export const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                      ? colors[6]
-                      : index === 2 && hero8Selected
-                      ? colors[7]
-                      : index === 3 && hero9Selected
-                      ? colors[8]
-                      : index === 4 && hero10Selected
-                      ? colors[9]
-                      : "transparent",
+                        ? colors[6]
+                        : index === 2 && hero8Selected
+                          ? colors[7]
+                          : index === 3 && hero9Selected
+                            ? colors[8]
+                            : index === 4 && hero10Selected
+                              ? colors[9]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
   },
   heroButtonContainer: {
     width: "90%",
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 9,
