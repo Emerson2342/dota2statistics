@@ -12,7 +12,7 @@ export function InitialScreen() {
   return (
     <View style={styles.container}>
       <Image style={{ width: "23%", resizeMode: "contain" }} source={Logo} />
-      <Text style={styles.nameText}>Dota Statistics</Text>
+      <Text style={styles.nameText}>Dota 2 Stats</Text>
       <ActivityIndicator color={"#fff"} size={"large"} />
     </View>
   );

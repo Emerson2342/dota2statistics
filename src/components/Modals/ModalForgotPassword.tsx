@@ -36,14 +36,14 @@ export function ModalForgotPassword({
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleResetPassword = async () => {
-    if (!emailRegex.test(email)) {
+  const handleResetPassword = async (textInput: string) => {
+    if (!emailRegex.test(textInput)) {
       setTitleMessage(englishLanguage ? "Error" : "Erro");
       setTextMessage(messageError);
       setModalMessageVisible(true);
     } else {
       setLoading(true);
-      await sendPasswordResetEmail(auth, email)
+      await sendPasswordResetEmail(auth, email.toString())
         .then(() => {
           setEmail("");
 
@@ -73,17 +73,16 @@ export function ModalForgotPassword({
             placeholder="name@email.com"
             placeholderTextColor={"#ccc"}
             style={styles.input}
-            value={email?.toLowerCase()}
             onChangeText={(text) => setEmail(text)}
           />
         </View>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.button} onPress={handleClose}>
+          <TouchableOpacity style={styles.button} onPress={() => handleClose()}>
             <Text style={styles.textButton}>Back</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.buttonCreate]}
-            onPress={() => handleResetPassword()}
+            onPress={() => handleResetPassword(email)}
           >
             <Text style={[styles.textButton, { color: "#fff" }]}>
               {englishLanguage ? "Send" : "Enviar"}

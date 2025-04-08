@@ -51,7 +51,7 @@ export function LastMatches({
 
   const refresh = useCallback(() => {
     onRefresh();
-  }, []);
+  }, [onRefresh]);
 
   const handleGoToMatch = (
     matchIdIndex: number,

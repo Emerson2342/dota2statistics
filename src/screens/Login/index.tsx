@@ -130,7 +130,7 @@ export function Login() {
       {/* <WaveTopLogin /> */}
       <View style={styles.headerContainer}>
         <Image style={{ width: "23%", resizeMode: "contain" }} source={Logo} />
-        <Text style={styles.nameText}>Dota Statistics</Text>
+        <Text style={styles.nameText}>Dota 2 Stats</Text>
       </View>
       <Animated.View
         style={[

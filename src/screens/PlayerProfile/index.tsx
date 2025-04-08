@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -54,14 +54,15 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [index, setIndex] = React.useState(0);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
+  const [refresh, setRefresh] = useState(true);
 
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return !isLoading ? <Header /> : <Loading />;
+          return <Header />;
         case "heroesPlayed":
-          return !isLoading ? <HeroesPlayed /> : <Loading />;
+          return <HeroesPlayed />;
         default:
           return null;
       }
@@ -135,12 +136,15 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   }, [favoritesPlayers, player]);
 
   const handleSearch = async () => {
+    setIsLoading(true);
     setTimeout(async () => {
+      console.log("*******************************");
       console.log("entrou na busca do jogador: id " + PlayerId);
 
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}`;
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/recentMatches`;
       await getSearchPlayer(searchPlayer, setPlayer);
+
       const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
 
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
@@ -160,13 +164,14 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         )
       );
       setIsLoading(false);
+      setRefresh(false);
     }, 500);
   };
 
   if (recentMatches.length === 0 && !isLoading)
     return <Text style={styles.textMessage}>{erro404}</Text>;
 
-  const Loading = React.memo(() => {
+  const Loading = useMemo(() => {
     return (
       <View
         style={{
@@ -181,10 +186,18 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         </Text>
       </View>
     );
-  });
+  }, [refresh]);
 
   const HeroesPlayed = React.memo(() => {
-    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
+    return (
+      <HeroesPlayedComponent
+        HeroesPlayedList={heroesPlayed}
+        successPlayerAccount={
+          player == null || player.profile.account_id == 0 ? false : true
+        }
+        textError={erro404}
+      />
+    );
   });
 
   const Header = React.memo(() => {
@@ -247,6 +260,8 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       }}
     />
   );
+
+  if (isLoading) return Loading;
   return (
     <TabView
       renderTabBar={renderTabBar}
@@ -254,7 +269,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
-      renderLazyPlaceholder={() => <Loading />}
+      renderLazyPlaceholder={() => Loading}
       lazy={true}
       commonOptions={{
         labelStyle: {

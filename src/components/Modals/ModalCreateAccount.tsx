@@ -17,6 +17,7 @@ import { ModalLoading } from "./ModalLoading";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useProfileContext } from "../../context/useProfileContext";
 import { useTheme } from "../../../src/context/useThemeContext";
+import { toSteam32 } from "../../../src/utils/steam";
 
 export function ModalCreateAccount({
   handleClose,
@@ -83,8 +84,15 @@ export function ModalCreateAccount({
       setModalMessageVisible(true);
       return;
     }
-    handleCreateUser();
-    //alert(JSON.stringify(newUser, null, 2))
+    const convertedId = toSteam32(newUser.id_Steam);
+
+    const userReady = {
+      ...newUser,
+      id_Steam: convertedId,
+    };
+    setNewUser(userReady);
+
+    handleCreateUser(userReady);
   };
 
   const createProfile = async () => {
@@ -98,14 +106,14 @@ export function ModalCreateAccount({
     }
   };
 
-  const handleCreateUser = async () => {
+  const handleCreateUser = async (userReady: User) => {
     setLoading(true);
-    createUserWithEmailAndPassword(auth, newUser.email, password)
+    createUserWithEmailAndPassword(auth, userReady.email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         createProfile();
-        setProfile(newUser);
+        setProfile(userReady);
         console.log(user);
       })
       .catch((error) => {

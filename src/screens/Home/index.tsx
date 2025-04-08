@@ -46,6 +46,7 @@ export function Profile() {
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
+  const [successPlayerAccount, setSuccessPlayerAccount] = useState(false);
 
   const styles = createStyles(ColorTheme);
 
@@ -56,7 +57,7 @@ export function Profile() {
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return <Header />;
+          return <Home />;
         case "heroesPlayed":
           return <HeroesPlayed />;
         case "second":
@@ -70,11 +71,17 @@ export function Profile() {
           return null;
       }
     },
-    [profile, recentMatches, heroesPlayed, heroesPlayedId, isLoading]
+    [
+      profile,
+      recentMatches,
+      heroesPlayed,
+      heroesPlayedId,
+      isLoading,
+      successPlayerAccount,
+    ]
   );
 
   const Loading = useMemo(() => {
-    console.log("Loading...");
     return (
       <View
         style={{
@@ -101,10 +108,18 @@ export function Profile() {
   }, [isLoading]);
 
   const HeroesPlayed = React.memo(() => {
-    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
+    return (
+      <HeroesPlayedComponent
+        HeroesPlayedList={heroesPlayed}
+        successPlayerAccount={
+          player == null || player.profile.account_id == 0 ? false : true
+        }
+        textError={erro404}
+      />
+    );
   });
 
-  const Header = React.memo(() => {
+  const Home = React.memo(() => {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1, marginBottom: 15 }}>

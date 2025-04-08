@@ -18,6 +18,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db2 } from "../../../src/services/firebaseConfig";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
+import { toSteam32 } from "../../../src/utils/steam";
 
 export default function ModalMyAccount({
   handleClose,
@@ -52,6 +53,14 @@ export default function ModalMyAccount({
     : "Erro ao tentar alterar o Id da Steam";
 
   const handleSave = () => {
+    const convertedId = toSteam32(user.id_Steam);
+
+    const userReady = {
+      ...user,
+      id_Steam: convertedId,
+    };
+    setUser(userReady);
+
     setIsLoading(true);
     setTimeout(() => {
       if (
@@ -66,7 +75,7 @@ export default function ModalMyAccount({
       setModalMessageVisible(true);
       setIsLoading(false);
       console.log("TimeStamp atual: " + accountTimestamp);
-      setProfile(user);
+      setProfile(userReady);
       setPlayerTimestamp(currentTimestamp);
       setRefreshProfile(true);
     }, 300);

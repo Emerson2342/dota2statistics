@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Dota Statistics",
+    "name": "Dota 2 Stats",
     "slug": "dota2",
-    "version": "1.0.0beta",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
