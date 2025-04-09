@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,11 +6,14 @@ import {
   Image,
   Dimensions,
   FlatList,
+  TouchableOpacity,
+  Modal,
 } from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import {
   HeroDetailsModel,
+  ItemDetails,
   MatchDetailsModel,
   Player,
   ThemeColor,
@@ -21,6 +24,7 @@ import {
   PICTURE_HERO_BASE_URL,
   PICTURE_ITEM_BASE_URL,
 } from "../../constants/player";
+import { ModalItemDetails } from "../../../src/components/Modals/ModalItemDetails";
 
 export function Items({
   matchDetails,
@@ -34,6 +38,8 @@ export function Items({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemIndex, setItemIndex] = useState<ItemDetails>();
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -41,6 +47,14 @@ export function Items({
   const styles = createStyles(ColorTheme);
 
   const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  const handleItemDetails = (item: ItemDetails | undefined) => {
+    if (item) {
+      setItemIndex(item);
+      setModalVisible(true);
+      console.log(item.dname);
+    }
+  };
 
   const renderItemItems = ({ item }: { item: MatchDetailsModel }) => {
     const players = item.players;
@@ -139,106 +153,153 @@ export function Items({
                     />
                   </View>
                   <View style={{ width: "87%", justifyContent: "center" }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem0 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem0,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem1 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem1,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem2 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem2,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem3 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem3,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem4 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem4,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItem5 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItem5,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlBackPack0 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlBackPack0,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlBackPack1 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlBackPack1,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlBackPack2 ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlBackPack2,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlItemNeutral ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlItemNeutral,
-                        }}
-                      />
-                      <Image
-                        style={[
-                          styles.imageItem,
-                          { backgroundColor: urlAghanimsShard ?? "#ddd" },
-                        ]}
-                        source={{
-                          uri: PICTURE_ITEM_BASE_URL + urlAghanimsShard,
-                        }}
-                      />
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_0)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem0 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem0,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_1)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem1 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem1,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_2)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem2 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem2,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_3)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem3 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem3,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_4)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem4 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem4,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_5)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItem5 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItem5,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(backpack_0)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlBackPack0 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlBackPack0,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(backpack_1)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlBackPack1 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlBackPack1,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(backpack_2)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlBackPack2 ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlBackPack2,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleItemDetails(item_neutral)}
+                      >
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlItemNeutral ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlItemNeutral,
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Image
+                          style={[
+                            styles.imageItem,
+                            { backgroundColor: urlAghanimsShard ?? "#ddd" },
+                          ]}
+                          source={{
+                            uri: PICTURE_ITEM_BASE_URL + urlAghanimsShard,
+                          }}
+                        />
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </View>
@@ -246,6 +307,17 @@ export function Items({
             );
           })}
         </View>
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="fade"
+          statusBarTranslucent={true}
+        >
+          <ModalItemDetails
+            item={itemIndex}
+            handleClose={() => setModalVisible(false)}
+          />
+        </Modal>
       </View>
     );
   };
@@ -295,7 +367,8 @@ const createStyles = (colors: ThemeColor) =>
       borderRadius: 7,
     },
     imageItem: {
-      width: "9%",
+      width: Dimensions.get("window").width * 0.07,
+      height: undefined,
       aspectRatio: 1,
       borderRadius: 50,
     },

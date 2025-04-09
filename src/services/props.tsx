@@ -50,6 +50,20 @@ export interface Friend {
   idFriend: number;
 }
 
+export interface ItemDetails {
+  id: number;
+  name?: string;
+  dname?: string;
+  img: string;
+  lore: string;
+  notes: string | null;
+  abilities?: {
+    type: string;
+    title: string;
+    description: string;
+  }[];
+}
+
 export interface FriendDetailsModel {
   friend: string;
   idFriend: number;
