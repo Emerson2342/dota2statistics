@@ -469,7 +469,6 @@ export interface AghanimModel {
 export interface HeroDetailsJson {
   [key: string]: HeroDetailsModel;
 }
-
 export interface HeroDetailsModel {
   id: number;
   name: string;
@@ -479,9 +478,9 @@ export interface HeroDetailsModel {
   img: string;
   icon: string;
   base_health: number;
-  base_health_regen: number;
+  base_health_regen: number | null;
   base_mana: number;
-  base_mana_regen: number;
+  base_mana_regen: number | null;
   base_armor: number;
   base_mr: number;
   base_attack_min: number;
@@ -495,14 +494,10 @@ export interface HeroDetailsModel {
   attack_range: number;
   projectile_speed: number;
   attack_rate: number;
-  base_attack_time: number;
-  attack_point: number;
   move_speed: number;
-  turn_rate: number;
+  turn_rate: number | null;
   cm_enabled: boolean;
   legs: number;
-  day_vision: number;
-  night_vision: number;
   localized_name: string;
 }
 

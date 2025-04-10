@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,16 +7,19 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { ItemDetails } from "../../../src/services/props";
-import { PICTURE_ITEM_BASE_URL } from "../../../src/constants/player";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
+import {
+  HeroAbilitiesDescriptionsModel,
+  ItemDetails,
+} from "../../services/props";
+import { PICTURE_ITEM_BASE_URL } from "../../constants/player";
+import { useSettingsContext } from "../../context/useSettingsContext";
+import { useTheme } from "../../context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
-export function ModalItemDetails({
-  item,
+export function ModalAbilityDetails({
+  ability,
   handleClose,
 }: {
-  item: ItemDetails | undefined;
+  ability: HeroAbilitiesDescriptionsModel | undefined;
   handleClose: () => void;
 }) {
   const { englishLanguage } = useSettingsContext();
@@ -32,29 +35,39 @@ export function ModalItemDetails({
       <BannerAds />
       <View style={styles.modal}>
         <View style={styles.container}>
-          <Text style={styles.textTitle}>{item?.dname}</Text>
-          <Text
-            style={[styles.textLore, { display: item?.lore ? "flex" : "none" }]}
-          >
-            {item?.lore}
-          </Text>
+          <Text style={styles.textTitle}>{ability?.dname}</Text>
           <Image
             style={styles.imgItem}
             source={{
-              uri: PICTURE_ITEM_BASE_URL + item?.img,
+              uri: PICTURE_ITEM_BASE_URL + ability?.img,
             }}
           />
-          {item?.abilities?.map((item, index) => {
-            return (
-              <View key={index}>
-                <Text style={styles.textTitleDesc}>{item.title}</Text>
-                <Text style={styles.textDescription}>
-                  {"     "}
-                  {item.description}
-                </Text>
-              </View>
-            );
-          })}
+          {Array.isArray(ability?.mc) &&
+            ability?.mc.map((mc: string, index: number) => {
+              return (
+                <View key={index}>
+                  <Text>{mc}</Text>
+                </View>
+              );
+            })}
+
+          <Text
+            style={[
+              styles.textDescription,
+              { display: ability?.desc ? "flex" : "none" },
+            ]}
+          >
+            {ability?.desc}
+          </Text>
+
+          <Text
+            style={[
+              styles.textLore,
+              { display: ability?.lore ? "flex" : "none" },
+            ]}
+          >
+            {ability?.lore}
+          </Text>
 
           <TouchableOpacity
             style={[
@@ -94,7 +107,7 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
   },
   imgItem: {
-    width: Dimensions.get("window").width * 0.25,
+    width: Dimensions.get("window").width * 0.2,
     height: undefined,
     aspectRatio: 1.5,
     borderRadius: 10,
@@ -107,15 +120,16 @@ const styles = StyleSheet.create({
   },
   textDescription: {
     fontFamily: "QuickSand-Semibold",
-    textAlign: "justify",
+    textAlign: "center",
     color: "#333",
-    fontSize: Dimensions.get("window").width * 0.04,
+    fontSize: Dimensions.get("window").width * 0.03,
   },
   textLore: {
     fontFamily: "QuickSand-Bold",
     color: "#aaa",
     textAlign: "center",
     paddingBottom: "3%",
+    fontSize: Dimensions.get("window").width * 0.03,
   },
   buttonContainer: {
     marginTop: "5%",

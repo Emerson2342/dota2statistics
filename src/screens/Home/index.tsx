@@ -90,19 +90,10 @@ export function Profile() {
           flex: 1,
         }}
       >
-        <View
-          style={{
-            flex: 0.8,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ActivityIndicator color={ColorTheme.dark} />
-          <Text style={styles.textLoading}>
-            {englishLanguage ? "Loading..." : "Carregando..."}
-          </Text>
-        </View>
-        <BannerAds />
+        <ActivityIndicator color={ColorTheme.dark} />
+        <Text style={styles.textLoading}>
+          {englishLanguage ? "Loading..." : "Carregando..."}
+        </Text>
       </View>
     );
   }, [isLoading]);

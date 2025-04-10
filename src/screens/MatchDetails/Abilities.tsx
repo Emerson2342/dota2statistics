@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,13 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
+  Modal,
 } from "react-native";
 import {
+  HeroAbilitiesDescriptionsJson,
+  HeroAbilitiesDescriptionsModel,
+  HeroDetailsJson,
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
@@ -25,6 +30,8 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import AbilitiesDescriptions from "../../components/Heroes/AbilitiesDescriptions.json";
+import { ModalAbilityDetails } from "../../../src/components/Modals/ModalAbilityDetails";
 
 export function Abilities({
   matchDetails,
@@ -41,6 +48,14 @@ export function Abilities({
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
+  const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
+  const [abilityIndex, setAbilityIndex] =
+    useState<HeroAbilitiesDescriptionsModel>();
+
+  const [abilitiesDescriptions, setAbilitiesDescriptions] =
+    useState<HeroAbilitiesDescriptionsJson>();
+
+  const [heroesList, setHeroesList] = useState<HeroDetailsJson>();
   // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
@@ -51,9 +66,28 @@ export function Abilities({
 
   useEffect(() => {
     setTimeout(() => {
+      const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
+        AbilitiesDescriptions;
+
+      const heroList: HeroDetailsJson = HeroesDetails;
+
+      console.log("Carregando detalhes dos heróis...");
       setHeroList(Object.values(HeroesDetails) as HeroDetailsModel[]);
+      setAbilitiesDescriptions(heroAbilitiesDescriptions);
+      setHeroesList(heroList);
     }, 500);
   }, []);
+
+  const handleAbilitiesDetails = (abilityName: string) => {
+    abilityName = abilityName.replace(".png", "");
+    if (abilitiesDescriptions) {
+      const abilityDetails = abilitiesDescriptions[abilityName];
+      if (abilityDetails) {
+        setAbilityIndex(abilityDetails);
+      }
+      setModalAbilityDetails(true);
+    }
+  };
 
   const HandleGoToHeroDetails = (heroId: number | undefined) => {
     if (heroId) {
@@ -75,7 +109,7 @@ export function Abilities({
         </Text>
         {players &&
           players.map((player: Player, index: number) => {
-            const hero = heroList.find((hero) => hero.id === player.hero_id);
+            const hero = heroesList && heroesList[player.hero_id];
             let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
 
             return (
@@ -106,20 +140,22 @@ export function Abilities({
                   <></>
                 )}
 
-                <TouchableOpacity
-                  onPress={() => HandleGoToHeroDetails(player.hero_id)}
+                <View
                   style={{
                     flexDirection: "row",
                     width: "100%",
                     paddingBottom: index == 4 ? "3%" : 0,
                   }}
                 >
-                  <View style={styles.imageHeroWrapper}>
+                  <TouchableOpacity
+                    onPress={() => HandleGoToHeroDetails(player.hero_id)}
+                    style={styles.imageHeroWrapper}
+                  >
                     <Image
                       style={styles.heroImage}
                       source={{ uri: imgSource }}
                     />
-                  </View>
+                  </TouchableOpacity>
                   <View style={styles.imageAbilityWrapper}>
                     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                       {player &&
@@ -134,26 +170,33 @@ export function Abilities({
                             let image = ITEM_IMAGE_BASE_URL + abilityName;
                             if (abilityName.includes("special_bonus")) {
                               return (
-                                <Image
-                                  key={abilityIndex}
-                                  style={styles.abilityImage}
-                                  source={TalentTree}
-                                />
+                                <View key={abilityIndex}>
+                                  <Image
+                                    style={styles.abilityImage}
+                                    source={TalentTree}
+                                  />
+                                </View>
                               );
                             }
 
                             return (
-                              <Image
+                              <TouchableOpacity
                                 key={abilityIndex}
-                                style={styles.abilityImage}
-                                source={{ uri: image }}
-                              />
+                                onPress={() =>
+                                  handleAbilitiesDetails(abilityName)
+                                }
+                              >
+                                <Image
+                                  style={styles.abilityImage}
+                                  source={{ uri: image }}
+                                />
+                              </TouchableOpacity>
                             );
                           }
                         )}
                     </View>
                   </View>
-                </TouchableOpacity>
+                </View>
               </View>
             );
           })}
@@ -169,6 +212,16 @@ export function Abilities({
         keyExtractor={(item) => item.match_id.toString()}
         renderItem={({ item }) => <RenderAbilityes players={item.players} />}
       />
+      <Modal
+        visible={modalAbilityDetails}
+        animationType="fade"
+        transparent={true}
+      >
+        <ModalAbilityDetails
+          ability={abilityIndex}
+          handleClose={() => setModalAbilityDetails(false)}
+        />
+      </Modal>
     </View>
   );
 }
@@ -214,8 +267,8 @@ const createStyles = (Colors: ThemeColor) =>
     },
 
     abilityImage: {
-      width: "9%",
-      height: 1,
+      width: Dimensions.get("window").width * 0.07,
+      height: undefined,
       aspectRatio: 1,
       borderRadius: 50,
     },
