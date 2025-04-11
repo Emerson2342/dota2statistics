@@ -42,14 +42,23 @@ export function ModalAbilityDetails({
               uri: PICTURE_ITEM_BASE_URL + ability?.img,
             }}
           />
-          {Array.isArray(ability?.mc) &&
-            ability?.mc.map((mc: string, index: number) => {
-              return (
+          <View style={{ flexDirection: 'row' }}>
+            <Text>Mana Coust:</Text>
+
+            {Array.isArray(ability?.mc) ? (
+              ability.mc.map((mc: string, index: number) => (
                 <View key={index}>
                   <Text>{mc}</Text>
+                  {ability?.mc && ability.mc.length < index ? null : <Text>,</Text>}
                 </View>
-              );
-            })}
+              ))
+            ) : ability?.mc ? (
+              <View>
+                <Text>{ability.mc}</Text>
+              </View>
+            ) : null}
+
+          </View>
 
           <Text
             style={[

@@ -47,7 +47,6 @@ export function Abilities({
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
   const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
   const [abilityIndex, setAbilityIndex] =
     useState<HeroAbilitiesDescriptionsModel>();
@@ -55,26 +54,22 @@ export function Abilities({
   const [abilitiesDescriptions, setAbilitiesDescriptions] =
     useState<HeroAbilitiesDescriptionsJson>();
 
-  const [heroesList, setHeroesList] = useState<HeroDetailsJson>();
-  // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
   const styles = createStyles(ColorTheme);
-  // const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  const heroesList = useMemo(() => {
+    return Object.values(HeroesDetails) as HeroDetailsModel[];
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
         AbilitiesDescriptions;
 
-      const heroList: HeroDetailsJson = HeroesDetails;
-
-      console.log("Carregando detalhes dos heróis...");
-      setHeroList(Object.values(HeroesDetails) as HeroDetailsModel[]);
       setAbilitiesDescriptions(heroAbilitiesDescriptions);
-      setHeroesList(heroList);
+
     }, 500);
   }, []);
 
@@ -91,7 +86,7 @@ export function Abilities({
 
   const HandleGoToHeroDetails = (heroId: number | undefined) => {
     if (heroId) {
-      const heroIndex = heroList.find((h) => h.id === heroId);
+      const heroIndex = heroesList.find((h) => h.id === heroId);
       if (heroIndex) {
         console.log("Herói Selecionado: " + heroIndex?.localized_name);
         navigation.navigate("HeroDetails", { heroDetails: heroIndex });
@@ -109,7 +104,7 @@ export function Abilities({
         </Text>
         {players &&
           players.map((player: Player, index: number) => {
-            const hero = heroesList && heroesList[player.hero_id];
+            const hero = heroesList.find((hero) => hero.id === player.hero_id);
             let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
 
             return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -46,7 +46,9 @@ export function Items({
 
   const styles = createStyles(ColorTheme);
 
-  const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+  const heroList = useMemo(() => {
+    return Object.values(HeroesDetails) as HeroDetailsModel[];
+  }, []);
 
   const handleItemDetails = (item: ItemDetails | undefined) => {
     if (item) {
