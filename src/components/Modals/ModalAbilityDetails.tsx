@@ -40,7 +40,6 @@ export function ModalAbilityDetails({
     return cd ?? "";
   };
 
-
   const mana = manaCoust(ability?.mc);
   const coolDown = coolDownTime(ability?.cd);
 
@@ -55,7 +54,7 @@ export function ModalAbilityDetails({
       <View style={styles.modal}>
         <View style={styles.container}>
           <Text style={styles.textTitle}>{ability?.dname}</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginVertical: "3%" }}>
             <Image
               style={styles.imgItem}
               source={{
@@ -90,18 +89,47 @@ export function ModalAbilityDetails({
                 />
                 <Text style={styles.textDetails}> {mana}</Text>
               </View>
+              <Text
+                style={[
+                  styles.textDetails,
+                  { display: ability?.dmg_type ? "flex" : "none" },
+                ]}
+              >
+                Damage Type:{" "}
+                <Text style={{ color: "#999" }}>{ability?.dmg_type}</Text>
+              </Text>
+              <Text
+                style={[
+                  styles.textDetails,
+                  {
+                    display: ability?.bkbpierce ? "flex" : "none",
+                  },
+                ]}
+              >
+                Pierce BKB:{" "}
+                <Text style={{ color: "#999" }}>{ability?.bkbpierce}</Text>
+              </Text>
+              <Text
+                style={[
+                  styles.textDetails,
+                  {
+                    display: ability?.dispellable ? "flex" : "none",
+                  },
+                ]}
+              >
+                Dispellable:{" "}
+                <Text style={{ color: "#999" }}>{ability?.dispellable}</Text>
+              </Text>
             </View>
-          </View>
-          <View style={{ marginVertical: "1.3%" }}>
-            <Text style={[styles.textDetails, { display: ability?.bkbpierce ? "flex" : "none", }]}>Pierce BKB: <Text style={{ color: "#999" }}>{ability?.bkbpierce}</Text></Text>
-            <Text style={[styles.textDetails, { display: ability?.dispellable ? "flex" : "none", }]}>Dispellable: <Text style={{ color: "#999" }}>{ability?.dispellable}</Text></Text>
           </View>
           <Text
             style={[
               styles.textDescription,
               { display: ability?.desc ? "flex" : "none" },
             ]}
-          >{"     "}{ability?.desc}
+          >
+            {"     "}
+            {ability?.desc}
           </Text>
 
           <Text
@@ -109,7 +137,9 @@ export function ModalAbilityDetails({
               styles.textLore,
               { display: ability?.lore ? "flex" : "none" },
             ]}
-          >"{ability?.lore}"</Text>
+          >
+            "{ability?.lore}"
+          </Text>
 
           <TouchableOpacity
             style={[
@@ -149,13 +179,14 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
   },
   imgItem: {
-    width: Dimensions.get("window").width * 0.2,
+    width: Dimensions.get("window").width * 0.25,
     height: undefined,
-    aspectRatio: 1.5,
+    aspectRatio: 1,
     borderRadius: 10,
   },
   textDetails: {
-    fontFamily: "QuickSand-Semibold"
+    fontFamily: "QuickSand-Semibold",
+    fontSize: Dimensions.get("screen").width * 0.033,
   },
   textTitleDesc: {
     fontFamily: "QuickSand-Semibold",

@@ -69,7 +69,6 @@ export function Abilities({
         AbilitiesDescriptions;
 
       setAbilitiesDescriptions(heroAbilitiesDescriptions);
-
     }, 500);
   }, []);
 
@@ -152,9 +151,12 @@ export function Abilities({
                     />
                   </TouchableOpacity>
                   <View style={styles.imageAbilityWrapper}>
-                    <View style={{
-                      flexDirection: "row", flexWrap: "wrap",
-                    }}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                      }}
+                    >
                       {player &&
                         player.ability_upgrades_arr &&
                         player.ability_upgrades_arr.map(

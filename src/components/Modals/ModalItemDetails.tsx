@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   View,
   StyleSheet,
@@ -7,20 +7,38 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { ItemDetails } from "../../../src/services/props";
+import { AghanimModel, ItemDetails } from "../../../src/services/props";
 import { PICTURE_ITEM_BASE_URL } from "../../../src/constants/player";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
+import AbilitiesDescriptions from "../../../src/components/Heroes/AbilitiesDescriptions.json";
+
 export function ModalItemDetails({
   item,
+  shard,
   handleClose,
 }: {
   item: ItemDetails | undefined;
+  shard: AghanimModel | undefined;
   handleClose: () => void;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
+
+  const shardUrl =
+    "/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403";
+  const shardTitle = "Shard";
+
+  const itemToShow = {
+    itemDname: item?.dname ?? shardTitle,
+    itemImage: item?.img ?? shardUrl,
+    itemDesc: "",
+  };
+
+  const aghaninAndShardDesc = useMemo(() => {
+    return Object.values(AbilitiesDescriptions) as AghanimModel[];
+  }, []);
 
   return (
     <View
@@ -32,12 +50,11 @@ export function ModalItemDetails({
       <BannerAds />
       <View style={styles.modal}>
         <View style={styles.container}>
-          <Text style={styles.textTitle}>{item?.dname}</Text>
-
+          <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
           <Image
             style={styles.imgItem}
             source={{
-              uri: PICTURE_ITEM_BASE_URL + item?.img,
+              uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,
             }}
           />
           {item?.abilities?.map((item, index) => {
@@ -51,6 +68,15 @@ export function ModalItemDetails({
               </View>
             );
           })}
+          {shard ? (
+            <View>
+              <Text style={styles.textTitleDesc}>{shard.shard_skill_name}</Text>
+              <Text style={styles.textDescription}>
+                {"     "}
+                {shard.shard_desc}
+              </Text>
+            </View>
+          ) : null}
           <Text
             style={[styles.textLore, { display: item?.lore ? "flex" : "none" }]}
           >
