@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { AghanimModel, ItemDetails } from "../../../src/services/props";
+import { AghanimModel, HeroAbilitiesDescriptionsModel, ItemDetails } from "../../../src/services/props";
 import { PICTURE_ITEM_BASE_URL } from "../../../src/constants/player";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
@@ -26,19 +26,19 @@ export function ModalItemDetails({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 
-  const shardUrl =
-    "/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403";
-  const shardTitle = "Shard";
+
+  const aghaninAndShardDesc = useMemo(() => {
+    const shardList = Object.values(AbilitiesDescriptions) as HeroAbilitiesDescriptionsModel[];
+    return shardList.find((s) => s.dname === shard?.shard_skill_name);
+  }, []);
 
   const itemToShow = {
-    itemDname: item?.dname ?? shardTitle,
-    itemImage: item?.img ?? shardUrl,
+    itemDname: item?.dname ?? "Shard",
+    itemImage: item?.img ?? aghaninAndShardDesc?.img,
     itemDesc: "",
   };
 
-  const aghaninAndShardDesc = useMemo(() => {
-    return Object.values(AbilitiesDescriptions) as AghanimModel[];
-  }, []);
+
 
   return (
     <View
@@ -52,7 +52,7 @@ export function ModalItemDetails({
         <View style={styles.container}>
           <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
           <Image
-            style={styles.imgItem}
+            style={[styles.imgItem, { aspectRatio: shard ? 1 : 1.5 }]}
             source={{
               uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,
             }}
@@ -70,10 +70,10 @@ export function ModalItemDetails({
           })}
           {shard ? (
             <View>
-              <Text style={styles.textTitleDesc}>{shard.shard_skill_name}</Text>
+              <Text style={styles.textTitleDesc}>{aghaninAndShardDesc?.dname}</Text>
               <Text style={styles.textDescription}>
                 {"     "}
-                {shard.shard_desc}
+                {shard?.shard_desc}
               </Text>
             </View>
           ) : null}
