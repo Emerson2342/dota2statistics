@@ -56,35 +56,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
   const [refresh, setRefresh] = useState(true);
 
-  const renderScene = useCallback(
-    ({ route }: any) => {
-      switch (route.key) {
-        case "first":
-          return <Header />;
-        case "heroesPlayed":
-          return <HeroesPlayed />;
-        default:
-          return null;
-      }
-    },
-    [
-      recentMatches,
-      heroesPlayed,
-      PlayerId,
-      heroesPlayedId,
-      isLoading,
-      modalFavoritesVisible,
-    ]
-  );
-
-  const routes = [
-    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
-    {
-      key: "heroesPlayed",
-      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
-    },
-  ];
-
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."
     : "Não foi possível acessar os dados do jogador. Perfil pode estar como privado.";
@@ -95,26 +66,30 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
   const [status, setStatus] = useState<number>();
 
+
   useEffect(() => {
     handleSearch();
   }, []);
 
-  const playerFound = favoritesPlayers.find(
-    (p) => p.profile.account_id.toString() === PlayerId
-  );
 
-  const handleFavorites = () => {
-    if (playerFound) {
-      setPlayerIdToRemove(playerFound.profile.account_id);
-      setModalFavoritesVisible(true);
-      return;
-    }
-    if (player) {
-      addFavoritePlayer(player);
-    }
-  };
+
 
   useEffect(() => {
+
+    const playerFound = favoritesPlayers.find(
+      (p) => p.profile.account_id.toString() === PlayerId
+    );
+
+    const handleFavorites = () => {
+      if (playerFound) {
+        setPlayerIdToRemove(playerFound.profile.account_id);
+        setModalFavoritesVisible(true);
+        return;
+      }
+      if (player) {
+        addFavoritePlayer(player);
+      }
+    };
     navigation.setOptions({
       headerRight: () => {
         return (
@@ -134,6 +109,21 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       },
     });
   }, [favoritesPlayers, player]);
+
+
+
+
+
+  const routes = [
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    {
+      key: "heroesPlayed",
+      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+    },
+  ];
+
+
+
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -168,8 +158,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     }, 500);
   };
 
-  if (recentMatches.length === 0 && !isLoading)
-    return <Text style={styles.textMessage}>{erro404}</Text>;
+
 
   const Loading = useMemo(() => {
     return (
@@ -261,7 +250,33 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     />
   );
 
+  const renderScene = useCallback(
+    ({ route }: any) => {
+      switch (route.key) {
+        case "first":
+          return <Header />;
+        case "heroesPlayed":
+          return <HeroesPlayed />;
+        default:
+          return null;
+      }
+    },
+    [
+      recentMatches,
+      modalFavoritesVisible,
+      // heroesPlayed,
+      // PlayerId,
+      // heroesPlayedId,
+      //isLoading,
+    ]
+  );
+
+
+
   if (isLoading) return Loading;
+
+  if (recentMatches.length === 0 && !isLoading)
+    return <Text style={styles.textMessage}>{erro404}</Text>;
   return (
     <TabView
       renderTabBar={renderTabBar}

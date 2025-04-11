@@ -81,22 +81,21 @@ export function Profile() {
     ]
   );
 
-  const Loading = useMemo(() => {
-    return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <ActivityIndicator color={ColorTheme.dark} />
-        <Text style={styles.textLoading}>
-          {englishLanguage ? "Loading..." : "Carregando..."}
-        </Text>
-      </View>
-    );
-  }, [isLoading]);
+  const Loading = useMemo(() => (
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+      }}
+    >
+      <ActivityIndicator color={ColorTheme.dark} />
+      <Text style={styles.textLoading}>
+        {englishLanguage ? "Loading..." : "Carregando..."}
+      </Text>
+    </View>
+
+  ), [isLoading]);
 
   const HeroesPlayed = React.memo(() => {
     return (
