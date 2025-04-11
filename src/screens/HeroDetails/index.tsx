@@ -132,10 +132,24 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const baseAttMax = heroDetails.base_attack_max + baseAttack;
   const baseHelth = 120 + heroDetails.base_str * 22;
   const baseMana = 75 + heroDetails.base_int * 12;
-  const helthRegen = heroDetails.base_health_regen + heroDetails.base_str * 0.1;
+  const helthRegen = (heroDetails?.base_health_regen ?? 0) + heroDetails.base_str * 0.1;
   const manaRegen =
-    heroDetails.base_mana_regen +
+    (heroDetails.base_mana_regen ?? 0) +
     heroDetails.base_int * 0.05 * (1 + heroDetails.base_int * 0.02);
+
+  const manaCoust = (mc?: string | string[]) => {
+    if (Array.isArray(mc)) {
+      return mc.join(", ");
+    }
+    return mc ?? "";
+  };
+
+  const coolDownTime = (cd?: string | string[]) => {
+    if (Array.isArray(cd)) {
+      return cd.join(", ");
+    }
+    return cd ?? "";
+  };
 
   const renderAbilitiesDescriptions = ({
     item,
@@ -144,19 +158,9 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     item: HeroAbilitiesDescriptionsModel;
     index: number;
   }) => {
-    const manaCoust = (mc?: string | string[]) => {
-      if (Array.isArray(mc)) {
-        return mc.join(", ");
-      }
-      return mc ?? "";
-    };
 
-    const coolDownTime = (cd?: string | string[]) => {
-      if (Array.isArray(cd)) {
-        return cd.join(", ");
-      }
-      return cd ?? "";
-    };
+
+
 
     const mana = manaCoust(item?.mc);
     const coolDown = coolDownTime(item?.cd);
@@ -261,7 +265,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
         <Text
           style={{
             display: item?.lore ? "flex" : "none",
-            fontFamily: "QuickSand-Semibold",
+            fontStyle: "italic",
             color: "#aaa",
             marginTop: 9,
             textAlign: "center",

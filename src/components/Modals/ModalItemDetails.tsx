@@ -33,11 +33,7 @@ export function ModalItemDetails({
       <View style={styles.modal}>
         <View style={styles.container}>
           <Text style={styles.textTitle}>{item?.dname}</Text>
-          <Text
-            style={[styles.textLore, { display: item?.lore ? "flex" : "none" }]}
-          >
-            {item?.lore}
-          </Text>
+
           <Image
             style={styles.imgItem}
             source={{
@@ -55,7 +51,11 @@ export function ModalItemDetails({
               </View>
             );
           })}
-
+          <Text
+            style={[styles.textLore, { display: item?.lore ? "flex" : "none" }]}
+          >
+            "{item?.lore}"
+          </Text>
           <TouchableOpacity
             style={[
               styles.buttonContainer,
@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
   },
   imgItem: {
-    width: Dimensions.get("window").width * 0.25,
+    width: Dimensions.get("window").width * 0.2,
     height: undefined,
     aspectRatio: 1.5,
     borderRadius: 10,
   },
   textTitleDesc: {
-    fontFamily: "QuickSand-Semibold",
+    fontFamily: "QuickSand-Bold",
     textAlign: "center",
     fontSize: Dimensions.get("window").width * 0.04,
     padding: "2%",
@@ -109,13 +109,14 @@ const styles = StyleSheet.create({
     fontFamily: "QuickSand-Semibold",
     textAlign: "justify",
     color: "#333",
-    fontSize: Dimensions.get("window").width * 0.04,
+    fontSize: Dimensions.get("window").width * 0.035,
   },
   textLore: {
-    fontFamily: "QuickSand-Bold",
-    color: "#aaa",
+    fontStyle: "italic",
+    color: "#999",
     textAlign: "center",
     paddingBottom: "3%",
+    paddingTop: "3%",
   },
   buttonContainer: {
     marginTop: "5%",
