@@ -264,9 +264,9 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     [
       recentMatches,
       modalFavoritesVisible,
-      // heroesPlayed,
+      //heroesPlayed,
       // PlayerId,
-      // heroesPlayedId,
+      heroesPlayedId,
       //isLoading,
     ]
   );

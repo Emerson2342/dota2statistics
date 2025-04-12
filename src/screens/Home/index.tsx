@@ -46,7 +46,6 @@ export function Profile() {
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
-  const [successPlayerAccount, setSuccessPlayerAccount] = useState(false);
 
   const styles = createStyles(ColorTheme);
 
@@ -56,17 +55,18 @@ export function Profile() {
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
-        case "first":
-          return <Home />;
-        case "heroesPlayed":
-          return <HeroesPlayed />;
-        case "second":
+        case "home":
           return (
             <ProMatches
               onRefresh={async () => await getProMatches(setProMatches)}
               proMatches={proMatches}
             />
           );
+        case "myProfile":
+          return <Home />;
+        case "myHeroesPlayed":
+          return <HeroesPlayed />;
+
         default:
           return null;
       }
@@ -77,7 +77,6 @@ export function Profile() {
       heroesPlayed,
       heroesPlayedId,
       isLoading,
-      successPlayerAccount,
     ]
   );
 
@@ -155,15 +154,16 @@ export function Profile() {
   });
 
   const routes = [
-    { key: "first", title: englishLanguage ? "Home" : "Início" },
     {
-      key: "heroesPlayed",
-      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+      key: "home",
+      title: englishLanguage ? "Home" : "Início",
     },
+    { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
     {
-      key: "second",
-      title: englishLanguage ? "Pro Matches" : "Partidas Profissionais",
+      key: "myHeroesPlayed",
+      title: englishLanguage ? " My Heroes Played" : "Heróis Jogados",
     },
+
   ];
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"
