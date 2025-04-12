@@ -17,10 +17,14 @@ import AbilitiesDescriptions from "../../../src/components/Heroes/AbilitiesDescr
 export function ModalItemDetails({
   item,
   shard,
+  aghanim,
+  itemType,
   handleClose,
 }: {
   item: ItemDetails | undefined;
   shard: AghanimModel | undefined;
+  aghanim: AghanimModel | undefined;
+  itemType: string;
   handleClose: () => void;
 }) {
   const { englishLanguage } = useSettingsContext();
@@ -29,17 +33,18 @@ export function ModalItemDetails({
 
   const aghaninAndShardDesc = useMemo(() => {
     const shardList = Object.values(AbilitiesDescriptions) as HeroAbilitiesDescriptionsModel[];
-    return shardList.find((s) => s.dname === shard?.shard_skill_name);
+    if (shard) {
+      return shardList.find((s) => s.dname === shard?.shard_skill_name);
+
+    } else if (aghanim) { }
+    return shardList.find((s) => s.dname === aghanim?.scepter_skill_name);
+
   }, []);
 
   const itemToShow = {
-    itemDname: item?.dname ?? "Shard",
+    itemDname: item?.dname ?? itemType,
     itemImage: item?.img ?? aghaninAndShardDesc?.img,
-    itemDesc: "",
   };
-
-
-
   return (
     <View
       style={{
@@ -52,7 +57,7 @@ export function ModalItemDetails({
         <View style={styles.container}>
           <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
           <Image
-            style={[styles.imgItem, { aspectRatio: shard ? 1 : 1.5 }]}
+            style={[styles.imgItem, { aspectRatio: shard || aghanim ? 1 : 1.5 }]}
             source={{
               uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,
             }}
@@ -68,12 +73,12 @@ export function ModalItemDetails({
               </View>
             );
           })}
-          {shard ? (
-            <View>
+          {shard || aghanim ? (
+            <View >
               <Text style={styles.textTitleDesc}>{aghaninAndShardDesc?.dname}</Text>
               <Text style={styles.textDescription}>
                 {"     "}
-                {shard?.shard_desc}
+                {shard?.shard_desc}{aghanim?.scepter_desc}
               </Text>
             </View>
           ) : null}

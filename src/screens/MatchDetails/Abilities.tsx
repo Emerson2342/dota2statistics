@@ -51,8 +51,6 @@ export function Abilities({
   const [abilityIndex, setAbilityIndex] =
     useState<HeroAbilitiesDescriptionsModel>();
 
-  const [abilitiesDescriptions, setAbilitiesDescriptions] =
-    useState<HeroAbilitiesDescriptionsJson>();
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -63,25 +61,21 @@ export function Abilities({
     return Object.values(HeroesDetails) as HeroDetailsModel[];
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
-        AbilitiesDescriptions;
-
-      setAbilitiesDescriptions(heroAbilitiesDescriptions);
-    }, 500);
-  }, []);
+  const abilitiesDescriptions = useMemo(() => {
+    const abilities: HeroAbilitiesDescriptionsJson = AbilitiesDescriptions;
+    return abilities;
+  }, [])
 
   const handleAbilitiesDetails = (abilityName: string) => {
     abilityName = abilityName.replace(".png", "");
-    if (abilitiesDescriptions) {
-      const abilityDetails = abilitiesDescriptions[abilityName];
-      if (abilityDetails) {
-        setAbilityIndex(abilityDetails);
-      }
+    const abilityDetails = abilitiesDescriptions[abilityName];
+
+    if (abilityDetails) {
+      setAbilityIndex(abilityDetails);
       setModalAbilityDetails(true);
     }
-  };
+  }
+
 
   const HandleGoToHeroDetails = (heroId: number | undefined) => {
     if (heroId) {
@@ -95,14 +89,14 @@ export function Abilities({
     }
   };
 
-  const RenderAbilityes = ({ players }: { players: Player[] }) => {
+  const RenderAbilityes = ({ item }: { item: MatchDetailsModel }) => {
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
           {englishLanguage ? "Skill Progression" : "Construção de Habilidades"}
         </Text>
-        {players &&
-          players.map((player: Player, index: number) => {
+        {item &&
+          item.players.map((player: Player, index: number) => {
             const hero = heroesList.find((hero) => hero.id === player.hero_id);
             let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
 
@@ -209,12 +203,13 @@ export function Abilities({
         data={matchDetails ? [matchDetails] : []}
         scrollEnabled={false}
         keyExtractor={(item) => item.match_id.toString()}
-        renderItem={({ item }) => <RenderAbilityes players={item.players} />}
+        renderItem={RenderAbilityes}
       />
       <Modal
         visible={modalAbilityDetails}
         animationType="fade"
         transparent={true}
+        onRequestClose={() => setModalAbilityDetails(false)}
       >
         <ModalAbilityDetails
           ability={abilityIndex}

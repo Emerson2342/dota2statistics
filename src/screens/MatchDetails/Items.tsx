@@ -43,6 +43,8 @@ export function Items({
   const [modalVisible, setModalVisible] = useState(false);
   const [itemIndex, setItemIndex] = useState<ItemDetails>();
   const [shardIndex, setShardIndex] = useState<AghanimModel>();
+  const [aghanimIndex, setAghanimIndex] = useState<AghanimModel>();
+  const [itemType, setItemType] = useState("item");
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -57,27 +59,39 @@ export function Items({
     return Object.values(AghanimDescription) as AghanimModel[];
   }, []);
 
-  const handleItemDetails = (
+  const handleItemDetails = (heroId: number | null,
     item: ItemDetails | undefined,
     shardDetails: number | null
   ) => {
     setItemIndex(undefined);
     setShardIndex(undefined);
-    if (item) {
+    setAghanimIndex(undefined);
+
+    if (item && item.name !== "ultimate_scepter") {
       setItemIndex(item);
+      setItemType("item");
       setModalVisible(true);
-      //console.log(item.dname);
     }
+    else if (item && item.name === "ultimate_scepter") {
+      const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
+      if (scepter) {
+        setAghanimIndex(scepter);
+        setItemType("Aghanim's Scepter");
+        setModalVisible(true);
+      }
+    }
+
     if (shardDetails) {
       const shardDesc = aghaninAndShardDesc.find(
         (shard) => shard.hero_id === shardDetails
       );
       if (shardDesc) {
         setShardIndex(shardDesc);
+        setItemType("Aghanim's Shard");
         setModalVisible(true);
-        //alert(JSON.stringify(shardDesc, null, 2));
       }
     }
+
   };
 
   const renderItemItems = ({ item }: { item: MatchDetailsModel }) => {
@@ -184,7 +198,7 @@ export function Items({
                       }}
                     >
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_0, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_0, null)}
                       >
                         <Image
                           style={[
@@ -197,7 +211,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_1, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_1, null)}
                       >
                         <Image
                           style={[
@@ -210,7 +224,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_2, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_2, null)}
                       >
                         <Image
                           style={[
@@ -223,7 +237,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_3, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_3, null)}
                       >
                         <Image
                           style={[
@@ -236,7 +250,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_4, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_4, null)}
                       >
                         <Image
                           style={[
@@ -249,7 +263,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_5, null)}
+                        onPress={() => handleItemDetails(player.hero_id, item_5, null)}
                       >
                         <Image
                           style={[
@@ -262,7 +276,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(backpack_0, null)}
+                        onPress={() => handleItemDetails(player.hero_id, backpack_0, null)}
                       >
                         <Image
                           style={[
@@ -275,7 +289,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(backpack_1, null)}
+                        onPress={() => handleItemDetails(player.hero_id, backpack_1, null)}
                       >
                         <Image
                           style={[
@@ -288,7 +302,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(backpack_2, null)}
+                        onPress={() => handleItemDetails(player.hero_id, backpack_2, null)}
                       >
                         <Image
                           style={[
@@ -301,7 +315,7 @@ export function Items({
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => handleItemDetails(item_neutral, null)}
+                        onPress={() => handleItemDetails(null, item_neutral, null)}
                       >
                         <Image
                           style={[
@@ -316,7 +330,7 @@ export function Items({
                       <TouchableOpacity
                         disabled={urlAghanimsShard ? false : true}
                         onPress={() =>
-                          handleItemDetails(undefined, player.hero_id)
+                          handleItemDetails(null, undefined, player.hero_id)
                         }
                       >
                         <Image
@@ -352,6 +366,8 @@ export function Items({
         <ModalItemDetails
           item={itemIndex}
           shard={shardIndex}
+          aghanim={aghanimIndex}
+          itemType={itemType}
           handleClose={() => setModalVisible(false)}
         />
       </Modal>
