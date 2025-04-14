@@ -52,16 +52,17 @@ export function Profile() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
 
+  useEffect(() => {
+    handleLoadData();
+  }, [profile]);
+
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
-        case "home":
-          return <Home />;
         case "myProfile":
           return <MyProfile />;
-        case "myHeroesPlayed":
-          return <HeroesPlayed />;
-
+        case "trendings":
+          return <Trendings />;
         default:
           return null;
       }
@@ -94,7 +95,7 @@ export function Profile() {
     [isLoading]
   );
 
-  const Home = React.memo(() => {
+  const Trendings = React.memo(() => {
     return (
       <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
         <View style={{ flex: 0.33 }}>
@@ -109,18 +110,6 @@ export function Profile() {
 
         <BannerAds />
       </View>
-    );
-  });
-
-  const HeroesPlayed = React.memo(() => {
-    return (
-      <HeroesPlayedComponent
-        HeroesPlayedList={heroesPlayed}
-        successPlayerAccount={
-          player == null || player.profile.account_id == 0 ? false : true
-        }
-        textError={erro404}
-      />
     );
   });
 
@@ -146,7 +135,7 @@ export function Profile() {
                   recentMatches={recentMatches}
                 />
               </View>
-              <View style={{ flex: heroesPlayedId.length > 5 ? 0.45 : 0.47 }}>
+              <View style={{ flex: heroesPlayedId.length > 5 ? 0.4 : 0.42 }}>
                 <View style={{ flex: 1, paddingBottom: "1%" }}>
                   {player ? (
                     <LastMatches
@@ -157,10 +146,19 @@ export function Profile() {
                   ) : null}
                 </View>
               </View>
+              <View style={{ flex: 0.3 }}>
+                <HeroesPlayedComponent
+                  HeroesPlayedList={heroesPlayed}
+                  successPlayerAccount={
+                    player == null || player.profile.account_id == 0
+                      ? false
+                      : true
+                  }
+                  textError={erro404}
+                />
+              </View>
             </>
           )}
-
-          <View style={{ flex: 0.25 }}></View>
         </View>
         <BannerAds />
       </View>
@@ -168,14 +166,10 @@ export function Profile() {
   });
 
   const routes = [
-    {
-      key: "home",
-      title: englishLanguage ? "Home" : "Início",
-    },
     { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
     {
-      key: "myHeroesPlayed",
-      title: englishLanguage ? " My Heroes Played" : "Heróis Jogados",
+      key: "trendings",
+      title: englishLanguage ? "Trendings" : "Populares",
     },
   ];
   const erro404 = englishLanguage
@@ -213,10 +207,6 @@ export function Profile() {
       setIsLoading(false);
     }, 500);
   };
-
-  useEffect(() => {
-    handleLoadData();
-  }, [profile]);
 
   const renderTabBar = (props: any) => (
     <TabBar

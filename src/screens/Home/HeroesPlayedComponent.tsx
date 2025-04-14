@@ -9,7 +9,11 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import { HeroDetailsModel, HeroesPlayed } from "../../../src/services/props";
+import {
+  HeroDetailsModel,
+  HeroesPlayed,
+  ThemeColor,
+} from "../../../src/services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
@@ -32,8 +36,7 @@ export function HeroesPlayedComponent({
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(HeroesPlayedList);
   const { ColorTheme } = useTheme();
-
-  const width = Dimensions.get("screen").width * 0.13;
+  const styles = createStyles(ColorTheme);
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
@@ -61,15 +64,6 @@ export function HeroesPlayedComponent({
     );
   }
 
-  const ordLastPlayed = () => {
-    setOrderedList((prevHeroArray) =>
-      [...prevHeroArray].sort((a, b) => b.last_played - a.last_played)
-    );
-  };
-  const ordMostPlayed = () => {
-    setOrderedList(HeroesPlayedList);
-  };
-
   const RenderItem = ({
     item,
     index,
@@ -90,145 +84,121 @@ export function HeroesPlayedComponent({
     const winrate = (item.win / item.games) * 100;
 
     return (
-      <View style={styles.renderItemContainer}>
-        <Text style={styles.textHeroName}>{heroIndex?.localized_name}</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View style={{ width: "10%" }}>
-            <Image
-              style={{ width: width, aspectRatio: 1.5, borderRadius: 7 }}
-              source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
-            />
-          </View>
-          <View style={{ width: "85%" }}>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Last Played:" : "Última vez jogado:"}{" "}
-                <Text style={styles.textInfo}>
-                  {startDate.toLocaleDateString(
-                    englishLanguage ? "en-US" : "pt-BR"
-                  )}{" "}
-                  {formattedTime}
-                </Text>
-              </Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-around" }}
-            >
-              <Text style={styles.textLabel}>
-                Winrate:{" "}
-                <Text style={styles.textInfo}>{winrate.toFixed(2)}%</Text>
-              </Text>
+      <View
+        style={[
+          styles.renderItemContainer,
+          {
+            backgroundColor: index % 2 === 0 ? ColorTheme.light : "transparent",
+          },
+        ]}
+      >
+        <Image
+          style={styles.imageHero}
+          source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
+        />
+        <Text style={[styles.textInfo, { width: "30%" }]}>
+          {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
+          {formattedTime}
+        </Text>
+        <Text style={[styles.textInfo, { width: "20%" }]}>
+          {winrate.toFixed(2)}%
+        </Text>
 
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Matches" : "Partidas"} :{" "}
-                <Text style={styles.textInfo}>{item.games}</Text>
-              </Text>
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Wins" : "Vitórias"} :{" "}
-                <Text style={styles.textInfo}>{item.win}</Text>
-              </Text>
-            </View>
-          </View>
-        </View>
+        <Text style={[styles.textInfo, { width: "20%" }]}>{item.games}</Text>
+        <Text style={[styles.textInfo, { width: "17%" }]}>{item.win}</Text>
       </View>
     );
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "75%",
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <RadioButton
-            value="mostPlayed"
-            status={checked === "mostPlayed" ? "checked" : "unchecked"}
-            onPress={() => {
-              setChecked("mostPlayed");
-              ordMostPlayed();
-            }}
-          />
-          <Text style={styles.textLabel}>
-            {englishLanguage ? "Most Played" : "Mais Jogados"}
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <RadioButton
-            value="lastTimePlayed"
-            status={checked === "lastTimePlayed" ? "checked" : "unchecked"}
-            onPress={() => {
-              setChecked("lastTimePlayed");
-              ordLastPlayed();
-            }}
-          />
-          <Text style={styles.textLabel}>
-            {englishLanguage ? "Last Played" : "Últimos Jogados"}
-          </Text>
-        </View>
+    <View style={styles.container}>
+      <Text style={styles.textTitle}>
+        {englishLanguage ? "Most Played" : "Mais Jogados"}
+      </Text>
+      <View style={styles.headerContainer}>
+        <Text style={[styles.textInfo, { width: "30%" }]}>
+          {englishLanguage ? "Last Played" : "Último Jogo"}
+        </Text>
+        <Text style={[styles.textInfo, { width: "20%" }]}>
+          {englishLanguage ? "Winrate" : "Taxa Vitória"}
+        </Text>
+        <Text style={[styles.textInfo, { width: "20%" }]}>
+          {englishLanguage ? "Matches" : "Partidas"}
+        </Text>
+        <Text style={[styles.textInfo, { width: "17%" }]}>
+          {englishLanguage ? "Wins" : "Vitórias"}
+        </Text>
       </View>
-
-      <ScrollView
-        contentContainerStyle={{ width: "100%", alignItems: "center" }}
-      >
-        <FlatList
-          data={orderedList}
-          renderItem={RenderItem}
-          keyExtractor={(item) => item.hero_id.toLocaleString()}
-          scrollEnabled={false}
-          initialNumToRender={20}
-        />
-      </ScrollView>
-      <BannerAds />
+      <FlatList
+        data={orderedList}
+        renderItem={RenderItem}
+        keyExtractor={(item) => item.hero_id.toLocaleString()}
+        initialNumToRender={20}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    paddingTop: 7,
-  },
-  contentError: {
-    flex: 0.9,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textError: {
-    fontFamily: "QuickSand-Semibold",
-    padding: "3%",
-    textAlign: "center",
-  },
-  textHeroName: {
-    fontFamily: "QuickSand-Bold",
-    textAlign: "center",
-    fontSize: Dimensions.get("screen").width * 0.037,
-    color: "orange",
-    margin: "1%",
-  },
-  textLabel: {
-    fontFamily: "QuickSand-Bold",
-  },
-  textInfo: {
-    fontFamily: "QuickSand-Semibold",
-    color: "#888",
-  },
-  renderItemContainer: {
-    padding: "1%",
-    margin: "1%",
-    backgroundColor: "#fff",
-    borderRadius: 9,
-  },
-});
+const createStyles = (colors: ThemeColor) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      alignSelf: "center",
+      width: "97%",
+    },
+    textTitle: {
+      fontSize: Dimensions.get("screen").width * 0.04,
+      textAlign: "center",
+      fontFamily: "QuickSand-Bold",
+      color: "#fff",
+      backgroundColor: colors.semidark,
+      padding: 3,
+      marginVertical: "2%",
+      paddingHorizontal: "7%",
+      borderRadius: 7,
+      alignSelf: "center",
+    },
+    renderItemContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    imageHero: {
+      width: "13%",
+      aspectRatio: 1.7,
+      resizeMode: "contain",
+      borderRadius: 3,
+    },
+    headerContainer: {
+      flexDirection: "row",
+      width: "87%",
+      alignSelf: "flex-end",
+      justifyContent: "space-around",
+    },
+    contentError: {
+      flex: 0.9,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    textError: {
+      fontFamily: "QuickSand-Semibold",
+      padding: "3%",
+      textAlign: "center",
+    },
+    textHeroName: {
+      fontFamily: "QuickSand-Bold",
+      textAlign: "center",
+      fontSize: Dimensions.get("screen").width * 0.037,
+      color: "orange",
+      margin: "1%",
+    },
+
+    textInfo: {
+      color: colors.dark,
+      fontFamily: "QuickSand-Semibold",
+      textAlign: "center",
+      alignSelf: "center",
+    },
+  });
