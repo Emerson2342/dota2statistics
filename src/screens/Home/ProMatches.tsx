@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   RefreshControl,
+  FlatList,
 } from "react-native";
 
 import { createStylesStatics } from "./ProMatchesStyles";
@@ -16,8 +17,6 @@ import { useTheme } from "../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
-import { FlatList } from "react-native-gesture-handler";
-import { BannerAds } from "../../components/Admob/BannerAds";
 
 export function ProMatches({
   proMatches,
@@ -32,7 +31,6 @@ export function ProMatches({
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
   const [loading, setLoading] = useState(false);
-
 
   const refresh = useCallback(async () => {
     console.log("Refresh pro matches");
@@ -205,6 +203,9 @@ export function ProMatches({
 
   return (
     <View style={styles.container}>
+      <Text style={styles.textHeader}>
+        {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
+      </Text>
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -234,7 +235,6 @@ export function ProMatches({
           scrollEnabled={false}
         />
       </ScrollView>
-      <BannerAds />
     </View>
   );
 }

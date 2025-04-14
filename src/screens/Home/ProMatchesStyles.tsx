@@ -6,9 +6,20 @@ export const createStylesStatics = (colors: ThemeColor) =>
     container: {
       flex: 1,
       alignItems: "center",
-      justifyContent: "space-around",
+      //justifyContent: "space-around",
       width: "100%",
-      backgroundColor: colors.light
+    },
+    textHeader: {
+      fontSize: Dimensions.get("screen").width * 0.04,
+      textAlign: "center",
+      fontFamily: "QuickSand-Bold",
+      color: "#fff",
+      padding: 3,
+      marginVertical: "2%",
+      paddingHorizontal: "7%",
+      borderRadius: 7,
+      backgroundColor: colors.semidark,
+      alignSelf: "center",
     },
     titleContainer: {
       width: "100%",

@@ -56,14 +56,9 @@ export function Profile() {
     ({ route }: any) => {
       switch (route.key) {
         case "home":
-          return (
-            <ProMatches
-              onRefresh={async () => await getProMatches(setProMatches)}
-              proMatches={proMatches}
-            />
-          );
-        case "myProfile":
           return <Home />;
+        case "myProfile":
+          return <MyProfile />;
         case "myHeroesPlayed":
           return <HeroesPlayed />;
 
@@ -74,27 +69,48 @@ export function Profile() {
     [
       profile,
       recentMatches,
+      proMatches,
       heroesPlayed,
       heroesPlayedId,
       isLoading,
     ]
   );
 
-  const Loading = useMemo(() => (
-    <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        flex: 1,
-      }}
-    >
-      <ActivityIndicator color={ColorTheme.dark} />
-      <Text style={styles.textLoading}>
-        {englishLanguage ? "Loading..." : "Carregando..."}
-      </Text>
-    </View>
+  const Loading = useMemo(
+    () => (
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+        }}
+      >
+        <ActivityIndicator color={ColorTheme.dark} />
+        <Text style={styles.textLoading}>
+          {englishLanguage ? "Loading..." : "Carregando..."}
+        </Text>
+      </View>
+    ),
+    [isLoading]
+  );
 
-  ), [isLoading]);
+  const Home = React.memo(() => {
+    return (
+      <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
+        <View style={{ flex: 0.33 }}>
+          <HeroesStats heroesStats={heroesStats} />
+        </View>
+        <View style={{ flex: 0.7 }}>
+          <ProMatches
+            onRefresh={async () => await getProMatches(setProMatches)}
+            proMatches={proMatches}
+          />
+        </View>
+
+        <BannerAds />
+      </View>
+    );
+  });
 
   const HeroesPlayed = React.memo(() => {
     return (
@@ -108,7 +124,7 @@ export function Profile() {
     );
   });
 
-  const Home = React.memo(() => {
+  const MyProfile = React.memo(() => {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1, marginBottom: 15 }}>
@@ -144,9 +160,7 @@ export function Profile() {
             </>
           )}
 
-          <View style={{ flex: 0.25 }}>
-            <HeroesStats heroesStats={heroesStats} />
-          </View>
+          <View style={{ flex: 0.25 }}></View>
         </View>
         <BannerAds />
       </View>
@@ -163,7 +177,6 @@ export function Profile() {
       key: "myHeroesPlayed",
       title: englishLanguage ? " My Heroes Played" : "Heróis Jogados",
     },
-
   ];
   const erro404 = englishLanguage
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"

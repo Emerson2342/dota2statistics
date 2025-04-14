@@ -64,6 +64,67 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     ? "Match not found. Please, check the ID MATCH!"
     : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!";
 
+  useEffect(() => {
+    if (!matchDetails) return;
+  }, [matchDetails]);
+
+  useEffect(() => {
+    const loadMatchesList = async () => {
+      try {
+        const storedMatchesList = await storage.getItem<MatchDetailsModel[]>(
+          "matchesDetailsList"
+        );
+        if (storedMatchesList) {
+          setMatchesDetailsList((prevList) => {
+            if (
+              JSON.stringify(prevList) !== JSON.stringify(storedMatchesList)
+            ) {
+              return storedMatchesList;
+            }
+            return prevList;
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados do AsyncStorage:", error);
+      } finally {
+        setLoadedList(true);
+      }
+    };
+
+    loadMatchesList();
+  }, []);
+
+  useEffect(() => {
+    if (loadedeList && matchesDetailsList.length > 0) {
+      saveMatchesDetailsList();
+    }
+  }, [matchesDetailsList, loadedeList]);
+
+  useEffect(() => {
+    if (!loadedeList) return;
+
+    const fetchMatchDetails = async () => {
+      const match =
+        MatchDetailsIndex &&
+        matchesDetailsList.find(
+          (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
+        );
+      if (match) {
+        console.log(
+          "Partida Encontrada ID: " +
+            MatchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
+        );
+        setMatchDetails(match);
+        setLoadingMatch(false);
+      } else {
+        await handleSearchMatche();
+      }
+    };
+    fetchMatchDetails();
+  }, [route.params, loadedeList]);
+
   const renderScene1 = useCallback(
     ({ route }: any) => {
       switch (route.key) {
@@ -136,8 +197,8 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
           />
           <Teams matchDetails={matchDetails} PlayerIdIndex={PlayerIdIndex} />
           {matchDetails &&
-            matchDetails.picks_bans &&
-            matchDetails.picks_bans.map((p) => p.is_pick) ? (
+          matchDetails.picks_bans &&
+          matchDetails.picks_bans.map((p) => p.is_pick) ? (
             <View style={styles.containerItem}>
               <FlatList
                 data={matchDetails ? [matchDetails] : []}
@@ -404,36 +465,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     [HeroesDetails]
   );
 
-  useEffect(() => {
-    if (!matchDetails) return;
-  }, [matchDetails]);
-
-  useEffect(() => {
-    const loadMatchesList = async () => {
-      try {
-        const storedMatchesList = await storage.getItem<MatchDetailsModel[]>(
-          "matchesDetailsList"
-        );
-        if (storedMatchesList) {
-          setMatchesDetailsList((prevList) => {
-            if (
-              JSON.stringify(prevList) !== JSON.stringify(storedMatchesList)
-            ) {
-              return storedMatchesList;
-            }
-            return prevList;
-          });
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados do AsyncStorage:", error);
-      } finally {
-        setLoadedList(true);
-      }
-    };
-
-    loadMatchesList();
-  }, []);
-
   const saveMatchesDetailsList = async () => {
     try {
       await storage.setItem("matchesDetailsList", matchesDetailsList);
@@ -441,37 +472,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       console.error("Erro ao salvar dados no AsyncStorage:", error);
     }
   };
-
-  useEffect(() => {
-    if (loadedeList && matchesDetailsList.length > 0) {
-      saveMatchesDetailsList();
-    }
-  }, [matchesDetailsList, loadedeList]);
-
-  useEffect(() => {
-    if (!loadedeList) return;
-
-    const fetchMatchDetails = async () => {
-      const match =
-        MatchDetailsIndex &&
-        matchesDetailsList.find(
-          (m: MatchDetailsModel) => m.match_id === MatchDetailsIndex
-        );
-      if (match) {
-        console.log(
-          "Partida Encontrada ID: " +
-          MatchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
-        );
-        setMatchDetails(match);
-        setLoadingMatch(false);
-      } else {
-        await handleSearchMatche();
-      }
-    };
-    fetchMatchDetails();
-  }, [route.params, loadedeList]);
 
   async function handleSearchMatche() {
     setApiResponseMatch(false);

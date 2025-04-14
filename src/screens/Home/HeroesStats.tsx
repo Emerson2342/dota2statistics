@@ -65,58 +65,60 @@ export function HeroesStats({
   };
 
   return (
-    <View>
+    <View style={{ paddingVertical: "1%" }}>
       <Text style={styles.textTitle}>
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
       </Text>
-      <Text
-        style={[
-          styles.text,
-          { fontSize: Dimensions.get("screen").width * 0.037 },
-        ]}
-      >
-        {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
-      </Text>
-      <View style={styles.container}>
-        {mostPicked &&
-          mostPicked.slice(0, 8).map((item: HeroStats, index: number) => {
-            const urlImg = PICTURE_HERO_BASE_URL + item.img;
+      <View style={styles.content}>
+        <Text
+          style={[
+            styles.text,
+            { fontSize: Dimensions.get("screen").width * 0.037 },
+          ]}
+        >
+          {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
+        </Text>
+        <View style={styles.container}>
+          {mostPicked &&
+            mostPicked.slice(0, 8).map((item: HeroStats, index: number) => {
+              const urlImg = PICTURE_HERO_BASE_URL + item.img;
 
-            return (
-              <TouchableOpacity
-                onPress={() => GoToHeroDetails(item.id)}
-                key={index}
-              >
-                <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                <Text style={styles.text}>{index + 1}°</Text>
-              </TouchableOpacity>
-            );
-          })}
-      </View>
+              return (
+                <TouchableOpacity
+                  onPress={() => GoToHeroDetails(item.id)}
+                  key={index}
+                >
+                  <Image source={{ uri: urlImg }} style={styles.imgHero} />
+                  <Text style={styles.text}>{index + 1}°</Text>
+                </TouchableOpacity>
+              );
+            })}
+        </View>
 
-      <Text
-        style={[
-          styles.text,
-          { fontSize: Dimensions.get("screen").width * 0.035 },
-        ]}
-      >
-        {englishLanguage ? "Win Rate" : "Aproveitamento"}
-      </Text>
-      <View style={styles.container}>
-        {bestWinrate &&
-          bestWinrate.slice(0, 8).map((item: HeroStats, index: number) => {
-            const urlImg = PICTURE_HERO_BASE_URL + item.img;
+        <Text
+          style={[
+            styles.text,
+            { fontSize: Dimensions.get("screen").width * 0.035 },
+          ]}
+        >
+          {englishLanguage ? "Win Rate" : "Aproveitamento"}
+        </Text>
+        <View style={styles.container}>
+          {bestWinrate &&
+            bestWinrate.slice(0, 8).map((item: HeroStats, index: number) => {
+              const urlImg = PICTURE_HERO_BASE_URL + item.img;
 
-            return (
-              <TouchableOpacity
-                onPress={() => GoToHeroDetails(item.id)}
-                key={index}
-              >
-                <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                <Text style={styles.text}>{item.winRate?.toFixed(2)}%</Text>
-              </TouchableOpacity>
-            );
-          })}
+              return (
+                <TouchableOpacity
+                  onPress={() => GoToHeroDetails(item.id)}
+                  key={index}
+                >
+                  <Image source={{ uri: urlImg }} style={styles.imgHero} />
+                  <Text style={styles.text}>{item.winRate?.toFixed(2)}%</Text>
+                </TouchableOpacity>
+              );
+            })}
+        </View>
       </View>
     </View>
   );
@@ -129,12 +131,19 @@ const createStyles = (colors: ThemeColor) =>
       flexWrap: "wrap",
       justifyContent: "center",
     },
+    content: {
+      borderRadius: 7,
+      backgroundColor: "#fff",
+      marginHorizontal: "2%",
+      paddingVertical: "1%",
+    },
     textTitle: {
       fontSize: Dimensions.get("screen").width * 0.04,
       textAlign: "center",
       fontFamily: "QuickSand-Bold",
       color: "#fff",
       padding: 3,
+      marginVertical: "2%",
       paddingHorizontal: "7%",
       borderRadius: 7,
       backgroundColor: colors.semidark,
@@ -150,7 +159,7 @@ const createStyles = (colors: ThemeColor) =>
       width: Dimensions.get("screen").width * 0.1,
       height: undefined,
       aspectRatio: 1.5,
-      marginHorizontal: "1%",
+      marginHorizontal: "0.5%",
       borderRadius: 3,
     },
   });
