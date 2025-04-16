@@ -8,6 +8,7 @@ import {
 import {
   HeroesPlayed,
   HeroStats,
+  ItemPopularityData,
   LeagueMatches,
   MatchDetailsModel,
   Player,
@@ -47,6 +48,19 @@ export const searchPlayersByName = async (
     setUsersSearch(data);
   } catch (error: any) {
     console.log("Erro ao tentar procurar jogadores: " + error.message);
+  }
+};
+
+export const getHeroItems = async (heroId: string) => {
+  try {
+    const url: string = `${HERO_ITEM_BASE_URL}/${heroId}/itemPopularity`;
+    console.log("Endpoint heroItems: " + url);
+    const response = await fetch(url);
+    const data = (await response.json()) as ItemPopularityData;
+    if (data) return data;
+  } catch (error: any) {
+    console.log("Erro ao buscar itens do heroi: " + error.message);
+    return null;
   }
 };
 

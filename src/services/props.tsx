@@ -501,11 +501,15 @@ export interface HeroDetailsModel {
   localized_name: string;
 }
 
+export interface ItemPopularity {
+  [itemId: string]: number;
+}
+
 export interface ItemPopularityData {
-  start_game_items: Record<string, number>;
-  early_game_items: Record<string, number>;
-  mid_game_items: Record<string, number>;
-  late_game_items: Record<string, number>;
+  start_game_items: ItemPopularity;
+  early_game_items: ItemPopularity;
+  mid_game_items: ItemPopularity;
+  late_game_items: ItemPopularity;
 }
 export interface HeroItemsListPopularity {
   id: number | undefined;

@@ -198,10 +198,15 @@ export const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
     },
     itemImg: {
-      width: "7%",
+      width: "9%",
+      margin: 1,
+      borderRadius: 9,
+      height: undefined,
       aspectRatio: 1,
-      height: 1,
-      borderRadius: 50,
+    },
+    textItem: {
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
     },
     textItems: {
       textAlign: "center",

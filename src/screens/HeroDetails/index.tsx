@@ -23,7 +23,7 @@ import HeroLoreJson from "../../constants/Lore.json";
 import HeroLorePtBrJson from "../../constants/LorePtBr.json";
 import AbilitiesDetailsJson from "../../components/Heroes/AbilitiesDetails.json";
 import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
-
+import ItemsList from "../../components/Itens/itemsList.json";
 import AghanimAndShardJson from "../../components/Heroes/aghanimDescription.json";
 import {
   AghanimModel,
@@ -33,6 +33,9 @@ import {
   HeroAbilitiesDetailsModel,
   HeroDetailsProps,
   HeroLore,
+  ItemDetails,
+  ItemPopularity,
+  ItemPopularityData,
 } from "../../services/props";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
@@ -41,6 +44,7 @@ import { BannerAds } from "../../components/Admob/BannerAds";
 import { FlatList } from "react-native-gesture-handler";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { getHeroItems } from "../../../src/services/api";
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
@@ -54,6 +58,9 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const [abilitiesDesc, setAbilitiesDesc] = useState<
     HeroAbilitiesDescriptionsModel[] | []
   >([]);
+
+  const [heroItems, setHeroItems] = useState<ItemPopularityData>();
+  //const [itemsList, setItemsList] = useState<ItemDetails[]>([]);
 
   const [loadingAbilit, setLoadingAbilit] = useState(true);
   const [loreJson, setLoreJson] = useState<HeroLore>(HeroLoreJson);
@@ -74,8 +81,34 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     (h) => h.hero_id === heroDetails.id
   );
 
+  const HandleGetHeroItems = async () => {
+    const heroItems = await getHeroItems(heroDetails.id.toString());
+
+    const getTopItems = (items: ItemPopularity): ItemPopularity => {
+      return Object.entries(items)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .reduce((acc, [itemId, count]) => {
+          acc[itemId] = count;
+          return acc;
+        }, {} as ItemPopularity);
+    };
+
+    if (heroItems) {
+      const topHeroItems: ItemPopularityData = {
+        start_game_items: getTopItems(heroItems.start_game_items),
+        early_game_items: getTopItems(heroItems.early_game_items),
+        mid_game_items: getTopItems(heroItems.mid_game_items),
+        late_game_items: getTopItems(heroItems.late_game_items),
+      };
+      setHeroItems(topHeroItems);
+    }
+  };
+
   //const LoreJson: HeroLore = HeroLoreJson;
   const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
+  const itemsList: ItemDetails[] = ItemsList;
+
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
     setTimeout(() => {
@@ -86,6 +119,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
   useEffect(() => {
     HandleGetAbilities();
+    HandleGetHeroItems();
     setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
     setHeroLore(loreJson[heroDetails.name]);
   }, [abilities]);
@@ -132,7 +166,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const baseAttMax = heroDetails.base_attack_max + baseAttack;
   const baseHelth = 120 + heroDetails.base_str * 22;
   const baseMana = 75 + heroDetails.base_int * 12;
-  const helthRegen = (heroDetails?.base_health_regen ?? 0) + heroDetails.base_str * 0.1;
+  const helthRegen =
+    (heroDetails?.base_health_regen ?? 0) + heroDetails.base_str * 0.1;
   const manaRegen =
     (heroDetails.base_mana_regen ?? 0) +
     heroDetails.base_int * 0.05 * (1 + heroDetails.base_int * 0.02);
@@ -158,10 +193,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     item: HeroAbilitiesDescriptionsModel;
     index: number;
   }) => {
-
-
-
-
     const mana = manaCoust(item?.mc);
     const coolDown = coolDownTime(item?.cd);
 
@@ -338,7 +369,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                     uri: fontImage,
                   }}
                   onError={(error) =>
-                    console.error("Erro ao carregar a imgae: ", error)
+                    console.error("Erro ao carregar a imagem: ", error)
                   }
                 />
                 <LinearGradient
@@ -466,6 +497,95 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
           </View>
 
           <ScrollView>
+            <View style={[styles.itemsContainer]}>
+              <Text style={styles.titleText}>
+                {englishLanguage ? "Popular Items" : "Itens Populares"}
+              </Text>
+              <Text style={styles.textItem}>
+                {englishLanguage ? "Start Game Items" : "Itens Iniciais"}
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                {heroItems && heroItems.start_game_items
+                  ? Object.entries(heroItems.start_game_items).map(
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <Image
+                            style={styles.itemImg}
+                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                            key={itemId}
+                          />
+                        );
+                      }
+                    )
+                  : null}
+              </View>
+              <Text style={styles.textItem}>
+                {englishLanguage ? "Early Game" : "Início Jogo"}
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                {heroItems && heroItems.early_game_items
+                  ? Object.entries(heroItems.early_game_items).map(
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <Image
+                            style={styles.itemImg}
+                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                            key={itemId}
+                          />
+                        );
+                      }
+                    )
+                  : null}
+              </View>
+              <Text style={styles.textItem}>
+                {englishLanguage ? "Mid Game" : "Meio do Jogo"}
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                {heroItems && heroItems.mid_game_items
+                  ? Object.entries(heroItems.mid_game_items).map(
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <Image
+                            style={styles.itemImg}
+                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                            key={itemId}
+                          />
+                        );
+                      }
+                    )
+                  : null}
+              </View>
+              <Text style={styles.textItem}>
+                {englishLanguage ? "Late Game" : "Final do Jogo"}
+              </Text>
+              <View style={{ flexDirection: "row" }}>
+                {heroItems && heroItems.late_game_items
+                  ? Object.entries(heroItems.late_game_items).map(
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <Image
+                            style={styles.itemImg}
+                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                            key={itemId}
+                          />
+                        );
+                      }
+                    )
+                  : null}
+              </View>
+            </View>
             <View style={styles.itemsContainer}>
               <Text style={styles.titleText}>
                 {englishLanguage ? "Abilities" : "Habilidades"}
