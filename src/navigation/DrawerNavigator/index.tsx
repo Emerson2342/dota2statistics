@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Dimensions,
-  Modal,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  Text,
-  Image,
-} from "react-native";
+import { Alert, Dimensions, Modal, Platform, View } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
@@ -22,10 +14,8 @@ import { Favorites } from "../../../src/screens/Favorites";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
 import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { SettingsScreen } from "../../../src/screens/Settings/SettingsScreen";
-import { usePlayerContext } from "../../../src/context/usePlayerContex";
 import { CustomDrawerContent } from "./customDrawer";
 import { Ionicons } from "@expo/vector-icons";
-
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
 

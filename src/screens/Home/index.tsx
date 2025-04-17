@@ -5,6 +5,8 @@ import {
   ActivityIndicator,
   useWindowDimensions,
   Dimensions,
+  Modal,
+  Platform,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -107,7 +109,6 @@ export function Profile() {
             proMatches={proMatches}
           />
         </View>
-
         <BannerAds />
       </View>
     );
@@ -179,7 +180,6 @@ export function Profile() {
   const handleLoadData = async () => {
     setIsLoading(true);
     setTimeout(async () => {
-      console.log("Entrou");
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       console.log("Carregando********************");
       await getSearchPlayer(searchPlayer, setPlayer);

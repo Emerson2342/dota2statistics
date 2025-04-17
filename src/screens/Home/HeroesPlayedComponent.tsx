@@ -96,11 +96,11 @@ export function HeroesPlayedComponent({
           style={styles.imageHero}
           source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
         />
-        <Text style={[styles.textInfo, { width: "30%" }]}>
+        <Text style={[styles.textInfo, { width: "33%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </Text>
-        <Text style={[styles.textInfo, { width: "20%" }]}>
+        <Text style={[styles.textInfo, { width: "17%" }]}>
           {winrate.toFixed(2)}%
         </Text>
 
@@ -116,16 +116,16 @@ export function HeroesPlayedComponent({
         {englishLanguage ? "Most Played" : "Mais Jogados"}
       </Text>
       <View style={styles.headerContainer}>
-        <Text style={[styles.textInfo, { width: "30%" }]}>
+        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "37%" }]}>
           {englishLanguage ? "Last Played" : "Último Jogo"}
         </Text>
-        <Text style={[styles.textInfo, { width: "20%" }]}>
+        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "21%" }]}>
           {englishLanguage ? "Winrate" : "Taxa Vitória"}
         </Text>
-        <Text style={[styles.textInfo, { width: "20%" }]}>
+        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "22%" }]}>
           {englishLanguage ? "Matches" : "Partidas"}
         </Text>
-        <Text style={[styles.textInfo, { width: "17%" }]}>
+        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "20%" }]}>
           {englishLanguage ? "Wins" : "Vitórias"}
         </Text>
       </View>
@@ -152,12 +152,13 @@ const createStyles = (colors: ThemeColor) =>
       fontSize: Dimensions.get("screen").width * 0.04,
       textAlign: "center",
       fontFamily: "QuickSand-Bold",
-      color: "#fff",
-      backgroundColor: colors.semidark,
+      color: colors.semidark,
+      //backgroundColor: colors.semidark,
       padding: 3,
       marginVertical: "2%",
       paddingHorizontal: "7%",
-      borderRadius: 7,
+      borderRadius: 5,
+      width: "75%",
       alignSelf: "center",
     },
     renderItemContainer: {
@@ -196,9 +197,14 @@ const createStyles = (colors: ThemeColor) =>
     },
 
     textInfo: {
+      fontSize: Dimensions.get("screen").width * 0.035,
       color: colors.dark,
       fontFamily: "QuickSand-Semibold",
       textAlign: "center",
       alignSelf: "center",
+    },
+    textInfoTitle: {
+      fontFamily: "QuickSand-Bold",
+      alignSelf: "flex-end",
     },
   });
