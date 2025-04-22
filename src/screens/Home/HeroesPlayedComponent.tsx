@@ -32,7 +32,7 @@ export function HeroesPlayedComponent({
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
-  const [checked, setChecked] = useState("mostPlayed");
+  const [orderToShow, setOrderToShow] = useState("lastPlayed");
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(HeroesPlayedList);
   const { ColorTheme } = useTheme();
@@ -41,6 +41,27 @@ export function HeroesPlayedComponent({
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
   }, []);
+
+  const handleSetOrder = (order: string) => {
+    setOrderToShow(order);
+    if (order != orderToShow) {
+      const ordered = [...HeroesPlayedList].sort((a, b) => {
+        if (order === "lastPlayed") {
+          return b.last_played - a.last_played;
+        } else if (order === "winrate") {
+          const winrateA = a.win / a.games;
+          const winrateB = b.win / b.games;
+          return winrateB - winrateA;
+        } else if (order === "matches") {
+          return b.games - a.games;
+        } else if (order === "wins") {
+          return b.win - a.win;
+        }
+        return 0;
+      });
+      setOrderedList(ordered);
+    }
+  };
 
   if (!successPlayerAccount) {
     return (
@@ -112,22 +133,69 @@ export function HeroesPlayedComponent({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>
-        {englishLanguage ? "Most Played" : "Mais Jogados"}
-      </Text>
       <View style={styles.headerContainer}>
-        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "37%" }]}>
-          {englishLanguage ? "Last Played" : "Último Jogo"}
-        </Text>
-        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "21%" }]}>
-          {englishLanguage ? "Winrate" : "Taxa Vitória"}
-        </Text>
-        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "22%" }]}>
-          {englishLanguage ? "Matches" : "Partidas"}
-        </Text>
-        <Text style={[styles.textInfo, styles.textInfoTitle, { width: "20%" }]}>
-          {englishLanguage ? "Wins" : "Vitórias"}
-        </Text>
+        <TouchableOpacity
+          onPress={() => handleSetOrder("lastPlayed")}
+          style={{ width: "37%" }}
+        >
+          <Text
+            style={[
+              styles.textInfo,
+              styles.textInfoTitle,
+              {
+                borderBottomWidth: orderToShow === "lastPlayed" ? 2 : 0,
+              },
+            ]}
+          >
+            {englishLanguage ? "Last Played" : "Último Jogo"}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleSetOrder("winrate")}
+          style={{ width: "21%" }}
+        >
+          <Text
+            style={[
+              styles.textInfo,
+              styles.textInfoTitle,
+              { borderBottomWidth: orderToShow === "winrate" ? 2 : 0 },
+            ]}
+          >
+            {englishLanguage ? "Winrate" : "Taxa Vitória"}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleSetOrder("matches")}
+          style={{ width: "22%" }}
+        >
+          <Text
+            style={[
+              styles.textInfo,
+              styles.textInfoTitle,
+              {
+                borderBottomWidth: orderToShow === "matches" ? 2 : 0,
+              },
+            ]}
+          >
+            {englishLanguage ? "Matches" : "Partidas"}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleSetOrder("wins")}
+          style={{ width: "20%" }}
+        >
+          <Text
+            style={[
+              styles.textInfo,
+              styles.textInfoTitle,
+              {
+                borderBottomWidth: orderToShow === "wins" ? 2 : 0,
+              },
+            ]}
+          >
+            {englishLanguage ? "Wins" : "Vitórias"}
+          </Text>
+        </TouchableOpacity>
       </View>
       <FlatList
         data={orderedList}
@@ -135,6 +203,7 @@ export function HeroesPlayedComponent({
         keyExtractor={(item) => item.hero_id.toLocaleString()}
         initialNumToRender={20}
       />
+      <BannerAds />
     </View>
   );
 }
@@ -147,19 +216,6 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
       alignSelf: "center",
       width: "97%",
-    },
-    textTitle: {
-      fontSize: Dimensions.get("screen").width * 0.04,
-      textAlign: "center",
-      fontFamily: "QuickSand-Bold",
-      color: colors.semidark,
-      //backgroundColor: colors.semidark,
-      padding: 3,
-      marginVertical: "2%",
-      paddingHorizontal: "7%",
-      borderRadius: 5,
-      width: "75%",
-      alignSelf: "center",
     },
     renderItemContainer: {
       flexDirection: "row",
@@ -176,6 +232,7 @@ const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
       width: "87%",
       alignSelf: "flex-end",
+      marginVertical: "3%",
       justifyContent: "space-around",
     },
     contentError: {
@@ -205,6 +262,6 @@ const createStyles = (colors: ThemeColor) =>
     },
     textInfoTitle: {
       fontFamily: "QuickSand-Bold",
-      alignSelf: "flex-end",
+      borderColor: "orange",
     },
   });

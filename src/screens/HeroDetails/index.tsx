@@ -111,6 +111,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
   useEffect(() => {
     console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
+    HandleGetHeroItems();
     setTimeout(() => {
       setAbilities(heroAbilities[heroDetails.name]);
       setLoadingAbilit(false);
@@ -119,7 +120,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
   useEffect(() => {
     HandleGetAbilities();
-    HandleGetHeroItems();
     setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
     setHeroLore(loreJson[heroDetails.name]);
   }, [abilities]);
@@ -502,7 +502,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
               </Text>
               <Text style={styles.textItem}>
-                {englishLanguage ? "Start Game Items" : "Itens Iniciais"}
+                {englishLanguage ? "Start Game" : "Itens Iniciais"}
               </Text>
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.start_game_items

@@ -63,6 +63,8 @@ export function Profile() {
       switch (route.key) {
         case "myProfile":
           return <MyProfile />;
+        case "heroesPlayed":
+          return <HeroesPlayed />;
         case "trendings":
           return <Trendings />;
         default:
@@ -96,6 +98,17 @@ export function Profile() {
     ),
     [isLoading]
   );
+  const HeroesPlayed = React.memo(() => {
+    return (
+      <HeroesPlayedComponent
+        HeroesPlayedList={heroesPlayed}
+        successPlayerAccount={
+          player == null || player.profile.account_id == 0 ? false : true
+        }
+        textError={erro404}
+      />
+    );
+  });
 
   const Trendings = React.memo(() => {
     return (
@@ -117,7 +130,7 @@ export function Profile() {
   const MyProfile = React.memo(() => {
     return (
       <View style={styles.container}>
-        <View style={{ flex: 1, marginBottom: 15 }}>
+        <View style={{ flex: 1 }}>
           {player == null || player.profile.account_id == 0 ? (
             <View style={styles.erroMessage}>
               <Text style={styles.textErro}>{erro404}</Text>
@@ -136,7 +149,7 @@ export function Profile() {
                   recentMatches={recentMatches}
                 />
               </View>
-              <View style={{ flex: heroesPlayedId.length > 5 ? 0.4 : 0.42 }}>
+              <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
                 <View style={{ flex: 1, paddingBottom: "1%" }}>
                   {player ? (
                     <LastMatches
@@ -146,17 +159,6 @@ export function Profile() {
                     />
                   ) : null}
                 </View>
-              </View>
-              <View style={{ flex: 0.3 }}>
-                <HeroesPlayedComponent
-                  HeroesPlayedList={heroesPlayed}
-                  successPlayerAccount={
-                    player == null || player.profile.account_id == 0
-                      ? false
-                      : true
-                  }
-                  textError={erro404}
-                />
               </View>
             </>
           )}
@@ -168,6 +170,10 @@ export function Profile() {
 
   const routes = [
     { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
+    {
+      key: "heroesPlayed",
+      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+    },
     {
       key: "trendings",
       title: englishLanguage ? "Trendings" : "Populares",
@@ -199,11 +205,6 @@ export function Profile() {
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
       if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
         setHeroesPlayed(heroesPlayedResponse);
-
-      console.log(
-        "Tamanho da lista de heroes: " + heroesPlayedResponse?.length
-      );
-      console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
       setIsLoading(false);
     }, 500);
   };
