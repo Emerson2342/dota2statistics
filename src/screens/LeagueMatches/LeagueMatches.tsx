@@ -66,7 +66,6 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
     const handleLoadLeagueMatches = async () => {
       setIsLoading(true);
       const searchLeagues = `${LEAGUES_BASE_URL}${LeagueIdIndex}/matches`;
-      console.log(searchLeagues);
       await getSearchLeagueMatches(searchLeagues, setLeagueMatches);
       setIsLoading(false);
     };
@@ -140,10 +139,6 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
     const teamDire = teamsList.find(
       (team) => team.team_id == item.dire_team_id
     );
-    const teamRadUrl = teamsList.find(
-      (t) => t.team_id === item.radiant_team_id
-    );
-    const teamDireUrl = teamsList.find((t) => t.team_id === item.dire_team_id);
 
     return (
       <TouchableOpacity
@@ -165,7 +160,7 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
         </View>
         <View style={styles.teamContainer}>
           <View style={styles.singleTeamContainer}>
-            <Text style={[styles.teamName, {}]}>
+            <Text style={styles.teamName}>
               {teamRad?.name ?? "Radiant Team"}
             </Text>
             <Text style={styles.teamScore}>{item.radiant_score}</Text>

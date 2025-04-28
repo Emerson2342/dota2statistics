@@ -9,11 +9,7 @@ import {
 } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
-import {
-  League,
-  RootStackParamList,
-  Team,
-} from "../../services/props";
+import { League, RootStackParamList, Team } from "../../services/props";
 import {
   LEAGUES_BASE_URL,
   TEAMS_BASE_URL,
@@ -37,7 +33,6 @@ export function Leagues() {
 
   const [leagueList, setLeagueList] = useState<League[] | []>([]);
   const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
-  const { setTeamsList } = useTeamsListContext();
 
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
@@ -90,7 +85,6 @@ export function Leagues() {
         leagueTimestamp + 86000 < currentTimestamp
       ) {
         loadLeagues();
-        loadTeamsList();
       }
     }, [leagueTimestamp])
   );
@@ -120,19 +114,6 @@ export function Leagues() {
   };
 
   console.log(leagueList.length);
-
-  const loadTeamsList = async () => {
-    try {
-      const response = await fetch(TEAMS_BASE_URL);
-      const data = (await response.json()) as Team[];
-      const sortedTeamsList = data.sort((a, b) => a.name.localeCompare(b.name));
-      setTeamsList(sortedTeamsList);
-    } catch (error: any) {
-      setErrorMessage(error);
-      setModalMessage(true);
-    } finally {
-    }
-  };
 
   console.log(leagueTimestamp);
 

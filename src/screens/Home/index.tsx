@@ -22,6 +22,7 @@ import {
   getProMatches,
   getRecentMatches,
   getSearchPlayer,
+  loadTeamsList,
 } from "../../services/api";
 import { LastMatches } from "./LastMatches";
 import {
@@ -34,6 +35,8 @@ import { BannerAds } from "../../components/Admob/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 import { HeroesStats } from "./HeroesStats";
+import { useTeamsListContext } from "../../context/useTeamContext";
+import { useTimestampContext } from "../../context/useTimestampContext";
 
 export function Profile() {
   const { profile } = useProfileContext();
@@ -41,6 +44,8 @@ export function Profile() {
   const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
     usePlayerContext();
   const { englishLanguage } = useSettingsContext();
+  const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
+  const { setTeamsList } = useTeamsListContext();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -53,9 +58,14 @@ export function Profile() {
 
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
+  const currentTimestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
     handleLoadData();
+    if (leagueTimestamp == null || leagueTimestamp + 86000 < currentTimestamp) {
+      loadTeamsList(setTeamsList);
+      setLeagueTimestamp(currentTimestamp);
+    }
   }, [profile]);
 
   const renderScene = useCallback(
@@ -184,10 +194,10 @@ export function Profile() {
     : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
 
   const handleLoadData = async () => {
+    console.log("Carregando********************");
     setIsLoading(true);
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
-      console.log("Carregando********************");
       await getSearchPlayer(searchPlayer, setPlayer);
       await getProMatches(setProMatches);
       await getHeroesStats(setHeroesStats);
@@ -208,7 +218,6 @@ export function Profile() {
       setIsLoading(false);
     }, 500);
   };
-
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}

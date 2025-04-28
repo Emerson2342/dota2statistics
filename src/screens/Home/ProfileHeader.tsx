@@ -161,9 +161,10 @@ export function ProfileHeader({
                 styles.textProfile,
                 {
                   color: ColorTheme.light,
-                  fontSize: Dimensions.get("screen").width * 0.05,
+                  fontSize: Dimensions.get("screen").width * 0.047,
                 },
-              ]} numberOfLines={2}
+              ]}
+              numberOfLines={2}
             >
               {player?.profile.name === ""
                 ? player?.profile.personaname

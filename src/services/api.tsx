@@ -4,6 +4,7 @@ import {
   HERO_ITEM_BASE_URL,
   HERO_STATS_URL,
   PRO_MATCHES_URL,
+  TEAMS_BASE_URL,
 } from "../constants/player";
 import {
   HeroesPlayed,
@@ -15,6 +16,7 @@ import {
   PlayerModel,
   RecentMatches,
   SearchUserResult,
+  Team,
 } from "./props";
 
 export const getSearchPlayer = async (
@@ -178,7 +180,6 @@ export const getMatchDetails = async (url: string) => {
         dire_team: data.dire_team,
         teamfights: data.teamfights,
       };
-      console.log("Saiu");
       return matchDataResponse;
     }
   } catch (error) {
@@ -268,5 +269,18 @@ export const getHeroesStats = async (
     setHeroStatsList(filteredData);
   } catch (error: any) {
     console.log("Erro ao testar buscar Hero Stats: " + error.message);
+  }
+};
+
+export const loadTeamsList = async (
+  setTeamsList: React.Dispatch<React.SetStateAction<Team[]>>
+) => {
+  try {
+    console.log("Endpoint teams list: " + TEAMS_BASE_URL);
+    const response = await fetch(TEAMS_BASE_URL);
+    const data = (await response.json()) as Team[];
+    setTeamsList(data);
+  } catch (error: any) {
+    console.log("Erro ao buscar times: " + error.message);
   }
 };

@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   Keyboard,
+  Modal,
 } from "react-native";
 
 import { createStyles } from "./styles";
@@ -24,6 +25,7 @@ import {
 } from "react-native-paper";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
+import { ModalMessage } from "../../components/Modals/ModalMessage";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsContext();
@@ -33,6 +35,7 @@ export const Search = () => {
   const [textSearch, setTextSearch] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [searchType, setSearchType] = useState("player");
+  const [modalMessage, setModalMessage] = useState(false);
 
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
   const textInfoProfile = englishLanguage
@@ -43,12 +46,16 @@ export const Search = () => {
     ? "Type the Match ID"
     : "Digite o ID da Partida";
 
+  const textLength = englishLanguage
+    ? "Type at least 4 characters"
+    : "Digite pelo menos 4 caracteres";
+
   const navigation =
     useNavigation<BottomTabNavigationProp<RootStackParamList>>();
 
   const handleSearchPlayer = async (text: string) => {
     if (text.length < 4) {
-      alert("Favor digitar mais do que 3 letras");
+      setModalMessage(true);
       return;
     }
     console.log("entrou na busca do jogador: ");
@@ -101,6 +108,11 @@ export const Search = () => {
   };
 
   const handleGoToMatch = (matchIndex: string) => {
+    if (matchIndex.length < 4) {
+      setModalMessage(true);
+      return;
+    }
+
     navigation.navigate("MatchDetails", {
       MatchDetailsIndex: parseInt(matchIndex),
       PlayerIdIndex: null,
@@ -114,7 +126,7 @@ export const Search = () => {
       handleGoToMatch(input);
     }
   };
-  console.log(inputText)
+  console.log(inputText);
 
   return (
     <View style={styles.container}>
@@ -200,8 +212,8 @@ export const Search = () => {
                 ? `Results for "${textSearch}"`
                 : `Resultados para "${textSearch}"`
               : englishLanguage
-                ? `No results found for "${textSearch}"`
-                : `Nenhum resultado encontrado para "${textSearch}"`}
+              ? `No results found for "${textSearch}"`
+              : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
           <Text
             style={[
@@ -220,6 +232,18 @@ export const Search = () => {
         </View>
       )}
       <BannerAds />
+      <Modal
+        visible={modalMessage}
+        transparent={true}
+        statusBarTranslucent={true}
+        animationType="fade"
+      >
+        <ModalMessage
+          handleClose={() => setModalMessage(false)}
+          title={"Ops.."}
+          message={textLength}
+        />
+      </Modal>
     </View>
   );
 };
