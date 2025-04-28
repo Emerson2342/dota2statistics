@@ -18,7 +18,6 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
-import { RadioButton } from "react-native-paper";
 import { BannerAds } from "../../components/Admob/BannerAds";
 
 export function HeroesPlayedComponent({
@@ -32,7 +31,7 @@ export function HeroesPlayedComponent({
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
-  const [orderToShow, setOrderToShow] = useState("lastPlayed");
+  const [orderToShow, setOrderToShow] = useState("matches");
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(HeroesPlayedList);
   const { ColorTheme } = useTheme();
@@ -232,7 +231,8 @@ const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
       width: "87%",
       alignSelf: "flex-end",
-      marginVertical: "3%",
+      alignItems: "baseline",
+      marginVertical: "1.5%",
       justifyContent: "space-around",
     },
     contentError: {
@@ -258,7 +258,6 @@ const createStyles = (colors: ThemeColor) =>
       color: colors.dark,
       fontFamily: "QuickSand-Semibold",
       textAlign: "center",
-      alignSelf: "center",
     },
     textInfoTitle: {
       fontFamily: "QuickSand-Bold",
