@@ -17,10 +17,8 @@ import {
 } from "../../services/props";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 export function HeroesStats({
@@ -65,11 +63,11 @@ export function HeroesStats({
   };
 
   return (
-    <View style={{ paddingVertical: "1%" }}>
-      <Text style={styles.textTitle}>
-        {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
-      </Text>
+    <View style={{ marginTop: "3%" }}>
       <View style={styles.content}>
+        <Text style={styles.textHeader}>
+          {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
+        </Text>
         <Text
           style={[
             styles.text,
@@ -137,17 +135,15 @@ const createStyles = (colors: ThemeColor) =>
       marginHorizontal: "2%",
       paddingVertical: "1%",
     },
-    textTitle: {
-      fontSize: Dimensions.get("screen").width * 0.04,
+    textHeader: {
+      fontSize: Dimensions.get("screen").width * 0.05,
       textAlign: "center",
       fontFamily: "QuickSand-Bold",
-      color: "#fff",
-      padding: 3,
-      marginVertical: "2%",
-      paddingHorizontal: "7%",
-      borderRadius: 7,
-      backgroundColor: colors.semidark,
+      color: colors.semidark,
       alignSelf: "center",
+      borderBottomWidth: 1,
+      borderColor: colors.dark,
+      width: "90%",
     },
     text: {
       fontSize: Dimensions.get("window").width * 0.025,

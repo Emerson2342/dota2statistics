@@ -123,7 +123,7 @@ export function Profile() {
   const Trendings = React.memo(() => {
     return (
       <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
-        <View style={{ flex: 0.33 }}>
+        <View style={{ flex: 0.3 }}>
           <HeroesStats heroesStats={heroesStats} />
         </View>
         <View style={{ flex: 0.7 }}>
