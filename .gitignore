@@ -40,3 +40,5 @@ src/routes/index.tsx
 .env
 
 /android
+
+package-lock.json

@@ -7,6 +7,7 @@ import {
   Dimensions,
   Modal,
   Platform,
+  Button,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -37,6 +38,7 @@ import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 import { HeroesStats } from "./HeroesStats";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useTimestampContext } from "../../context/useTimestampContext";
+import analytics from "@react-native-firebase/analytics";
 
 export function Profile() {
   const { profile } = useProfileContext();
@@ -159,6 +161,17 @@ export function Profile() {
                   recentMatches={recentMatches}
                 />
               </View>
+              <Button
+                title="Add To Basket"
+                onPress={async () =>
+                  await analytics().logEvent("basket", {
+                    id: 3745092,
+                    item: "mens grey t-shirt",
+                    description: ["round neck", "long sleeved"],
+                    size: "L",
+                  })
+                }
+              />
               <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
                 <View style={{ flex: 1, paddingBottom: "1%" }}>
                   {player ? (
