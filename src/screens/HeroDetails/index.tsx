@@ -644,15 +644,12 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                 </Text>
 
                 {abilities?.facets.map((facets, index) => {
+                  if (facets.deprecated) return;
                   return (
                     <View
                       key={index}
                       style={{
                         width: "100%",
-                        // backgroundColor: "purple",
-                        borderTopWidth: index == 0 ? 0 : 1,
-                        borderColor: "#ccc",
-                        //alignItems: "center",
                       }}
                     >
                       <Text style={styles.textTitle2} key={index}>

@@ -224,6 +224,7 @@ export interface FacetsModel {
   title: string;
   description: string;
   abilities?: string[];
+  deprecated?: string;
 }
 
 export interface MatchLeagueInfo {
