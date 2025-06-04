@@ -5,7 +5,7 @@
     "dname": "Blink Dagger",
     "img": "/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
     "lore": "The fabled dagger used by the fastest assassin ever to walk the lands.",
-    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.\nIf you used Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead.",
+    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
     "abilities": [
       {
         "type": "active",
@@ -20,7 +20,7 @@
     "dname": "Overwhelming Blink",
     "img": "/apps/dota2/images/dota_react/items/overwhelming_blink.png?t=1593393829403",
     "lore": "A horrifying dagger forged in the chaos maw and nigh untouchable by mortal hands.",
-    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.\nIf you used Overwhelming Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead.",
+    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
     "abilities": [
       {
         "type": "active",
@@ -35,7 +35,7 @@
     "dname": "Swift Blink",
     "img": "/apps/dota2/images/dota_react/items/swift_blink.png?t=1593393829403",
     "lore": "A cunning blade able to anticipate and enable its bearer's movements.",
-    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.\nIf you used Swift Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead.",
+    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
     "abilities": [
       {
         "type": "active",
@@ -50,7 +50,7 @@
     "dname": "Arcane Blink",
     "img": "/apps/dota2/images/dota_react/items/arcane_blink.png?t=1593393829403",
     "lore": "A revitalizing tool to help bear the weight of arcane expenditure.",
-    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.\nIf you used Arcane Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead.",
+    "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.",
     "abilities": [
       {
         "type": "active",
@@ -63,65 +63,54 @@
     "name": "recipe_arcane_blink",
     "id": 606,
     "dname": "Arcane Blink Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "recipe_swift_blink",
     "id": 607,
     "dname": "Swift Blink Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "recipe_overwhelming_blink",
     "id": 608,
     "dname": "Overwhelming Blink Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "blades_of_attack",
     "id": 2,
     "dname": "Blades of Attack",
     "img": "/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
-    "lore": "The damage of these small, concealable blades should not be underestimated.",
-    "notes": ""
+    "lore": "The damage of these small, concealable blades should not be underestimated."
   },
   {
     "name": "broadsword",
     "id": 3,
     "dname": "Broadsword",
     "img": "/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
-    "lore": "The classic weapon of choice for knights, this blade is sturdy and reliable for slaying enemies.",
-    "notes": ""
+    "lore": "The classic weapon of choice for knights, this blade is sturdy and reliable for slaying enemies."
   },
   {
     "name": "chainmail",
     "id": 4,
     "dname": "Chainmail",
     "img": "/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
-    "lore": "A medium weave of metal chains.",
-    "notes": ""
+    "lore": "A medium weave of metal chains."
   },
   {
     "name": "claymore",
     "id": 5,
     "dname": "Claymore",
     "img": "/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
-    "lore": "A sword that can cut through armor, it's a commonly chosen first weapon for budding swordsmen.",
-    "notes": ""
+    "lore": "A sword that can cut through armor, it's a commonly chosen first weapon for budding swordsmen."
   },
   {
     "name": "helm_of_iron_will",
     "id": 6,
     "dname": "Helm of Iron Will",
     "img": "/apps/dota2/images/dota_react/items/helm_of_iron_will.png?t=1593393829403",
-    "lore": "The helmet of a legendary warrior who fell in battle.",
-    "notes": ""
+    "lore": "The helmet of a legendary warrior who fell in battle."
   },
   {
     "name": "javelin",
@@ -129,7 +118,6 @@
     "dname": "Javelin",
     "img": "/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
     "lore": "A rather typical spear that can sometimes pierce through an enemy's armor when used to attack.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -143,24 +131,21 @@
     "id": 8,
     "dname": "Mithril Hammer",
     "img": "/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
-    "lore": "A hammer forged of pure mithril.",
-    "notes": ""
+    "lore": "A hammer forged of pure mithril."
   },
   {
     "name": "platemail",
     "id": 9,
     "dname": "Platemail",
     "img": "/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
-    "lore": "Thick metal plates that protect the entire upper body. Avoid dropping on feet.",
-    "notes": ""
+    "lore": "Thick metal plates that protect the entire upper body. Avoid dropping on feet."
   },
   {
     "name": "quarterstaff",
     "id": 10,
     "dname": "Quarterstaff",
     "img": "/apps/dota2/images/dota_react/items/quarterstaff.png?t=1593393829403",
-    "lore": "A basic staff that allows you to strike quickly.",
-    "notes": ""
+    "lore": "A basic staff that allows you to strike quickly."
   },
   {
     "name": "quelling_blade",
@@ -188,7 +173,6 @@
     "dname": "Faerie Fire",
     "img": "/apps/dota2/images/dota_react/items/faerie_fire.png?t=1593393829403",
     "lore": "The ethereal flames from the ever-burning ruins of Kindertree ignite across realities.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -217,17 +201,14 @@
     "id": 244,
     "dname": "Wind Lace",
     "img": "/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
-    "lore": "Hasten to battle on wind-touched heels.",
-    "notes": "",
-    "abilities": []
+    "lore": "Hasten to battle on wind-touched heels."
   },
   {
     "name": "ring_of_protection",
     "id": 12,
     "dname": "Ring of Protection",
     "img": "/apps/dota2/images/dota_react/items/ring_of_protection.png?t=1593393829403",
-    "lore": "A glimmering ring that defends its bearer.",
-    "notes": ""
+    "lore": "A glimmering ring that defends its bearer."
   },
   {
     "name": "stout_shield",
@@ -250,7 +231,6 @@
     "dname": "Moon Shard",
     "img": "/apps/dota2/images/dota_react/items/moon_shard.png?t=1593393829403",
     "lore": "Said to be a tear from the lunar goddess Selemene.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -269,24 +249,21 @@
     "id": 13,
     "dname": "Gauntlets of Strength",
     "img": "/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403",
-    "lore": "Studded leather gloves that add brute strength.",
-    "notes": ""
+    "lore": "Studded leather gloves that add brute strength."
   },
   {
     "name": "slippers",
     "id": 14,
     "dname": "Slippers of Agility",
     "img": "/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
-    "lore": "Light boots made from spider skin that tingles your senses.",
-    "notes": ""
+    "lore": "Light boots made from spider skin that tingles your senses."
   },
   {
     "name": "mantle",
     "id": 15,
     "dname": "Mantle of Intelligence",
     "img": "/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403",
-    "lore": "A beautiful sapphire mantle worn by generations of queens.",
-    "notes": ""
+    "lore": "A beautiful sapphire mantle worn by generations of queens."
   },
   {
     "name": "branches",
@@ -294,7 +271,6 @@
     "dname": "Iron Branch",
     "img": "/apps/dota2/images/dota_react/items/branches.png?t=1593393829403",
     "lore": "A seemingly ordinary branch, its ironlike qualities are bestowed upon the bearer.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -308,96 +284,84 @@
     "id": 17,
     "dname": "Belt of Strength",
     "img": "/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-    "lore": "A valued accessory for improving vitality.",
-    "notes": ""
+    "lore": "A valued accessory for improving vitality."
   },
   {
     "name": "boots_of_elves",
     "id": 18,
     "dname": "Band of Elvenskin",
     "img": "/apps/dota2/images/dota_react/items/boots_of_elves.png?t=1593393829403",
-    "lore": "A tensile fabric often used for its light weight and ease of movement.",
-    "notes": ""
+    "lore": "A tensile fabric often used for its light weight and ease of movement."
   },
   {
     "name": "robe",
     "id": 19,
     "dname": "Robe of the Magi",
     "img": "/apps/dota2/images/dota_react/items/robe.png?t=1593393829403",
-    "lore": "This robe corrupts the soul of the user, but provides wisdom in return.",
-    "notes": ""
+    "lore": "This robe corrupts the soul of the user, but provides wisdom in return."
   },
   {
     "name": "circlet",
     "id": 20,
     "dname": "Circlet",
     "img": "/apps/dota2/images/dota_react/items/circlet.png?t=1593393829403",
-    "lore": "An elegant circlet designed for human princesses.",
-    "notes": ""
+    "lore": "An elegant circlet designed for human princesses."
   },
   {
     "name": "crown",
     "id": 261,
     "dname": "Crown",
     "img": "/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
-    "lore": "A stately crown created to ensure a well-meaning but ungifted heir could fend off usurpers and govern with a strong hand.",
-    "notes": ""
+    "lore": "A stately crown created to ensure a well-meaning but ungifted heir could fend off usurpers and govern with a strong hand."
   },
   {
     "name": "diadem",
     "id": 1122,
     "dname": "Diadem",
     "img": "/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "lore": "A crown that can never be removed."
   },
   {
     "name": "ogre_axe",
     "id": 21,
     "dname": "Ogre Axe",
     "img": "/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403",
-    "lore": "You grow stronger just by holding it.",
-    "notes": ""
+    "lore": "You grow stronger just by holding it."
   },
   {
     "name": "blade_of_alacrity",
     "id": 22,
     "dname": "Blade of Alacrity",
     "img": "/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
-    "lore": "A long blade imbued with time magic.",
-    "notes": ""
+    "lore": "A long blade imbued with time magic."
   },
   {
     "name": "staff_of_wizardry",
     "id": 23,
     "dname": "Staff of Wizardry",
     "img": "/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403",
-    "lore": "A staff of magical powers passed down from the eldest mages.",
-    "notes": ""
+    "lore": "A staff of magical powers passed down from the eldest mages."
   },
   {
     "name": "ultimate_orb",
     "id": 24,
     "dname": "Ultimate Orb",
     "img": "/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
-    "lore": "A mystical orb containing the essence of life.",
-    "notes": ""
+    "lore": "A mystical orb containing the essence of life."
   },
   {
     "name": "gloves",
     "id": 25,
     "dname": "Gloves of Haste",
     "img": "/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
-    "lore": "A pair of magical gloves that seems to render weapons weightless.",
-    "notes": ""
+    "lore": "A pair of magical gloves that seems to render weapons weightless."
   },
   {
     "name": "blitz_knuckles",
     "id": 485,
     "dname": "Blitz Knuckles",
     "img": "/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
-    "lore": "An underground arcanist's update of a back-alley classic.",
-    "notes": ""
+    "lore": "An underground arcanist's update of a back-alley classic."
   },
   {
     "name": "lifesteal",
@@ -405,7 +369,6 @@
     "dname": "Morbid Mask",
     "img": "/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
     "lore": "A mask that drains the energy of those caught in its gaze.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -420,7 +383,6 @@
     "dname": "Voodoo Mask",
     "img": "/apps/dota2/images/dota_react/items/voodoo_mask.png?t=1593393829403",
     "lore": "A mask tuned to sip the arcane bindings that pass between caster and foe.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -434,25 +396,21 @@
     "id": 27,
     "dname": "Ring of Regen",
     "img": "/apps/dota2/images/dota_react/items/ring_of_regen.png?t=1593393829403",
-    "lore": "This ring is considered a good luck charm among the Gnomes.",
-    "notes": ""
+    "lore": "This ring is considered a good luck charm among the Gnomes."
   },
   {
     "name": "sobi_mask",
     "id": 28,
     "dname": "Sage's Mask",
     "img": "/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403",
-    "lore": "A mask commonly used by mages and warlocks for various rituals.",
-    "notes": ""
+    "lore": "A mask commonly used by mages and warlocks for various rituals."
   },
   {
     "name": "boots",
     "id": 29,
     "dname": "Boots of Speed",
     "img": "/apps/dota2/images/dota_react/items/boots.png?t=1593393829403",
-    "lore": "Fleet footwear, increasing movement.",
-    "notes": "",
-    "abilities": []
+    "lore": "Fleet footwear, increasing movement."
   },
   {
     "name": "gem",
@@ -529,9 +487,7 @@
     "name": "recipe_magic_wand",
     "id": 35,
     "dname": "Magic Wand Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "magic_wand",
@@ -569,7 +525,6 @@
     "dname": "Clarity",
     "img": "/apps/dota2/images/dota_react/items/clarity.png?t=1593393829403",
     "lore": "Clear water that enhances the ability to meditate.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -598,7 +553,6 @@
     "id": 4204,
     "dname": "Healing Lotus",
     "img": "/apps/dota2/images/dota_react/items/famango.png?t=1593393829403",
-    "lore": "",
     "notes": "Hold Control to use on a nearby allied hero.",
     "abilities": [
       {
@@ -613,7 +567,6 @@
     "id": 4205,
     "dname": "Great Healing Lotus",
     "img": "/apps/dota2/images/dota_react/items/great_famango.png?t=1593393829403",
-    "lore": "",
     "notes": "Hold Control to use on a nearby allied hero.",
     "abilities": [
       {
@@ -628,7 +581,6 @@
     "id": 4206,
     "dname": "Greater Healing Lotus",
     "img": "/apps/dota2/images/dota_react/items/greater_famango.png?t=1593393829403",
-    "lore": "",
     "notes": "Hold Control to use on a nearby allied hero.",
     "abilities": [
       {
@@ -643,8 +595,7 @@
     "id": 1123,
     "dname": "Blood Grenade",
     "img": "/apps/dota2/images/dota_react/items/blood_grenade.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Both the hunter and the hunted must pay the blood price.",
     "abilities": [
       {
         "type": "use",
@@ -659,7 +610,6 @@
     "dname": "Block of Cheese",
     "img": "/apps/dota2/images/dota_react/items/royale_with_cheese.png?t=1593393829403",
     "lore": "First there was the Belt of Strength. Then there were the Boots of Travel. Now, at long last, the Block of Cheese.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -674,7 +624,6 @@
     "dname": "Healing Salve",
     "img": "/apps/dota2/images/dota_react/items/flask.png?t=1593393829403",
     "lore": "A magical salve that can quickly mend even the deepest of wounds.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -724,7 +673,6 @@
     "dname": "Observer Ward",
     "img": "/apps/dota2/images/dota_react/items/ward_observer.png?t=1593393829403",
     "lore": "A form of half-sentient plant, often cultivated by apprentice wizards.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -739,7 +687,6 @@
     "dname": "Sentry Ward",
     "img": "/apps/dota2/images/dota_react/items/ward_sentry.png?t=1593393829403",
     "lore": "A form of plant originally grown in the garden of a fearful king.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -769,7 +716,6 @@
     "dname": "Tango",
     "img": "/apps/dota2/images/dota_react/items/tango.png?t=1593393829403",
     "lore": "Forage to survive on the battlefield.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -784,7 +730,6 @@
     "dname": "Tango (Shared)",
     "img": "/apps/dota2/images/dota_react/items/tango_single.png?t=1593393829403",
     "lore": "Om nom nom.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -797,31 +742,13 @@
     "name": "courier",
     "id": 45,
     "dname": "Animal Courier",
-    "img": "/apps/dota2/images/dota_react/items/courier.png?t=1593393829403",
-    "lore": "Losing the courier is punishable by death.",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "use",
-        "title": "Deploy Courier",
-        "description": "Deploys a creature to carry items to and from your team's base."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/courier.png?t=1593393829403"
   },
   {
     "name": "flying_courier",
     "id": 286,
     "dname": "Flying Courier",
-    "img": "/apps/dota2/images/dota_react/items/flying_courier.png?t=1593393829403",
-    "lore": "The faithful mount upon which soar the fortunes of battle.",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "use",
-        "title": "Upgrade Courier",
-        "description": "Upgrades your team's Animal Courier to a Flying Courier, granting it swift, unobstructed movement to carry items to and from your team's base. \n\nRequires a deployed Animal Courier."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/flying_courier.png?t=1593393829403"
   },
   {
     "name": "tpscroll",
@@ -842,9 +769,7 @@
     "name": "recipe_travel_boots",
     "id": 47,
     "dname": "Boots of Travel Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "travel_boots",
@@ -852,7 +777,6 @@
     "dname": "Boots of Travel",
     "img": "/apps/dota2/images/dota_react/items/travel_boots.png?t=1593393829403",
     "lore": "Winged boots that grant omnipresence.",
-    "notes": "",
     "abilities": [
       {
         "type": "upgrade",
@@ -867,7 +791,6 @@
     "dname": "Boots of Travel 2",
     "img": "/apps/dota2/images/dota_react/items/travel_boots_2.png?t=1593393829403",
     "lore": "Winged boots that grant omnipresence.",
-    "notes": "",
     "abilities": [
       {
         "type": "upgrade",
@@ -882,7 +805,6 @@
     "dname": "Phase Boots",
     "img": "/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403",
     "lore": "Boots that allow the wearer to travel between the ether.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -896,112 +818,98 @@
     "id": 51,
     "dname": "Demon Edge",
     "img": "/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
-    "lore": "One of the oldest weapons forged by the Demon-Smith Abzidian, it killed its maker when he tested its edge.",
-    "notes": ""
+    "lore": "One of the oldest weapons forged by the Demon-Smith Abzidian, it killed its maker when he tested its edge."
   },
   {
     "name": "eagle",
     "id": 52,
     "dname": "Eaglesong",
     "img": "/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
-    "lore": "Capturing the majestic call of an eagle, this mystical horn brings limitless dexterity to those who hear it.",
-    "notes": ""
+    "lore": "Capturing the majestic call of an eagle, this mystical horn brings limitless dexterity to those who hear it."
   },
   {
     "name": "reaver",
     "id": 53,
     "dname": "Reaver",
     "img": "/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
-    "lore": "A massive axe capable of tearing whole mountains down.",
-    "notes": ""
+    "lore": "A massive axe capable of tearing whole mountains down."
   },
   {
     "name": "relic",
     "id": 54,
     "dname": "Sacred Relic",
     "img": "/apps/dota2/images/dota_react/items/relic.png?t=1593393829403",
-    "lore": "An ancient weapon that often turns the tides of war.",
-    "notes": ""
+    "lore": "An ancient weapon that often turns the tides of war."
   },
   {
     "name": "hyperstone",
     "id": 55,
     "dname": "Hyperstone",
     "img": "/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
-    "lore": "A mystical, carved stone that boosts the fervor of the holder.",
-    "notes": ""
+    "lore": "A mystical, carved stone that boosts the fervor of the holder."
   },
   {
     "name": "ring_of_health",
     "id": 56,
     "dname": "Ring of Health",
     "img": "/apps/dota2/images/dota_react/items/ring_of_health.png?t=1593393829403",
-    "lore": "A shiny ring found beneath a fat halfling's corpse.",
-    "notes": ""
+    "lore": "A shiny ring found beneath a fat halfling's corpse."
   },
   {
     "name": "ring_of_tarrasque",
     "id": 279,
     "dname": "Ring of Tarrasque",
     "img": "/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
-    "lore": "An ageless ring forged with an otherwise simple blood magic amplified by the presumed source of its key component.",
-    "notes": ""
+    "lore": "An ageless ring forged with an otherwise simple blood magic amplified by the presumed source of its key component."
   },
   {
     "name": "void_stone",
     "id": 57,
     "dname": "Void Stone",
     "img": "/apps/dota2/images/dota_react/items/void_stone.png?t=1593393829403",
-    "lore": "Jewelry that was once used to channel nether realm magic, this ring pulses with energy.",
-    "notes": ""
+    "lore": "Jewelry that was once used to channel nether realm magic, this ring pulses with energy."
   },
   {
     "name": "tiara_of_selemene",
     "id": 1802,
     "dname": "Tiara of Selemene",
     "img": "/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
-    "lore": "Tiara!",
-    "notes": ""
+    "lore": "A symbol of favor bestowed upon the high priestess of Selemene."
   },
   {
     "name": "mystic_staff",
     "id": 58,
     "dname": "Mystic Staff",
     "img": "/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-    "lore": "Enigmatic staff made of only the most expensive crystals.",
-    "notes": ""
+    "lore": "Enigmatic staff made of only the most expensive crystals."
   },
   {
     "name": "energy_booster",
     "id": 59,
     "dname": "Energy Booster",
     "img": "/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403",
-    "lore": "This lapis gemstone is commonly added to the collection of wizards seeking to improve their presence in combat.",
-    "notes": ""
+    "lore": "This lapis gemstone is commonly added to the collection of wizards seeking to improve their presence in combat."
   },
   {
     "name": "point_booster",
     "id": 60,
     "dname": "Point Booster",
     "img": "/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
-    "lore": "A perfectly formed amethyst that nourishes body and mind when held.",
-    "notes": ""
+    "lore": "A perfectly formed amethyst that nourishes body and mind when held."
   },
   {
     "name": "vitality_booster",
     "id": 61,
     "dname": "Vitality Booster",
     "img": "/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
-    "lore": "A ruby gemstone that has been passed down through generations of warrior kin.",
-    "notes": ""
+    "lore": "A ruby gemstone that has been passed down through generations of warrior kin."
   },
   {
     "name": "fluffy_hat",
     "id": 593,
     "dname": "Fluffy Hat",
     "img": "/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
-    "lore": "Fine and functional foppery for the fashion-forward fighter.",
-    "notes": ""
+    "lore": "Fine and functional foppery for the fashion-forward fighter."
   },
   {
     "name": "power_treads",
@@ -1021,110 +929,56 @@
   {
     "name": "recipe_samurai_tabi",
     "id": 1098,
-    "dname": "Samurai Tabi Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "samurai_tabi",
     "id": 1091,
-    "dname": "Samurai Tabi",
-    "img": "/apps/dota2/images/dota_react/items/samurai_tabi.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Switch Attribute",
-        "description": "Switches between an additional +24 Strength, +24 Agility, or +24 Intelligence, and provides the bonuses corresponding with that parameter."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/samurai_tabi.png?t=1593393829403"
   },
   {
     "name": "recipe_hermes_sandals",
     "id": 1092,
-    "dname": "Hermes Sandals Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "hermes_sandals",
     "id": 1093,
-    "dname": "Hermes Sandals",
-    "img": "/apps/dota2/images/dota_react/items/hermes_sandals.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Greater Phase",
-        "description": "When activated, the user cannot be slowed or rooted. Gives 20% increased movement speed on melee heroes, and 10% on ranged heroes, and lets you move through units and turn more quickly for 4 seconds. Does not dispel roots that are already in place."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/hermes_sandals.png?t=1593393829403"
   },
   {
     "name": "recipe_witches_switch",
     "id": 1099,
-    "dname": "Witches Switch Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "witches_switch",
     "id": 1100,
-    "dname": "Witches Switch",
-    "img": "/apps/dota2/images/dota_react/items/witches_switch.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "toggle",
-        "title": "Switch",
-        "description": "When active, Increases allied armor, health regeneration and mana regeneration. When Switched, decreases enemy armor, health regeneration and mana regeneration by the same amount."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/witches_switch.png?t=1593393829403"
   },
   {
     "name": "recipe_lunar_crest",
     "id": 1094,
-    "dname": "Lunar Crest Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "lunar_crest",
     "id": 1095,
     "dname": "Lunar Crest",
-    "img": "/apps/dota2/images/dota_react/items/lunar_crest.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Glow",
-        "description": "When cast on an enemy, doubles incoming magic damage on them up to a threshhold of 375 magic damage.\n\nLasts 12 seconds."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/lunar_crest.png?t=1593393829403"
   },
   {
     "name": "recipe_phylactery",
     "id": 1106,
     "dname": "Phylactery Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "phylactery",
     "id": 1107,
     "dname": "Phylactery",
     "img": "/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "An amulet overflowing with powerful magics.",
     "abilities": [
       {
         "type": "passive",
@@ -1137,40 +991,32 @@
     "name": "recipe_angels_demise",
     "id": 1807,
     "dname": "Khanda Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "angels_demise",
     "id": 1808,
     "dname": "Khanda",
     "img": "/apps/dota2/images/dota_react/items/angels_demise.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A blade sharp enough to slice through magic itself.",
     "abilities": [
       {
         "type": "passive",
         "title": "Empower Spell",
-        "description": "The next Unit Target spell you cast on an enemy deals a separate 250 additional damage and applies a debuff that slows the target by 30% and disables their passives for 3s."
+        "description": "The next Unit Target spell you cast on an enemy deals a separate 250 additional damage and applies a debuff that slows the target by 30% and disables their passives for 4s."
       }
     ]
   },
   {
     "name": "grandmasters_glaive",
     "id": 655,
-    "dname": "Grandmaster's Glaive",
-    "img": "/apps/dota2/images/dota_react/items/grandmasters_glaive.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/grandmasters_glaive.png?t=1593393829403"
   },
   {
     "name": "recipe_hand_of_midas",
     "id": 64,
     "dname": "Hand of Midas Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "hand_of_midas",
@@ -1183,40 +1029,27 @@
       {
         "type": "active",
         "title": "Transmute",
-        "description": "Kills a non-hero target for 160 gold and 2.1x experience. When used on a neutral creep, guarantees to create a neutral item if available. \n\n Cannot be used on Ancient creeps."
+        "description": "Kills a non-hero target for 160 gold and 2.1x experience. Killing a neutral creep additionally grants a madstone bundle. \n\n Cannot be used on Ancient creeps."
       }
     ]
   },
   {
     "name": "aetherial_halo",
     "id": 1164,
-    "dname": "Aetherial Hammer",
-    "img": "/apps/dota2/images/dota_react/items/aetherial_halo.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Aetherial Hammer",
-        "description": "CHANNELED - After a successful channel, summons a meteor that strikes a 400 AoE, stunning enemies for 0.5 seconds and dealing impact damage. Continues to deal damage over time to enemies units and buildings for 6 seconds. Non-building units are also slowed for 20% for the duration of the burn. \n\nBuilding Impact Damage: 95 \nBuilding Over Time Damage: 60 \n\nNon-Building Impact Damage: 150 \nNon-Building Over Time Damage: 60 \n\nChannel Duration: 1.5 seconds.\nLanding Time: 0.5 seconds."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/aetherial_halo.png?t=1593393829403"
   },
   {
     "name": "oblivion_staff",
     "id": 67,
     "dname": "Oblivion Staff",
     "img": "/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403",
-    "lore": "Deceptively hidden as an ordinary staff, it is actually very powerful, much like the Eldritch who originally possessed it.",
-    "notes": ""
+    "lore": "Deceptively hidden as an ordinary staff, it is actually very powerful, much like the Eldritch who originally possessed it."
   },
   {
     "name": "recipe_witch_blade",
     "id": 533,
     "dname": "Witch Blade Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "witch_blade",
@@ -1224,7 +1057,6 @@
     "dname": "Witch Blade",
     "img": "/apps/dota2/images/dota_react/items/witch_blade.png?t=1593393829403",
     "lore": "A spiteful blade inadvertently possessed by the soul of its incautious creator.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1238,16 +1070,14 @@
     "id": 69,
     "dname": "Perseverance",
     "img": "/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
-    "lore": "A gem that grants heart to the bearer.",
-    "notes": ""
+    "lore": "A gem that grants heart to the bearer."
   },
   {
     "name": "cornucopia",
     "id": 1125,
     "dname": "Cornucopia",
     "img": "/apps/dota2/images/dota_react/items/cornucopia.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "lore": "A source of spiritual and physical nourishment."
   },
   {
     "name": "poor_mans_shield",
@@ -1267,67 +1097,52 @@
   {
     "name": "satchel",
     "id": 731,
-    "dname": "Satchel",
-    "img": "/apps/dota2/images/dota_react/items/satchel.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/satchel.png?t=1593393829403"
   },
   {
     "name": "recipe_bracer",
     "id": 72,
     "dname": "Bracer Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "bracer",
     "id": 73,
     "dname": "Bracer",
     "img": "/apps/dota2/images/dota_react/items/bracer.png?t=1593393829403",
-    "lore": "The bracer is a common choice to toughen up defenses and increase longevity.",
-    "notes": ""
+    "lore": "The bracer is a common choice to toughen up defenses and increase longevity."
   },
   {
     "name": "recipe_wraith_band",
     "id": 74,
     "dname": "Wraith Band Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "wraith_band",
     "id": 75,
     "dname": "Wraith Band",
     "img": "/apps/dota2/images/dota_react/items/wraith_band.png?t=1593393829403",
-    "lore": "A circlet with faint whispers echoing about it.",
-    "notes": ""
+    "lore": "A circlet with faint whispers echoing about it."
   },
   {
     "name": "recipe_null_talisman",
     "id": 76,
     "dname": "Null Talisman Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "null_talisman",
     "id": 77,
     "dname": "Null Talisman",
     "img": "/apps/dota2/images/dota_react/items/null_talisman.png?t=1593393829403",
-    "lore": "A small gemstone attached to several chains.",
-    "notes": ""
+    "lore": "A small gemstone attached to several chains."
   },
   {
     "name": "recipe_mekansm",
     "id": 78,
     "dname": "Mekansm Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "mekansm",
@@ -1367,38 +1182,19 @@
   {
     "name": "recipe_wraith_pact",
     "id": 907,
-    "dname": "Wraith Pact Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "wraith_pact",
     "id": 908,
     "dname": "Wraith Pact",
-    "img": "/apps/dota2/images/dota_react/items/wraith_pact.png?t=1593393829403",
-    "lore": "A sentient amulet whose animus shakes the courage of even the strongest foes.",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Wraith's Reprisal",
-        "description": "Summons a movable totem in your location for 25 seconds that reduces all physical damage of enemies within 900 radius by 30% and deals 45 damage per second.\n\n The totem eminates the Vladmir's Aura around it. Totem can be destroyed in 4 hits. Creeps deal half damage to the totem."
-      },
-      {
-        "type": "passive",
-        "title": "Vladmir's Aura",
-        "description": "Grants 24% lifesteal, 18% bonus damage, 2 mana regeneration, and 3 armor to nearby allies. Lifesteal from creeps is reduced by 50%.\n\nRadius: 1200"
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/wraith_pact.png?t=1593393829403"
   },
   {
     "name": "recipe_buckler",
     "id": 85,
     "dname": "Buckler Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "buckler",
@@ -1406,7 +1202,6 @@
     "dname": "Buckler",
     "img": "/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403",
     "lore": "A powerful shield that imbues the bearer with the strength of heroes past, it is capable of protecting entire armies in battle.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1419,9 +1214,7 @@
     "name": "recipe_ring_of_basilius",
     "id": 87,
     "dname": "Ring of Basilius Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "ring_of_basilius",
@@ -1429,7 +1222,6 @@
     "dname": "Ring of Basilius",
     "img": "/apps/dota2/images/dota_react/items/ring_of_basilius.png?t=1593393829403",
     "lore": "Ring given as a reward to the greatest mages.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1442,9 +1234,7 @@
     "name": "recipe_holy_locket",
     "id": 268,
     "dname": "Holy Locket Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "holy_locket",
@@ -1452,7 +1242,6 @@
     "dname": "Holy Locket",
     "img": "/apps/dota2/images/dota_react/items/holy_locket.png?t=1593393829403",
     "lore": "A prized relic long thought lost forever in a failed crusade.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1462,7 +1251,7 @@
       {
         "type": "passive",
         "title": "Holy Blessing",
-        "description": "Amplifies heals you provide by 25%."
+        "description": "Amplifies heals you provide by 15%."
       }
     ]
   },
@@ -1470,9 +1259,7 @@
     "name": "recipe_pipe",
     "id": 89,
     "dname": "Pipe of Insight Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "pipe",
@@ -1498,9 +1285,7 @@
     "name": "recipe_urn_of_shadows",
     "id": 91,
     "dname": "Urn of Shadows Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "urn_of_shadows",
@@ -1513,7 +1298,7 @@
       {
         "type": "active",
         "title": "Soul Release",
-        "description": "Provides 30 health regeneration when cast on allies, and deals 25 damage per second when cast on enemies. \n\nLasts 8 seconds. \n\nGains charges every time an enemy hero dies within 1400 units. Only the closest Urn to the dying hero will gain a charge."
+        "description": "Provides 30 health regeneration when cast on allies, and deals 25 damage per second when cast on enemies. \n\nLasts 8 seconds.\n\nIf the unit is attacked by an enemy hero or Roshan, the effect is lost.\n\nGains charges every time an enemy hero dies within 1400 units. Only the closest Urn to the dying hero will gain a charge."
       }
     ]
   },
@@ -1521,9 +1306,7 @@
     "name": "recipe_headdress",
     "id": 93,
     "dname": "Headdress Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "headdress",
@@ -1531,7 +1314,6 @@
     "dname": "Headdress",
     "img": "/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403",
     "lore": "Creates a soothing aura that restores allies in battle.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1544,9 +1326,7 @@
     "name": "recipe_sheepstick",
     "id": 95,
     "dname": "Scythe of Vyse Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "sheepstick",
@@ -1566,25 +1346,13 @@
   {
     "name": "caster_rapier",
     "id": 1801,
-    "dname": "Caster Rapier",
-    "img": "/apps/dota2/images/dota_react/items/caster_rapier.png?t=1593393829403",
-    "lore": "It's like a rapier for casters!",
-    "notes": "If Caster Rapier is dropped and picked up by an enemy of its original owner, it cannot be dropped again except by death.",
-    "abilities": [
-      {
-        "type": "passive",
-        "title": "Everlasting",
-        "description": "Dropped on death, and cannot be destroyed. \n\nBecomes unusable if picked up by an ally of its owner until it is returned to its owner. It is immediately usable by anybody if an enemy of the owner picks it up and is killed. A dropped Rapier cannot be picked up by a courier."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/caster_rapier.png?t=1593393829403"
   },
   {
     "name": "recipe_orchid",
     "id": 97,
     "dname": "Orchid Malevolence Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "orchid",
@@ -1592,7 +1360,6 @@
     "dname": "Orchid Malevolence",
     "img": "/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
     "lore": "A garnet rod constructed from the essence of a fire demon.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1605,9 +1372,7 @@
     "name": "recipe_bloodthorn",
     "id": 245,
     "dname": "Bloodthorn Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "bloodthorn",
@@ -1615,7 +1380,6 @@
     "dname": "Bloodthorn",
     "img": "/apps/dota2/images/dota_react/items/bloodthorn.png?t=1593393829403",
     "lore": "A reviled blade that bites deeper with each wriggle of its victim's final throes.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1635,7 +1399,6 @@
     "dname": "Echo Sabre",
     "img": "/apps/dota2/images/dota_react/items/echo_sabre.png?t=1593393829403",
     "lore": "A deceptively swift blade imbued with resonant magic.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1648,9 +1411,7 @@
     "name": "recipe_cyclone",
     "id": 99,
     "dname": "Eul's Scepter Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "cyclone",
@@ -1671,9 +1432,7 @@
     "name": "recipe_wind_waker",
     "id": 612,
     "dname": "Wind Waker Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "wind_waker",
@@ -1694,9 +1453,7 @@
     "name": "recipe_aether_lens",
     "id": 233,
     "dname": "Aether Lens Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "aether_lens",
@@ -1717,9 +1474,7 @@
     "name": "recipe_force_staff",
     "id": 101,
     "dname": "Force Staff Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "force_staff",
@@ -1740,9 +1495,7 @@
     "name": "recipe_hurricane_pike",
     "id": 262,
     "dname": "Hurricane Pike Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "hurricane_pike",
@@ -1768,9 +1521,7 @@
     "name": "recipe_dagon",
     "id": 103,
     "dname": "Dagon Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "dagon",
@@ -1851,9 +1602,7 @@
     "name": "recipe_necronomicon",
     "id": 105,
     "dname": "Necronomicon Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "necronomicon",
@@ -1861,7 +1610,6 @@
     "dname": "Necronomicon",
     "img": "/apps/dota2/images/dota_react/items/necronomicon.png?t=1593393829403",
     "lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1876,7 +1624,6 @@
     "dname": "Necronomicon",
     "img": "/apps/dota2/images/dota_react/items/necronomicon_2.png?t=1593393829403",
     "lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1891,7 +1638,6 @@
     "dname": "Necronomicon",
     "img": "/apps/dota2/images/dota_react/items/necronomicon_3.png?t=1593393829403",
     "lore": "Considered the ultimate in necromancy and demonology, a powerful malefic force is locked within its pages.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -1906,7 +1652,6 @@
     "dname": "Aghanim's Scepter",
     "img": "/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
     "lore": "The scepter of a wizard with demigod-like powers.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1919,9 +1664,7 @@
     "name": "recipe_ultimate_scepter_2",
     "id": 270,
     "dname": "Aghanim's Blessing Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "ultimate_scepter_2",
@@ -1929,7 +1672,6 @@
     "dname": "Aghanim's Blessing",
     "img": "/apps/dota2/images/dota_react/items/ultimate_scepter_2.png?t=1593393829403",
     "lore": "The scepter of a wizard with demigod-like powers.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1944,7 +1686,6 @@
     "dname": "Aghanim's Blessing - Roshan",
     "img": "/apps/dota2/images/dota_react/items/ultimate_scepter_roshan.png?t=1593393829403",
     "lore": "The scepter of a wizard with demigod-like powers.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1959,7 +1700,6 @@
     "dname": "Aghanim's Shard",
     "img": "/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403",
     "lore": "With origins known only to a single wizard, fragments of this impossible crystal are nearly as coveted as the renowned scepter itself.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1974,7 +1714,6 @@
     "dname": "Aghanim's Shard - Consumable",
     "img": "/apps/dota2/images/dota_react/items/aghanims_shard_roshan.png?t=1593393829403",
     "lore": "With origins known only to a single wizard, fragments of this impossible crystal are nearly as coveted as the renowned scepter itself.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -1987,9 +1726,7 @@
     "name": "recipe_refresher",
     "id": 109,
     "dname": "Refresher Orb Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "refresher",
@@ -1997,7 +1734,6 @@
     "dname": "Refresher Orb",
     "img": "/apps/dota2/images/dota_react/items/refresher.png?t=1593393829403",
     "lore": "A powerful artifact created for wizards.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2010,9 +1746,7 @@
     "name": "recipe_assault",
     "id": 111,
     "dname": "Assault Cuirass Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "assault",
@@ -2020,7 +1754,6 @@
     "dname": "Assault Cuirass",
     "img": "/apps/dota2/images/dota_react/items/assault.png?t=1593393829403",
     "lore": "Forged in the depths of the nether reaches, this hellish mail provides an army with increased armor and attack speed.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -2033,25 +1766,20 @@
     "name": "recipe_heart",
     "id": 113,
     "dname": "Heart of Tarrasque Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "heart",
     "id": 114,
     "dname": "Heart of Tarrasque",
     "img": "/apps/dota2/images/dota_react/items/heart.png?t=1593393829403",
-    "lore": "Preserved heart of an extinct monster, it bolsters the bearer's fortitude.",
-    "notes": ""
+    "lore": "Preserved heart of an extinct monster, it bolsters the bearer's fortitude."
   },
   {
     "name": "recipe_black_king_bar",
     "id": 115,
     "dname": "Black King Bar Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "black_king_bar",
@@ -2087,9 +1815,7 @@
     "name": "recipe_shivas_guard",
     "id": 118,
     "dname": "Shiva's Guard Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "shivas_guard",
@@ -2107,7 +1833,7 @@
       {
         "type": "passive",
         "title": "Freezing Aura",
-        "description": "Reduces the attack speed of all enemies by -45 and all heals, regeneration and lifesteal by 25%. \n\nRadius: 1200"
+        "description": "Reduces the attack speed of all enemies by -45 and Health Restoration and Incoming Heal Amplification by 25%. \n\nRadius: 1200"
       }
     ]
   },
@@ -2130,9 +1856,7 @@
     "name": "recipe_sphere",
     "id": 122,
     "dname": "Linken's Sphere Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "sphere",
@@ -2158,9 +1882,7 @@
     "name": "recipe_lotus_orb",
     "id": 221,
     "dname": "Lotus Orb Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "lotus_orb",
@@ -2181,17 +1903,13 @@
     "name": "recipe_meteor_hammer",
     "id": 222,
     "dname": "Meteor Hammer Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "meteor_hammer",
     "id": 223,
     "dname": "Meteor Hammer",
     "img": "/apps/dota2/images/dota_react/items/meteor_hammer.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2205,7 +1923,6 @@
     "id": 225,
     "dname": "Nullifier",
     "img": "/apps/dota2/images/dota_react/items/nullifier.png?t=1593393829403",
-    "lore": "",
     "notes": "Can be cast on invulnerable units.",
     "abilities": [
       {
@@ -2219,17 +1936,13 @@
     "name": "recipe_aeon_disk",
     "id": 255,
     "dname": "Aeon Disk Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "aeon_disk",
     "id": 256,
     "dname": "Aeon Disk",
     "img": "/apps/dota2/images/dota_react/items/aeon_disk.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -2242,40 +1955,30 @@
     "name": "recipe_kaya",
     "id": 258,
     "dname": "Kaya Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "kaya",
     "id": 259,
     "dname": "Kaya",
-    "img": "/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403"
   },
   {
     "name": "trident",
     "id": 369,
     "dname": "Trident",
-    "img": "/apps/dota2/images/dota_react/items/trident.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/trident.png?t=1593393829403"
   },
   {
     "name": "combo_breaker",
     "id": 276,
-    "img": "/apps/dota2/images/dota_react/items/combo_breaker.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/combo_breaker.png?t=1593393829403"
   },
   {
     "name": "refresher_shard",
     "id": 260,
     "dname": "Refresher Shard",
     "img": "/apps/dota2/images/dota_react/items/refresher_shard.png?t=1593393829403",
-    "lore": "",
     "notes": "Refresher Shard is shareable.",
     "abilities": [
       {
@@ -2289,22 +1992,19 @@
     "name": "recipe_spirit_vessel",
     "id": 266,
     "dname": "Spirit Vessel Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "spirit_vessel",
     "id": 267,
     "dname": "Spirit Vessel",
     "img": "/apps/dota2/images/dota_react/items/spirit_vessel.png?t=1593393829403",
-    "lore": "",
     "notes": "Does not trigger spell block or spell reflect.",
     "abilities": [
       {
         "type": "active",
         "title": "Soul Release",
-        "description": "When used against enemies, it reduces health by 4% of current health per second, and reduces HP regeneration, healing, lifesteal and Spell lifesteal by 60%. Deals 25 damage per second. \n\nWhen used on allies, it provides 40 health regeneration per second. \n\nLasts 8 seconds. \n\nGains charges every time an enemy hero dies within 1400 units or the user dies. Only the closest Spirit Vessel to the dying hero will gain a charge."
+        "description": "When used against enemies, it reduces health by 4% of current health per second, and reduces Health Restoration by 70% and incoming heals by 70%. Deals 25 damage per second. \n\nWhen used on allies, it provides 40 health regeneration per second. \n\nLasts 8 seconds.\n\nIf the unit is attacked by an enemy hero or Roshan, the effect is lost.\n\nGains charges every time an enemy hero dies within 1400 units or the user dies. Only the closest Spirit Vessel to the dying hero will gain a charge."
       }
     ]
   },
@@ -2327,9 +2027,7 @@
     "name": "recipe_crimson_guard",
     "id": 243,
     "dname": "Crimson Guard Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "crimson_guard",
@@ -2355,9 +2053,7 @@
     "name": "recipe_blade_mail",
     "id": 126,
     "dname": "Blade Mail Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "blade_mail",
@@ -2370,7 +2066,7 @@
       {
         "type": "active",
         "title": "Damage Return",
-        "description": "For 5.5 seconds, the damage returned from all sources is increased by 85%."
+        "description": "For 5.5 seconds, return all incoming damage, increasing the percentage by 85%."
       },
       {
         "type": "passive",
@@ -2384,8 +2080,7 @@
     "id": 129,
     "dname": "Soul Booster",
     "img": "/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
-    "lore": "Regain lost courage.",
-    "notes": ""
+    "lore": "Regain lost courage."
   },
   {
     "name": "hood_of_defiance",
@@ -2406,9 +2101,7 @@
     "name": "recipe_eternal_shroud",
     "id": 691,
     "dname": "Eternal Shroud Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "eternal_shroud",
@@ -2416,12 +2109,11 @@
     "dname": "Eternal Shroud",
     "img": "/apps/dota2/images/dota_react/items/eternal_shroud.png?t=1593393829403",
     "lore": "A pristine hood that feeds upon strife to empower its owner.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Shroud",
-        "description": "Restores mana equal to 20% of incoming enemy spell damage before reductions."
+        "description": "Restores mana equal to 25% of incoming enemy spell damage before reductions."
       },
       {
         "type": "passive",
@@ -2454,9 +2146,7 @@
     "name": "recipe_monkey_king_bar",
     "id": 134,
     "dname": "Monkey King Bar Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "monkey_king_bar",
@@ -2464,7 +2154,6 @@
     "dname": "Monkey King Bar",
     "img": "/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403",
     "lore": "A powerful staff used by a master warrior.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -2479,7 +2168,6 @@
     "dname": "Radiance",
     "img": "/apps/dota2/images/dota_react/items/radiance.png?t=1593393829403",
     "lore": "A divine weapon that causes damage and a bright burning effect that lays waste to nearby enemies.",
-    "notes": "",
     "abilities": [
       {
         "type": "toggle",
@@ -2500,9 +2188,7 @@
     "name": "recipe_greater_crit",
     "id": 140,
     "dname": "Daedalus Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "greater_crit",
@@ -2523,9 +2209,7 @@
     "name": "recipe_basher",
     "id": 142,
     "dname": "Skull Basher Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "basher",
@@ -2546,9 +2230,7 @@
     "name": "recipe_bfury",
     "id": 144,
     "dname": "Battle Fury Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "bfury",
@@ -2579,9 +2261,7 @@
     "name": "recipe_manta",
     "id": 146,
     "dname": "Manta Style Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "manta",
@@ -2602,9 +2282,7 @@
     "name": "recipe_lesser_crit",
     "id": 148,
     "dname": "Crystalys Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "lesser_crit",
@@ -2625,9 +2303,7 @@
     "name": "recipe_dragon_lance",
     "id": 234,
     "dname": "Dragon Lance Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "dragon_lance",
@@ -2648,9 +2324,7 @@
     "name": "recipe_armlet",
     "id": 150,
     "dname": "Armlet of Mordiggian Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "armlet",
@@ -2686,9 +2360,7 @@
     "name": "recipe_silver_edge",
     "id": 248,
     "dname": "Silver Edge Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "silver_edge",
@@ -2696,7 +2368,6 @@
     "dname": "Silver Edge",
     "img": "/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403",
     "lore": "Once used to slay an unjust king, only to have the kingdom erupt into civil war in the aftermath.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2718,16 +2389,14 @@
     "id": 273,
     "dname": "Kaya and Sange",
     "img": "/apps/dota2/images/dota_react/items/kaya_and_sange.png?t=1593393829403",
-    "lore": "Two of three known items of unimaginable power that many believe were crafted at the same enchanter's forge.",
-    "notes": ""
+    "lore": "Two of three known items of unimaginable power that many believe were crafted at the same enchanter's forge."
   },
   {
     "name": "yasha_and_kaya",
     "id": 277,
     "dname": "Yasha and Kaya",
     "img": "/apps/dota2/images/dota_react/items/yasha_and_kaya.png?t=1593393829403",
-    "lore": "Yasha and Kaya when paired together share a natural resonance.",
-    "notes": ""
+    "lore": "Yasha and Kaya when paired together share a natural resonance."
   },
   {
     "name": "satanic",
@@ -2735,7 +2404,6 @@
     "dname": "Satanic",
     "img": "/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403",
     "lore": "Immense power at the cost of your soul.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2753,9 +2421,7 @@
     "name": "recipe_mjollnir",
     "id": 157,
     "dname": "Mjollnir Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "mjollnir",
@@ -2778,25 +2444,16 @@
     ]
   },
   {
-    "name": "recipe_skadi",
-    "id": 159,
-    "dname": "Eye of Skadi Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
-  },
-  {
     "name": "skadi",
     "id": 160,
     "dname": "Eye of Skadi",
     "img": "/apps/dota2/images/dota_react/items/skadi.png?t=1593393829403",
     "lore": "Extremely rare artifact, guarded by the azure dragons.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Cold Attack",
-        "description": "Attacks lower enemy movement by -20% if they are melee and -50% if they are ranged, as well as their attack speed by -10% if they are melee and -20% if they are ranged. Additionally it reduces all healing, lifesteal and regen by 40% Lasts for 3 seconds."
+        "description": "Attacks lower enemy movement by -25% if they are melee and -50% if they are ranged. Attacks also lower enemy attack speed by -20%. Additionally it reduces Health Restoration by 40% and Incoming Heals by 40% Lasts for 3 seconds."
       }
     ]
   },
@@ -2804,25 +2461,20 @@
     "name": "recipe_sange",
     "id": 161,
     "dname": "Sange Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "sange",
     "id": 162,
     "dname": "Sange",
     "img": "/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
-    "lore": "Sange is an unusually accurate weapon, seeking weak points automatically.",
-    "notes": ""
+    "lore": "Sange is an unusually accurate weapon, seeking weak points automatically."
   },
   {
     "name": "recipe_helm_of_the_dominator",
     "id": 163,
     "dname": "Helm of the Dominator Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "helm_of_the_dominator",
@@ -2835,7 +2487,7 @@
       {
         "type": "active",
         "title": "Dominate",
-        "description": "Takes control of one neutral, non-ancient target unit and sets its movement speed to 380 and max health to a minimum of 1000. Also provides the unit with +25 base attack damage, +12 health regen, +4 mana regen and +4 armor. \n\nDominated units with a max health of greater than 1000 retain their original max health. Grants the caster the gold and experience bounty of the dominated creep. Dominated unit's bounty is set to 100 gold."
+        "description": "Takes control of one neutral, non-ancient target unit and sets its movement speed to 380 and max health to a minimum of 1000. Also provides the unit with +25 base attack damage, +12 health regen, +4 mana regen and +4 armor. \n\nDominated units with a max health of greater than 1000 retain their original max health. Grants the caster the gold and experience bounty of the dominated creep. Dominated unit's bounty is set to 100 gold and it can no longer be killed by abilities that instantly kill creeps otherwise."
       }
     ]
   },
@@ -2843,22 +2495,20 @@
     "name": "recipe_helm_of_the_overlord",
     "id": 633,
     "dname": "Helm of the Overlord Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "helm_of_the_overlord",
     "id": 635,
     "dname": "Helm of the Overlord",
     "img": "/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
-    "lore": "The powerful headpiece of a dead necromancer.",
+    "lore": "The powerful headpiece of an undead necromancer.",
     "notes": "Can also Dominate enemy lane creeps and summoned units.\nSelling will cause dominated units to die.",
     "abilities": [
       {
         "type": "active",
         "title": "Dominate",
-        "description": "Takes control of one neutral target unit and sets its movement speed to 380 and max health to a minimum of 1800. Also provides the unit with +70 base attack damage, +12 health regen, +4 mana regen, +7 armor, and levels up some abilities of the target by 1 level. \n\nDominated units with a max health of greater than 1800 retain their original max health. Grants the caster the gold and experience bounty of the dominated creep. Dominated unit's bounty is set to 250 gold.."
+        "description": "Takes control of one neutral target unit and sets its movement speed to 380 and max health to a minimum of 1800. Also provides the unit with +70 base attack damage, +12 health regen, +4 mana regen, +7 armor, and levels up some abilities of the target by 1 level. \n\nDominated units with a max health of greater than 1800 retain their original max health. Grants the caster the gold and experience bounty of the dominated creep. Dominated unit's bounty is set to 250 gold and it can no longer be killed by abilities that instantly kill creeps otherwise."
       }
     ]
   },
@@ -2868,7 +2518,6 @@
     "dname": "Maelstrom",
     "img": "/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
     "lore": "A hammer forged for the gods themselves, Maelstrom allows its user to harness the power of lightning.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -2881,9 +2530,7 @@
     "name": "recipe_gungir",
     "id": 1565,
     "dname": "Gleipnir Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "gungir",
@@ -2891,7 +2538,6 @@
     "dname": "Gleipnir",
     "img": "/apps/dota2/images/dota_react/items/gungir.png?t=1593393829403",
     "lore": "Bindings forged by impossible means to leash an ancient evil.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2924,9 +2570,7 @@
     "name": "recipe_yasha",
     "id": 169,
     "dname": "Yasha Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "yasha",
@@ -2942,7 +2586,6 @@
     "dname": "Mask of Madness",
     "img": "/apps/dota2/images/dota_react/items/mask_of_madness.png?t=1593393829403",
     "lore": "Once this mask is worn, its bearer becomes an uncontrollable aggressive force.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -2960,9 +2603,7 @@
     "name": "recipe_diffusal_blade",
     "id": 173,
     "dname": "Diffusal Blade Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "diffusal_blade",
@@ -2988,17 +2629,14 @@
     "name": "recipe_disperser",
     "id": 1096,
     "dname": "Disperser Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "disperser",
     "id": 1097,
     "dname": "Disperser",
     "img": "/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Once entrusted to an Apostle General of the Rumusque Faithful's expeditionary force.",
     "abilities": [
       {
         "type": "active",
@@ -3016,9 +2654,7 @@
     "name": "recipe_ethereal_blade",
     "id": 175,
     "dname": "Ethereal Blade Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "ethereal_blade",
@@ -3039,9 +2675,7 @@
     "name": "recipe_soul_ring",
     "id": 177,
     "dname": "Soul Ring Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "soul_ring",
@@ -3062,9 +2696,7 @@
     "name": "recipe_arcane_boots",
     "id": 179,
     "dname": "Arcane Boots Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "arcane_boots",
@@ -3092,7 +2724,6 @@
     "dname": "Octarine Core",
     "img": "/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403",
     "lore": "At the core of spellcraft are spectrums only the very gifted can sense.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3142,7 +2773,7 @@
       {
         "type": "passive",
         "title": "Corrosion",
-        "description": "Your attacks reduce the target's armor by -3, slows their movement by -16% (-6% against melee targets), and reduces heals, health regeneration, lifesteal and Spell lifesteal by 16% for 3 seconds."
+        "description": "Your attacks reduce the target's armor by -2, slows their movement by -16% (-8% against melee targets), and reduces Health Restoration by 16%. Lasts for 3 seconds."
       }
     ]
   },
@@ -3151,13 +2782,12 @@
     "id": 1575,
     "dname": "Orb of Frost",
     "img": "/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Slowly growing since the universe began, it will envelop everything when it ends.",
     "abilities": [
       {
         "type": "passive",
         "title": "Frost",
-        "description": "Your attacks slow the target's movement by -13% (-5% against melee targets) and reduces heals, health regeneration, lifesteal and Spell lifesteal by 13%. Lasts for 3 seconds."
+        "description": "Your attacks slow the target's movement by -13% (-6% against melee targets), and reduces Health Restoration by 13%. Lasts for 3 seconds."
       }
     ]
   },
@@ -3165,17 +2795,14 @@
     "name": "recipe_falcon_blade",
     "id": 599,
     "dname": "Falcon Blade Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "falcon_blade",
     "id": 596,
     "dname": "Falcon Blade",
     "img": "/apps/dota2/images/dota_react/items/falcon_blade.png?t=1593393829403",
-    "lore": "An enchanted blade that long ago raised a hopeless urchin from pauper to king.",
-    "notes": ""
+    "lore": "An enchanted blade that long ago raised a hopeless urchin from pauper to king."
   },
   {
     "name": "mage_slayer",
@@ -3183,12 +2810,11 @@
     "dname": "Mage Slayer",
     "img": "/apps/dota2/images/dota_react/items/mage_slayer.png?t=1593393829403",
     "lore": "Forged by a secret order in The Third Age of Praxa'cia to fell the False King.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Mage Slayer",
-        "description": "Places a debuff when you attack enemies, dealing 25 damage per second and causing them to do 40% less spell damage for 3 seconds."
+        "description": "Places a debuff when you attack enemies, dealing 20 damage per second and causing them to do 40% less spell damage for 3 seconds."
       }
     ]
   },
@@ -3196,9 +2822,7 @@
     "name": "recipe_ancient_janggo",
     "id": 184,
     "dname": "Drum of Endurance Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "ancient_janggo",
@@ -3206,7 +2830,6 @@
     "dname": "Drum of Endurance",
     "img": "/apps/dota2/images/dota_react/items/ancient_janggo.png?t=1593393829403",
     "lore": "A relic that enchants the bodies of those around it for swifter movement in times of crisis.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3224,9 +2847,7 @@
     "name": "recipe_boots_of_bearing",
     "id": 930,
     "dname": "Boots of Bearing Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "boots_of_bearing",
@@ -3234,7 +2855,6 @@
     "dname": "Boots of Bearing",
     "img": "/apps/dota2/images/dota_react/items/boots_of_bearing.png?t=1593393829403",
     "lore": "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3267,9 +2887,7 @@
     "name": "recipe_solar_crest",
     "id": 227,
     "dname": "Solar Crest Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "solar_crest",
@@ -3290,17 +2908,14 @@
     "name": "recipe_pavise",
     "id": 1127,
     "dname": "Pavise Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "pavise",
     "id": 1128,
     "dname": "Pavise",
     "img": "/apps/dota2/images/dota_react/items/pavise.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Devised by a wizard who made one too many enemies.",
     "abilities": [
       {
         "type": "active",
@@ -3315,7 +2930,6 @@
     "dname": "Smoke of Deceit",
     "img": "/apps/dota2/images/dota_react/items/smoke_of_deceit.png?t=1593393829403",
     "lore": "The charlatan wizard Myrddin's only true contribution to the arcane arts.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3330,7 +2944,6 @@
     "dname": "Tome of Knowledge",
     "img": "/apps/dota2/images/dota_react/items/tome_of_knowledge.png?t=1593393829403",
     "lore": "That which raises beast to man and man to god.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3343,9 +2956,7 @@
     "name": "recipe_veil_of_discord",
     "id": 189,
     "dname": "Veil of Discord Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "veil_of_discord",
@@ -3353,7 +2964,6 @@
     "dname": "Veil of Discord",
     "img": "/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
     "lore": "The headwear of corrupt magi.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3366,9 +2976,7 @@
     "name": "recipe_revenants_brooch",
     "id": 910,
     "dname": "Revenant's Brooch Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "revenants_brooch",
@@ -3389,17 +2997,14 @@
     "name": "recipe_devastator",
     "id": 1805,
     "dname": "Parasma Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "devastator",
     "id": 1806,
     "dname": "Parasma",
     "img": "/apps/dota2/images/dota_react/items/devastator.png?t=1593393829403",
-    "lore": "Devastating.",
-    "notes": "",
+    "lore": "Warning: There is no antidote if picked up by the wrong end.",
     "abilities": [
       {
         "type": "passive",
@@ -3417,9 +3022,7 @@
     "name": "recipe_guardian_greaves",
     "id": 230,
     "dname": "Guardian Greaves Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "guardian_greaves",
@@ -3445,9 +3048,7 @@
     "name": "recipe_rod_of_atos",
     "id": 205,
     "dname": "Rod of Atos Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "rod_of_atos",
@@ -3455,7 +3056,6 @@
     "dname": "Rod of Atos",
     "img": "/apps/dota2/images/dota_react/items/rod_of_atos.png?t=1593393829403",
     "lore": "Atos, the Lord of Blight, has his essence stored in this deceptively simple wand.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3468,9 +3068,7 @@
     "name": "recipe_iron_talon",
     "id": 238,
     "dname": "Iron Talon Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?3",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?3"
   },
   {
     "name": "iron_talon",
@@ -3491,9 +3089,7 @@
     "name": "recipe_abyssal_blade",
     "id": 207,
     "dname": "Abyssal Blade Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "abyssal_blade",
@@ -3519,9 +3115,7 @@
     "name": "recipe_heavens_halberd",
     "id": 209,
     "dname": "Heaven's Halberd Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "heavens_halberd",
@@ -3529,7 +3123,6 @@
     "dname": "Heaven's Halberd",
     "img": "/apps/dota2/images/dota_react/items/heavens_halberd.png?t=1593393829403",
     "lore": "This halberd moves with the speed of a smaller weapon, allowing the bearer to win duels that a heavy edge would not.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3569,7 +3162,6 @@
     "dname": "Tranquil Boots",
     "img": "/apps/dota2/images/dota_react/items/tranquil_boots.png?t=1593393829403",
     "lore": "While they increase the longevity of the wearer, this boot is not particularly reliable.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3597,9 +3189,7 @@
     "name": "recipe_glimmer_cape",
     "id": 253,
     "dname": "Glimmer Cape Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "glimmer_cape",
@@ -3607,12 +3197,11 @@
     "dname": "Glimmer Cape",
     "img": "/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403",
     "lore": "The stolen cape of a master illusionist.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
         "title": "Glimmer",
-        "description": "After a 0.5 second delay, grants invisibility, 40 movement speed and a magic damage barrier that absorbs up to 300 damage to you or a target allied unit for 5 seconds.\n\nCan be cast while channeling."
+        "description": "After a 0.5 second delay, grants invisibility, 20 movement speed and a magic damage barrier that absorbs up to 375 damage to you or a target allied unit for 5 seconds.\n\nCan be cast while channeling."
       }
     ]
   },
@@ -3620,111 +3209,73 @@
     "name": "river_painter",
     "id": 1021,
     "dname": "River Vial: Chrome",
-    "img": "/apps/dota2/images/dota_react/items/river_painter.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter.png?t=1593393829403"
   },
   {
     "name": "river_painter2",
     "id": 1022,
     "dname": "River Vial: Dry",
-    "img": "/apps/dota2/images/dota_react/items/river_painter2.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter2.png?t=1593393829403"
   },
   {
     "name": "river_painter3",
     "id": 1023,
     "dname": "River Vial: Slime",
-    "img": "/apps/dota2/images/dota_react/items/river_painter3.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter3.png?t=1593393829403"
   },
   {
     "name": "river_painter4",
     "id": 1024,
     "dname": "River Vial: Oil",
-    "img": "/apps/dota2/images/dota_react/items/river_painter4.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter4.png?t=1593393829403"
   },
   {
     "name": "river_painter5",
     "id": 1025,
     "dname": "River Vial: Electrified",
-    "img": "/apps/dota2/images/dota_react/items/river_painter5.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter5.png?t=1593393829403"
   },
   {
     "name": "river_painter6",
     "id": 1026,
     "dname": "River Vial: Potion",
-    "img": "/apps/dota2/images/dota_react/items/river_painter6.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter6.png?t=1593393829403"
   },
   {
     "name": "river_painter7",
     "id": 1027,
     "dname": "River Vial: Blood",
-    "img": "/apps/dota2/images/dota_react/items/river_painter7.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/river_painter7.png?t=1593393829403"
   },
   {
     "name": "mutation_tombstone",
     "id": 1028,
     "dname": "Tombstone",
-    "img": "/apps/dota2/images/dota_react/items/mutation_tombstone.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/mutation_tombstone.png?t=1593393829403"
   },
   {
     "name": "super_blink",
     "id": 1029,
-    "dname": "Super Blink Dagger",
-    "img": "/apps/dota2/images/dota_react/items/super_blink.png?t=1593393829403",
-    "lore": "The fabled dagger used by the fastest assassin ever to walk the lands.",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Blink",
-        "description": "Teleport to a target point up to 1200 units away."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/super_blink.png?t=1593393829403"
   },
   {
     "name": "pocket_tower",
     "id": 1030,
     "dname": "Pocket Tower",
-    "img": "/apps/dota2/images/dota_react/items/pocket_tower.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/pocket_tower.png?t=1593393829403"
   },
   {
     "name": "pocket_roshan",
     "id": 1032,
     "dname": "Pocket Roshan",
-    "img": "/apps/dota2/images/dota_react/items/pocket_roshan.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/pocket_roshan.png?t=1593393829403"
   },
   {
     "name": "keen_optic",
     "id": 287,
     "dname": "Keen Optic",
     "img": "/apps/dota2/images/dota_react/items/keen_optic.png?t=1593393829403",
-    "lore": "Stolen from a tinker's shop ages ago, this handy lens has seen service to many owners.",
-    "notes": ""
+    "lore": "Stolen from a tinker's shop ages ago, this handy lens has seen service to many owners."
   },
   {
     "name": "grove_bow",
@@ -3732,7 +3283,6 @@
     "dname": "Grove Bow",
     "img": "/apps/dota2/images/dota_react/items/grove_bow.png?t=1593393829403",
     "lore": "A gift from the moon goddess to one of her prized disciples many memories ago.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3747,7 +3297,6 @@
     "dname": "Quickening Charm",
     "img": "/apps/dota2/images/dota_react/items/quickening_charm.png?t=1593393829403",
     "lore": "An evergreen amulet of druidic origins.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3761,8 +3310,7 @@
     "id": 290,
     "dname": "Philosopher's Stone",
     "img": "/apps/dota2/images/dota_react/items/philosophers_stone.png?t=1593393829403",
-    "lore": "A weightless charm created by an enchanter with a powerful scorn for brute force.",
-    "notes": ""
+    "lore": "A weightless charm created by an enchanter with a powerful scorn for brute force."
   },
   {
     "name": "force_boots",
@@ -3804,8 +3352,6 @@
     "id": 293,
     "dname": "Phoenix Ash",
     "img": "/apps/dota2/images/dota_react/items/phoenix_ash.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3820,7 +3366,6 @@
     "dname": "Seer Stone",
     "img": "/apps/dota2/images/dota_react/items/seer_stone.png?t=1593393829403",
     "lore": "The curious creation of a wizard who professed to hail from another time.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3832,19 +3377,13 @@
   {
     "name": "greater_mango",
     "id": 295,
-    "dname": "Greater Mango",
-    "img": "/apps/dota2/images/dota_react/items/greater_mango.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/greater_mango.png?t=1593393829403"
   },
   {
     "name": "elixer",
     "id": 302,
     "dname": "Elixir",
     "img": "/apps/dota2/images/dota_react/items/elixer.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3857,9 +3396,7 @@
     "name": "vampire_fangs",
     "id": 297,
     "dname": "Vampire Fangs",
-    "img": "/apps/dota2/images/dota_react/items/vampire_fangs.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/vampire_fangs.png?t=1593393829403"
   },
   {
     "name": "force_field",
@@ -3867,7 +3404,6 @@
     "dname": "Arcanist's Armor",
     "img": "/apps/dota2/images/dota_react/items/force_field.png?t=1593393829403",
     "lore": "An exquisite piece commissioned by a paranoid monarch who choked on a piece of fruit long before the item saw its intended use.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -3887,7 +3423,6 @@
     "dname": "Blast Rig",
     "img": "/apps/dota2/images/dota_react/items/black_powder_bag.png?t=1593393829403",
     "lore": "One of a set of custom rigs once worn by infamous road agents in the Outlands, its siblings have been lost to misfires and the various tides of time.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3899,23 +3434,18 @@
   {
     "name": "mechanical_arm",
     "id": 849,
-    "dname": "Mechanical Arm",
-    "img": "/apps/dota2/images/dota_react/items/mechanical_arm.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/mechanical_arm.png?t=1593393829403"
   },
   {
     "name": "craggy_coat",
     "id": 298,
     "dname": "Craggy Coat",
     "img": "/apps/dota2/images/dota_react/items/craggy_coat.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
         "title": "Toughen Up",
-        "description": "Grants you an extra 12 bonus armor at the cost of -30 movement speed. Lasts 8 seconds."
+        "description": "Grants you an extra 6 bonus armor at the cost of -20 movement speed. Lasts 6 seconds."
       }
     ]
   },
@@ -3924,8 +3454,6 @@
     "id": 299,
     "dname": "Greater Faerie Fire",
     "img": "/apps/dota2/images/dota_react/items/greater_faerie_fire.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3939,9 +3467,7 @@
     "id": 300,
     "dname": "Timeless Relic",
     "img": "/apps/dota2/images/dota_react/items/timeless_relic.png?t=1593393829403",
-    "lore": "An unmarred discovery from the excavated ruins of an ancient wizard's academy.",
-    "notes": "",
-    "abilities": []
+    "lore": "An unmarred discovery from the excavated ruins of an ancient wizard's academy."
   },
   {
     "name": "mirror_shield",
@@ -3949,7 +3475,6 @@
     "dname": "Mirror Shield",
     "img": "/apps/dota2/images/dota_react/items/mirror_shield.png?t=1593393829403",
     "lore": "The shield that long ago robbed the old one of his first memories.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -3964,7 +3489,6 @@
     "dname": "Ironwood Tree",
     "img": "/apps/dota2/images/dota_react/items/ironwood_tree.png?t=1593393829403",
     "lore": "Precious. And hearty as a weed.",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3978,8 +3502,6 @@
     "id": 328,
     "dname": "Mango Tree",
     "img": "/apps/dota2/images/dota_react/items/mango_tree.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -3994,7 +3516,6 @@
     "dname": "Royal Jelly",
     "img": "/apps/dota2/images/dota_react/items/royal_jelly.png?t=1593393829403",
     "lore": "To those who harvest olgru jelly, success serves more than mere profit--it's often the means to survival--for only the jelly itself can cure the ravages that follow a sting from the vigilant denizens of the giant hives.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4009,16 +3530,13 @@
     "dname": "Pupil's Gift",
     "img": "/apps/dota2/images/dota_react/items/pupils_gift.png?t=1593393829403",
     "lore": "An astounding plate of ever-replenishing, fortifying fruit.",
-    "notes": "Grants two-thirds value to each attribute for Universal Heroes",
-    "abilities": []
+    "notes": "Grants two-thirds value to each attribute for Universal Heroes"
   },
   {
     "name": "tome_of_aghanim",
     "id": 307,
     "dname": "Tome of Aghanim",
     "img": "/apps/dota2/images/dota_react/items/tome_of_aghanim.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -4032,8 +3550,6 @@
     "id": 308,
     "dname": "Repair Kit",
     "img": "/apps/dota2/images/dota_react/items/repair_kit.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -4048,12 +3564,11 @@
     "dname": "Mind Breaker",
     "img": "/apps/dota2/images/dota_react/items/mind_breaker.png?t=1593393829403",
     "lore": "A bewitching blade of indeterminate form capable of piercing the psyche of even the most willful foe.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Silence Strike",
-        "description": "The next attack silences the hit enemy for 2 seconds."
+        "description": "The next attack silences the hit enemy for 1.5 seconds."
       }
     ]
   },
@@ -4062,8 +3577,6 @@
     "id": 310,
     "dname": "Third Eye",
     "img": "/apps/dota2/images/dota_react/items/third_eye.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4083,7 +3596,6 @@
     "dname": "Spell Prism",
     "img": "/apps/dota2/images/dota_react/items/spell_prism.png?t=1593393829403",
     "lore": "Even the slightest flaw in the components of a spell prism can result in the death of its user.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4097,8 +3609,6 @@
     "id": 325,
     "dname": "Prince's Knife",
     "img": "/apps/dota2/images/dota_react/items/princes_knife.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4111,10 +3621,7 @@
     "name": "witless_shako",
     "id": 330,
     "dname": "Witless Shako",
-    "img": "/apps/dota2/images/dota_react/items/witless_shako.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/witless_shako.png?t=1593393829403"
   },
   {
     "name": "imp_claw",
@@ -4122,7 +3629,6 @@
     "dname": "Imp Claw",
     "img": "/apps/dota2/images/dota_react/items/imp_claw.png?t=1593393829403",
     "lore": "Though their tasks are largely thankless, demon hunters can often turn a profit bartering parts in Weeping Rose.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4137,7 +3643,6 @@
     "dname": "Flicker",
     "img": "/apps/dota2/images/dota_react/items/flicker.png?t=1593393829403",
     "lore": "The technically-true-to-his-word 'teleportation device' crafted by a notorious fae trickster.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4152,7 +3657,6 @@
     "dname": "Telescope",
     "img": "/apps/dota2/images/dota_react/items/spy_gadget.png?t=1593393829403",
     "lore": "A handy tool that manages to make close what once was far.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4167,7 +3671,6 @@
     "dname": "Spider Legs",
     "img": "/apps/dota2/images/dota_react/items/spider_legs.png?t=1593393829403",
     "lore": "A horrifying yet useful mixture of necromancy and artificing.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4181,13 +3684,12 @@
     "id": 327,
     "dname": "Helm of the Undying",
     "img": "/apps/dota2/images/dota_react/items/helm_of_the_undying.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "The price for wearing it is paid in the afterlife.",
     "abilities": [
       {
         "type": "passive",
         "title": "Death Delay",
-        "description": "Survive for an extra 5 seconds after receiving a killing blow."
+        "description": "Survive for an extra 5 seconds after receiving a killing blow. If any enemy heroes dies within 1200 units, the death delay effect is extended by 5 seconds."
       }
     ]
   },
@@ -4196,32 +3698,18 @@
     "id": 331,
     "dname": "Vambrace",
     "img": "/apps/dota2/images/dota_react/items/vambrace.png?t=1593393829403",
-    "lore": "The coveted treasure that divided the heirs of Queen Raiya upon her death, resulting in the eventual downfall of her kingdom.",
-    "notes": "",
-    "abilities": []
+    "lore": "The coveted treasure that divided the heirs of Queen Raiya upon her death, resulting in the eventual downfall of her kingdom."
   },
   {
     "name": "horizon",
     "id": 312,
-    "dname": "Horizon",
-    "img": "/apps/dota2/images/dota_react/items/horizon.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Blink Strike",
-        "description": "Targets a unit to teleport to them. Knocks enemies back 250 distance and disables them for 1 second."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/horizon.png?t=1593393829403"
   },
   {
     "name": "fusion_rune",
     "id": 313,
     "dname": "Fusion Rune",
     "img": "/apps/dota2/images/dota_react/items/fusion_rune.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -4236,7 +3724,6 @@
     "dname": "Ocean Heart",
     "img": "/apps/dota2/images/dota_react/items/ocean_heart.png?t=1593393829403",
     "lore": "A charm blessed by the Council of the Brine.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4250,8 +3737,7 @@
     "id": 1124,
     "dname": "Spark of Courage",
     "img": "/apps/dota2/images/dota_react/items/spark_of_courage.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A common battle charm in the armies that served the Children of Light.",
     "abilities": [
       {
         "type": "passive",
@@ -4265,8 +3751,7 @@
     "id": 355,
     "dname": "Broom Handle",
     "img": "/apps/dota2/images/dota_react/items/broom_handle.png?t=1593393829403",
-    "lore": "The surprisingly dangerous creation of an apprentice sorcerer with a strange fondness for brooms.",
-    "notes": ""
+    "lore": "The surprisingly dangerous creation of an apprentice sorcerer with a strange fondness for brooms."
   },
   {
     "name": "trusty_shovel",
@@ -4288,8 +3773,7 @@
     "id": 357,
     "dname": "Nether Shawl",
     "img": "/apps/dota2/images/dota_react/items/nether_shawl.png?t=1593393829403",
-    "lore": "An otherworldly garment tethered to our plane by unknown means.",
-    "notes": ""
+    "lore": "An otherworldly garment tethered to our plane by unknown means."
   },
   {
     "name": "dragon_scale",
@@ -4297,7 +3781,6 @@
     "dname": "Dragon Scale",
     "img": "/apps/dota2/images/dota_react/items/dragon_scale.png?t=1593393829403",
     "lore": "The remains of a dragon always outvalue the wealth of even the most prodigious hoard.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4312,12 +3795,11 @@
     "dname": "Essence Ring",
     "img": "/apps/dota2/images/dota_react/items/essence_ring.png?t=1593393829403",
     "lore": "An ancient bauble blessed by the breath of Verodicia.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
         "title": "Life Essence",
-        "description": "Increases your current and max health by 240 for 15 seconds."
+        "description": "Increases your current and max health by 240 for 10 seconds."
       }
     ]
   },
@@ -4326,8 +3808,6 @@
     "id": 360,
     "dname": "Clumsy Net",
     "img": "/apps/dota2/images/dota_react/items/clumsy_net.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4342,7 +3822,6 @@
     "dname": "Enchanted Quiver",
     "img": "/apps/dota2/images/dota_react/items/enchanted_quiver.png?t=1593393829403",
     "lore": "A graceful gift blessed by the goddess of the hunt.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4357,7 +3836,6 @@
     "dname": "Ninja Gear",
     "img": "/apps/dota2/images/dota_react/items/ninja_gear.png?t=1593393829403",
     "lore": "Valuable equipment recovered by a young explorer sifting through the flotsam and detritus drifting in the void.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4372,7 +3850,6 @@
     "dname": "Illusionist's Cape",
     "img": "/apps/dota2/images/dota_react/items/illusionsts_cape.png?t=1593393829403",
     "lore": "A dashing cape whose creator insists on calling 'Cloak of Apparition' as opposed to his assistant's 'Illusion' drivel.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4391,8 +3868,6 @@
     "id": 364,
     "dname": "Havoc Hammer",
     "img": "/apps/dota2/images/dota_react/items/havoc_hammer.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4406,8 +3881,6 @@
     "id": 365,
     "dname": "Magic Lamp",
     "img": "/apps/dota2/images/dota_react/items/panic_button.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4430,7 +3903,6 @@
     "dname": "Ballista",
     "img": "/apps/dota2/images/dota_react/items/ballista.png?t=1593393829403",
     "lore": "A simple design much improved by a master smith's loving hand.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4444,8 +3916,6 @@
     "id": 368,
     "dname": "Woodland Striders",
     "img": "/apps/dota2/images/dota_react/items/woodland_striders.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4463,9 +3933,7 @@
     "name": "recipe_trident",
     "id": 275,
     "dname": "Trident Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "demonicon",
@@ -4473,12 +3941,12 @@
     "dname": "Book of the Dead",
     "img": "/apps/dota2/images/dota_react/items/demonicon.png?t=1593393829403",
     "lore": "A record of the final reckoning. With one page torn out.",
-    "notes": "The Demonic Warrior has 1800 Health, 4 Armor, 40% Magic Resistance, 380 Movement Speed, 134 Attack Damage, 50 Mana Burn on Hit, 800 Damage on Death, and 1000 True Sight Radius.\nThe Demonic Archer has 1800 Health, 4 Armor, 40% Magic Resistance, 425 Movement Speed, 131 Attack Damage, a basic dispel ability with a slow on a 15s Cooldown, and a 9% Bonus Movement Speed Aura.",
+    "notes": "The Demonic Warrior has 1600 Health, 4 Armor, 40% Magic Resistance, 380 Movement Speed, 134 Attack Damage, 50 Mana Burn on Hit, 800 Damage on Death, and 1000 True Sight Radius.\nThe Demonic Archer has 1300 Health, 4 Armor, 40% Magic Resistance, 425 Movement Speed, 131 Attack Damage, a basic dispel ability with a slow on a 15s Cooldown, and a 9% Bonus Movement Speed Aura.",
     "abilities": [
       {
         "type": "active",
         "title": "Greater Demonic Summoning",
-        "description": "Summon 2 demonic warriors and 2 demonic archers that last 75 seconds. The Warrior burns mana every hit, reveals invisible units, and deals magical damage to whoever kills it. The Archer has a basic dispel ability with a slow and a passive movement speed aura."
+        "description": "Summon 2 demonic warriors and 2 demonic archers that last 65 seconds. The Warrior burns mana every hit, reveals invisible units, and deals magical damage to whoever kills it. The Archer has a basic dispel ability with a slow and a passive movement speed aura."
       }
     ]
   },
@@ -4488,7 +3956,6 @@
     "dname": "Fallen Sky",
     "img": "/apps/dota2/images/dota_react/items/fallen_sky.png?t=1593393829403",
     "lore": "One of the few surviving creations of the acolytes of the Wyrmforge.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4503,12 +3970,11 @@
     "dname": "Pirate Hat",
     "img": "/apps/dota2/images/dota_react/items/pirate_hat.png?t=1593393829403",
     "lore": "A salty skulltopper cursed with endless good fortune.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Plunder",
-        "description": "Steals 150 gold from enemy heroes that die within 1200 units. If the wearer is the killer, there is no range limit and an additional 150 gold is stolen."
+        "description": "Steals 150 gold from enemy heroes that die within 2400 units. If the wearer is the killer, there is no range limit and an additional 400 gold is stolen."
       },
       {
         "type": "passive",
@@ -4520,11 +3986,7 @@
   {
     "name": "dimensional_doorway",
     "id": 373,
-    "dname": "Dimensional Doorway",
-    "img": "/apps/dota2/images/dota_react/items/dimensional_doorway.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/dimensional_doorway.png?t=1593393829403"
   },
   {
     "name": "ex_machina",
@@ -4532,7 +3994,6 @@
     "dname": "Ex Machina",
     "img": "/apps/dota2/images/dota_react/items/ex_machina.png?t=1593393829403",
     "lore": "The remains of an ancient universe, preserved within a single sphere.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4546,16 +4007,14 @@
     "id": 375,
     "dname": "Faded Broach",
     "img": "/apps/dota2/images/dota_react/items/faded_broach.png?t=1593393829403",
-    "lore": "A life-saving jewel bestowed upon a young queen by a kindly vizier. ",
-    "notes": ""
+    "lore": "A life-saving jewel bestowed upon a young queen by a kindly vizier. "
   },
   {
     "name": "paladin_sword",
     "id": 376,
     "dname": "Paladin Sword",
     "img": "/apps/dota2/images/dota_react/items/paladin_sword.png?t=1593393829403",
-    "lore": "The sigil blade of the legendary Brother Yhols of Gausra, stripped from its scabbard on the day of his controversial excommunication.",
-    "notes": ""
+    "lore": "The sigil blade of the legendary Brother Yhols of Gausra, stripped from its scabbard on the day of his controversial excommunication."
   },
   {
     "name": "minotaur_horn",
@@ -4563,7 +4022,6 @@
     "dname": "Minotaur Horn",
     "img": "/apps/dota2/images/dota_react/items/minotaur_horn.png?t=1593393829403",
     "lore": "The trophy from a mighty beast ambushed and slain in the recesses of its own home.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4578,7 +4036,6 @@
     "dname": "Orb of Destruction",
     "img": "/apps/dota2/images/dota_react/items/orb_of_destruction.png?t=1593393829403",
     "lore": "An ingot of chaos suspended in wizard's ether, housed within an arcanist's orb.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4593,7 +4050,6 @@
     "dname": "The Leveller",
     "img": "/apps/dota2/images/dota_react/items/the_leveller.png?t=1593393829403",
     "lore": "A demonic blade that struck the final blow to crack the gates of the Sanctum of Solanas.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4608,7 +4064,6 @@
     "dname": "Arcane Ring",
     "img": "/apps/dota2/images/dota_react/items/arcane_ring.png?t=1593393829403",
     "lore": "Once a prized heirloom of a minor lord's house.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4622,8 +4077,7 @@
     "id": 381,
     "dname": "Titan Sliver",
     "img": "/apps/dota2/images/dota_react/items/titan_sliver.png?t=1593393829403",
-    "lore": "Though many desire this brilliant shard for its obvious qualities, a school of study exists to determine the true size and purpose of its incomprehensible whole.",
-    "notes": ""
+    "lore": "Though many desire this brilliant shard for its obvious qualities, a school of study exists to determine the true size and purpose of its incomprehensible whole."
   },
   {
     "name": "chipped_vest",
@@ -4631,34 +4085,30 @@
     "dname": "Chipped Vest",
     "img": "/apps/dota2/images/dota_react/items/chipped_vest.png?t=1593393829403",
     "lore": "It doesn't look like much, but it's oddly comfy.",
-    "notes": "",
-    "abilities": []
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Chipper",
+        "description": "Everytime you are attacked, you return 30 damage to heroes and 20 damage to creeps."
+      }
+    ]
   },
   {
     "name": "wizard_glass",
     "id": 566,
-    "dname": "Wizard Glass",
-    "img": "/apps/dota2/images/dota_react/items/wizard_glass.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/wizard_glass.png?t=1593393829403"
   },
   {
     "name": "gloves_of_travel",
     "id": 570,
-    "dname": "Gloves of Travel",
-    "img": "/apps/dota2/images/dota_react/items/gloves_of_travel.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/gloves_of_travel.png?t=1593393829403"
   },
   {
     "name": "elven_tunic",
     "id": 573,
     "dname": "Elven Tunic",
     "img": "/apps/dota2/images/dota_react/items/elven_tunic.png?t=1593393829403",
-    "lore": "Even simple items of elven make seem imbued with inexplicable efficacy.",
-    "notes": ""
+    "lore": "Even simple items of elven make seem imbued with inexplicable efficacy."
   },
   {
     "name": "cloak_of_flames",
@@ -4666,7 +4116,6 @@
     "dname": "Cloak of Flames",
     "img": "/apps/dota2/images/dota_react/items/cloak_of_flames.png?t=1593393829403",
     "lore": "A very fine cloak that plays host to an overly-protective living flame.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4678,10 +4127,7 @@
   {
     "name": "venom_gland",
     "id": 575,
-    "dname": "Venom Gland",
-    "img": "/apps/dota2/images/dota_react/items/venom_gland.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/venom_gland.png?t=1593393829403"
   },
   {
     "name": "trickster_cloak",
@@ -4689,7 +4135,6 @@
     "dname": "Trickster Cloak",
     "img": "/apps/dota2/images/dota_react/items/trickster_cloak.png?t=1593393829403",
     "lore": "A fantastic garment immediately misplaced by its creator upon completion.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -4701,11 +4146,7 @@
   {
     "name": "gladiator_helm",
     "id": 576,
-    "dname": "Helm of the Gladiator",
-    "img": "/apps/dota2/images/dota_react/items/gladiator_helm.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/gladiator_helm.png?t=1593393829403"
   },
   {
     "name": "possessed_mask",
@@ -4725,25 +4166,12 @@
   {
     "name": "ancient_perseverance",
     "id": 578,
-    "dname": "Ancient Perseverance",
-    "img": "/apps/dota2/images/dota_react/items/ancient_perseverance.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/ancient_perseverance.png?t=1593393829403"
   },
   {
     "name": "star_mace",
     "id": 637,
-    "dname": "Star Mace",
-    "img": "/apps/dota2/images/dota_react/items/star_mace.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "passive",
-        "title": "Cleave",
-        "description": "Melee heroes deal 20% of attack damage as physical damage in a cone up to 650 around the target."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/star_mace.png?t=1593393829403"
   },
   {
     "name": "penta_edged_sword",
@@ -4751,7 +4179,6 @@
     "dname": "Penta-Edged Sword",
     "img": "/apps/dota2/images/dota_react/items/penta_edged_sword.png?t=1593393829403",
     "lore": "The final, twisted work of a severely pious blacksmith, completed immediately before the taking of his own life. ",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4763,32 +4190,12 @@
   {
     "name": "oakheart",
     "id": 582,
-    "dname": "Oakheart",
-    "img": "/apps/dota2/images/dota_react/items/oakheart.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Rejuvenate",
-        "description": "Target an allied hero and restore 480 health over 12 seconds.\n\nIf the unit is attacked by an enemy hero or Roshan, the effect is lost."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/oakheart.png?t=1593393829403"
   },
   {
     "name": "warhammer",
     "id": 674,
-    "dname": "Warhammer",
-    "img": "/apps/dota2/images/dota_react/items/warhammer.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Warhammer",
-        "description": "Deals 75 damage and reduces the target's armor by 3 for 6 seconds."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/warhammer.png?t=1593393829403"
   },
   {
     "name": "bullwhip",
@@ -4826,7 +4233,6 @@
     "dname": "Ceremonial Robe",
     "img": "/apps/dota2/images/dota_react/items/ceremonial_robe.png?t=1593393829403",
     "lore": "One of many items lost in the looting of Zelenwyr's sacred reliquary.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4841,7 +4247,6 @@
     "dname": "Quicksilver Amulet",
     "img": "/apps/dota2/images/dota_react/items/quicksilver_amulet.png?t=1593393829403",
     "lore": "An enchanted talisman brimming with a mysterious substance.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4871,7 +4276,6 @@
     "dname": "Giant's Ring",
     "img": "/apps/dota2/images/dota_react/items/giants_ring.png?t=1593393829403",
     "lore": "Prized procurement of an otherwise unremarkable ruler of Elze who abdicated his position and vanished.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4885,8 +4289,6 @@
     "id": 679,
     "dname": "Shadow of Vengeance",
     "img": "/apps/dota2/images/dota_react/items/vengeances_shadow.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4901,7 +4303,6 @@
     "dname": "Stormcrafter",
     "img": "/apps/dota2/images/dota_react/items/stormcrafter.png?t=1593393829403",
     "lore": "The accidental byproduct of a spell conjured to entrap a lesser god.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4913,27 +4314,19 @@
   {
     "name": "overflowing_elixir",
     "id": 588,
-    "dname": "Overflowing Elixir",
-    "img": "/apps/dota2/images/dota_react/items/overflowing_elixir.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/overflowing_elixir.png?t=1593393829403"
   },
   {
     "name": "mysterious_hat",
     "id": 589,
     "dname": "Fairy's Trinket",
     "img": "/apps/dota2/images/dota_react/items/mysterious_hat.png?t=1593393829403",
-    "lore": "A small token imbued with the fortune of the fae in recognition of an intriguing display of mortal kindness.",
-    "notes": ""
+    "lore": "A small token imbued with the fortune of the fae in recognition of an intriguing display of mortal kindness."
   },
   {
     "name": "assassins_dagger",
     "id": 824,
-    "dname": "Assassin's Dagger",
-    "img": "/apps/dota2/images/dota_react/items/assassins_dagger.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/assassins_dagger.png?t=1593393829403"
   },
   {
     "name": "ascetic_cap",
@@ -4941,7 +4334,6 @@
     "dname": "Ascetic's Cap",
     "img": "/apps/dota2/images/dota_react/items/ascetic_cap.png?t=1593393829403",
     "lore": "An austere hat thought to be of Turstarkuri origin.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -4953,18 +4345,12 @@
   {
     "name": "sample_picker",
     "id": 826,
-    "dname": "Assassin's Contract",
-    "img": "/apps/dota2/images/dota_react/items/sample_picker.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/sample_picker.png?t=1593393829403"
   },
   {
     "name": "icarus_wings",
     "id": 827,
-    "dname": "Icarus Wings",
-    "img": "/apps/dota2/images/dota_react/items/icarus_wings.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/icarus_wings.png?t=1593393829403"
   },
   {
     "name": "misericorde",
@@ -4972,22 +4358,18 @@
     "dname": "Brigand's Blade",
     "img": "/apps/dota2/images/dota_react/items/misericorde.png?t=1593393829403",
     "lore": "An infamous assassin's blade stolen and smuggled out of White Spire after its owner's mysterious demise.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Dark Mercy",
-        "description": "Your attacks deal 3 more damage to enemies for each 5% HP they are missing."
+        "description": "Your attacks deal 3 more damage to enemies for each 7% HP they are missing."
       }
     ]
   },
   {
     "name": "light_robes",
     "id": 836,
-    "dname": "Light Robes",
-    "img": "/apps/dota2/images/dota_react/items/light_robes.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/light_robes.png?t=1593393829403"
   },
   {
     "name": "heavy_blade",
@@ -4995,7 +4377,6 @@
     "dname": "Witchbane",
     "img": "/apps/dota2/images/dota_react/items/heavy_blade.png?t=1593393829403",
     "lore": "With ready access to test subjects, untold cruelties have been dreamed up and loosed upon the world from within the walls of the Tyler Estate.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5015,22 +4396,18 @@
     "dname": "Pig Pole",
     "img": "/apps/dota2/images/dota_react/items/unstable_wand.png?t=1593393829403",
     "lore": "A makeshift charm misplaced by a peace-loving, addlebrained enchanter.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
         "title": "Pig, Out!",
-        "description": "Turns your hero into a critter for 4 seconds and gives them +15% Movement Speed."
+        "description": "Turns your hero into a critter for 3 seconds and gives them +20% Movement Speed."
       }
     ]
   },
   {
     "name": "fortitude_ring",
     "id": 839,
-    "dname": "Ring of Fortitude",
-    "img": "/apps/dota2/images/dota_react/items/fortitude_ring.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/fortitude_ring.png?t=1593393829403"
   },
   {
     "name": "pogo_stick",
@@ -5038,7 +4415,6 @@
     "dname": "Tumbler's Toy",
     "img": "/apps/dota2/images/dota_react/items/pogo_stick.png?t=1593393829403",
     "lore": "An antique plaything found in the ruins of an Ozenja circus bazaar.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5068,7 +4444,6 @@
     "dname": "Seeds of Serenity",
     "img": "/apps/dota2/images/dota_react/items/seeds_of_serenity.png?t=1593393829403",
     "lore": "An evergreen sprout treasured by the woodkin and highly coveted by interlopers and their like.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5083,7 +4458,6 @@
     "dname": "Lance of Pursuit",
     "img": "/apps/dota2/images/dota_react/items/lance_of_pursuit.png?t=1593393829403",
     "lore": "The gleaming weapon of a tarnished knight haunted by his duties to an unworthy king.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5098,7 +4472,6 @@
     "dname": "Occult Bracelet",
     "img": "/apps/dota2/images/dota_react/items/occult_bracelet.png?t=1593393829403",
     "lore": "A band that bears effigy of the dark goddess Eloshar's unsleeping eye.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5110,17 +4483,13 @@
   {
     "name": "tome_of_omniscience",
     "id": 948,
-    "img": "/apps/dota2/images/dota_react/items/tome_of_omniscience.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/tome_of_omniscience.png?t=1593393829403"
   },
   {
     "name": "ogre_seal_totem",
     "id": 949,
     "dname": "Ogre Seal Totem",
     "img": "/apps/dota2/images/dota_react/items/ogre_seal_totem.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5132,32 +4501,25 @@
   {
     "name": "wand_of_the_brine",
     "id": 940,
-    "img": "/apps/dota2/images/dota_react/items/wand_of_the_brine.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/wand_of_the_brine.png?t=1593393829403"
   },
   {
     "name": "slime_vial",
     "id": 938,
-    "img": "/apps/dota2/images/dota_react/items/slime_vial.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/slime_vial.png?t=1593393829403"
   },
   {
     "name": "recipe_harpoon",
     "id": 1101,
     "dname": "Harpoon Recipe",
-    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403"
   },
   {
     "name": "harpoon",
     "id": 939,
     "dname": "Harpoon",
     "img": "/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A perfect solution for the flight of foes.",
     "abilities": [
       {
         "type": "active",
@@ -5167,7 +4529,7 @@
       {
         "type": "passive",
         "title": "Echo Strike",
-        "description": "Causes melee attacks to attack twice in quick succession. The double attacks apply a 100% movement slow for 1 seconds on each strike. Echo Strike cooldown: 5s"
+        "description": "Causes melee attacks to attack twice in quick succession. The double attacks apply a 100% movement slow for 1 seconds on the first strike. Echo Strike cooldown: 5s"
       }
     ]
   },
@@ -5176,8 +4538,6 @@
     "id": 950,
     "dname": "Defiant Shell",
     "img": "/apps/dota2/images/dota_react/items/defiant_shell.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5189,45 +4549,34 @@
   {
     "name": "arcane_scout",
     "id": 968,
-    "img": "/apps/dota2/images/dota_react/items/arcane_scout.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/arcane_scout.png?t=1593393829403"
   },
   {
     "name": "barricade",
     "id": 969,
-    "img": "/apps/dota2/images/dota_react/items/barricade.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/barricade.png?t=1593393829403"
   },
   {
     "name": "eye_of_the_vizier",
     "id": 990,
     "dname": "Eye of the Vizier",
     "img": "/apps/dota2/images/dota_react/items/eye_of_the_vizier.png?t=1593393829403",
-    "lore": "The ring of a cunning court mage who imprisoned a cadre of enemies to serve as his personal mana reserve.",
-    "notes": ""
+    "lore": "The ring of a cunning court mage who imprisoned a cadre of enemies to serve as his personal mana reserve."
   },
   {
     "name": "manacles_of_power",
     "id": 998,
-    "img": "/apps/dota2/images/dota_react/items/manacles_of_power.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/manacles_of_power.png?t=1593393829403"
   },
   {
     "name": "bottomless_chalice",
     "id": 1000,
-    "img": "/apps/dota2/images/dota_react/items/bottomless_chalice.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/bottomless_chalice.png?t=1593393829403"
   },
   {
     "name": "wand_of_sanctitude",
     "id": 1017,
-    "img": "/apps/dota2/images/dota_react/items/wand_of_sanctitude.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/wand_of_sanctitude.png?t=1593393829403"
   },
   {
     "name": "specialists_array",
@@ -5235,7 +4584,6 @@
     "dname": "Specialist's Array",
     "img": "/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
     "lore": "An impressive kit of trigger enhancements born in an aging assassin's idle mind.",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5250,7 +4598,6 @@
     "dname": "Dagger of Ristul",
     "img": "/apps/dota2/images/dota_react/items/dagger_of_ristul.png?t=1593393829403",
     "lore": "A sinister shiv that grants favor to those willing to stain its blade with a sacrifice of their own blood.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5265,7 +4612,6 @@
     "dname": "Beloved Memory",
     "img": "/apps/dota2/images/dota_react/items/ofrenda.png?t=1593393829403",
     "lore": "Take joy in remembering those beloved who've passed now beyond the veil.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5280,7 +4626,6 @@
     "dname": "Scrying Shovel",
     "img": "/apps/dota2/images/dota_react/items/ofrenda_shovel.png?t=1593393829403",
     "lore": "You don't know where it came from, but it knows where you need to go. All you need to do is dig.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5295,7 +4640,6 @@
     "dname": "Forebearer's Fortune",
     "img": "/apps/dota2/images/dota_react/items/ofrenda_pledge.png?t=1593393829403",
     "lore": "This item seems unstable. Like it might just disappear.",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5323,54 +4667,37 @@
     "name": "tier1_token",
     "id": 2091,
     "dname": "Tier 1 Token",
-    "img": "/apps/dota2/images/dota_react/items/tier1_token.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/tier1_token.png?t=1593393829403"
   },
   {
     "name": "tier2_token",
     "id": 2092,
     "dname": "Tier 2 Token",
-    "img": "/apps/dota2/images/dota_react/items/tier2_token.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/tier2_token.png?t=1593393829403"
   },
   {
     "name": "tier3_token",
     "id": 2093,
     "dname": "Tier 3 Token",
-    "img": "/apps/dota2/images/dota_react/items/tier3_token.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/tier3_token.png?t=1593393829403"
   },
   {
     "name": "tier4_token",
     "id": 2094,
     "dname": "Tier 4 Token",
-    "img": "/apps/dota2/images/dota_react/items/tier4_token.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/tier4_token.png?t=1593393829403"
   },
   {
     "name": "tier5_token",
     "id": 2095,
     "dname": "Tier 5 Token",
-    "img": "/apps/dota2/images/dota_react/items/tier5_token.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/tier5_token.png?t=1593393829403"
   },
   {
     "name": "vindicators_axe",
     "id": 2096,
     "dname": "Vindicator's Axe",
     "img": "/apps/dota2/images/dota_react/items/vindicators_axe.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5384,8 +4711,6 @@
     "id": 2097,
     "dname": "Duelist Gloves",
     "img": "/apps/dota2/images/dota_react/items/duelist_gloves.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5399,8 +4724,6 @@
     "id": 1156,
     "dname": "Ancient Guardian",
     "img": "/apps/dota2/images/dota_react/items/ancient_guardian.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5414,8 +4737,6 @@
     "id": 1157,
     "dname": "Safety Bubble",
     "img": "/apps/dota2/images/dota_react/items/safety_bubble.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5429,8 +4750,7 @@
     "id": 1158,
     "dname": "Whisper of the Dread",
     "img": "/apps/dota2/images/dota_react/items/whisper_of_the_dread.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "The air that passes through this amulet makes a dreadful sound.",
     "abilities": [
       {
         "type": "passive",
@@ -5444,13 +4764,11 @@
     "id": 1159,
     "dname": "Nemesis Curse",
     "img": "/apps/dota2/images/dota_react/items/nemesis_curse.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
         "title": "Glass Cannon",
-        "description": "Hero takes 8% more damage from all sources."
+        "description": "Hero takes 6% more damage from all sources."
       },
       {
         "type": "passive",
@@ -5464,8 +4782,6 @@
     "id": 1160,
     "dname": "Aviana's Feather",
     "img": "/apps/dota2/images/dota_react/items/avianas_feather.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5479,8 +4795,6 @@
     "id": 1161,
     "dname": "Unwavering Condition",
     "img": "/apps/dota2/images/dota_react/items/unwavering_condition.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5492,40 +4806,18 @@
   {
     "name": "horizons_equilibrium",
     "id": 2098,
-    "dname": "Horizon's Equilibrium",
-    "img": "/apps/dota2/images/dota_react/items/horizons_equilibrium.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "passive",
-        "title": "Equilibrium",
-        "description": "Damage dealt to and received from units further than 500 units from you is reduced by 25%."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/horizons_equilibrium.png?t=1593393829403"
   },
   {
     "name": "blighted_spirit",
     "id": 2099,
-    "dname": "Blighted Spirit",
-    "img": "/apps/dota2/images/dota_react/items/blighted_spirit.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "passive",
-        "title": "Toxins",
-        "description": "Whenever an enemy attacks you, they gain -25 Heal Amplify/Lifesteal amplification for 3 seconds."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/blighted_spirit.png?t=1593393829403"
   },
   {
     "name": "dandelion_amulet",
     "id": 2190,
     "dname": "Dandelion Amulet",
     "img": "/apps/dota2/images/dota_react/items/dandelion_amulet.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5537,25 +4829,13 @@
   {
     "name": "turtle_shell",
     "id": 2191,
-    "dname": "Turtle Shell",
-    "img": "/apps/dota2/images/dota_react/items/turtle_shell.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": [
-      {
-        "type": "active",
-        "title": "Turtle",
-        "description": "Silences and Disarms your hero for 15 seconds. Reduce all incoming damage by 50%. This effect is removed when your hero moves."
-      }
-    ]
+    "img": "/apps/dota2/images/dota_react/items/turtle_shell.png?t=1593393829403"
   },
   {
     "name": "martyrs_plate",
     "id": 2192,
     "dname": "Martyr's Plate",
     "img": "/apps/dota2/images/dota_react/items/martyrs_plate.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "active",
@@ -5569,8 +4849,6 @@
     "id": 2193,
     "dname": "Gossamer Cape",
     "img": "/apps/dota2/images/dota_react/items/gossamer_cape.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5583,17 +4861,13 @@
     "name": "light_collector",
     "id": 1167,
     "dname": "Light Collector",
-    "img": "/apps/dota2/images/dota_react/items/light_collector.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/light_collector.png?t=1593393829403"
   },
   {
     "name": "rattlecage",
     "id": 1168,
     "dname": "Rattlecage",
     "img": "/apps/dota2/images/dota_react/items/rattlecage.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "passive",
@@ -5607,8 +4881,6 @@
     "id": 1803,
     "dname": "Doubloon",
     "img": "/apps/dota2/images/dota_react/items/doubloon.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "toggle",
@@ -5622,8 +4894,6 @@
     "id": 1804,
     "dname": "Roshan's Banner",
     "img": "/apps/dota2/images/dota_react/items/roshans_banner.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
@@ -5637,13 +4907,11 @@
     "id": 1440,
     "dname": "Black Grimoire",
     "img": "/apps/dota2/images/dota_react/items/black_grimoire.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
     "abilities": [
       {
         "type": "use",
         "title": "Profane Knowledge",
-        "description": "Hero kills and assists empower the Black Grimoire, granting it charges. Right-click to consume and grant 250 experience per charge. Starts on cooldown. \nThis item cannot be dropped."
+        "description": "Hero kills and assists empower the Black Grimoire, granting it charges. Right-click to consume and grant 200 experience per charge. Starts on cooldown. \nThis item cannot be dropped."
       }
     ]
   },
@@ -5651,198 +4919,152 @@
     "name": "grisgris",
     "id": 1441,
     "dname": "Gris-Gris",
-    "img": "/apps/dota2/images/dota_react/items/grisgris.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/grisgris.png?t=1593393829403"
   },
   {
     "name": "enhancement_vast",
     "id": 1576,
     "dname": "Vast",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_vast.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_vast.png?t=1593393829403"
   },
   {
     "name": "enhancement_quickened",
     "id": 1577,
     "dname": "Quickened",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_quickened.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_quickened.png?t=1593393829403"
   },
   {
     "name": "cursed_circlet",
     "id": 1578,
     "dname": "Accursed",
-    "img": "/apps/dota2/images/dota_react/items/cursed_circlet.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/cursed_circlet.png?t=1593393829403"
   },
   {
     "name": "ogre_heart",
     "id": 1579,
     "dname": "Restorative",
-    "img": "/apps/dota2/images/dota_react/items/ogre_heart.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/ogre_heart.png?t=1593393829403"
   },
   {
     "name": "neutral_tabi",
     "id": 1580,
     "dname": "Elusive",
-    "img": "/apps/dota2/images/dota_react/items/neutral_tabi.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/neutral_tabi.png?t=1593393829403"
   },
   {
     "name": "enhancement_audacious",
     "id": 1581,
     "dname": "Audacious",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_audacious.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_audacious.png?t=1593393829403"
   },
   {
     "name": "hellbear_totem",
     "id": 1582,
-    "img": "/apps/dota2/images/dota_react/items/hellbear_totem.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/hellbear_totem.png?t=1593393829403"
   },
   {
     "name": "enhancement_mystical",
     "id": 1583,
     "dname": "Mystical",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_mystical.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_mystical.png?t=1593393829403"
   },
   {
     "name": "enhancement_alert",
     "id": 1584,
     "dname": "Alert",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_alert.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_alert.png?t=1593393829403"
   },
   {
     "name": "enhancement_brawny",
     "id": 1585,
     "dname": "Brawny",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_brawny.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_brawny.png?t=1593393829403"
   },
   {
     "name": "enhancement_tough",
     "id": 1586,
     "dname": "Tough",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_tough.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_tough.png?t=1593393829403"
   },
   {
     "name": "enhancement_feverish",
     "id": 1587,
     "dname": "Feverish",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_feverish.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_feverish.png?t=1593393829403"
   },
   {
     "name": "enhancement_fleetfooted",
     "id": 1588,
     "dname": "Fleetfooted",
     "img": "/apps/dota2/images/dota_react/items/enhancement_fleetfooted.png?t=1593393829403",
-    "lore": "",
     "notes": "Does not stack with Movement Speed bonuses from boots"
   },
   {
     "name": "enhancement_crude",
     "id": 1589,
     "dname": "Crude",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_crude.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_crude.png?t=1593393829403"
   },
   {
     "name": "enhancement_boundless",
     "id": 1590,
     "dname": "Boundless",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_boundless.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_boundless.png?t=1593393829403"
   },
   {
     "name": "enhancement_wise",
     "id": 1591,
     "dname": "Wise",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_wise.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_wise.png?t=1593393829403"
   },
   {
     "name": "enhancement_timeless",
     "id": 1592,
     "dname": "Timeless",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_timeless.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_timeless.png?t=1593393829403"
   },
   {
     "name": "enhancement_greedy",
     "id": 1593,
     "dname": "Greedy",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_greedy.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_greedy.png?t=1593393829403"
   },
   {
     "name": "enhancement_vampiric",
     "id": 1594,
     "dname": "Vampiric",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_vampiric.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_vampiric.png?t=1593393829403"
   },
   {
     "name": "enhancement_keen_eyed",
     "id": 1595,
     "dname": "Keen-eyed",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_keen_eyed.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_keen_eyed.png?t=1593393829403"
   },
   {
     "name": "enhancement_evolved",
     "id": 1596,
     "dname": "Evolved",
     "img": "/apps/dota2/images/dota_react/items/enhancement_evolved.png?t=1593393829403",
-    "lore": "",
     "notes": "Grants +24 to each attribute for Universal Heroes."
   },
   {
     "name": "enhancement_titanic",
     "id": 1597,
     "dname": "Titanic",
-    "img": "/apps/dota2/images/dota_react/items/enhancement_titanic.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/enhancement_titanic.png?t=1593393829403"
   },
   {
     "name": "unrelenting_eye",
     "id": 1598,
     "dname": "Unrelenting Eye",
     "img": "/apps/dota2/images/dota_react/items/unrelenting_eye.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A serpent's eye the size of a melon (and just as moist).",
     "abilities": [
       {
         "type": "passive",
         "title": "Relentless",
-        "description": "Increases slow resistance by 100%. This bonus is reduced by 20% for every enemy hero within 300 units."
+        "description": "Increases slow resistance by 100%. This bonus is reduced by 20% for every enemy hero within 600 units.\n\nIncreases status resistance by 10% for every enemy hero within 600 units."
       }
     ]
   },
@@ -5851,13 +5073,12 @@
     "id": 1599,
     "dname": "Mana Draught",
     "img": "/apps/dota2/images/dota_react/items/mana_draught.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A refreshing drink best shared with friends.",
     "abilities": [
       {
         "type": "active",
         "title": "Bottoms Up",
-        "description": "Restores 60 + 2% of the caster's maximum mana over 6 seconds. If the hero is attacked by an enemy hero or Roshan, the effect is lost.\n\nHold Control to use on an allied hero."
+        "description": "Restores 60 + 4% of the caster's maximum mana over 6 seconds. If the hero is attacked by an enemy hero or Roshan, the effect is lost.\n\nHold Control to use on an allied hero."
       },
       {
         "type": "passive",
@@ -5871,13 +5092,12 @@
     "id": 1600,
     "dname": "Ripper's Lash",
     "img": "/apps/dota2/images/dota_react/items/rippers_lash.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "The Fae horticulturists of Revtel are known to push the boundaries of both cross pollination and safety.",
     "abilities": [
       {
         "type": "active",
         "title": "Flay",
-        "description": "Embeds thorns into all enemies in a 200 unit radius. Affected units take an additional damage when attacked for 10 seconds."
+        "description": "Embeds thorns into all enemies in a 200 unit radius. Affected units take additional damage when attacked for 10 seconds."
       }
     ]
   },
@@ -5886,13 +5106,12 @@
     "id": 1601,
     "dname": "Crippling Crossbow",
     "img": "/apps/dota2/images/dota_react/items/crippling_crossbow.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "The ever-weeping woodgrain of this crossbow coats every bolt in a potent but short-lived narcotic sap.",
     "abilities": [
       {
         "type": "active",
         "title": "Hobble",
-        "description": "Hits an enemy for 75 damage, then slows them by 80% and reduces healing effects by 40% for 4 seconds. The slow gradually fades over the duration of the spell."
+        "description": "Hits an enemy for 75 damage, then slows them by 80% and reduces Health Restoration by 40% for 4 seconds. The slow gradually fades over the duration of the spell."
       }
     ]
   },
@@ -5901,13 +5120,12 @@
     "id": 1602,
     "dname": "Gale Guard",
     "img": "/apps/dota2/images/dota_react/items/gale_guard.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "If one truly listens, they can always rely upon the wind to make its will known.",
     "abilities": [
       {
         "type": "active",
         "title": "Cyclonic Shield",
-        "description": "Envelops the caster in an all damage barrier that absorbs 75% of incoming damage up to a max of 400. Lasts for up to 10 seconds and while the barrier is active you have 50% Slow Resistance."
+        "description": "Envelops the caster in an all damage barrier that absorbs 75% of incoming damage up to a max of 250. Lasts for up to 10 seconds and while the barrier is active you have 50% Slow Resistance."
       }
     ]
   },
@@ -5916,13 +5134,12 @@
     "id": 1603,
     "dname": "Gunpowder Gauntlet",
     "img": "/apps/dota2/images/dota_react/items/gunpowder_gauntlets.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A 'harmless' prank that went entirely too far.",
     "abilities": [
       {
         "type": "passive",
         "title": "Beat the Crowd",
-        "description": "Your next attack deals an additional 120 magic damage and splashes to units within 250 units for 50% of the original attack's damage."
+        "description": "Your next attack deals an additional 120 magic damage and splashes to units within 250 units for 50% of the original attack's damage plus the additional magic damage."
       }
     ]
   },
@@ -5931,13 +5148,12 @@
     "id": 1604,
     "dname": "Searing Signet",
     "img": "/apps/dota2/images/dota_react/items/searing_signet.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "To torture a magic user, one must devise means far beyond the mundane.",
     "abilities": [
       {
         "type": "passive",
         "title": "Burn Through",
-        "description": "Instances of magic damage from spells over 40 ignites enemies, causing them to take 75 magic damage over 5 seconds."
+        "description": "Instances of magic damage from spells over 55 ignites enemies, causing them to take 72 magic damage over 6 seconds."
       }
     ]
   },
@@ -5946,13 +5162,12 @@
     "id": 1605,
     "dname": "Serrated Shiv",
     "img": "/apps/dota2/images/dota_react/items/serrated_shiv.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Too dangerous for taskwork, this blade's only purpose is vile murder.",
     "abilities": [
       {
         "type": "passive",
         "title": "Gut 'Em",
-        "description": "Attacks have a 20% chance to have True Strike and deal 10% of the target's current health as bonus physical damage. Deals a flat bonus of 200 against Roshan."
+        "description": "Attacks have a 20% chance to have True Strike and deal 8% of the target's current health as bonus physical damage. Deals a flat bonus of 200 against Roshan."
       }
     ]
   },
@@ -5961,13 +5176,12 @@
     "id": 1606,
     "dname": "Pollywog Charm",
     "img": "/apps/dota2/images/dota_react/items/polliwog_charm.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "A tiny trinket that wriggles when wet.",
     "abilities": [
       {
         "type": "active",
         "title": "Ribbit",
-        "description": "Increases the health regeneration of a target ally by 8 for 10 seconds. While standing in water, the blessed unit also moves 10% faster."
+        "description": "Increases the health regeneration of a target ally by 8 for 14 seconds. While standing in water, the blessed unit also moves 10% faster."
       }
     ]
   },
@@ -5976,8 +5190,7 @@
     "id": 1607,
     "dname": "Magnifying Monocle",
     "img": "/apps/dota2/images/dota_react/items/magnifying_monocle.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "Deadly refinement.",
     "abilities": [
       {
         "type": "passive",
@@ -5991,13 +5204,12 @@
     "id": 1608,
     "dname": "Pyrrhic Cloak",
     "img": "/apps/dota2/images/dota_react/items/pyrrhic_cloak.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
+    "lore": "There are generals that care far less about the survival of their troops than the destruction of their enemies.",
     "abilities": [
       {
         "type": "active",
         "title": "Retribution",
-        "description": "For the next 6 seconds, 60% of damage taken by the caster is reflected to the target unit as physical damage."
+        "description": "For the next 6 seconds, 75% of damage taken by the caster is reflected to the target unit as physical damage."
       }
     ]
   },
@@ -6005,17 +5217,209 @@
     "name": "madstone_bundle",
     "id": 1609,
     "dname": "Madstone Bundle",
-    "img": "/apps/dota2/images/dota_react/items/madstone_bundle.png?t=1593393829403",
-    "lore": "",
-    "notes": "",
-    "abilities": []
+    "img": "/apps/dota2/images/dota_react/items/madstone_bundle.png?t=1593393829403"
   },
   {
     "name": "miniboss_minion_summoner",
     "id": 1610,
-    "img": "/apps/dota2/images/dota_react/items/miniboss_minion_summoner.png?t=1593393829403",
-    "lore": "",
-    "notes": ""
+    "img": "/apps/dota2/images/dota_react/items/miniboss_minion_summoner.png?t=1593393829403"
+  },
+  {
+    "name": "crystal_raindrop",
+    "id": 1636,
+    "dname": "Crystal Raindrop",
+    "img": "/apps/dota2/images/dota_react/items/crystal_raindrop.png?t=1593393829403",
+    "abilities": [
+      {
+        "type": "active",
+        "title": "Crystallize",
+        "description": "For the next 8 seconds, up to 3 instances of spell damage over 30 have their damage reduced by 75."
+      }
+    ]
+  },
+  {
+    "name": "kobold_cup",
+    "id": 1637,
+    "dname": "Kobold Cup",
+    "img": "/apps/dota2/images/dota_react/items/kobold_cup.png?t=1593393829403",
+    "lore": "The Kobold King will sip when he damn well pleases.",
+    "abilities": [
+      {
+        "type": "active",
+        "title": "One for the Road",
+        "description": "Increases movement speed of all allied units in a radius around the caster."
+      }
+    ]
+  },
+  {
+    "name": "dormant_curio",
+    "id": 1638,
+    "dname": "Dormant Curio",
+    "img": "/apps/dota2/images/dota_react/items/dormant_curio.png?t=1593393829403",
+    "lore": "Everyone has an idea, but no one has a clue.",
+    "notes": "Will amplify a stat on the next artifact by 30% other than cooldown, mana cost, or cast range.",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Hidden Potential",
+        "description": "Neutral Artifacts you craft while holding a Dormant Curio have their potency increased by 30%."
+      }
+    ]
+  },
+  {
+    "name": "sisters_shroud",
+    "id": 1639,
+    "dname": "Sister's Shroud",
+    "img": "/apps/dota2/images/dota_react/items/sisters_shroud.png?t=1593393829403",
+    "lore": "A pall that draped the sarcophagus of the First Sister.",
+    "notes": "Does not trigger from damage by non-player controlled creeps",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Veiled",
+        "description": "When falling below 50% HP, gain 200% evasion for 8 seconds. While active, dodging an attack decreases the evasion bonus by 75% of its current value."
+      },
+      {
+        "type": "passive",
+        "title": "Last Caress",
+        "description": "Veiled cooldown is only reset if the wearer dies or kills an enemy hero."
+      }
+    ]
+  },
+  {
+    "name": "jidi_pollen_bag",
+    "id": 1640,
+    "dname": "Jidi Pollen Bag",
+    "img": "/apps/dota2/images/dota_react/items/jidi_pollen_bag.png?t=1593393829403",
+    "lore": "Very dangerous. Very difficult to obtain more.",
+    "notes": "Damage is non-lethal and classified as HP Loss.",
+    "abilities": [
+      {
+        "type": "active",
+        "title": "Pollinate",
+        "description": "Spreads pollen on all nearby enemy units, decreasing their health restoration and dealing damage over time based on their maximum health."
+      }
+    ]
+  },
+  {
+    "name": "outworld_staff",
+    "id": 1641,
+    "dname": "Outworld Staff",
+    "img": "/apps/dota2/images/dota_react/items/outworld_staff.png?t=1593393829403",
+    "lore": "Proof that the lone sentinel was not always so.",
+    "notes": "Damage taken when returning is non-lethal and disables Blink Dagger and other items that are muted upon taking damage.",
+    "abilities": [
+      {
+        "type": "active",
+        "title": "Self-Exile",
+        "description": "Removes the caster from the world for 0.7 seconds, making them invulnerable and disabled. When returning to the world, the caster takes 5% of their maximum health as damage."
+      }
+    ]
+  },
+  {
+    "name": "dezun_bloodrite",
+    "id": 1642,
+    "dname": "Dezun Bloodrite",
+    "img": "/apps/dota2/images/dota_react/items/dezun_bloodrite.png?t=1593393829403",
+    "lore": "The gateway to a lost lineage of power, unlocked only with blood.",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Blood Invocation",
+        "description": "Spells have a 15% larger Area of Effect, but now additionally cost health equal to 35% of their mana cost."
+      }
+    ]
+  },
+  {
+    "name": "giant_maul",
+    "id": 1643,
+    "dname": "Giant's Maul",
+    "img": "/apps/dota2/images/dota_react/items/giant_maul.png?t=1593393829403",
+    "lore": "Crude but smashingly effective.",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Crushing Blow",
+        "description": "Empowers the next attack to be a critical hit. Hitting an enemy with an empowered attack temporarily decreases their movement speed, attack speed, and cast speed."
+      }
+    ]
+  },
+  {
+    "name": "divine_regalia",
+    "id": 1644,
+    "dname": "Divine Regalia",
+    "img": "/apps/dota2/images/dota_react/items/divine_regalia.png?t=1593393829403",
+    "lore": "So magnificent, it cannot abide failure.",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Exalted",
+        "description": "Increases outgoing damage by 20%. Dying permanently disables this Neutral Item and the current Enchantment is lost."
+      }
+    ]
+  },
+  {
+    "name": "divine_regalia_broken",
+    "id": 1645,
+    "dname": "Disgraced Regalia",
+    "img": "/apps/dota2/images/dota_react/items/divine_regalia_broken.png?t=1593393829403",
+    "lore": "It cannot abide failure.",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Fallen",
+        "description": "You have died and thus get nothing."
+      }
+    ]
+  },
+  {
+    "name": "circlet_of_the_flayed_twins",
+    "id": 1646,
+    "dname": "Circlet of the Flayed Twins",
+    "img": "/apps/dota2/images/dota_react/items/circlet_of_the_flayed_twins.png?t=1593393829403",
+    "abilities": [
+      {
+        "type": "passive",
+        "title": "Bloodbath",
+        "description": "Converts a percentage of damage taken over the last 10 seconds into health regeneration, up to a maximum amount."
+      }
+    ]
+  },
+  {
+    "name": "enhancement_fierce",
+    "id": 1647,
+    "dname": "Fierce",
+    "img": "/apps/dota2/images/dota_react/items/enhancement_fierce.png?t=1593393829403"
+  },
+  {
+    "name": "enhancement_dominant",
+    "id": 1648,
+    "dname": "Dominant",
+    "img": "/apps/dota2/images/dota_react/items/enhancement_dominant.png?t=1593393829403"
+  },
+  {
+    "name": "enhancement_restorative",
+    "id": 1649,
+    "dname": "Restorative",
+    "img": "/apps/dota2/images/dota_react/items/enhancement_restorative.png?t=1593393829403"
+  },
+  {
+    "name": "enhancement_thick",
+    "id": 1650,
+    "dname": "Thick",
+    "img": "/apps/dota2/images/dota_react/items/enhancement_thick.png?t=1593393829403"
+  },
+  {
+    "name": "enhancement_curious",
+    "id": 1651,
+    "dname": "Unleashed",
+    "img": "/apps/dota2/images/dota_react/items/enhancement_curious.png?t=1593393829403"
+  },
+  {
+    "name": "furion_gold_bag",
+    "id": 1652,
+    "dname": "Bag of Gold",
+    "img": "/apps/dota2/images/dota_react/items/furion_gold_bag.png?t=1593393829403"
   },
   {
     "name": "diffusal_blade_2",

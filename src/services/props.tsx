@@ -55,8 +55,8 @@ export interface ItemDetails {
   name?: string;
   dname?: string;
   img: string;
-  lore: string;
-  notes: string | null;
+  lore?: string;
+  notes?: string | null;
   abilities?: {
     type: string;
     title: string;

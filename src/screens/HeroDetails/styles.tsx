@@ -33,10 +33,9 @@ export const createStyles = (colors: ThemeColor) =>
       paddingLeft: "3%",
     },
     image: {
+      borderRadius: 50,
       width: "100%",
-      aspectRatio: 1.5,
-      borderTopLeftRadius: 7,
-      borderTopRightRadius: 7,
+      aspectRatio: 1,
     },
     textHelth: {
       fontFamily: "QuickSand-Semibold",
@@ -198,11 +197,11 @@ export const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
     },
     itemImg: {
-      width: "9%",
+      //width: "9%",
       margin: 1,
-      borderRadius: 9,
-      height: undefined,
-      aspectRatio: 1,
+      //borderRadius: 9,
+      //height: undefined,
+      //aspectRatio: 1,
     },
     textItem: {
       fontFamily: "QuickSand-Semibold",

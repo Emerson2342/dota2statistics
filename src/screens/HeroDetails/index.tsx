@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Modal,
+  Dimensions,
 } from "react-native";
 import {
   ITEM_IMAGE_BASE_URL,
@@ -45,6 +46,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { getHeroItems } from "../../../src/services/api";
+import { ModalItemDetails } from "../../../src/components/Modals/ModalItemDetails";
+import AghanimDescription from "../../../src/components/Heroes/aghanimDescription.json";
+
+const imgWidth = Dimensions.get("screen").width * 0.075;
 
 export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const { heroDetails } = route.params;
@@ -58,7 +63,11 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const [abilitiesDesc, setAbilitiesDesc] = useState<
     HeroAbilitiesDescriptionsModel[] | []
   >([]);
-
+  const [itemIndex, setItemIndex] = useState<ItemDetails>();
+  const [shardIndex, setShardIndex] = useState<AghanimModel>();
+  const [aghanimIndex, setAghanimIndex] = useState<AghanimModel>();
+  const [itemType, setItemType] = useState("item");
+  const [modalItemVisible, setModalItemVisible] = useState(false);
   const [heroItems, setHeroItems] = useState<ItemPopularityData>();
   //const [itemsList, setItemsList] = useState<ItemDetails[]>([]);
 
@@ -124,6 +133,10 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     setHeroLore(loreJson[heroDetails.name]);
   }, [abilities]);
 
+  const aghaninAndShardDesc = useMemo(() => {
+    return Object.values(AghanimDescription) as AghanimModel[];
+  }, []);
+
   let fontImage = PICTURE_HERO_BASE_URL + heroDetails.img;
 
   let atributo = "";
@@ -185,6 +198,64 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
     }
     return cd ?? "";
   };
+
+  const ItemHero = ({
+    imgUrl,
+    itemDetails,
+  }: {
+    imgUrl: string | undefined;
+    itemDetails: ItemDetails | undefined;
+  }) => {
+    return (
+      <TouchableOpacity
+        style={{ margin: 1 }}
+        onPress={() => handleItemDetails(heroDetails.id, itemDetails)}
+      >
+        <Image
+          width={imgWidth}
+          height={imgWidth}
+          style={{ borderRadius: 15 }}
+          source={{ uri: PICTURE_HERO_BASE_URL + imgUrl }}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const handleItemDetails = useCallback(
+    (heroId: number | null, item: ItemDetails | undefined) => {
+      setItemIndex(undefined);
+      setShardIndex(undefined);
+      setAghanimIndex(undefined);
+
+      if (
+        item &&
+        item.name !== "ultimate_scepter" &&
+        item &&
+        item.name !== "aghanims_shard"
+      ) {
+        setItemIndex(item);
+        setItemType("item");
+        setModalItemVisible(true);
+      } else if (item && item.name === "ultimate_scepter") {
+        const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
+        if (scepter) {
+          setAghanimIndex(scepter);
+          setItemType("Aghanim's Scepter");
+          setModalItemVisible(true);
+        }
+      } else if (item && item.name === "aghanims_shard") {
+        const shardDesc = aghaninAndShardDesc.find(
+          (shard) => shard.hero_id === heroId
+        );
+        if (shardDesc) {
+          setShardIndex(shardDesc);
+          setItemType("Aghanim's Shard");
+          setModalItemVisible(true);
+        }
+      }
+    },
+    []
+  );
 
   const renderAbilitiesDescriptions = ({
     item,
@@ -512,11 +583,21 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                           (i) => i.id.toString() === itemId
                         );
                         return (
-                          <Image
-                            style={styles.itemImg}
-                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                          <ItemHero
                             key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
                           />
+                          // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
+                          //   <Image
+                          //     width={imgWidth}
+                          //     height={imgWidth}
+                          //     style={{ borderRadius: 15 }}
+                          //     source={{
+                          //       uri: PICTURE_HERO_BASE_URL + item?.img,
+                          //     }}
+                          //   />
+                          // </TouchableOpacity>
                         );
                       }
                     )
@@ -533,10 +614,10 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                           (i) => i.id.toString() === itemId
                         );
                         return (
-                          <Image
-                            style={styles.itemImg}
-                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                          <ItemHero
                             key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
                           />
                         );
                       }
@@ -554,10 +635,10 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                           (i) => i.id.toString() === itemId
                         );
                         return (
-                          <Image
-                            style={styles.itemImg}
-                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                          <ItemHero
                             key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
                           />
                         );
                       }
@@ -575,10 +656,10 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
                           (i) => i.id.toString() === itemId
                         );
                         return (
-                          <Image
-                            style={styles.itemImg}
-                            source={{ uri: PICTURE_HERO_BASE_URL + item?.img }}
+                          <ItemHero
                             key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
                           />
                         );
                       }
@@ -707,6 +788,20 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               handleClose={() => setModalHeroLore(false)}
               localizedName={heroDetails.localized_name}
               loreText={heroLore}
+            />
+          </Modal>
+          <Modal
+            visible={modalItemVisible}
+            transparent={true}
+            //statusBarTranslucent={true}
+            animationType="fade"
+          >
+            <ModalItemDetails
+              item={itemIndex}
+              shard={shardIndex}
+              aghanim={aghanimIndex}
+              itemType={itemType}
+              handleClose={() => setModalItemVisible(false)}
             />
           </Modal>
         </View>
