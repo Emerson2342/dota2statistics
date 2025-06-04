@@ -128,7 +128,6 @@ export default function ModalMyAccount({
             <TextInput
               keyboardType="numeric"
               style={styles.inputText}
-              value={user.id_Steam}
               onChangeText={(textId) =>
                 setUser((prevUser) => ({ ...prevUser, id_Steam: textId }))
               }

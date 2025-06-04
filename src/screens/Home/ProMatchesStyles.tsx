@@ -34,10 +34,14 @@ export const createStylesStatics = (colors: ThemeColor) =>
     matchContainer: {
       width: "97%",
       alignSelf: "center",
-      borderWidth: 1,
+      backgroundColor: "#fff",
+      borderColor: colors.standard,
+      elevation: 3,
+      borderLeftWidth: 5,
+
       borderRadius: 5,
-      borderColor: colors.dark,
       marginTop: "1.7%",
+      paddingVertical: "1%",
     },
     leagueName: {
       fontFamily: "QuickSand-Bold",

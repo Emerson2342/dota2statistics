@@ -33,9 +33,11 @@ export const createStyles = (colors: ThemeColor) =>
       paddingLeft: "3%",
     },
     image: {
-      borderRadius: 50,
+      // borderRadius: 50,
       width: "100%",
-      aspectRatio: 1,
+      aspectRatio: 1.5,
+      borderTopLeftRadius: 7,
+      borderTopRightRadius: 7,
     },
     textHelth: {
       fontFamily: "QuickSand-Semibold",

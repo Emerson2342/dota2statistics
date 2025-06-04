@@ -793,8 +793,8 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
           <Modal
             visible={modalItemVisible}
             transparent={true}
-            //statusBarTranslucent={true}
             animationType="fade"
+            onRequestClose={() => setModalItemVisible(false)}
           >
             <ModalItemDetails
               item={itemIndex}

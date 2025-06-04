@@ -141,7 +141,6 @@ const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Bold",
       color: colors.semidark,
       alignSelf: "center",
-      borderBottomWidth: 1,
       borderColor: colors.dark,
       width: "90%",
     },
