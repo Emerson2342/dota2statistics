@@ -40,3 +40,6 @@ src/routes/index.tsx
 .env
 
 /android
+
+google-services.json
+package-lock.json

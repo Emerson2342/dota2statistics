@@ -15,7 +15,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
 import { useRefreshContext } from "../../../src/context/useRefreshContext";
 import { doc, setDoc } from "firebase/firestore";
-import { db2 } from "../../../src/services/firebaseConfig";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 import { toSteam32 } from "../../../src/utils/steam";
@@ -67,7 +66,6 @@ export default function ModalMyAccount({
         accountTimestamp == null ||
         accountTimestamp + 86400 < currentTimestamp
       ) {
-        handleChangeIdSteam();
         setAccountTimestamp(currentTimestamp);
         console.log("Novo TimesStamp: " + accountTimestamp);
       }
@@ -79,20 +77,6 @@ export default function ModalMyAccount({
       setPlayerTimestamp(currentTimestamp);
       setRefreshProfile(true);
     }, 300);
-  };
-
-  const handleChangeIdSteam = async () => {
-    try {
-      if (profile == null) return;
-
-      await setDoc(doc(db2, "Profile", profile.email ?? ""), {
-        email: profile.email,
-        id_Steam: user.id_Steam,
-      });
-    } catch (error) {
-      console.log("Erro ao criar banco de dados: " + error);
-      setTextMessage(messageError);
-    }
   };
 
   const styles = createStyles(ColorTheme);

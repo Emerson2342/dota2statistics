@@ -193,7 +193,9 @@ export function Profile() {
 
   const handleLoadData = async () => {
     console.log("Carregando********************");
+
     setIsLoading(true);
+    //await Analytics.logEvent("teste", {foo:'bar'})
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);

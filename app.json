@@ -18,11 +18,12 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.missinhoo.Dota2",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/images/icon.png",
         "backgroundColor": "#fff"
-      },
-      "package": "com.missinhoo.Dota2"
+      }
     },
     "web": {
       "favicon": "./src/images/icon.png"
