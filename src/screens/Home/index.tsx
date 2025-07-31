@@ -36,7 +36,7 @@ import { HeroesStats } from "./HeroesStats";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useTimestampContext } from "../../context/useTimestampContext";
 
-export function Profile() {
+export function Home() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
   const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
@@ -122,12 +122,13 @@ export function Profile() {
     return (
       <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
         <View style={{ flex: 0.3 }}>
-          <HeroesStats heroesStats={heroesStats} />
+          <HeroesStats heroesStats={heroesStats} isLoading={isLoading} />
         </View>
         <View style={{ flex: 0.7 }}>
           <ProMatches
             onRefresh={async () => await getProMatches(setProMatches)}
             proMatches={proMatches}
+            isLoading={isLoading}
           />
         </View>
         <BannerAds />
@@ -177,14 +178,14 @@ export function Profile() {
   });
 
   const routes = [
+    {
+      key: "trendings",
+      title: englishLanguage ? "Trendings" : "Populares",
+    },
     { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
     {
       key: "heroesPlayed",
       title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
-    },
-    {
-      key: "trendings",
-      title: englishLanguage ? "Trendings" : "Populares",
     },
   ];
   const erro404 = englishLanguage
@@ -232,7 +233,6 @@ export function Profile() {
     />
   );
 
-  if (isLoading) return Loading;
   return (
     <TabView
       renderTabBar={renderTabBar}

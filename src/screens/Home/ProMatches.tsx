@@ -21,9 +21,11 @@ import { Feather } from "@expo/vector-icons";
 export function ProMatches({
   proMatches,
   onRefresh,
+  isLoading,
 }: {
   proMatches: LeagueMatches[] | [];
   onRefresh: () => Promise<void>;
+  isLoading: boolean;
 }) {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -185,7 +187,7 @@ export function ProMatches({
     );
   };
 
-  if (loading)
+  if (loading || isLoading)
     return (
       <View
         style={{

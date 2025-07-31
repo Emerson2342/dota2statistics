@@ -19,7 +19,7 @@ export function StackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Bottom"
+        name="Drawer"
         component={DrawerNavigator}
         options={{
           headerShown: false,

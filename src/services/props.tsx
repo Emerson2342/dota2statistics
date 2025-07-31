@@ -587,7 +587,7 @@ export interface MatchDetailsIndex {
 }
 
 export type RootStackParamList = {
-  Bottom: undefined;
+  Drawer: undefined;
   MatchDetails: {
     MatchDetailsIndex: number;
     PlayerIdIndex: string | null;

@@ -8,7 +8,7 @@ import {
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 
-import { Profile } from "../../../src/screens/Home";
+import { Home } from "../../../src/screens/Home";
 import { Search } from "../../../src/screens/Search";
 import { Favorites } from "../../../src/screens/Favorites";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
@@ -44,7 +44,7 @@ export function DrawerNavigator() {
     >
       <Drawer.Screen
         name="Home"
-        component={Profile}
+        component={Home}
         options={{
           title: englishLanguage ? "Home" : "Principal",
           drawerIcon: ({ color, size }) => (

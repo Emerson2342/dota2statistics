@@ -21,10 +21,13 @@ import { useNavigation } from "@react-navigation/native";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import { Skeleton } from "moti/skeleton";
 export function HeroesStats({
   heroesStats,
+  isLoading,
 }: {
   heroesStats: HeroStats[] | [];
+  isLoading: boolean;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -62,12 +65,30 @@ export function HeroesStats({
     }
   };
 
+  const SkeletonLoading = () => {
+    return (
+      <>
+        {Array.from({ length: 8 }).map((_, index: number) => (
+          <View key={index} style={{ marginHorizontal: "0.5%" }}>
+            <Skeleton
+              colorMode="light"
+              height={undefined}
+              width={Dimensions.get("screen").width * 0.1}
+            />
+            <Text style={styles.text}>{index + 1}°</Text>
+          </View>
+        ))}
+      </>
+    );
+  };
+
   return (
     <View style={{ marginTop: "3%" }}>
       <View style={styles.content}>
         <Text style={styles.textHeader}>
           {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
         </Text>
+
         <Text
           style={[
             styles.text,
@@ -77,20 +98,26 @@ export function HeroesStats({
           {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
         </Text>
         <View style={styles.container}>
-          {mostPicked &&
-            mostPicked.slice(0, 8).map((item: HeroStats, index: number) => {
-              const urlImg = PICTURE_HERO_BASE_URL + item.img;
+          {isLoading ? (
+            <SkeletonLoading />
+          ) : (
+            <>
+              {mostPicked &&
+                mostPicked.slice(0, 8).map((item: HeroStats, index: number) => {
+                  const urlImg = PICTURE_HERO_BASE_URL + item.img;
 
-              return (
-                <TouchableOpacity
-                  onPress={() => GoToHeroDetails(item.id)}
-                  key={index}
-                >
-                  <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <Text style={styles.text}>{index + 1}°</Text>
-                </TouchableOpacity>
-              );
-            })}
+                  return (
+                    <TouchableOpacity
+                      onPress={() => GoToHeroDetails(item.id)}
+                      key={index}
+                    >
+                      <Image source={{ uri: urlImg }} style={styles.imgHero} />
+                      <Text style={styles.text}>{index + 1}°</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+            </>
+          )}
         </View>
 
         <Text
@@ -102,20 +129,33 @@ export function HeroesStats({
           {englishLanguage ? "Win Rate" : "Aproveitamento"}
         </Text>
         <View style={styles.container}>
-          {bestWinrate &&
-            bestWinrate.slice(0, 8).map((item: HeroStats, index: number) => {
-              const urlImg = PICTURE_HERO_BASE_URL + item.img;
+          {isLoading ? (
+            <SkeletonLoading />
+          ) : (
+            <>
+              {bestWinrate &&
+                bestWinrate
+                  .slice(0, 8)
+                  .map((item: HeroStats, index: number) => {
+                    const urlImg = PICTURE_HERO_BASE_URL + item.img;
 
-              return (
-                <TouchableOpacity
-                  onPress={() => GoToHeroDetails(item.id)}
-                  key={index}
-                >
-                  <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <Text style={styles.text}>{item.winRate?.toFixed(2)}%</Text>
-                </TouchableOpacity>
-              );
-            })}
+                    return (
+                      <TouchableOpacity
+                        onPress={() => GoToHeroDetails(item.id)}
+                        key={index}
+                      >
+                        <Image
+                          source={{ uri: urlImg }}
+                          style={styles.imgHero}
+                        />
+                        <Text style={styles.text}>
+                          {item.winRate?.toFixed(2)}%
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+            </>
+          )}
         </View>
       </View>
     </View>
