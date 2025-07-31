@@ -69,12 +69,12 @@ export function Home() {
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
+        case "trendings":
+          return <Trendings />;
         case "myProfile":
           return <MyProfile />;
         case "heroesPlayed":
           return <HeroesPlayed />;
-        case "trendings":
-          return <Trendings />;
         default:
           return null;
       }
@@ -117,6 +117,9 @@ export function Home() {
       />
     );
   });
+  const handleRefresh = useCallback(async () => {
+    await getProMatches(setProMatches);
+  }, [getProMatches]);
 
   const Trendings = React.memo(() => {
     return (
@@ -126,7 +129,7 @@ export function Home() {
         </View>
         <View style={{ flex: 0.7 }}>
           <ProMatches
-            onRefresh={async () => await getProMatches(setProMatches)}
+            onRefresh={handleRefresh}
             proMatches={proMatches}
             isLoading={isLoading}
           />

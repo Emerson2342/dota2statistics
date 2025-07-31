@@ -88,47 +88,41 @@ export function ProMatches({
   const SkeletonLoading = () => {
     return (
       <>
-        {Array.from({ length: 8 }).map((_, index: number) => (
+        {Array.from({ length: 5 }).map((_, index: number) => (
           <View key={index} style={styles.matchContainer}>
             <View style={{ width: "100%", alignItems: "center" }}>
-              <Skeleton width={175} colorMode="light" height={23} />
+              <Skeleton width={"55%"} colorMode="light" height={17} />
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-              }}
-            >
+            <View style={{ flexDirection: "row", padding: 3 }}>
               <View style={[styles.teamRow, { justifyContent: "flex-end" }]}>
-                <Skeleton width={75} height={17} colorMode="light" />
-                {/* <Spacer/> */}
-                <Skeleton width={23} height={17} colorMode="light" />
+                <Skeleton width={80} height={15} colorMode="light" />
+                <View style={{ width: 17 }} />
+                <Skeleton width={23} height={15} colorMode="light" />
               </View>
+              <View style={{ width: 5 }} />
               <View style={styles.teamRow}>
-                <Text style={[styles.score]}>42</Text>
-                <Text style={[styles.teamName]}>Dire</Text>
+                <Skeleton width={23} height={15} colorMode="light" />
+                <View style={{ width: 17 }} />
+                <Skeleton width={80} height={15} colorMode="light" />
               </View>
             </View>
-            <View style={styles.timeContainer}>
-              <Text style={styles.textData}>Duration</Text>
-
-              <Text style={styles.textData}>Finished</Text>
+            <View style={{ flexDirection: 'row', padding: 3 }}>
+              <View style={{ alignItems: "center" }}>
+                <Skeleton width={"50%"} height={15} colorMode="light" />
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <Skeleton width={"50%"} height={15} colorMode="light" />
+              </View>
             </View>
             <View style={styles.linkContainer}>
               <View style={{ width: "50%", alignItems: "center" }}>
-                <View style={styles.buttonContainer}>
-                  <Text style={styles.textButton}>
-                    {englishLanguage ? "Tournament " : "Campeonato "}
-                    <Feather name="external-link" />
-                  </Text>
+                <View style={{ alignItems: "center" }}>
+                  <Skeleton width={"70%"} height={15} colorMode="light" />
                 </View>
               </View>
               <View style={{ width: "50%", alignItems: "center" }}>
-                <View style={styles.buttonContainer}>
-                  <Text style={styles.textButton}>
-                    {englishLanguage ? "Match " : "Partida "}
-                    <Feather name="external-link" />
-                  </Text>
+                <View style={{ alignItems: "center" }}>
+                  <Skeleton width={"70%"} height={15} colorMode="light" />
                 </View>
               </View>
             </View>
@@ -241,22 +235,6 @@ export function ProMatches({
     );
   };
 
-  // if (loading || isLoading)
-  //   return (
-  //     <View
-  //       style={{
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         flex: 0.82,
-  //       }}
-  //     >
-  //       <ActivityIndicator color={ColorTheme.dark} />
-  //       <Text style={styles.textLoading}>
-  //         {englishLanguage ? "Loading..." : "Carregando..."}
-  //       </Text>
-  //     </View>
-  //   );
-
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>
@@ -276,9 +254,8 @@ export function ProMatches({
             progressBackgroundColor={ColorTheme.dark}
           />
         }
-      >
-        <SkeletonLoading />
-        {/* <FlatList
+      >{isLoading || loading ? <SkeletonLoading /> :
+        <FlatList
           data={formattedTimeMatch}
           renderItem={({ item }) => (
             <ProMatchItem
@@ -291,7 +268,9 @@ export function ProMatches({
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           scrollEnabled={false}
-        /> */}
+        />}
+
+
       </ScrollView>
     </View>
   );
