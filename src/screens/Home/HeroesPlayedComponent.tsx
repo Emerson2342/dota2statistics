@@ -23,11 +23,11 @@ import { BannerAds } from "../../components/Admob/BannerAds";
 export function HeroesPlayedComponent({
   HeroesPlayedList,
   successPlayerAccount,
-  textError,
+  SetSteamId,
 }: {
   HeroesPlayedList: HeroesPlayed[];
   successPlayerAccount: boolean;
-  textError: string;
+  SetSteamId: React.ComponentType;
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
@@ -65,18 +65,7 @@ export function HeroesPlayedComponent({
   if (!successPlayerAccount) {
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.contentError}>
-          <Text
-            style={[
-              styles.textError,
-              {
-                color: ColorTheme.semidark,
-              },
-            ]}
-          >
-            {textError}
-          </Text>
-        </View>
+        <SetSteamId />
         <View style={{ flex: 0.1 }}>
           <BannerAds />
         </View>

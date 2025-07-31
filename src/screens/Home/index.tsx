@@ -5,6 +5,9 @@ import {
   ActivityIndicator,
   useWindowDimensions,
   Dimensions,
+  Button,
+  Touchable,
+  Modal,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -35,6 +38,8 @@ import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 import { HeroesStats } from "./HeroesStats";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useTimestampContext } from "../../context/useTimestampContext";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ModalMyAccount from "../../../src/components/Modals/ModalMyAccount";
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -44,6 +49,7 @@ export function Home() {
   const { englishLanguage } = useSettingsContext();
   const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
   const { setTeamsList } = useTeamsListContext();
+  const [modalAccountVisible, setModalAccountVisible] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,6 +57,10 @@ export function Home() {
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
+  const erro404 = englishLanguage
+    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
+    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
+
 
   const styles = createStyles(ColorTheme);
 
@@ -65,6 +75,23 @@ export function Home() {
       setLeagueTimestamp(currentTimestamp);
     }
   }, [profile]);
+
+  const SetSteamId = () => {
+    return (
+      <View style={styles.erroMessage}>
+        <Text style={styles.textErro}>{erro404}</Text>
+        <TouchableOpacity
+          style={{ backgroundColor: ColorTheme.semilight, borderRadius: 7 }}
+          onPress={() => setModalAccountVisible(true)}
+        >
+          <Text style={{ padding: 7, color: "white" }}>Adicionar Id</Text>
+        </TouchableOpacity>
+        <Modal visible={modalAccountVisible} transparent={true} animationType="fade">
+          <ModalMyAccount handleClose={() => setModalAccountVisible(false)} />
+        </Modal>
+      </View>
+    )
+  }
 
   const renderScene = useCallback(
     ({ route }: any) => {
@@ -113,7 +140,7 @@ export function Home() {
         successPlayerAccount={
           player == null || player.profile.account_id == 0 ? false : true
         }
-        textError={erro404}
+        SetSteamId={SetSteamId}
       />
     );
   });
@@ -144,9 +171,7 @@ export function Home() {
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
           {player == null || player.profile.account_id == 0 ? (
-            <View style={styles.erroMessage}>
-              <Text style={styles.textErro}>{erro404}</Text>
-            </View>
+            <SetSteamId />
           ) : (
             <>
               <View
@@ -191,15 +216,12 @@ export function Home() {
       title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
     },
   ];
-  const erro404 = englishLanguage
-    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
-    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
 
   const handleLoadData = async () => {
     console.log("Carregando********************");
 
     setIsLoading(true);
-    //await Analytics.logEvent("teste", {foo:'bar'})
+
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);

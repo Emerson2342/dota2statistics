@@ -14,7 +14,6 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useTimestampContext } from "../../../src/context/useTimestampContext";
 import { useRefreshContext } from "../../../src/context/useRefreshContext";
-import { doc, setDoc } from "firebase/firestore";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 import { toSteam32 } from "../../../src/utils/steam";
@@ -30,7 +29,6 @@ export default function ModalMyAccount({
     useTimestampContext();
   const { englishLanguage } = useSettingsContext();
   const [user, setUser] = useState<User>({
-    email: profile?.email ?? "",
     id_Steam: profile?.id_Steam ?? "",
   });
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
@@ -42,6 +40,8 @@ export default function ModalMyAccount({
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const { ColorTheme } = useTheme();
+
+
 
   const messageSuccess = englishLanguage
     ? "Steam ID successfully changed"
@@ -90,15 +90,6 @@ export default function ModalMyAccount({
           ]}
         >
           {englishLanguage ? "My Account" : "Minha Conta"}
-        </Text>
-        <Text
-          style={[
-            styles.title,
-            { color: ColorTheme.dark, fontFamily: "QuickSand-Semibold" },
-          ]}
-        >
-          <Text>Email: </Text>
-          {profile?.email || ""}
         </Text>
         <Text style={styles.header}>Id Steam</Text>
         <View
@@ -179,7 +170,7 @@ export default function ModalMyAccount({
         transparent={true}
       >
         <ModalMessage
-          handleClose={() => setModalMessageVisible(false)}
+          handleClose={() => { setModalMessageVisible(false); () => handleClose() }}
           message={textMessage}
           title={titleMessage}
         />

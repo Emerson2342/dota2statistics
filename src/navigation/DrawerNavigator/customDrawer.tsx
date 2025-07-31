@@ -15,20 +15,15 @@ import {
 import { usePlayerContext } from "../../../src/context/usePlayerContex";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ThemeColor } from "../../../src/services/props";
-import { ModalConfirmLogOut } from "../../../src/components/Modals/ModalConfirmLogout";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { FontAwesome } from "@expo/vector-icons";
 import { ModalAboutUs } from "../../components/Modals/ModalAboutUs";
 import Constants from "expo-constants";
-import AvatarImg from "../../images/user.png";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerContext();
   const { ColorTheme } = useTheme();
   const { englishLanguage } = useSettingsContext();
 
-  const [modalConfirmLogOutVisible, setModalConfirmLogOutVisible] =
-    useState(false);
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);
 
@@ -51,20 +46,6 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <View style={styles.drawerItems}>
         <DrawerItemList {...props} />
       </View>
-      <TouchableOpacity
-        onPress={() => setModalConfirmLogOutVisible(true)}
-        style={styles.logoutContainer}
-      >
-        <Text
-          style={{
-            color: ColorTheme.semidark,
-            fontFamily: "QuickSand-Bold",
-          }}
-        >
-          {englishLanguage ? "Log Out " : "Sair "}
-        </Text>
-        <FontAwesome name="sign-out" size={17} />
-      </TouchableOpacity>
 
       <Text style={styles.textAboutUs}>
         {englishLanguage ? "Version " : "Versão "}
@@ -76,17 +57,6 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       >
         {englishLanguage ? "About Us" : "Sobre Nós"}
       </Text>
-
-      <Modal
-        visible={modalConfirmLogOutVisible}
-        transparent={true}
-        statusBarTranslucent={true}
-        animationType="fade"
-      >
-        <ModalConfirmLogOut
-          handleClose={() => setModalConfirmLogOutVisible(false)}
-        />
-      </Modal>
       <Modal
         visible={modalAboutUsVisible}
         transparent={true}

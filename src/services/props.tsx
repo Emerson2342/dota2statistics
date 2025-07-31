@@ -20,7 +20,6 @@ export interface FavoritesContextType {
 }
 
 export interface User {
-  email: string;
   id_Steam: string;
 }
 export interface SearchUserResult {

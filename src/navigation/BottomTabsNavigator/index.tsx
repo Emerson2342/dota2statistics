@@ -1,28 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useState } from "react";
-import { Profile } from "../../../src/screens/Home";
 import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
 import {
   Dimensions,
-  TouchableOpacity,
-  View,
   StyleSheet,
-  Modal,
-  Text,
 } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Favorites } from "../../../src/screens/Favorites";
 import { Search } from "../../../src/screens/Search";
+import { Home } from "../../../src/screens/Home";
 
 const Tab = createBottomTabNavigator();
 const width = Dimensions.get("window").width;
 export function BottomTabsNavigator() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-  const [modalSettingsVisible, setModalSettingsVisible] = useState(false);
 
   return (
     <Tab.Navigator
@@ -47,7 +42,7 @@ export function BottomTabsNavigator() {
     >
       <Tab.Screen
         name="Home"
-        component={Profile}
+        component={Home}
         options={{
           headerTitle: englishLanguage ? "My Profile" : "Meu Perfil",
           tabBarLabel: englishLanguage ? "My Profile" : "Meu Perfil",

@@ -51,9 +51,6 @@ export function SettingsScreen() {
           {englishLanguage ? "My Account" : "Minha Conta"}
         </Text>
         <Text style={styles.profile}>
-          Email: <Text style={styles.textData}>{profile?.email}</Text>
-        </Text>
-        <Text style={styles.profile}>
           Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
         </Text>
         <TouchableOpacity
