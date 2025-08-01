@@ -8,12 +8,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ProfileProvider } from "./src/context/useProfileContext";
 import { ThemeProvider } from "./src/context/useThemeContext";
 import { TeamsListProvider } from "./src/context/useTeamContext";
-import { TimestampProvider } from "./src/context/useTimestampContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
-import { RefreshProvider } from "./src/context/useRefreshContext";
 import { View, Text, StyleSheet } from "react-native";
 
 export default function App() {
@@ -35,15 +33,11 @@ export default function App() {
           <PlayerProvider>
             <ProfileProvider>
               <TeamsListProvider>
-                <RefreshProvider>
-                  <TimestampProvider>
-                    <PaperProvider>
-                      <FavoritesProvider>
-                        <Routes />
-                      </FavoritesProvider>
-                    </PaperProvider>
-                  </TimestampProvider>
-                </RefreshProvider>
+                <PaperProvider>
+                  <FavoritesProvider>
+                    <Routes />
+                  </FavoritesProvider>
+                </PaperProvider>
               </TeamsListProvider>
             </ProfileProvider>
           </PlayerProvider>

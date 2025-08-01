@@ -13,12 +13,12 @@ import {
   HeroDetailsModel,
   HeroesPlayed,
   ThemeColor,
-} from "../../../src/services/props";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
-import { BannerAds } from "../../components/Admob/BannerAds";
+} from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { BannerAds } from "../../../components/Admob/BannerAds";
 
 export function HeroesPlayedComponent({
   HeroesPlayedList,
@@ -65,7 +65,9 @@ export function HeroesPlayedComponent({
   if (!successPlayerAccount) {
     return (
       <View style={{ flex: 1 }}>
-        <SetSteamId />
+        <View style={{ flex: 0.9 }}>
+          <SetSteamId />
+        </View>
         <View style={{ flex: 0.1 }}>
           <BannerAds />
         </View>

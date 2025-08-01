@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   TouchableOpacity,
@@ -15,17 +15,17 @@ import {
   LobbyTypeNames,
   RecentMatches,
   RootStackParamList,
-} from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
+} from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../constants/player";
-import { usePlayerContext } from "../../context/usePlayerContex";
-import { useTheme } from "../../context/useThemeContext";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { usePlayerContext } from "../../../context/usePlayerContex";
+import { useTheme } from "../../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
-import { GameMode, LobbyType } from "../../../src/services/enum";
+import { GameMode, LobbyType } from "../../../services/enum";
 
 export function LastMatches({
   playerId,
@@ -95,7 +95,7 @@ export function LastMatches({
     const team = item.player_slot < 5 ? 1 : 2;
     const resultadoFinal =
       (team == 1 && item.radiant_win == true) ||
-      (team == 2 && item.radiant_win == false)
+        (team == 2 && item.radiant_win == false)
         ? true
         : false;
 

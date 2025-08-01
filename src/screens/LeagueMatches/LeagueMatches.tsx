@@ -46,20 +46,10 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
   };
 
   const styles = createStyles(ColorTheme, Font);
-
   const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[]>([]);
-  const [matchInfo, setMatchInfo] = useState<MatchLeagueInfo>({
-    RadName: undefined,
-    DireName: undefined,
-    LeagueName: LeagueName,
-  });
-
   const { teamsList } = useTeamsListContext();
-
   const [isLoading, setIsLoading] = useState(false);
-
   const { englishLanguage } = useSettingsContext();
-
   const result = englishLanguage ? "Winner" : "Vencedor";
 
   useEffect(() => {

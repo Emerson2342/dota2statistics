@@ -14,13 +14,13 @@ import {
   LeagueMatches,
   RootStackParamList,
   ThemeColor,
-} from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
+} from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 export function HeroesStats({
   heroesStats,
   isLoading,

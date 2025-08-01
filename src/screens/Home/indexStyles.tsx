@@ -12,11 +12,6 @@ export const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Semibold",
       color: "#fff",
     },
-    erroMessage: {
-      alignItems: "center",
-      justifyContent: "center",
-      flex: 0.7,
-    },
     textErro: {
       textAlign: "center",
       padding: "5%",
@@ -28,5 +23,18 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: 15,
       color: colors.dark,
       marginBottom: "1%",
+    },
+    textInput: {
+      backgroundColor: "#fff",
+      textAlign: "center",
+      fontFamily: "QuickSand-Semibold",
+      flexGrow: 1,
+      marginHorizontal: "5%",
+    },
+    inputContainer: {
+      marginTop: "3%",
+      width: "95%",
+      alignItems: "center",
+      justifyContent: "space-around",
     },
   });

@@ -23,14 +23,14 @@ import {
   RecentMatches,
   HeroesPlayed,
 } from "../../services/props";
-import { ProfileHeader } from "../Home/ProfileHeader";
-import { LastMatches } from "../Home/LastMatches";
+import { ProfileHeader } from "../Home/MyProfileTabs/ProfileHeader";
+import { LastMatches } from "../Home/MyProfileTabs/LastMatches";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
-import { HeroesPlayedComponent } from "../Home/HeroesPlayedComponent";
+import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 import { TabBar, TabView } from "react-native-tab-view";
 import { BannerAds } from "../../components/Admob/BannerAds";
 

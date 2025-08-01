@@ -2,21 +2,18 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Text,
   View,
-  ActivityIndicator,
   useWindowDimensions,
   Dimensions,
-  Button,
-  Touchable,
   Modal,
   TouchableOpacity,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { ProfileHeader } from "./ProfileHeader";
+import { ProfileHeader } from "./MyProfileTabs/ProfileHeader";
 import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
-import { ProMatches } from "./ProMatches";
+import { ProMatches } from "./TrendingsTab/ProMatches";
 import { useTheme } from "../../context/useThemeContext";
 import {
   getHeroesPlayed,
@@ -26,7 +23,7 @@ import {
   getSearchPlayer,
   loadTeamsList,
 } from "../../services/api";
-import { LastMatches } from "./LastMatches";
+import { LastMatches } from "./MyProfileTabs/LastMatches";
 import {
   HeroesPlayed,
   HeroStats,
@@ -35,12 +32,14 @@ import {
 } from "../../../src/services/props";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
-import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
-import { HeroesStats } from "./HeroesStats";
 import { useTeamsListContext } from "../../context/useTeamContext";
-import { useTimestampContext } from "../../context/useTimestampContext";
-import ModalMyAccount from "../../../src/components/Modals/ModalMyAccount";
-import analytics from "@react-native-firebase/analytics";
+import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { HeroesPlayedTabs } from "./HeroesPlayedTabs";
+import { TrendingsTab } from "./TrendingsTab";
+import { Searchbar } from "react-native-paper";
+
+const analytics = getAnalytics();
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -48,9 +47,7 @@ export function Home() {
   const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
     usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
   const { setTeamsList } = useTeamsListContext();
-  const [modalAccountVisible, setModalAccountVisible] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,38 +63,33 @@ export function Home() {
 
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
-  const currentTimestamp = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
-    analytics().logEvent("HomePage");
+    logEvent(analytics, 'home_page');
   }, []);
 
   useEffect(() => {
     handleLoadData();
-    if (leagueTimestamp == null || leagueTimestamp + 86000 < currentTimestamp) {
-      loadTeamsList(setTeamsList);
-      setLeagueTimestamp(currentTimestamp);
-    }
+    loadTeamsList(setTeamsList);
   }, [profile]);
 
   const SetSteamId = () => {
+
+    const [text, setText] = useState("");
     return (
-      <View style={styles.erroMessage}>
+      <View style={styles.inputContainer}>
+        <Searchbar
+          style={styles.textInput}
+          placeholder={englishLanguage ? "Search" : "Buscar"}
+          value={text}
+          onChangeText={(textInput) => setText(textInput)}
+          elevation={3}
+          iconColor={ColorTheme.semidark}
+          placeholderTextColor={ColorTheme.semilight}
+        //onIconPress={() => handleSearch(inputText)}
+        />
         <Text style={styles.textErro}>{erro404}</Text>
-        <TouchableOpacity
-          style={{ backgroundColor: ColorTheme.semilight, borderRadius: 7 }}
-          onPress={() => setModalAccountVisible(true)}
-        >
-          <Text style={{ padding: 7, color: "white" }}>Adicionar Id</Text>
-        </TouchableOpacity>
-        <Modal
-          visible={modalAccountVisible}
-          transparent={true}
-          animationType="fade"
-          statusBarTranslucent={true}
-        >
-          <ModalMyAccount handleClose={() => setModalAccountVisible(false)} />
-        </Modal>
+
       </View>
     );
   };
@@ -122,35 +114,24 @@ export function Home() {
       heroesPlayed,
       heroesPlayedId,
       isLoading,
-      modalAccountVisible,
     ]
   );
 
   const Loading = useMemo(
     () => (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <ActivityIndicator color={ColorTheme.dark} />
-        <Text style={styles.textLoading}>
-          {englishLanguage ? "Loading..." : "Carregando..."}
-        </Text>
+      <View style={{ flex: 1 }}>
+        <ActivityIndicatorCustom message={englishLanguage ? "Loading..." : "Carregando..."} />
+        <BannerAds />
       </View>
     ),
     [isLoading]
   );
   const HeroesPlayed = React.memo(() => {
     return (
-      <HeroesPlayedComponent
-        HeroesPlayedList={heroesPlayed}
-        successPlayerAccount={
-          player == null || player.profile.account_id == 0 ? false : true
-        }
-        SetSteamId={SetSteamId}
+      <HeroesPlayedTabs
+        heroesPlayedList={heroesPlayed}
+        successPlayerAccount={player == null || player.profile.account_id == 0 ? false : true}
+        setSteamIdComponent={SetSteamId}
       />
     );
   });
@@ -160,15 +141,13 @@ export function Home() {
 
   const Trendings = React.memo(() => {
     return (
-      <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
-        <View style={{ flex: 0.3 }}>
-          <HeroesStats heroesStats={heroesStats} isLoading={isLoading} />
-        </View>
-        <View style={{ flex: 0.7 }}>
-          <ProMatches onRefresh={handleRefresh} proMatches={proMatches} />
-        </View>
-        <BannerAds />
-      </View>
+      <TrendingsTab
+        color={ColorTheme.light}
+        heroesStats={heroesStats}
+        isLoading={isLoading}
+        onRefresh={handleRefresh}
+        proMatches={proMatches}
+      />
     );
   });
 

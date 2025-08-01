@@ -9,19 +9,15 @@ import {
 } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
-import { League, RootStackParamList, Team } from "../../services/props";
+import { League, RootStackParamList } from "../../services/props";
 import {
   LEAGUES_BASE_URL,
-  TEAMS_BASE_URL,
 } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useTimestampContext } from "../../../src/context/useTimestampContext";
-import { useTeamsListContext } from "../../../src/context/useTeamContext";
 import { BannerAds } from "../../components/Admob/BannerAds";
-import { AsyncStorageService } from "../../../src/services/StorageService";
 
 export function Leagues() {
   const navigation =
@@ -32,9 +28,6 @@ export function Leagues() {
   const styles = createStyles(ColorTheme);
 
   const [leagueList, setLeagueList] = useState<League[] | []>([]);
-  const { leagueTimestamp, setLeagueTimestamp } = useTimestampContext();
-
-  const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState(false);
@@ -47,49 +40,15 @@ export function Leagues() {
     });
   };
 
-  const asyncStorage = new AsyncStorageService();
-
-  useEffect(() => {
-    const loadStoredData = async () => {
-      try {
-        const storedLeagueList = await asyncStorage.getItem<League[]>(
-          "leagueList"
-        );
-
-        if (storedLeagueList !== null) {
-          setLeagueList(storedLeagueList);
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados armazenados", error);
-      }
-    };
-
-    loadStoredData();
-  }, []);
-
-  useEffect(() => {
-    const saveAsyncData = async () => {
-      try {
-        await asyncStorage.setItem("leagueList", leagueList);
-      } catch (error) {
-        console.error("Erro ao salvar dados no AsyncStorage:", error);
-      }
-    };
-    saveAsyncData();
-  }, [leagueList]);
-
   useFocusEffect(
     useCallback(() => {
-      if (
-        leagueTimestamp == null ||
-        leagueTimestamp + 86000 < currentTimestamp
-      ) {
-        loadLeagues();
-      }
-    }, [leagueTimestamp])
+      console.log("****Leagues List")
+      loadLeagues();
+    }, [])
   );
 
   const loadLeagues = async () => {
+
     setIsLoading(true);
     try {
       const keywords = ["2024", "2025", "24", "25"];
@@ -104,7 +63,6 @@ export function Leagues() {
         (a, b) => b.leagueid - a.leagueid
       );
       setLeagueList(sortedLeagues);
-      setLeagueTimestamp(currentTimestamp);
     } catch (error: any) {
       setErrorMessage(error);
       setModalMessage(true);
@@ -112,10 +70,6 @@ export function Leagues() {
       setIsLoading(false);
     }
   };
-
-  console.log(leagueList.length);
-
-  console.log(leagueTimestamp);
 
   const renderItem = ({ item }: { item: League }) => {
     return (

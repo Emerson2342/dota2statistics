@@ -9,19 +9,19 @@ import {
 } from "react-native";
 
 import { createStyles } from "./ProfileHeaderStyles";
-import { Medal } from "../../components/Medals/MedalsList";
+import { Medal } from "../../../components/Medals/MedalsList";
 import {
   FontModel,
   HeroDetailsModel,
   PlayerModel,
   RecentMatches,
   RootStackParamList,
-} from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
+} from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../constants/player";
-import { useTheme } from "../../context/useThemeContext";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { useTheme } from "../../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 

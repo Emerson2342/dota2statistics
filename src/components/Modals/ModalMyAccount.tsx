@@ -12,8 +12,6 @@ import { useTheme } from "../../../src/context/useThemeContext";
 import { useProfileContext } from "../../../src/context/useProfileContext";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { Ionicons } from "@expo/vector-icons";
-import { useTimestampContext } from "../../../src/context/useTimestampContext";
-import { useRefreshContext } from "../../../src/context/useRefreshContext";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 import { toSteam32 } from "../../../src/utils/steam";
@@ -23,10 +21,8 @@ export default function ModalMyAccount({
 }: {
   handleClose: HandleCloseInterface;
 }) {
-  const { setRefreshProfile } = useRefreshContext();
+
   const { profile, setProfile } = useProfileContext();
-  const { setPlayerTimestamp, accountTimestamp, setAccountTimestamp } =
-    useTimestampContext();
   const { englishLanguage } = useSettingsContext();
   const [user, setUser] = useState<User>({
     id_Steam: profile?.id_Steam ?? "",
@@ -62,20 +58,10 @@ export default function ModalMyAccount({
 
     setIsLoading(true);
     setTimeout(() => {
-      if (
-        accountTimestamp == null ||
-        accountTimestamp + 86400 < currentTimestamp
-      ) {
-        setAccountTimestamp(currentTimestamp);
-        console.log("Novo TimesStamp: " + accountTimestamp);
-      }
       setTextMessage(messageSuccess);
       setModalMessageVisible(true);
       setIsLoading(false);
-      console.log("TimeStamp atual: " + accountTimestamp);
       setProfile(userReady);
-      setPlayerTimestamp(currentTimestamp);
-      setRefreshProfile(true);
     }, 300);
   };
 
@@ -126,7 +112,6 @@ export default function ModalMyAccount({
                 ...prevState,
                 id_Steam: profile?.id_Steam ?? "",
               }));
-              setPlayerTimestamp(currentTimestamp);
             }}
           >
             <Ionicons
@@ -152,7 +137,6 @@ export default function ModalMyAccount({
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onLongPress={() => alert(accountTimestamp)}
             onPress={() => handleSave()}
             //onPress={() => alert(JSON.stringify(user, null, 2))}
             style={[styles.buttonContent, { backgroundColor: ColorTheme.dark }]}

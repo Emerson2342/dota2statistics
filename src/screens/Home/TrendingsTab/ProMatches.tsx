@@ -10,12 +10,13 @@ import {
 
 import { createStylesStatics } from "./ProMatchesStyles";
 
-import { LeagueMatches, RootStackParamList } from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
+import { LeagueMatches, RootStackParamList } from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
+import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
 
 export function ProMatches({
   proMatches,
@@ -183,6 +184,14 @@ export function ProMatches({
       </View>
     );
   };
+
+  if (loading) return (
+    <View style={styles.container}>
+      <Text style={styles.textHeader}>
+        {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
+      </Text>
+      <ActivityIndicatorCustom message={englishLanguage ? "Loading Pro Matches..." : "Carregando Partidas Profissionais..."} />
+    </View>)
 
   return (
     <View style={styles.container}>

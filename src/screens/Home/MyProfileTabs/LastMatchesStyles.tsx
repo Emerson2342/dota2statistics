@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { FontModel, ThemeColor } from "../../services/props";
+import { FontModel, ThemeColor } from "../../../services/props";
 
 const width = Dimensions.get("screen").width;
 
