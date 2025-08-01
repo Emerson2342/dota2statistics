@@ -9,6 +9,7 @@ import VersionCheck from "react-native-version-check";
 
 export function Routes() {
   const [modalVisible, setModalVisible] = useState(false);
+  const { ColorTheme } = useTheme();
 
   useEffect(() => {
     checkForUpdates();
@@ -40,6 +41,7 @@ export function Routes() {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar backgroundColor={ColorTheme.dark} />
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />
       </Modal>

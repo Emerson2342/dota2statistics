@@ -8,6 +8,7 @@ import {
   Button,
   Touchable,
   Modal,
+  TouchableOpacity,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
@@ -38,8 +39,8 @@ import { HeroesPlayedComponent } from "./HeroesPlayedComponent";
 import { HeroesStats } from "./HeroesStats";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useTimestampContext } from "../../context/useTimestampContext";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ModalMyAccount from "../../../src/components/Modals/ModalMyAccount";
+import analytics from "@react-native-firebase/analytics";
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -66,6 +67,10 @@ export function Home() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const currentTimestamp = Math.floor(Date.now() / 1000);
+
+  useEffect(() => {
+    analytics().logEvent("HomePage");
+  }, []);
 
   useEffect(() => {
     handleLoadData();

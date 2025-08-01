@@ -22,6 +22,7 @@
     "expo-build-properties": "~0.14.8",
     "expo-constants": "~16.0.2",
     "expo-dev-client": "~5.2.4",
+    "expo-linear-gradient": "~14.1.5",
     "expo-splash-screen": "~0.30.10",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~5.0.10",
@@ -32,17 +33,16 @@
     "react-native-charts-wrapper": "^0.6.0",
     "react-native-gesture-handler": "^2.27.2",
     "react-native-google-mobile-ads": "^15.4.0",
-    "react-native-pager-view": "^6.3.0",
+    "react-native-pager-view": "6.7.1",
     "react-native-paper": "^5.13.1",
     "react-native-pie-chart": "^4.0.1",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.3.0",
     "react-native-svg": "15.11.2",
-    "react-native-tab-view": "^4.0.5",
+    "react-native-tab-view": "^4.1.2",
     "react-native-version-check": "^3.4.7",
-    "victory-native": "^41.14.0",
-    "expo-linear-gradient": "~14.1.5"
+    "victory-native": "^41.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -717,6 +717,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         initialLayout={{ width: layout.width }}
         lazy={true}
         renderLazyPlaceholder={() => LoadingMatchDetails}
+        removeClippedSubviews={true}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,
