@@ -61,7 +61,6 @@ export function Home() {
     ? "Please, make sure the Steam Id is correct and the profile is set to public!"
     : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
 
-
   const styles = createStyles(ColorTheme);
 
   const layout = useWindowDimensions();
@@ -86,12 +85,17 @@ export function Home() {
         >
           <Text style={{ padding: 7, color: "white" }}>Adicionar Id</Text>
         </TouchableOpacity>
-        <Modal visible={modalAccountVisible} transparent={true} animationType="fade">
+        <Modal
+          visible={modalAccountVisible}
+          transparent={true}
+          animationType="fade"
+          statusBarTranslucent={true}
+        >
           <ModalMyAccount handleClose={() => setModalAccountVisible(false)} />
         </Modal>
       </View>
-    )
-  }
+    );
+  };
 
   const renderScene = useCallback(
     ({ route }: any) => {
@@ -113,6 +117,7 @@ export function Home() {
       heroesPlayed,
       heroesPlayedId,
       isLoading,
+      modalAccountVisible,
     ]
   );
 
@@ -155,11 +160,7 @@ export function Home() {
           <HeroesStats heroesStats={heroesStats} isLoading={isLoading} />
         </View>
         <View style={{ flex: 0.7 }}>
-          <ProMatches
-            onRefresh={handleRefresh}
-            proMatches={proMatches}
-            isLoading={isLoading}
-          />
+          <ProMatches onRefresh={handleRefresh} proMatches={proMatches} />
         </View>
         <BannerAds />
       </View>
@@ -257,6 +258,8 @@ export function Home() {
       }}
     />
   );
+
+  if (isLoading) return Loading;
 
   return (
     <TabView

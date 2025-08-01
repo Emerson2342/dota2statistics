@@ -22,11 +22,9 @@ import { Skeleton } from "moti/skeleton";
 export function ProMatches({
   proMatches,
   onRefresh,
-  isLoading,
 }: {
   proMatches: LeagueMatches[] | [];
   onRefresh: () => Promise<void>;
-  isLoading: boolean;
 }) {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -83,53 +81,6 @@ export function ProMatches({
       LeagueIdIndex: LeagueIdIndex,
       LeagueName: LeagueName ?? "",
     });
-  };
-
-  const SkeletonLoading = () => {
-    return (
-      <>
-        {Array.from({ length: 5 }).map((_, index: number) => (
-          <View key={index} style={styles.matchContainer}>
-            <View style={{ width: "100%", alignItems: "center" }}>
-              <Skeleton width={"55%"} colorMode="light" height={17} />
-            </View>
-            <View style={{ flexDirection: "row", padding: 3 }}>
-              <View style={[styles.teamRow, { justifyContent: "flex-end" }]}>
-                <Skeleton width={80} height={15} colorMode="light" />
-                <View style={{ width: 17 }} />
-                <Skeleton width={23} height={15} colorMode="light" />
-              </View>
-              <View style={{ width: 5 }} />
-              <View style={styles.teamRow}>
-                <Skeleton width={23} height={15} colorMode="light" />
-                <View style={{ width: 17 }} />
-                <Skeleton width={80} height={15} colorMode="light" />
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', padding: 3 }}>
-              <View style={{ alignItems: "center" }}>
-                <Skeleton width={"50%"} height={15} colorMode="light" />
-              </View>
-              <View style={{ alignItems: "center" }}>
-                <Skeleton width={"50%"} height={15} colorMode="light" />
-              </View>
-            </View>
-            <View style={styles.linkContainer}>
-              <View style={{ width: "50%", alignItems: "center" }}>
-                <View style={{ alignItems: "center" }}>
-                  <Skeleton width={"70%"} height={15} colorMode="light" />
-                </View>
-              </View>
-              <View style={{ width: "50%", alignItems: "center" }}>
-                <View style={{ alignItems: "center" }}>
-                  <Skeleton width={"70%"} height={15} colorMode="light" />
-                </View>
-              </View>
-            </View>
-          </View>
-        ))}
-      </>
-    );
   };
 
   const ProMatchItem = ({
@@ -254,7 +205,7 @@ export function ProMatches({
             progressBackgroundColor={ColorTheme.dark}
           />
         }
-      >{isLoading || loading ? <SkeletonLoading /> :
+      >
         <FlatList
           data={formattedTimeMatch}
           renderItem={({ item }) => (
@@ -268,9 +219,7 @@ export function ProMatches({
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           scrollEnabled={false}
-        />}
-
-
+        />
       </ScrollView>
     </View>
   );
