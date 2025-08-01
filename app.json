@@ -36,16 +36,6 @@
     "owner": "emerson2342",
     "plugins": [
       [
-        "expo-build-properties",
-        {
-          "android": {
-            "targetSdkVersion": 35,
-            "compileSdkVersion": 35,
-            "minSdkVersion": 23
-          }
-        }
-      ],
-      [
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-4117477719356991~2847737808"

@@ -1,4 +1,3 @@
-import { MotiView } from "moti";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
@@ -189,7 +188,7 @@ export function LastMatches({
   };
 
   return (
-    <MotiView style={styles.flatListContainer}>
+    <View style={styles.flatListContainer}>
       <View style={styles.listTitle}>
         <Text style={[styles.textTitleHeader, { width: "13%" }]}>
           {englishLanguage ? "Hero" : "Herói"}
@@ -223,6 +222,6 @@ export function LastMatches({
           />
         }
       />
-    </MotiView>
+    </View>
   );
 }

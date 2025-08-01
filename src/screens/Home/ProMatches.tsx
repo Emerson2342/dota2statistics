@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   RefreshControl,
   FlatList,
 } from "react-native";
@@ -17,7 +16,6 @@ import { useTheme } from "../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
-import { Skeleton } from "moti/skeleton";
 
 export function ProMatches({
   proMatches,
