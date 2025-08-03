@@ -17,29 +17,88 @@ import {
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { PICTURE_HERO_BASE_URL, PLAYER_PROFILE_API_BASE_URL } from "../../../constants/player";
 import { BannerAds } from "../../../components/Admob/BannerAds";
+import { Searchbar } from "react-native-paper";
+import { toSteam32 } from "../../../../src/utils/steam";
+import { useProfileContext } from "../../../../src/context/useProfileContext";
+import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
+import { getHeroesPlayed } from "../../../../src/services/api";
+import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 
 export function HeroesPlayedComponent({
   HeroesPlayedList,
-  successPlayerAccount,
-  SetSteamId,
 }: {
   HeroesPlayedList: HeroesPlayed[];
-  successPlayerAccount: boolean;
-  SetSteamId: React.ComponentType;
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(HeroesPlayedList);
+  const [isLoading, setIsLoading] = useState(false);
   const { ColorTheme } = useTheme();
+  const { profile, setProfile } = useProfileContext();
+  const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
+    usePlayerContext();
   const styles = createStyles(ColorTheme);
+
+  const erro404 = englishLanguage
+    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
+    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
+
+
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
   }, []);
+
+  useEffect(() => {
+    handleLoadData();
+  }, [profile]);
+
+  const handleLoadData = async () => {
+    console.log("Carregando********************");
+    setIsLoading(true);
+    setTimeout(async () => {
+
+      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
+
+      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
+      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
+        setOrderedList(heroesPlayedResponse);
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const handleSave = (id: string) => {
+    const convertedId = toSteam32(id);
+    setIsLoading(true);
+    setTimeout(() => {
+      setProfile({ id_Steam: convertedId });
+      setIsLoading(false);
+    }, 300);
+  };
+
+
+  const SetSteamId = () => {
+    const [text, setText] = useState("");
+    return (
+      <View style={styles.inputContainer}>
+        <Searchbar
+          style={styles.textInput}
+          placeholder={englishLanguage ? "Search" : "Buscar"}
+          value={text}
+          onChangeText={(textInput) => setText(textInput)}
+          elevation={3}
+          iconColor={ColorTheme.semidark}
+          placeholderTextColor={ColorTheme.semilight}
+          onIconPress={() => handleSave(text)}
+        />
+        <Text style={styles.textErro}>{erro404}</Text>
+      </View>
+    );
+  };
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
@@ -62,7 +121,7 @@ export function HeroesPlayedComponent({
     }
   };
 
-  if (!successPlayerAccount) {
+  if (player == null || player.profile.account_id == 0) {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.9 }}>
@@ -74,6 +133,9 @@ export function HeroesPlayedComponent({
       </View>
     );
   }
+  if (isLoading) return <View style={{ flex: 1 }}>
+    <ActivityIndicatorCustom message={englishLanguage ? 'Loading player details...' : 'Carrgando detalhes do jogador...'} />
+  </View>
 
   const RenderItem = ({
     item,
@@ -253,5 +315,24 @@ const createStyles = (colors: ThemeColor) =>
     textInfoTitle: {
       fontFamily: "QuickSand-Bold",
       borderColor: "orange",
+    },
+    inputContainer: {
+      marginTop: "3%",
+      width: "95%",
+      alignItems: "center",
+      justifyContent: "space-around",
+    },
+    textErro: {
+      textAlign: "center",
+      padding: "5%",
+      fontFamily: "QuickSand-Semibold",
+      color: colors.semidark,
+    },
+    textInput: {
+      backgroundColor: "#fff",
+      textAlign: "center",
+      fontFamily: "QuickSand-Semibold",
+      flexGrow: 1,
+      marginHorizontal: "5%",
     },
   });

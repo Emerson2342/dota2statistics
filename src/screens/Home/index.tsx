@@ -1,19 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  Text,
   View,
-  useWindowDimensions,
   Dimensions,
-  Modal,
-  TouchableOpacity,
 } from "react-native";
 import { createStyles } from "./indexStyles";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { ProfileHeader } from "./MyProfileTabs/ProfileHeader";
 import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
-import { ProMatches } from "./TrendingsTab/ProMatches";
 import { useTheme } from "../../context/useThemeContext";
 import {
   getHeroesPlayed,
@@ -23,7 +17,6 @@ import {
   getSearchPlayer,
   loadTeamsList,
 } from "../../services/api";
-import { LastMatches } from "./MyProfileTabs/LastMatches";
 import {
   HeroesPlayed,
   HeroStats,
@@ -37,7 +30,7 @@ import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { HeroesPlayedTabs } from "./HeroesPlayedTabs";
 import { TrendingsTab } from "./TrendingsTab";
-import { Searchbar } from "react-native-paper";
+import { MyProfileTabs } from "./MyProfileTabs";
 
 const analytics = getAnalytics();
 
@@ -55,13 +48,13 @@ export function Home() {
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
-  const erro404 = englishLanguage
-    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
-    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
 
-  const styles = createStyles(ColorTheme);
 
-  const layout = useWindowDimensions();
+  const layout = useMemo(() => {
+    const { width } = Dimensions.get('window');
+    return { width };
+  }, []);
+
   const [index, setIndex] = React.useState(0);
 
   useEffect(() => {
@@ -71,51 +64,28 @@ export function Home() {
   useEffect(() => {
     handleLoadData();
     loadTeamsList(setTeamsList);
-  }, [profile]);
+  }, []);
 
-  const SetSteamId = () => {
-
-    const [text, setText] = useState("");
-    return (
-      <View style={styles.inputContainer}>
-        <Searchbar
-          style={styles.textInput}
-          placeholder={englishLanguage ? "Search" : "Buscar"}
-          value={text}
-          onChangeText={(textInput) => setText(textInput)}
-          elevation={3}
-          iconColor={ColorTheme.semidark}
-          placeholderTextColor={ColorTheme.semilight}
-        //onIconPress={() => handleSearch(inputText)}
-        />
-        <Text style={styles.textErro}>{erro404}</Text>
-
-      </View>
-    );
-  };
 
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
         case "trendings":
-          return <Trendings />;
+          return renderTrendingsScene();
         case "myProfile":
-          return <MyProfile />;
+          return renderMyProfile();
         case "heroesPlayed":
-          return <HeroesPlayed />;
+          return renderHeroesPlayed();
         default:
           return null;
       }
     },
-    [
-      profile,
-      recentMatches,
-      proMatches,
-      heroesPlayed,
-      heroesPlayedId,
-      isLoading,
-    ]
+    [isLoading]
   );
+  const handleRefresh = useCallback(async () => {
+    await getProMatches(setProMatches);
+  }, [getProMatches]);
+
 
   const Loading = useMemo(
     () => (
@@ -126,20 +96,15 @@ export function Home() {
     ),
     [isLoading]
   );
-  const HeroesPlayed = React.memo(() => {
+  function renderHeroesPlayed() {
     return (
       <HeroesPlayedTabs
         heroesPlayedList={heroesPlayed}
-        successPlayerAccount={player == null || player.profile.account_id == 0 ? false : true}
-        setSteamIdComponent={SetSteamId}
       />
     );
-  });
-  const handleRefresh = useCallback(async () => {
-    await getProMatches(setProMatches);
-  }, [getProMatches]);
+  };
 
-  const Trendings = React.memo(() => {
+  function renderTrendingsScene() {
     return (
       <TrendingsTab
         color={ColorTheme.light}
@@ -149,46 +114,13 @@ export function Home() {
         proMatches={proMatches}
       />
     );
-  });
+  };
 
-  const MyProfile = React.memo(() => {
+  function renderMyProfile() {
     return (
-      <View style={styles.container}>
-        <View style={{ flex: 1 }}>
-          {player == null || player.profile.account_id == 0 ? (
-            <SetSteamId />
-          ) : (
-            <>
-              <View
-                style={{
-                  flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
-                  marginTop: "1%",
-                }}
-              >
-                <ProfileHeader
-                  player={player}
-                  heroesId={heroesPlayedId}
-                  recentMatches={recentMatches}
-                />
-              </View>
-              <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
-                <View style={{ flex: 1, paddingBottom: "1%" }}>
-                  {player ? (
-                    <LastMatches
-                      playerId={player.profile.account_id.toString()}
-                      onRefresh={() => handleLoadData()}
-                      recentMatches={recentMatches}
-                    />
-                  ) : null}
-                </View>
-              </View>
-            </>
-          )}
-        </View>
-        <BannerAds />
-      </View>
+      <MyProfileTabs />
     );
-  });
+  };
 
   const routes = [
     {
@@ -204,9 +136,7 @@ export function Home() {
 
   const handleLoadData = async () => {
     console.log("Carregando********************");
-
     setIsLoading(true);
-
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);
@@ -253,7 +183,12 @@ export function Home() {
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
       lazy={true}
-      renderLazyPlaceholder={() => Loading}
+      renderLazyPlaceholder={() => (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicatorCustom message={englishLanguage ? "Loading..." : "Carregando..."} />
+        </View>
+      )}
+
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.03,

@@ -24,17 +24,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.dark,
       marginBottom: "1%",
     },
-    textInput: {
-      backgroundColor: "#fff",
-      textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
-      flexGrow: 1,
-      marginHorizontal: "5%",
-    },
-    inputContainer: {
-      marginTop: "3%",
-      width: "95%",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
+
+
   });

@@ -5,18 +5,12 @@ import { HeroesPlayed } from '../../../../src/services/props';
 
 type Props = {
     heroesPlayedList: HeroesPlayed[];
-    successPlayerAccount: boolean;
-    setSteamIdComponent: React.ComponentType;
 }
 
-export function HeroesPlayedTabs({ heroesPlayedList, setSteamIdComponent, successPlayerAccount }: Props) {
+export function HeroesPlayedTabs({ heroesPlayedList, }: Props) {
     return (
         <HeroesPlayedComponent
             HeroesPlayedList={heroesPlayedList}
-            successPlayerAccount={
-                successPlayerAccount
-            }
-            SetSteamId={setSteamIdComponent}
         />
     );
 }
