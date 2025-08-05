@@ -25,6 +25,8 @@ import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
 import { getHeroesPlayed } from "../../../../src/services/api";
 import { usePlayerContext } from "../../../../src/context/usePlayerContex";
+import { getErro404Message } from "../../../../src/utils/textMessage";
+import { SearchComponent } from "../../../../src/utils/SearchComponent";
 
 export function HeroesPlayedComponent({
   HeroesPlayedList,
@@ -42,12 +44,7 @@ export function HeroesPlayedComponent({
   const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
     usePlayerContext();
   const styles = createStyles(ColorTheme);
-
-  const erro404 = englishLanguage
-    ? "Please, make sure the Steam Id is correct and the profile is set to public!"
-    : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
-
-
+  const erro404 = getErro404Message(englishLanguage);
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
@@ -81,25 +78,6 @@ export function HeroesPlayedComponent({
   };
 
 
-  const SetSteamId = () => {
-    const [text, setText] = useState("");
-    return (
-      <View style={styles.inputContainer}>
-        <Searchbar
-          style={styles.textInput}
-          placeholder={englishLanguage ? "Search" : "Buscar"}
-          value={text}
-          onChangeText={(textInput) => setText(textInput)}
-          elevation={3}
-          iconColor={ColorTheme.semidark}
-          placeholderTextColor={ColorTheme.semilight}
-          onIconPress={() => handleSave(text)}
-        />
-        <Text style={styles.textErro}>{erro404}</Text>
-      </View>
-    );
-  };
-
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
     if (order != orderToShow) {
@@ -121,21 +99,8 @@ export function HeroesPlayedComponent({
     }
   };
 
-  if (player == null || player.profile.account_id == 0) {
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 0.9 }}>
-          <SetSteamId />
-        </View>
-        <View style={{ flex: 0.1 }}>
-          <BannerAds />
-        </View>
-      </View>
-    );
-  }
-  if (isLoading) return <View style={{ flex: 1 }}>
-    <ActivityIndicatorCustom message={englishLanguage ? 'Loading player details...' : 'Carrgando detalhes do jogador...'} />
-  </View>
+
+
 
   const RenderItem = ({
     item,
@@ -182,6 +147,23 @@ export function HeroesPlayedComponent({
       </View>
     );
   };
+
+  if (isLoading) return <View style={{ flex: 1 }}>
+    <ActivityIndicatorCustom message={englishLanguage ? 'Loading player details...' : 'Carrgando detalhes do jogador...'} />
+  </View>
+  if (player == null || player.profile.account_id == 0) {
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 0.9 }}>
+          <SearchComponent onSearch={handleSave} placeHolder="Steam ID" />
+          <Text style={styles.textErro}>{erro404}</Text>
+        </View>
+        <View style={{ flex: 0.1 }}>
+          <BannerAds />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

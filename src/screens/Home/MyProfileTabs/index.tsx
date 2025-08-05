@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Modal } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { BannerAds } from '../../../../src/components/Admob/BannerAds';
 import { useProfileContext } from '../../../../src/context/useProfileContext';
@@ -13,6 +13,9 @@ import { PLAYER_PROFILE_API_BASE_URL } from '../../../../src/constants/player';
 import { getRecentMatches, getSearchPlayer } from '../../../../src/services/api';
 import { ActivityIndicatorCustom } from '../../../../src/utils/ActivityIndicatorCustom';
 import { toSteam32 } from '../../../../src/utils/steam';
+import { SearchComponent } from '../../../../src/utils/SearchComponent';
+import { getErro404Message } from '../../../../src/utils/textMessage';
+import { ModalMessage } from '../../../../src/components/Modals/ModalMessage';
 
 
 export function MyProfileTabs() {
@@ -25,10 +28,9 @@ export function MyProfileTabs() {
     const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
     const { englishLanguage } = useSettingsContext();
     const [isLoading, setIsLoading] = useState(false);
-
-    const erro404 = englishLanguage
-        ? "Please, make sure the Steam Id is correct and the profile is set to public!"
-        : "Por favor, certifique-se de que o Id da Steam esteja correto e que o perfil esteja com visibilidade para o público!";
+    const [showModalMessage, setShowModalMessage] = useState(false);
+    const errorMessage = englishLanguage ? "Please, insert only numers" : "Favor inserir apenas números"
+    const erro404 = getErro404Message(englishLanguage);
 
 
     const styles = createStyles(ColorTheme);
@@ -38,6 +40,10 @@ export function MyProfileTabs() {
     }, [profile]);
 
     const handleSave = (id: string) => {
+        if (!/^\d+$/.test(id)) {
+            setShowModalMessage(true);
+            return;
+        }
         const convertedId = toSteam32(id);
         setIsLoading(true);
         setTimeout(() => {
@@ -65,21 +71,21 @@ export function MyProfileTabs() {
     };
 
 
-    const SetSteamId = () => {
-        const [text, setText] = useState("");
+    function renderSetSteamId() {
         return (
             <View style={styles.inputContainer}>
-                <Searchbar
-                    style={styles.textInput}
-                    placeholder={englishLanguage ? "Search" : "Buscar"}
-                    value={text}
-                    onChangeText={(textInput) => setText(textInput)}
-                    elevation={3}
-                    iconColor={ColorTheme.semidark}
-                    placeholderTextColor={ColorTheme.semilight}
-                    onIconPress={() => handleSave(text)}
-                />
+                <SearchComponent onSearch={handleSave} placeHolder='Steam ID' />
                 <Text style={styles.textErro}>{erro404}</Text>
+                <Modal visible={showModalMessage}
+                    animationType='fade'
+                    transparent={true}
+                    statusBarTranslucent={true}>
+                    <ModalMessage
+                        handleClose={() => setShowModalMessage(false)}
+                        message={errorMessage}
+                        title='Ops...'
+                    />
+                </Modal>
             </View>
         );
     };
@@ -88,38 +94,35 @@ export function MyProfileTabs() {
         <ActivityIndicatorCustom message={englishLanguage ? 'Loading player details...' : 'Carrgando detalhes do jogador...'} />
     </View>
 
+    if (player == null || player.profile.account_id == 0) {
+        console.log("Carregou....")
+        return renderSetSteamId();
+    }
+
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1 }}>
-                {player == null || player.profile.account_id == 0 ? (
-                    <SetSteamId />
-                ) : (
-                    <>
-                        <View
-                            style={{
-                                flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
-                                marginTop: "1%",
-                            }}
-                        >
-                            <ProfileHeader
-                                player={player}
-                                heroesId={heroesPlayedId}
-                                recentMatches={recentMatches}
-                            />
-                        </View>
-                        <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
-                            <View style={{ flex: 1, paddingBottom: "1%" }}>
-                                {player ? (
-                                    <LastMatches
-                                        playerId={player.profile.account_id.toString()}
-                                        onRefresh={handleLoadData}
-                                        recentMatches={recentMatches}
-                                    />
-                                ) : null}
-                            </View>
-                        </View>
-                    </>
-                )}
+            <View
+                style={{
+                    flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
+                    marginTop: "1%",
+                }}
+            >
+                <ProfileHeader
+                    player={player}
+                    heroesId={heroesPlayedId}
+                    recentMatches={recentMatches}
+                />
+            </View>
+            <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
+                <View style={{ flex: 1, paddingBottom: "1%" }}>
+                    {player ? (
+                        <LastMatches
+                            playerId={player.profile.account_id.toString()}
+                            onRefresh={handleLoadData}
+                            recentMatches={recentMatches}
+                        />
+                    ) : null}
+                </View>
             </View>
             <BannerAds />
         </View>

@@ -26,6 +26,7 @@ import {
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../components/Modals/ModalMessage";
+import { SearchComponent } from "../../../src/utils/SearchComponent";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsContext();
@@ -131,15 +132,9 @@ export const Search = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Searchbar
-          style={styles.textInput}
-          placeholder={englishLanguage ? "Search" : "Buscar"}
-          value={inputText}
-          onChangeText={(textInput) => setInputText(textInput)}
-          elevation={3}
-          iconColor={ColorTheme.semidark}
-          placeholderTextColor={ColorTheme.semilight}
-          onIconPress={() => handleSearch(inputText)}
+        <SearchComponent
+          onSearch={handleSearch}
+          placeHolder={englishLanguage ? "Search" : "Buscar"}
         />
       </View>
 
@@ -212,8 +207,8 @@ export const Search = () => {
                 ? `Results for "${textSearch}"`
                 : `Resultados para "${textSearch}"`
               : englishLanguage
-              ? `No results found for "${textSearch}"`
-              : `Nenhum resultado encontrado para "${textSearch}"`}
+                ? `No results found for "${textSearch}"`
+                : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
           <Text
             style={[
