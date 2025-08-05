@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, FlatList, Modal } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
@@ -12,7 +19,6 @@ import { PICTURE_HERO_BASE_URL } from "../../constants/player";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { Medal } from "../../components/Medals/MedalsList";
 import { createStyles } from "./TeamsStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -359,7 +365,9 @@ export function Teams({
                         style={[
                           styles.benchGold,
                           styles.textDataPercent,
-                          { color: colorGold },
+                          {
+                            color: colorGold,
+                          },
                         ]}
                       >
                         {(player.benchmarks.gold_per_min.pct

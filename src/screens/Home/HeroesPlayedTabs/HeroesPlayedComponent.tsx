@@ -17,7 +17,10 @@ import {
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL, PLAYER_PROFILE_API_BASE_URL } from "../../../constants/player";
+import {
+  PICTURE_HERO_BASE_URL,
+  PLAYER_PROFILE_API_BASE_URL,
+} from "../../../constants/player";
 import { BannerAds } from "../../../components/Admob/BannerAds";
 import { Searchbar } from "react-native-paper";
 import { toSteam32 } from "../../../../src/utils/steam";
@@ -38,7 +41,7 @@ export function HeroesPlayedComponent({
   const [orderToShow, setOrderToShow] = useState("matches");
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(HeroesPlayedList);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
   const { profile, setProfile } = useProfileContext();
   const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
@@ -58,7 +61,6 @@ export function HeroesPlayedComponent({
     console.log("Carregando********************");
     setIsLoading(true);
     setTimeout(async () => {
-
       const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
 
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
@@ -76,7 +78,6 @@ export function HeroesPlayedComponent({
       setIsLoading(false);
     }, 300);
   };
-
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
@@ -98,9 +99,6 @@ export function HeroesPlayedComponent({
       setOrderedList(ordered);
     }
   };
-
-
-
 
   const RenderItem = ({
     item,
@@ -148,9 +146,18 @@ export function HeroesPlayedComponent({
     );
   };
 
-  if (isLoading) return <View style={{ flex: 1 }}>
-    <ActivityIndicatorCustom message={englishLanguage ? 'Loading player details...' : 'Carrgando detalhes do jogador...'} />
-  </View>
+  if (isLoading)
+    return (
+      <View style={{ flex: 1 }}>
+        <ActivityIndicatorCustom
+          message={
+            englishLanguage
+              ? "Loading player details..."
+              : "Carrgando detalhes do jogador..."
+          }
+        />
+      </View>
+    );
   if (player == null || player.profile.account_id == 0) {
     return (
       <View style={{ flex: 1 }}>

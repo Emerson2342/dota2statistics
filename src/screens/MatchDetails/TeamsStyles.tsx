@@ -139,43 +139,42 @@ export const createStyles = (colors: ThemeColor) =>
       color: "#555",
     },
     textDataPercent: {
-      fontSize: width * 0.025,
+      fontSize: width * 0.023,
       fontFamily: "QuickSand-Bold",
     },
     benchKills: {
       textAlign: "center",
-      width: "14%",
-      // backgroundColor: "#000"
+      width: "15%",
+      //backgroundColor: "#000",
     },
-
     benchLhs: {
-      textAlign: "right",
-      width: "14%",
-      //backgroundColor: "#333"
+      textAlign: "center",
+      width: "17%",
+      //backgroundColor: "#333",
     },
     benchHerDa: {
-      textAlign: "right",
-      width: "19%",
-      // backgroundColor: "#000"
+      textAlign: "center",
+      width: "15%",
+      //backgroundColor: "#000",
     },
     benchTowDa: {
       textAlign: "right",
-      width: "14%",
-      // backgroundColor: "#333"
+      width: "17%",
+      //backgroundColor: "#333",
     },
     benchHeal: {
-      textAlign: "right",
-      width: "14%",
-      // backgroundColor: "#000"
+      textAlign: "center",
+      width: "13%",
+      //backgroundColor: "#000",
     },
     benchXp: {
-      textAlign: "right",
-      width: "14%",
-      //backgroundColor: "#333"
+      textAlign: "center",
+      width: "13%",
+      //backgroundColor: "#333",
     },
     benchGold: {
       textAlign: "right",
-      width: "14%",
-      //backgroundColor: "#000"
+      width: "10%",
+      // backgroundColor: "#000",
     },
   });
