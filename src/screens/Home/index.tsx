@@ -28,16 +28,16 @@ import { TabBar, TabView } from "react-native-tab-view";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { HeroesPlayedTabs } from "./HeroesPlayedTabs";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
+import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
 
 const analytics = getAnalytics();
 
 export function Home() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
+  const { setPlayer, setHeroesPlayedId } =
     usePlayerContext();
   const { englishLanguage } = useSettingsContext();
   const { setTeamsList } = useTeamsListContext();
@@ -64,7 +64,7 @@ export function Home() {
   useEffect(() => {
     handleLoadData();
     loadTeamsList(setTeamsList);
-  }, []);
+  }, [profile]);
 
 
   const renderScene = useCallback(
@@ -75,7 +75,9 @@ export function Home() {
         case "myProfile":
           return renderMyProfile();
         case "heroesPlayed":
-          return renderHeroesPlayed();
+          return <HeroesPlayedComponent
+            HeroesPlayedList={heroesPlayed}
+          />;
         default:
           return null;
       }
@@ -96,13 +98,7 @@ export function Home() {
     ),
     [isLoading]
   );
-  function renderHeroesPlayed() {
-    return (
-      <HeroesPlayedTabs
-        heroesPlayedList={heroesPlayed}
-      />
-    );
-  };
+
 
   function renderTrendingsScene() {
     return (

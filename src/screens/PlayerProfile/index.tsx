@@ -64,7 +64,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-  const [status, setStatus] = useState<number>();
 
   useEffect(() => {
     handleSearch();
@@ -103,6 +102,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         );
       },
     });
+
   }, [favoritesPlayers, player]);
 
   const routes = [
@@ -133,14 +133,13 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         "Tamanho da lista de heroes: " + heroesPlayedResponse?.length
       );
       console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
-      // const result = ;
-      setStatus(
-        await getRecentMatches(
-          recentMatchesUrl,
-          setRecentMatches,
-          setHeroesPlayedId
-        )
-      );
+
+      await getRecentMatches(
+        recentMatchesUrl,
+        setRecentMatches,
+        setHeroesPlayedId
+      )
+
       setIsLoading(false);
       setRefresh(false);
     }, 500);
@@ -162,10 +161,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       </View>
     );
   }, [refresh]);
-
-  const HeroesPlayed = React.memo(() => {
-    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} playerId={PlayerId} />;
-  });
 
   const Header = React.memo(() => {
     return (
@@ -234,18 +229,14 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         case "first":
           return <Header />;
         case "heroesPlayed":
-          return <HeroesPlayed />;
+          return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
         default:
           return null;
       }
     },
     [
-      recentMatches,
       modalFavoritesVisible,
-      //heroesPlayed,
-      // PlayerId,
-      heroesPlayedId,
-      //isLoading,
+      isLoading,
     ]
   );
 

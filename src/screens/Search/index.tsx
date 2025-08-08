@@ -37,6 +37,7 @@ export const Search = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchType, setSearchType] = useState("player");
   const [modalMessage, setModalMessage] = useState(false);
+  const [modalMessageInput, setModalMessageInput] = useState(false);
 
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
   const textInfoProfile = englishLanguage
@@ -135,6 +136,9 @@ export const Search = () => {
         <SearchComponent
           onSearch={handleSearch}
           placeHolder={englishLanguage ? "Search" : "Buscar"}
+          showModalMessage={modalMessageInput}
+          setShowModalMessage={() => setModalMessageInput(false)}
+
         />
       </View>
 

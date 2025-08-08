@@ -49,20 +49,22 @@ export default function ModalMyAccount({
 
   const handleSave = () => {
     const convertedId = toSteam32(user.id_Steam);
+    if (convertedId) {
+      const userReady = {
+        ...user,
+        id_Steam: convertedId,
+      };
+      setUser(userReady);
 
-    const userReady = {
-      ...user,
-      id_Steam: convertedId,
-    };
-    setUser(userReady);
+      setIsLoading(true);
+      setTimeout(() => {
+        setTextMessage(messageSuccess);
+        setModalMessageVisible(true);
+        setIsLoading(false);
+        setProfile(userReady);
+      }, 300);
+    }
 
-    setIsLoading(true);
-    setTimeout(() => {
-      setTextMessage(messageSuccess);
-      setModalMessageVisible(true);
-      setIsLoading(false);
-      setProfile(userReady);
-    }, 300);
   };
 
   const styles = createStyles(ColorTheme);

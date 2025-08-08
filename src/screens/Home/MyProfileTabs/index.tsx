@@ -29,9 +29,7 @@ export function MyProfileTabs() {
   const { englishLanguage } = useSettingsContext();
   const [isLoading, setIsLoading] = useState(true);
   const [showModalMessage, setShowModalMessage] = useState(false);
-  const errorMessage = englishLanguage
-    ? "Please, insert only numers"
-    : "Favor inserir apenas números";
+
   const erro404 = getErro404Message(englishLanguage);
 
   const styles = createStyles(ColorTheme);
@@ -46,6 +44,10 @@ export function MyProfileTabs() {
       return;
     }
     const convertedId = toSteam32(id);
+    if (!convertedId) {
+      setShowModalMessage(true);
+      return;
+    }
     setIsLoading(true);
     setTimeout(() => {
       setProfile({ id_Steam: convertedId });
@@ -54,7 +56,6 @@ export function MyProfileTabs() {
   };
 
   const handleLoadData = async () => {
-    console.log("Carregando********************");
     setIsLoading(true);
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
@@ -74,20 +75,8 @@ export function MyProfileTabs() {
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
-        <SearchComponent onSearch={handleSave} placeHolder="Steam ID" />
+        <SearchComponent onSearch={handleSave} placeHolder="Steam ID" showModalMessage={showModalMessage} setShowModalMessage={() => setShowModalMessage(false)} />
         <Text style={styles.textErro}>{erro404}</Text>
-        <Modal
-          visible={showModalMessage}
-          animationType="fade"
-          transparent={true}
-          statusBarTranslucent={true}
-        >
-          <ModalMessage
-            handleClose={() => setShowModalMessage(false)}
-            message={errorMessage}
-            title="Ops..."
-          />
-        </Modal>
       </View>
     );
   }

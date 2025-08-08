@@ -18,23 +18,19 @@ import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import {
   PICTURE_HERO_BASE_URL,
-  PLAYER_PROFILE_API_BASE_URL,
 } from "../../../constants/player";
 import { BannerAds } from "../../../components/Admob/BannerAds";
 import { toSteam32 } from "../../../../src/utils/steam";
 import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { getHeroesPlayed } from "../../../../src/services/api";
 import { usePlayerContext } from "../../../../src/context/usePlayerContex";
-import { getErro404Message } from "../../../../src/utils/textMessage";
+import { getErro404Message, getSetProfile } from "../../../../src/utils/textMessage";
 import { SearchComponent } from "../../../../src/utils/SearchComponent";
 
 export function HeroesPlayedComponent({
   HeroesPlayedList,
-  playerId
 }: {
   HeroesPlayedList: HeroesPlayed[];
-  playerId?: string
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
@@ -43,46 +39,20 @@ export function HeroesPlayedComponent({
     useState<HeroesPlayed[]>(HeroesPlayedList);
   const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
-  const { profile, setProfile } = useProfileContext();
-  const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
+  const { player } =
     usePlayerContext();
   const styles = createStyles(ColorTheme);
-  const erro404 = getErro404Message(englishLanguage);
+  const setSteamId = getSetProfile(englishLanguage);
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+
+    setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-
-    handleLoadData();
-  }, [profile]);
-
-  const handleLoadData = async () => {
-    console.log("Carregando********************");
-    setIsLoading(true);
-    setTimeout(async () => {
-      const playerIdSteam = playerId ? playerId : profile?.id_Steam;
-
-      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerIdSteam}/heroes`;
-
-      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
-      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
-        setOrderedList(heroesPlayedResponse);
-      setIsLoading(false);
-    }, 500);
-  };
-
-  const handleSave = (id: string) => {
-    const convertedId = toSteam32(id);
-    setIsLoading(true);
-    setTimeout(() => {
-      setProfile({ id_Steam: convertedId });
-      setIsLoading(false);
-    }, 300);
-  };
 
   const handleSetOrder = (order: string) => {
+
     setOrderToShow(order);
     if (order != orderToShow) {
       const ordered = [...HeroesPlayedList].sort((a, b) => {
@@ -161,12 +131,11 @@ export function HeroesPlayedComponent({
         />
       </View>
     );
-  if (playerId == null && (player == null || player.profile.account_id == 0)) {
+  if (player == null || player.profile.account_id == 0) {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.9 }}>
-          <SearchComponent onSearch={handleSave} placeHolder="Steam ID" />
-          <Text style={styles.textErro}>{erro404}</Text>
+          <Text style={styles.textErro}>{setSteamId}</Text>
         </View>
         <View style={{ flex: 0.1 }}>
           <BannerAds />
