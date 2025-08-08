@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
   FlatList,
   Image,
   Dimensions,
@@ -22,7 +21,6 @@ import {
   PLAYER_PROFILE_API_BASE_URL,
 } from "../../../constants/player";
 import { BannerAds } from "../../../components/Admob/BannerAds";
-import { Searchbar } from "react-native-paper";
 import { toSteam32 } from "../../../../src/utils/steam";
 import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
@@ -33,8 +31,10 @@ import { SearchComponent } from "../../../../src/utils/SearchComponent";
 
 export function HeroesPlayedComponent({
   HeroesPlayedList,
+  playerId
 }: {
   HeroesPlayedList: HeroesPlayed[];
+  playerId?: string
 }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
@@ -54,6 +54,7 @@ export function HeroesPlayedComponent({
   }, []);
 
   useEffect(() => {
+
     handleLoadData();
   }, [profile]);
 
@@ -61,7 +62,9 @@ export function HeroesPlayedComponent({
     console.log("Carregando********************");
     setIsLoading(true);
     setTimeout(async () => {
-      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/heroes`;
+      const playerIdSteam = playerId ? playerId : profile?.id_Steam;
+
+      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerIdSteam}/heroes`;
 
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
       if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
@@ -158,7 +161,7 @@ export function HeroesPlayedComponent({
         />
       </View>
     );
-  if (player == null || player.profile.account_id == 0) {
+  if (playerId == null && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.9 }}>

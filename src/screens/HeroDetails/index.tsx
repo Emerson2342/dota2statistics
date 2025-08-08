@@ -8,6 +8,7 @@ import {
   ScrollView,
   Modal,
   Dimensions,
+  FlatList,
 } from "react-native";
 import {
   ITEM_IMAGE_BASE_URL,
@@ -42,7 +43,6 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
 import { BannerAds } from "../../components/Admob/BannerAds";
-import { FlatList } from "react-native-gesture-handler";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { getHeroItems } from "../../../src/services/api";
@@ -578,29 +578,29 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.start_game_items
                   ? Object.entries(heroItems.start_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                          // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
-                          //   <Image
-                          //     width={imgWidth}
-                          //     height={imgWidth}
-                          //     style={{ borderRadius: 15 }}
-                          //     source={{
-                          //       uri: PICTURE_HERO_BASE_URL + item?.img,
-                          //     }}
-                          //   />
-                          // </TouchableOpacity>
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                        // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
+                        //   <Image
+                        //     width={imgWidth}
+                        //     height={imgWidth}
+                        //     style={{ borderRadius: 15 }}
+                        //     source={{
+                        //       uri: PICTURE_HERO_BASE_URL + item?.img,
+                        //     }}
+                        //   />
+                        // </TouchableOpacity>
+                      );
+                    }
+                  )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -609,19 +609,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.early_game_items
                   ? Object.entries(heroItems.early_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -630,19 +630,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.mid_game_items
                   ? Object.entries(heroItems.mid_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -651,19 +651,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.late_game_items
                   ? Object.entries(heroItems.late_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
             </View>

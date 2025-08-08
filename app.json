@@ -11,6 +11,8 @@
       "resizeMode": "cover",
       "backgroundColor": "#002c3a",
       "dark":{
+        "image": "./src/images/splash.png",
+        "resizeMode": "cover",
         "backgroundColor": "#002c3a"
       }
     },

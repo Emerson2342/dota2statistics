@@ -164,7 +164,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   }, [refresh]);
 
   const HeroesPlayed = React.memo(() => {
-    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
+    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} playerId={PlayerId} />;
   });
 
   const Header = React.memo(() => {
