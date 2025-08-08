@@ -6,6 +6,7 @@ import {
   Modal,
   useWindowDimensions,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 
 import { createStyles } from "./styles";
@@ -26,7 +27,6 @@ import {
 import { ProfileHeader } from "../Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../Home/MyProfileTabs/LastMatches";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
@@ -66,16 +66,11 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
   const [status, setStatus] = useState<number>();
 
-
   useEffect(() => {
     handleSearch();
   }, []);
 
-
-
-
   useEffect(() => {
-
     const playerFound = favoritesPlayers.find(
       (p) => p.profile.account_id.toString() === PlayerId
     );
@@ -110,10 +105,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     });
   }, [favoritesPlayers, player]);
 
-
-
-
-
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
@@ -121,9 +112,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
     },
   ];
-
-
-
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -158,8 +146,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     }, 500);
   };
 
-
-
   const Loading = useMemo(() => {
     return (
       <View
@@ -178,15 +164,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   }, [refresh]);
 
   const HeroesPlayed = React.memo(() => {
-    return (
-      <HeroesPlayedComponent
-        HeroesPlayedList={heroesPlayed}
-        successPlayerAccount={
-          player == null || player.profile.account_id == 0 ? false : true
-        }
-        textError={erro404}
-      />
-    );
+    return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
   });
 
   const Header = React.memo(() => {
@@ -270,8 +248,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       //isLoading,
     ]
   );
-
-
 
   if (isLoading) return Loading;
 
