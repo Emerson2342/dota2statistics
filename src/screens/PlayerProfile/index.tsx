@@ -33,6 +33,7 @@ import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalR
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 import { TabBar, TabView } from "react-native-tab-view";
 import { BannerAds } from "../../components/Admob/BannerAds";
+import { HeroesPlayedTabs } from "../Home/HeroesPlayedTabs";
 
 export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const { PlayerId } = route.params;
@@ -51,7 +52,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
   const [refresh, setRefresh] = useState(true);
@@ -229,7 +230,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         case "first":
           return <Header />;
         case "heroesPlayed":
-          return <HeroesPlayedComponent HeroesPlayedList={heroesPlayed} />;
+          return <HeroesPlayedTabs heroesPlayedList={heroesPlayed} PlayerId={PlayerId} />;
         default:
           return null;
       }

@@ -18,7 +18,6 @@ import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicator
 import { toSteam32 } from "../../../../src/utils/steam";
 import { SearchComponent } from "../../../../src/utils/SearchComponent";
 import { getErro404Message } from "../../../../src/utils/textMessage";
-import { ModalMessage } from "../../../../src/components/Modals/ModalMessage";
 
 export function MyProfileTabs() {
   const { ColorTheme } = useTheme();
@@ -61,6 +60,8 @@ export function MyProfileTabs() {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
       await getSearchPlayer(searchPlayer, setPlayer);
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
+      console.log("Entrou aqui");
+      console.log(JSON.stringify(player, null, 2));
 
       await getRecentMatches(
         recentMatchesUrl,

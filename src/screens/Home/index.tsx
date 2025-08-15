@@ -37,7 +37,7 @@ const analytics = getAnalytics();
 export function Home() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { setPlayer, setHeroesPlayedId } =
+  const { player, setPlayer, setHeroesPlayedId } =
     usePlayerContext();
   const { englishLanguage } = useSettingsContext();
   const { setTeamsList } = useTeamsListContext();
@@ -66,7 +66,6 @@ export function Home() {
     loadTeamsList(setTeamsList);
   }, [profile]);
 
-
   const renderScene = useCallback(
     ({ route }: any) => {
       switch (route.key) {
@@ -76,7 +75,7 @@ export function Home() {
           return renderMyProfile();
         case "heroesPlayed":
           return <HeroesPlayedComponent
-            HeroesPlayedList={heroesPlayed}
+            PlayerId={profile?.id_Steam ?? "1"}
           />;
         default:
           return null;
