@@ -26,44 +26,33 @@ import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
 import { getHeroesPlayed } from "../../../../src/services/api";
 
-export function HeroesPlayedComponent({
-  PlayerId
-}: {
-  PlayerId: string
-}) {
+export function HeroesPlayedComponent({ PlayerId }: { PlayerId: string }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
 
   const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
-  const { player } =
-    usePlayerContext();
+  const { player } = usePlayerContext();
   const styles = createStyles(ColorTheme);
   const setSteamId = getSetProfile(englishLanguage);
   const [finalList, setFinalList] = useState<HeroesPlayed[] | []>([]);
-  const [orderedList, setOrderedList] =
-    useState<HeroesPlayed[]>(finalList);
-
+  const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(finalList);
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
     handleGetHeroesPlayed(PlayerId);
-    setIsLoading(false);
-
   }, [PlayerId]);
-
-  useEffect(() => {
-    if (finalList.length > 0)
-      handleSetOrder(orderToShow);
-  }, [finalList])
 
   const handleGetHeroesPlayed = async (id: string) => {
     const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${id}/heroes`;
     const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
-    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
+    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
       setFinalList(heroesPlayedResponse);
-  }
+      setOrderedList(heroesPlayedResponse);
+    }
+    setIsLoading(false);
+  };
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
