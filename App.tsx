@@ -14,9 +14,12 @@ import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
 import { View, Text, StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { SplashScreenComponent } from "./src/screens/SplashScreenComponent";
 
 export default function App() {
+  const [isAppAlready, setIsAppAlready] = useState(false);
+
   SplashScreen.preventAutoHideAsync();
   mobileAds()
     .initialize()
@@ -30,15 +33,6 @@ export default function App() {
     "QuickSand-Bold": require("./src/Fonts/Quicksand_Bold.ttf"),
   });
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
     <NavigationContainer>
       <SettingsProvider>

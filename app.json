@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -17,7 +18,7 @@
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/images/icon.png",
-        "backgroundColor": "#fff"
+        "backgroundColor": "#ffffff"
       }
     },
     "web": {
@@ -35,12 +36,7 @@
         {
           "image": "./src/images/splash.png",
           "resizeMode": "cover",
-          "backgroundColor": "#002c3a",
-          "dark": {
-            "image": "./src/images/splash.png",
-            "resizeMode": "cover",
-            "backgroundColor": "#002c3a"
-          }
+          "backgroundColor": "#002c3a"
         }
       ],
       [

@@ -6,14 +6,24 @@ import { useTheme } from "../../src/context/useThemeContext";
 import { ModalHasUpdate } from "../../src/components/Modals/ModalHasUpdate";
 import Constants from "expo-constants";
 import VersionCheck from "react-native-version-check";
+import { SplashScreenComponent } from "../../src/screens/SplashScreenComponent";
 
 export function Routes() {
   const [modalVisible, setModalVisible] = useState(false);
   const { ColorTheme } = useTheme();
+  const [isAppAlready, setIsAppAlready] = useState(false);
 
   useEffect(() => {
     checkForUpdates();
   }, []);
+
+  if (!isAppAlready) {
+    return (
+      <SplashScreenComponent
+        onFinish={(isCancelled) => !isCancelled && setIsAppAlready(true)}
+      />
+    );
+  }
 
   async function checkForUpdates() {
     try {
@@ -28,8 +38,6 @@ export function Routes() {
         packageName: Platform.OS === "android" ? androidPackageName : "",
       });
       const hasUpdate = latestVersion > currentVersion;
-      console.log(latestVersion);
-      console.log(currentVersion);
 
       if (hasUpdate) {
         setModalVisible(true);

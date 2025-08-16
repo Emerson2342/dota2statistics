@@ -3,7 +3,7 @@
         "appVersionSource": "remote"
     },
     "build": {
-        "test": {
+        "preview": {
             "android": {
                 "buildType": "apk"
             }
