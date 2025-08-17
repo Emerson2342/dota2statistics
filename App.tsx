@@ -12,13 +12,11 @@ import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./src/context/useFavoritesContext";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
-import { SplashScreenComponent } from "./src/screens/SplashScreenComponent";
+import { useEffect } from "react";
 
 export default function App() {
-  const [isAppAlready, setIsAppAlready] = useState(false);
 
   SplashScreen.preventAutoHideAsync();
   mobileAds()
@@ -32,6 +30,16 @@ export default function App() {
     "QuickSand-Semibold": require("./src/Fonts/Quicksand_SemiBold.ttf"),
     "QuickSand-Bold": require("./src/Fonts/Quicksand_Bold.ttf"),
   });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
