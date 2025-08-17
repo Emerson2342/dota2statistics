@@ -27,7 +27,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GameMode, LobbyType } from "../../../services/enum";
 
-export function LastMatches({
+function LastMatchesComponent({
   playerId,
   recentMatches,
   onRefresh,
@@ -95,7 +95,7 @@ export function LastMatches({
     const team = item.player_slot < 5 ? 1 : 2;
     const resultadoFinal =
       (team == 1 && item.radiant_win == true) ||
-        (team == 2 && item.radiant_win == false)
+      (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
@@ -225,3 +225,6 @@ export function LastMatches({
     </View>
   );
 }
+
+export const LastMatches = React.memo(LastMatchesComponent);
+LastMatches.displayName = "LastMatches";

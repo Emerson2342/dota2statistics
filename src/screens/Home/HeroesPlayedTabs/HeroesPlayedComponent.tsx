@@ -26,7 +26,7 @@ import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
 import { getHeroesPlayed } from "../../../../src/services/api";
 
-export function HeroesPlayedComponent({ PlayerId }: { PlayerId: string }) {
+function HeroesPlayedComp({ PlayerId }: { PlayerId: string }) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
@@ -222,6 +222,9 @@ export function HeroesPlayedComponent({ PlayerId }: { PlayerId: string }) {
     </View>
   );
 }
+
+export const HeroesPlayedComponent = React.memo(HeroesPlayedComp);
+HeroesPlayedComponent.displayName = "HeroesPlayed";
 
 const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({

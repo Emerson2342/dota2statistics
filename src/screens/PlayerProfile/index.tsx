@@ -65,7 +65,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-
   useEffect(() => {
     handleSearch();
   }, []);
@@ -103,7 +102,6 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         );
       },
     });
-
   }, [favoritesPlayers, player]);
 
   const routes = [
@@ -137,9 +135,9 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
       await getRecentMatches(
         recentMatchesUrl,
-        setRecentMatches,
-        setHeroesPlayedId
-      )
+        setHeroesPlayedId,
+        setRecentMatches
+      );
 
       setIsLoading(false);
       setRefresh(false);
@@ -230,15 +228,17 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
         case "first":
           return <Header />;
         case "heroesPlayed":
-          return <HeroesPlayedTabs heroesPlayedList={heroesPlayed} PlayerId={PlayerId} />;
+          return (
+            <HeroesPlayedTabs
+              heroesPlayedList={heroesPlayed}
+              PlayerId={PlayerId}
+            />
+          );
         default:
           return null;
       }
     },
-    [
-      modalFavoritesVisible,
-      isLoading,
-    ]
+    [modalFavoritesVisible, isLoading]
   );
 
   if (isLoading) return Loading;

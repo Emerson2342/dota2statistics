@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
 
-export function ProMatches({
+function ProMatchesComponent({
   proMatches,
   onRefresh,
 }: {
@@ -41,29 +41,31 @@ export function ProMatches({
 
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
-  const formattedTimeMatch = proMatches.map((item) => {
-    const durationInMinutes = item?.duration;
-    const startHour = Math.floor(durationInMinutes / 60);
-    const startMinutes = durationInMinutes % 60;
+  const formattedTimeMatch = useMemo(() => {
+    return proMatches.map((item) => {
+      const durationInMinutes = item?.duration;
+      const startHour = Math.floor(durationInMinutes / 60);
+      const startMinutes = durationInMinutes % 60;
 
-    const formattedHours = String(startHour).padStart(2, "0");
-    const formattedMinutes = String(startMinutes).padStart(2, "0");
-    const formattedDuration = `${formattedHours}min ${formattedMinutes}s`;
+      const formattedHours = String(startHour).padStart(2, "0");
+      const formattedMinutes = String(startMinutes).padStart(2, "0");
+      const formattedDuration = `${formattedHours}min ${formattedMinutes}s`;
 
-    const matchEndTime = item?.start_time + item?.duration;
-    const timeSinceEnd = currentTimestamp - matchEndTime;
-    const hours = Math.floor(timeSinceEnd / 3600);
-    const minutes = Math.floor((timeSinceEnd % 3600) / 60);
+      const matchEndTime = item?.start_time + item?.duration;
+      const timeSinceEnd = currentTimestamp - matchEndTime;
+      const hours = Math.floor(timeSinceEnd / 3600);
+      const minutes = Math.floor((timeSinceEnd % 3600) / 60);
 
-    const formattedEndHours = String(hours).padStart(2, "0");
-    const formattedEndMinutes = String(minutes).padStart(2, "0");
-    const formattedEndDuration =
-      formattedEndHours == "00"
-        ? `${formattedEndMinutes}min`
-        : `${formattedEndHours}h${formattedEndMinutes}min`;
+      const formattedEndHours = String(hours).padStart(2, "0");
+      const formattedEndMinutes = String(minutes).padStart(2, "0");
+      const formattedEndDuration =
+        formattedEndHours === "00"
+          ? `${formattedEndMinutes}min`
+          : `${formattedEndHours}h${formattedEndMinutes}min`;
 
-    return { ...item, formattedEndDuration, formattedDuration };
-  });
+      return { ...item, formattedEndDuration, formattedDuration };
+    });
+  }, [proMatches, currentTimestamp]);
 
   const handleGoToMatch = (matchIndex: number) => {
     navigation.navigate("MatchDetails", {
@@ -185,13 +187,21 @@ export function ProMatches({
     );
   };
 
-  if (loading) return (
-    <View style={styles.container}>
-      <Text style={styles.textHeader}>
-        {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
-      </Text>
-      <ActivityIndicatorCustom message={englishLanguage ? "Loading Pro Matches..." : "Carregando Partidas Profissionais..."} />
-    </View>)
+  if (loading)
+    return (
+      <View style={styles.container}>
+        <Text style={styles.textHeader}>
+          {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
+        </Text>
+        <ActivityIndicatorCustom
+          message={
+            englishLanguage
+              ? "Loading Pro Matches..."
+              : "Carregando Partidas Profissionais..."
+          }
+        />
+      </View>
+    );
 
   return (
     <View style={styles.container}>
@@ -231,3 +241,6 @@ export function ProMatches({
     </View>
   );
 }
+
+export const ProMatches = React.memo(ProMatchesComponent);
+ProMatches.displayName = "ProMatches";

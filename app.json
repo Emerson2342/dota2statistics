@@ -32,14 +32,6 @@
     "owner": "emerson2342",
     "plugins": [
       [
-        "expo-splash-screen",
-        {
-          "image": "./src/images/splash.png",
-          "resizeMode": "cover",
-          "backgroundColor": "#002c3a"
-        }
-      ],
-      [
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-4117477719356991~2847737808"

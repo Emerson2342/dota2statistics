@@ -190,8 +190,8 @@ export const getMatchDetails = async (url: string) => {
 
 export const getRecentMatches = async (
   url: string,
-  setRecentMatches: React.Dispatch<React.SetStateAction<[] | RecentMatches[]>>,
-  setHeroesPlayedId: React.Dispatch<React.SetStateAction<[] | number[]>>
+  setHeroesPlayedId: React.Dispatch<React.SetStateAction<[] | number[]>>,
+  setRecentMatches?: React.Dispatch<React.SetStateAction<[] | RecentMatches[]>>
 ) => {
   const response = await fetch(url);
   try {
@@ -221,7 +221,7 @@ export const getRecentMatches = async (
         lane_role: match.lane_role,
         leaver_status: match.leaver_status,
       }));
-      setRecentMatches(matchDataResponse);
+      setRecentMatches && setRecentMatches(matchDataResponse);
 
       const heroesPlayedId: number[] = [
         ...new Set(data.map((match) => match.hero_id)),

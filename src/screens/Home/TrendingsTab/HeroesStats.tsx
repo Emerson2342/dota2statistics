@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,6 @@ import {
 import {
   HeroDetailsModel,
   HeroStats,
-  LeagueMatches,
   RootStackParamList,
   ThemeColor,
 } from "../../../services/props";
@@ -21,12 +20,11 @@ import { useNavigation } from "@react-navigation/native";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-export function HeroesStats({
+
+function HeroesStatsComponent({
   heroesStats,
-  isLoading,
 }: {
   heroesStats: HeroStats[] | [];
-  isLoading: boolean;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -35,23 +33,21 @@ export function HeroesStats({
   const navigation =
     useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
 
-  const bestWinrate = heroesStats
-    .map((hero) => {
-      const winRate =
-        hero.pub_pick > 0 ? (hero.pub_win / hero.pub_pick) * 100 : 0;
+  const bestWinrate = useMemo(
+    () =>
+      heroesStats
+        .map((hero) => ({
+          ...hero,
+          winRate: hero.pub_pick > 0 ? (hero.pub_win / hero.pub_pick) * 100 : 0,
+        }))
+        .sort((a, b) => b.winRate - a.winRate),
+    [heroesStats]
+  );
 
-      return {
-        ...hero,
-        winRate: winRate,
-      };
-    })
-    .sort((a, b) => b.winRate - a.winRate);
-
-  const mostPicked = heroesStats
-    .map((hero) => {
-      return hero;
-    })
-    .sort((a, b) => b.pub_pick - a.pub_pick);
+  const mostPicked = useMemo(
+    () => [...heroesStats].sort((a, b) => b.pub_pick - a.pub_pick),
+    [heroesStats]
+  );
 
   // const pickedSum = heroesStats.reduce((sum, h) => sum + h.pub_pick, 0);
 
@@ -124,6 +120,9 @@ export function HeroesStats({
     </View>
   );
 }
+
+export const HeroesStats = React.memo(HeroesStatsComponent);
+HeroesStats.displayName = "HeroesStats";
 
 const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({

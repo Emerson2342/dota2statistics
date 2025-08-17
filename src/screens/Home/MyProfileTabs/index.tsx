@@ -65,8 +65,8 @@ export function MyProfileTabs() {
 
       await getRecentMatches(
         recentMatchesUrl,
-        setRecentMatches,
-        setHeroesPlayedId
+        setHeroesPlayedId,
+        setRecentMatches
       );
 
       setIsLoading(false);
@@ -76,7 +76,12 @@ export function MyProfileTabs() {
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
-        <SearchComponent onSearch={handleSave} placeHolder="Steam ID" showModalMessage={showModalMessage} setShowModalMessage={() => setShowModalMessage(false)} />
+        <SearchComponent
+          onSearch={handleSave}
+          placeHolder="Steam ID"
+          showModalMessage={showModalMessage}
+          setShowModalMessage={() => setShowModalMessage(false)}
+        />
         <Text style={styles.textErro}>{erro404}</Text>
       </View>
     );
