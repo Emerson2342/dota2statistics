@@ -14,25 +14,25 @@ import {
   processColor,
 } from "react-native";
 
-import { createStyles } from "./TeamFightsStyle";
-import { PlayerTeamFight, TeamFightModel } from "../../../src/services/props";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { createStyles } from "./styles";
+import { PlayerTeamFight, TeamFightModel } from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_FULL_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../../src/constants/player";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { BarCarComponent } from "./BarCharComponent";
-import { BannerAds } from "../../components/Admob/BannerAds";
-import EmptyImage from "../../images/emptyImage.png";
+} from "../../../constants/player";
+import { useTheme } from "../../../context/useThemeContext";
+import { BarChartComponent } from "./BarCharComponent";
+import { BannerAds } from "../../../components/Admob/BannerAds";
+import EmptyImage from "../../../images/emptyImage.png";
 
 const GREEN = processColor("#71BD6A");
 const RED = processColor("#D14B5A");
 const GOLD = processColor("#DAA520");
 const BLUE = processColor("#219FD5");
 
-export function TeamFightsTab({
+function TeamFightsComponent({
   teamFights,
   heroNames,
   radTeamName,
@@ -47,9 +47,8 @@ export function TeamFightsTab({
   const { ColorTheme } = useTheme();
 
   const styles = createStyles(ColorTheme);
-  const widthImage = Dimensions.get("window").height * 0.0339;
 
-  const renderItem = ({ item }: { item: TeamFightModel }) => {
+  const renderItem = useCallback(({ item }: { item: TeamFightModel }) => {
     let formattedTime;
     let endTime;
     if (item.start) {
@@ -191,27 +190,23 @@ export function TeamFightsTab({
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
-                <BarCarComponent
+                <BarChartComponent
                   formattedData={formattedDataDamageRad}
                   color={RED}
-                />
-              </View>
+                /></View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
-                <BarCarComponent
+                <BarChartComponent
                   formattedData={formattedDataXpRad}
                   color={GREEN}
-                />
-              </View>
+                /></View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
-              >
-                <BarCarComponent
+              ><BarChartComponent
                   formattedData={formattedDataGoldRad}
                   color={GOLD}
-                />
-              </View>
+                /></View>
               {/* <View style={{ width: "100%", paddingTop: "7%" }}>
                 <BarCarComponent
                   formattedData={formattedHealingRad}
@@ -488,15 +483,14 @@ export function TeamFightsTab({
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
             >
-              <BarCarComponent
+              <BarChartComponent
                 formattedData={formattedDataDamageDire}
                 color={RED}
               />
             </View>
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
-            >
-              <BarCarComponent
+            ><BarChartComponent
                 formattedData={formattedDataXpDire}
                 color={GREEN}
               />
@@ -504,10 +498,11 @@ export function TeamFightsTab({
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
             >
-              <BarCarComponent
+              <BarChartComponent
                 formattedData={formttedDataGoldDire}
                 color={GOLD}
               />
+
             </View>
             {!emptyDireKilledList && (
               <View>
@@ -673,7 +668,7 @@ export function TeamFightsTab({
         </View>
       </View>
     );
-  };
+  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
@@ -689,3 +684,6 @@ export function TeamFightsTab({
     </View>
   );
 }
+
+export const TeamFightsTabs = React.memo(TeamFightsComponent);
+TeamFightsTabs.displayName = "TeamFightsTabs";

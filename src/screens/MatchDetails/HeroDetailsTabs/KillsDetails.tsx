@@ -4,28 +4,29 @@ import {
   HeroDetailsModel,
   KillDetails,
   MatchDetailsModel,
-} from "../../../src/services/props";
-
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
+} from "../../../services/props";
 import {
   PICTURE_HERO_BASE_FULL_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../../src/constants/player";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
+} from "../../../constants/player";
+import { useTheme } from "../../../context/useThemeContext";
+import { useSettingsContext } from "../../../../src/context/useSettingsContext";
 
-export function HeroKillsDetails({
+function HeroKillsDetails({
   matchDetails,
   direName,
   radName,
+  heroArray,
 }: {
   matchDetails: MatchDetailsModel;
   direName: string;
   radName: string;
+  heroArray: HeroDetailsModel[];
 }) {
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-  const { englishLanguage } = useSettingsContext();
+
+
   const { ColorTheme } = useTheme();
+  const { englishLanguage } = useSettingsContext();
 
   const validPlayers = matchDetails.players.filter(
     (player) => player.killed || player.killed_by
@@ -206,6 +207,9 @@ export function HeroKillsDetails({
     </View>
   );
 }
+
+export const HeroKillsDetailsComponent = React.memo(HeroKillsDetails);
+HeroKillsDetailsComponent.displayName = "HeroKillsDetailsComponent";
 
 const styles = StyleSheet.create({
   container: {

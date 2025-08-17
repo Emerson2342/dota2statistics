@@ -23,39 +23,10 @@ import {
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { TabBar, TabView } from "react-native-tab-view";
 import { useTeamsListContext } from "../../context/useTeamContext";
-import { getAnalytics, logEvent } from "@react-native-firebase/analytics";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
-
-const analytics = getAnalytics();
-
-type TrendingProps = {
-  color: string;
-  heroesStats: [] | HeroStats[];
-  proMatches: [] | LeagueMatches[];
-  onRefresh: () => Promise<void>;
-};
-
-const TrendingsScene = ({
-  color,
-  heroesStats,
-  onRefresh,
-  proMatches,
-}: TrendingProps) => (
-  <TrendingsTab
-    color={color}
-    heroesStats={heroesStats}
-    onRefresh={onRefresh}
-    proMatches={proMatches}
-  />
-);
-const MyProfileScene = () => <MyProfileTabs />;
-
-const HeroesPlayedScene = ({ playerId }: { playerId: string }) => (
-  <HeroesPlayedComponent PlayerId={playerId} />
-);
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -88,24 +59,12 @@ export function Home() {
       }}
     />
   );
-  const renderScene2 = ({ route }: any) => {
-    switch (route.key) {
-      case "trendings":
-        return <Text>11111</Text>;
-      case "myProfile":
-        return <Text>2</Text>;
-      case "heroesPlayed":
-        return <Text>3333</Text>;
-      default:
-        return null;
-    }
-  };
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "trendings":
         return (
-          <TrendingsScene
+          <TrendingsTab
             color={ColorTheme.light}
             heroesStats={heroesStats}
             onRefresh={handleRefresh}
@@ -113,9 +72,9 @@ export function Home() {
           />
         );
       case "myProfile":
-        return <MyProfileScene />;
+        return <MyProfileTabs />;
       case "heroesPlayed":
-        return <HeroesPlayedScene playerId={profile?.id_Steam ?? "1"} />;
+        return <HeroesPlayedComponent PlayerId={profile?.id_Steam ?? "1"} />;
       default:
         return null;
     }

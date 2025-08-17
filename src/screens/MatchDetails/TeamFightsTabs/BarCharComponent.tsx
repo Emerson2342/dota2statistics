@@ -5,14 +5,14 @@ import {
   ProcessedColorValue,
   View,
 } from "react-native";
-import { BarChart, BarData } from "react-native-charts-wrapper";
+import { BarChart } from "react-native-charts-wrapper";
 
-export function BarCarComponent({
+function BarChartComp({
   formattedData,
-  color,
+  color
 }: {
   formattedData: any;
-  color: ProcessedColorValue | null | undefined;
+  color: ProcessedColorValue | null | undefined
 }) {
   const damageBarHeight = Dimensions.get("window").height * 0.05;
 
@@ -67,3 +67,6 @@ export function BarCarComponent({
     />
   );
 }
+
+export const BarChartComponent = React.memo(BarChartComp);
+BarChartComponent.displayName = "BarChartComponent";

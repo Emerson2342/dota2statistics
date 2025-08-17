@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor } from "../../../src/services/props";
-import { isUndefined } from "util";
+import { ThemeColor } from "../../../services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({

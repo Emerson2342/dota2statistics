@@ -7,7 +7,7 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 
 Animated.addWhitelistedNativeProps({ text: true });
 
-export const GraficsGoldAndXpTeam = ({
+const GraficsGoldAndXpTeam = ({
   radiant_gold_adv,
   radiant_xp_adv,
   RadiantName,
@@ -25,8 +25,8 @@ export const GraficsGoldAndXpTeam = ({
   const radiantName = RadiantName
     ? RadiantName
     : englishLanguage
-    ? "Radiant"
-    : "Iluminados";
+      ? "Radiant"
+      : "Iluminados";
   const direName = DireName ? DireName : englishLanguage ? "Dire" : "Temidos";
 
   const combinedData = radiant_gold_adv.map((value, index) => ({
@@ -100,6 +100,9 @@ export const GraficsGoldAndXpTeam = ({
     </View>
   );
 };
+
+export const GraficsGoldAndXpComponent = React.memo(GraficsGoldAndXpTeam);
+GraficsGoldAndXpComponent.displayName = 'GraficsGoldAndXpComponent';
 
 const styles = StyleSheet.create({
   textGraphic: {

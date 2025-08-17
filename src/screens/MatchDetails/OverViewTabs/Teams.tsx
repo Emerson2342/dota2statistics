@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -12,19 +12,19 @@ import {
   MatchDetailsModel,
   Player,
   RootStackParamList,
-} from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../constants/player";
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { Medal } from "../../components/Medals/MedalsList";
+} from "../../../services/props";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
+import { Medal } from "../../../components/Medals/MedalsList";
 import { createStyles } from "./TeamsStyles";
 import { useNavigation } from "@react-navigation/native";
-import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
+import { ModalMessage } from "../../../components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ModalHelpMatchDetails } from "../../../src/components/Modals/ModalHelpMatchDetails";
-export function Teams({
+import { ModalHelpMatchDetails } from "../../../components/Modals/ModalHelpMatchDetails";
+function Teams({
   matchDetails,
   PlayerIdIndex,
 }: {
@@ -65,17 +65,16 @@ export function Teams({
     }
   };
 
-  const TeamRenderItem = ({
+  const TeamRenderItem = useCallback(({
     players,
     teamName,
     radiantWin,
-  }: //isRadiant,
-  {
-    players: Player[];
-    teamName: string;
-    radiantWin: boolean;
-    //isRadiant: boolean;
-  }) => {
+  }:
+    {
+      players: Player[];
+      teamName: string;
+      radiantWin: boolean;
+    }) => {
     return (
       <View style={{ alignItems: "center" }}>
         <View style={[styles.headerContainer]}>
@@ -134,8 +133,8 @@ export function Teams({
           const personaName = player.personaname
             ? player.personaname
             : englishLanguage
-            ? "Private Profile"
-            : "Perfil Privado";
+              ? "Private Profile"
+              : "Perfil Privado";
 
           const playerName = player.name ? player.name : personaName;
 
@@ -177,32 +176,32 @@ export function Teams({
               onPress={() => HandleNavigateToProfile(player.account_id)}
               disabled={
                 player &&
-                player.account_id &&
-                PlayerIdIndex === player.account_id.toString()
+                  player.account_id &&
+                  PlayerIdIndex === player.account_id.toString()
                   ? true
                   : false
               }
               key={index}
               style={[
                 player &&
-                player.account_id &&
-                PlayerIdIndex === player.account_id.toString()
+                  player.account_id &&
+                  PlayerIdIndex === player.account_id.toString()
                   ? {
-                      backgroundColor: "#f7eba6",
-                      borderRadius: 3,
-                      padding: "0.5%",
-                      marginTop: index == 0 ? 0 : "1%",
-                      borderTopEndRadius: index == 0 ? 0 : 3,
-                      borderTopStartRadius: index === 0 ? 0 : 3,
-                    }
+                    backgroundColor: "#f7eba6",
+                    borderRadius: 3,
+                    padding: "0.5%",
+                    marginTop: index == 0 ? 0 : "1%",
+                    borderTopEndRadius: index == 0 ? 0 : 3,
+                    borderTopStartRadius: index === 0 ? 0 : 3,
+                  }
                   : {
-                      backgroundColor: "#fff",
-                      marginTop: index == 0 ? 0 : "1%",
-                      padding: "0.5%",
-                      borderRadius: 3,
-                      borderTopEndRadius: index == 0 ? 0 : 3,
-                      borderTopStartRadius: index === 0 ? 0 : 3,
-                    },
+                    backgroundColor: "#fff",
+                    marginTop: index == 0 ? 0 : "1%",
+                    padding: "0.5%",
+                    borderRadius: 3,
+                    borderTopEndRadius: index == 0 ? 0 : 3,
+                    borderTopStartRadius: index === 0 ? 0 : 3,
+                  },
                 {},
               ]}
             >
@@ -253,15 +252,15 @@ export function Teams({
                       <Text style={[styles.hDamage, styles.textData]}>
                         {player.hero_damage
                           ? player.hero_damage.toLocaleString(
-                              englishLanguage ? "en-US" : "pt-BR"
-                            )
+                            englishLanguage ? "en-US" : "pt-BR"
+                          )
                           : 0}
                       </Text>
                       <Text style={[styles.tDamage, styles.textData]}>
                         {player.tower_damage
                           ? player.tower_damage.toLocaleString(
-                              englishLanguage ? "en-US" : "pt-BR"
-                            )
+                            englishLanguage ? "en-US" : "pt-BR"
+                          )
                           : 0}
                       </Text>
                       <Text style={[styles.healing, styles.textData]}>
@@ -385,7 +384,7 @@ export function Teams({
         })}
       </View>
     );
-  };
+  }, [])
 
   return (
     <View>
@@ -397,7 +396,6 @@ export function Teams({
               players={item.players.slice(0, 5)}
               teamName={matchDetails?.radiant_team?.name ?? radName}
               radiantWin={item.radiant_win}
-              //isRadiant={true}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
@@ -412,7 +410,7 @@ export function Teams({
               players={item.players.slice(5, 10)}
               teamName={matchDetails?.dire_team?.name ?? direName}
               radiantWin={!item.radiant_win}
-              //isRadiant={false}
+            //isRadiant={false}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
@@ -442,3 +440,6 @@ export function Teams({
     </View>
   );
 }
+
+export const TeamsComponent = React.memo(Teams);
+TeamsComponent.displayName = "TeamsComponent";

@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { MatchDetailsModel, ThemeColor } from "../../services/props";
-import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
+import { MatchDetailsModel, ThemeColor } from "../../../services/props";
+import { ModalMessage } from "../../../components/Modals/ModalMessage";
 import { Ionicons } from "@expo/vector-icons";
 
-export function Header({
+function Header({
   matchDetails,
   lobbyType,
   gameMode,
@@ -236,6 +236,9 @@ export function Header({
     </View>
   );
 }
+
+export const HeaderComponent = React.memo(Header);
+HeaderComponent.displayName = "HeaderComponent"
 
 const { width } = Dimensions.get("window");
 const createStyles = (colors: ThemeColor) =>

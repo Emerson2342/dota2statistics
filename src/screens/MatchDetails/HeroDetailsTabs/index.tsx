@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
-import { useTheme } from '../../../src/context/useThemeContext';
-import { GraficsGoldPlayers } from './GraficsGoldPlayers';
-import { HeroKillsDetails } from './KillsDetails';
-import { Damage } from './Damage';
-import { Items } from './Items';
-import { Abilities } from './Abilities';
-import { BannerAds } from '../../components/Admob/BannerAds';
-import { MatchDetailsModel } from '../../../src/services/props';
+import { useTheme } from '../../../context/useThemeContext';
+import { GraficsGoldPlayersComponent } from './GraficsGoldPlayers';
+import { HeroKillsDetailsComponent } from './KillsDetails';
+import { Damage } from '../Damage';
+import { Items } from '../Items';
+import { Abilities } from '../Abilities';
+import { BannerAds } from '../../../components/Admob/BannerAds';
+import { HeroDetailsModel, MatchDetailsModel } from '../../../services/props';
+import { useSettingsContext } from '../../../../src/context/useSettingsContext';
 
+type Props = {
+    matchDetails: MatchDetailsModel | null;
+    refreshing: boolean;
+    onRefresh: () => Promise<void>;
+    PlayerIdIndex: string | null;
+    radName: string;
+    direName: string;
+    colorTheme: string;
+    heroArray: HeroDetailsModel[];
+}
 
-
-export function HeroDetailsTab({ matchDetails, refreshing, onRefresh, PlayerIdIndex, radName, direName }:
-    { matchDetails: MatchDetailsModel | null, refreshing: boolean, onRefresh: () => Promise<void>, PlayerIdIndex: string | null, radName: string, direName: string }
-) {
-
-
-    const { ColorTheme } = useTheme();
-
-
-
+function HeroesDetailsComponent({ matchDetails, refreshing, onRefresh, PlayerIdIndex, radName, direName, colorTheme, heroArray }: Props) {
     return (
-        <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
+        <View style={{ flex: 1, backgroundColor: colorTheme }}>
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -41,7 +43,7 @@ export function HeroDetailsTab({ matchDetails, refreshing, onRefresh, PlayerIdIn
                             },
                         ]}
                     >
-                        <GraficsGoldPlayers
+                        <GraficsGoldPlayersComponent
                             matchDetails={matchDetails}
                             RadiantName={matchDetails?.radiant_team?.name ?? radName}
                             DireName={matchDetails?.dire_team?.name ?? direName}
@@ -51,7 +53,8 @@ export function HeroDetailsTab({ matchDetails, refreshing, onRefresh, PlayerIdIn
 
                 <View style={styles.containerItem}>
                     {matchDetails ? (
-                        <HeroKillsDetails
+                        <HeroKillsDetailsComponent
+                            heroArray={heroArray}
                             matchDetails={matchDetails}
                             radName={matchDetails?.radiant_team?.name ?? radName}
                             direName={matchDetails?.dire_team?.name ?? direName}
@@ -91,6 +94,9 @@ export function HeroDetailsTab({ matchDetails, refreshing, onRefresh, PlayerIdIn
         </View>
     );
 }
+
+export const HeroesDetailsTabs = React.memo(HeroesDetailsComponent);
+HeroesDetailsTabs.displayName = "HeroesDetailsTabs";
 
 const styles = StyleSheet.create({
     containerItem: {
