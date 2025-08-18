@@ -2,7 +2,7 @@
   "expo": {
     "name": "Dota 2 Stats",
     "slug": "dota2",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "orientation": "portrait",
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
@@ -31,7 +31,7 @@
     },
     "owner": "emerson2342",
     "plugins": [
-       [
+      [
         "expo-splash-screen",
         {
           "backgroundColor": "#002c3a",

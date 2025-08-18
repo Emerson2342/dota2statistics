@@ -64,7 +64,7 @@ function Damage({
     ItemsList.map((item) => [item.name, item])
   );
 
-  const RenderDamage = useCallback(({ players }: { players: Player[] }) => {
+  const RenderDamage = ({ players }: { players: Player[] }) => {
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
@@ -224,7 +224,7 @@ function Damage({
           })}
       </View>
     );
-  }, []);
+  };
 
   return (
     <View style={styles.container}>
