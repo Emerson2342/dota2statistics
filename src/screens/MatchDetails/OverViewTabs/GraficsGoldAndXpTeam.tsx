@@ -3,7 +3,7 @@ import { View, Dimensions, TextInput, Text, StyleSheet } from "react-native";
 import { CartesianChart, Line } from "victory-native";
 import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
-import { useSettingsContext } from "../../context/useSettingsContext";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 
 Animated.addWhitelistedNativeProps({ text: true });
 
@@ -20,13 +20,13 @@ const GraficsGoldAndXpTeam = ({
 }) => {
   const { englishLanguage } = useSettingsContext();
 
-  const font = useFont(require("../../Fonts/Quicksand_SemiBold.ttf"));
+  const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
 
   const radiantName = RadiantName
     ? RadiantName
     : englishLanguage
-      ? "Radiant"
-      : "Iluminados";
+    ? "Radiant"
+    : "Iluminados";
   const direName = DireName ? DireName : englishLanguage ? "Dire" : "Temidos";
 
   const combinedData = radiant_gold_adv.map((value, index) => ({
@@ -102,7 +102,7 @@ const GraficsGoldAndXpTeam = ({
 };
 
 export const GraficsGoldAndXpComponent = React.memo(GraficsGoldAndXpTeam);
-GraficsGoldAndXpComponent.displayName = 'GraficsGoldAndXpComponent';
+GraficsGoldAndXpComponent.displayName = "GraficsGoldAndXpComponent";
 
 const styles = StyleSheet.create({
   textGraphic: {

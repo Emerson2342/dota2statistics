@@ -129,7 +129,9 @@ function TeamFightsComponent({
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle} numberOfLines={1}>{radTeamName}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>
+              {radTeamName}
+            </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
                 {item.players
@@ -193,20 +195,24 @@ function TeamFightsComponent({
                 <BarChartComponent
                   formattedData={formattedDataDamageRad}
                   color={RED}
-                /></View>
+                />
+              </View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
                 <BarChartComponent
                   formattedData={formattedDataXpRad}
                   color={GREEN}
-                /></View>
+                />
+              </View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
-              ><BarChartComponent
+              >
+                <BarChartComponent
                   formattedData={formattedDataGoldRad}
                   color={GOLD}
-                /></View>
+                />
+              </View>
               {/* <View style={{ width: "100%", paddingTop: "7%" }}>
                 <BarCarComponent
                   formattedData={formattedHealingRad}
@@ -422,7 +428,9 @@ function TeamFightsComponent({
             </View>
           </View>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle} numberOfLines={1}>{direTeamName}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>
+              {direTeamName}
+            </Text>
 
             <View style={{ flexDirection: "row" }}>
               {item.players
@@ -490,7 +498,8 @@ function TeamFightsComponent({
             </View>
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
-            ><BarChartComponent
+            >
+              <BarChartComponent
                 formattedData={formattedDataXpDire}
                 color={GREEN}
               />
@@ -502,7 +511,6 @@ function TeamFightsComponent({
                 formattedData={formttedDataGoldDire}
                 color={GOLD}
               />
-
             </View>
             {!emptyDireKilledList && (
               <View>

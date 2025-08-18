@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -17,20 +17,20 @@ import {
   Player,
   RootStackParamList,
   ThemeColor,
-} from "../../services/props";
-import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
-import ItemsList from "../../components/Itens/itemsList.json";
+} from "../../../services/props";
+import AbilitiesDescriptionsJson from "../../../components/Heroes/AbilitiesDescriptions.json";
+import ItemsList from "../../../components/Itens/itemsList.json";
 import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../constants/player";
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
+} from "../../../constants/player";
+import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
+import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import EmptyImage from "../../images/emptyImage.png";
+import EmptyImage from "../../../images/emptyImage.png";
 
-export function Damage({
+function Damage({
   matchDetails,
   RadName,
   DireName,
@@ -64,7 +64,7 @@ export function Damage({
     ItemsList.map((item) => [item.name, item])
   );
 
-  const RenderDamage = ({ players }: { players: Player[] }) => {
+  const RenderDamage = useCallback(({ players }: { players: Player[] }) => {
     return (
       <View style={styles.contentItem}>
         <Text style={styles.title}>
@@ -224,7 +224,7 @@ export function Damage({
           })}
       </View>
     );
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -237,6 +237,9 @@ export function Damage({
     </View>
   );
 }
+
+export const DamageComponent = React.memo(Damage);
+DamageComponent.displayName = "DamageComponent";
 
 const createStyles = (Colors: ThemeColor) =>
   StyleSheet.create({

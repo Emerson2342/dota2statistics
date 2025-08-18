@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, FlatList, StyleSheet, Image, Dimensions } from "react-native";
+import React, { useCallback, useMemo } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from "react-native";
 import {
   HeroDetailsModel,
   KillDetails,
@@ -23,8 +30,6 @@ function HeroKillsDetails({
   radName: string;
   heroArray: HeroDetailsModel[];
 }) {
-
-
   const { ColorTheme } = useTheme();
   const { englishLanguage } = useSettingsContext();
 
@@ -34,145 +39,148 @@ function HeroKillsDetails({
 
   if (validPlayers.length === 0) return null;
 
-  const killsDetails: KillDetails[] = matchDetails.players.map((player) => {
-    const heroIndex = heroArray.find((hero) => hero.id === player.hero_id);
+  const killsDetails: KillDetails[] = useMemo(() => {
+    return matchDetails.players.map((player) => {
+      const heroIndex = heroArray.find((hero) => hero.id === player.hero_id);
 
-    const heroName = heroIndex?.img ?? "";
-    const playerName = player.name
-      ? player.name
-      : player.personaname
+      const heroName = heroIndex?.img ?? "";
+      const playerName = player.name
+        ? player.name
+        : player.personaname
         ? player.personaname
         : englishLanguage
-          ? "Private Profile"
-          : "Perfil Privado";
+        ? "Private Profile"
+        : "Perfil Privado";
 
-    const kills = player.killed
-      ? Object.entries(player.killed)
-        .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-        .map(([heroName, count]) => ({
-          heroName: heroName.replace("npc_dota_hero_", ""),
-          count,
-        }))
-      : [];
+      const kills = player.killed
+        ? Object.entries(player.killed)
+            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+            .map(([heroName, count]) => ({
+              heroName: heroName.replace("npc_dota_hero_", ""),
+              count,
+            }))
+        : [];
 
-    const killedBy = player.killed_by
-      ? Object.entries(player.killed_by)
-        .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-        .map(([heroName, count]) => ({
-          heroName: heroName.replace("npc_dota_hero_", ""),
-          count,
-        }))
-      : [];
+      const killedBy = player.killed_by
+        ? Object.entries(player.killed_by)
+            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+            .map(([heroName, count]) => ({
+              heroName: heroName.replace("npc_dota_hero_", ""),
+              count,
+            }))
+        : [];
 
-    return { playerName, heroName, kills, killedBy };
-  });
+      return { playerName, heroName, kills, killedBy };
+    });
+  }, [matchDetails, heroArray, englishLanguage]);
 
   //alert(JSON.stringify(killsDetails, null, 2));
 
-  const renderItem = ({
-    item,
-    index,
-  }: {
-    item: KillDetails;
-    index: number;
-  }) => {
-    const imgSource = PICTURE_HERO_BASE_URL + item.heroName;
+  const renderItem = useCallback(
+    ({ item, index }: { item: KillDetails; index: number }) => {
+      const imgSource = PICTURE_HERO_BASE_URL + item.heroName;
 
-    return (
-      <View>
-        <Text
-          style={[
-            styles.textTeamName,
-            {
-              display: index == 0 ? "flex" : "none",
-              color: ColorTheme.standard,
-              borderTopWidth: index == 0 ? 1 : 0,
-              borderColor: ColorTheme.standard,
-            },
-          ]}
-        >
-          {radName}
-        </Text>
-        <Text
-          style={[
-            styles.textTeamName,
-            {
-              display: index == 5 ? "flex" : "none",
-              borderTopWidth: index == 5 ? 1 : 0,
-              borderColor: ColorTheme.standard,
-              marginTop: index == 5 ? 7 : 0,
-              color: ColorTheme.standard,
-            },
-          ]}
-        >
-          {direName}
-        </Text>
-        <Text style={styles.textPlayerName}>{item.playerName}</Text>
-        <View style={styles.flatListRender}>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "45%",
-              justifyContent: "flex-end",
-            }}
+      return (
+        <View>
+          <Text
+            style={[
+              styles.textTeamName,
+              {
+                display: index == 0 ? "flex" : "none",
+                color: ColorTheme.standard,
+                borderTopWidth: index == 0 ? 1 : 0,
+                borderColor: ColorTheme.standard,
+              },
+            ]}
           >
-            {item.kills.map((hero, index) => {
-              const heroKill =
-                PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
-              return (
-                <View key={index} style={{ flexDirection: "row" }}>
-                  <View>
-                    <Text style={styles.textKills}>{hero.count}x</Text>
-                    <View style={styles.imgContainer}>
-                      <Image
-                        style={styles.imgHero}
-                        source={{ uri: heroKill }}
-                      />
-                    </View>
-                  </View>
-                </View>
-              );
-            })}
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Image
-              style={{ width: Dimensions.get('screen').width * 0.1, aspectRatio: 1, borderRadius: 7 }}
-              source={{
-                uri: imgSource,
+            {radName}
+          </Text>
+          <Text
+            style={[
+              styles.textTeamName,
+              {
+                display: index == 5 ? "flex" : "none",
+                borderTopWidth: index == 5 ? 1 : 0,
+                borderColor: ColorTheme.standard,
+                marginTop: index == 5 ? 7 : 0,
+                color: ColorTheme.standard,
+              },
+            ]}
+          >
+            {direName}
+          </Text>
+          <Text style={styles.textPlayerName}>{item.playerName}</Text>
+          <View style={styles.flatListRender}>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "45%",
+                justifyContent: "flex-end",
               }}
-            />
-          </View>
-          <View style={{ flexDirection: "row", width: "45%" }}>
-            {item.killedBy.map((hero, index) => {
-              const heroKill =
-                PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
-              return (
-                <View
-                  key={index}
-                  style={{ flexDirection: "row", alignItems: "center" }}
-                >
-                  <View>
-                    <Text style={styles.textKills}>{hero.count}x</Text>
-                    <View
-                      style={[
-                        styles.imgContainer,
-                        { backgroundColor: "#000", borderColor: "red" },
-                      ]}
-                    >
-                      <Image
-                        style={[styles.imgHero, { opacity: 0.7 }]}
-                        source={{ uri: heroKill }}
-                      />
+            >
+              {item.kills.map((hero, index) => {
+                const heroKill =
+                  PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
+                return (
+                  <View key={index} style={{ flexDirection: "row" }}>
+                    <View>
+                      <Text style={styles.textKills}>{hero.count}x</Text>
+                      <View style={styles.imgContainer}>
+                        <Image
+                          style={styles.imgHero}
+                          source={{ uri: heroKill }}
+                        />
+                      </View>
                     </View>
                   </View>
-                </View>
-              );
-            })}
+                );
+              })}
+            </View>
+            <View style={{ alignSelf: "center" }}>
+              <Image
+                style={{
+                  width: Dimensions.get("screen").width * 0.1,
+                  aspectRatio: 1,
+                  borderRadius: 7,
+                }}
+                source={{
+                  uri: imgSource,
+                }}
+              />
+            </View>
+            <View style={{ flexDirection: "row", width: "45%" }}>
+              {item.killedBy.map((hero, index) => {
+                const heroKill =
+                  PICTURE_HERO_BASE_FULL_URL + hero.heroName + ".png";
+                return (
+                  <View
+                    key={index}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                  >
+                    <View>
+                      <Text style={styles.textKills}>{hero.count}x</Text>
+                      <View
+                        style={[
+                          styles.imgContainer,
+                          { backgroundColor: "#000", borderColor: "red" },
+                        ]}
+                      >
+                        <Image
+                          style={[styles.imgHero, { opacity: 0.7 }]}
+                          source={{ uri: heroKill }}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
           </View>
         </View>
-      </View>
-    );
-  };
+      );
+    },
+    []
+  );
 
   return (
     <View style={styles.container}>
@@ -242,7 +250,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   imgHero: {
-    width: Dimensions.get('screen').width * 0.053,
+    width: Dimensions.get("screen").width * 0.053,
     aspectRatio: 1,
     borderRadius: 30,
   },

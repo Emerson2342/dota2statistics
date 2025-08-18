@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Dimensions,
   processColor,
@@ -9,12 +9,18 @@ import { BarChart } from "react-native-charts-wrapper";
 
 function BarChartComp({
   formattedData,
-  color
+  color,
 }: {
   formattedData: any;
-  color: ProcessedColorValue | null | undefined
+  color: ProcessedColorValue | null | undefined;
 }) {
   const damageBarHeight = Dimensions.get("window").height * 0.05;
+  //   const hasAnimated = useRef(false);
+  //   const animationConfig = !hasAnimated.current
+  //   ? { durationX: 3500, durationY: 3500, easingX: "EaseInOutQuart", easingY: "EaseInOutQuart" }
+  //   : { durationX: 0, durationY: 0 };
+
+  // hasAnimated.current = true;
 
   const state = {
     data: {

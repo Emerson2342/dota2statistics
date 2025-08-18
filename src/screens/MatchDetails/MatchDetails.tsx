@@ -14,9 +14,7 @@ import {
   MatchDetailsModel,
   MatchDetailsProps,
 } from "../../services/props";
-import {
-  MATCHE_DETAILS_API_BASE_URL,
-} from "../../constants/player";
+import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { getMatchDetails } from "../../services/api";
@@ -103,9 +101,9 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-          MatchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
+            MatchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);
@@ -119,18 +117,20 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const renderScene1 = ({ route }: any) => {
     switch (route.key) {
       case "first":
-        return <OverViewTabs
-          GameMode={GameMode}
-          LobbyType={LobbyType}
-          PlayerIdIndex={PlayerIdIndex}
-          direName={direName}
-          radName={radName}
-          heroArray={heroArray}
-          matchDetails={matchDetails}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-          key={matchDetails?.match_id}
-        />;
+        return (
+          <OverViewTabs
+            GameMode={GameMode}
+            LobbyType={LobbyType}
+            PlayerIdIndex={PlayerIdIndex}
+            direName={direName}
+            radName={radName}
+            heroArray={heroArray}
+            matchDetails={matchDetails}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            key={matchDetails?.match_id}
+          />
+        );
       case "second":
         return (
           <HeroesDetailsTabs
@@ -150,7 +150,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       default:
         return LoadingMatchDetails;
     }
-  }
+  };
 
   const TeamFightComponent = React.memo(() => {
     const heroMap = useMemo(() => {
@@ -158,10 +158,10 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     }, [heroArray]);
 
     const heroNames = useMemo(
-      () => matchDetails?.players.map((player) => heroMap[player.hero_id]) || [],
+      () =>
+        matchDetails?.players.map((player) => heroMap[player.hero_id]) || [],
       [matchDetails?.players, heroMap]
     );
-
 
     return (
       <TeamFightsTabs
@@ -186,7 +186,6 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       </View>
     );
   }, [loadingMatch]);
-
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -311,7 +310,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         lazy
         lazyPreloadDistance={0}
         renderLazyPlaceholder={() => LoadingMatchDetails}
-        removeClippedSubviews={true}
+        removeClippedSubviews={false}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,
