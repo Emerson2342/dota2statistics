@@ -32,6 +32,21 @@ const RED = processColor("#D14B5A");
 const GOLD = processColor("#DAA520");
 const BLUE = processColor("#219FD5");
 
+type ProcessedFight = TeamFightModel & {
+  formattedTime: string;
+  endTime: string;
+  damageRad: { y: number }[];
+  damageDire: { y: number }[];
+  goldRad: { y: number }[];
+  goldDire: { y: number }[];
+  xpRad: { y: number }[];
+  xpDire: { y: number }[];
+  healingRad: { y: number }[];
+  healingDire: { y: number }[];
+  emptyRadKilledList?: boolean;
+  emptyDireKilledList?: boolean;
+};
+
 function TeamFightsComponent({
   teamFights,
   heroNames,
@@ -48,84 +63,51 @@ function TeamFightsComponent({
 
   const styles = createStyles(ColorTheme);
 
-  const renderItem = useCallback(({ item }: { item: TeamFightModel }) => {
-    let formattedTime;
-    let endTime;
-    if (item.start) {
-      const minute = Math.floor(item.start / 60);
-      const seconds = item.start && item.start % 60;
+  const formatTime = (seconds?: number) => {
+    if (!seconds) return "00:00";
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(
+      2,
+      "0"
+    )}`;
+  };
 
-      const formattedHours = String(minute).padStart(2, "0");
-      const formattedMinutes = String(seconds).padStart(2, "0");
+  const processedFights = useMemo<ProcessedFight[] | undefined>(() => {
+    return teamFights?.map((fight) => {
+      const damageArray = fight.players?.map((p) => p.damage) || [];
+      const goldArray = fight.players?.map((p) => p.gold_delta) || [];
+      const xpArray = fight.players?.map((p) => p.xp_delta) || [];
+      const healingArray = fight.players?.map((p) => p.healing) || [];
 
-      formattedTime = `${formattedHours}:${formattedMinutes}`;
-    }
-    if (item.end) {
-      const minute = Math.floor(item.end / 60);
-      const seconds = item.end && item.end % 60;
+      return {
+        ...fight,
+        formattedTime: formatTime(fight.start),
+        endTime: formatTime(fight.end),
+        damageRad: damageArray.slice(0, 5).map((value) => ({ y: value })),
+        damageDire: damageArray.slice(5, 10).map((value) => ({ y: value })),
+        goldRad: goldArray.slice(0, 5).map((value) => ({ y: value })),
+        goldDire: goldArray.slice(5, 10).map((value) => ({ y: value })),
+        xpRad: xpArray.slice(0, 5).map((value) => ({ y: value })),
+        xpDire: xpArray.slice(5, 10).map((value) => ({ y: value })),
+        healingRad: healingArray.slice(0, 5).map((value) => ({ y: value })),
+        healingDire: healingArray.slice(5, 10).map((value) => ({ y: value })),
+        emptyRadKilledList: fight.players
+          ?.slice(0, 5)
+          .every((p) => Object.keys(p.killed).length === 0),
+        emptyDireKilledList: fight.players
+          ?.slice(5, 10)
+          .every((p) => Object.keys(p.killed).length === 0),
+      };
+    });
+  }, [teamFights]);
 
-      const formattedHours = String(minute).padStart(2, "0");
-      const formattedMinutes = String(seconds).padStart(2, "0");
-
-      endTime = `${formattedHours}:${formattedMinutes}`;
-    }
-
-    const damageArray = item.players?.map((h) => h.damage) || [];
-
-    const goldArray = item.players?.map((h) => h.gold_delta) || [];
-
-    const xpArray = item.players?.map((h) => h.xp_delta) || [];
-
-    const healingArray = item.players?.map((h) => h.healing) || [];
-
-    const formattedDataDamageRad = damageArray
-      .slice(0, 5)
-      .map((value) => ({ y: value }));
-
-    const formattedDataDamageDire = damageArray
-      .slice(5, 10)
-      .map((value) => ({ y: value }));
-
-    const formattedDataGoldRad = goldArray
-      .slice(0, 5)
-      .map((value) => ({ y: value }));
-
-    const formttedDataGoldDire = goldArray
-      .slice(5, 10)
-      .map((value) => ({ y: value }));
-
-    const formattedDataXpRad = xpArray
-      .slice(0, 5)
-      .map((value) => ({ y: value }));
-    const formattedDataXpDire = xpArray
-      .slice(5, 10)
-      .map((value) => ({ y: value }));
-
-    const formattedHealingRad = healingArray
-      .slice(0, 5)
-      .map((value) => ({ y: value }));
-    const formattedHealingDire = healingArray
-      .slice(5, 10)
-      .map((value) => ({ y: value }));
-
-    const emptyRadKilledList =
-      item &&
-      item.players &&
-      item.players
-        .slice(0, 5)
-        .every((player) => Object.keys(player.killed).length === 0);
-    const emptyDireKilledList =
-      item &&
-      item.players &&
-      item.players
-        .slice(5, 10)
-        .every((player) => Object.keys(player.killed).length === 0);
-
+  const TeamFightItem = React.memo(({ fight }: { fight: ProcessedFight }) => {
     return (
       <View style={[styles.renderItemContainer]}>
         <Text style={styles.textTime}>
           {englishLanguage ? "Time: " : "Hora: "}
-          {formattedTime} - {endTime}
+          {fight.formattedTime} - {fight.endTime}
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ width: "40%" }}>
@@ -134,7 +116,7 @@ function TeamFightsComponent({
             </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
-                {item.players
+                {fight.players
                   ?.slice(0, 5)
                   .map((player: PlayerTeamFight, indexPlayer: number) => {
                     const heroName = heroNames[indexPlayer];
@@ -193,25 +175,19 @@ function TeamFightsComponent({
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
                 <BarChartComponent
-                  formattedData={formattedDataDamageRad}
+                  formattedData={fight.damageRad}
                   color={RED}
                 />
               </View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
-                <BarChartComponent
-                  formattedData={formattedDataXpRad}
-                  color={GREEN}
-                />
+                <BarChartComponent formattedData={fight.xpRad} color={GREEN} />
               </View>
               <View
                 style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
               >
-                <BarChartComponent
-                  formattedData={formattedDataGoldRad}
-                  color={GOLD}
-                />
+                <BarChartComponent formattedData={fight.goldRad} color={GOLD} />
               </View>
               {/* <View style={{ width: "100%", paddingTop: "7%" }}>
                 <BarCarComponent
@@ -219,13 +195,13 @@ function TeamFightsComponent({
                   color={BLUE}
                 />
               </View> */}
-              {!emptyRadKilledList && (
+              {!fight.emptyRadKilledList && (
                 <View>
                   <Text style={styles.textLabel}>
                     {englishLanguage ? "Kills" : "Abates"}
                   </Text>
                   <View style={{ flexDirection: "row" }}>
-                    {item.players
+                    {fight.players
                       ?.slice(0, 5)
                       .map((player: PlayerTeamFight, indexPlayer: number) => {
                         const heroesKilled = Object.entries(player.killed);
@@ -279,7 +255,7 @@ function TeamFightsComponent({
                 {englishLanguage ? "Abilities" : "Habilidades"}
               </Text>
               <View style={{ flexDirection: "row" }}>
-                {item.players
+                {fight.players
                   ?.slice(0, 5)
                   .map((player: PlayerTeamFight, indexPlayer: number) => {
                     const abilities = Object.entries(player.ability_uses);
@@ -332,7 +308,7 @@ function TeamFightsComponent({
                 {englishLanguage ? "Items" : "Itens"}
               </Text>
               <View style={{ flexDirection: "row" }}>
-                {item.players
+                {fight.players
                   ?.slice(0, 5)
                   .map((player: PlayerTeamFight, indexPlayerItem: number) => {
                     const items = Object.entries(player.item_uses);
@@ -433,7 +409,7 @@ function TeamFightsComponent({
             </Text>
 
             <View style={{ flexDirection: "row" }}>
-              {item.players
+              {fight.players
                 ?.slice(5, 10)
                 .map((player: PlayerTeamFight, indexPlayer: number) => {
                   const heroName = heroNames[indexPlayer + 5];
@@ -491,34 +467,25 @@ function TeamFightsComponent({
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
             >
-              <BarChartComponent
-                formattedData={formattedDataDamageDire}
-                color={RED}
-              />
+              <BarChartComponent formattedData={fight.damageDire} color={RED} />
             </View>
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
             >
-              <BarChartComponent
-                formattedData={formattedDataXpDire}
-                color={GREEN}
-              />
+              <BarChartComponent formattedData={fight.xpDire} color={GREEN} />
             </View>
             <View
               style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
             >
-              <BarChartComponent
-                formattedData={formttedDataGoldDire}
-                color={GOLD}
-              />
+              <BarChartComponent formattedData={fight.goldDire} color={GOLD} />
             </View>
-            {!emptyDireKilledList && (
+            {!fight.emptyDireKilledList && (
               <View>
                 <Text style={styles.textLabel}>
                   {englishLanguage ? "Kills" : "Abates"}
                 </Text>
                 <View style={{ flexDirection: "row" }}>
-                  {item.players
+                  {fight.players
                     ?.slice(5, 10)
                     .map((player: PlayerTeamFight, indexPlayer: number) => {
                       const heroesKilled = Object.entries(player.killed);
@@ -565,7 +532,7 @@ function TeamFightsComponent({
                   {englishLanguage ? "Abilities" : "Habilidades"}
                 </Text>
                 <View style={{ flexDirection: "row" }}>
-                  {item.players
+                  {fight.players
                     ?.slice(5, 10)
                     .map((player: PlayerTeamFight, indexPlayer: number) => {
                       const abilities = Object.entries(player.ability_uses);
@@ -620,7 +587,7 @@ function TeamFightsComponent({
               {englishLanguage ? "Items" : "Itens"}
             </Text>
             <View style={{ flexDirection: "row" }}>
-              {item.players
+              {fight.players
                 ?.slice(5, 10)
                 .map((player: PlayerTeamFight, indexPlayerItem: number) => {
                   const items = Object.entries(player.item_uses);
@@ -676,17 +643,18 @@ function TeamFightsComponent({
         </View>
       </View>
     );
-  }, []);
+  });
 
   return (
     <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
       <FlatList
-        data={teamFights}
-        renderItem={renderItem}
+        data={processedFights}
+        renderItem={({ item }) => <TeamFightItem fight={item} />}
         keyExtractor={(item) => item.start.toString()}
-        initialNumToRender={4}
-        maxToRenderPerBatch={3}
-        windowSize={3}
+        initialNumToRender={2}
+        maxToRenderPerBatch={2}
+        windowSize={2}
+        removeClippedSubviews
       />
       <BannerAds />
     </View>

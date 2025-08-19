@@ -13,6 +13,7 @@ import {
   HeroDetailsModel,
   MatchDetailsModel,
   MatchDetailsProps,
+  RootStackParamList,
 } from "../../services/props";
 import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
@@ -22,6 +23,7 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { TeamFightsTabs } from "./TeamFightsTabs";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
+import { StackScreenProps } from "@react-navigation/stack";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -114,10 +116,11 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     fetchMatchDetails();
   }, [route.params, loadedeList]);
 
-  const renderScene1 = ({ route }: any) => {
+  const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "first":
         return (
+          //<Text>first</Text>
           <OverViewTabs
             GameMode={GameMode}
             LobbyType={LobbyType}
@@ -133,6 +136,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         );
       case "second":
         return (
+          //<Text>second</Text>
           <HeroesDetailsTabs
             PlayerIdIndex={PlayerIdIndex}
             matchDetails={matchDetails}
@@ -147,21 +151,17 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         );
       case "third":
         return <TeamFightComponent />;
+      //return <Text>testes 3</Text>;
       default:
-        return LoadingMatchDetails;
+        return LoadingMatchDetails();
     }
   };
 
-  const TeamFightComponent = React.memo(() => {
-    const heroMap = useMemo(() => {
-      return Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
-    }, [heroArray]);
+  const TeamFightComponent = () => {
+    const heroMap = Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
 
-    const heroNames = useMemo(
-      () =>
-        matchDetails?.players.map((player) => heroMap[player.hero_id]) || [],
-      [matchDetails?.players, heroMap]
-    );
+    const heroNames =
+      matchDetails?.players.map((player) => heroMap[player.hero_id]) || [];
 
     return (
       <TeamFightsTabs
@@ -171,21 +171,19 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         direTeamName={matchDetails?.dire_team?.name ?? direName}
       />
     );
-  });
+  };
 
   //const LoadingMatchDetails = () => {
-  const LoadingMatchDetails = useMemo(() => {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color={ColorTheme.standard} />
-        <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
-          {englishLanguage
-            ? "Loading Match Details..."
-            : "Carregando Detalhes da Partida..."}
-        </Text>
-      </View>
-    );
-  }, [loadingMatch]);
+  const LoadingMatchDetails = () => (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color={ColorTheme.standard} />
+      <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
+        {englishLanguage
+          ? "Loading Match Details..."
+          : "Carregando Detalhes da Partida..."}
+      </Text>
+    </View>
+  );
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -291,7 +289,7 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
     />
   );
 
-  if (loadingMatch) return LoadingMatchDetails;
+  if (loadingMatch) return <LoadingMatchDetails />;
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
@@ -304,13 +302,12 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
       <TabView
         renderTabBar={renderTabBar}
         navigationState={{ index, routes: filteredRoutes }}
-        renderScene={renderScene1}
+        renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         lazy
-        lazyPreloadDistance={0}
-        renderLazyPlaceholder={() => LoadingMatchDetails}
-        removeClippedSubviews={false}
+        lazyPreloadDistance={2}
+        renderLazyPlaceholder={LoadingMatchDetails}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,
@@ -320,4 +317,5 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
         }}
       />
     );
+  //return null;
 };

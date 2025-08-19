@@ -52,6 +52,7 @@ function BarChartComp({
       },
     },
   };
+
   return (
     <BarChart
       style={{
