@@ -27,10 +27,12 @@ import { BarChartComponent } from "./BarCharComponent";
 import { BannerAds } from "../../../components/Admob/BannerAds";
 import EmptyImage from "../../../images/emptyImage.png";
 
-const GREEN = processColor("#71BD6A");
-const RED = processColor("#D14B5A");
-const GOLD = processColor("#DAA520");
-const BLUE = processColor("#219FD5");
+const GREEN = "#71BD6A";
+const RED = "#D14B5A";
+const GOLD = "#DAA520";
+const BLUE = "#219FD5";
+
+const barChartHeight = Dimensions.get("window").height * 0.15;
 
 type ProcessedFight = TeamFightModel & {
   formattedTime: string;
@@ -172,7 +174,12 @@ function TeamFightsComponent({
                   })}
               </View>
               <View
-                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+                style={{
+                  width: "100%",
+                  height: barChartHeight,
+                  paddingTop: "7%",
+                  paddingBottom: "7%",
+                }}
               >
                 <BarChartComponent
                   formattedData={fight.damageRad}
@@ -180,12 +187,22 @@ function TeamFightsComponent({
                 />
               </View>
               <View
-                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+                style={{
+                  width: "100%",
+                  height: barChartHeight,
+                  paddingTop: "7%",
+                  paddingBottom: "7%",
+                }}
               >
                 <BarChartComponent formattedData={fight.xpRad} color={GREEN} />
               </View>
               <View
-                style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+                style={{
+                  width: "100%",
+                  height: barChartHeight,
+                  paddingTop: "7%",
+                  paddingBottom: "7%",
+                }}
               >
                 <BarChartComponent formattedData={fight.goldRad} color={GOLD} />
               </View>
@@ -364,14 +381,11 @@ function TeamFightsComponent({
           </View>
           <View style={{ width: "20%" }}>
             <Text style={styles.textTitle} />
+
             <View
               style={{
-                height: Dimensions.get("window").width * 0.067,
-              }}
-            />
-            <View
-              style={{
-                height: Dimensions.get("window").height * 0.063,
+                height: barChartHeight,
+                backgroundColor: "puple",
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
@@ -382,7 +396,7 @@ function TeamFightsComponent({
             </View>
             <View
               style={{
-                height: Dimensions.get("window").height * 0.083,
+                height: barChartHeight,
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
@@ -393,7 +407,7 @@ function TeamFightsComponent({
             </View>
             <View
               style={{
-                height: Dimensions.get("window").height * 0.075,
+                height: barChartHeight,
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
@@ -465,17 +479,32 @@ function TeamFightsComponent({
                 })}
             </View>
             <View
-              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              style={{
+                width: "100%",
+                height: barChartHeight,
+                paddingTop: "7%",
+                paddingBottom: "7%",
+              }}
             >
               <BarChartComponent formattedData={fight.damageDire} color={RED} />
             </View>
             <View
-              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              style={{
+                width: "100%",
+                height: barChartHeight,
+                paddingTop: "7%",
+                paddingBottom: "7%",
+              }}
             >
               <BarChartComponent formattedData={fight.xpDire} color={GREEN} />
             </View>
             <View
-              style={{ width: "100%", paddingTop: "7%", paddingBottom: "7%" }}
+              style={{
+                width: "100%",
+                height: barChartHeight,
+                paddingTop: "7%",
+                paddingBottom: "7%",
+              }}
             >
               <BarChartComponent formattedData={fight.goldDire} color={GOLD} />
             </View>

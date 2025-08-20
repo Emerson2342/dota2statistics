@@ -158,10 +158,15 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
   };
 
   const TeamFightComponent = () => {
-    const heroMap = Object.fromEntries(heroArray.map((h) => [h.id, h.name]));
+    const heroMap = useMemo(
+      () => Object.fromEntries(heroArray.map((h) => [h.id, h.name])),
+      [heroArray]
+    );
 
-    const heroNames =
-      matchDetails?.players.map((player) => heroMap[player.hero_id]) || [];
+    const heroNames = useMemo(
+      () => matchDetails?.players.map((p) => heroMap[p.hero_id]) || [],
+      [matchDetails, heroMap]
+    );
 
     return (
       <TeamFightsTabs

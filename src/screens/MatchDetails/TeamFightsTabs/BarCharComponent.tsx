@@ -1,77 +1,72 @@
-import React, { useRef } from "react";
+import { LinearGradient, useFont, vec } from "@shopify/react-native-skia";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions,
-  processColor,
+  ActivityIndicator,
   ProcessedColorValue,
+  Text,
   View,
 } from "react-native";
-import { BarChart } from "react-native-charts-wrapper";
+import { Bar, CartesianChart } from "victory-native";
+import quickSand from "../../../Fonts/Quicksand_Bold.ttf";
+import { Easing } from "react-native-reanimated";
 
 function BarChartComp({
   formattedData,
   color,
 }: {
-  formattedData: any;
-  color: ProcessedColorValue | null | undefined;
+  formattedData: { y: number }[];
+  color: string;
 }) {
-  const damageBarHeight = Dimensions.get("window").height * 0.05;
-  //   const hasAnimated = useRef(false);
-  //   const animationConfig = !hasAnimated.current
-  //   ? { durationX: 3500, durationY: 3500, easingX: "EaseInOutQuart", easingY: "EaseInOutQuart" }
-  //   : { durationX: 0, durationY: 0 };
+  const font = useFont(quickSand, 9);
+  const data = formattedData.map((item, index) => ({
+    x: index + 1,
+    y: item.y,
+  }));
 
-  // hasAnimated.current = true;
+  const [loading, setLoading] = useState(true);
 
-  const state = {
-    data: {
-      dataSets: [
-        {
-          values: formattedData,
-          label: "Zero line dataset",
-          config: {
-            color: color,
-          },
-        },
-      ],
-    },
-    xAxis: {
-      enabled: false,
-    },
-    yAxis: {
-      left: {
-        drawLabels: false,
-        drawAxisLine: false,
-        drawGridLines: false,
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 750);
+  }, []);
 
-        zeroLine: {
-          enabled: true,
-        },
-      },
-      right: {
-        enabled: false,
-      },
-    },
-  };
+  if (loading)
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={color} />
+      </View>
+    );
 
   return (
-    <BarChart
-      style={{
-        height: damageBarHeight,
-      }}
-      data={state.data}
-      yAxis={state.yAxis}
-      xAxis={state.xAxis}
-      doubleTapToZoomEnabled={false}
-      chartDescription={{ text: "" }}
-      animation={{
-        durationX: 3500,
-        durationY: 3500,
-        easingX: "EaseInOutQuart",
-        easingY: "EaseInOutQuart",
-      }}
-      legend={{ enabled: false }}
-      viewPortOffsets={{ left: 0, top: 0, right: 0, bottom: 0 }}
-    />
+    <CartesianChart
+      data={data}
+      xKey="x"
+      yKeys={["y"]}
+      domainPadding={{ left: 15, right: 15, top: 30 }}
+    >
+      {({ points, chartBounds }) => (
+        <Bar
+          labels={{
+            position: "top",
+            font: font,
+          }}
+          //barWidth={15}
+          chartBounds={chartBounds}
+          points={points.y}
+          roundedCorners={{
+            topLeft: 9,
+            topRight: 9,
+          }}
+        >
+          <LinearGradient
+            start={vec(0, 0)}
+            end={vec(0, 400)}
+            colors={[color, `${color}10`]}
+          />
+        </Bar>
+      )}
+    </CartesianChart>
   );
 }
 
