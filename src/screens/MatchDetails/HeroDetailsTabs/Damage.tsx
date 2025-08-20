@@ -88,7 +88,7 @@ function Damage({
                   </Text>
                 ) : null}
 
-                {index === 5 ? (
+                {index === 5 && (
                   <Text
                     style={[
                       styles.textTeam,
@@ -97,7 +97,7 @@ function Damage({
                   >
                     {DireName ? DireName : direName}
                   </Text>
-                ) : null}
+                )}
 
                 <View
                   style={{
@@ -180,27 +180,27 @@ function Damage({
                                     />
                                   </View>
                                 )}
-                                {ability === "null" ? (
+                                {ability === "null" && (
                                   <MaterialCommunityIcons
                                     name="sword"
                                     size={Dimensions.get("screen").width * 0.07}
                                     color={"#000"}
                                   />
-                                ) : null}
+                                )}
                                 {!itemInfo &&
-                                !abilityInfo &&
-                                ability != "null" ? (
-                                  <Image
-                                    source={EmptyImage}
-                                    style={{
-                                      width:
-                                        Dimensions.get("screen").width * 0.07,
-                                      height: undefined,
-                                      aspectRatio: 1,
-                                      borderRadius: 5,
-                                    }}
-                                  />
-                                ) : null}
+                                  !abilityInfo &&
+                                  ability != "null" && (
+                                    <Image
+                                      source={EmptyImage}
+                                      style={{
+                                        width:
+                                          Dimensions.get("screen").width * 0.07,
+                                        height: undefined,
+                                        aspectRatio: 1,
+                                        borderRadius: 5,
+                                      }}
+                                    />
+                                  )}
                                 <Text
                                   style={{
                                     fontFamily: "QuickSand-Semibold",
@@ -217,6 +217,24 @@ function Damage({
                             );
                           })}
                     </View>
+
+                    {/* {player.damage_inflictor &&
+                      Object.entries(player.damage_inflictor).map(
+                        ([ability, damage], index) => {
+                          const abilityInfo =
+                            heroAbilitiesDescriptions[ability];
+                          if (index == 0)
+                            return (
+                              <View key={index}>
+                                <Text>
+                                  {abilityInfo && abilityInfo.dmg_type
+                                    ? abilityInfo.dmg_type
+                                    : "asdfasdf"}
+                                </Text>
+                              </View>
+                            );
+                        }
+                      )} */}
                   </View>
                 </View>
               </View>

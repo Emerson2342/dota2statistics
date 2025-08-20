@@ -159,22 +159,22 @@ export const createStyles = (colors: ThemeColor) =>
     },
     benchTowDa: {
       textAlign: "right",
-      width: "17%",
+      width: "13%",
       //backgroundColor: "#333",
     },
     benchHeal: {
-      textAlign: "center",
+      textAlign: "right",
       width: "13%",
       //backgroundColor: "#000",
     },
     benchXp: {
-      textAlign: "center",
+      textAlign: "right",
       width: "13%",
       //backgroundColor: "#333",
     },
     benchGold: {
-      textAlign: "right",
-      width: "10%",
+      textAlign: "center",
+      width: "13%",
       // backgroundColor: "#000",
     },
   });
