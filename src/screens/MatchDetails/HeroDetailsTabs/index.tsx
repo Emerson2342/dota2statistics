@@ -7,6 +7,7 @@ import { AbilitiesComponent } from "./Abilities";
 import { BannerAds } from "../../../components/Admob/BannerAds";
 import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
 import { DamageComponent } from "./Damage";
+import { DamageTypeComponent } from "./DamageType";
 
 type Props = {
   matchDetails: MatchDetailsModel | null;
@@ -68,7 +69,7 @@ function HeroesDetailsComponent({
             />
           ) : null}
         </View>
-        {matchDetails && matchDetails.players[0]?.damage_inflictor ? (
+        {matchDetails && matchDetails.players[0]?.damage_inflictor && (
           <View style={styles.containerItem}>
             <DamageComponent
               RadName={matchDetails?.radiant_team?.name ?? radName}
@@ -76,7 +77,16 @@ function HeroesDetailsComponent({
               matchDetails={matchDetails}
             />
           </View>
-        ) : null}
+        )}
+        {matchDetails && matchDetails.players[0]?.damage_inflictor && (
+          <View style={styles.containerItem}>
+            <DamageTypeComponent
+              RadName={matchDetails?.radiant_team?.name ?? radName}
+              DireName={matchDetails?.dire_team?.name ?? direName}
+              matchDetails={matchDetails}
+            />
+          </View>
+        )}
         <View style={styles.containerItem}>
           {matchDetails ? (
             <ItemsComponent

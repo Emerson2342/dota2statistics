@@ -3287,6 +3287,7 @@
     "desc": "CHANNELED - Puck briefly shifts into another dimension where it is immune from harm.",
     "lore": "With a quip and flash, Puck returns to the alien dimension from whence it came.",
     "mc": "0",
+    "dmg_type": "Magical",
     "cd": [
       "8",
       "7.5",
@@ -3710,6 +3711,7 @@
     "dname": "Great Cleave",
     "behavior": "Passive",
     "bkbpierce": "Yes",
+    "dmg_type": "Physical",
     "desc": "Sven strikes with great force, cleaving all nearby enemy units with his attack.",
     "lore": "The Vigil Knights still seek to reclaim the stolen Outcast Blade from Sven, a weapon capable of cutting wide swaths through lesser warriors.",
     "img": "/apps/dota2/images/dota_react/abilities/sven_great_cleave.png"
@@ -7231,6 +7233,7 @@
   "dragon_knight_dragon_blood": {
     "dname": "Wyrm's Wrath",
     "behavior": "Passive",
+    "dmg_type": "Magical",
     "desc": "The life blood of the Dragon improves Dragon Knight's attacks. When in Dragon form, these effects are stronger.",
     "lore": "Slyrak's blood still courses through Davion's veins, giving him twice the vitality of an ordinary knight.",
     "img": "/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_blood.png"
