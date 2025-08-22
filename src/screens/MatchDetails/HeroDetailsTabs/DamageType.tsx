@@ -31,6 +31,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EmptyImage from "../../../images/emptyImage.png";
 
 type DamageType = "Magical" | "Physical" | "Pure";
+type DamageText = {
+  Physical: number;
+  Magical: number;
+  Pure: number;
+};
 const itemDamageTypes: Record<string, DamageType> = {
   radiance: "Magical",
   maelstrom: "Magical",
@@ -80,12 +85,40 @@ function DamageType({
   const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
     AbilitiesDescriptionsJson;
 
-  const RenderDamage = ({ players }: { players: Player[] }) => {
+  const TextDamage = ({ Physical, Magical, Pure }: DamageText) => {
+    return (
+      <View>
+        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+          {englishLanguage ? "Physical: " : "Físico: "}
+          <Text style={{ color: "#aaa" }}>
+            {Physical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
+          </Text>
+        </Text>
+        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+          {englishLanguage ? "Magical: " : "Mágico: "}
+          <Text style={{ color: "#aaa" }}>
+            {Magical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
+          </Text>
+        </Text>
+        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+          {englishLanguage ? "Pure: " : "Puro: "}
+          <Text style={{ color: "#aaa" }}>
+            {Pure.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
+          </Text>
+        </Text>
+      </View>
+    );
+  };
+
+  const RenderDamage = ({
+    players,
+    teamName,
+  }: {
+    players: Player[];
+    teamName: string;
+  }) => {
     return (
       <View style={styles.contentItem}>
-        <Text style={styles.title}>
-          {englishLanguage ? "Damage Type Caused" : "Type de Dano Causado"}
-        </Text>
         {players &&
           players.map((player: Player, index: number) => {
             const hero = heroList.find((hero) => hero.id === player.hero_id);
@@ -121,28 +154,18 @@ function DamageType({
 
             return (
               <View key={index}>
-                {index == 0 ? (
-                  <Text
-                    style={[
-                      styles.textTeam,
-                      { borderTopWidth: 1, borderColor: ColorTheme.semilight },
-                    ]}
-                  >
-                    {RadName ? RadName : radName}
-                  </Text>
-                ) : null}
-
-                {index === 5 && (
-                  <Text
-                    style={[
-                      styles.textTeam,
-                      { borderTopWidth: 1, borderColor: ColorTheme.semilight },
-                    ]}
-                  >
-                    {DireName ? DireName : direName}
-                  </Text>
-                )}
-
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    styles.textTeam,
+                    {
+                      borderColor: ColorTheme.semilight,
+                      display: index === 0 ? "flex" : "none",
+                    },
+                  ]}
+                >
+                  {teamName}
+                </Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -161,10 +184,10 @@ function DamageType({
                       style={{
                         flexDirection: "row",
                         flexWrap: "wrap",
-                        marginBottom: 23,
+                        // marginBottom: 23,
                       }}
                     >
-                      <Text>{JSON.stringify(totalDamage, null, 2)}</Text>
+                      <TextDamage {...totalDamage} />
                     </View>
                   </View>
                 </View>
@@ -177,12 +200,33 @@ function DamageType({
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={matchDetails ? [matchDetails] : []}
-        scrollEnabled={false}
-        keyExtractor={(item) => item.match_id.toString()}
-        renderItem={({ item }) => <RenderDamage players={item.players} />}
-      />
+      <Text style={styles.title}>
+        {englishLanguage ? "Type of Damage Caused" : "Tipo de Dano Causado"}
+      </Text>
+      <View style={{ flexDirection: "row" }}>
+        <FlatList
+          data={matchDetails ? [matchDetails] : []}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.match_id.toString()}
+          renderItem={({ item }) => (
+            <RenderDamage
+              players={item.players.slice(0, 5)}
+              teamName={RadName ?? radName}
+            />
+          )}
+        />
+        <FlatList
+          data={matchDetails ? [matchDetails] : []}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.match_id.toString()}
+          renderItem={({ item }) => (
+            <RenderDamage
+              players={item.players.slice(5, 10)}
+              teamName={DireName ?? direName}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -207,6 +251,10 @@ const createStyles = (Colors: ThemeColor) =>
       fontSize: 20,
       color: Colors.semidark,
       marginBottom: "3%",
+      paddingBottom: "3%",
+      borderBottomWidth: 1,
+      width: "95%",
+      alignSelf: "center",
     },
     textTeam: {
       textAlign: "center",
@@ -216,16 +264,16 @@ const createStyles = (Colors: ThemeColor) =>
     },
     imageHeroWrapper: {
       justifyContent: "center",
-      width: "13%",
+      width: "35%",
     },
     heroImage: {
-      width: "100%",
+      width: "70%",
       aspectRatio: 1,
       alignSelf: "center",
       borderRadius: 7,
     },
     imageAbilityWrapper: {
-      width: "87%",
+      width: "65%",
       padding: 5,
       justifyContent: "center",
     },

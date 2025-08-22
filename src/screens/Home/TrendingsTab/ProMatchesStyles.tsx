@@ -9,7 +9,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       width: "95%",
       borderRadius: 7,
       alignSelf: "center",
-      backgroundColor: "#fff",
+      // backgroundColor: "#fff",
     },
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
@@ -17,6 +17,11 @@ export const createStylesStatics = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Bold",
       color: colors.semidark,
       alignSelf: "center",
+      backgroundColor: colors.light,
+      borderRadius: 9,
+      padding: 3,
+      margin: 3,
+      width: "90%",
     },
     titleContainer: {
       width: "100%",
@@ -37,7 +42,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       backgroundColor: "#fff",
       borderColor: colors.standard,
       elevation: 3,
-      borderLeftWidth: 5,
+      borderLeftWidth: 7,
 
       borderRadius: 5,
       marginTop: "1.7%",

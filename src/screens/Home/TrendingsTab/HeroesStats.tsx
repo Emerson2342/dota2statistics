@@ -133,7 +133,7 @@ const createStyles = (colors: ThemeColor) =>
     },
     content: {
       borderRadius: 7,
-      backgroundColor: "#fff",
+      //backgroundColor: "#fff",
       marginHorizontal: "2%",
       paddingVertical: "1%",
     },
@@ -145,6 +145,9 @@ const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
       borderColor: colors.dark,
       width: "90%",
+      backgroundColor: colors.light,
+      borderRadius: 9,
+      padding: 3,
     },
     text: {
       fontSize: Dimensions.get("window").width * 0.025,
