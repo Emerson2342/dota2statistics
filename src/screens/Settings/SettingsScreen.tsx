@@ -46,190 +46,159 @@ export function SettingsScreen() {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          {englishLanguage ? "My Account" : "Minha Conta"}
-        </Text>
-        <Text style={styles.profile}>
-          Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
-        </Text>
-        <TouchableOpacity
-          style={[styles.buttonSave, { marginTop: 15 }]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.textButton}>
-            {englishLanguage ? "Edit" : "Editar"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          justifyContent: "center",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
+      <View style={[styles.container, { flex: 0.8 }]}>
         <View style={styles.container}>
-          <View style={styles.optionsContainer}>
-            <Text style={styles.title}>
-              {englishLanguage ? "Language" : "Idioma"}
-            </Text>
-            <View style={styles.options}>
-              <TouchableOpacity
-                style={{ marginTop: "2%", marginBottom: "2%" }}
-                onPress={() => setIsEnglish(true)}
-              >
-                <Text
-                  style={
-                    isEnglish
-                      ? [styles.textOptions, { color: ColorTheme.dark }]
-                      : styles.textOptions
-                  }
-                >
-                  <Feather
-                    name={isEnglish ? "check-square" : "square"}
-                    size={15}
-                  />{" "}
-                  {englishLanguage ? "English (EN-US)" : "Inglês (EN-US)"}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ marginBottom: "2%" }}
-                onPress={() => setIsEnglish(false)}
-              >
-                <Text
-                  style={
-                    !isEnglish
-                      ? [styles.textOptions, { color: ColorTheme.dark }]
-                      : styles.textOptions
-                  }
-                >
-                  <Feather
-                    name={isEnglish ? "square" : "check-square"}
-                    size={15}
-                  />{" "}
-                  {englishLanguage
-                    ? "Portuguese (PT-BR)"
-                    : "Português (PT-BR) "}
-                </Text>
-                <Text
-                  style={[
-                    styles.textAlert,
-                    { display: isEnglish ? "none" : "flex" },
-                  ]}
-                >
-                  Mesmo configurado em Português, alguns dados serão
-                  apresentados em Inglês
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.optionsContainer}>
-            <Text style={styles.title}>
-              {englishLanguage ? "Theme" : "Tema"}
-            </Text>
-            <View style={styles.options}>
-              <TouchableOpacity
-                style={{ marginTop: "2%", marginBottom: "2%" }}
-                onPress={() => {
-                  setSelectTheme("int");
-                }}
-              >
-                <Text
-                  style={
-                    selectTheme === "int"
-                      ? [styles.textOptions, { color: ColorTheme.dark }]
-                      : styles.textOptions
-                  }
-                >
-                  <Feather
-                    name={selectTheme === "int" ? "check-square" : "square"}
-                    size={15}
-                  />
-                  {englishLanguage ? "Intelligence" : "Inteligência"}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ marginBottom: "2%" }}
-                onPress={() => {
-                  setSelectTheme("agi");
-                }}
-              >
-                <Text
-                  style={
-                    selectTheme === "agi"
-                      ? [styles.textOptions, { color: ColorTheme.dark }]
-                      : styles.textOptions
-                  }
-                >
-                  <Feather
-                    name={selectTheme === "agi" ? "check-square" : "square"}
-                    size={15}
-                  />
-                  {englishLanguage ? "Agility" : "Agilidade"}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ marginBottom: "2%" }}
-                onPress={() => {
-                  setSelectTheme("str");
-                }}
-              >
-                <Text
-                  style={
-                    selectTheme === "str"
-                      ? [styles.textOptions, { color: ColorTheme.dark }]
-                      : styles.textOptions
-                  }
-                >
-                  <Feather
-                    name={selectTheme === "str" ? "check-square" : "square"}
-                    size={15}
-                  />
-                  {englishLanguage ? "Strengh" : "Força"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                justifyContent: "space-evenly",
-              }}
-            >
-              {/* <TouchableOpacity
-                onPress={() => setModalConfirmLogOutVisible(true)}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
-                <Text
-                  style={{
-                    color: ColorTheme.semidark,
-                    fontFamily: "QuickSand-Bold",
-                  }}
-                >
-                  {englishLanguage ? "Log Out " : "Sair "}
-                </Text>
-                <FontAwesome name="sign-out" size={17} />
-              </TouchableOpacity> */}
-            </View>
-          </View>
-        </View>
-        <View style={styles.buttonContainer}>
+          <Text style={styles.title}>
+            {englishLanguage ? "My Account" : "Minha Conta"}
+          </Text>
+          <Text style={styles.profile}>
+            Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
+          </Text>
           <TouchableOpacity
-            style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
-            onPress={() => handleSaveChanges()}
+            style={[styles.buttonSave, { marginTop: 15 }]}
+            onPress={() => setModalVisible(true)}
           >
-            <Text style={[styles.textButton, { color: "#fff" }]}>
-              {englishLanguage ? "Save Changes" : "Salvar"}
+            <Text style={styles.textButton}>
+              {englishLanguage ? "Edit" : "Editar"}
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            {englishLanguage ? "Language" : "Idioma"}
+          </Text>
+          <View style={styles.options}>
+            <TouchableOpacity
+              style={{ marginTop: "2%", marginBottom: "2%" }}
+              onPress={() => setIsEnglish(true)}
+            >
+              <Text
+                style={
+                  isEnglish
+                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    : styles.textOptions
+                }
+              >
+                <Feather
+                  name={isEnglish ? "check-square" : "square"}
+                  size={15}
+                />{" "}
+                {englishLanguage ? "English (EN-US)" : "Inglês (EN-US)"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: "2%" }}
+              onPress={() => setIsEnglish(false)}
+            >
+              <Text
+                style={
+                  !isEnglish
+                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    : styles.textOptions
+                }
+              >
+                <Feather
+                  name={isEnglish ? "square" : "check-square"}
+                  size={15}
+                />{" "}
+                {englishLanguage ? "Portuguese (PT-BR)" : "Português (PT-BR) "}
+              </Text>
+              <Text
+                style={[
+                  styles.textAlert,
+                  { display: isEnglish ? "none" : "flex" },
+                ]}
+              >
+                Mesmo configurado em Português, alguns dados serão apresentados
+                em Inglês
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>{englishLanguage ? "Theme" : "Tema"}</Text>
+          <View style={styles.options}>
+            <TouchableOpacity
+              style={{ marginTop: "2%", marginBottom: "2%" }}
+              onPress={() => {
+                setSelectTheme("int");
+              }}
+            >
+              <Text
+                style={
+                  selectTheme === "int"
+                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    : styles.textOptions
+                }
+              >
+                <Feather
+                  name={selectTheme === "int" ? "check-square" : "square"}
+                  size={15}
+                />
+                {englishLanguage ? "Intelligence" : "Inteligência"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: "2%" }}
+              onPress={() => {
+                setSelectTheme("agi");
+              }}
+            >
+              <Text
+                style={
+                  selectTheme === "agi"
+                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    : styles.textOptions
+                }
+              >
+                <Feather
+                  name={selectTheme === "agi" ? "check-square" : "square"}
+                  size={15}
+                />
+                {englishLanguage ? "Agility" : "Agilidade"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginBottom: "2%" }}
+              onPress={() => {
+                setSelectTheme("str");
+              }}
+            >
+              <Text
+                style={
+                  selectTheme === "str"
+                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    : styles.textOptions
+                }
+              >
+                <Feather
+                  name={selectTheme === "str" ? "check-square" : "square"}
+                  size={15}
+                />
+                {englishLanguage ? "Strengh" : "Força"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-evenly",
+            }}
+          ></View>
+        </View>
       </View>
-
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
+          onPress={() => handleSaveChanges()}
+        >
+          <Text style={[styles.textButton, { color: "#fff" }]}>
+            {englishLanguage ? "Save Changes" : "Salvar"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <BannerAds />
       <Modal
         visible={modalVisible}
         transparent={true}
@@ -238,7 +207,6 @@ export function SettingsScreen() {
       >
         <ModalMyAccount handleClose={() => setModalVisible(false)} />
       </Modal>
-
       <Modal visible={isLoading} transparent={true}>
         <View
           style={{
@@ -260,7 +228,6 @@ export function SettingsScreen() {
           </Text>
         </View>
       </Modal>
-      <BannerAds />
     </View>
   );
 }

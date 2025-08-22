@@ -143,11 +143,11 @@ function LastMatchesComponent({
             <MaterialIcons name="thumb-down" size={17} color="#9a0c28" />
           )}
         </Text>
-        <Text style={[styles.textList, { width: "32%" }]}>
+        <Text style={[styles.textList, { width: "30%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </Text>
-        <View style={{ width: "23%" }}>
+        <View style={{ width: "25%" }}>
           <Text
             style={[
               styles.textList,

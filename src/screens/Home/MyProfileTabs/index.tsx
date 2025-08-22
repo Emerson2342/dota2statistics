@@ -76,13 +76,16 @@ export function MyProfileTabs() {
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
-        <SearchComponent
-          onSearch={handleSave}
-          placeHolder="Steam ID"
-          showModalMessage={showModalMessage}
-          setShowModalMessage={() => setShowModalMessage(false)}
-        />
-        <Text style={styles.textErro}>{erro404}</Text>
+        <View style={{ width: "100%", flex: 1 }}>
+          <SearchComponent
+            onSearch={handleSave}
+            placeHolder="Steam ID"
+            showModalMessage={showModalMessage}
+            setShowModalMessage={() => setShowModalMessage(false)}
+          />
+          <Text style={styles.textErro}>{erro404}</Text>
+        </View>
+        <BannerAds />
       </View>
     );
   }
@@ -142,10 +145,9 @@ const createStyles = (colors: ThemeColor) =>
       backgroundColor: "#fff",
     },
     inputContainer: {
-      marginTop: "3%",
-      width: "95%",
+      flex: 1,
+      width: "100%",
       alignItems: "center",
-      justifyContent: "space-around",
     },
     textErro: {
       textAlign: "center",

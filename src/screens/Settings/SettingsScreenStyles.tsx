@@ -6,12 +6,10 @@ export const createStyles = (Colors: ThemeColor) =>
     mainContainer: {
       flex: 1,
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "flex-start",
     },
     container: {
-      justifyContent: "center",
       alignItems: "center",
-      borderRadius: 10,
       margin: "1%",
       width: "100%",
       padding: "3%",
@@ -30,35 +28,23 @@ export const createStyles = (Colors: ThemeColor) =>
       marginVertical: 15,
     },
     profile: {
-      fontSize: 15,
       fontFamily: "QuickSand-Bold",
       textAlign: "left",
       width: "100%",
-      paddingLeft: "5%",
-      paddingRight: "5%",
       color: Colors.dark,
     },
     textData: {
       color: "#000",
       fontFamily: "QuickSand-Regular",
     },
-    optionsContainer: {
-      //padding: '5%',
-      width: "100%",
-      borderTopWidth: 1,
-      borderColor: Colors.standard,
-    },
-
     textOptions: {
       fontFamily: "QuickSand-Bold",
       color: "#888",
     },
     buttonContainer: {
-      marginBottom: "7%",
+      flex: 0.1,
       alignItems: "center",
-      flexDirection: "row",
       width: "100%",
-      justifyContent: "space-around",
     },
     options: {
       width: "100%",
