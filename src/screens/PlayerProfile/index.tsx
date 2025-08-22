@@ -229,10 +229,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
           return <Header />;
         case "heroesPlayed":
           return (
-            <HeroesPlayedTabs
-              heroesPlayedList={heroesPlayed}
-              PlayerId={PlayerId}
-            />
+            <HeroesPlayedTabs PlayerId={PlayerId} IsPlayerProfile={false} />
           );
         default:
           return null;

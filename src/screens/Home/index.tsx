@@ -74,7 +74,12 @@ export function Home() {
       case "myProfile":
         return <MyProfileTabs />;
       case "heroesPlayed":
-        return <HeroesPlayedComponent PlayerId={profile?.id_Steam ?? "1"} />;
+        return (
+          <HeroesPlayedComponent
+            PlayerId={profile?.id_Steam ?? "1"}
+            isHomeProfile={true}
+          />
+        );
       default:
         return null;
     }

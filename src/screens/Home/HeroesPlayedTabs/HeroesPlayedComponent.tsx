@@ -26,7 +26,13 @@ import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
 import { getHeroesPlayed } from "../../../../src/services/api";
 
-function HeroesPlayedComp({ PlayerId }: { PlayerId: string }) {
+function HeroesPlayedComp({
+  PlayerId,
+  isHomeProfile,
+}: {
+  PlayerId: string;
+  isHomeProfile: boolean;
+}) {
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
@@ -41,6 +47,7 @@ function HeroesPlayedComp({ PlayerId }: { PlayerId: string }) {
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+    //if(isHomeProfile)
     handleGetHeroesPlayed(PlayerId);
   }, [PlayerId]);
 
@@ -133,7 +140,7 @@ function HeroesPlayedComp({ PlayerId }: { PlayerId: string }) {
         />
       </View>
     );
-  if (player == null || player.profile.account_id == 0) {
+  if (isHomeProfile && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.9 }}>
