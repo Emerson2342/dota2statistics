@@ -23,7 +23,7 @@ import { AsyncStorageService } from "../../../src/services/StorageService";
 import { TeamFightsTabs } from "./TeamFightsTabs";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { StackScreenProps } from "@react-navigation/stack";
+import { BannerAds } from "../../../src/components/Admob/BannerAds";
 
 export const MatchDetails = ({ route }: MatchDetailsProps) => {
   const { MatchDetailsIndex, PlayerIdIndex, LobbyType, GameMode } =
@@ -180,13 +180,20 @@ export const MatchDetails = ({ route }: MatchDetailsProps) => {
 
   //const LoadingMatchDetails = () => {
   const LoadingMatchDetails = () => (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color={ColorTheme.standard} />
-      <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
-        {englishLanguage
-          ? "Loading Match Details..."
-          : "Carregando Detalhes da Partida..."}
-      </Text>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color={ColorTheme.standard} />
+        <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
+          {englishLanguage
+            ? "Loading Match Details..."
+            : "Carregando Detalhes da Partida..."}
+        </Text>
+      </View>
+      <BannerAds />
     </View>
   );
 

@@ -247,6 +247,7 @@ const createStyles = (Colors: ThemeColor) =>
       marginBottom: "3%",
       paddingBottom: "3%",
       borderBottomWidth: 1,
+      borderColor: Colors.semidark,
       width: "95%",
       alignSelf: "center",
     },
