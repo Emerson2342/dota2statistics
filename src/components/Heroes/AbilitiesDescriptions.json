@@ -12527,6 +12527,7 @@
   },
   "nyx_assassin_spiked_carapace": {
     "dname": "Spiked Carapace",
+    "dmg_type": "Physical",
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -13276,6 +13277,7 @@
   },
   "medusa_split_shot": {
     "dname": "Split Shot",
+    "dmg_type": "Physical",
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -16771,6 +16773,7 @@
       "Instant Cast"
     ],
     "bkbpierce": "No",
+    "dmg_type": "Magical",
     "dispellable": "No",
     "desc": "Dawnbreaker recalls her hammer, pulling them together so they meet in the middle.",
     "mc": "0",

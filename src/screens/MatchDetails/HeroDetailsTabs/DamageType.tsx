@@ -1,34 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, FlatList, StyleSheet } from "react-native";
 import {
   HeroAbilitiesDescriptionsJson,
   HeroDetailsModel,
-  ItemsJson,
-  ItemsModel,
   MatchDetailsModel,
   Player,
-  RootStackParamList,
   ThemeColor,
 } from "../../../services/props";
 import AbilitiesDescriptionsJson from "../../../components/Heroes/AbilitiesDescriptions.json";
-import ItemsList from "../../../components/Itens/itemsList.json";
-import {
-  ITEM_IMAGE_BASE_URL,
-  PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import EmptyImage from "../../../images/emptyImage.png";
 
 type DamageType = "Magical" | "Physical" | "Pure";
 type DamageText = {
@@ -53,28 +36,38 @@ const itemDamageTypes: Record<string, DamageType> = {
   blood_grenade: "Magical",
   dust_of_appearance: "Magical",
   devastator: "Magical",
+  blade_mail: "Physical",
+  crippling_crossbow: "Magical",
 };
 
 function DamageType({
   matchDetails,
   RadName,
   DireName,
+  damageInflictor,
 }: {
   matchDetails: MatchDetailsModel;
   RadName: string | undefined;
   DireName: string | undefined;
+  damageInflictor: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
-  // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
   const styles = createStyles(ColorTheme);
-  // const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
+  const title =
+    damageInflictor === "caused"
+      ? englishLanguage
+        ? "Type of Damage Caused"
+        : "Tipo de Dano Causado"
+      : englishLanguage
+      ? "Type of Damage Received"
+      : "Tipo de Dano Recebido";
 
   useEffect(() => {
     setTimeout(() => {
@@ -123,9 +116,13 @@ function DamageType({
           players.map((player: Player, index: number) => {
             const hero = heroList.find((hero) => hero.id === player.hero_id);
             let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
+            const damage =
+              damageInflictor === "caused"
+                ? player.damage_inflictor
+                : player.damage_inflictor_received;
 
-            const totalDamage = player.damage_inflictor
-              ? Object.entries(player.damage_inflictor).reduce(
+            const totalDamage = damage
+              ? Object.entries(damage).reduce(
                   (acc, [ability, value]) => {
                     let dmgType: "Magical" | "Physical" | "Pure" | undefined;
 
@@ -184,7 +181,6 @@ function DamageType({
                       style={{
                         flexDirection: "row",
                         flexWrap: "wrap",
-                        // marginBottom: 23,
                       }}
                     >
                       <TextDamage {...totalDamage} />
@@ -200,9 +196,7 @@ function DamageType({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {englishLanguage ? "Type of Damage Caused" : "Tipo de Dano Causado"}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
       <View style={{ flexDirection: "row" }}>
         <FlatList
           data={matchDetails ? [matchDetails] : []}

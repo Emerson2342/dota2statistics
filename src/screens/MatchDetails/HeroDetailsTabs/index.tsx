@@ -84,6 +84,17 @@ function HeroesDetailsComponent({
               RadName={matchDetails?.radiant_team?.name ?? radName}
               DireName={matchDetails?.dire_team?.name ?? direName}
               matchDetails={matchDetails}
+              damageInflictor="caused"
+            />
+          </View>
+        )}
+        {matchDetails && matchDetails.players[0]?.damage_inflictor_received && (
+          <View style={styles.containerItem}>
+            <DamageTypeComponent
+              RadName={matchDetails?.radiant_team?.name ?? radName}
+              DireName={matchDetails?.dire_team?.name ?? direName}
+              matchDetails={matchDetails}
+              damageInflictor="received"
             />
           </View>
         )}

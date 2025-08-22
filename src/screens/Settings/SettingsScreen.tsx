@@ -46,7 +46,7 @@ export function SettingsScreen() {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={[styles.container, { flex: 0.8 }]}>
+      <View style={[styles.container, { flex: 0.9 }]}>
         <View style={styles.container}>
           <Text style={styles.title}>
             {englishLanguage ? "My Account" : "Minha Conta"}
