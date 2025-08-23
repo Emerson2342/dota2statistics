@@ -26,6 +26,15 @@ export function SettingsScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { ColorTheme } = useTheme();
+  const styles = createStyles(ColorTheme);
+
+  const themeKeys: Record<string, string> = {
+    ti2025: "The International 2025",
+    int: englishLanguage ? "Intelligence" : "Inteligência",
+    agi: englishLanguage ? "Agility" : "Agilidade",
+    str: englishLanguage ? "Strengh" : "Força",
+  };
+
   useFocusEffect(
     useCallback(() => {
       setIsEnglish(englishLanguage);
@@ -41,8 +50,6 @@ export function SettingsScreen() {
       setIsLoading(false);
     }, 300);
   };
-
-  const styles = createStyles(ColorTheme);
 
   return (
     <View style={styles.mainContainer}>
@@ -118,66 +125,31 @@ export function SettingsScreen() {
         <View style={styles.container}>
           <Text style={styles.title}>{englishLanguage ? "Theme" : "Tema"}</Text>
           <View style={styles.options}>
-            <TouchableOpacity
-              style={{ marginTop: "2%", marginBottom: "2%" }}
-              onPress={() => {
-                setSelectTheme("int");
-              }}
-            >
-              <Text
-                style={
-                  selectTheme === "int"
-                    ? [styles.textOptions, { color: ColorTheme.dark }]
-                    : styles.textOptions
-                }
-              >
-                <Feather
-                  name={selectTheme === "int" ? "check-square" : "square"}
-                  size={15}
-                />
-                {englishLanguage ? "Intelligence" : "Inteligência"}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ marginBottom: "2%" }}
-              onPress={() => {
-                setSelectTheme("agi");
-              }}
-            >
-              <Text
-                style={
-                  selectTheme === "agi"
-                    ? [styles.textOptions, { color: ColorTheme.dark }]
-                    : styles.textOptions
-                }
-              >
-                <Feather
-                  name={selectTheme === "agi" ? "check-square" : "square"}
-                  size={15}
-                />
-                {englishLanguage ? "Agility" : "Agilidade"}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ marginBottom: "2%" }}
-              onPress={() => {
-                setSelectTheme("str");
-              }}
-            >
-              <Text
-                style={
-                  selectTheme === "str"
-                    ? [styles.textOptions, { color: ColorTheme.dark }]
-                    : styles.textOptions
-                }
-              >
-                <Feather
-                  name={selectTheme === "str" ? "check-square" : "square"}
-                  size={15}
-                />
-                {englishLanguage ? "Strengh" : "Força"}
-              </Text>
-            </TouchableOpacity>
+            {Object.entries(themeKeys).map(
+              ([themeKey, themeLabel]: [string, string], index: number) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{ marginTop: "2%" }}
+                  onPress={() => setSelectTheme(themeKey)}
+                >
+                  <Text
+                    style={
+                      selectTheme === themeKey
+                        ? [styles.textOptions, { color: ColorTheme.dark }]
+                        : styles.textOptions
+                    }
+                  >
+                    <Feather
+                      name={
+                        selectTheme === themeKey ? "check-square" : "square"
+                      }
+                      size={15}
+                    />{" "}
+                    {themeLabel}
+                  </Text>
+                </TouchableOpacity>
+              )
+            )}
           </View>
           <View
             style={{

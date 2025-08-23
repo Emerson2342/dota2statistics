@@ -7,17 +7,14 @@ const IntTheme: ThemeColor = {
   semidark: "#004054",
   standard: "#006480",
   semilight: "#336676",
-  light: "#deebfc"
-  //light: "#a2cad2",
-
+  light: "#deebfc",
 };
 const AgiTheme: ThemeColor = {
   dark: "#0a2f1c",
   semidark: "#0d5030",
   standard: "#2f6b48",
   semilight: "#3d7359",
-  light: "#DAF1DB"
-  //light: "#a9d8bf",
+  light: "#DAF1DB",
 };
 
 const StrTheme: ThemeColor = {
@@ -26,7 +23,14 @@ const StrTheme: ThemeColor = {
   standard: "#903333",
   semilight: "#763333",
   light: "#FBEAEC",
-  //light: "#d7b0b0",
+};
+
+const TheInternationalTheme: ThemeColor = {
+  dark: "#2e0e4e",
+  semidark: "#400e75",
+  standard: "#6c1cc2",
+  semilight: "#764da1",
+  light: "#ebdcfc",
 };
 interface ThemeContextType {
   ColorTheme: ThemeColor;
@@ -51,8 +55,10 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     case "str":
       ColorTheme = StrTheme;
       break;
+    case "ti2025":
+      ColorTheme = TheInternationalTheme;
     default:
-      alert("Erro ao selecionar o Tema");
+      ColorTheme = TheInternationalTheme;
   }
 
   return (
@@ -65,7 +71,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useTheme deve ser usando dentro de um ThemeProvider");
+    throw new Error("useTheme must be used in ThemeProvider");
   }
   return context;
 };
