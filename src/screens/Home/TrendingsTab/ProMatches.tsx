@@ -15,6 +15,7 @@ import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
 
@@ -25,12 +26,11 @@ function ProMatchesComponent({
   proMatches: LeagueMatches[] | [];
   onRefresh: () => Promise<void>;
 }) {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const refresh = useCallback(async () => {
     console.log("Refresh pro matches");
@@ -67,20 +67,25 @@ function ProMatchesComponent({
     });
   }, [proMatches, currentTimestamp]);
 
-  const handleGoToMatch = (matchIndex: number) => {
-    navigation.navigate("MatchDetails", {
-      MatchDetailsIndex: matchIndex,
-      PlayerIdIndex: null,
+  const handleGoToMatch = (matchId: number) => {
+    router.push({
+      pathname: "/match-details",
+      params: {
+        matchDetailsIndex: matchId,
+      },
     });
   };
 
   const handleGoToLeagueMatches = (
-    LeagueIdIndex: number,
-    LeagueName: string | null
+    leagueId: number,
+    leagueName: string | null
   ) => {
-    navigation.navigate("LeagueDetails", {
-      LeagueIdIndex: LeagueIdIndex,
-      LeagueName: LeagueName ?? "",
+    router.push({
+      pathname: "/league-details",
+      params: {
+        leagueId: leagueId,
+        leagueName: leagueName ?? "",
+      },
     });
   };
 

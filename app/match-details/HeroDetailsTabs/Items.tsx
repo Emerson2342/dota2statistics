@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
+import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { useTheme } from "../../../src/context/useThemeContext";
 import {
   AghanimModel,
   HeroDetailsModel,
@@ -18,15 +18,15 @@ import {
   MatchDetailsModel,
   Player,
   ThemeColor,
-} from "../../../services/props";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import ItemsList from "../../../components/Itens/itemsList.json";
+} from "../../../src/services/props";
+import HeroesDetails from "../../../src/components/Heroes/HeroesDetails.json";
+import ItemsList from "../../../src/components/Itens/itemsList.json";
 import {
   PICTURE_HERO_BASE_URL,
   PICTURE_ITEM_BASE_URL,
-} from "../../../constants/player";
-import { ModalItemDetails } from "../../../components/Modals/ModalItemDetails";
-import AghanimDescription from "../../../components/Heroes/aghanimDescription.json";
+} from "../../../src/constants/player";
+import { ModalItemDetails } from "../../../src/components/Modals/ModalItemDetails";
+import AghanimDescription from "../../../src/components/Heroes/aghanimDescription.json";
 
 const { width } = Dimensions.get("window");
 

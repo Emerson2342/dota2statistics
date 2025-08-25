@@ -12,18 +12,18 @@ import {
   MatchDetailsModel,
   Player,
   RootStackParamList,
-} from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { Medal } from "../../../components/Medals/MedalsList";
+} from "../../../src/services/props";
+import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { useTheme } from "../../../src/context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import HeroesDetails from "../../../src/components/Heroes/HeroesDetails.json";
+import { Medal } from "../../../src/components/Medals/MedalsList";
 import { createStyles } from "./TeamsStyles";
 import { useNavigation } from "@react-navigation/native";
-import { ModalMessage } from "../../../components/Modals/ModalMessage";
+import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ModalHelpMatchDetails } from "../../../components/Modals/ModalHelpMatchDetails";
+import { ModalHelpMatchDetails } from "../../../src/components/Modals/ModalHelpMatchDetails";
 function Teams({
   matchDetails,
   PlayerIdIndex,

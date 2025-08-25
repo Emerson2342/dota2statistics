@@ -4,8 +4,11 @@ import { GraficsGoldPlayersComponent } from "./GraficsGoldPlayers";
 import { HeroKillsDetailsComponent } from "./KillsDetails";
 import { ItemsComponent } from "./Items";
 import { AbilitiesComponent } from "./Abilities";
-import { BannerAds } from "../../../components/Admob/BannerAds";
-import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
+import { BannerAds } from "../../../src/components/Admob/BannerAds";
+import {
+  HeroDetailsModel,
+  MatchDetailsModel,
+} from "../../../src/services/props";
 import { DamageComponent } from "./Damage";
 import { DamageTypeComponent } from "./DamageType";
 

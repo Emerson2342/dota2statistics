@@ -1,10 +1,6 @@
 import * as React from "react";
-import { Alert, Dimensions, Modal, Platform, View } from "react-native";
-import {
-  createDrawerNavigator,
-  DrawerContentComponentProps,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+import { Dimensions } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 
@@ -19,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
 
-export function DrawerNavigator() {
+export function DrawerNavigatorScreen() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 

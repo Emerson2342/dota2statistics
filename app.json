@@ -2,11 +2,12 @@
   "expo": {
     "name": "Dota 2 Stats",
     "slug": "dota2",
-    "version": "1.1.8",
+    "version": "1.1.9",
     "orientation": "portrait",
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "com.dota2Stats.app",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -45,7 +46,8 @@
           "androidAppId": "ca-app-pub-4117477719356991~2847737808"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-router"
     ]
   }
 }

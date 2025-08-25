@@ -1,25 +1,17 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
   StyleSheet,
   Dimensions,
   Image,
 } from "react-native";
-import {
-  HeroDetailsModel,
-  HeroStats,
-  RootStackParamList,
-  ThemeColor,
-} from "../../../services/props";
+import { HeroStats, ThemeColor } from "../../../services/props";
+import { useRouter } from "expo-router";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
-import { useNavigation } from "@react-navigation/native";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import { DrawerNavigationProp } from "@react-navigation/drawer";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 
 function HeroesStatsComponent({
   heroesStats,
@@ -29,9 +21,9 @@ function HeroesStatsComponent({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-  const navigation =
-    useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
+  const router = useRouter();
+  // const navigation =
+  //   useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
 
   const bestWinrate = useMemo(
     () =>
@@ -49,15 +41,13 @@ function HeroesStatsComponent({
     [heroesStats]
   );
 
-  // const pickedSum = heroesStats.reduce((sum, h) => sum + h.pub_pick, 0);
-
-  const GoToHeroDetails = (item: number) => {
-    const heroDetails = heroArray.find((hero) => hero.id === item);
-    if (heroDetails) {
-      navigation.navigate("HeroDetails", { heroDetails: heroDetails });
-    } else {
-      alert("Hero not found");
-    }
+  const GoToHeroDetails = (heroId: number) => {
+    router.push({
+      pathname: "/hero-details",
+      params: {
+        heroId: heroId.toString(),
+      },
+    });
   };
 
   return (
