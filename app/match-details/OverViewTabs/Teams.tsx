@@ -24,6 +24,7 @@ import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ModalHelpMatchDetails } from "../../../src/components/Modals/ModalHelpMatchDetails";
+import { useRouter } from "expo-router";
 function Teams({
   matchDetails,
   PlayerIdIndex,
@@ -34,8 +35,8 @@ function Teams({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "PlayerProfile">>();
+  const router = useRouter();
+
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const messageText = englishLanguage
     ? "This profile is private"
@@ -61,7 +62,13 @@ function Teams({
     if (playerId === undefined) {
       setModalMessageVisible(true);
     } else {
-      navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
+      // navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
+      router.push({
+        pathname: "/player-profile",
+        params: {
+          playerId: playerId.toString(),
+        },
+      });
     }
   };
 

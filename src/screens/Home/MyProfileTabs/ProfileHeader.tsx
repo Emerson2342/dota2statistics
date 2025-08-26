@@ -15,15 +15,13 @@ import {
   HeroDetailsModel,
   PlayerModel,
   RecentMatches,
-  RootStackParamList,
 } from "../../../services/props";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { useTheme } from "../../../context/useThemeContext";
-import { useNavigation } from "@react-navigation/native";
-import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useRouter } from "expo-router";
 
 const NUMBER_COLUMNS = 10;
 
@@ -41,11 +39,10 @@ export function ProfileHeader({
     font2: "QuickSand-Bold",
     font3: "QuickSand-Regular",
   };
+  const router = useRouter();
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-  const navigation =
-    useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
 
   const styles = createStyles(ColorTheme, Font);
 
@@ -73,12 +70,10 @@ export function ProfileHeader({
     .replace(".", ",");
 
   const GoToHeroDetails = (item: number | undefined) => {
-    const heroDetails = heroArray.find((hero) => hero.id === item);
-    if (heroDetails) {
-      navigation.navigate("HeroDetails", { heroDetails: heroDetails });
-    } else {
-      alert("Hero not found");
-    }
+    router.push({
+      pathname: "/hero-details",
+      params: { heroId: item?.toString() ?? "0" },
+    });
   };
 
   const renderHeroesPlayed = ({

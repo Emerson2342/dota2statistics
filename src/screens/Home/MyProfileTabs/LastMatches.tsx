@@ -22,10 +22,9 @@ import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { usePlayerContext } from "../../../context/usePlayerContex";
 import { useTheme } from "../../../context/useThemeContext";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GameMode, LobbyType } from "../../../services/enum";
+import { useRouter } from "expo-router";
 
 function LastMatchesComponent({
   playerId,
@@ -36,9 +35,7 @@ function LastMatchesComponent({
   recentMatches: RecentMatches[] | null;
   onRefresh: () => void;
 }) {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "MatchDetails">>();
-
+  const router = useRouter();
   const { englishLanguage } = useSettingsContext();
 
   const { player } = usePlayerContext();
@@ -58,12 +55,21 @@ function LastMatchesComponent({
     lobbyType?: string,
     gameMode?: string
   ) => {
-    navigation.navigate("MatchDetails", {
-      MatchDetailsIndex: matchIdIndex,
-      PlayerIdIndex: playerIdIndex,
-      LobbyType: lobbyType,
-      GameMode: gameMode,
+    router.push({
+      pathname: "/match-details",
+      params: {
+        matchDetailsIndex: matchIdIndex.toString(),
+        playerIdIndex: playerIdIndex,
+        lobbyType: lobbyType,
+        gameMode: gameMode,
+      },
     });
+    // navigation.navigate("MatchDetails", {
+    //   MatchDetailsIndex: matchIdIndex,
+    //   PlayerIdIndex: playerIdIndex,
+    //   LobbyType: lobbyType,
+    //   GameMode: gameMode,
+    // });
   };
 
   const renderItem = ({

@@ -1,6 +1,9 @@
 import { Stack } from "expo-router";
 import { PlayerProvider } from "./../src/context/usePlayerContex";
-import { SettingsProvider } from "./../src/context/useSettingsContext";
+import {
+  SettingsProvider,
+  useSettingsContext,
+} from "./../src/context/useSettingsContext";
 import { Routes } from "./../src/routes/routes";
 import { NavigationContainer } from "@react-navigation/native";
 import { ProfileProvider } from "./../src/context/useProfileContext";
@@ -65,6 +68,7 @@ export default function App() {
 function Content() {
   const { ColorTheme } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
+  const { englishLanguage } = useSettingsContext();
 
   const [isAppAlready, setIsAppAlready] = useState(false);
 
@@ -111,7 +115,29 @@ function Content() {
       <Modal visible={modalVisible} transparent>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />
       </Modal>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          headerStyle: { backgroundColor: ColorTheme.dark },
+          headerTintColor: "#fff",
+        }}
+      >
+        <Stack.Screen
+          name="match-details"
+          options={{
+            title: englishLanguage ? "Match Details" : "Detalhes da Partida",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+          }}
+        />
+      </Stack>
     </View>
   );
 }

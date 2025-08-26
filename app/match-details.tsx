@@ -6,19 +6,19 @@ import {
   useWindowDimensions,
   Dimensions,
 } from "react-native";
-import { createStyles } from "./styles";
-import HeroesDetails from "../../src/components/Heroes/HeroesDetails.json";
+import { createStyles } from "./match-details/styles";
+import HeroesDetails from "../src/components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import { HeroDetailsModel, MatchDetailsModel } from "../../src/services/props";
-import { MATCHE_DETAILS_API_BASE_URL } from "../../src/constants/player";
-import { useSettingsContext } from "../../src/context/useSettingsContext";
-import { useTheme } from "../../src/context/useThemeContext";
-import { getMatchDetails } from "../../src/services/api";
-import { AsyncStorageService } from "../../src/services/StorageService";
-import { TeamFightsTabs } from "./TeamFightsTabs";
-import { HeroesDetailsTabs } from "./HeroDetailsTabs";
-import { OverViewTabs } from "./OverViewTabs";
-import { BannerAds } from "../../src/components/Admob/BannerAds";
+import { HeroDetailsModel, MatchDetailsModel } from "../src/services/props";
+import { MATCHE_DETAILS_API_BASE_URL } from "../src/constants/player";
+import { useSettingsContext } from "../src/context/useSettingsContext";
+import { useTheme } from "../src/context/useThemeContext";
+import { getMatchDetails } from "../src/services/api";
+import { AsyncStorageService } from "../src/services/StorageService";
+import { TeamFightsTabs } from "./match-details/TeamFightsTabs";
+import { HeroesDetailsTabs } from "./match-details/HeroDetailsTabs";
+import { OverViewTabs } from "./match-details/OverViewTabs";
+import { BannerAds } from "../src/components/Admob/BannerAds";
 import { useLocalSearchParams } from "expo-router";
 
 type MatchDetailsParams = {
