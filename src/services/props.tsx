@@ -1,4 +1,3 @@
-import { RouteProp } from "@react-navigation/native";
 import { Dispatch, SetStateAction } from "react";
 import { GameMode, LobbyType } from "./enum";
 
@@ -611,36 +610,6 @@ export interface StorageService {
   removeItem: (key: string) => Promise<void>;
 }
 
-export type MatchDetailsRouteProp = RouteProp<
-  RootStackParamList,
-  "MatchDetails"
->;
-export type LeagueDetailsRouteProp = RouteProp<
-  RootStackParamList,
-  "LeagueDetails"
->;
-export type PlayerProfileRouteProp = RouteProp<
-  RootStackParamList,
-  "PlayerProfile"
->;
-
-export type HeroDetailsRouteProp = RouteProp<RootStackParamList, "HeroDetails">;
-
-export interface MatchDetailsProps {
-  route: MatchDetailsRouteProp;
-}
-
-export interface LeagueDetailsProps {
-  route: LeagueDetailsRouteProp;
-}
-
-export interface PlayerProfileProps {
-  route: PlayerProfileRouteProp;
-}
-
-export interface HeroDetailsProps {
-  route: HeroDetailsRouteProp;
-}
 export interface League {
   leagueid: number;
   ticket: string | null;

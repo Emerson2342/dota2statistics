@@ -15,7 +15,7 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { searchPlayersByName } from "../../services/api";
 import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
-import { RootStackParamList, SearchUserResult } from "../../services/props";
+import { SearchUserResult } from "../../services/props";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import {
   ProgressBar,
@@ -23,8 +23,6 @@ import {
   Searchbar,
   RadioButton,
 } from "react-native-paper";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../components/Modals/ModalMessage";
 import { SearchComponent } from "../../../src/utils/SearchComponent";
 import { useRouter } from "expo-router";

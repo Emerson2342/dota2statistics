@@ -19,7 +19,6 @@ import {
 } from "../../services/api";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { PlayerModel, RecentMatches, HeroesPlayed } from "../../services/props";
-import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../components/Modals/ModalRemoveFavoritePlayer";
@@ -28,14 +27,13 @@ import { BannerAds } from "../../components/Admob/BannerAds";
 import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
 import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
+import { Stack } from "expo-router";
 
 export default function PlayerProfileScreen({
   playerId,
 }: {
   playerId: string;
 }) {
-  const navigation = useNavigation();
-
   const { englishLanguage } = useSettingsContext();
   const { addFavoritePlayer, removeFavoritePlayer, favoritesPlayers } =
     useFavoritesPlayersContext();
@@ -65,40 +63,20 @@ export default function PlayerProfileScreen({
     handleSearch();
   }, []);
 
-  useEffect(() => {
-    const playerFound = favoritesPlayers.find(
-      (p) => p.profile.account_id.toString() === playerId
-    );
+  const playerFound = favoritesPlayers.find(
+    (p) => p.profile.account_id.toString() === playerId
+  );
 
-    const handleFavorites = () => {
-      if (playerFound) {
-        setPlayerIdToRemove(playerFound.profile.account_id);
-        setModalFavoritesVisible(true);
-        return;
-      }
-      if (player) {
-        addFavoritePlayer(player);
-      }
-    };
-    // navigation.setOptions({
-    //   headerRight: () => {
-    //     return (
-    //       <View>
-    //         <TouchableOpacity
-    //           onPress={() => handleFavorites()}
-    //           style={{ width: "100%", marginRight: 15, alignItems: "center" }}
-    //         >
-    //           <FontAwesome
-    //             name={playerFound ? "star" : "star-o"}
-    //             color={playerFound ? "orange" : "#fff"}
-    //             size={30}
-    //           />
-    //         </TouchableOpacity>
-    //       </View>
-    //     );
-    //   },
-    // });
-  }, [favoritesPlayers, player]);
+  const handleFavorites = () => {
+    if (playerFound) {
+      setPlayerIdToRemove(playerFound.profile.account_id);
+      setModalFavoritesVisible(true);
+      return;
+    }
+    if (player) {
+      addFavoritePlayer(player);
+    }
+  };
 
   const routes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -239,21 +217,51 @@ export default function PlayerProfileScreen({
   if (recentMatches.length === 0 && !isLoading)
     return <Text style={styles.textMessage}>{erro404}</Text>;
   return (
-    <TabView
-      renderTabBar={renderTabBar}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-      renderLazyPlaceholder={() => Loading}
-      lazy={true}
-      commonOptions={{
-        labelStyle: {
-          fontSize: Dimensions.get("screen").width * 0.037,
-          fontFamily: "QuickSand-Bold",
-          textAlign: "center",
-        },
-      }}
-    />
+    <>
+      <Stack.Screen
+        name="player-profile"
+        options={{
+          headerShown: true,
+          title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
+          headerStyle: {
+            backgroundColor: ColorTheme.dark,
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontFamily: "QuickSand-Semibold",
+            fontSize: 20,
+          },
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => handleFavorites()}
+              style={{ alignItems: "center" }}
+            >
+              <FontAwesome
+                name={playerFound ? "star" : "star-o"}
+                color={playerFound ? "orange" : "#fff"}
+                size={30}
+              />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        renderLazyPlaceholder={() => Loading}
+        lazy={true}
+        commonOptions={{
+          labelStyle: {
+            fontSize: Dimensions.get("screen").width * 0.037,
+            fontFamily: "QuickSand-Bold",
+            textAlign: "center",
+          },
+        }}
+      />
+    </>
   );
 }

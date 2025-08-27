@@ -23,8 +23,7 @@ import AgiImg from "../../images/agi.png";
 import StrImg from "../../images/str.png";
 import AllImg from "../../images/all.png";
 import { BannerAds } from "../../components/Admob/BannerAds";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const COLUMNS: number = 2;
 
@@ -41,8 +40,8 @@ export function ListaDeHerois() {
   const [attSelected, setAttSelected] = useState("");
   const [currentItems, setCurrentItems] = useState<HeroDetailsModel[]>([]);
 
-  const navigation =
-    useNavigation<BottomTabNavigationProp<RootStackParamList, "HeroDetails">>();
+  const router = useRouter();
+
   const styles = createStyles(ColorTheme);
   const textInput = englishLanguage ? "Search Hero" : "Procurar herói";
 
@@ -93,12 +92,13 @@ export function ListaDeHerois() {
       ? `No results found for: "${textResult}"`
       : `Nenhum resultado encontrado para: "${textResult}"`;
 
-  const GoToHeroDetails = (heroDetails: HeroDetailsModel | undefined) => {
-    if (heroDetails) {
-      navigation.navigate("HeroDetails", { heroDetails: heroDetails });
-    } else {
-      alert("Hero not found");
-    }
+  const GoToHeroDetails = (heroId: string) => {
+    router.push({
+      pathname: "/hero-details",
+      params: {
+        heroId: heroId,
+      },
+    });
   };
 
   const HandleSearchHero = (text: string) => {
@@ -164,7 +164,7 @@ export function ListaDeHerois() {
       <View style={styles.listaHeroi}>
         <TouchableOpacity
           style={{ width: "100%", flexDirection: "row", alignItems: "center" }}
-          onPress={() => GoToHeroDetails(heroDetails)}
+          onPress={() => GoToHeroDetails(heroDetails?.id.toString() ?? "0")}
         >
           <Image
             style={[styles.image]}

@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { PlayerProvider } from "./../src/context/usePlayerContex";
 import {
   SettingsProvider,
@@ -75,6 +75,7 @@ function Content() {
   const { ColorTheme } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const { englishLanguage } = useSettingsContext();
+  const params = useLocalSearchParams<{ playerId?: string }>();
 
   const [isAppAlready, setIsAppAlready] = useState(false);
 
@@ -159,29 +160,9 @@ function Content() {
           }}
         />
         <Stack.Screen
-          name="player-profile"
-          options={{
-            headerShown: true,
-            title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
-            headerStyle: {
-              backgroundColor: ColorTheme.dark,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-            headerTitleStyle: {
-              fontFamily: "QuickSand-Semibold",
-              fontSize: 20,
-            },
-            headerRight: () => (
-              <TouchableOpacity>
-                <FontAwesome name={"star"} color={"#fff"} size={30} />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Stack.Screen
           name="hero-details"
           options={{
+            headerShown: true,
             title: englishLanguage ? "Hero Details" : "Detalhes do Herói",
             headerStyle: {
               backgroundColor: ColorTheme.dark,

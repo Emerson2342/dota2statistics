@@ -10,10 +10,10 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
 import { useTheme } from "../../context/useThemeContext";
-import { useFocusEffect } from "@react-navigation/native";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "../../components/Modals/ModalMyAccount";
 import { BannerAds } from "../../components/Admob/BannerAds";
+import { useFocusEffect } from "expo-router";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =

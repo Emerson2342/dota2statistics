@@ -17,11 +17,10 @@ import { PlayerModel, RootStackParamList } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BannerAds } from "../../components/Admob/BannerAds";
-import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
 
 export function Favorites() {
   const { englishLanguage } = useSettingsContext();
@@ -31,6 +30,7 @@ export function Favorites() {
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [playerIdIndex, setPlayerIdIndex] = useState<number>();
+  const router = useRouter();
   const textEmpty = englishLanguage
     ? "Empty List. To add, select as favorite on the header of Profile Player."
     : "Lista Vazia. Para adicionar, selecione como favorito no topo do Perfil do Jogador.";
@@ -43,16 +43,20 @@ export function Favorites() {
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "PlayerProfile">>();
-
   const styles = createStyles(ColorTheme);
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {
       setModalMessageVisible(true);
     } else {
-      navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
+      router.push({
+        pathname: "/player-profile",
+        params: {
+          playerId: playerId.toString(),
+        },
+      });
+
+      // navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
     }
   };
 

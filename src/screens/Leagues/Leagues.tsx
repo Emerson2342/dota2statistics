@@ -9,46 +9,43 @@ import {
 } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
-import { League, RootStackParamList } from "../../services/props";
-import {
-  LEAGUES_BASE_URL,
-} from "../../../src/constants/player";
+import { League } from "../../services/props";
+import { LEAGUES_BASE_URL } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { BannerAds } from "../../components/Admob/BannerAds";
+import { useFocusEffect, useRouter } from "expo-router";
 
 export function Leagues() {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "LeagueDetails">>();
-
   const { ColorTheme } = useTheme();
 
   const styles = createStyles(ColorTheme);
 
   const [leagueList, setLeagueList] = useState<League[] | []>([]);
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState(false);
   const [erroMessage, setErrorMessage] = useState<string>("");
 
   const goToLeagueMatches = (id: number, name: string) => {
-    navigation.navigate("LeagueDetails", {
-      LeagueIdIndex: id,
-      LeagueName: name,
+    router.push({
+      pathname: "/league-matches",
+      params: {
+        leagueId: id,
+        leagueName: name ?? "",
+      },
     });
   };
 
   useFocusEffect(
     useCallback(() => {
-      console.log("****Leagues List")
+      console.log("****Leagues List");
       loadLeagues();
     }, [])
   );
 
   const loadLeagues = async () => {
-
     setIsLoading(true);
     try {
       const keywords = ["2024", "2025", "24", "25"];

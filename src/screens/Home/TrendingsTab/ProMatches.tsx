@@ -10,11 +10,9 @@ import {
 
 import { createStylesStatics } from "./ProMatchesStyles";
 
-import { LeagueMatches, RootStackParamList } from "../../../services/props";
+import { LeagueMatches } from "../../../services/props";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
