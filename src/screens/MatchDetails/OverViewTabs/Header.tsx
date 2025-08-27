@@ -31,7 +31,7 @@ function Header({
   const textWarning = englishLanguage
     ? "This match does not have detailed data available. For more details, access the OpenDota link and request a match analysis. Once analyzed, please refresh the page by pulling down the screen."
     : "Esta partida não tem dados detalhados disponíveis. Para mais informações, acesse o site do OpenDota e solicite a análise. O OpenDota é um serviço externo e pode exigir tempo para processar os dados. " +
-    "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
+      "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
 
   const direName = englishLanguage ? "Dire" : "Temidos";
 
@@ -98,15 +98,22 @@ function Header({
                 }}
               />
             )}
-            <View style={{ flexDirection: 'row', width: "100%", alignItems: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
               <Text
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
                 {matchDetails?.radiant_team?.name ?? radName}{" "}
               </Text>
-              <Text style={styles.teamScore}>{matchDetails?.radiant_score}</Text>
-
+              <Text style={styles.teamScore}>
+                {matchDetails?.radiant_score}
+              </Text>
             </View>
           </View>
           <View
@@ -135,8 +142,7 @@ function Header({
                 }}
               />
             )}
-            <View style={{ flexDirection: 'row' }}>
-
+            <View style={{ flexDirection: "row" }}>
               <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
               <Text
                 numberOfLines={1}
@@ -210,7 +216,7 @@ function Header({
             marginLeft: 3,
             display:
               matchDetails?.radiant_gold_adv &&
-                matchDetails.radiant_gold_adv.length > 0
+              matchDetails.radiant_gold_adv.length > 0
                 ? "none"
                 : "flex",
           }}
@@ -238,7 +244,7 @@ function Header({
 }
 
 export const HeaderComponent = React.memo(Header);
-HeaderComponent.displayName = "HeaderComponent"
+HeaderComponent.displayName = "HeaderComponent";
 
 const { width } = Dimensions.get("window");
 const createStyles = (colors: ThemeColor) =>
@@ -270,19 +276,19 @@ const createStyles = (colors: ThemeColor) =>
     shieldContainer: {
       width: "80%",
       alignItems: "center",
-      alignSelf: "flex-start"
+      alignSelf: "flex-start",
     },
     teamName: {
       color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       textAlign: "center",
-      width: "80%"
+      width: "80%",
     },
     teamScore: {
       color: colors.semidark,
       fontFamily: "QuickSand-Bold",
       textAlign: "center",
-      fontSize: Dimensions.get('screen').width * 0.037,
+      fontSize: Dimensions.get("screen").width * 0.037,
       width: "20%",
     },
     textId: {

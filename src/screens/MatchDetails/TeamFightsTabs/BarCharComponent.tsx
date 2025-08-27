@@ -1,14 +1,8 @@
 import { LinearGradient, useFont, vec } from "@shopify/react-native-skia";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  ProcessedColorValue,
-  Text,
-  View,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import { Bar, CartesianChart } from "victory-native";
 import quickSand from "../../../Fonts/Quicksand_Bold.ttf";
-import { Easing } from "react-native-reanimated";
 
 function BarChartComp({
   formattedData,

@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { FontModel, ThemeColor } from "../../services/props";
 
-export const createStyles = (Color: ThemeColor, Font: FontModel) =>
+export const createStyles = (Color: ThemeColor) =>
   StyleSheet.create({
     container: {
       alignItems: "center",
@@ -9,10 +9,10 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       width: "100%",
       backgroundColor: Color.light,
     },
-    containerEmpty: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    containerEmpty: { flex: 1, justifyContent: "center", alignItems: "center" },
     titleText: {
       fontSize: 20,
-      fontFamily: Font.font2,
+      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       color: Color.semidark,
       margin: "3%",
@@ -20,7 +20,7 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
     emptyText: {
       fontFamily: "QuickSand-Semibold",
       color: Color.semidark,
-      fontSize: Dimensions.get('screen').width * 0.04
+      fontSize: Dimensions.get("screen").width * 0.04,
     },
     matchesGroup: {
       alignSelf: "center",
@@ -45,20 +45,20 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
       width: "40%",
       textAlign: "center",
       color: "#169c16",
-      fontFamily: Font.font2,
+      fontFamily: "QuickSand-Bold",
     },
     teamName: {
       width: "80%",
       textAlign: "center",
       fontSize: 13,
-      fontFamily: Font.font2,
+      fontFamily: "QuickSand-Bold",
       color: Color.semidark,
     },
     teamScore: {
       width: "15%",
       textAlign: "center",
       fontSize: 13,
-      fontFamily: Font.font2,
+      fontFamily: "QuickSand-Bold",
       color: Color.semidark,
     },
     imageContainer: {
@@ -83,7 +83,7 @@ export const createStyles = (Color: ThemeColor, Font: FontModel) =>
     },
     durationText: {
       textAlign: "center",
-      fontFamily: Font.font1,
+      fontFamily: "QuickSand-Semibold",
       color: "orange",
       fontSize: 13,
     },

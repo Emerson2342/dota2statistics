@@ -1,13 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { MatchDetails } from "../../screens/MatchDetails/MatchDetails";
 import { RootStackParamList } from "../../services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { LeagueDetails } from "../../screens/LeagueMatches/LeagueMatches";
 import { BottomTabsNavigator } from "../BottomTabsNavigator";
-import { PlayerProfile } from "../../../src/screens/PlayerProfile";
-import { HeroDetailsScreen } from "../../../src/screens/HeroDetails";
 import { DrawerNavigatorScreen } from "../DrawerNavigator";
 
 const Stack = createStackNavigator<RootStackParamList>();

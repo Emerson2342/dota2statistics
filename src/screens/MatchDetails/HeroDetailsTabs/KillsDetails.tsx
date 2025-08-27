@@ -17,7 +17,7 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "../../../constants/player";
 import { useTheme } from "../../../context/useThemeContext";
-import { useSettingsContext } from "../../../../src/context/useSettingsContext";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 
 function HeroKillsDetails({
   matchDetails,

@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   Dimensions,
 } from "react-native";
-import { createStyles } from "./MatchDetailsStyles";
+import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
 import {
@@ -18,24 +18,25 @@ import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { getMatchDetails } from "../../services/api";
-import { AsyncStorageService } from "../../../src/services/StorageService";
+import { AsyncStorageService } from "../../services/StorageService";
 import { TeamFightsTabs } from "./TeamFightsTabs";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { BannerAds } from "../../../src/components/Admob/BannerAds";
-import { useLocalSearchParams } from "expo-router";
+import { BannerAds } from "../../components/Admob/BannerAds";
 
-type MatchDetailsParams = {
+type MatchDetailsProps = {
   matchDetailsIndex: string;
   playerIdIndex?: string;
   lobbyType?: string;
   gameMode?: string;
 };
 
-export const MatchDetails = () => {
-  const { matchDetailsIndex, playerIdIndex, lobbyType, gameMode } =
-    useLocalSearchParams<MatchDetailsParams>();
-
+export const MatchDetailsScreen = ({
+  matchDetailsIndex,
+  playerIdIndex,
+  lobbyType,
+  gameMode,
+}: MatchDetailsProps) => {
   const { englishLanguage } = useSettingsContext();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]

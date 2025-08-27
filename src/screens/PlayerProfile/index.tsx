@@ -24,20 +24,21 @@ import {
   RecentMatches,
   HeroesPlayed,
 } from "../../services/props";
-import { ProfileHeader } from "../Home/MyProfileTabs/ProfileHeader";
-import { LastMatches } from "../Home/MyProfileTabs/LastMatches";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
-import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
-import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
+import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
+import { ModalRemoveFavoritePlayer } from "../../components/Modals/ModalRemoveFavoritePlayer";
 import { TabBar, TabView } from "react-native-tab-view";
 import { BannerAds } from "../../components/Admob/BannerAds";
-import { HeroesPlayedTabs } from "../Home/HeroesPlayedTabs";
+import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
+import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
+import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
 
-export const PlayerProfile = ({ route }: PlayerProfileProps) => {
-  const { PlayerId } = route.params;
-
+export default function PlayerProfileScreen({
+  playerId,
+}: {
+  playerId: string;
+}) {
   const navigation = useNavigation();
 
   const { englishLanguage } = useSettingsContext();
@@ -71,7 +72,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
 
   useEffect(() => {
     const playerFound = favoritesPlayers.find(
-      (p) => p.profile.account_id.toString() === PlayerId
+      (p) => p.profile.account_id.toString() === playerId
     );
 
     const handleFavorites = () => {
@@ -116,13 +117,13 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
     setIsLoading(true);
     setTimeout(async () => {
       console.log("*******************************");
-      console.log("entrou na busca do jogador: id " + PlayerId);
+      console.log("entrou na busca do jogador: id " + playerId);
 
-      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}`;
-      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/recentMatches`;
+      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
+      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/recentMatches`;
       await getSearchPlayer(searchPlayer, setPlayer);
 
-      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
+      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
 
       const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
       if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
@@ -164,7 +165,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
   const Header = React.memo(() => {
     return (
       <View style={styles.container}>
-        {Number(PlayerId) == 0 ? (
+        {Number(playerId) == 0 ? (
           <View style={styles.erroMessage}>
             <Text style={styles.textErro}>{erro404}</Text>
           </View>
@@ -181,7 +182,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
               <View style={{ flex: 1, paddingBottom: "1%" }}>
                 {player ? (
                   <LastMatches
-                    playerId={PlayerId}
+                    playerId={playerId}
                     onRefresh={() => handleSearch()}
                     recentMatches={recentMatches}
                   />
@@ -229,7 +230,7 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
           return <Header />;
         case "heroesPlayed":
           return (
-            <HeroesPlayedTabs PlayerId={PlayerId} IsPlayerProfile={false} />
+            <HeroesPlayedTabs PlayerId={playerId} IsPlayerProfile={false} />
           );
         default:
           return null;
@@ -260,4 +261,4 @@ export const PlayerProfile = ({ route }: PlayerProfileProps) => {
       }}
     />
   );
-};
+}

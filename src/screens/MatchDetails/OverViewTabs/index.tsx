@@ -9,17 +9,17 @@ import {
 } from "react-native";
 import { HeaderComponent } from "./Header";
 import { TeamsComponent } from "./Teams";
-import { BannerAds } from "../../../../src/components/Admob/BannerAds";
+import { BannerAds } from "../../../components/Admob/BannerAds";
 import { GraficsGoldAndXpComponent } from "./GraficsGoldAndXpTeam";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
-} from "../../../../src/services/props";
+} from "../../../services/props";
 import { createStyles } from "./styles";
-import { useTheme } from "../../../../src/context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../../src/constants/player";
-import { useSettingsContext } from "../../../../src/context/useSettingsContext";
+import { useTheme } from "../../../context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { useSettingsContext } from "../../../context/useSettingsContext";
 
 type Props = {
   refreshing: boolean;

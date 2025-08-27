@@ -6,6 +6,7 @@ import { useFont } from "@shopify/react-native-skia";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 
 Animated.addWhitelistedNativeProps({ text: true });
+const width = Dimensions.get("screen").width * 0.93;
 
 const GraficsGoldAndXpTeam = ({
   radiant_gold_adv,
@@ -34,8 +35,6 @@ const GraficsGoldAndXpTeam = ({
     xp: radiant_xp_adv[index],
     x: index + 1,
   }));
-
-  const width = Dimensions.get("screen").width * 0.93;
 
   return (
     <View style={{ width: width, height: 350 }}>

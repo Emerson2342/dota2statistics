@@ -10,10 +10,6 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-import {
-  ITEM_IMAGE_BASE_URL,
-  PICTURE_HERO_BASE_URL,
-} from "../../constants/player";
 import { createStyles } from "./styles";
 import int from "../../images/int.png";
 import agi from "../../images/agi.png";
@@ -21,42 +17,45 @@ import str from "../../images/str.png";
 import all from "../../images/all.png";
 import boots from "../../images/boots.png";
 
-import HeroLoreJson from "../../constants/Lore.json";
-import HeroLorePtBrJson from "../../constants/LorePtBr.json";
-import AbilitiesDetailsJson from "../../components/Heroes/AbilitiesDetails.json";
-import AbilitiesDescriptionsJson from "../../components/Heroes/AbilitiesDescriptions.json";
-import ItemsList from "../../components/Itens/itemsList.json";
-import AghanimAndShardJson from "../../components/Heroes/aghanimDescription.json";
+import HeroLoreJson from "./../../constants/Lore.json";
+import HeroLorePtBrJson from "./../../constants/LorePtBr.json";
+import AbilitiesDetailsJson from "./../../components/Heroes/AbilitiesDetails.json";
+import AbilitiesDescriptionsJson from "./../../components/Heroes/AbilitiesDescriptions.json";
+import ItemsList from "./../../components/Itens/itemsList.json";
+import AghanimAndShardJson from "./../../components/Heroes/aghanimDescription.json";
 import {
   AghanimModel,
   HeroAbilitiesDescriptionsJson,
   HeroAbilitiesDescriptionsModel,
   HeroAbilitiesDetailsJson,
   HeroAbilitiesDetailsModel,
-  HeroDetailsProps,
   HeroLore,
   ItemDetails,
   ItemPopularity,
   ItemPopularityData,
-} from "../../services/props";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { ModaHeroLore } from "../../components/Modals/ModalHeroLore";
-import { BannerAds } from "../../components/Admob/BannerAds";
+} from "./../../services/props";
+import { useSettingsContext } from "./../../context/useSettingsContext";
+import { useTheme } from "./../../context/useThemeContext";
+import { ModaHeroLore } from "./../../components/Modals/ModalHeroLore";
+import { BannerAds } from "./../../components/Admob/BannerAds";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { getHeroItems } from "../../../src/services/api";
-import { ModalItemDetails } from "../../../src/components/Modals/ModalItemDetails";
-import AghanimDescription from "../../../src/components/Heroes/aghanimDescription.json";
+import { getHeroItems } from "./../../services/api";
+import { ModalItemDetails } from "./../../components/Modals/ModalItemDetails";
+import AghanimDescription from "./../../components/Heroes/aghanimDescription.json";
+import {
+  ITEM_IMAGE_BASE_URL,
+  PICTURE_HERO_BASE_URL,
+} from "./../../constants/player";
+import useHeroDetails from "../../hooks/useHeroDetails";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
-export function HeroDetailsScreen({ route }: HeroDetailsProps) {
-  const { heroDetails } = route.params;
-
+export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const { englishLanguage } = useSettingsContext();
 
   const { ColorTheme } = useTheme();
+  const heroDetails = useHeroDetails(Number(heroId));
   const [heroLore, setHeroLore] = useState<string | undefined>(undefined);
   const [modalHeroLore, setModalHeroLore] = useState(false);
   const [abilities, setAbilities] = useState<HeroAbilitiesDetailsModel>();
@@ -69,14 +68,34 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   const [itemType, setItemType] = useState("item");
   const [modalItemVisible, setModalItemVisible] = useState(false);
   const [heroItems, setHeroItems] = useState<ItemPopularityData>();
-  //const [itemsList, setItemsList] = useState<ItemDetails[]>([]);
 
-  const [loadingAbilit, setLoadingAbilit] = useState(true);
+  const [loadingHeroDetails, setLoadingHeroDetails] = useState(true);
   const [loreJson, setLoreJson] = useState<HeroLore>(HeroLoreJson);
 
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
 
   const styles = createStyles(ColorTheme);
+
+  useEffect(() => {
+    if (heroDetails.id === 0) return;
+    setTimeout(() => {
+      if (heroDetails) {
+        setAbilities(heroAbilities[heroDetails.name]);
+        console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
+        HandleGetHeroItems();
+      }
+      setLoadingHeroDetails(false);
+    }, 1759);
+  }, [heroDetails]);
+
+  useEffect(() => {
+    if (heroDetails.id === 0) return;
+    HandleGetAbilities();
+    if (heroDetails) {
+      setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
+      setHeroLore(loreJson[heroDetails.name]);
+    }
+  }, [abilities]);
 
   const HandleGetAbilities = () => {
     const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
@@ -86,6 +105,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
       abilities?.abilities?.map((a) => heroAbilitiesDescriptions[a]);
     setAbilitiesDesc(abilitiesResult ?? []);
   };
+
   const aghanimHeroSelected = aaghanimDescription.find(
     (h) => h.hero_id === heroDetails.id
   );
@@ -117,21 +137,6 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
   //const LoreJson: HeroLore = HeroLoreJson;
   const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
   const itemsList: ItemDetails[] = ItemsList;
-
-  useEffect(() => {
-    console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
-    HandleGetHeroItems();
-    setTimeout(() => {
-      setAbilities(heroAbilities[heroDetails.name]);
-      setLoadingAbilit(false);
-    }, 1759);
-  }, []);
-
-  useEffect(() => {
-    HandleGetAbilities();
-    setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
-    setHeroLore(loreJson[heroDetails.name]);
-  }, [abilities]);
 
   const aghaninAndShardDesc = useMemo(() => {
     return Object.values(AghanimDescription) as AghanimModel[];
@@ -381,7 +386,7 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
 
   return (
     <View style={{ flex: 1 }}>
-      {loadingAbilit ? (
+      {loadingHeroDetails ? (
         <View
           style={{
             flex: 1,
@@ -578,29 +583,29 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.start_game_items
                   ? Object.entries(heroItems.start_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                        // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
-                        //   <Image
-                        //     width={imgWidth}
-                        //     height={imgWidth}
-                        //     style={{ borderRadius: 15 }}
-                        //     source={{
-                        //       uri: PICTURE_HERO_BASE_URL + item?.img,
-                        //     }}
-                        //   />
-                        // </TouchableOpacity>
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                          // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
+                          //   <Image
+                          //     width={imgWidth}
+                          //     height={imgWidth}
+                          //     style={{ borderRadius: 15 }}
+                          //     source={{
+                          //       uri: PICTURE_HERO_BASE_URL + item?.img,
+                          //     }}
+                          //   />
+                          // </TouchableOpacity>
+                        );
+                      }
+                    )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -609,19 +614,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.early_game_items
                   ? Object.entries(heroItems.early_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -630,19 +635,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.mid_game_items
                   ? Object.entries(heroItems.mid_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
               <Text style={styles.textItem}>
@@ -651,19 +656,19 @@ export function HeroDetailsScreen({ route }: HeroDetailsProps) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.late_game_items
                   ? Object.entries(heroItems.late_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
             </View>

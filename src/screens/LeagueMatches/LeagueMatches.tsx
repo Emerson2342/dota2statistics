@@ -12,7 +12,6 @@ import { createStyles } from "./LeagueMatchesStyles";
 import { useTheme } from "../../context/useThemeContext";
 import {
   LeagueMatches,
-  LeagueDetailsProps,
   RootStackParamList,
   MatchLeagueInfo,
   FontModel,
@@ -20,32 +19,25 @@ import {
 import { LEAGUES_BASE_URL } from "../../constants/player";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { getSearchLeagueMatches } from "../../services/api";
+import { useRouter } from "expo-router";
 
-export function LeagueDetails({ route }: LeagueDetailsProps) {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, "MatchDetails">>();
-  const { LeagueIdIndex, LeagueName } = route.params;
+type LeagueDetailsProps = {
+  LeagueIdIndex: number;
+  LeagueName: string;
+};
+
+export function LeagueMatchesScreen({
+  LeagueIdIndex,
+  LeagueName,
+}: LeagueDetailsProps) {
+  const route = useRouter();
 
   const { ColorTheme } = useTheme();
 
-  const [fontsLoaded] = useFonts({
-    "QuickSand-Regular": require("../../Fonts/Quicksand_Regular.ttf"),
-    "QuickSand-Semibold": require("../../Fonts/Quicksand_SemiBold.ttf"),
-    "QuickSand-Bold": require("../../Fonts/Quicksand_SemiBold.ttf"),
-  });
-
-  const Font: FontModel = {
-    font1: "QuickSand-Semibold",
-    font2: "QuickSand-Bold",
-    font3: "QuickSand-Regular",
-  };
-
-  const styles = createStyles(ColorTheme, Font);
+  const styles = createStyles(ColorTheme);
   const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[]>([]);
   const { teamsList } = useTeamsListContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -89,10 +81,12 @@ export function LeagueDetails({ route }: LeagueDetailsProps) {
     );
   }
 
-  const handleGoToMatch = (matchIndex: number) => {
-    navigation.navigate("MatchDetails", {
-      MatchDetailsIndex: matchIndex,
-      PlayerIdIndex: null,
+  const handleGoToMatch = (matchId: number) => {
+    route.push({
+      pathname: "match-details",
+      params: {
+        MatchDetailsIndex: matchId,
+      },
     });
   };
 

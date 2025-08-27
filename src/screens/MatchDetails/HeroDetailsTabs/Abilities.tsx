@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -12,11 +12,9 @@ import {
 import {
   HeroAbilitiesDescriptionsJson,
   HeroAbilitiesDescriptionsModel,
-  HeroDetailsJson,
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
-  RootStackParamList,
   ThemeColor,
 } from "../../../services/props";
 import AbilitiesList from "../../../components/Heroes/abilitiesIdsList.json";
@@ -28,10 +26,9 @@ import {
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
 import AbilitiesDescriptions from "../../../components/Heroes/AbilitiesDescriptions.json";
 import { ModalAbilityDetails } from "../../../components/Modals/ModalAbilityDetails";
+import { useRouter } from "expo-router";
 
 function Abilities({
   matchDetails,
@@ -44,8 +41,7 @@ function Abilities({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
   const [abilityIndex, setAbilityIndex] =
@@ -76,15 +72,12 @@ function Abilities({
   }, []);
 
   const HandleGoToHeroDetails = (heroId: number | undefined) => {
-    if (heroId) {
-      const heroIndex = heroesList.find((h) => h.id === heroId);
-      if (heroIndex) {
-        console.log("Herói Selecionado: " + heroIndex?.localized_name);
-        navigation.navigate("HeroDetails", { heroDetails: heroIndex });
-      } else {
-        console.log("Hero não encontrado!");
-      }
-    }
+    router.push({
+      pathname: "/hero-details",
+      params: {
+        heroId: heroId,
+      },
+    });
   };
 
   const RenderAbilityes = useCallback(

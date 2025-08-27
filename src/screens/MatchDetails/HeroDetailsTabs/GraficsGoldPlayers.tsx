@@ -11,14 +11,8 @@ import { CartesianChart, Line } from "victory-native";
 import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
 import { useSettingsContext } from "../../../context/useSettingsContext";
-import {
-  HeroDetailsModel,
-  MatchDetailsModel,
-} from "../../../services/props";
-import {
-  PICTURE_HERO_BASE_FULL_URL,
-  PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
+import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { useTheme } from "../../../context/useThemeContext";
 
@@ -47,7 +41,7 @@ const GraficsGoldPlayers = ({
   const [hero9Selected, setHero9Selected] = useState(true);
   const [hero10Selected, setHero10Selected] = useState(true);
 
-  const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
+  const font = useFont(require("../../../Fonts/Quicksand_Bold.ttf"));
 
   const player1 = matchDetails.players[0].gold_t ?? [];
   const player2 = matchDetails.players[1].gold_t ?? [];
@@ -192,14 +186,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                        ? colors[1]
-                        : index === 2 && hero3Selected
-                          ? colors[2]
-                          : index === 3 && hero4Selected
-                            ? colors[3]
-                            : index === 4 && hero5Selected
-                              ? colors[4]
-                              : "transparent",
+                      ? colors[1]
+                      : index === 2 && hero3Selected
+                      ? colors[2]
+                      : index === 3 && hero4Selected
+                      ? colors[3]
+                      : index === 4 && hero5Selected
+                      ? colors[4]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -238,7 +232,7 @@ const GraficsGoldPlayers = ({
           lineWidth: 0.3,
           axisSide: {
             y: "right",
-            x: "bottom"
+            x: "bottom",
           },
 
           labelOffset: { x: 0, y: 0 },
@@ -333,14 +327,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                        ? colors[6]
-                        : index === 2 && hero8Selected
-                          ? colors[7]
-                          : index === 3 && hero9Selected
-                            ? colors[8]
-                            : index === 4 && hero10Selected
-                              ? colors[9]
-                              : "transparent",
+                      ? colors[6]
+                      : index === 2 && hero8Selected
+                      ? colors[7]
+                      : index === 3 && hero9Selected
+                      ? colors[8]
+                      : index === 4 && hero10Selected
+                      ? colors[9]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >

@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor, FontModel } from "../../services/props";
+import { ThemeColor, FontModel } from "./../../services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({

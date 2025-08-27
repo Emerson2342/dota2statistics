@@ -4,8 +4,6 @@ import {
   SettingsProvider,
   useSettingsContext,
 } from "./../src/context/useSettingsContext";
-import { Routes } from "./../src/routes/routes";
-import { NavigationContainer } from "@react-navigation/native";
 import { ProfileProvider } from "./../src/context/useProfileContext";
 import { ThemeProvider, useTheme } from "./../src/context/useThemeContext";
 import { TeamsListProvider } from "./../src/context/useTeamContext";
@@ -125,6 +123,7 @@ function Content() {
         <Stack.Screen
           name="match-details"
           options={{
+            headerShown: true,
             title: englishLanguage ? "Match Details" : "Detalhes da Partida",
             headerStyle: {
               backgroundColor: ColorTheme.dark,
