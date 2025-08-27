@@ -27,6 +27,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { ModalMessage } from "../../components/Modals/ModalMessage";
 import { SearchComponent } from "../../../src/utils/SearchComponent";
+import { useRouter } from "expo-router";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsContext();
@@ -38,6 +39,8 @@ export const Search = () => {
   const [searchType, setSearchType] = useState("player");
   const [modalMessage, setModalMessage] = useState(false);
   const [modalMessageInput, setModalMessageInput] = useState(false);
+
+  const router = useRouter();
 
   const [usersSearch, setUsersSearch] = useState<SearchUserResult[] | []>([]);
   const textInfoProfile = englishLanguage
@@ -51,9 +54,6 @@ export const Search = () => {
   const textLength = englishLanguage
     ? "Type at least 4 characters"
     : "Digite pelo menos 4 caracteres";
-
-  const navigation =
-    useNavigation<BottomTabNavigationProp<RootStackParamList>>();
 
   const handleSearchPlayer = async (text: string) => {
     if (text.length < 4) {
@@ -73,7 +73,13 @@ export const Search = () => {
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) return;
-    navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
+    // navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
+    router.push({
+      pathname: "/player-profile",
+      params: {
+        playerId: playerId.toString(),
+      },
+    });
   };
 
   const renderPlayersList = ({
@@ -114,10 +120,11 @@ export const Search = () => {
       setModalMessage(true);
       return;
     }
-
-    navigation.navigate("MatchDetails", {
-      MatchDetailsIndex: parseInt(matchIndex),
-      PlayerIdIndex: null,
+    router.push({
+      pathname: "/match-details",
+      params: {
+        matchDetailsId: parseInt(matchIndex),
+      },
     });
   };
 
@@ -138,7 +145,6 @@ export const Search = () => {
           placeHolder={englishLanguage ? "Search" : "Buscar"}
           showModalMessage={modalMessageInput}
           setShowModalMessage={() => setModalMessageInput(false)}
-
         />
       </View>
 
@@ -211,8 +217,8 @@ export const Search = () => {
                 ? `Results for "${textSearch}"`
                 : `Resultados para "${textSearch}"`
               : englishLanguage
-                ? `No results found for "${textSearch}"`
-                : `Nenhum resultado encontrado para "${textSearch}"`}
+              ? `No results found for "${textSearch}"`
+              : `Nenhum resultado encontrado para "${textSearch}"`}
           </Text>
           <Text
             style={[

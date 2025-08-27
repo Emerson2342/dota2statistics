@@ -18,12 +18,7 @@ import {
   getSearchPlayer,
 } from "../../services/api";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
-import {
-  PlayerModel,
-  PlayerProfileProps,
-  RecentMatches,
-  HeroesPlayed,
-} from "../../services/props";
+import { PlayerModel, RecentMatches, HeroesPlayed } from "../../services/props";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
@@ -85,24 +80,24 @@ export default function PlayerProfileScreen({
         addFavoritePlayer(player);
       }
     };
-    navigation.setOptions({
-      headerRight: () => {
-        return (
-          <View style={{ width: "50%" }}>
-            <TouchableOpacity
-              onPress={() => handleFavorites()}
-              style={{ width: "100%", marginRight: 15, alignItems: "center" }}
-            >
-              <FontAwesome
-                name={playerFound ? "star" : "star-o"}
-                color={playerFound ? "orange" : "#fff"}
-                size={30}
-              />
-            </TouchableOpacity>
-          </View>
-        );
-      },
-    });
+    // navigation.setOptions({
+    //   headerRight: () => {
+    //     return (
+    //       <View>
+    //         <TouchableOpacity
+    //           onPress={() => handleFavorites()}
+    //           style={{ width: "100%", marginRight: 15, alignItems: "center" }}
+    //         >
+    //           <FontAwesome
+    //             name={playerFound ? "star" : "star-o"}
+    //             color={playerFound ? "orange" : "#fff"}
+    //             size={30}
+    //           />
+    //         </TouchableOpacity>
+    //       </View>
+    //     );
+    //   },
+    // });
   }, [favoritesPlayers, player]);
 
   const routes = [

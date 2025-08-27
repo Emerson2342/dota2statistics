@@ -19,7 +19,6 @@ import {
 import { LEAGUES_BASE_URL } from "../../constants/player";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { useFonts } from "expo-font";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { getSearchLeagueMatches } from "../../services/api";
 import { useRouter } from "expo-router";
@@ -38,7 +37,7 @@ export function LeagueMatchesScreen({
   const { ColorTheme } = useTheme();
 
   const styles = createStyles(ColorTheme);
-  const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[]>([]);
+  const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[] | []>([]);
   const { teamsList } = useTeamsListContext();
   const [isLoading, setIsLoading] = useState(false);
   const { englishLanguage } = useSettingsContext();
@@ -54,43 +53,16 @@ export function LeagueMatchesScreen({
     handleLoadLeagueMatches();
   }, []);
 
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: ColorTheme.light,
-        }}
-      >
-        <ActivityIndicator size={30} color={ColorTheme.semidark} />
-        <Text
-          style={{
-            paddingTop: "3%",
-            color: ColorTheme.dark,
-            fontFamily: "QuickSand-Bold",
-          }}
-        >
-          {englishLanguage ? "Loading.." : "Carregando..."}
-        </Text>
-        <View style={{ alignSelf: "flex-end" }}>
-          <BannerAds />
-        </View>
-      </View>
-    );
-  }
-
   const handleGoToMatch = (matchId: number) => {
     route.push({
       pathname: "match-details",
       params: {
-        MatchDetailsIndex: matchId,
+        matchDetailsId: matchId,
       },
     });
   };
 
-  const groupBySeriesId = (matches: LeagueMatches[]) => {
+  const groupBySeriesId = (matches: LeagueMatches[] = []) => {
     return matches.reduce((acc, match) => {
       if (!acc[match.series_id]) {
         acc[match.series_id] = [];
@@ -189,6 +161,33 @@ export function LeagueMatchesScreen({
       </View>
     )
   );
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: ColorTheme.light,
+        }}
+      >
+        <ActivityIndicator size={30} color={ColorTheme.semidark} />
+        <Text
+          style={{
+            paddingTop: "3%",
+            color: ColorTheme.dark,
+            fontFamily: "QuickSand-Bold",
+          }}
+        >
+          {englishLanguage ? "Loading.." : "Carregando..."}
+        </Text>
+        <View style={{ alignSelf: "flex-end" }}>
+          <BannerAds />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

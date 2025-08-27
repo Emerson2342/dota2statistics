@@ -11,13 +11,21 @@ import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./../src/context/useFavoritesContext";
-import { Modal, Platform, StatusBar, StyleSheet, View } from "react-native";
+import {
+  Modal,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { SplashScreenComponent } from "./../src/screens/SplashScreenComponent";
 import Constants from "expo-constants";
 import VersionCheck from "react-native-version-check";
 import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
+import { FontAwesome } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -116,8 +124,6 @@ function Content() {
       <Stack
         screenOptions={{
           headerShown: false,
-          headerStyle: { backgroundColor: ColorTheme.dark },
-          headerTintColor: "#fff",
         }}
       >
         <Stack.Screen
@@ -134,6 +140,58 @@ function Content() {
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
+          }}
+        />
+        <Stack.Screen
+          name="league-matches"
+          options={{
+            headerShown: true,
+            title: englishLanguage ? "League Matches" : "Jogos do Campeonato",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="player-profile"
+          options={{
+            headerShown: true,
+            title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
+            headerRight: () => (
+              <TouchableOpacity>
+                <FontAwesome name={"star"} color={"#fff"} size={30} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="hero-details"
+          options={{
+            title: englishLanguage ? "Hero Details" : "Detalhes do Herói",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
           }}
         />
       </Stack>

@@ -58,7 +58,7 @@ function LastMatchesComponent({
     router.push({
       pathname: "/match-details",
       params: {
-        matchDetailsIndex: matchIdIndex.toString(),
+        matchDetailsId: matchIdIndex.toString(),
         playerIdIndex: playerIdIndex,
         lobbyType: lobbyType,
         gameMode: gameMode,

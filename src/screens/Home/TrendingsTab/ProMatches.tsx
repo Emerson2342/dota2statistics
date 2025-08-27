@@ -71,7 +71,7 @@ function ProMatchesComponent({
     router.push({
       pathname: "/match-details",
       params: {
-        matchDetailsIndex: matchId,
+        matchDetailsId: matchId,
       },
     });
   };
@@ -81,7 +81,7 @@ function ProMatchesComponent({
     leagueName: string | null
   ) => {
     router.push({
-      pathname: "/league-details",
+      pathname: "/league-matches",
       params: {
         leagueId: leagueId,
         leagueName: leagueName ?? "",

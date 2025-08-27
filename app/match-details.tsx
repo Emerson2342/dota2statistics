@@ -2,18 +2,18 @@ import { useLocalSearchParams } from "expo-router";
 import { MatchDetailsScreen } from "../src/screens/MatchDetails";
 
 type MatchDetailsParams = {
-  matchDetailsIndex: string;
+  matchDetailsId: string;
   playerIdIndex?: string;
   lobbyType?: string;
   gameMode?: string;
 };
 
 export default function MatchDetails() {
-  const { matchDetailsIndex, playerIdIndex, lobbyType, gameMode } =
+  const { matchDetailsId, playerIdIndex, lobbyType, gameMode } =
     useLocalSearchParams<MatchDetailsParams>();
   return (
     <MatchDetailsScreen
-      matchDetailsIndex={matchDetailsIndex}
+      matchDetailsIndex={matchDetailsId}
       gameMode={gameMode}
       lobbyType={lobbyType}
       playerIdIndex={playerIdIndex}
