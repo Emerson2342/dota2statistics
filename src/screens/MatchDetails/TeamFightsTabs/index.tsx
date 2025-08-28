@@ -1,18 +1,5 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  Dimensions,
-  processColor,
-} from "react-native";
+import React, { useMemo } from "react";
+import { View, Text, Image, FlatList, Dimensions } from "react-native";
 
 import { createStyles } from "./styles";
 import { PlayerTeamFight, TeamFightModel } from "../../../services/props";
@@ -675,7 +662,7 @@ function TeamFightsComponent({
   });
 
   return (
-    <View style={[styles.container, { backgroundColor: ColorTheme.light }]}>
+    <View style={[styles.container]}>
       <FlatList
         data={processedFights}
         renderItem={({ item }) => <TeamFightItem fight={item} />}

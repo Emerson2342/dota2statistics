@@ -27,6 +27,12 @@ export function Leagues() {
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState(false);
   const [erroMessage, setErrorMessage] = useState<string>("");
+  useFocusEffect(
+    useCallback(() => {
+      console.log("****Leagues List");
+      loadLeagues();
+    }, [])
+  );
 
   const goToLeagueMatches = (id: number, name: string) => {
     router.push({
@@ -37,13 +43,6 @@ export function Leagues() {
       },
     });
   };
-
-  useFocusEffect(
-    useCallback(() => {
-      console.log("****Leagues List");
-      loadLeagues();
-    }, [])
-  );
 
   const loadLeagues = async () => {
     setIsLoading(true);
@@ -56,9 +55,13 @@ export function Leagues() {
           (l.tier === "premium" || l.tier === "professional") &&
           keywords.some((k) => l.name.toLowerCase().includes(k.toLowerCase()))
       );
-      const sortedLeagues = resultFiltered.sort(
-        (a, b) => b.leagueid - a.leagueid
+      const sortedLeagues = [...resultFiltered].sort((a, b) =>
+        (a.name ?? "").localeCompare(b.name ?? "", "en-US", {
+          sensitivity: "base",
+          numeric: true,
+        })
       );
+
       setLeagueList(sortedLeagues);
     } catch (error: any) {
       setErrorMessage(error);

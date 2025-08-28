@@ -177,7 +177,7 @@ function OverViewComponent({
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: ColorTheme.light }}>
+    <View style={{ flex: 1 }}>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

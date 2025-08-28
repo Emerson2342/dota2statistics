@@ -123,20 +123,24 @@ export function LeagueMatchesScreen({
           </View>
 
           <View style={styles.singleTeamContainer}>
-            <Text style={styles.teamScore}>{item.dire_score}</Text>
-            <Text style={styles.teamName}>{teamDire?.name ?? "Dire Team"}</Text>
+            <Text style={[styles.teamScore, { color: "#893647" }]}>
+              {item.dire_score}
+            </Text>
+            <Text style={[styles.teamName, { color: "#893647" }]}>
+              {teamDire?.name ?? "Dire Team"}
+            </Text>
           </View>
         </View>
         <View style={styles.timeContent}>
           <Text style={styles.durationText}>
-            <Text style={{ color: "#aaa" }}>
+            <Text style={{ color: "#555" }}>
               {englishLanguage ? "Duration: " : "Duração: "}
             </Text>
             {hours > 0 ? hours + ":" : ""}
             {minutes}:{seconds}
           </Text>
           <Text style={styles.durationText}>
-            <Text style={{ color: "#aaa" }}>
+            <Text style={{ color: "#555" }}>
               {englishLanguage ? "Date: " : "Data: "}
             </Text>
             {date}

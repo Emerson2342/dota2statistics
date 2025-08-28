@@ -9,7 +9,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       width: "95%",
       borderRadius: 7,
       alignSelf: "center",
-      // backgroundColor: "#fff",
     },
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
@@ -42,7 +41,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       backgroundColor: "#fff",
       borderColor: colors.standard,
       elevation: 3,
-      borderLeftWidth: 7,
+      borderLeftWidth: 5,
 
       borderRadius: 5,
       marginTop: "1.7%",

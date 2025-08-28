@@ -60,7 +60,6 @@ function Teams({
     if (playerId === undefined) {
       setModalMessageVisible(true);
     } else {
-      // navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
       router.push({
         pathname: "/player-profile",
         params: {
@@ -81,7 +80,11 @@ function Teams({
       radiantWin: boolean;
     }) => {
       return (
-        <View style={{ alignItems: "center" }}>
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
           <View style={[styles.headerContainer]}>
             <Text
               style={[
@@ -95,14 +98,9 @@ function Teams({
             >
               {winner}
             </Text>
-            <Text style={[styles.title, {}]}>{teamName}</Text>
+            <Text style={styles.title}>{teamName}</Text>
 
-            <View
-              style={[
-                styles.detailsContainer,
-                { backgroundColor: "transparent" },
-              ]}
-            >
+            <View style={[styles.detailsContainer]}>
               <View style={styles.helpButton}>
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
                   <MaterialCommunityIcons
@@ -193,19 +191,21 @@ function Teams({
                   PlayerIdIndex === player.account_id.toString()
                     ? {
                         backgroundColor: "#f7eba6",
-                        borderRadius: 3,
+                        //borderRadius: 3,
                         padding: "0.5%",
-                        marginTop: index == 0 ? 0 : "1%",
-                        borderTopEndRadius: index == 0 ? 0 : 3,
-                        borderTopStartRadius: index === 0 ? 0 : 3,
+                        borderBottomWidth: index === 4 ? 0 : 1,
+                        borderColor: "#ccc",
+                        borderBottomEndRadius: index === 4 ? 7 : 0,
+                        borderBottomStartRadius: index === 4 ? 7 : 0,
                       }
                     : {
                         backgroundColor: "#fff",
-                        marginTop: index == 0 ? 0 : "1%",
+                        // marginTop: index == 0 ? 0 : "1%",
                         padding: "0.5%",
-                        borderRadius: 3,
-                        borderTopEndRadius: index == 0 ? 0 : 3,
-                        borderTopStartRadius: index === 0 ? 0 : 3,
+                        borderBottomWidth: index === 4 ? 0 : 1,
+                        borderColor: "#ccc",
+                        borderBottomEndRadius: index === 4 ? 7 : 0,
+                        borderBottomStartRadius: index === 4 ? 7 : 0,
                       },
                   {},
                 ]}
@@ -397,7 +397,7 @@ function Teams({
 
   return (
     <View>
-      <View style={[styles.containerItem, { backgroundColor: "transparent" }]}>
+      <View style={styles.containerItem}>
         <FlatList
           data={matchDetails ? [matchDetails] : []}
           renderItem={({ item }) => (
@@ -411,7 +411,7 @@ function Teams({
           scrollEnabled={false}
         />
       </View>
-      <View style={[styles.containerItem, { backgroundColor: "transparent" }]}>
+      <View style={[styles.containerItem]}>
         <FlatList
           data={matchDetails ? [matchDetails] : []}
           renderItem={({ item }) => (
@@ -419,33 +419,32 @@ function Teams({
               players={item.players.slice(5, 10)}
               teamName={matchDetails?.dire_team?.name ?? direName}
               radiantWin={!item.radiant_win}
-              //isRadiant={false}
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
           scrollEnabled={false}
         />
-        <Modal
-          transparent={true}
-          visible={modalMessageVisible}
-          animationType="fade"
-          statusBarTranslucent={true}
-        >
-          <ModalMessage
-            handleClose={() => setModalMessageVisible(false)}
-            title="Ops..."
-            message={messageText}
-          />
-        </Modal>
-        <Modal
-          statusBarTranslucent={true}
-          visible={modalVisible}
-          transparent={true}
-          animationType="fade"
-        >
-          <ModalHelpMatchDetails handleClose={() => setModalVisible(false)} />
-        </Modal>
       </View>
+      <Modal
+        transparent={true}
+        visible={modalMessageVisible}
+        animationType="fade"
+        statusBarTranslucent={true}
+      >
+        <ModalMessage
+          handleClose={() => setModalMessageVisible(false)}
+          title="Ops..."
+          message={messageText}
+        />
+      </Modal>
+      <Modal
+        statusBarTranslucent={true}
+        visible={modalVisible}
+        transparent={true}
+        animationType="fade"
+      >
+        <ModalHelpMatchDetails handleClose={() => setModalVisible(false)} />
+      </Modal>
     </View>
   );
 }

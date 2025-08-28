@@ -151,7 +151,6 @@ export const MatchDetailsScreen = ({
             refreshing={refreshing}
             radName={radName}
             direName={direName}
-            colorTheme={ColorTheme.light}
             heroArray={heroArray}
             key={playerIdIndex}
           />

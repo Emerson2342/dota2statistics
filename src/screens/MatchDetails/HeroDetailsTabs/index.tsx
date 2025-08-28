@@ -15,7 +15,6 @@ type Props = {
   onRefresh: () => Promise<void>;
   radName: string;
   direName: string;
-  colorTheme: string;
   heroArray: HeroDetailsModel[];
 };
 
@@ -25,11 +24,10 @@ function HeroesDetailsComponent({
   onRefresh,
   radName,
   direName,
-  colorTheme,
   heroArray,
 }: Props) {
   return (
-    <View style={{ flex: 1, backgroundColor: colorTheme }}>
+    <View style={{ flex: 1 }}>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

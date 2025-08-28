@@ -10,6 +10,8 @@ export const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
       marginBottom: "3%",
       borderRadius: 9,
+      elevation: 7,
+      backgroundColor: "transparent",
     },
     helpButton: {
       alignItems: "center",
