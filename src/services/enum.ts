@@ -38,3 +38,8 @@ export enum GameMode {
   Mutation = 24,
   CoachChallenge = 25,
 }
+
+export enum TeamSide {
+  Radiant = "rad",
+  Dire = "dire",
+}
