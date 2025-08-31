@@ -6,6 +6,7 @@ import {
 } from "../../../../../src/services/props";
 import { PICTURE_HERO_BASE_FULL_URL } from "../../../../../src/constants/player";
 import { TeamSide } from "../../../../../src/services/enum";
+import { createStyles } from "../styles";
 
 type ProcessedFight = TeamFightModel & {
   formattedTime: string;
@@ -25,7 +26,7 @@ type ProcessedFight = TeamFightModel & {
 type KillsImageProps = {
   fight: ProcessedFight;
   label: string;
-  color: string;
+  color: ThemeColor;
   team: TeamSide;
 };
 
@@ -86,22 +87,3 @@ export const KillsImage = ({ fight, label, color, team }: KillsImageProps) => {
     </>
   );
 };
-
-const createStyles = (color: string) =>
-  StyleSheet.create({
-    textLabel: {
-      fontFamily: "QuickSand-Bold",
-      fontSize: Dimensions.get("screen").width * 0.03,
-      textAlign: "center",
-      color: color,
-      borderBottomWidth: 0.5,
-      marginBottom: 3,
-    },
-    itemImage: {
-      width: Dimensions.get("window").width * 0.067,
-      aspectRatio: 1,
-      borderRadius: 3,
-      height: undefined,
-      margin: Dimensions.get("screen").width * 0.003,
-    },
-  });

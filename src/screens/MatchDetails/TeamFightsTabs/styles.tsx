@@ -1,6 +1,8 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { ThemeColor } from "../../../services/props";
 
+const barChartHeight = Dimensions.get("window").height * 0.15;
+
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: { flex: 1 },
@@ -56,5 +58,16 @@ export const createStyles = (colors: ThemeColor) =>
       // padding: 3,
       color: colors.semidark,
       textAlign: "center",
+    },
+    barChart: {
+      width: "100%",
+      height: barChartHeight,
+      paddingTop: "7%",
+      paddingBottom: "7%",
+    },
+    barChartLabel: {
+      height: barChartHeight,
+      justifyContent: "flex-end",
+      alignItems: "center",
     },
   });

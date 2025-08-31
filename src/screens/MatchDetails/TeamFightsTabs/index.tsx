@@ -1,28 +1,22 @@
 import React, { useMemo } from "react";
-import { View, Text, Image, FlatList, Dimensions } from "react-native";
+import { View, Text, FlatList, Dimensions } from "react-native";
 
 import { createStyles } from "./styles";
-import { PlayerTeamFight, TeamFightModel } from "../../../services/props";
+import { TeamFightModel } from "../../../services/props";
 import { useSettingsContext } from "../../../context/useSettingsContext";
-import {
-  ITEM_IMAGE_BASE_URL,
-  PICTURE_HERO_BASE_FULL_URL,
-  PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
+
 import { useTheme } from "../../../context/useThemeContext";
 import { BarChartComponent } from "./BarCharComponent";
 import { BannerAds } from "../../../components/Admob/BannerAds";
-import EmptyImage from "../../../images/emptyImage.png";
 import { TeamSide } from "../../../../src/services/enum";
 import { RenderHeroIcon } from "./components/heroIcon";
 import { KillsImage } from "./components/killsImage";
+import { AbilitiesUsages } from "./components/abilities";
+import { ItemsUsages } from "./components/items";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
 const GOLD = "#DAA520";
-const BLUE = "#219FD5";
-
-const barChartHeight = Dimensions.get("window").height * 0.15;
 
 type ProcessedFight = TeamFightModel & {
   formattedTime: string;
@@ -112,191 +106,57 @@ function TeamFightsComponent({
                   fight={fight}
                   team={TeamSide.Radiant}
                   heroNames={heroNames}
+                  color={ColorTheme}
                 />
               </View>
-              <View
-                style={{
-                  width: "100%",
-                  height: barChartHeight,
-                  paddingTop: "7%",
-                  paddingBottom: "7%",
-                }}
-              >
+              <View style={styles.barChart}>
                 <BarChartComponent
                   formattedData={fight.damageRad}
                   color={RED}
                 />
               </View>
-              <View
-                style={{
-                  width: "100%",
-                  height: barChartHeight,
-                  paddingTop: "7%",
-                  paddingBottom: "7%",
-                }}
-              >
+              <View style={styles.barChart}>
                 <BarChartComponent formattedData={fight.xpRad} color={GREEN} />
               </View>
-              <View
-                style={{
-                  width: "100%",
-                  height: barChartHeight,
-                  paddingTop: "7%",
-                  paddingBottom: "7%",
-                }}
-              >
+              <View style={styles.barChart}>
                 <BarChartComponent formattedData={fight.goldRad} color={GOLD} />
               </View>
               <KillsImage
-                color={ColorTheme.dark}
+                color={ColorTheme}
                 fight={fight}
                 label={englishLanguage ? "Kills" : "Abates"}
                 team={TeamSide.Radiant}
               />
+              <AbilitiesUsages
+                colors={ColorTheme}
+                label={
+                  englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
+                }
+                fight={fight}
+                team={TeamSide.Radiant}
+              />
 
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Abilities" : "Habilidades"}
-              </Text>
-              <View style={{ flexDirection: "row" }}>
-                {fight.players
-                  ?.slice(0, 5)
-                  .map((player: PlayerTeamFight, indexPlayer: number) => {
-                    const abilities = Object.entries(player.ability_uses);
-
-                    if (abilities.length === 0)
-                      return (
-                        <View
-                          key={indexPlayer + 139}
-                          style={styles.itemImage}
-                        />
-                      );
-
-                    return (
-                      <View key={indexPlayer}>
-                        {Object.entries(player.ability_uses).map(
-                          (
-                            [abilityName, usageCount]: [string, number],
-                            index: number
-                          ) => {
-                            const abilityImage =
-                              ITEM_IMAGE_BASE_URL + abilityName + ".png";
-
-                            return (
-                              <View
-                                key={index}
-                                style={{
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Image
-                                  source={EmptyImage}
-                                  style={[
-                                    styles.itemImage,
-                                    { position: "absolute" },
-                                  ]}
-                                />
-                                <Image
-                                  source={{ uri: abilityImage }}
-                                  style={styles.itemImage}
-                                />
-                              </View>
-                            );
-                          }
-                        )}
-                      </View>
-                    );
-                  })}
-              </View>
-              <Text style={styles.textLabel}>
-                {englishLanguage ? "Items" : "Itens"}
-              </Text>
-              <View style={{ flexDirection: "row" }}>
-                {fight.players
-                  ?.slice(0, 5)
-                  .map((player: PlayerTeamFight, indexPlayerItem: number) => {
-                    const items = Object.entries(player.item_uses);
-
-                    if (items.length === 0)
-                      return (
-                        <View
-                          key={indexPlayerItem + 331}
-                          style={styles.itemImage}
-                        />
-                      );
-
-                    return (
-                      <View key={indexPlayerItem}>
-                        {Object.entries(player?.item_uses).map(
-                          (
-                            [itemName, usageCount]: [string, number],
-                            index: number
-                          ) => {
-                            const itemImage =
-                              PICTURE_HERO_BASE_URL +
-                              "/apps/dota2/images/dota_react/items/" +
-                              itemName +
-                              ".png";
-
-                            return (
-                              <View
-                                key={index}
-                                style={{
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Image
-                                  source={EmptyImage}
-                                  style={[
-                                    styles.itemImage,
-                                    { position: "absolute" },
-                                  ]}
-                                />
-                                <Image
-                                  source={{ uri: itemImage }}
-                                  style={styles.itemImage}
-                                />
-                              </View>
-                            );
-                          }
-                        )}
-                      </View>
-                    );
-                  })}
-              </View>
+              <ItemsUsages
+                color={ColorTheme}
+                label={englishLanguage ? "Items Used" : "Itens Utilizados"}
+                fight={fight}
+                team={TeamSide.Radiant}
+              />
             </View>
           </View>
           <View style={{ width: "20%" }}>
             <Text style={styles.textTitle} />
-            <View
-              style={{
-                height: barChartHeight,
-                backgroundColor: "puple",
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
+            <View style={styles.barChartLabel}>
               <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
                 {englishLanguage ? "Damage Caused" : "Dano Causado"}
               </Text>
             </View>
-            <View
-              style={{
-                height: barChartHeight,
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
+            <View style={styles.barChartLabel}>
               <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
                 Xp
               </Text>
             </View>
-            <View
-              style={{
-                height: barChartHeight,
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
+            <View style={styles.barChartLabel}>
               <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
                 {englishLanguage ? "Gold" : "Ouro"}
               </Text>
@@ -312,151 +172,38 @@ function TeamFightsComponent({
                 fight={fight}
                 team={TeamSide.Dire}
                 heroNames={heroNames}
+                color={ColorTheme}
               />
             </View>
-            <View
-              style={{
-                width: "100%",
-                height: barChartHeight,
-                paddingTop: "7%",
-                paddingBottom: "7%",
-              }}
-            >
+            <View style={styles.barChart}>
               <BarChartComponent formattedData={fight.damageDire} color={RED} />
             </View>
-            <View
-              style={{
-                width: "100%",
-                height: barChartHeight,
-                paddingTop: "7%",
-                paddingBottom: "7%",
-              }}
-            >
+            <View style={styles.barChart}>
               <BarChartComponent formattedData={fight.xpDire} color={GREEN} />
             </View>
-            <View
-              style={{
-                width: "100%",
-                height: barChartHeight,
-                paddingTop: "7%",
-                paddingBottom: "7%",
-              }}
-            >
+            <View style={styles.barChart}>
               <BarChartComponent formattedData={fight.goldDire} color={GOLD} />
             </View>
             <KillsImage
-              color={ColorTheme.dark}
+              color={ColorTheme}
               fight={fight}
               label={englishLanguage ? "Kills" : "Abates"}
               team={TeamSide.Dire}
             />
-            <Text style={styles.textLabel}>
-              {englishLanguage ? "Abilities" : "Habilidades"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              {fight.players
-                ?.slice(5, 10)
-                .map((player: PlayerTeamFight, indexPlayer: number) => {
-                  const abilities = Object.entries(player.ability_uses);
-
-                  if (abilities.length === 0)
-                    return (
-                      <View key={indexPlayer + 50} style={styles.itemImage} />
-                    );
-
-                  return (
-                    <View key={indexPlayer}>
-                      {Object.entries(player.ability_uses).map(
-                        (
-                          [abilityName, usageCount]: [string, number],
-                          index: number
-                        ) => {
-                          const abilityImage =
-                            ITEM_IMAGE_BASE_URL + abilityName + ".png";
-
-                          return (
-                            <View
-                              key={index}
-                              style={{
-                                alignItems: "center",
-                              }}
-                            >
-                              <Image
-                                source={EmptyImage}
-                                style={[
-                                  styles.itemImage,
-                                  { position: "absolute" },
-                                ]}
-                              />
-                              <Image
-                                source={{ uri: abilityImage }}
-                                style={styles.itemImage}
-                              />
-                            </View>
-                          );
-                        }
-                      )}
-                    </View>
-                  );
-                })}
-            </View>
-
-            <Text style={styles.textLabel}>
-              {englishLanguage ? "Items" : "Itens"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              {fight.players
-                ?.slice(5, 10)
-                .map((player: PlayerTeamFight, indexPlayerItem: number) => {
-                  const items = Object.entries(player.item_uses);
-
-                  if (items.length === 0)
-                    return (
-                      <View
-                        key={indexPlayerItem + 503}
-                        style={styles.itemImage}
-                      />
-                    );
-
-                  return (
-                    <View key={indexPlayerItem}>
-                      {Object.entries(player?.item_uses).map(
-                        (
-                          [itemName, usageCount]: [string, number],
-                          index: number
-                        ) => {
-                          const itemImage =
-                            PICTURE_HERO_BASE_URL +
-                            "/apps/dota2/images/dota_react/items/" +
-                            itemName +
-                            ".png";
-
-                          return (
-                            <View
-                              key={index}
-                              style={{
-                                alignItems: "center",
-                              }}
-                            >
-                              <Image
-                                source={EmptyImage}
-                                style={[
-                                  styles.itemImage,
-                                  { position: "absolute" },
-                                ]}
-                              />
-                              <Image
-                                source={{ uri: itemImage }}
-                                style={styles.itemImage}
-                              />
-                            </View>
-                          );
-                        }
-                      )}
-                    </View>
-                  );
-                })}
-            </View>
+            <AbilitiesUsages
+              colors={ColorTheme}
+              label={
+                englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
+              }
+              fight={fight}
+              team={TeamSide.Dire}
+            />
+            <ItemsUsages
+              color={ColorTheme}
+              label={englishLanguage ? "Items Used" : "Itens Utilizados"}
+              fight={fight}
+              team={TeamSide.Dire}
+            />
           </View>
         </View>
       </View>

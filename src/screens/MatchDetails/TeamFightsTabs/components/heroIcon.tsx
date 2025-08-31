@@ -4,16 +4,25 @@ import { TeamSide } from "../../../../../src/services/enum";
 import {
   PlayerTeamFight,
   TeamFightModel,
+  ThemeColor,
 } from "../../../../../src/services/props";
+import { createStyles } from "../styles";
 
 type TeamHeroesProps = {
   fight: TeamFightModel;
   team: TeamSide;
   heroNames: string[];
+  color: ThemeColor;
 };
 
-export const RenderHeroIcon = ({ fight, team, heroNames }: TeamHeroesProps) => {
+export const RenderHeroIcon = ({
+  fight,
+  team,
+  heroNames,
+  color,
+}: TeamHeroesProps) => {
   const [start, end] = team === TeamSide.Radiant ? [0, 5] : [5, 10];
+  const styles = createStyles(color);
   return (
     <>
       {fight.players
@@ -72,13 +81,3 @@ export const RenderHeroIcon = ({ fight, team, heroNames }: TeamHeroesProps) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  itemImage: {
-    width: Dimensions.get("window").width * 0.067,
-    aspectRatio: 1,
-    borderRadius: 3,
-    height: undefined,
-    margin: Dimensions.get("screen").width * 0.003,
-  },
-});
