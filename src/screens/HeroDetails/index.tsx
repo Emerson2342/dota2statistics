@@ -48,6 +48,7 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "./../../constants/player";
 import useHeroDetails from "../../hooks/useHeroDetails";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -71,6 +72,8 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
 
   const [loadingHeroDetails, setLoadingHeroDetails] = useState(true);
   const [loreJson, setLoreJson] = useState<HeroLore>(HeroLoreJson);
+
+  const [loadingItems, setLoadingItems] = useState(true);
 
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
 
@@ -111,6 +114,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   );
 
   const HandleGetHeroItems = async () => {
+    setLoadingItems(true);
     const heroItems = await getHeroItems(heroDetails.id.toString());
 
     const getTopItems = (items: ItemPopularity): ItemPopularity => {
@@ -132,6 +136,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       };
       setHeroItems(topHeroItems);
     }
+    setLoadingItems(false);
   };
 
   //const LoreJson: HeroLore = HeroLoreJson;
@@ -384,196 +389,174 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
     );
   };
 
+  if (loadingHeroDetails)
+    return (
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage
+            ? "Loading Hero Details..."
+            : "Carregando Detalhes do Herói..."
+        }
+      />
+    );
+
   return (
     <View style={{ flex: 1 }}>
-      {loadingHeroDetails ? (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: ColorTheme.light,
-          }}
-        >
-          <View style={{ flex: 0.9, justifyContent: "center" }}>
-            <ActivityIndicator size={30} color={ColorTheme.semidark} />
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={() => setModalHeroLore(true)}>
+            <Ionicons
+              name="information-circle"
+              color={"#fff"}
+              style={{ position: "absolute", margin: 5, right: 3 }}
+              size={27}
+            />
+          </TouchableOpacity>
+          <Text style={styles.nameText}>{heroDetails.localized_name}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-end",
+              justifyContent: "center",
+            }}
+          >
+            <Image style={{ width: 15, height: 15 }} source={attImage} />
+
             <Text
-              style={{
-                fontFamily: "QuickSand-Semibold",
-                color: ColorTheme.dark,
-              }}
+              style={[styles.textAtributo, { color: "#bbb", fontSize: 13 }]}
             >
-              {englishLanguage
-                ? "Loading hero details..."
-                : "Carregando detalhes do herói..."}
+              {" "}
+              {atributo}
             </Text>
           </View>
-        </View>
-      ) : (
-        <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={() => setModalHeroLore(true)}>
-              <Ionicons
-                name="information-circle"
-                color={"#fff"}
-                style={{ position: "absolute", margin: 5, right: 3 }}
-                size={27}
+          <View style={{ flexDirection: "row" }}>
+            <View style={styles.imgContainer}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: fontImage,
+                }}
+                onError={(error) =>
+                  console.error("Erro ao carregar a imagem: ", error)
+                }
               />
-            </TouchableOpacity>
-            <Text style={styles.nameText}>{heroDetails.localized_name}</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "flex-end",
-                justifyContent: "center",
-              }}
-            >
-              <Image style={{ width: 15, height: 15 }} source={attImage} />
-
-              <Text
-                style={[styles.textAtributo, { color: "#bbb", fontSize: 13 }]}
+              <LinearGradient
+                colors={["#2a6623", "#79ee3c"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
               >
-                {" "}
-                {atributo}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <View style={styles.imgContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: fontImage,
-                  }}
-                  onError={(error) =>
-                    console.error("Erro ao carregar a imagem: ", error)
-                  }
-                />
-                <LinearGradient
-                  colors={["#2a6623", "#79ee3c"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={{
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={styles.shadowText}>
-                      {Math.round(baseHelth)}
-                    </Text>
-                    <Text style={styles.textHelth}>{baseHelth}</Text>
-                  </View>
-                </LinearGradient>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={styles.shadowText}>{Math.round(baseHelth)}</Text>
+                  <Text style={styles.textHelth}>{baseHelth}</Text>
+                </View>
+              </LinearGradient>
 
-                <LinearGradient
-                  colors={["#125adc", "#71f3fd"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={{
-                    width: "100%",
-                    alignItems: "center",
-                    borderBottomRightRadius: 7,
-                    borderBottomLeftRadius: 7,
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={styles.shadowText}>
-                      {Math.round(baseMana)}
-                    </Text>
-                    <Text style={styles.textHelth}>{Math.round(baseMana)}</Text>
-                  </View>
-                </LinearGradient>
+              <LinearGradient
+                colors={["#125adc", "#71f3fd"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  borderBottomRightRadius: 7,
+                  borderBottomLeftRadius: 7,
+                }}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={styles.shadowText}>{Math.round(baseMana)}</Text>
+                  <Text style={styles.textHelth}>{Math.round(baseMana)}</Text>
+                </View>
+              </LinearGradient>
+            </View>
+            <View style={styles.atributos}>
+              <View
+                style={{
+                  justifyContent: "space-around",
+                  width: "30%",
+                  alignItems: "center",
+                }}
+              >
+                <View style={styles.attContainer}>
+                  <Image style={{ width: 19, height: 19 }} source={str} />
+                  <Text style={styles.attNumber}>{heroDetails.base_str}</Text>
+                  <Text style={styles.attGain}> + {heroDetails.str_gain}</Text>
+                </View>
+                <View style={styles.attContainer}>
+                  <Image style={{ width: 19, height: 19 }} source={agi} />
+                  <Text style={styles.attNumber}>{heroDetails.base_agi}</Text>
+                  <Text style={styles.attGain}> + {heroDetails.agi_gain}</Text>
+                </View>
+                <View style={styles.attContainer}>
+                  <Image style={{ width: 19, height: 19 }} source={int} />
+                  <Text style={styles.attNumber}>{heroDetails.base_int}</Text>
+                  <Text style={styles.attGain}> + {heroDetails.int_gain}</Text>
+                </View>
               </View>
-              <View style={styles.atributos}>
+              <View style={{ width: "65%", alignItems: "center" }}>
+                <Text style={styles.textAtributo}>
+                  {heroDetails.attack_type}
+                </Text>
                 <View
                   style={{
-                    justifyContent: "space-around",
-                    width: "30%",
+                    flexWrap: "wrap",
+                    flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <View style={styles.attContainer}>
-                    <Image style={{ width: 19, height: 19 }} source={str} />
-                    <Text style={styles.attNumber}>{heroDetails.base_str}</Text>
-                    <Text style={styles.attGain}>
-                      {" "}
-                      + {heroDetails.str_gain}
+                  {heroDetails.roles.map((role, index) => (
+                    <Text key={index} style={styles.textName}>
+                      {role}
+                      {index !== heroDetails.roles.length - 1 ? ", " : ""}
                     </Text>
-                  </View>
-                  <View style={styles.attContainer}>
-                    <Image style={{ width: 19, height: 19 }} source={agi} />
-                    <Text style={styles.attNumber}>{heroDetails.base_agi}</Text>
-                    <Text style={styles.attGain}>
-                      {" "}
-                      + {heroDetails.agi_gain}
-                    </Text>
-                  </View>
-                  <View style={styles.attContainer}>
-                    <Image style={{ width: 19, height: 19 }} source={int} />
-                    <Text style={styles.attNumber}>{heroDetails.base_int}</Text>
-                    <Text style={styles.attGain}>
-                      {" "}
-                      + {heroDetails.int_gain}
-                    </Text>
-                  </View>
+                  ))}
                 </View>
-                <View style={{ width: "65%", alignItems: "center" }}>
-                  <Text style={styles.textAtributo}>
-                    {heroDetails.attack_type}
-                  </Text>
-                  <View
-                    style={{
-                      flexWrap: "wrap",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {heroDetails.roles.map((role, index) => (
-                      <Text key={index} style={styles.textName}>
-                        {role}
-                        {index !== heroDetails.roles.length - 1 ? ", " : ""}
-                      </Text>
-                    ))}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <MaterialCommunityIcons
+                      name="sword"
+                      size={17}
+                      color={"#ccc"}
+                    />
+                    <Text
+                      style={[styles.attGain, { color: "#fff" }]}
+                    >{`${Math.floor(baseAttMin)} - ${Math.floor(
+                      baseAttMax
+                    )}`}</Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      width: "100%",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <MaterialCommunityIcons
-                        name="sword"
-                        size={17}
-                        color={"#ccc"}
-                      />
-                      <Text
-                        style={[styles.attGain, { color: "#fff" }]}
-                      >{`${Math.floor(baseAttMin)} - ${Math.floor(
-                        baseAttMax
-                      )}`}</Text>
-                    </View>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Image style={{ width: 23, height: 23 }} source={boots} />
-                      <Text style={[styles.attGain, { color: "#fff" }]}>
-                        {" "}
-                        {heroDetails.move_speed}
-                      </Text>
-                    </View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image style={{ width: 23, height: 23 }} source={boots} />
+                    <Text style={[styles.attGain, { color: "#fff" }]}>
+                      {" "}
+                      {heroDetails.move_speed}
+                    </Text>
                   </View>
                 </View>
               </View>
             </View>
           </View>
+        </View>
 
-          <ScrollView>
-            <View style={[styles.itemsContainer]}>
+        <ScrollView>
+          {loadingItems ? (
+            <View style={styles.itemsContainer}>
+              <Text style={styles.titleText}>
+                {englishLanguage ? "Popular Items" : "Itens Populares"}
+              </Text>
+              <ActivityIndicator size={30} color={ColorTheme.semidark} />
+            </View>
+          ) : (
+            <View style={styles.itemsContainer}>
               <Text style={styles.titleText}>
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
               </Text>
@@ -593,16 +576,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                             imgUrl={item?.img}
                             itemDetails={item}
                           />
-                          // <TouchableOpacity key={itemId} style={{ margin: 1 }}>
-                          //   <Image
-                          //     width={imgWidth}
-                          //     height={imgWidth}
-                          //     style={{ borderRadius: 15 }}
-                          //     source={{
-                          //       uri: PICTURE_HERO_BASE_URL + item?.img,
-                          //     }}
-                          //   />
-                          // </TouchableOpacity>
                         );
                       }
                     )
@@ -672,145 +645,145 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                   : null}
               </View>
             </View>
-            <View style={styles.itemsContainer}>
+          )}
+          <View style={styles.itemsContainer}>
+            <Text style={styles.titleText}>
+              {englishLanguage ? "Abilities" : "Habilidades"}
+            </Text>
+            {/* Habilidades */}
+            <View style={styles.abilitiesContainer}>
+              <FlatList
+                data={abilitiesDesc}
+                renderItem={renderAbilitiesDescriptions}
+                keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
+              />
+            </View>
+            {/* Aghanim e Shard */}
+          </View>
+          <View style={styles.itemsContainer}>
+            <View style={styles.facetsContainer}>
               <Text style={styles.titleText}>
-                {englishLanguage ? "Abilities" : "Habilidades"}
+                {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
               </Text>
-              {/* Habilidades */}
-              <View style={styles.abilitiesContainer}>
-                <FlatList
-                  data={abilitiesDesc}
-                  renderItem={renderAbilitiesDescriptions}
-                  keyExtractor={(item, index) => index.toString()}
-                  scrollEnabled={false}
-                />
-              </View>
-              {/* Aghanim e Shard */}
-            </View>
-            <View style={styles.itemsContainer}>
-              <View style={styles.facetsContainer}>
-                <Text style={styles.titleText}>
-                  {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
+              <View style={{ width: "100%", alignItems: "center" }}>
+                <Text style={styles.textTitle2}>
+                  {aghanimHeroSelected?.scepter_skill_name}
                 </Text>
-                <View style={{ width: "100%", alignItems: "center" }}>
-                  <Text style={styles.textTitle2}>
-                    {aghanimHeroSelected?.scepter_skill_name}
-                  </Text>
-                  <Text style={styles.textDescription}>
-                    {"      " + aghanimHeroSelected?.scepter_desc}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.itemsContainer,
-                { display: aghanimHeroSelected?.has_shard ? "flex" : "none" },
-              ]}
-            >
-              <View style={styles.facetsContainer}>
-                <Text style={styles.titleText}>
-                  {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
+                <Text style={styles.textDescription}>
+                  {"      " + aghanimHeroSelected?.scepter_desc}
                 </Text>
-                <View style={{ width: "100%", alignItems: "center" }}>
-                  <Text style={styles.textTitle2}>
-                    {aghanimHeroSelected?.shard_skill_name}
-                  </Text>
-                  <Text style={styles.textDescription}>
-                    {"      " + aghanimHeroSelected?.shard_desc}
-                  </Text>
-                </View>
               </View>
             </View>
-            <View style={styles.itemsContainer}>
-              {/* Facetas */}
-              <View style={styles.facetsContainer}>
-                <Text style={styles.titleText}>
-                  {englishLanguage ? "Facets" : "Facetas"}
-                </Text>
-
-                {abilities?.facets.map((facets, index) => {
-                  if (facets.deprecated) return;
-                  return (
-                    <View
-                      key={index}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.textTitle2} key={index}>
-                        {facets.title}
-                      </Text>
-                      <Text style={styles.textDescription}>
-                        {" " + facets.description}
-                      </Text>
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: 7,
-                          marginBottom: 7,
-                        }}
-                      >
-                        {facets.abilities &&
-                          facets.abilities?.map((abi, index) => {
-                            const imgFacet = ITEM_IMAGE_BASE_URL + abi + ".png";
-                            return (
-                              <Image
-                                key={index}
-                                width={35}
-                                height={35}
-                                source={{ uri: imgFacet }}
-                                style={{ borderRadius: 7, marginHorizontal: 5 }}
-                              />
-                            );
-                          })}
-                      </View>
-                    </View>
-                  );
-                })}
-              </View>
-            </View>
-          </ScrollView>
-          <View style={{ paddingTop: 3 }}>
-            <BannerAds />
           </View>
           <View
-            style={{
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          ></View>
-          <Modal
-            visible={modalHeroLore}
-            transparent={true}
-            statusBarTranslucent={true}
-            animationType="fade"
+            style={[
+              styles.itemsContainer,
+              { display: aghanimHeroSelected?.has_shard ? "flex" : "none" },
+            ]}
           >
-            <ModaHeroLore
-              urlImage={heroDetails.img}
-              handleClose={() => setModalHeroLore(false)}
-              localizedName={heroDetails.localized_name}
-              loreText={heroLore}
-            />
-          </Modal>
-          <Modal
-            visible={modalItemVisible}
-            transparent={true}
-            animationType="fade"
-            onRequestClose={() => setModalItemVisible(false)}
-          >
-            <ModalItemDetails
-              item={itemIndex}
-              shard={shardIndex}
-              aghanim={aghanimIndex}
-              itemType={itemType}
-              handleClose={() => setModalItemVisible(false)}
-            />
-          </Modal>
+            <View style={styles.facetsContainer}>
+              <Text style={styles.titleText}>
+                {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
+              </Text>
+              <View style={{ width: "100%", alignItems: "center" }}>
+                <Text style={styles.textTitle2}>
+                  {aghanimHeroSelected?.shard_skill_name}
+                </Text>
+                <Text style={styles.textDescription}>
+                  {"      " + aghanimHeroSelected?.shard_desc}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.itemsContainer}>
+            {/* Facetas */}
+            <View style={styles.facetsContainer}>
+              <Text style={styles.titleText}>
+                {englishLanguage ? "Facets" : "Facetas"}
+              </Text>
+
+              {abilities?.facets.map((facets, index) => {
+                if (facets.deprecated) return;
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      width: "100%",
+                    }}
+                  >
+                    <Text style={styles.textTitle2} key={index}>
+                      {facets.title}
+                    </Text>
+                    <Text style={styles.textDescription}>
+                      {" " + facets.description}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: 7,
+                        marginBottom: 7,
+                      }}
+                    >
+                      {facets.abilities &&
+                        facets.abilities?.map((abi, index) => {
+                          const imgFacet = ITEM_IMAGE_BASE_URL + abi + ".png";
+                          return (
+                            <Image
+                              key={index}
+                              width={35}
+                              height={35}
+                              source={{ uri: imgFacet }}
+                              style={{ borderRadius: 7, marginHorizontal: 5 }}
+                            />
+                          );
+                        })}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        </ScrollView>
+        <View style={{ paddingTop: 3 }}>
+          <BannerAds />
         </View>
-      )}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "flex-end",
+          }}
+        ></View>
+        <Modal
+          visible={modalHeroLore}
+          transparent={true}
+          statusBarTranslucent={true}
+          animationType="fade"
+        >
+          <ModaHeroLore
+            urlImage={heroDetails.img}
+            handleClose={() => setModalHeroLore(false)}
+            localizedName={heroDetails.localized_name}
+            loreText={heroLore}
+          />
+        </Modal>
+        <Modal
+          visible={modalItemVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={() => setModalItemVisible(false)}
+        >
+          <ModalItemDetails
+            item={itemIndex}
+            shard={shardIndex}
+            aghanim={aghanimIndex}
+            itemType={itemType}
+            handleClose={() => setModalItemVisible(false)}
+          />
+        </Modal>
+      </View>
     </View>
   );
 }

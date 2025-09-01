@@ -28,6 +28,7 @@ import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
 import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
 import { Stack } from "expo-router";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -212,7 +213,16 @@ export default function PlayerProfileScreen({
     [modalFavoritesVisible, isLoading]
   );
 
-  if (isLoading) return Loading;
+  if (isLoading)
+    return (
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage
+            ? "Loading Player Details..."
+            : "Carregando Dados do Jogador..."
+        }
+      />
+    );
 
   if (recentMatches.length === 0 && !isLoading)
     return <Text style={styles.textMessage}>{erro404}</Text>;
@@ -252,7 +262,7 @@ export default function PlayerProfileScreen({
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderLazyPlaceholder={() => Loading}
+        //renderLazyPlaceholder={() => Loading}
         lazy={true}
         commonOptions={{
           labelStyle: {

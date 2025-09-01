@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
 
 import { createStyles } from "./LeagueMatchesStyles";
 import { useTheme } from "../../context/useThemeContext";
-import {
-  LeagueMatches,
-  RootStackParamList,
-  MatchLeagueInfo,
-  FontModel,
-} from "../../services/props";
+import { LeagueMatches } from "../../services/props";
 import { LEAGUES_BASE_URL } from "../../constants/player";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { getSearchLeagueMatches } from "../../services/api";
 import { useRouter } from "expo-router";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
 type LeagueDetailsProps = {
   LeagueIdIndex: number;
@@ -168,28 +157,13 @@ export function LeagueMatchesScreen({
 
   if (isLoading) {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: ColorTheme.light,
-        }}
-      >
-        <ActivityIndicator size={30} color={ColorTheme.semidark} />
-        <Text
-          style={{
-            paddingTop: "3%",
-            color: ColorTheme.dark,
-            fontFamily: "QuickSand-Bold",
-          }}
-        >
-          {englishLanguage ? "Loading.." : "Carregando..."}
-        </Text>
-        <View style={{ alignSelf: "flex-end" }}>
-          <BannerAds />
-        </View>
-      </View>
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage
+            ? "Loading League Matches..."
+            : "Carregando Partidas do Campeonato..."
+        }
+      />
     );
   }
 

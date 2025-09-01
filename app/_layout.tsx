@@ -17,6 +17,7 @@ import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  Text,
   View,
 } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
@@ -75,9 +76,6 @@ function Content() {
   const { ColorTheme } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const { englishLanguage } = useSettingsContext();
-  const params = useLocalSearchParams<{ playerId?: string }>();
-
-  const [isAppAlready, setIsAppAlready] = useState(false);
 
   useEffect(() => {
     checkForUpdates();
@@ -122,17 +120,6 @@ function Content() {
       console.error(error);
     }
   }
-
-  if (!isAppAlready) {
-    return (
-      <SplashScreenComponent
-        onFinish={(isCancelled) => !isCancelled && setIsAppAlready(true)}
-      />
-    );
-  }
-
-  if (!isAppAlready)
-    return <SplashScreenComponent onFinish={() => setIsAppAlready(true)} />;
 
   return (
     <View style={{ flex: 1 }}>

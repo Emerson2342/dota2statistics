@@ -22,7 +22,7 @@ import { AsyncStorageService } from "../../services/StorageService";
 import { TeamFightsTabs } from "./TeamFightsTabs";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { BannerAds } from "../../components/Admob/BannerAds";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -159,7 +159,15 @@ export const MatchDetailsScreen = ({
         return <TeamFightComponent />;
       //return <Text>testes 3</Text>;
       default:
-        return LoadingMatchDetails();
+        return (
+          <ActivityIndicatorCustom
+            message={
+              englishLanguage
+                ? "Loading Match Details..."
+                : "Carregando Detalhes da Partida..."
+            }
+          />
+        );
     }
   };
 
@@ -185,23 +193,6 @@ export const MatchDetailsScreen = ({
   };
 
   //const LoadingMatchDetails = () => {
-  const LoadingMatchDetails = () => (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator size="large" color={ColorTheme.standard} />
-        <Text style={{ fontFamily: "QuickSand-Semibold", marginTop: 10 }}>
-          {englishLanguage
-            ? "Loading Match Details..."
-            : "Carregando Detalhes da Partida..."}
-        </Text>
-      </View>
-      <BannerAds />
-    </View>
-  );
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -307,7 +298,16 @@ export const MatchDetailsScreen = ({
     />
   );
 
-  if (loadingMatch) return <LoadingMatchDetails />;
+  if (loadingMatch)
+    return (
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage
+            ? "Loading Match Details..."
+            : "Carregando Detalhes da Partida..."
+        }
+      />
+    );
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
@@ -325,7 +325,6 @@ export const MatchDetailsScreen = ({
         initialLayout={{ width: layout.width }}
         lazy
         lazyPreloadDistance={2}
-        renderLazyPlaceholder={LoadingMatchDetails}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,

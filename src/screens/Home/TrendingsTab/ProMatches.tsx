@@ -16,6 +16,10 @@ import { useTheme } from "../../../context/useThemeContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
+import { TeamSide } from "../../../../src/services/enum";
+
+const WIN = "#257848";
+const LOS = "#9a2525";
 
 function ProMatchesComponent({
   proMatches,
@@ -87,6 +91,42 @@ function ProMatchesComponent({
     });
   };
 
+  const TeamName = ({
+    item,
+    team,
+  }: {
+    item: LeagueMatches;
+    team: TeamSide;
+  }) => {
+    const isRadiant = team === TeamSide.Radiant;
+
+    const isWinner = isRadiant ? !!item.radiant_win : !item.radiant_win;
+
+    const colorText = isWinner ? WIN : LOS;
+
+    const itemName = isRadiant
+      ? item.radiant_name || "Radiant"
+      : item.dire_name || "Dire";
+
+    const itemScore =
+      team === TeamSide.Radiant ? item.radiant_score : item.dire_score;
+
+    const rowStyle = [
+      styles.teamRow,
+      isRadiant && { flexDirection: "row-reverse" as const },
+    ];
+
+    return (
+      <View style={rowStyle}>
+        <Text style={[styles.score, { color: colorText }]}>{itemScore}</Text>
+
+        <Text style={[styles.teamName, { color: colorText }]} numberOfLines={1}>
+          {itemName}
+        </Text>
+      </View>
+    );
+  };
+
   const ProMatchItem = ({
     item,
     formattedEndDuration,
@@ -109,44 +149,8 @@ function ProMatchesComponent({
             width: "100%",
           }}
         >
-          <View style={styles.teamRow}>
-            <Text
-              style={[
-                styles.teamName,
-                {
-                  color: item.radiant_win ? "#257848" : "#9a2525",
-                },
-              ]}
-            >
-              {item.radiant_name || "Radiant"}
-            </Text>
-            <Text
-              style={[
-                styles.score,
-                { color: item.radiant_win ? "#257848" : "#9a2525" },
-              ]}
-            >
-              {item.radiant_score}
-            </Text>
-          </View>
-          <View style={styles.teamRow}>
-            <Text
-              style={[
-                styles.score,
-                { color: item.radiant_win ? "#9a2525" : "#257848" },
-              ]}
-            >
-              {item.dire_score}
-            </Text>
-            <Text
-              style={[
-                styles.teamName,
-                { color: item.radiant_win ? "#9a2525" : "#257848" },
-              ]}
-            >
-              {item.dire_name || "Dire"}
-            </Text>
-          </View>
+          <TeamName item={item} team={TeamSide.Radiant} />
+          <TeamName item={item} team={TeamSide.Dire} />
         </View>
         <View style={styles.timeContainer}>
           <Text style={styles.textData}>

@@ -88,18 +88,6 @@ export function Home() {
     await getProMatches(setProMatches);
   }, [getProMatches]);
 
-  const Loading = useMemo(
-    () => (
-      <View style={{ flex: 1 }}>
-        <ActivityIndicatorCustom
-          message={englishLanguage ? "Loading..." : "Carregando..."}
-        />
-        <BannerAds />
-      </View>
-    ),
-    [isLoading]
-  );
-
   const routes = useMemo(
     () => [
       { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
@@ -132,7 +120,12 @@ export function Home() {
     }, 500);
   };
 
-  if (isLoading) return Loading;
+  if (isLoading)
+    return (
+      <ActivityIndicatorCustom
+        message={englishLanguage ? "Loading..." : "Carregando"}
+      />
+    );
 
   return (
     <TabView

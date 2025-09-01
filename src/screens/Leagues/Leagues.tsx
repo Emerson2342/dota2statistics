@@ -1,12 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
+import React, { useCallback, useState } from "react";
+import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
 import { League } from "../../services/props";
@@ -15,9 +8,12 @@ import { useTheme } from "../../../src/context/useThemeContext";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { BannerAds } from "../../components/Admob/BannerAds";
 import { useFocusEffect, useRouter } from "expo-router";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { useSettingsContext } from "../../../src/context/useSettingsContext";
 
 export function Leagues() {
   const { ColorTheme } = useTheme();
+  const { englishLanguage } = useSettingsContext();
 
   const styles = createStyles(ColorTheme);
 
@@ -82,22 +78,23 @@ export function Leagues() {
     );
   };
 
+  if (isLoading)
+    return (
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage ? "Loading Leagues..." : "Carregando Campeonatos..."
+        }
+      />
+    );
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View>
-          {isLoading ? (
-            <View style={{ flex: 1, justifyContent: "center" }}>
-              <ActivityIndicator size={"large"} color={ColorTheme.semilight} />
-            </View>
-          ) : (
-            <FlatList
-              data={leagueList}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.leagueid.toString()}
-            />
-          )}
-        </View>
+        <FlatList
+          data={leagueList}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.leagueid.toString()}
+        />
       </View>
       <Modal
         visible={modalMessage}
