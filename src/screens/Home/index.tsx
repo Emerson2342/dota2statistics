@@ -7,26 +7,20 @@ import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { useTheme } from "../../context/useThemeContext";
 import {
-  getHeroesPlayed,
   getHeroesStats,
   getProMatches,
   getRecentMatches,
   getSearchPlayer,
   loadTeamsList,
 } from "../../services/api";
-import {
-  HeroesPlayed,
-  HeroStats,
-  LeagueMatches,
-  RecentMatches,
-} from "../../../src/services/props";
-import { BannerAds } from "../../components/Admob/BannerAds";
+import { HeroStats, LeagueMatches } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
+import { ErrorComponent } from "../../../src/utils/ErrorComponent";
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -39,6 +33,7 @@ export function Home() {
 
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
+  const [errorRequest, setErrorRequest] = useState(false);
 
   const [index, setIndex] = useState(0);
 
@@ -106,26 +101,33 @@ export function Home() {
   const handleLoadData = async () => {
     console.log("Carregando********************");
     setIsLoading(true);
+    setErrorRequest(false);
     setTimeout(async () => {
-      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
-      await getSearchPlayer(searchPlayer, setPlayer);
-      await getProMatches(setProMatches);
-      await getHeroesStats(setHeroesStats);
+      try {
+        const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
+        await getSearchPlayer(searchPlayer, setPlayer);
+        await getProMatches(setProMatches);
+        await getHeroesStats(setHeroesStats);
 
-      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
+        const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
 
-      await getRecentMatches(recentMatchesUrl, setHeroesPlayedId);
-
-      setIsLoading(false);
+        await getRecentMatches(recentMatchesUrl, setHeroesPlayedId);
+      } catch (error: any) {
+        setErrorRequest(true);
+      } finally {
+        setIsLoading(false);
+      }
     }, 500);
   };
 
   if (isLoading)
     return (
       <ActivityIndicatorCustom
-        message={englishLanguage ? "Loading..." : "Carregando"}
+        message={englishLanguage ? "Loading..." : "Carregando..."}
       />
     );
+
+  if (errorRequest) return <ErrorComponent action={handleLoadData} />;
 
   return (
     <TabView

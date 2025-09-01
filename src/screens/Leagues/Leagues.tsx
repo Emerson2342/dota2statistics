@@ -1,5 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+  Image,
+  Button,
+} from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
 import { League } from "../../services/props";
@@ -10,6 +18,7 @@ import { BannerAds } from "../../components/Admob/BannerAds";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { ErrorComponent } from "../../../src/utils/ErrorComponent";
 
 export function Leagues() {
   const { ColorTheme } = useTheme();
@@ -21,8 +30,7 @@ export function Leagues() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [modalMessage, setModalMessage] = useState(false);
-  const [erroMessage, setErrorMessage] = useState<string>("");
+  const [errorRequest, setErrorRequest] = useState(false);
   useFocusEffect(
     useCallback(() => {
       console.log("****Leagues List");
@@ -42,6 +50,7 @@ export function Leagues() {
 
   const loadLeagues = async () => {
     setIsLoading(true);
+    setErrorRequest(false);
     try {
       const keywords = ["2024", "2025", "24", "25"];
       const response = await fetch(LEAGUES_BASE_URL);
@@ -60,8 +69,8 @@ export function Leagues() {
 
       setLeagueList(sortedLeagues);
     } catch (error: any) {
-      setErrorMessage(error);
-      setModalMessage(true);
+      setLeagueList([]);
+      setErrorRequest(true);
     } finally {
       setIsLoading(false);
     }
@@ -86,6 +95,7 @@ export function Leagues() {
         }
       />
     );
+  if (errorRequest) return <ErrorComponent action={loadLeagues} />;
 
   return (
     <View style={styles.container}>
@@ -96,18 +106,6 @@ export function Leagues() {
           keyExtractor={(item) => item.leagueid.toString()}
         />
       </View>
-      <Modal
-        visible={modalMessage}
-        transparent={true}
-        statusBarTranslucent={true}
-        animationType="fade"
-      >
-        <ModalMessage
-          handleClose={() => setModalMessage(false)}
-          title="Erro"
-          message={erroMessage}
-        />
-      </Modal>
       <BannerAds />
     </View>
   );

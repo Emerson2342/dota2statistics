@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { View, Text, FlatList, Dimensions } from "react-native";
 
 import { createStyles } from "./styles";
@@ -13,6 +13,7 @@ import { RenderHeroIcon } from "./components/heroIcon";
 import { KillsImage } from "./components/killsImage";
 import { AbilitiesUsages } from "./components/abilities";
 import { ItemsUsages } from "./components/items";
+import { processTeamFights } from "../../../../src/utils/ProcessedTemFight";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -59,33 +60,8 @@ function TeamFightsComponent({
     )}`;
   };
 
-  const processedFights = useMemo<ProcessedFight[] | undefined>(() => {
-    return teamFights?.map((fight) => {
-      const damageArray = fight.players?.map((p) => p.damage) || [];
-      const goldArray = fight.players?.map((p) => p.gold_delta) || [];
-      const xpArray = fight.players?.map((p) => p.xp_delta) || [];
-      const healingArray = fight.players?.map((p) => p.healing) || [];
-
-      return {
-        ...fight,
-        formattedTime: formatTime(fight.start),
-        endTime: formatTime(fight.end),
-        damageRad: damageArray.slice(0, 5).map((value) => ({ y: value })),
-        damageDire: damageArray.slice(5, 10).map((value) => ({ y: value })),
-        goldRad: goldArray.slice(0, 5).map((value) => ({ y: value })),
-        goldDire: goldArray.slice(5, 10).map((value) => ({ y: value })),
-        xpRad: xpArray.slice(0, 5).map((value) => ({ y: value })),
-        xpDire: xpArray.slice(5, 10).map((value) => ({ y: value })),
-        healingRad: healingArray.slice(0, 5).map((value) => ({ y: value })),
-        healingDire: healingArray.slice(5, 10).map((value) => ({ y: value })),
-        emptyRadKilledList: fight.players
-          ?.slice(0, 5)
-          .every((p) => Object.keys(p.killed).length === 0),
-        emptyDireKilledList: fight.players
-          ?.slice(5, 10)
-          .every((p) => Object.keys(p.killed).length === 0),
-      };
-    });
+  const processedFights = useMemo(() => {
+    if (teamFights) return processTeamFights(teamFights, formatTime);
   }, [teamFights]);
 
   const TeamFightItem = React.memo(({ fight }: { fight: ProcessedFight }) => {
