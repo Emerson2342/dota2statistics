@@ -51,6 +51,8 @@ export default function PlayerProfileScreen({
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
   const [refresh, setRefresh] = useState(true);
+  const [errorHeroesPlayedResponse, setErrorHeroesPlayedResponse] =
+    useState(false);
 
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."
@@ -99,7 +101,10 @@ export default function PlayerProfileScreen({
 
       const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
 
-      const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
+      const heroesPlayedResponse = await getHeroesPlayed(
+        heroesPlayed,
+        setErrorHeroesPlayedResponse
+      );
       if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
         setHeroesPlayed(heroesPlayedResponse);
 

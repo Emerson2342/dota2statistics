@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import {
   HERO_BENCHMARCKS_BASE_URL,
   HERO_ITEM_BASE_URL,
@@ -234,13 +234,24 @@ export const getRecentMatches = async (
   }
 };
 
-export const getHeroesPlayed = async (url: string) => {
+export const getHeroesPlayed = async (
+  url: string,
+  setErrorResponse: Dispatch<React.SetStateAction<boolean>>
+) => {
   try {
+    setErrorResponse(false);
     console.log("Endpoint heroesPlayed: " + url);
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(
+        `Erro na resposta da API: ${response.status} ${response.statusText}`
+      );
+    }
     const data = (await response.json()) as HeroesPlayed[];
+
     return data.slice(0, 50);
   } catch (error: any) {
+    setErrorResponse(true);
     console.log("Erro ao buscar herois jogados: " + error.message);
   }
 };

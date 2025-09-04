@@ -25,6 +25,7 @@ import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicator
 import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
 import { getHeroesPlayed } from "../../../../src/services/api";
+import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
 
 function HeroesPlayedComp({
   PlayerId,
@@ -44,16 +45,21 @@ function HeroesPlayedComp({
   const setSteamId = getSetProfile(englishLanguage);
   const [finalList, setFinalList] = useState<HeroesPlayed[] | []>([]);
   const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(finalList);
+  const [errorResponse, setErrorResponse] = useState(false);
 
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
     //if(isHomeProfile)
-    handleGetHeroesPlayed(PlayerId);
+    handleGetHeroesPlayed();
   }, [PlayerId]);
 
-  const handleGetHeroesPlayed = async (id: string) => {
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${id}/heroes`;
-    const heroesPlayedResponse = await getHeroesPlayed(heroesPlayed);
+  const handleGetHeroesPlayed = async () => {
+    setIsLoading(true);
+    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
+    const heroesPlayedResponse = await getHeroesPlayed(
+      heroesPlayed,
+      setErrorResponse
+    );
     if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
       setFinalList(heroesPlayedResponse);
       setOrderedList(heroesPlayedResponse);
@@ -153,8 +159,11 @@ function HeroesPlayedComp({
     );
   }
 
+  if (errorResponse) return <ErrorComponent action={handleGetHeroesPlayed} />;
+
   return (
     <View style={styles.container}>
+      <Text>{errorResponse.toString()}</Text>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => handleSetOrder("lastPlayed")}

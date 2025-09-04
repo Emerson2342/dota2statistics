@@ -27,6 +27,8 @@ import Constants from "expo-constants";
 import VersionCheck from "react-native-version-check";
 import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
 import { FontAwesome } from "@expo/vector-icons";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Teste from "../gestureHandler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -54,21 +56,24 @@ export default function App() {
   }
 
   return (
-    <SettingsProvider>
-      <ThemeProvider>
-        <PlayerProvider>
-          <ProfileProvider>
-            <TeamsListProvider>
-              <PaperProvider>
-                <FavoritesProvider>
-                  <Content />
-                </FavoritesProvider>
-              </PaperProvider>
-            </TeamsListProvider>
-          </ProfileProvider>
-        </PlayerProvider>
-      </ThemeProvider>
-    </SettingsProvider>
+    <GestureHandlerRootView>
+      <SettingsProvider>
+        <ThemeProvider>
+          <PlayerProvider>
+            <ProfileProvider>
+              <TeamsListProvider>
+                <PaperProvider>
+                  <FavoritesProvider>
+                    {/* <Teste /> */}
+                    <Content />
+                  </FavoritesProvider>
+                </PaperProvider>
+              </TeamsListProvider>
+            </ProfileProvider>
+          </PlayerProvider>
+        </ThemeProvider>
+      </SettingsProvider>
+    </GestureHandlerRootView>
   );
 }
 
