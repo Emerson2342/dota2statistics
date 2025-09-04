@@ -20,7 +20,6 @@ import {
   PICTURE_HERO_BASE_URL,
   PLAYER_PROFILE_API_BASE_URL,
 } from "../../../constants/player";
-import { BannerAds } from "../../../components/Admob/BannerAds";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
 import { usePlayerContext } from "../../../../src/context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
@@ -149,12 +148,7 @@ function HeroesPlayedComp({
   if (isHomeProfile && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 0.9 }}>
-          <Text style={styles.textErro}>{setSteamId}</Text>
-        </View>
-        <View style={{ flex: 0.1 }}>
-          <BannerAds />
-        </View>
+        <Text style={styles.textErro}>{setSteamId}</Text>
       </View>
     );
   }
@@ -163,7 +157,6 @@ function HeroesPlayedComp({
 
   return (
     <View style={styles.container}>
-      <Text>{errorResponse.toString()}</Text>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => handleSetOrder("lastPlayed")}
@@ -234,7 +227,6 @@ function HeroesPlayedComp({
         keyExtractor={(item) => item.hero_id.toLocaleString()}
         initialNumToRender={20}
       />
-      <BannerAds />
     </View>
   );
 }

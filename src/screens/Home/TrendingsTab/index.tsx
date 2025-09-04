@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { HeroesStats } from "./HeroesStats";
 import { ProMatches } from "./ProMatches";
-import { BannerAds } from "../../../../src/components/Admob/BannerAds";
 import { HeroStats, LeagueMatches } from "../../../../src/services/props";
 
 type Props = {
@@ -26,7 +25,6 @@ export function TrendingsTab({
       <View style={{ flex: 0.7 }}>
         <ProMatches onRefresh={onRefresh} proMatches={proMatches} />
       </View>
-      <BannerAds />
     </View>
   );
 }

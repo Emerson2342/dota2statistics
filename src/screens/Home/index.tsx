@@ -21,6 +21,7 @@ import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
 import { ErrorComponent } from "../../../src/utils/ErrorComponent";
+import { BannerAds } from "../../../src/components/Admob/BannerAds";
 
 export function Home() {
   const { profile } = useProfileContext();
@@ -130,31 +131,33 @@ export function Home() {
   if (errorRequest) return <ErrorComponent action={handleLoadData} />;
 
   return (
-    <TabView
-      style={{ flex: 1 }}
-      renderTabBar={renderTabBar}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: Dimensions.get("window").width }}
-      lazy
-      lazyPreloadDistance={0}
-      renderLazyPlaceholder={() => (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <ActivityIndicatorCustom
-            message={englishLanguage ? "Loading..." : "Carregando..."}
-          />
-        </View>
-      )}
-      commonOptions={{
-        labelStyle: {
-          fontSize: Dimensions.get("screen").width * 0.03,
-          fontFamily: "QuickSand-Bold",
-          textAlign: "center",
-        },
-      }}
-    />
+    <View style={{ flex: 1 }}>
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: Dimensions.get("window").width }}
+        lazy
+        lazyPreloadDistance={0}
+        renderLazyPlaceholder={() => (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <ActivityIndicatorCustom
+              message={englishLanguage ? "Loading..." : "Carregando..."}
+            />
+          </View>
+        )}
+        commonOptions={{
+          labelStyle: {
+            fontSize: Dimensions.get("screen").width * 0.03,
+            fontFamily: "QuickSand-Bold",
+            textAlign: "center",
+          },
+        }}
+      />
+      <BannerAds />
+    </View>
   );
 }

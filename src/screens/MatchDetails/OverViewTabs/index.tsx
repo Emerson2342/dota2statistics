@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 import {
   RefreshControl,
   ScrollView,
@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { HeaderComponent } from "./Header";
 import { TeamsComponent } from "./Teams";
-import { BannerAds } from "../../../components/Admob/BannerAds";
 import { GraficsGoldAndXpComponent } from "./GraficsGoldAndXpTeam";
 import {
   HeroDetailsModel,
@@ -392,7 +391,6 @@ function OverViewComponent({
             </View>
           )}
       </ScrollView>
-      <BannerAds />
     </View>
   );
 }

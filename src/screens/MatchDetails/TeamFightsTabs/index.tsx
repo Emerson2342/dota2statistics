@@ -7,7 +7,6 @@ import { useSettingsContext } from "../../../context/useSettingsContext";
 
 import { useTheme } from "../../../context/useThemeContext";
 import { BarChartComponent } from "./BarCharComponent";
-import { BannerAds } from "../../../components/Admob/BannerAds";
 import { TeamSide } from "../../../../src/services/enum";
 import { RenderHeroIcon } from "./components/heroIcon";
 import { KillsImage } from "./components/killsImage";
@@ -197,7 +196,6 @@ function TeamFightsComponent({
         windowSize={2}
         removeClippedSubviews
       />
-      <BannerAds />
     </View>
   );
 }

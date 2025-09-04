@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Modal } from "react-native";
-import { Searchbar } from "react-native-paper";
-import { BannerAds } from "../../../../src/components/Admob/BannerAds";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { useTheme } from "../../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../../src/context/useSettingsContext";
@@ -76,16 +74,13 @@ export function MyProfileTabs() {
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
-        <View style={{ width: "100%", flex: 1 }}>
-          <SearchComponent
-            onSearch={handleSave}
-            placeHolder="Steam ID"
-            showModalMessage={showModalMessage}
-            setShowModalMessage={() => setShowModalMessage(false)}
-          />
-          <Text style={styles.textErro}>{erro404}</Text>
-        </View>
-        <BannerAds />
+        <SearchComponent
+          onSearch={handleSave}
+          placeHolder="Steam ID"
+          showModalMessage={showModalMessage}
+          setShowModalMessage={() => setShowModalMessage(false)}
+        />
+        <Text style={styles.textErro}>{erro404}</Text>
       </View>
     );
   }
@@ -133,7 +128,6 @@ export function MyProfileTabs() {
           ) : null}
         </View>
       </View>
-      <BannerAds />
     </View>
   );
 }

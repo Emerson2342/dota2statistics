@@ -9,11 +9,7 @@ import {
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import {
-  HeroDetailsModel,
-  MatchDetailsModel,
-  RootStackParamList,
-} from "../../services/props";
+import { HeroDetailsModel, MatchDetailsModel } from "../../services/props";
 import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";

@@ -1,5 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import { MatchDetailsScreen } from "../src/screens/MatchDetails";
+import { View } from "react-native";
+import { BannerAds } from "../src/components/Admob/BannerAds";
 
 type MatchDetailsParams = {
   matchDetailsId: string;
@@ -12,11 +14,14 @@ export default function MatchDetails() {
   const { matchDetailsId, playerIdIndex, lobbyType, gameMode } =
     useLocalSearchParams<MatchDetailsParams>();
   return (
-    <MatchDetailsScreen
-      matchDetailsIndex={matchDetailsId}
-      gameMode={gameMode}
-      lobbyType={lobbyType}
-      playerIdIndex={playerIdIndex}
-    />
+    <View style={{ flex: 1 }}>
+      <MatchDetailsScreen
+        matchDetailsIndex={matchDetailsId}
+        gameMode={gameMode}
+        lobbyType={lobbyType}
+        playerIdIndex={playerIdIndex}
+      />
+      <BannerAds />
+    </View>
   );
 }
