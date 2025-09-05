@@ -2,10 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useState } from "react";
 import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
-import {
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";

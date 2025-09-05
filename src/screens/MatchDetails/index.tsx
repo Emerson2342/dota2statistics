@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  useWindowDimensions,
-  Dimensions,
-} from "react-native";
+import { View, Text, useWindowDimensions, Dimensions } from "react-native";
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";

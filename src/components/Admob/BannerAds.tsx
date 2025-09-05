@@ -9,7 +9,7 @@ export function BannerAds() {
   return (
     <View style={{ display: "flex" }}>
       <BannerAd
-        unitId={adUnitId}
+        unitId={__DEV__ ? testeId : adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: false,

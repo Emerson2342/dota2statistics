@@ -12,7 +12,6 @@ import { createStyles } from "./SettingsScreenStyles";
 import { useTheme } from "../../context/useThemeContext";
 import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "../../components/Modals/ModalMyAccount";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { useFocusEffect } from "expo-router";
 
 export function SettingsScreen() {
@@ -170,7 +169,6 @@ export function SettingsScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <BannerAds />
       <Modal
         visible={modalVisible}
         transparent={true}

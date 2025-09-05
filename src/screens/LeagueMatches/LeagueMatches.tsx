@@ -7,7 +7,6 @@ import { LeagueMatches } from "../../services/props";
 import { LEAGUES_BASE_URL } from "../../constants/player";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { getSearchLeagueMatches } from "../../services/api";
 import { useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
@@ -91,31 +90,46 @@ export function LeagueMatchesScreen({
           {
             borderTopWidth: index == 0 ? 0 : 1,
             borderColor: "#ccc",
+            paddingVertical: 7,
           },
         ]}
         onPress={() => handleGoToMatch(item.match_id)}
       >
-        <View style={styles.resultContainer}>
-          <Text style={styles.textResult}>
-            {item.radiant_win ? result : ""}
-          </Text>
-          <Text style={styles.textResult}>
-            {item.radiant_win ? "" : result}
-          </Text>
-        </View>
         <View style={styles.teamContainer}>
           <View style={styles.singleTeamContainer}>
-            <Text style={styles.teamName}>
+            <Text
+              style={[
+                styles.teamName,
+                { color: item.radiant_win ? "#2f6d4a" : "#893647" },
+              ]}
+            >
               {teamRad?.name ?? "Radiant Team"}
             </Text>
-            <Text style={styles.teamScore}>{item.radiant_score}</Text>
+            <Text
+              style={[
+                styles.teamScore,
+                { color: item.radiant_win ? "#2f6d4a" : "#893647" },
+              ]}
+            >
+              {item.radiant_score}
+            </Text>
           </View>
 
           <View style={styles.singleTeamContainer}>
-            <Text style={[styles.teamScore, { color: "#893647" }]}>
+            <Text
+              style={[
+                styles.teamScore,
+                { color: item.radiant_win ? "#893647" : "#2f6d4a" },
+              ]}
+            >
               {item.dire_score}
             </Text>
-            <Text style={[styles.teamName, { color: "#893647" }]}>
+            <Text
+              style={[
+                styles.teamName,
+                { color: item.radiant_win ? "#893647" : "#2f6d4a" },
+              ]}
+            >
               {teamDire?.name ?? "Dire Team"}
             </Text>
           </View>
@@ -184,7 +198,6 @@ export function LeagueMatchesScreen({
           </Text>
         </View>
       )}
-      <BannerAds />
     </View>
   );
 }

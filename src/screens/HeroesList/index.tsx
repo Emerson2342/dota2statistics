@@ -22,7 +22,6 @@ import IntImg from "../../images/int.png";
 import AgiImg from "../../images/agi.png";
 import StrImg from "../../images/str.png";
 import AllImg from "../../images/all.png";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { useRouter } from "expo-router";
 
 const COLUMNS: number = 2;
@@ -311,7 +310,6 @@ export function ListaDeHerois() {
           />
         )}
       </View>
-      <BannerAds />
     </View>
   );
 }

@@ -16,13 +16,7 @@ import { useTheme } from "../../context/useThemeContext";
 import { searchPlayersByName } from "../../services/api";
 import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
 import { SearchUserResult } from "../../services/props";
-import { BannerAds } from "../../components/Admob/BannerAds";
-import {
-  ProgressBar,
-  MD3Colors,
-  Searchbar,
-  RadioButton,
-} from "react-native-paper";
+import { ProgressBar, MD3Colors, RadioButton } from "react-native-paper";
 import { ModalMessage } from "../../components/Modals/ModalMessage";
 import { SearchComponent } from "../../../src/utils/SearchComponent";
 import { useRouter } from "expo-router";
@@ -234,7 +228,6 @@ export const Search = () => {
           />
         </View>
       )}
-      <BannerAds />
       <Modal
         visible={modalMessage}
         transparent={true}

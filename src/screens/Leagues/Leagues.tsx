@@ -13,8 +13,6 @@ import { createStyles } from "./LeaguesStyles";
 import { League } from "../../services/props";
 import { LEAGUES_BASE_URL } from "../../../src/constants/player";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
@@ -99,14 +97,11 @@ export function Leagues() {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <FlatList
-          data={leagueList}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.leagueid.toString()}
-        />
-      </View>
-      <BannerAds />
+      <FlatList
+        data={leagueList}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.leagueid.toString()}
+      />
     </View>
   );
 }

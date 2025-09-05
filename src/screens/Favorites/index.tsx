@@ -16,7 +16,6 @@ import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesCon
 import { PlayerModel, RootStackParamList } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
 import { RectButton, Swipeable } from "react-native-gesture-handler";
@@ -153,7 +152,6 @@ export function Favorites() {
           handleClose={() => setModalFavoritesVisible(false)}
         />
       </Modal>
-      <BannerAds />
     </View>
   );
 }

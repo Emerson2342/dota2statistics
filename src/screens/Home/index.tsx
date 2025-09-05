@@ -157,7 +157,6 @@ export function Home() {
           },
         }}
       />
-      <BannerAds />
     </View>
   );
 }

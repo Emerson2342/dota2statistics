@@ -37,7 +37,6 @@ import {
 import { useSettingsContext } from "./../../context/useSettingsContext";
 import { useTheme } from "./../../context/useThemeContext";
 import { ModaHeroLore } from "./../../components/Modals/ModalHeroLore";
-import { BannerAds } from "./../../components/Admob/BannerAds";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { getHeroItems } from "./../../services/api";
@@ -747,15 +746,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             </View>
           </View>
         </ScrollView>
-        <View style={{ paddingTop: 3 }}>
-          <BannerAds />
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        ></View>
         <Modal
           visible={modalHeroLore}
           transparent={true}

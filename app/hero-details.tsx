@@ -1,5 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import HeroDetailsScreen from "../src/screens/HeroDetails";
+import { View } from "react-native";
+import { BannerAds } from "../src/components/Admob/BannerAds";
 
 type HeroDetailsParams = {
   heroId: string;
@@ -7,5 +9,10 @@ type HeroDetailsParams = {
 
 export default function HeroDetails() {
   const { heroId } = useLocalSearchParams<HeroDetailsParams>();
-  return <HeroDetailsScreen heroId={heroId} />;
+  return (
+    <View style={{ flex: 1 }}>
+      <HeroDetailsScreen heroId={heroId} />
+      <BannerAds />
+    </View>
+  );
 }
