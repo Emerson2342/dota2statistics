@@ -23,7 +23,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../components/Modals/ModalRemoveFavoritePlayer";
 import { TabBar, TabView } from "react-native-tab-view";
-import { BannerAds } from "../../components/Admob/BannerAds";
 import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
 import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
@@ -183,7 +182,6 @@ export default function PlayerProfileScreen({
             </Modal>
           </View>
         )}
-        <BannerAds />
       </View>
     );
   });
@@ -236,17 +234,6 @@ export default function PlayerProfileScreen({
       <Stack.Screen
         name="player-profile"
         options={{
-          headerShown: true,
-          title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
-          headerStyle: {
-            backgroundColor: ColorTheme.dark,
-          },
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontFamily: "QuickSand-Semibold",
-            fontSize: 20,
-          },
           headerRight: () => (
             <TouchableOpacity
               onPress={() => handleFavorites()}

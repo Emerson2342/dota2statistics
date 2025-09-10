@@ -59,7 +59,7 @@ export const createStyles = (colors: ThemeColor) =>
       width: "7%",
       textAlign: "center",
       alignSelf: "flex-end",
-      // backgroundColor: "#cece"
+      //backgroundColor: "#cece",
     },
     denies: {
       width: "7%",
@@ -136,7 +136,7 @@ export const createStyles = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontSize: width * 0.03,
+      fontSize: width * 0.025,
       fontFamily: "QuickSand-Bold",
       color: "#555",
     },

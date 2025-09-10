@@ -7,6 +7,7 @@ import {
   Image,
   RefreshControl,
   Dimensions,
+  DimensionValue,
 } from "react-native";
 import { createStyles } from "./LastMatchesStyles";
 import {
@@ -25,6 +26,11 @@ import { useTheme } from "../../../context/useThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GameMode, LobbyType } from "../../../services/enum";
 import { useRouter } from "expo-router";
+import {
+  formatDuration,
+  formatStartTime,
+  overviewBar,
+} from "../../../utils/matchOverviewUtils";
 
 function LastMatchesComponent({
   playerId,
@@ -64,12 +70,6 @@ function LastMatchesComponent({
         gameMode: gameMode,
       },
     });
-    // navigation.navigate("MatchDetails", {
-    //   MatchDetailsIndex: matchIdIndex,
-    //   PlayerIdIndex: playerIdIndex,
-    //   LobbyType: lobbyType,
-    //   GameMode: gameMode,
-    // });
   };
 
   const renderItem = ({
@@ -80,26 +80,21 @@ function LastMatchesComponent({
     index: number;
   }) => {
     const startDate = new Date(item.start_time * 1000);
-    const durationInMinutes = item.duration;
-    const hours = Math.floor(durationInMinutes / 60);
-    const minutes = durationInMinutes % 60;
 
-    const formattedHours = String(hours).padStart(2, "0");
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedDuration = `${formattedHours}:${formattedMinutes}`;
+    const formattedTime = formatStartTime(item.start_time);
+    const formattedDuration = formatDuration(item.duration);
 
-    const hoursDate = startDate.getHours();
-    const minutesDate = startDate.getMinutes();
+    const { killsWidth, deathsWidth, assisWidth } = overviewBar(
+      item.kills,
+      item.deaths,
+      item.assists
+    );
 
     const lobbyTypeValue = item.lobby_type as LobbyType;
     const gameModeValue = item.game_mode as GameMode;
 
-    const formattedTime = `${hoursDate
-      .toString()
-      .padStart(2, "0")}:${minutesDate.toString().padStart(2, "0")}`;
-
     const team = item.player_slot < 5 ? 1 : 2;
-    const resultadoFinal =
+    const finalResult =
       (team == 1 && item.radiant_win == true) ||
       (team == 2 && item.radiant_win == false)
         ? true
@@ -138,18 +133,18 @@ function LastMatchesComponent({
           style={[
             styles.textList,
             {
-              color: resultadoFinal ? "#268626" : "#9a0c28",
+              color: finalResult ? "#268626" : "#9a0c28",
               width: "7%",
             },
           ]}
         >
-          {resultadoFinal ? (
+          {finalResult ? (
             <MaterialIcons name="thumb-up" size={17} color="#268626" />
           ) : (
             <MaterialIcons name="thumb-down" size={17} color="#9a0c28" />
           )}
         </Text>
-        <Text style={[styles.textList, { width: "30%" }]}>
+        <Text style={[styles.textList, { width: "28%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </Text>
@@ -159,7 +154,7 @@ function LastMatchesComponent({
               styles.textList,
               {
                 color: ColorTheme.semilight,
-                fontSize: Dimensions.get("screen").width * 0.023,
+                fontSize: Dimensions.get("screen").width * 0.02,
               },
             ]}
           >
@@ -172,22 +167,56 @@ function LastMatchesComponent({
         <Text style={[styles.textList, { width: "10%" }]}>
           {formattedDuration}
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "15%",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={[styles.textList, { color: "#268626" }]}>
-            {item.kills}/
-          </Text>
-          <Text style={[styles.textList, { color: "#9a0c28" }]}>
-            {item.deaths}/
-          </Text>
-          <Text style={[styles.textList, { color: "#996300" }]}>
-            {item.assists}
-          </Text>
+        <View style={{ width: "15%" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={[styles.textList, { color: "#268626" }]}>
+              {item.kills}/
+            </Text>
+            <Text style={[styles.textList, { color: "#9a0c28" }]}>
+              {item.deaths}/
+            </Text>
+            <Text style={[styles.textList, { color: "#c88304" }]}>
+              {item.assists}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              height: 7,
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#268626",
+                width: killsWidth as DimensionValue,
+                borderTopLeftRadius: 3,
+                borderBottomLeftRadius: 3,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: "#9a0c28",
+                width: deathsWidth as DimensionValue,
+                borderTopLeftRadius: killsWidth === "0%" ? 3 : 0,
+                borderBottomLeftRadius: killsWidth === "0%" ? 3 : 0,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: "#c88304",
+                width: assisWidth as DimensionValue,
+                height: 7,
+                borderTopRightRadius: 3,
+                borderBottomRightRadius: 3,
+              }}
+            />
+          </View>
         </View>
       </TouchableOpacity>
     );

@@ -11,24 +11,13 @@ import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./../src/context/useFavoritesContext";
-import {
-  Modal,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-} from "react-native";
+import { Modal, Platform, StatusBar, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { SplashScreenComponent } from "./../src/screens/SplashScreenComponent";
 import Constants from "expo-constants";
 import VersionCheck from "react-native-version-check";
 import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
-import { FontAwesome } from "@expo/vector-icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Teste from "../gestureHandler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -128,7 +117,7 @@ function Content() {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar backgroundColor={ColorTheme.dark} />
+      <StatusBar backgroundColor={ColorTheme.dark} barStyle={"light-content"} />
       <Modal visible={modalVisible} transparent>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />
       </Modal>
@@ -174,6 +163,22 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Hero Details" : "Detalhes do Herói",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="player-profile"
+          options={{
+            headerShown: true,
+            title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
