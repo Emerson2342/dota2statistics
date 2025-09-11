@@ -34,17 +34,17 @@ export function ProfileHeader({
   heroesId: number[];
   recentMatches: RecentMatches[] | null;
 }) {
-  const Font: FontModel = {
-    font1: "QuickSand-Semibold",
-    font2: "QuickSand-Bold",
-    font3: "QuickSand-Regular",
-  };
+  // const Font: FontModel = {
+  //   font1: "QuickSand-Semibold",
+  //   font2: "QuickSand-Bold",
+  //   font3: "QuickSand-Regular",
+  // };
   const router = useRouter();
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
-  const styles = createStyles(ColorTheme, Font);
+  const styles = createStyles(ColorTheme);
 
   let vitorias = 0;
   let derrotas = 0;

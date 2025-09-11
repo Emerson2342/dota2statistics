@@ -139,12 +139,17 @@ function LastMatchesComponent({
           ]}
         >
           {finalResult ? (
-            <MaterialIcons name="thumb-up" size={17} color="#268626" />
+            <MaterialIcons name="thumb-up" size={15} color="#268626" />
           ) : (
-            <MaterialIcons name="thumb-down" size={17} color="#9a0c28" />
+            <MaterialIcons name="thumb-down" size={15} color="#9a0c28" />
           )}
         </Text>
-        <Text style={[styles.textList, { width: "28%" }]}>
+        <Text
+          style={[
+            styles.textList,
+            { width: "28%", fontFamily: "QuickSand-Semibold" },
+          ]}
+        >
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </Text>
@@ -164,7 +169,12 @@ function LastMatchesComponent({
             {GameModeNames[gameModeValue]}
           </Text>
         </View>
-        <Text style={[styles.textList, { width: "10%" }]}>
+        <Text
+          style={[
+            styles.textList,
+            { width: "10%", fontFamily: "QuickSand-Semibold" },
+          ]}
+        >
           {formattedDuration}
         </Text>
         <View style={{ width: "15%" }}>
@@ -174,13 +184,28 @@ function LastMatchesComponent({
               justifyContent: "center",
             }}
           >
-            <Text style={[styles.textList, { color: "#268626" }]}>
+            <Text
+              style={[
+                styles.textList,
+                { color: "#268626", fontFamily: "QuickSand-Semibold" },
+              ]}
+            >
               {item.kills}/
             </Text>
-            <Text style={[styles.textList, { color: "#9a0c28" }]}>
+            <Text
+              style={[
+                styles.textList,
+                { color: "#9a0c28", fontFamily: "QuickSand-Semibold" },
+              ]}
+            >
               {item.deaths}/
             </Text>
-            <Text style={[styles.textList, { color: "#c88304" }]}>
+            <Text
+              style={[
+                styles.textList,
+                { color: "#c88304", fontFamily: "QuickSand-Semibold" },
+              ]}
+            >
               {item.assists}
             </Text>
           </View>
@@ -188,7 +213,7 @@ function LastMatchesComponent({
             style={{
               flexDirection: "row",
               width: "100%",
-              height: 7,
+              height: 3,
             }}
           >
             <View
@@ -211,7 +236,6 @@ function LastMatchesComponent({
               style={{
                 backgroundColor: "#c88304",
                 width: assisWidth as DimensionValue,
-                height: 7,
                 borderTopRightRadius: 3,
                 borderBottomRightRadius: 3,
               }}
@@ -244,6 +268,7 @@ function LastMatchesComponent({
         renderItem={renderItem}
         keyExtractor={(item: RecentMatches) => item.match_id.toString()}
         initialNumToRender={20}
+        indicatorStyle="black"
         refreshControl={
           <RefreshControl
             refreshing={false}

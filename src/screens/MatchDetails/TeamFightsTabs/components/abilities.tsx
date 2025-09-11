@@ -1,5 +1,6 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Modal } from "react-native";
 import {
+  HeroAbilitiesDescriptionsModel,
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
@@ -8,6 +9,9 @@ import { ITEM_IMAGE_BASE_URL } from "../../../../../src/constants/player";
 import EmptyImage from "../../../../images/emptyImage.png";
 import { createStyles } from "../styles";
 import { TeamSide } from "../../../../../src/services/enum";
+import { useState } from "react";
+import { ModalAbilityDetails } from "../../../../../src/components/Modals/ModalAbilityDetails";
+import { modalAbilitiesDetails } from "../../../../../src/utils/matchDetailsUtils";
 
 type HabilitiesProps = {
   label: string;
@@ -25,6 +29,19 @@ export const AbilitiesUsages = ({
   const styles = createStyles(colors);
 
   const [start, end] = team === TeamSide.Radiant ? [0, 5] : [5, 10];
+  const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
+  const [abilityIndex, setAbilityIndex] =
+    useState<HeroAbilitiesDescriptionsModel>();
+
+  const handleAbilitiesDetails = (abilityName: string) => {
+    const { abilityIndex, modalAbilityDetails } =
+      modalAbilitiesDetails(abilityName);
+
+    if (abilityIndex) {
+      setAbilityIndex(abilityIndex);
+      setModalAbilityDetails(modalAbilityDetails);
+    }
+  };
 
   return (
     <>
@@ -59,10 +76,14 @@ export const AbilitiesUsages = ({
                           source={EmptyImage}
                           style={[styles.itemImage, { position: "absolute" }]}
                         />
-                        <Image
-                          source={{ uri: abilityImage }}
-                          style={styles.itemImage}
-                        />
+                        <TouchableOpacity
+                          onPress={() => handleAbilitiesDetails(abilityName)}
+                        >
+                          <Image
+                            source={{ uri: abilityImage }}
+                            style={styles.itemImage}
+                          />
+                        </TouchableOpacity>
                       </View>
                     );
                   }
@@ -71,6 +92,17 @@ export const AbilitiesUsages = ({
             );
           })}
       </View>
+      <Modal
+        visible={modalAbilityDetails}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setModalAbilityDetails(false)}
+      >
+        <ModalAbilityDetails
+          ability={abilityIndex}
+          handleClose={() => setModalAbilityDetails(false)}
+        />
+      </Modal>
     </>
   );
 };

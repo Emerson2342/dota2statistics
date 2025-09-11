@@ -233,7 +233,7 @@ function Teams({
                       }}
                     />
                   </View>
-                  <View style={{ width: "83%" }}>
+                  <View style={{ width: "85%" }}>
                     <View key={index}>
                       <View style={styles.infoContainer}>
                         <Text

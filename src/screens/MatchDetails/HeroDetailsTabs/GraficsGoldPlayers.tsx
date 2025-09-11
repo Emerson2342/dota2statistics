@@ -8,15 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { CartesianChart, Line } from "victory-native";
-import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { useTheme } from "../../../context/useThemeContext";
-
-Animated.addWhitelistedNativeProps({ text: true });
 
 const GraficsGoldPlayers = ({
   matchDetails,
@@ -41,7 +38,7 @@ const GraficsGoldPlayers = ({
   const [hero9Selected, setHero9Selected] = useState(true);
   const [hero10Selected, setHero10Selected] = useState(true);
 
-  const font = useFont(require("../../../Fonts/Quicksand_Bold.ttf"));
+  const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
 
   const player1 = matchDetails.players[0].gold_t ?? [];
   const player2 = matchDetails.players[1].gold_t ?? [];

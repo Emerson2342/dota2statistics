@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { FontModel, ThemeColor } from "../../../services/props";
 
-export const createStyles = (colors: ThemeColor, Font: FontModel) =>
+export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     profile: {
       alignItems: "center",
@@ -33,7 +33,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
       color: "#aaa",
       textAlign: "center",
       fontSize: 13,
-      fontFamily: Font.font1,
+      fontFamily: "QuickSand-Semibold",
     },
     imgHero: {
       width: Dimensions.get("screen").width * 0.083,
@@ -45,7 +45,7 @@ export const createStyles = (colors: ThemeColor, Font: FontModel) =>
     flatListHeroes: {
       color: colors.semidark,
       fontSize: 15,
-      fontFamily: Font.font1,
+      fontFamily: "QuickSand-Semibold",
     },
     textRank: {
       color: "#fff",

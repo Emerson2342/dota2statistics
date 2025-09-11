@@ -112,7 +112,9 @@ export const createStyles = (colors: ThemeColor) =>
     },
     containerImage: {
       flexDirection: "row",
-      width: "17%",
+      width: "15%",
+      alignItems: "center",
+      justifyContent: "space-around",
     },
     imageMedal: {
       width: "50%",

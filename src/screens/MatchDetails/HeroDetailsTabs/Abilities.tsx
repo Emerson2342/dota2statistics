@@ -26,9 +26,9 @@ import {
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
-import AbilitiesDescriptions from "../../../components/Heroes/AbilitiesDescriptions.json";
 import { ModalAbilityDetails } from "../../../components/Modals/ModalAbilityDetails";
 import { useRouter } from "expo-router";
+import { modalAbilitiesDetails } from "../../../../src/utils/matchDetailsUtils";
 
 function Abilities({
   matchDetails,
@@ -56,20 +56,15 @@ function Abilities({
     return Object.values(HeroesDetails) as HeroDetailsModel[];
   }, []);
 
-  const abilitiesDescriptions = useMemo(() => {
-    const abilities: HeroAbilitiesDescriptionsJson = AbilitiesDescriptions;
-    return abilities;
-  }, []);
+  const handleAbilitiesDetails = (abilityName: string) => {
+    const { abilityIndex, modalAbilityDetails } =
+      modalAbilitiesDetails(abilityName);
 
-  const handleAbilitiesDetails = useCallback((abilityName: string) => {
-    abilityName = abilityName.replace(".png", "");
-    const abilityDetails = abilitiesDescriptions[abilityName];
-
-    if (abilityDetails) {
-      setAbilityIndex(abilityDetails);
-      setModalAbilityDetails(true);
+    if (abilityIndex) {
+      setAbilityIndex(abilityIndex);
+      setModalAbilityDetails(modalAbilityDetails);
     }
-  }, []);
+  };
 
   const HandleGoToHeroDetails = (heroId: number | undefined) => {
     router.push({
