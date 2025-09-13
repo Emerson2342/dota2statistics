@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   View,
   StyleSheet,
@@ -16,6 +22,8 @@ import {
   HeroDetailsModel,
   ItemDetails,
   MatchDetailsModel,
+  ModalItemData,
+  ModalRef,
   Player,
   ThemeColor,
 } from "../../../services/props";
@@ -27,6 +35,7 @@ import {
 } from "../../../constants/player";
 import { ModalItemDetails } from "../../../components/Modals/ModalItemDetails";
 import AghanimDescription from "../../../components/Heroes/aghanimDescription.json";
+import { handleItemDetails } from "../../../../src/utils/HandleItemDetails";
 
 const { width } = Dimensions.get("window");
 
@@ -41,11 +50,11 @@ function Items({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [itemIndex, setItemIndex] = useState<ItemDetails>();
-  const [shardIndex, setShardIndex] = useState<AghanimModel>();
-  const [aghanimIndex, setAghanimIndex] = useState<AghanimModel>();
-  const [itemType, setItemType] = useState("item");
+  //const [modalVisible, setModalVisible] = useState(false);
+
+  const [modalData, setModalData] = useState<ModalItemData | null>(null);
+
+  const modalRef = useRef<ModalRef>(null);
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -60,39 +69,44 @@ function Items({
     return Object.values(AghanimDescription) as AghanimModel[];
   }, []);
 
-  const handleItemDetails = (
-    heroId: number | null,
-    item: ItemDetails | undefined,
-    shardDetails: number | null
-  ) => {
-    setItemIndex(undefined);
-    setShardIndex(undefined);
-    setAghanimIndex(undefined);
+  // const handleItemDetails = (
+  //   heroId: number | null,
+  //   item: ItemDetails | undefined,
+  //   shardDetails: number | null
+  // ) => {
+  //   if (item && item.name !== "ultimate_scepter") {
+  //     setModalData({
+  //       item,
+  //       type: "item",
+  //     });
+  //     modalRef.current?.open();
+  //     return;
+  //   } else if (item && item.name === "ultimate_scepter") {
+  //     const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
+  //     if (scepter) {
+  //       setModalData({
+  //         aghanim: scepter,
+  //         type: "Aghanim's Scepter",
+  //       });
+  //       modalRef?.current?.open();
+  //       return;
+  //     }
+  //   }
 
-    if (item && item.name !== "ultimate_scepter") {
-      setItemIndex(item);
-      setItemType("item");
-      setModalVisible(true);
-    } else if (item && item.name === "ultimate_scepter") {
-      const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
-      if (scepter) {
-        setAghanimIndex(scepter);
-        setItemType("Aghanim's Scepter");
-        setModalVisible(true);
-      }
-    }
-
-    if (shardDetails) {
-      const shardDesc = aghaninAndShardDesc.find(
-        (shard) => shard.hero_id === shardDetails
-      );
-      if (shardDesc) {
-        setShardIndex(shardDesc);
-        setItemType("Aghanim's Shard");
-        setModalVisible(true);
-      }
-    }
-  };
+  //   if (shardDetails) {
+  //     const shardDesc = aghaninAndShardDesc.find(
+  //       (shard) => shard.hero_id === shardDetails
+  //     );
+  //     if (shardDesc) {
+  //       setModalData({
+  //         shard: shardDesc,
+  //         type: "Aghanim's Shard",
+  //       });
+  //       modalRef?.current?.open();
+  //       return;
+  //     }
+  //   }
+  // };
 
   const renderItemItems = useCallback(
     ({ item }: { item: MatchDetailsModel }) => {
@@ -220,7 +234,13 @@ function Items({
                       >
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_0, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_0,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -235,7 +255,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_1, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_1,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -250,7 +276,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_2, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_2,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -265,7 +297,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_3, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_3,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -280,7 +318,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_4, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_4,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -295,7 +339,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, item_5, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_5,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -310,7 +360,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, backpack_0, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              backpack_0,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -325,7 +381,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, backpack_1, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              backpack_1,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -340,7 +402,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(player.hero_id, backpack_2, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              backpack_2,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -355,7 +423,13 @@ function Items({
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() =>
-                            handleItemDetails(null, item_neutral, null)
+                            handleItemDetails(
+                              player.hero_id,
+                              item_neutral,
+                              false,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -371,7 +445,13 @@ function Items({
                         <TouchableOpacity
                           disabled={urlAghanimsShard ? false : true}
                           onPress={() =>
-                            handleItemDetails(null, undefined, player.hero_id)
+                            handleItemDetails(
+                              player.hero_id,
+                              undefined,
+                              true,
+                              setModalData,
+                              modalRef
+                            )
                           }
                         >
                           <Image
@@ -404,15 +484,13 @@ function Items({
         keyExtractor={(item) => item.match_id.toString()}
         scrollEnabled={false}
       />
-      <Modal visible={modalVisible} transparent={true} animationType="fade">
-        <ModalItemDetails
-          item={itemIndex}
-          shard={shardIndex}
-          aghanim={aghanimIndex}
-          itemType={itemType}
-          handleClose={() => setModalVisible(false)}
-        />
-      </Modal>
+      {/* <Modal visible={modalVisible} transparent={true} animationType="fade">
+          </Modal> */}
+      <ModalItemDetails
+        ref={modalRef}
+        data={modalData}
+        handleClose={() => setModalData(null)}
+      />
     </View>
   );
 }

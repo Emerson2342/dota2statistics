@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -33,6 +33,8 @@ import {
   ItemDetails,
   ItemPopularity,
   ItemPopularityData,
+  ModalItemData,
+  ModalRef,
 } from "./../../services/props";
 import { useSettingsContext } from "./../../context/useSettingsContext";
 import { useTheme } from "./../../context/useThemeContext";
@@ -48,6 +50,8 @@ import {
 } from "./../../constants/player";
 import useHeroDetails from "../../hooks/useHeroDetails";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
+import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -62,11 +66,10 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const [abilitiesDesc, setAbilitiesDesc] = useState<
     HeroAbilitiesDescriptionsModel[] | []
   >([]);
-  const [itemIndex, setItemIndex] = useState<ItemDetails>();
-  const [shardIndex, setShardIndex] = useState<AghanimModel>();
-  const [aghanimIndex, setAghanimIndex] = useState<AghanimModel>();
-  const [itemType, setItemType] = useState("item");
-  const [modalItemVisible, setModalItemVisible] = useState(false);
+  const [modalItemData, setModalItemData] = useState<ModalItemData | null>(
+    null
+  );
+  const modalItemRef = useRef<ModalRef>(null);
   const [heroItems, setHeroItems] = useState<ItemPopularityData>();
 
   const [loadingHeroDetails, setLoadingHeroDetails] = useState(true);
@@ -194,20 +197,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
     (heroDetails.base_mana_regen ?? 0) +
     heroDetails.base_int * 0.05 * (1 + heroDetails.base_int * 0.02);
 
-  const manaCoust = (mc?: string | string[]) => {
-    if (Array.isArray(mc)) {
-      return mc.join(", ");
-    }
-    return mc ?? "";
-  };
-
-  const coolDownTime = (cd?: string | string[]) => {
-    if (Array.isArray(cd)) {
-      return cd.join(", ");
-    }
-    return cd ?? "";
-  };
-
   const ItemHero = ({
     imgUrl,
     itemDetails,
@@ -218,7 +207,15 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
     return (
       <TouchableOpacity
         style={{ margin: 1 }}
-        onPress={() => handleItemDetails(heroDetails.id, itemDetails)}
+        onPress={() =>
+          handleItemDetails(
+            heroDetails.id,
+            itemDetails,
+            false,
+            setModalItemData,
+            modalItemRef
+          )
+        }
       >
         <Image
           width={imgWidth}
@@ -230,11 +227,9 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
     );
   };
 
-  const handleItemDetails = useCallback(
+  const handleItemDetails2 = useCallback(
     (heroId: number | null, item: ItemDetails | undefined) => {
-      setItemIndex(undefined);
-      setShardIndex(undefined);
-      setAghanimIndex(undefined);
+      setModalItemData(null);
 
       if (
         item &&
@@ -242,24 +237,32 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         item &&
         item.name !== "aghanims_shard"
       ) {
-        setItemIndex(item);
-        setItemType("item");
-        setModalItemVisible(true);
+        setModalItemData({
+          item,
+          type: "item",
+        });
+        modalItemRef.current?.open();
+        return;
       } else if (item && item.name === "ultimate_scepter") {
         const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
         if (scepter) {
-          setAghanimIndex(scepter);
-          setItemType("Aghanim's Scepter");
-          setModalItemVisible(true);
+          setModalItemData({
+            aghanim: scepter,
+            type: "Aghanim's Scepter",
+          });
+          modalItemRef.current?.open();
         }
       } else if (item && item.name === "aghanims_shard") {
         const shardDesc = aghaninAndShardDesc.find(
           (shard) => shard.hero_id === heroId
         );
         if (shardDesc) {
-          setShardIndex(shardDesc);
-          setItemType("Aghanim's Shard");
-          setModalItemVisible(true);
+          setModalItemData({
+            shard: shardDesc,
+            type: "Aghanim's Shard",
+          });
+          modalItemRef.current?.open();
+          return;
         }
       }
     },
@@ -759,20 +762,12 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             loreText={heroLore}
           />
         </Modal>
-        <Modal
-          visible={modalItemVisible}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={() => setModalItemVisible(false)}
-        >
-          <ModalItemDetails
-            item={itemIndex}
-            shard={shardIndex}
-            aghanim={aghanimIndex}
-            itemType={itemType}
-            handleClose={() => setModalItemVisible(false)}
-          />
-        </Modal>
+
+        <ModalItemDetails
+          ref={modalItemRef}
+          data={modalItemData}
+          handleClose={() => setModalItemData(null)}
+        />
       </View>
     </View>
   );

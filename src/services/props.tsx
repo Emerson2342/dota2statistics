@@ -48,6 +48,18 @@ export interface Friend {
   idFriend: number;
 }
 
+export interface ModalRef {
+  open: () => void;
+  close: () => void;
+}
+
+export interface ModalItemData {
+  item?: ItemDetails;
+  shard?: AghanimModel;
+  aghanim?: AghanimModel;
+  type: string;
+}
+
 export interface ItemDetails {
   id: number;
   name?: string;

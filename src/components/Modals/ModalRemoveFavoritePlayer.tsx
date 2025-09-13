@@ -35,7 +35,7 @@ export function ModalRemoveFavoritePlayer({
               onPress={() => handleClose()}
             >
               <Text style={[styles.textButton, { color: "#000" }]}>
-                {englishLanguage ? "Back" : "Voltar"}
+                {englishLanguage ? "Back" : "Não"}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
