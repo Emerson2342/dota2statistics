@@ -33,192 +33,190 @@ type Props = {
   handleClose: () => void;
 };
 
-export const ModalItemDetails = forwardRef<ModalRef, Props>(
-  ({ data, handleClose }, ref) => {
-    const [visible, setVisible] = useState(false);
-    const { englishLanguage } = useSettingsContext();
-    const { ColorTheme } = useTheme();
+export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
+  const [visible, setVisible] = useState(false);
+  const { englishLanguage } = useSettingsContext();
+  const { ColorTheme } = useTheme();
+  const handleClose = () => setVisible(false);
 
-    useImperativeHandle(ref, () => ({
-      open: () => setVisible(true),
-      close: () => setVisible(false),
-    }));
+  useImperativeHandle(ref, () => ({
+    open: () => setVisible(true),
+    close: () => setVisible(false),
+  }));
 
-    if (!data) return null;
+  if (!data) return null;
 
-    const { item, shard, aghanim, type } = data;
+  const { item, shard, aghanim, type } = data;
 
-    const shardList = Object.values(
-      AbilitiesDescriptions
-    ) as HeroAbilitiesDescriptionsModel[];
+  const shardList = Object.values(
+    AbilitiesDescriptions
+  ) as HeroAbilitiesDescriptionsModel[];
 
-    const aghaninAndShardDesc = shard
-      ? shardList.find((s) => s.dname === shard?.shard_skill_name)
-      : aghanim
-      ? shardList.find((s) => s.dname === aghanim?.scepter_skill_name)
-      : undefined;
+  const aghaninAndShardDesc = shard
+    ? shardList.find((s) => s.dname === shard?.shard_skill_name)
+    : aghanim
+    ? shardList.find((s) => s.dname === aghanim?.scepter_skill_name)
+    : undefined;
 
-    const itemToShow = {
-      itemDname: item?.dname ?? type,
-      itemImage: item?.img ?? aghaninAndShardDesc?.img,
-    };
+  const itemToShow = {
+    itemDname: item?.dname ?? type,
+    itemImage: item?.img ?? aghaninAndShardDesc?.img,
+  };
 
-    const mana = manaCoust(aghaninAndShardDesc?.mc);
-    const coolDown = coolDownTime(aghaninAndShardDesc?.cd);
-    return (
-      <Modal visible={visible} transparent={true} animationType="fade">
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#000000AA",
-          }}
-        >
-          <BannerAds />
-          <View style={styles.modal}>
-            <View style={styles.container}>
-              <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "90%",
+  const mana = manaCoust(aghaninAndShardDesc?.mc);
+  const coolDown = coolDownTime(aghaninAndShardDesc?.cd);
+  return (
+    <Modal visible={visible} transparent={true} animationType="fade">
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#000000AA",
+        }}
+      >
+        <BannerAds />
+        <View style={styles.modal}>
+          <View style={styles.container}>
+            <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "90%",
+              }}
+            >
+              <Image
+                style={[
+                  styles.imgItem,
+                  { aspectRatio: shard || aghanim ? 1 : 1.5 },
+                ]}
+                source={{
+                  uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,
                 }}
-              >
-                <Image
-                  style={[
-                    styles.imgItem,
-                    { aspectRatio: shard || aghanim ? 1 : 1.5 },
-                  ]}
-                  source={{
-                    uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,
-                  }}
-                />
+              />
+              <View>
                 <View>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        display: aghaninAndShardDesc?.cd ? "flex" : "none",
-                      }}
-                    >
-                      <Feather name="clock" color={"#555"} />
-                      <Text> {coolDown}</Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        display: aghaninAndShardDesc?.mc ? "flex" : "none",
-                      }}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: "#2596be",
-                          width: 10,
-                          height: 10,
-                          borderRadius: 3,
-                        }}
-                      />
-                      <Text> {mana}</Text>
-                    </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      display: aghaninAndShardDesc?.cd ? "flex" : "none",
+                    }}
+                  >
+                    <Feather name="clock" color={"#555"} />
+                    <Text> {coolDown}</Text>
                   </View>
-                  <Text
+                  <View
                     style={{
-                      display: aghaninAndShardDesc?.bkbpierce ? "flex" : "none",
-                      fontFamily: "QuickSand-Semibold",
-                      color: "#888",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      display: aghaninAndShardDesc?.mc ? "flex" : "none",
                     }}
                   >
-                    <Text style={{ color: "#333" }}>Pierce bkb:</Text>{" "}
-                    {aghaninAndShardDesc?.bkbpierce}
-                  </Text>
-                  <Text
-                    style={{
-                      display: aghaninAndShardDesc?.dmg_type ? "flex" : "none",
-                      fontFamily: "QuickSand-Semibold",
-                      color: "#888",
-                    }}
-                  >
-                    <Text style={{ color: "#333" }}>Damage Type:</Text>{" "}
-                    {aghaninAndShardDesc?.dmg_type}
-                  </Text>
-                  <Text
-                    style={{
-                      display: aghaninAndShardDesc?.dispellable
-                        ? "flex"
-                        : "none",
-                      fontFamily: "QuickSand-Semibold",
-                      color: "#888",
-                    }}
-                  >
-                    <Text style={{ color: "#333" }}>Dispellable:</Text>{" "}
-                    {aghaninAndShardDesc?.dispellable}
-                  </Text>
+                    <View
+                      style={{
+                        backgroundColor: "#2596be",
+                        width: 10,
+                        height: 10,
+                        borderRadius: 3,
+                      }}
+                    />
+                    <Text> {mana}</Text>
+                  </View>
                 </View>
+                <Text
+                  style={{
+                    display: aghaninAndShardDesc?.bkbpierce ? "flex" : "none",
+                    fontFamily: "QuickSand-Semibold",
+                    color: "#888",
+                  }}
+                >
+                  <Text style={{ color: "#333" }}>Pierce bkb:</Text>{" "}
+                  {aghaninAndShardDesc?.bkbpierce}
+                </Text>
+                <Text
+                  style={{
+                    display: aghaninAndShardDesc?.dmg_type ? "flex" : "none",
+                    fontFamily: "QuickSand-Semibold",
+                    color: "#888",
+                  }}
+                >
+                  <Text style={{ color: "#333" }}>Damage Type:</Text>{" "}
+                  {aghaninAndShardDesc?.dmg_type}
+                </Text>
+                <Text
+                  style={{
+                    display: aghaninAndShardDesc?.dispellable ? "flex" : "none",
+                    fontFamily: "QuickSand-Semibold",
+                    color: "#888",
+                  }}
+                >
+                  <Text style={{ color: "#333" }}>Dispellable:</Text>{" "}
+                  {aghaninAndShardDesc?.dispellable}
+                </Text>
               </View>
-              {item?.abilities?.map((item, index) => {
-                return (
-                  <View key={index}>
-                    <Text style={styles.textTitleDesc}>{item.title}</Text>
-                    <Text style={styles.textDescription}>
-                      {"     "}
-                      {item.description}
-                    </Text>
-                  </View>
-                );
-              })}
-              {shard || aghanim ? (
-                <View>
-                  <Text style={styles.textTitleDesc}>
-                    {aghaninAndShardDesc?.dname}
-                  </Text>
+            </View>
+            {item?.abilities?.map((item, index) => {
+              return (
+                <View key={index}>
+                  <Text style={styles.textTitleDesc}>{item.title}</Text>
                   <Text style={styles.textDescription}>
                     {"     "}
-                    {shard?.shard_desc}
-                    {aghanim?.scepter_desc}
-                  </Text>
-                  <Text
-                    style={{
-                      display: aghaninAndShardDesc?.lore ? "flex" : "none",
-                      fontStyle: "italic",
-                      color: "#aaa",
-                      marginTop: 9,
-                      textAlign: "center",
-                    }}
-                  >
-                    "{aghaninAndShardDesc?.lore}"
+                    {item.description}
                   </Text>
                 </View>
-              ) : null}
-              <Text
-                style={[
-                  styles.textLore,
-                  { display: item?.lore ? "flex" : "none" },
-                ]}
-              >
-                "{item?.lore}"
-              </Text>
-              <TouchableOpacity
-                style={[
-                  styles.buttonContainer,
-                  { backgroundColor: ColorTheme.semidark },
-                ]}
-                onPress={() => {
-                  setVisible(false);
-                  handleClose;
-                }}
-              >
-                <Text style={styles.textButton}>
-                  {englishLanguage ? "Close" : "Fechar"}
+              );
+            })}
+            {shard || aghanim ? (
+              <View>
+                <Text style={styles.textTitleDesc}>
+                  {aghaninAndShardDesc?.dname}
                 </Text>
-              </TouchableOpacity>
-            </View>
+                <Text style={styles.textDescription}>
+                  {"     "}
+                  {shard?.shard_desc}
+                  {aghanim?.scepter_desc}
+                </Text>
+                <Text
+                  style={{
+                    display: aghaninAndShardDesc?.lore ? "flex" : "none",
+                    fontStyle: "italic",
+                    color: "#aaa",
+                    marginTop: 9,
+                    textAlign: "center",
+                  }}
+                >
+                  "{aghaninAndShardDesc?.lore}"
+                </Text>
+              </View>
+            ) : null}
+            <Text
+              style={[
+                styles.textLore,
+                { display: item?.lore ? "flex" : "none" },
+              ]}
+            >
+              "{item?.lore}"
+            </Text>
+            <TouchableOpacity
+              style={[
+                styles.buttonContainer,
+                { backgroundColor: ColorTheme.semidark },
+              ]}
+              onPress={() => {
+                setVisible(false);
+                handleClose;
+              }}
+            >
+              <Text style={styles.textButton}>
+                {englishLanguage ? "Close" : "Fechar"}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    );
-  }
-);
+      </View>
+    </Modal>
+  );
+});
 
 const styles = StyleSheet.create({
   modal: {

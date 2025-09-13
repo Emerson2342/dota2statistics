@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity, Modal } from "react-native";
 import {
   HeroAbilitiesDescriptionsModel,
+  ModalRef,
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
@@ -9,7 +10,7 @@ import { ITEM_IMAGE_BASE_URL } from "../../../../../src/constants/player";
 import EmptyImage from "../../../../images/emptyImage.png";
 import { createStyles } from "../styles";
 import { TeamSide } from "../../../../../src/services/enum";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ModalAbilityDetails } from "../../../../../src/components/Modals/ModalAbilityDetails";
 import { modalAbilitiesDetails } from "../../../../../src/utils/matchDetailsUtils";
 
@@ -29,17 +30,18 @@ export const AbilitiesUsages = ({
   const styles = createStyles(colors);
 
   const [start, end] = team === TeamSide.Radiant ? [0, 5] : [5, 10];
-  const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
   const [abilityIndex, setAbilityIndex] =
     useState<HeroAbilitiesDescriptionsModel>();
+
+  const modalRef = useRef<ModalRef>(null);
 
   const handleAbilitiesDetails = (abilityName: string) => {
     const { abilityIndex, modalAbilityDetails } =
       modalAbilitiesDetails(abilityName);
 
-    if (abilityIndex) {
+    if (abilityIndex.dname) {
       setAbilityIndex(abilityIndex);
-      setModalAbilityDetails(modalAbilityDetails);
+      if (modalAbilityDetails) modalRef.current?.open();
     }
   };
 
@@ -92,17 +94,8 @@ export const AbilitiesUsages = ({
             );
           })}
       </View>
-      <Modal
-        visible={modalAbilityDetails}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModalAbilityDetails(false)}
-      >
-        <ModalAbilityDetails
-          ability={abilityIndex}
-          handleClose={() => setModalAbilityDetails(false)}
-        />
-      </Modal>
+
+      <ModalAbilityDetails ref={modalRef} ability={abilityIndex} />
     </>
   );
 };

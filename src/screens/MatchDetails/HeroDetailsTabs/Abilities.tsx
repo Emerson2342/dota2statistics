@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
   HeroAbilitiesDescriptionsModel,
   HeroDetailsModel,
   MatchDetailsModel,
+  ModalRef,
   Player,
   ThemeColor,
 } from "../../../services/props";
@@ -42,8 +43,8 @@ function Abilities({
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const router = useRouter();
+  const modalRef = useRef<ModalRef>(null);
 
-  const [modalAbilityDetails, setModalAbilityDetails] = useState(false);
   const [abilityIndex, setAbilityIndex] =
     useState<HeroAbilitiesDescriptionsModel>();
 
@@ -62,7 +63,7 @@ function Abilities({
 
     if (abilityIndex) {
       setAbilityIndex(abilityIndex);
-      setModalAbilityDetails(modalAbilityDetails);
+      if (modalAbilityDetails) modalRef.current?.open();
     }
   };
 
@@ -204,17 +205,7 @@ function Abilities({
         keyExtractor={(item) => item.match_id.toString()}
         renderItem={RenderAbilityes}
       />
-      <Modal
-        visible={modalAbilityDetails}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModalAbilityDetails(false)}
-      >
-        <ModalAbilityDetails
-          ability={abilityIndex}
-          handleClose={() => setModalAbilityDetails(false)}
-        />
-      </Modal>
+      <ModalAbilityDetails ref={modalRef} ability={abilityIndex} />
     </View>
   );
 }
