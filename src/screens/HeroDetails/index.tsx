@@ -367,7 +367,8 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                   color: "#888",
                 }}
               >
-                <Text style={{ color: "#333" }}>Damage:</Text> {item?.dmg_type}
+                <Text style={{ color: "#333" }}>Damage Type:</Text>{" "}
+                {item?.dmg_type}
               </Text>
             </View>
           </View>

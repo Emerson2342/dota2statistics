@@ -124,6 +124,16 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(
                   </View>
                   <Text
                     style={{
+                      display: aghaninAndShardDesc?.bkbpierce ? "flex" : "none",
+                      fontFamily: "QuickSand-Semibold",
+                      color: "#888",
+                    }}
+                  >
+                    <Text style={{ color: "#333" }}>Pierce bkb:</Text>{" "}
+                    {aghaninAndShardDesc?.bkbpierce}
+                  </Text>
+                  <Text
+                    style={{
                       display: aghaninAndShardDesc?.dmg_type ? "flex" : "none",
                       fontFamily: "QuickSand-Semibold",
                       color: "#888",
