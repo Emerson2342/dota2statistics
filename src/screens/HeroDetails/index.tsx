@@ -767,7 +767,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         <ModalItemDetails
           ref={modalItemRef}
           data={modalItemData}
-          handleClose={() => setModalItemData(null)}
+          //handleClose={() => setModalItemData(null)}
         />
       </View>
     </View>

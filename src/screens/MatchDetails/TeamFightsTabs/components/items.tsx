@@ -1,5 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
+  ModalItemData,
+  ModalRef,
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
@@ -8,6 +10,10 @@ import { createStyles } from "../styles";
 import { PICTURE_HERO_BASE_URL } from "../../../../../src/constants/player";
 import EmptyImage from "../../../../images/emptyImage.png";
 import { TeamSide } from "../../../../../src/services/enum";
+import ItemsList from "../../../../components/Itens/itemsList.json";
+import { useRef, useState } from "react";
+import { handleItemDetails } from "../../../../../src/utils/HandleItemDetails";
+import { ModalItemDetails } from "../../../../../src/components/Modals/ModalItemDetails";
 
 type ItemsUsageProps = {
   label: string;
@@ -19,6 +25,15 @@ type ItemsUsageProps = {
 export const ItemsUsages = ({ label, color, fight, team }: ItemsUsageProps) => {
   const styles = createStyles(color);
   const [start, end] = team === TeamSide.Radiant ? [0, 5] : [5, 10];
+  const [modalData, setModalData] = useState<ModalItemData | null>(null);
+  const modalRef = useRef<ModalRef>(null);
+
+  const getItemDetails = (itemName: string) => {
+    const item = ItemsList.find((item) => item.name == itemName);
+    if (item) {
+      handleItemDetails(0, item, false, setModalData, modalRef);
+    }
+  };
 
   return (
     <>
@@ -45,7 +60,8 @@ export const ItemsUsages = ({ label, color, fight, team }: ItemsUsageProps) => {
                       ".png";
 
                     return (
-                      <View
+                      <TouchableOpacity
+                        onPress={() => getItemDetails(itemName)}
                         key={index}
                         style={{
                           alignItems: "center",
@@ -59,7 +75,7 @@ export const ItemsUsages = ({ label, color, fight, team }: ItemsUsageProps) => {
                           source={{ uri: itemImage }}
                           style={styles.itemImage}
                         />
-                      </View>
+                      </TouchableOpacity>
                     );
                   }
                 )}
@@ -67,6 +83,7 @@ export const ItemsUsages = ({ label, color, fight, team }: ItemsUsageProps) => {
             );
           })}
       </View>
+      <ModalItemDetails ref={modalRef} data={modalData} />
     </>
   );
 };

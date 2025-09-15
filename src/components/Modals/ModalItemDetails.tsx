@@ -30,7 +30,6 @@ import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 
 type Props = {
   data: ModalItemData | null;
-  handleClose: () => void;
 };
 
 export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
@@ -87,7 +86,7 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
               <Image
                 style={[
                   styles.imgItem,
-                  { aspectRatio: shard || aghanim ? 1 : 1.5 },
+                  { aspectRatio: shard || aghanim ? 1 : 1 },
                 ]}
                 source={{
                   uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,

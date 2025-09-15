@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -13,14 +7,11 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  Modal,
 } from "react-native";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import {
-  AghanimModel,
   HeroDetailsModel,
-  ItemDetails,
   MatchDetailsModel,
   ModalItemData,
   ModalRef,
@@ -34,7 +25,6 @@ import {
   PICTURE_ITEM_BASE_URL,
 } from "../../../constants/player";
 import { ModalItemDetails } from "../../../components/Modals/ModalItemDetails";
-import AghanimDescription from "../../../components/Heroes/aghanimDescription.json";
 import { handleItemDetails } from "../../../../src/utils/HandleItemDetails";
 
 const { width } = Dimensions.get("window");
@@ -64,49 +54,6 @@ function Items({
   const heroList = useMemo(() => {
     return Object.values(HeroesDetails) as HeroDetailsModel[];
   }, []);
-
-  const aghaninAndShardDesc = useMemo(() => {
-    return Object.values(AghanimDescription) as AghanimModel[];
-  }, []);
-
-  // const handleItemDetails = (
-  //   heroId: number | null,
-  //   item: ItemDetails | undefined,
-  //   shardDetails: number | null
-  // ) => {
-  //   if (item && item.name !== "ultimate_scepter") {
-  //     setModalData({
-  //       item,
-  //       type: "item",
-  //     });
-  //     modalRef.current?.open();
-  //     return;
-  //   } else if (item && item.name === "ultimate_scepter") {
-  //     const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
-  //     if (scepter) {
-  //       setModalData({
-  //         aghanim: scepter,
-  //         type: "Aghanim's Scepter",
-  //       });
-  //       modalRef?.current?.open();
-  //       return;
-  //     }
-  //   }
-
-  //   if (shardDetails) {
-  //     const shardDesc = aghaninAndShardDesc.find(
-  //       (shard) => shard.hero_id === shardDetails
-  //     );
-  //     if (shardDesc) {
-  //       setModalData({
-  //         shard: shardDesc,
-  //         type: "Aghanim's Shard",
-  //       });
-  //       modalRef?.current?.open();
-  //       return;
-  //     }
-  //   }
-  // };
 
   const renderItemItems = useCallback(
     ({ item }: { item: MatchDetailsModel }) => {
@@ -484,13 +431,7 @@ function Items({
         keyExtractor={(item) => item.match_id.toString()}
         scrollEnabled={false}
       />
-      {/* <Modal visible={modalVisible} transparent={true} animationType="fade">
-          </Modal> */}
-      <ModalItemDetails
-        ref={modalRef}
-        data={modalData}
-        handleClose={() => setModalData(null)}
-      />
+      <ModalItemDetails ref={modalRef} data={modalData} />
     </View>
   );
 }
