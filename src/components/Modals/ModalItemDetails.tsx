@@ -86,7 +86,7 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
               <Image
                 style={[
                   styles.imgItem,
-                  { aspectRatio: shard || aghanim ? 1 : 1 },
+                  { aspectRatio: shard || aghanim ? 1 : 1.5 },
                 ]}
                 source={{
                   uri: PICTURE_ITEM_BASE_URL + itemToShow.itemImage,

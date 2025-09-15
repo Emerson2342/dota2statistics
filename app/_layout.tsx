@@ -68,12 +68,17 @@ export default function App() {
 
 function Content() {
   const { ColorTheme } = useTheme();
+  const { globalTheme } = useSettingsContext();
   const [modalVisible, setModalVisible] = useState(false);
   const { englishLanguage } = useSettingsContext();
 
   useEffect(() => {
     checkForUpdates();
   }, []);
+
+  useEffect(() => {
+    StatusBar.setBackgroundColor(ColorTheme.dark);
+  }, [globalTheme]);
 
   function isNewerVersion(latest: string, current: string) {
     const latestParts = latest.split(".").map(Number);
