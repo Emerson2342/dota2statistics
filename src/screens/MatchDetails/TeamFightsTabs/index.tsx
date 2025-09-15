@@ -13,6 +13,7 @@ import { KillsImage } from "./components/killsImage";
 import { AbilitiesUsages } from "./components/abilities";
 import { ItemsUsages } from "./components/items";
 import { processTeamFights } from "../../../../src/utils/ProcessedTemFight";
+import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -38,11 +39,13 @@ function TeamFightsComponent({
   heroNames,
   radTeamName,
   direTeamName,
+  update,
 }: {
   teamFights: TeamFightModel[] | undefined;
   heroNames: string[];
   radTeamName: string;
   direTeamName: string;
+  update: () => Promise<void>;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -184,6 +187,8 @@ function TeamFightsComponent({
       </View>
     );
   });
+
+  if (teamFights?.length == 0) return <ErrorComponent action={update} />;
 
   return (
     <View style={[styles.container]}>

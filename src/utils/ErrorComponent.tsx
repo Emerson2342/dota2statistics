@@ -3,7 +3,7 @@ import ErrorImage from "../images/error.png";
 import { useSettingsContext } from "../../src/context/useSettingsContext";
 import { useTheme } from "../../src/context/useThemeContext";
 
-export const ErrorComponent = ({ action }: { action: () => void }) => {
+export const ErrorComponent = ({ action }: { action: () => Promise<void> }) => {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
 

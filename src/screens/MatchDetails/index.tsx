@@ -79,7 +79,6 @@ export const MatchDetailsScreen = ({
         setLoadedList(true);
       }
     };
-
     loadMatchesList();
   }, []);
 
@@ -178,11 +177,10 @@ export const MatchDetailsScreen = ({
         teamFights={matchDetails?.teamfights || []}
         radTeamName={matchDetails?.radiant_team?.name ?? radName}
         direTeamName={matchDetails?.dire_team?.name ?? direName}
+        update={onRefresh}
       />
     );
   };
-
-  //const LoadingMatchDetails = () => {
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -216,6 +214,7 @@ export const MatchDetailsScreen = ({
       setMatchesDetailsList(prevList);
       await handleSearchMatche();
     }
+    setIndex(0);
     setRefreshing(false);
   };
 

@@ -123,23 +123,6 @@ export default function PlayerProfileScreen({
     }, 500);
   };
 
-  const Loading = useMemo(() => {
-    return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          flex: 0.82,
-        }}
-      >
-        <ActivityIndicator color={ColorTheme.dark} />
-        <Text style={styles.textLoading}>
-          {englishLanguage ? "Loading..." : "Carregando..."}
-        </Text>
-      </View>
-    );
-  }, [refresh]);
-
   const Header = React.memo(() => {
     return (
       <View style={styles.container}>

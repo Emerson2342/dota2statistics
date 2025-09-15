@@ -81,19 +81,19 @@ function DamageType({
   const TextDamage = ({ Physical, Magical, Pure }: DamageText) => {
     return (
       <View>
-        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+        <Text style={styles.labelDamage}>
           {englishLanguage ? "Physical: " : "Físico: "}
           <Text style={{ color: "#aaa" }}>
             {Physical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </Text>
         </Text>
-        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+        <Text style={styles.labelDamage}>
           {englishLanguage ? "Magical: " : "Mágico: "}
           <Text style={{ color: "#aaa" }}>
             {Magical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </Text>
         </Text>
-        <Text style={{ fontFamily: "QuickSand-Bold", color: "#555" }}>
+        <Text style={styles.labelDamage}>
           {englishLanguage ? "Pure: " : "Puro: "}
           <Text style={{ color: "#aaa" }}>
             {Pure.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
@@ -278,5 +278,10 @@ const createStyles = (Colors: ThemeColor) =>
       height: 1,
       aspectRatio: 1,
       borderRadius: 50,
+    },
+    labelDamage: {
+      fontFamily: "QuickSand-Bold",
+      color: "#555",
+      lineHeight: 15,
     },
   });
