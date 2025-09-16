@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -6,19 +6,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
-  Modal,
   Dimensions,
   FlatList,
 } from "react-native";
 import { createStyles } from "./styles";
-import int from "../../images/int.png";
-import agi from "../../images/agi.png";
-import str from "../../images/str.png";
-import all from "../../images/all.png";
-import boots from "../../images/boots.png";
 
-import HeroLoreJson from "./../../constants/Lore.json";
-import HeroLorePtBrJson from "./../../constants/LorePtBr.json";
 import AbilitiesDetailsJson from "./../../components/Heroes/AbilitiesDetails.json";
 import AbilitiesDescriptionsJson from "./../../components/Heroes/AbilitiesDescriptions.json";
 import ItemsList from "./../../components/Itens/itemsList.json";
@@ -29,7 +21,6 @@ import {
   HeroAbilitiesDescriptionsModel,
   HeroAbilitiesDetailsJson,
   HeroAbilitiesDetailsModel,
-  HeroLore,
   ItemDetails,
   ItemPopularity,
   ItemPopularityData,
@@ -38,12 +29,11 @@ import {
 } from "./../../services/props";
 import { useSettingsContext } from "./../../context/useSettingsContext";
 import { useTheme } from "./../../context/useThemeContext";
-import { ModaHeroLore } from "./../../components/Modals/ModalHeroLore";
-import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+
+import { Feather } from "@expo/vector-icons";
+
 import { getHeroItems } from "./../../services/api";
 import { ModalItemDetails } from "./../../components/Modals/ModalItemDetails";
-import AghanimDescription from "./../../components/Heroes/aghanimDescription.json";
 import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
@@ -52,6 +42,7 @@ import useHeroDetails from "../../hooks/useHeroDetails";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
+import { Header } from "./header";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -60,8 +51,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
 
   const { ColorTheme } = useTheme();
   const heroDetails = useHeroDetails(Number(heroId));
-  const [heroLore, setHeroLore] = useState<string | undefined>(undefined);
-  const [modalHeroLore, setModalHeroLore] = useState(false);
+
   const [abilities, setAbilities] = useState<HeroAbilitiesDetailsModel>();
   const [abilitiesDesc, setAbilitiesDesc] = useState<
     HeroAbilitiesDescriptionsModel[] | []
@@ -94,10 +84,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   useEffect(() => {
     if (heroDetails.id === 0) return;
     HandleGetAbilities();
-    const loreData: HeroLore = englishLanguage
-      ? HeroLoreJson
-      : HeroLorePtBrJson;
-    setHeroLore(loreData[heroDetails.name]);
   }, [abilities]);
 
   const HandleGetAbilities = () => {
@@ -143,58 +129,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const heroAbilities: HeroAbilitiesDetailsJson = AbilitiesDetailsJson;
   const itemsList: ItemDetails[] = ItemsList;
 
-  const aghaninAndShardDesc = useMemo(() => {
-    return Object.values(AghanimDescription) as AghanimModel[];
-  }, []);
-
-  let fontImage = PICTURE_HERO_BASE_URL + heroDetails.img;
-
-  let atributo = "";
-  let attImage = null;
-  let baseAttack = 0;
-
-  switch (heroDetails.primary_attr) {
-    case "all":
-      {
-        atributo = "Universal";
-        attImage = all;
-        baseAttack =
-          (heroDetails.base_str + heroDetails.base_agi + heroDetails.base_int) *
-          0.7;
-      }
-      break;
-    case "str":
-      {
-        atributo = englishLanguage ? "Strength" : "Força";
-        attImage = str;
-        baseAttack = heroDetails.base_str;
-      }
-      break;
-    case "agi":
-      {
-        atributo = englishLanguage ? "Agility" : "Agilidade";
-        attImage = agi;
-        baseAttack = heroDetails.base_agi;
-      }
-      break;
-    case "int":
-      {
-        atributo = englishLanguage ? "Intelligence" : "Inteligência";
-        attImage = int;
-        baseAttack = heroDetails.base_int;
-      }
-      break;
-  }
-  const baseAttMin = heroDetails.base_attack_min + baseAttack;
-  const baseAttMax = heroDetails.base_attack_max + baseAttack;
-  const baseHelth = 120 + heroDetails.base_str * 22;
-  const baseMana = 75 + heroDetails.base_int * 12;
-  const helthRegen =
-    (heroDetails?.base_health_regen ?? 0) + heroDetails.base_str * 0.1;
-  const manaRegen =
-    (heroDetails.base_mana_regen ?? 0) +
-    heroDetails.base_int * 0.05 * (1 + heroDetails.base_int * 0.02);
-
   const ItemHero = ({
     imgUrl,
     itemDetails,
@@ -224,48 +158,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       </TouchableOpacity>
     );
   };
-
-  const handleItemDetails2 = useCallback(
-    (heroId: number | null, item: ItemDetails | undefined) => {
-      setModalItemData(null);
-
-      if (
-        item &&
-        item.name !== "ultimate_scepter" &&
-        item &&
-        item.name !== "aghanims_shard"
-      ) {
-        setModalItemData({
-          item,
-          type: "item",
-        });
-        modalItemRef.current?.open();
-        return;
-      } else if (item && item.name === "ultimate_scepter") {
-        const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
-        if (scepter) {
-          setModalItemData({
-            aghanim: scepter,
-            type: "Aghanim's Scepter",
-          });
-          modalItemRef.current?.open();
-        }
-      } else if (item && item.name === "aghanims_shard") {
-        const shardDesc = aghaninAndShardDesc.find(
-          (shard) => shard.hero_id === heroId
-        );
-        if (shardDesc) {
-          setModalItemData({
-            shard: shardDesc,
-            type: "Aghanim's Shard",
-          });
-          modalItemRef.current?.open();
-          return;
-        }
-      }
-    },
-    []
-  );
 
   const renderAbilitiesDescriptions = ({
     item,
@@ -404,150 +296,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => setModalHeroLore(true)}>
-            <Ionicons
-              name="information-circle"
-              color={"#fff"}
-              style={{ position: "absolute", margin: 5, right: 3 }}
-              size={27}
-            />
-          </TouchableOpacity>
-          <Text style={styles.nameText}>{heroDetails.localized_name}</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "flex-end",
-              justifyContent: "center",
-            }}
-          >
-            <Image style={{ width: 15, height: 15 }} source={attImage} />
-
-            <Text
-              style={[styles.textAtributo, { color: "#bbb", fontSize: 13 }]}
-            >
-              {" "}
-              {atributo}
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <View style={styles.imgContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: fontImage,
-                }}
-                onError={(error) =>
-                  console.error("Erro ao carregar a imagem: ", error)
-                }
-              />
-              <LinearGradient
-                colors={["#2a6623", "#79ee3c"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text style={styles.shadowText}>{Math.round(baseHelth)}</Text>
-                  <Text style={styles.textHelth}>{baseHelth}</Text>
-                </View>
-              </LinearGradient>
-
-              <LinearGradient
-                colors={["#125adc", "#71f3fd"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  borderBottomRightRadius: 7,
-                  borderBottomLeftRadius: 7,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text style={styles.shadowText}>{Math.round(baseMana)}</Text>
-                  <Text style={styles.textHelth}>{Math.round(baseMana)}</Text>
-                </View>
-              </LinearGradient>
-            </View>
-            <View style={styles.atributos}>
-              <View
-                style={{
-                  justifyContent: "space-around",
-                  width: "30%",
-                  alignItems: "center",
-                }}
-              >
-                <View style={styles.attContainer}>
-                  <Image style={{ width: 19, height: 19 }} source={str} />
-                  <Text style={styles.attNumber}>{heroDetails.base_str}</Text>
-                  <Text style={styles.attGain}> + {heroDetails.str_gain}</Text>
-                </View>
-                <View style={styles.attContainer}>
-                  <Image style={{ width: 19, height: 19 }} source={agi} />
-                  <Text style={styles.attNumber}>{heroDetails.base_agi}</Text>
-                  <Text style={styles.attGain}> + {heroDetails.agi_gain}</Text>
-                </View>
-                <View style={styles.attContainer}>
-                  <Image style={{ width: 19, height: 19 }} source={int} />
-                  <Text style={styles.attNumber}>{heroDetails.base_int}</Text>
-                  <Text style={styles.attGain}> + {heroDetails.int_gain}</Text>
-                </View>
-              </View>
-              <View style={{ width: "65%", alignItems: "center" }}>
-                <Text style={styles.textAtributo}>
-                  {heroDetails.attack_type}
-                </Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {heroDetails.roles.map((role, index) => (
-                    <Text key={index} style={styles.textName}>
-                      {role}
-                      {index !== heroDetails.roles.length - 1 ? ", " : ""}
-                    </Text>
-                  ))}
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    width: "100%",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <MaterialCommunityIcons
-                      name="sword"
-                      size={17}
-                      color={"#ccc"}
-                    />
-                    <Text
-                      style={[styles.attGain, { color: "#fff" }]}
-                    >{`${Math.floor(baseAttMin)} - ${Math.floor(
-                      baseAttMax
-                    )}`}</Text>
-                  </View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Image style={{ width: 23, height: 23 }} source={boots} />
-                    <Text style={[styles.attGain, { color: "#fff" }]}>
-                      {" "}
-                      {heroDetails.move_speed}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-
+        <Header heroId={Number(heroId)} />
         <ScrollView>
           {loadingItems ? (
             <View style={styles.itemsContainer}>
@@ -748,25 +497,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             </View>
           </View>
         </ScrollView>
-        <Modal
-          visible={modalHeroLore}
-          transparent={true}
-          statusBarTranslucent={true}
-          animationType="fade"
-        >
-          <ModaHeroLore
-            urlImage={heroDetails.img}
-            handleClose={() => setModalHeroLore(false)}
-            localizedName={heroDetails.localized_name}
-            loreText={heroLore}
-          />
-        </Modal>
-
-        <ModalItemDetails
-          ref={modalItemRef}
-          data={modalItemData}
-          //handleClose={() => setModalItemData(null)}
-        />
+        <ModalItemDetails ref={modalItemRef} data={modalItemData} />
       </View>
     </View>
   );

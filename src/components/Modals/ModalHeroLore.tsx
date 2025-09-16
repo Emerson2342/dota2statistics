@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   View,
   Text,
@@ -7,66 +7,81 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  Modal,
 } from "react-native";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { ThemeColor } from "../../../src/services/props";
+import { ModalRef, ThemeColor } from "../../../src/services/props";
 import { BannerAds } from "../Admob/BannerAds";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
 
-export function ModaHeroLore({
-  urlImage,
-  handleClose,
-  localizedName,
-  loreText,
-}: {
+type Props = {
   urlImage: string;
-  handleClose: () => void;
   localizedName: string | undefined;
   loreText: string | undefined;
-}) {
-  const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+};
 
-  const styles = CreateStyles(ColorTheme);
+export const ModaHeroLore = forwardRef<ModalRef, Props>(
+  ({ urlImage, localizedName, loreText }, ref) => {
+    const { ColorTheme } = useTheme();
+    const { englishLanguage } = useSettingsContext();
+    const styles = CreateStyles(ColorTheme);
+    const [visible, setVisible] = useState(false);
+    const handleClose = () => setVisible(false);
 
-  console.log("Entrou na lore, hero " + localizedName);
+    useImperativeHandle(ref, () => ({
+      open: () => setVisible(true),
+      close: () => setVisible(false),
+    }));
 
-  return (
-    <View style={styles.container}>
-      <BannerAds />
-      <View
-        style={{
-          flex: 0.9,
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
+    return (
+      <Modal
+        style={styles.container}
+        visible={visible}
+        transparent={true}
+        animationType="fade"
       >
-        <View style={styles.content}>
-          <Image
-            style={styles.imgHero}
-            src={PICTURE_HERO_BASE_URL + urlImage}
-          />
-          <Text style={styles.textName}>{localizedName}</Text>
-          <ScrollView>
-            <Text style={styles.textLore}>
-              {"  "} {loreText}
-            </Text>
-          </ScrollView>
-          <TouchableOpacity
-            style={styles.buttonClose}
-            onPress={() => handleClose()}
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#000000cc",
+          }}
+        >
+          <BannerAds />
+          <View
+            style={{
+              flex: 0.9,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-            <Text style={styles.textButton}>
-              {englishLanguage ? "Close" : "Fechar"}
-            </Text>
-          </TouchableOpacity>
+            <View style={styles.content}>
+              <Image
+                style={styles.imgHero}
+                src={PICTURE_HERO_BASE_URL + urlImage}
+              />
+              <Text style={styles.textName}>{localizedName}</Text>
+              <ScrollView>
+                <Text style={styles.textLore}>
+                  {"  "} {loreText}
+                </Text>
+              </ScrollView>
+              <TouchableOpacity
+                style={styles.buttonClose}
+                onPress={() => handleClose()}
+              >
+                <Text style={styles.textButton}>
+                  {englishLanguage ? "Close" : "Fechar"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
-  );
-}
+      </Modal>
+    );
+  }
+);
 
 const CreateStyles = (colors: ThemeColor) =>
   StyleSheet.create({

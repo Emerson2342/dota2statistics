@@ -18,67 +18,10 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.semidark,
       alignItems: "center",
     },
-    headerContainer: {
-      backgroundColor: colors.semidark,
-      width: "95%",
-      alignSelf: "center",
-      marginTop: "3%",
-      borderRadius: 5,
-      paddingBottom: "3%",
-    },
-    imgContainer: {
-      width: "25%",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingLeft: "3%",
-    },
-    image: {
-      // borderRadius: 50,
-      width: "100%",
-      aspectRatio: 1.5,
-      borderTopLeftRadius: 7,
-      borderTopRightRadius: 7,
-    },
-    textHelth: {
-      fontFamily: "QuickSand-Semibold",
-      color: "#fff",
-    },
-    shadowText: {
-      fontFamily: "QuickSand-Semibold",
-      position: "absolute",
-      color: "black",
-      left: 1,
-      top: 1,
-    },
     textRegen: {
       color: "#202020",
       fontFamily: "QuickSand-Regular",
       fontSize: 11,
-    },
-    textName: {
-      textAlign: "center",
-      fontSize: Dimensions.get("screen").width * 0.03,
-      color: "#fff",
-      fontFamily: "QuickSand-Semibold",
-    },
-    textAtributo: {
-      textAlign: "center",
-      fontSize: 15,
-      color: "#fff",
-      fontFamily: "QuickSand-Semibold",
-    },
-    nameText: {
-      textAlign: "center",
-      fontSize: Dimensions.get("screen").width * 0.05,
-      color: "#fff",
-      alignSelf: "center",
-      fontFamily: "QuickSand-Bold",
-    },
-    atributos: {
-      width: "75%",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "row",
     },
     averageContainer: {
       backgroundColor: "#fff",
@@ -179,24 +122,6 @@ export const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
       elevation: 7,
       width: "95%",
-    },
-    attContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginVertical: "3%",
-      width: "70%",
-    },
-
-    attNumber: {
-      fontSize: 15,
-      marginLeft: "3%",
-      fontFamily: "QuickSand-Bold",
-      color: "#fff",
-    },
-    attGain: {
-      fontSize: 13,
-      color: "#aaa",
-      fontFamily: "QuickSand-Semibold",
     },
     itemImg: {
       //width: "9%",

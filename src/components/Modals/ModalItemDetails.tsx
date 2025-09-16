@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -14,9 +9,7 @@ import {
   Modal,
 } from "react-native";
 import {
-  AghanimModel,
   HeroAbilitiesDescriptionsModel,
-  ItemDetails,
   ModalItemData,
   ModalRef,
 } from "../../../src/services/props";
