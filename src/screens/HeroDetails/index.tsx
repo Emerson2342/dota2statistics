@@ -73,7 +73,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const [heroItems, setHeroItems] = useState<ItemPopularityData>();
 
   const [loadingHeroDetails, setLoadingHeroDetails] = useState(true);
-  const [loreJson, setLoreJson] = useState<HeroLore>(HeroLoreJson);
 
   const [loadingItems, setLoadingItems] = useState(true);
 
@@ -86,7 +85,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
     setTimeout(() => {
       if (heroDetails) {
         setAbilities(heroAbilities[heroDetails.name]);
-        console.log(`Herói Selecionado: ${heroDetails.localized_name}`);
         HandleGetHeroItems();
       }
       setLoadingHeroDetails(false);
@@ -96,10 +94,10 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   useEffect(() => {
     if (heroDetails.id === 0) return;
     HandleGetAbilities();
-    if (heroDetails) {
-      setLoreJson(englishLanguage ? HeroLoreJson : HeroLorePtBrJson);
-      setHeroLore(loreJson[heroDetails.name]);
-    }
+    const loreData: HeroLore = englishLanguage
+      ? HeroLoreJson
+      : HeroLorePtBrJson;
+    setHeroLore(loreData[heroDetails.name]);
   }, [abilities]);
 
   const HandleGetAbilities = () => {
