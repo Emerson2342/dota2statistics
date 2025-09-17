@@ -123,13 +123,6 @@ export const createStyles = (colors: ThemeColor) =>
       elevation: 7,
       width: "95%",
     },
-    itemImg: {
-      //width: "9%",
-      margin: 1,
-      //borderRadius: 9,
-      //height: undefined,
-      //aspectRatio: 1,
-    },
     textItem: {
       fontFamily: "QuickSand-Semibold",
       color: colors.semidark,

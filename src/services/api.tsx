@@ -1,5 +1,6 @@
 import React, { Dispatch } from "react";
 import {
+  getHeroMatchupUrl,
   HERO_BENCHMARCKS_BASE_URL,
   HERO_ITEM_BASE_URL,
   HERO_STATS_URL,
@@ -8,6 +9,7 @@ import {
 } from "../constants/player";
 import {
   HeroesPlayed,
+  HeroMatchUps,
   HeroStats,
   ItemPopularityData,
   LeagueMatches,
@@ -279,7 +281,7 @@ export const getHeroesStats = async (
     }));
     setHeroStatsList(filteredData);
   } catch (error: any) {
-    console.log("Erro ao testar buscar Hero Stats: " + error.message);
+    console.log("Erro ao buscar Hero Stats: " + error.message);
   }
 };
 
@@ -294,4 +296,15 @@ export const loadTeamsList = async (
   } catch (error: any) {
     console.log("Erro ao buscar times: " + error.message);
   }
+};
+
+export const fetchHeroMatchups = async (
+  heroId: string
+): Promise<HeroMatchUps[]> => {
+  const url = getHeroMatchupUrl(heroId);
+  console.log("Endpoint hero matchups: " + url);
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Erro ao buscar hero matchups");
+  const data = (await response.json()) as HeroMatchUps[];
+  return data;
 };

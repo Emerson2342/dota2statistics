@@ -43,6 +43,7 @@ import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCus
 import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 import { Header } from "./header";
+import { MatchUps } from "./matchups";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -298,6 +299,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       <View style={styles.container}>
         <Header heroId={Number(heroId)} />
         <ScrollView>
+          <MatchUps heroId={heroId} />
           {loadingItems ? (
             <View style={styles.itemsContainer}>
               <Text style={styles.titleText}>

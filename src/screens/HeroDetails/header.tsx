@@ -113,15 +113,15 @@ export function Header({ heroId }: Props) {
       </View>
       <View style={{ flexDirection: "row" }}>
         <View style={styles.imgContainer}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: fontImage,
-            }}
-            onError={(error) =>
-              console.error("Erro ao carregar a imagem: ", error)
-            }
-          />
+          {heroDetails.img && (
+            <Image
+              style={styles.image}
+              source={{ uri: PICTURE_HERO_BASE_URL + heroDetails.img }}
+              onError={(e) =>
+                console.log("Erro ao carregar a imagem:", e.nativeEvent.error)
+              }
+            />
+          )}
           <LinearGradient
             colors={["#2a6623", "#79ee3c"]}
             start={{ x: 0, y: 0 }}

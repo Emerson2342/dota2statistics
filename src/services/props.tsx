@@ -667,3 +667,9 @@ export interface TeamPlayer {
   wins: number;
   is_current_team_member: boolean;
 }
+
+export interface HeroMatchUps {
+  hero_id: number;
+  games_played: number;
+  wins: number;
+}
