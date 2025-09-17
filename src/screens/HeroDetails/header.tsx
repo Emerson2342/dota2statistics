@@ -13,7 +13,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import boots from "../../images/boots.png";
 import { HeroLore, ModalRef, ThemeColor } from "../../../src/services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import useHeroDetails from "../../../src/hooks/useHeroDetails";
+import useHeroDetails from "../../utils/getHeroDetails";
 
 import int from "../../images/int.png";
 import agi from "../../images/agi.png";
@@ -37,8 +37,6 @@ export function Header({ heroId }: Props) {
   const modalRef = useRef<ModalRef>(null);
 
   const heroLore: HeroLore = englishLanguage ? HeroLoreJson : HeroLorePtBrJson;
-
-  let fontImage = PICTURE_HERO_BASE_URL + heroDetails.img;
 
   let atributo = "";
   let attImage = null;

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { HeroDetailsModel } from "../../src/services/props";
-import HeroesDetails from "./../../src/components/Heroes/HeroesDetails.json";
+import { HeroDetailsModel } from "../services/props";
+import HeroesDetails from "../components/Heroes/HeroesDetails.json";
 
-export default function useHeroDetails(heroId: number) {
-  const [heroDetails, setHeroDetails] = useState<HeroDetailsModel>({
+export default function getHeroDetails(heroId: number): HeroDetailsModel {
+  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+
+  const hero = heroArray.find((hero) => hero.id === Number(heroId));
+
+  if (hero) return hero;
+  return {
     id: 0,
     name: "",
     primary_attr: "",
@@ -33,13 +38,5 @@ export default function useHeroDetails(heroId: number) {
     cm_enabled: false,
     legs: 0,
     localized_name: "",
-  });
-
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-
-  useEffect(() => {
-    const heroDetails = heroArray.find((hero) => hero.id === Number(heroId));
-    if (heroDetails) setHeroDetails(heroDetails);
-  }, []);
-  return heroDetails;
+  };
 }

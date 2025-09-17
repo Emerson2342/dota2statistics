@@ -672,4 +672,5 @@ export interface HeroMatchUps {
   hero_id: number;
   games_played: number;
   wins: number;
+  winrate: number;
 }

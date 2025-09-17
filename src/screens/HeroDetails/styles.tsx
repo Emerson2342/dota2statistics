@@ -126,6 +126,11 @@ export const createStyles = (colors: ThemeColor) =>
     textItem: {
       fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
+      backgroundColor: colors.light,
+      padding: 3,
+      paddingHorizontal: 15,
+      margin: 5,
+      borderRadius: 5,
     },
     textItems: {
       textAlign: "center",

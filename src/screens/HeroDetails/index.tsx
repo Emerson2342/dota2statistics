@@ -38,7 +38,7 @@ import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
 } from "./../../constants/player";
-import useHeroDetails from "../../hooks/useHeroDetails";
+import useHeroDetails from "../../utils/getHeroDetails";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
@@ -299,7 +299,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       <View style={styles.container}>
         <Header heroId={Number(heroId)} />
         <ScrollView>
-          <MatchUps heroId={heroId} />
+          {/* <MatchUps heroId={heroId} /> */}
           {loadingItems ? (
             <View style={styles.itemsContainer}>
               <Text style={styles.titleText}>

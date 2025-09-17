@@ -57,12 +57,7 @@ function HeroesStatsComponent({
           {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
         </Text>
 
-        <Text
-          style={[
-            styles.text,
-            { fontSize: Dimensions.get("screen").width * 0.037 },
-          ]}
-        >
+        <Text style={[styles.text, styles.textTitle]}>
           {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
         </Text>
         <View style={styles.container}>
@@ -82,12 +77,7 @@ function HeroesStatsComponent({
             })}
         </View>
 
-        <Text
-          style={[
-            styles.text,
-            { fontSize: Dimensions.get("screen").width * 0.035 },
-          ]}
-        >
+        <Text style={[styles.text, styles.textTitle]}>
           {englishLanguage ? "Win Rate" : "Aproveitamento"}
         </Text>
         <View style={styles.container}>
@@ -149,5 +139,14 @@ const createStyles = (colors: ThemeColor) =>
       aspectRatio: 1.5,
       marginHorizontal: "0.5%",
       borderRadius: 3,
+    },
+    textTitle: {
+      fontSize: Dimensions.get("screen").width * 0.037,
+      backgroundColor: colors.light,
+      width: "50%",
+      alignSelf: "center",
+      padding: 3,
+      margin: 5,
+      borderRadius: 7,
     },
   });

@@ -19,10 +19,10 @@ export function TrendingsTab({
 }: Props) {
   return (
     <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
-      <View style={{ flex: 0.3 }}>
+      <View style={{ flex: 0.35 }}>
         <HeroesStats heroesStats={heroesStats} />
       </View>
-      <View style={{ flex: 0.7 }}>
+      <View style={{ flex: 0.65 }}>
         <ProMatches onRefresh={onRefresh} proMatches={proMatches} />
       </View>
     </View>
