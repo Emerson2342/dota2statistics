@@ -13,9 +13,9 @@ import { createStyles } from "./styles";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import {
+  fetchData,
   getHeroesPlayed,
   getRecentMatches,
-  getSearchPlayer,
 } from "../../services/api";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
 import { PlayerModel, RecentMatches, HeroesPlayed } from "../../services/props";
@@ -28,6 +28,7 @@ import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
 import { Stack } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { SetPlayerModel } from "../../../src/services/setPlayer";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -96,7 +97,19 @@ export default function PlayerProfileScreen({
 
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/recentMatches`;
-      await getSearchPlayer(searchPlayer, setPlayer);
+
+      await fetchData<PlayerModel>(searchPlayer)
+        .then((res) => {
+          const playerResult = SetPlayerModel(res);
+          setPlayer(playerResult);
+        })
+        .catch((error) =>
+          console.error(
+            englishLanguage
+              ? "Erro trying to get data"
+              : "Erro ao tentar buscar os dados"
+          )
+        );
 
       const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
 

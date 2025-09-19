@@ -1,34 +1,33 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Dimensions, Text } from "react-native";
 import { createStyles } from "./indexStyles";
-import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
+import {
+  PLAYER_PROFILE_API_BASE_URL,
+  PRO_MATCHES_URL,
+} from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useProfileContext } from "../../context/useProfileContext";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { useTheme } from "../../context/useThemeContext";
 import {
+  fetchData,
   getHeroesStats,
-  getProMatches,
   getRecentMatches,
-  getSearchPlayer,
-  loadTeamsList,
 } from "../../services/api";
 import { HeroStats, LeagueMatches } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
-import { useTeamsListContext } from "../../context/useTeamContext";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
 import { ErrorComponent } from "../../../src/utils/ErrorComponent";
-import { BannerAds } from "../../../src/components/Admob/BannerAds";
+import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches";
 
 export function Home() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { setPlayer, setHeroesPlayedId } = usePlayerContext();
+  const { setHeroesPlayedId } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const { setTeamsList } = useTeamsListContext();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,7 +39,6 @@ export function Home() {
 
   useEffect(() => {
     handleLoadData();
-    loadTeamsList(setTeamsList);
   }, [profile]);
   const renderTabBar = (props: any) => (
     <TabBar
@@ -63,7 +61,7 @@ export function Home() {
           <TrendingsTab
             color={ColorTheme.light}
             heroesStats={heroesStats}
-            onRefresh={handleRefresh}
+            onRefresh={getProMatches}
             proMatches={proMatches}
           />
         );
@@ -80,9 +78,18 @@ export function Home() {
         return null;
     }
   };
-  const handleRefresh = useCallback(async () => {
-    await getProMatches(setProMatches);
-  }, [getProMatches]);
+  // const handleRefresh = useCallback(async () => {
+  //   await getProMatches(setProMatches);
+  // }, [getProMatches]);
+
+  const getProMatches = async () => {
+    await fetchData<LeagueMatches[]>(PRO_MATCHES_URL)
+      .then((res) => {
+        const matches = OrdererLeagueMatches(res);
+        setProMatches(matches);
+      })
+      .catch(() => console.error("Error trying to get pro matches"));
+  };
 
   const routes = useMemo(
     () => [
@@ -105,9 +112,7 @@ export function Home() {
     setErrorRequest(false);
     setTimeout(async () => {
       try {
-        const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
-        await getSearchPlayer(searchPlayer, setPlayer);
-        await getProMatches(setProMatches);
+        await getProMatches();
         await getHeroesStats(setHeroesStats);
 
         const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;

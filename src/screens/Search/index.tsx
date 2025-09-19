@@ -13,7 +13,7 @@ import {
 import { createStyles } from "./styles";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { searchPlayersByName } from "../../services/api";
+import { fetchData } from "../../services/api";
 import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
 import { SearchUserResult } from "../../services/props";
 import { ProgressBar, MD3Colors, RadioButton } from "react-native-paper";
@@ -57,7 +57,18 @@ export const Search = () => {
     setTextSearch(text);
 
     const searchPlayerUrl = `${SEARCH_PLAYER_BASE_URL}${text}`;
-    await searchPlayersByName(searchPlayerUrl, setUsersSearch);
+    await fetchData<SearchUserResult[]>(searchPlayerUrl)
+      .then((res) => {
+        setUsersSearch(res);
+      })
+      .catch(() =>
+        console.error(
+          englishLanguage
+            ? "Error trying to get results"
+            : "Erro ao buscar resultados"
+        )
+      );
+    //await searchPlayersByName(searchPlayerUrl, setUsersSearch);
     setInputText("");
     Keyboard.dismiss();
     setIsLoading(false);

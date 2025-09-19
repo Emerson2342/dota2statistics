@@ -4,18 +4,20 @@ import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { useTheme } from "../../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../../src/context/useSettingsContext";
 import { usePlayerContext } from "../../../../src/context/usePlayerContex";
-import { RecentMatches, ThemeColor } from "../../../../src/services/props";
+import {
+  PlayerModel,
+  RecentMatches,
+  ThemeColor,
+} from "../../../../src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
 import { PLAYER_PROFILE_API_BASE_URL } from "../../../../src/constants/player";
-import {
-  getRecentMatches,
-  getSearchPlayer,
-} from "../../../../src/services/api";
+import { fetchData, getRecentMatches } from "../../../../src/services/api";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
 import { toSteam32 } from "../../../../src/utils/steam";
 import { SearchComponent } from "../../../../src/utils/SearchComponent";
 import { getErro404Message } from "../../../../src/utils/textMessage";
+import { SetPlayerModel } from "../../../../src/services/setPlayer";
 
 export function MyProfileTabs() {
   const { ColorTheme } = useTheme();
@@ -56,10 +58,18 @@ export function MyProfileTabs() {
     setIsLoading(true);
     setTimeout(async () => {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
-      await getSearchPlayer(searchPlayer, setPlayer);
+
+      await fetchData<PlayerModel>(searchPlayer)
+        .then((res) => {
+          if (res) {
+            const player = SetPlayerModel(res);
+            setPlayer(player);
+          }
+        })
+        .catch((error) => {
+          console.log("Error trying to get profile", error.message);
+        });
       const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
-      console.log("Entrou aqui");
-      console.log(JSON.stringify(player, null, 2));
 
       await getRecentMatches(
         recentMatchesUrl,

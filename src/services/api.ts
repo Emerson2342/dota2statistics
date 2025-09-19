@@ -1,98 +1,27 @@
 import React, { Dispatch } from "react";
-import {
-  getHeroMatchupUrl,
-  HERO_BENCHMARCKS_BASE_URL,
-  HERO_ITEM_BASE_URL,
-  HERO_STATS_URL,
-  PRO_MATCHES_URL,
-  TEAMS_BASE_URL,
-} from "../constants/player";
+import { HERO_STATS_URL } from "../constants/player";
 import {
   HeroesPlayed,
-  HeroMatchUps,
   HeroStats,
-  ItemPopularityData,
-  LeagueMatches,
   MatchDetailsModel,
   Player,
-  PlayerModel,
   RecentMatches,
-  SearchUserResult,
-  Team,
 } from "./props";
 
-export const getSearchPlayer = async (
-  url: string,
-  setPlayer: React.Dispatch<React.SetStateAction<PlayerModel | null>>
-) => {
-  console.log("Endpoint searchPlayerUser: " + url);
-  const response = await fetch(url);
-  const data = (await response.json()) as PlayerModel;
-  const playerData: PlayerModel = {
-    profile: {
-      name: data.profile?.name || "",
-      account_id: data.profile?.account_id || 0,
-      personaname: data.profile?.personaname || "",
-      avatarfull: data.profile?.avatarfull || "",
-    },
-    rank_tier: data.rank_tier || 0,
-    leaderboard_rank: data.leaderboard_rank || null,
-  };
-  setPlayer(playerData);
-};
+export const fetchData = async <T>(url: string): Promise<T> => {
+  console.log("Entrou no endpoint - " + url);
 
-export const searchPlayersByName = async (
-  url: string,
-  setUsersSearch: React.Dispatch<React.SetStateAction<SearchUserResult[] | []>>
-) => {
   try {
-    console.log("Endpoint searchPlayers: " + url);
-    const response = await fetch(url);
-    const data = (await response.json()) as SearchUserResult[];
-    setUsersSearch(data);
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Error trying to get data from - " + url);
+    }
+    const data: T = await res.json();
+    return data;
   } catch (error: any) {
-    console.log("Erro ao tentar procurar jogadores: " + error.message);
+    console.log("Error - ", error.message);
+    throw new Error("Error trying to get data from - " + url);
   }
-};
-
-export const getHeroItems = async (heroId: string) => {
-  try {
-    const url: string = `${HERO_ITEM_BASE_URL}/${heroId}/itemPopularity`;
-    console.log("Endpoint heroItems: " + url);
-    const response = await fetch(url);
-    const data = (await response.json()) as ItemPopularityData;
-    if (data) return data;
-  } catch (error: any) {
-    console.log("Erro ao buscar itens do heroi: " + error.message);
-    return null;
-  }
-};
-
-export const getSearchLeagueMatches = async (
-  url: string,
-  setLeagueMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
-) => {
-  try {
-    console.log("Endpoint leagueMatches: " + url);
-    const response = await fetch(url);
-    const data = (await response.json()) as LeagueMatches[];
-    setLeagueMatches(data);
-  } catch (error: any) {
-    console.log(
-      "Erro ao tentar buscar lsita de campeonatos. " + error.toString()
-    );
-  }
-};
-
-export const getProMatches = async (
-  setProMatches: React.Dispatch<React.SetStateAction<LeagueMatches[] | []>>
-) => {
-  console.log("Endpoint proMatches: " + PRO_MATCHES_URL);
-  const response = await fetch(PRO_MATCHES_URL);
-  const data = (await response.json()) as LeagueMatches[];
-  const orderedProMatches = data.sort((a, b) => b.start_time - a.start_time);
-  const newList = orderedProMatches.slice(0, 20);
-  setProMatches(newList);
 };
 
 export const getMatchDetails = async (url: string) => {
@@ -283,28 +212,4 @@ export const getHeroesStats = async (
   } catch (error: any) {
     console.log("Erro ao buscar Hero Stats: " + error.message);
   }
-};
-
-export const loadTeamsList = async (
-  setTeamsList: React.Dispatch<React.SetStateAction<Team[]>>
-) => {
-  try {
-    console.log("Endpoint teams list: " + TEAMS_BASE_URL);
-    const response = await fetch(TEAMS_BASE_URL);
-    const data = (await response.json()) as Team[];
-    setTeamsList(data);
-  } catch (error: any) {
-    console.log("Erro ao buscar times: " + error.message);
-  }
-};
-
-export const fetchHeroMatchups = async (
-  heroId: string
-): Promise<HeroMatchUps[]> => {
-  const url = getHeroMatchupUrl(heroId);
-  console.log("Endpoint hero matchups: " + url);
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Erro ao buscar hero matchups");
-  const data = (await response.json()) as HeroMatchUps[];
-  return data;
 };

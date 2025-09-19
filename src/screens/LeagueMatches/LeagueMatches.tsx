@@ -7,7 +7,7 @@ import { LeagueMatches } from "../../services/props";
 import { LEAGUES_BASE_URL } from "../../constants/player";
 import { useTeamsListContext } from "../../context/useTeamContext";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { getSearchLeagueMatches } from "../../services/api";
+import { fetchData } from "../../services/api";
 import { useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
@@ -29,14 +29,16 @@ export function LeagueMatchesScreen({
   const { teamsList } = useTeamsListContext();
   const [isLoading, setIsLoading] = useState(false);
   const { englishLanguage } = useSettingsContext();
-  const result = englishLanguage ? "Winner" : "Vencedor";
 
   useEffect(() => {
     const handleLoadLeagueMatches = async () => {
       setIsLoading(true);
       const searchLeagues = `${LEAGUES_BASE_URL}${LeagueIdIndex}/matches`;
-      await getSearchLeagueMatches(searchLeagues, setLeagueMatches);
-      setIsLoading(false);
+
+      await fetchData<LeagueMatches[]>(searchLeagues)
+        .then((res) => setLeagueMatches(res))
+        .catch(() => console.error("Error trying to get League Matches"))
+        .finally(() => setIsLoading(false));
     };
     handleLoadLeagueMatches();
   }, []);

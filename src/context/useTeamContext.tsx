@@ -8,7 +8,8 @@ import React, {
   useEffect,
 } from "react";
 import { Team } from "../services/props";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { fetchData } from "../../src/services/api";
+import { TEAMS_BASE_URL } from "../../src/constants/player";
 
 interface TeamsListContextType {
   teamsList: Team[] | [];
@@ -39,31 +40,14 @@ export const TeamsListProvider: React.FC<TeamsListProviderProps> = ({
   const [teamsList, setTeamsList] = useState<Team[]>([]);
 
   useEffect(() => {
-    const loadStoredData = async () => {
-      try {
-        const storedTeamsList = await AsyncStorage.getItem("teamsList");
-
-        if (storedTeamsList !== null) {
-          setTeamsList(JSON.parse(storedTeamsList));
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados armazenados", error);
-      }
+    const loadTeamList = async () => {
+      await fetchData<Team[]>(TEAMS_BASE_URL)
+        .then((res) => setTeamsList(res))
+        .catch(() => console.error("Error trying to get List of Teams"));
     };
 
-    loadStoredData();
+    loadTeamList();
   }, []);
-
-  useEffect(() => {
-    const saveAsyncData = async () => {
-      try {
-        await AsyncStorage.setItem("teamsList", JSON.stringify(teamsList));
-      } catch (error) {
-        console.error("Erro ao salvar dados no AsyncStorage:", error);
-      }
-    };
-    saveAsyncData();
-  }, [teamsList]);
 
   return (
     <TeamsListContext.Provider value={{ teamsList, setTeamsList }}>

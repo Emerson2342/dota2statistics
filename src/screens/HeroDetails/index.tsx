@@ -32,9 +32,10 @@ import { useTheme } from "./../../context/useThemeContext";
 
 import { Feather } from "@expo/vector-icons";
 
-import { getHeroItems } from "./../../services/api";
+import { fetchData } from "./../../services/api";
 import { ModalItemDetails } from "./../../components/Modals/ModalItemDetails";
 import {
+  HERO_ITEM_BASE_URL,
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
 } from "./../../constants/player";
@@ -43,7 +44,6 @@ import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCus
 import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 import { Header } from "./header";
-import { MatchUps } from "./matchups";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -68,6 +68,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const [loadingItems, setLoadingItems] = useState(true);
 
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
+  let itemsResponse: ItemPopularityData;
 
   const styles = createStyles(ColorTheme);
 
@@ -102,7 +103,11 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
 
   const HandleGetHeroItems = async () => {
     setLoadingItems(true);
-    const heroItems = await getHeroItems(heroDetails.id.toString());
+
+    const url = `${HERO_ITEM_BASE_URL}/${heroDetails.id}/itemPopularity`;
+    await fetchData<ItemPopularityData>(url).then((res) => {
+      itemsResponse = res;
+    });
 
     const getTopItems = (items: ItemPopularity): ItemPopularity => {
       return Object.entries(items)
@@ -114,12 +119,12 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         }, {} as ItemPopularity);
     };
 
-    if (heroItems) {
+    if (itemsResponse) {
       const topHeroItems: ItemPopularityData = {
-        start_game_items: getTopItems(heroItems.start_game_items),
-        early_game_items: getTopItems(heroItems.early_game_items),
-        mid_game_items: getTopItems(heroItems.mid_game_items),
-        late_game_items: getTopItems(heroItems.late_game_items),
+        start_game_items: getTopItems(itemsResponse.start_game_items),
+        early_game_items: getTopItems(itemsResponse.early_game_items),
+        mid_game_items: getTopItems(itemsResponse.mid_game_items),
+        late_game_items: getTopItems(itemsResponse.late_game_items),
       };
       setHeroItems(topHeroItems);
     }
@@ -299,7 +304,6 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       <View style={styles.container}>
         <Header heroId={Number(heroId)} />
         <ScrollView>
-          {/* <MatchUps heroId={heroId} /> */}
           {loadingItems ? (
             <View style={styles.itemsContainer}>
               <Text style={styles.titleText}>
