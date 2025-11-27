@@ -80,7 +80,7 @@ function DamageType({
 
   const TextDamage = ({ Physical, Magical, Pure }: DamageText) => {
     return (
-      <View>
+      <>
         <Text style={styles.labelDamage}>
           {englishLanguage ? "Physical: " : "Físico: "}
           <Text style={{ color: "#aaa" }}>
@@ -99,7 +99,7 @@ function DamageType({
             {Pure.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </Text>
         </Text>
-      </View>
+      </>
     );
   };
 
@@ -166,7 +166,9 @@ function DamageType({
                 <View
                   style={{
                     flexDirection: "row",
-                    width: "100%",
+                    borderBottomWidth: index == 4 ? 0 : 1,
+                    borderColor: "gray",
+                    //width: "100%",
                     paddingBottom: index == 4 ? "3%" : 0,
                   }}
                 >
@@ -176,15 +178,8 @@ function DamageType({
                       source={{ uri: imgSource }}
                     />
                   </View>
-                  <View style={styles.imageAbilityWrapper}>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <TextDamage {...totalDamage} />
-                    </View>
+                  <View>
+                    <TextDamage {...totalDamage} />
                   </View>
                 </View>
               </View>
@@ -268,9 +263,10 @@ const createStyles = (Colors: ThemeColor) =>
       borderRadius: 7,
     },
     imageAbilityWrapper: {
-      width: "65%",
-      padding: 5,
-      justifyContent: "center",
+      //width: "65%",
+      //padding: 3,
+      //justifyContent: "center",
+      borderWidth: 1,
     },
 
     abilityImage: {
@@ -282,6 +278,6 @@ const createStyles = (Colors: ThemeColor) =>
     labelDamage: {
       fontFamily: "QuickSand-Bold",
       color: "#555",
-      lineHeight: 15,
+      fontSize: 13,
     },
   });
