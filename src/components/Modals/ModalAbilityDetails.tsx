@@ -17,7 +17,7 @@ import { Feather } from "@expo/vector-icons";
 import EmptyImage from "../../images/emptyImage.png";
 
 type Props = {
-  ability: HeroAbilitiesDescriptionsModel;
+  ability: HeroAbilitiesDescriptionsModel | undefined;
 };
 
 export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
