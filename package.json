@@ -1,6 +1,6 @@
 {
   "name": "dota2",
-  "version": "1.1.19",
+  "version": "1.1.20",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",

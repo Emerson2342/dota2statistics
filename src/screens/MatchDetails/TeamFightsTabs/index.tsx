@@ -63,8 +63,8 @@ function TeamFightsComponent({
   };
 
   const processedFights = useMemo(() => {
-    if (teamFights) return processTeamFights(teamFights, formatTime);
-  }, [teamFights]);
+    return teamFights ? processTeamFights(teamFights, formatTime) : null;
+  }, []);
 
   const TeamFightItem = React.memo(({ fight }: { fight: ProcessedFight }) => {
     return (

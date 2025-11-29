@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { View, Text, useWindowDimensions, Dimensions } from "react-native";
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
@@ -52,6 +52,38 @@ export const MatchDetailsScreen = ({
   const textMatchId = englishLanguage
     ? "Match not found. Please, check the ID MATCH!"
     : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!";
+
+  const teamFightsMemo = useMemo(
+    () => matchDetails?.teamfights ?? [],
+    [matchDetails?.teamfights]
+  );
+  const styles = useMemo(() => createStyles(ColorTheme), [ColorTheme]);
+
+  const radName = useMemo(
+    () => (englishLanguage ? "Radiant" : "Iluminados"),
+    [englishLanguage]
+  );
+  const direName = useMemo(
+    () => (englishLanguage ? "Dire" : "Temidos"),
+    [englishLanguage]
+  );
+
+  const heroArray = useMemo(
+    () => Object.values(HeroesDetails) as HeroDetailsModel[],
+    [HeroesDetails]
+  );
+
+  const heroMap = useMemo(
+    () => Object.fromEntries(heroArray.map((h) => [h.id, h.name])),
+    [heroArray]
+  );
+
+  const heroNamesMemo = useMemo(() => {
+    const players = matchDetails?.players;
+    if (!players) return [];
+    // cria um array estável apenas quando players ou heroMap mudarem
+    return players.map((p) => heroMap[p.hero_id]);
+  }, [matchDetails?.players, heroMap]);
 
   useEffect(() => {
     if (!matchDetails) return;
@@ -126,7 +158,7 @@ export const MatchDetailsScreen = ({
             radName={radName}
             heroArray={heroArray}
             matchDetails={matchDetails}
-            onRefresh={onRefresh}
+            onRefresh={onRefreshCallback}
             refreshing={refreshing}
             key={matchDetails?.match_id}
           />
@@ -136,7 +168,7 @@ export const MatchDetailsScreen = ({
           //<Text>second</Text>
           <HeroesDetailsTabs
             matchDetails={matchDetails}
-            onRefresh={async () => await onRefresh()}
+            onRefresh={async () => await onRefreshCallback()}
             refreshing={refreshing}
             radName={radName}
             direName={direName}
@@ -145,7 +177,7 @@ export const MatchDetailsScreen = ({
           />
         );
       case "third":
-        return <TeamFightComponent />;
+        return TeamFightComponent;
       //return <Text>testes 3</Text>;
       default:
         return (
@@ -159,47 +191,7 @@ export const MatchDetailsScreen = ({
         );
     }
   };
-
-  const TeamFightComponent = () => {
-    const heroMap = useMemo(
-      () => Object.fromEntries(heroArray.map((h) => [h.id, h.name])),
-      [heroArray]
-    );
-
-    const heroNames = useMemo(
-      () => matchDetails?.players.map((p) => heroMap[p.hero_id]) || [],
-      [matchDetails, heroMap]
-    );
-
-    return (
-      <TeamFightsTabs
-        heroNames={heroNames}
-        teamFights={matchDetails?.teamfights || []}
-        radTeamName={matchDetails?.radiant_team?.name ?? radName}
-        direTeamName={matchDetails?.dire_team?.name ?? direName}
-        update={onRefresh}
-      />
-    );
-  };
-
-  const allRoutes = [
-    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
-    {
-      key: "second",
-      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
-    },
-    { key: "third", title: "Team Fights" },
-  ];
-  const hasTeamFights =
-    matchDetails &&
-    matchDetails.radiant_gold_adv &&
-    matchDetails?.radiant_gold_adv.length > 0;
-
-  const filteredRoutes = allRoutes.filter(
-    (route) => route.key !== "third" || hasTeamFights
-  );
-
-  const onRefresh = async () => {
+  const onRefreshCallback = useCallback(async () => {
     setRefreshing(true);
     const match =
       matchDetailsIndex &&
@@ -216,22 +208,41 @@ export const MatchDetailsScreen = ({
     }
     setIndex(0);
     setRefreshing(false);
-  };
+  }, [matchDetailsIndex, matchesDetailsList, handleSearchMatche]);
 
-  const radName = useMemo(
-    () => (englishLanguage ? "Radiant" : "Iluminados"),
-    [englishLanguage]
-  );
-  const direName = useMemo(
-    () => (englishLanguage ? "Dire" : "Temidos"),
-    [englishLanguage]
-  );
+  const TeamFightComponent = useMemo(() => {
+    return (
+      <TeamFightsTabs
+        heroNames={heroNamesMemo}
+        teamFights={teamFightsMemo}
+        radTeamName={matchDetails?.radiant_team?.name ?? radName}
+        direTeamName={matchDetails?.dire_team?.name ?? direName}
+        update={onRefreshCallback}
+      />
+    );
+  }, [
+    heroNamesMemo,
+    teamFightsMemo,
+    matchDetails?.radiant_team?.name,
+    matchDetails?.dire_team?.name,
+    onRefreshCallback,
+    radName,
+    direName,
+  ]);
 
-  const styles = useMemo(() => createStyles(ColorTheme), [ColorTheme]);
-  const heroArray = useMemo(
-    () => Object.values(HeroesDetails) as HeroDetailsModel[],
-    [HeroesDetails]
-  );
+  const allRoutes = [
+    { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
+    {
+      key: "second",
+      title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
+    },
+    { key: "third", title: "Team Fights" },
+  ];
+  const hasTeamFights = !!matchDetails?.teamfights?.length;
+
+  const filteredRoutes = hasTeamFights
+    ? allRoutes
+    : allRoutes.filter((r) => r.key !== "third");
 
   const saveMatchesDetailsList = async () => {
     try {

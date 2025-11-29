@@ -112,20 +112,21 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
     },
     content: {
-      borderRadius: 7,
+      borderRadius: 13,
       marginHorizontal: "2%",
       paddingVertical: "1%",
+      backgroundColor: "#fff",
+      elevation: 13,
     },
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
       textAlign: "center",
       fontFamily: "QuickSand-Bold",
-      color: "#fff",
+      color: colors.semidark,
       alignSelf: "center",
       width: "90%",
       borderRadius: 7,
       padding: 3,
-      backgroundColor: colors.semidark,
     },
     text: {
       fontSize: Dimensions.get("window").width * 0.025,
@@ -142,7 +143,6 @@ const createStyles = (colors: ThemeColor) =>
     },
     textTitle: {
       fontSize: Dimensions.get("screen").width * 0.037,
-      backgroundColor: colors.light,
       width: "50%",
       alignSelf: "center",
       padding: 3,
