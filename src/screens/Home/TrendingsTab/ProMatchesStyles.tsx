@@ -42,7 +42,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       borderColor: colors.standard,
       elevation: 3,
       borderLeftWidth: 5,
-
       borderRadius: 5,
       marginTop: "1.7%",
       paddingVertical: "1%",
