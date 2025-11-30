@@ -52,10 +52,10 @@ function HeroesStatsComponent({
 
   return (
     <View style={{ marginTop: "3%" }}>
+      <Text style={styles.textHeader}>
+        {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
+      </Text>
       <View style={styles.content}>
-        <Text style={styles.textHeader}>
-          {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
-        </Text>
 
         <Text style={[styles.text, styles.textTitle]}>
           {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}

@@ -1,18 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { View, Dimensions, Text } from "react-native";
-import { createStyles } from "./indexStyles";
+import React, { useEffect, useMemo, useState } from "react";
+import { View, Dimensions } from "react-native";
 import {
-  PLAYER_PROFILE_API_BASE_URL,
   PRO_MATCHES_URL,
 } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useProfileContext } from "../../context/useProfileContext";
-import { usePlayerContext } from "../../context/usePlayerContex";
 import { useTheme } from "../../context/useThemeContext";
 import {
   fetchData,
   getHeroesStats,
-  getRecentMatches,
 } from "../../services/api";
 import { HeroStats, LeagueMatches } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
@@ -26,7 +22,6 @@ import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches
 export function Home() {
   const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
-  const { setHeroesPlayedId } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +34,7 @@ export function Home() {
 
   useEffect(() => {
     handleLoadData();
-  }, [profile]);
+  }, []);
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
@@ -114,10 +109,6 @@ export function Home() {
       try {
         await getProMatches();
         await getHeroesStats(setHeroesStats);
-
-        const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
-
-        await getRecentMatches(recentMatchesUrl, setHeroesPlayedId);
       } catch (error: any) {
         setErrorRequest(true);
       } finally {

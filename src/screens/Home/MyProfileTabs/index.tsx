@@ -60,22 +60,23 @@ export function MyProfileTabs() {
       const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
 
       await fetchData<PlayerModel>(searchPlayer)
-        .then((res) => {
+        .then(async (res) => {
           if (res) {
             const player = SetPlayerModel(res);
             setPlayer(player);
+            const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
+            await getRecentMatches(
+              recentMatchesUrl,
+              setHeroesPlayedId,
+              setRecentMatches
+            );
           }
         })
         .catch((error) => {
           console.log("Error trying to get profile", error.message);
+          setPlayer(null)
         });
-      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
 
-      await getRecentMatches(
-        recentMatchesUrl,
-        setHeroesPlayedId,
-        setRecentMatches
-      );
 
       setIsLoading(false);
     }, 500);
