@@ -226,7 +226,7 @@ export default function PlayerProfileScreen({
   if (recentMatches.length === 0 && !isLoading)
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={styles.textMessage}>{erro404}</Text>;
+        <Text style={styles.textMessage}>{erro404}</Text>
       </View>
     );
   return (
