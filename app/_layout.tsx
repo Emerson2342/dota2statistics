@@ -11,13 +11,14 @@ import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { FavoritesProvider } from "./../src/context/useFavoritesContext";
-import { Modal, Platform, StatusBar, View } from "react-native";
+import { Modal, Platform, StatusBar, View, Text } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import Constants from "expo-constants";
 import VersionCheck from "react-native-version-check";
 import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Snowfall } from "react-native-snowfall";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -122,6 +123,25 @@ function Content() {
 
   return (
     <View style={{ flex: 1 }}>
+      <View
+        style={{
+          position: "absolute",
+          zIndex: 150,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+        pointerEvents="none"
+      >
+        <Snowfall
+          imagePath={require("../src/images/snowFlake.png")}
+          count={150}
+          duration={10000}
+          minSize={10}
+          maxSize={30}
+        />
+      </View>
       <StatusBar backgroundColor={ColorTheme.dark} barStyle={"light-content"} />
       <Modal visible={modalVisible} transparent>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />
