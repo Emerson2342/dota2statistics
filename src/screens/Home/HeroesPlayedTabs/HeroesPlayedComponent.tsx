@@ -21,25 +21,23 @@ import {
   PLAYER_PROFILE_API_BASE_URL,
 } from "../../../constants/player";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { usePlayerContext } from "../../../../src/context/usePlayerContex";
+import { usePlayerContext } from "../../../context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
 import { getHeroesPlayed } from "../../../../src/services/api";
 import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
 
 function HeroesPlayedComp({
-  PlayerId,
   isHomeProfile,
 }: {
-  PlayerId: string;
   isHomeProfile: boolean;
 }) {
+  const { player } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
   const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
 
   const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
-  const { player } = usePlayerContext();
   const styles = createStyles(ColorTheme);
   const setSteamId = getSetProfile(englishLanguage);
   const [finalList, setFinalList] = useState<HeroesPlayed[] | []>([]);
@@ -50,11 +48,11 @@ function HeroesPlayedComp({
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
     //if(isHomeProfile)
     handleGetHeroesPlayed();
-  }, [PlayerId]);
+  }, [player]);
 
   const handleGetHeroesPlayed = async () => {
     setIsLoading(true);
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
+    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${player?.profile.account_id}/heroes`;
     const heroesPlayedResponse = await getHeroesPlayed(
       heroesPlayed,
       setErrorResponse

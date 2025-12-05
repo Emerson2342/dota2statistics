@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useProfileContext } from "../../../../src/context/useProfileContext";
 import { useTheme } from "../../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../../src/context/useSettingsContext";
-import { usePlayerContext } from "../../../../src/context/usePlayerContex";
+import { usePlayerContext } from "../../../context/usePlayerContex";
 import {
   PlayerModel,
   RecentMatches,
@@ -11,31 +10,21 @@ import {
 } from "../../../../src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
-import { PLAYER_PROFILE_API_BASE_URL } from "../../../../src/constants/player";
-import { fetchData, getRecentMatches } from "../../../../src/services/api";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
 import { toSteam32 } from "../../../../src/utils/steam";
 import { SearchComponent } from "../../../../src/utils/SearchComponent";
 import { getErro404Message } from "../../../../src/utils/textMessage";
-import { SetPlayerModel } from "../../../../src/services/setPlayer";
 
 export function MyProfileTabs() {
   const { ColorTheme } = useTheme();
-  const { player, setPlayer, heroesPlayedId, setHeroesPlayedId } =
+  const { player, heroesPlayedId, recentMatches, isLoadingContext, handleFetchPlayerData } =
     usePlayerContext();
-  const { profile, setProfile } = useProfileContext();
-  const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const { englishLanguage } = useSettingsContext();
   const [isLoading, setIsLoading] = useState(true);
   const [showModalMessage, setShowModalMessage] = useState(false);
 
   const erro404 = getErro404Message(englishLanguage);
-
   const styles = createStyles(ColorTheme);
-
-  useEffect(() => {
-    handleLoadData();
-  }, [profile]);
 
   const handleSave = (id: string) => {
     if (!/^\d+$/.test(id)) {
@@ -48,43 +37,15 @@ export function MyProfileTabs() {
       return;
     }
     setIsLoading(true);
-    setTimeout(() => {
-      setProfile({ id_Steam: convertedId });
-      setIsLoading(false);
-    }, 300);
-  };
-
-  const handleLoadData = async () => {
-    setIsLoading(true);
     setTimeout(async () => {
-      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}`;
-
-      await fetchData<PlayerModel>(searchPlayer)
-        .then(async (res) => {
-          if (res) {
-            const player = SetPlayerModel(res);
-            setPlayer(player);
-            const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${profile?.id_Steam}/recentMatches`;
-            await getRecentMatches(
-              recentMatchesUrl,
-              setHeroesPlayedId,
-              setRecentMatches
-            );
-          }
-        })
-        .catch((error) => {
-          console.log("Error trying to get profile", error.message);
-          setPlayer(null)
-        });
-
-
-      setIsLoading(false);
-    }, 500);
+      await handleFetchPlayerData(convertedId);
+    }, 300);
   };
 
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
+        <Text>{JSON.stringify(player, null, 2)}</Text>
         <SearchComponent
           onSearch={handleSave}
           placeHolder="Steam ID"
@@ -96,7 +57,7 @@ export function MyProfileTabs() {
     );
   }
 
-  if (isLoading)
+  if (isLoadingContext)
     return (
       <View style={{ flex: 1 }}>
         <ActivityIndicatorCustom
@@ -111,6 +72,7 @@ export function MyProfileTabs() {
 
   if (player == null || player.profile.account_id == 0) {
     console.log("Carregou....");
+
     return renderSetSteamId();
   }
 
@@ -133,7 +95,7 @@ export function MyProfileTabs() {
           {player ? (
             <LastMatches
               playerId={player.profile.account_id.toString()}
-              onRefresh={handleLoadData}
+              onRefresh={() => handleFetchPlayerData(player.profile.account_id.toString())}
               recentMatches={recentMatches}
             />
           ) : null}

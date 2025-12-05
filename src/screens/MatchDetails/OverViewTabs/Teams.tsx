@@ -60,12 +60,12 @@ function Teams({
     if (playerId === undefined) {
       setModalMessageVisible(true);
     } else {
-      router.push({
-        pathname: "/player-profile",
-        params: {
-          playerId: playerId.toString(),
-        },
-      });
+      // router.push({
+      //   pathname: "/player-profile",
+      //   params: {
+      //     playerId: playerId.toString(),
+      //   },
+      // });
     }
   };
 
@@ -136,8 +136,8 @@ function Teams({
             const personaName = player.personaname
               ? player.personaname
               : englishLanguage
-              ? "Private Profile"
-              : "Perfil Privado";
+                ? "Private Profile"
+                : "Perfil Privado";
 
             const playerName = player.name ? player.name : personaName;
 
@@ -179,34 +179,34 @@ function Teams({
                 onPress={() => HandleNavigateToProfile(player.account_id)}
                 disabled={
                   player &&
-                  player.account_id &&
-                  PlayerIdIndex === player.account_id.toString()
+                    player.account_id &&
+                    PlayerIdIndex === player.account_id.toString()
                     ? true
                     : false
                 }
                 key={index}
                 style={[
                   player &&
-                  player.account_id &&
-                  PlayerIdIndex === player.account_id.toString()
+                    player.account_id &&
+                    PlayerIdIndex === player.account_id.toString()
                     ? {
-                        backgroundColor: "#f7eba6",
-                        //borderRadius: 3,
-                        padding: "0.5%",
-                        borderBottomWidth: index === 4 ? 0 : 1,
-                        borderColor: "#ccc",
-                        borderBottomEndRadius: index === 4 ? 7 : 0,
-                        borderBottomStartRadius: index === 4 ? 7 : 0,
-                      }
+                      backgroundColor: "#f7eba6",
+                      //borderRadius: 3,
+                      padding: "0.5%",
+                      borderBottomWidth: index === 4 ? 0 : 1,
+                      borderColor: "#ccc",
+                      borderBottomEndRadius: index === 4 ? 7 : 0,
+                      borderBottomStartRadius: index === 4 ? 7 : 0,
+                    }
                     : {
-                        backgroundColor: "#fff",
-                        // marginTop: index == 0 ? 0 : "1%",
-                        padding: "0.5%",
-                        borderBottomWidth: index === 4 ? 0 : 1,
-                        borderColor: "#ccc",
-                        borderBottomEndRadius: index === 4 ? 7 : 0,
-                        borderBottomStartRadius: index === 4 ? 7 : 0,
-                      },
+                      backgroundColor: "#fff",
+                      // marginTop: index == 0 ? 0 : "1%",
+                      padding: "0.5%",
+                      borderBottomWidth: index === 4 ? 0 : 1,
+                      borderColor: "#ccc",
+                      borderBottomEndRadius: index === 4 ? 7 : 0,
+                      borderBottomStartRadius: index === 4 ? 7 : 0,
+                    },
                   {},
                 ]}
               >
@@ -259,15 +259,15 @@ function Teams({
                         <Text style={[styles.hDamage, styles.textData]}>
                           {player.hero_damage
                             ? player.hero_damage.toLocaleString(
-                                englishLanguage ? "en-US" : "pt-BR"
-                              )
+                              englishLanguage ? "en-US" : "pt-BR"
+                            )
                             : 0}
                         </Text>
                         <Text style={[styles.tDamage, styles.textData]}>
                           {player.tower_damage
                             ? player.tower_damage.toLocaleString(
-                                englishLanguage ? "en-US" : "pt-BR"
-                              )
+                              englishLanguage ? "en-US" : "pt-BR"
+                            )
                             : 0}
                         </Text>
                         <Text style={[styles.healing, styles.textData]}>

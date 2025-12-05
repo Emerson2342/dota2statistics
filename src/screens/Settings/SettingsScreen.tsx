@@ -10,15 +10,15 @@ import { useSettingsContext } from "../../context/useSettingsContext";
 import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
 import { useTheme } from "../../context/useThemeContext";
-import { useProfileContext } from "../../context/useProfileContext";
 import ModalMyAccount from "../../components/Modals/ModalMyAccount";
 import { useFocusEffect } from "expo-router";
+import { usePlayerContext } from "../../../src/context/usePlayerContex";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
     useSettingsContext();
 
-  const { profile } = useProfileContext();
+  const { player } = usePlayerContext();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -58,7 +58,7 @@ export function SettingsScreen() {
             {englishLanguage ? "My Account" : "Minha Conta"}
           </Text>
           <Text style={styles.profile}>
-            Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
+            Id Steam: <Text style={styles.textData}>{player?.profile.account_id}</Text>
           </Text>
           <TouchableOpacity
             style={[styles.buttonSave, { marginTop: 15 }]}

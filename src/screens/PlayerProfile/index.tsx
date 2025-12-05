@@ -28,7 +28,7 @@ import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
 import { Stack } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { SetPlayerModel } from "../../../src/services/setPlayer";
+import { SetPlayerModel } from "../../utils/setPlayer";
 
 export default function PlayerProfileScreen({
   playerId,

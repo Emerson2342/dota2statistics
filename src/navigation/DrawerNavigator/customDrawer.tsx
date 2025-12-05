@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import { usePlayerContext } from "../../../src/context/usePlayerContex";
+import { usePlayerContext } from "../../context/usePlayerContex";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ThemeColor } from "../../../src/services/props";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";

@@ -39,7 +39,7 @@ function LastMatchesComponent({
 }: {
   playerId: string | undefined;
   recentMatches: RecentMatches[] | null;
-  onRefresh: () => void;
+  onRefresh: () => Promise<void>;
 }) {
   const router = useRouter();
   const { englishLanguage } = useSettingsContext();
@@ -51,8 +51,8 @@ function LastMatchesComponent({
 
   const styles = createStyles(ColorTheme);
 
-  const refresh = useCallback(() => {
-    onRefresh();
+  const refresh = useCallback(async () => {
+    await onRefresh();
   }, [onRefresh]);
 
   const handleGoToMatch = (
@@ -96,7 +96,7 @@ function LastMatchesComponent({
     const team = item.player_slot < 5 ? 1 : 2;
     const finalResult =
       (team == 1 && item.radiant_win == true) ||
-      (team == 2 && item.radiant_win == false)
+        (team == 2 && item.radiant_win == false)
         ? true
         : false;
 

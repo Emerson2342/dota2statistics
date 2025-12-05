@@ -1,10 +1,9 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { PlayerProvider } from "./../src/context/usePlayerContex";
+import { PlayerProvider } from "../src/context/usePlayerContex";
 import {
   SettingsProvider,
   useSettingsContext,
 } from "./../src/context/useSettingsContext";
-import { ProfileProvider } from "./../src/context/useProfileContext";
 import { ThemeProvider, useTheme } from "./../src/context/useThemeContext";
 import { TeamsListProvider } from "./../src/context/useTeamContext";
 import mobileAds from "react-native-google-mobile-ads";
@@ -49,16 +48,14 @@ export default function App() {
       <SettingsProvider>
         <ThemeProvider>
           <PlayerProvider>
-            <ProfileProvider>
-              <TeamsListProvider>
-                <PaperProvider>
-                  <FavoritesProvider>
-                    {/* <Teste /> */}
-                    <Content />
-                  </FavoritesProvider>
-                </PaperProvider>
-              </TeamsListProvider>
-            </ProfileProvider>
+            <TeamsListProvider>
+              <PaperProvider>
+                <FavoritesProvider>
+                  {/* <Teste /> */}
+                  <Content />
+                </FavoritesProvider>
+              </PaperProvider>
+            </TeamsListProvider>
           </PlayerProvider>
         </ThemeProvider>
       </SettingsProvider>

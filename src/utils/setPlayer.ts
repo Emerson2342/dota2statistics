@@ -1,4 +1,4 @@
-import { PlayerModel } from "./props";
+import { PlayerModel } from "../services/props";
 
 export const SetPlayerModel = (profile: PlayerModel): PlayerModel => {
   const playerData: PlayerModel = {

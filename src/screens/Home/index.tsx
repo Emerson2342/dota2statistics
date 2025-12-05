@@ -4,7 +4,6 @@ import {
   PRO_MATCHES_URL,
 } from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { useProfileContext } from "../../context/useProfileContext";
 import { useTheme } from "../../context/useThemeContext";
 import {
   fetchData,
@@ -20,7 +19,6 @@ import { ErrorComponent } from "../../../src/utils/ErrorComponent";
 import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches";
 
 export function Home() {
-  const { profile } = useProfileContext();
   const { ColorTheme } = useTheme();
   const { englishLanguage } = useSettingsContext();
 
@@ -65,7 +63,6 @@ export function Home() {
       case "heroesPlayed":
         return (
           <HeroesPlayedComponent
-            PlayerId={profile?.id_Steam ?? "1"}
             isHomeProfile={true}
           />
         );
