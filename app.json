@@ -2,12 +2,12 @@
   "expo": {
     "name": "Dota 2 Stats",
     "slug": "dota2",
-    "version": "1.1.21",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "scheme": "com.dota2Stats.app",
+    "scheme": ["com.dota2stats.app"],
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -43,7 +43,8 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-4117477719356991~2847737808"
+          "androidAppId": "ca-app-pub-4117477719356991~2847737808",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
         }
       ],
       "expo-font",
