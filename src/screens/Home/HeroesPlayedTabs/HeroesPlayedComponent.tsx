@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -35,7 +35,7 @@ function HeroesPlayedComp({
 }) {
   const { player } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
+  //const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,9 +50,9 @@ function HeroesPlayedComp({
     ? player?.profile.account_id.toString()
     : playerIdSearch;
 
+  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+
   useEffect(() => {
-    setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-    //if(isHomeProfile)
     handleGetHeroesPlayed();
   }, [player]);
 

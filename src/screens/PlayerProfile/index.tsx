@@ -241,13 +241,13 @@ export default function PlayerProfileScreen({
     );
   return (
     <TabView
+      lazy
       renderTabBar={renderTabBar}
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
       //renderLazyPlaceholder={() => Loading}
-      lazy={true}
       commonOptions={{
         labelStyle: {
           fontSize: Dimensions.get("screen").width * 0.037,
