@@ -1,10 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
-import { PRO_MATCHES_URL } from "../../constants/player";
+import {
+  PLAYER_PROFILE_API_BASE_URL,
+  PRO_MATCHES_URL,
+} from "../../constants/player";
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { fetchData, getHeroesStats } from "../../services/api";
-import { HeroStats, LeagueMatches } from "../../../src/services/props";
+import { fetchData, getHeroesPlayed, getHeroesStats } from "../../services/api";
+import {
+  HeroesPlayed,
+  HeroStats,
+  LeagueMatches,
+} from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
@@ -12,8 +19,11 @@ import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
 import { ErrorComponent } from "../../../src/utils/ErrorComponent";
 import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches";
+import { usePlayerContext } from "../../../src/context/usePlayerContex";
 
 export function Home() {
+  const { player, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
+    usePlayerContext();
   const { ColorTheme } = useTheme();
   const { englishLanguage } = useSettingsContext();
   const layout = useWindowDimensions();
@@ -80,7 +90,18 @@ export function Home() {
       case "myProfile":
         return <MyProfileTabs />;
       case "heroesPlayed":
-        return <HeroesPlayedComponent playerIdSearch="" isHomeProfile={true} />;
+        return (
+          <HeroesPlayedComponent
+            isLoading={isLoadingContext}
+            heroesPlayedList={heroesPlayed}
+            isHomeProfile={true}
+            refresh={async () =>
+              await handleFetchPlayerData(
+                player?.profile?.account_id?.toString()
+              )
+            }
+          />
+        );
       default:
         return null;
     }

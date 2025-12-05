@@ -166,11 +166,11 @@ export const getRecentMatches = async (
 };
 
 export const getHeroesPlayed = async (
-  url: string,
-  setErrorResponse: Dispatch<React.SetStateAction<boolean>>
+  url: string
+  // setErrorResponse: Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
-    setErrorResponse(false);
+    // setErrorResponse(false);
     console.log("Endpoint heroesPlayed: " + url);
     const response = await fetch(url);
     if (!response.ok) {
@@ -182,7 +182,7 @@ export const getHeroesPlayed = async (
 
     return data.slice(0, 50);
   } catch (error: any) {
-    setErrorResponse(true);
+    //setErrorResponse(true);
     console.log("Erro ao buscar herois jogados: " + error.message);
   }
 };

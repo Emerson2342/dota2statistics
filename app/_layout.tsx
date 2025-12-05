@@ -17,6 +17,7 @@ import Constants from "expo-constants";
 import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Snowfall } from "react-native-snowfall";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -99,16 +100,13 @@ function Content() {
     // try {
     //   const androidPackageName = Constants.expoConfig?.android?.package;
     //   if (!androidPackageName) return;
-
     //   const currentVersion = Constants.expoConfig?.version;
     //   if (!currentVersion) return;
-
     //   const latestVersion = await VersionCheck.getLatestVersion({
     //     provider: Platform.OS === "android" ? "playStore" : "appStore",
     //     packageName: Platform.OS === "android" ? androidPackageName : "",
     //   });
     //   const hasUpdate = isNewerVersion(latestVersion, currentVersion);
-
     //   if (hasUpdate) {
     //     setModalVisible(true);
     //   }
@@ -118,7 +116,7 @@ function Content() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
       <View
         style={{
           position: "absolute",
@@ -212,6 +210,6 @@ function Content() {
           }}
         />
       </Stack>
-    </View>
+    </SafeAreaView>
   );
 }

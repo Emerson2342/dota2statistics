@@ -16,65 +16,38 @@ import {
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import {
-  PICTURE_HERO_BASE_URL,
-  PLAYER_PROFILE_API_BASE_URL,
-} from "../../../constants/player";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
 import { usePlayerContext } from "../../../context/usePlayerContex";
 import { getSetProfile } from "../../../../src/utils/textMessage";
-import { getHeroesPlayed } from "../../../../src/services/api";
-import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
 
 function HeroesPlayedComp({
-  playerIdSearch,
   isHomeProfile,
+  heroesPlayedList,
+  refresh,
+  isLoading,
 }: {
   isHomeProfile: boolean;
-  playerIdSearch: string;
+  heroesPlayedList: HeroesPlayed[];
+  refresh: () => Promise<void>;
+  isLoading: boolean;
 }) {
   const { player } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  //const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
 
-  const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
   const setSteamId = getSetProfile(englishLanguage);
-  const [finalList, setFinalList] = useState<HeroesPlayed[] | []>([]);
-  const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(finalList);
-  const [errorResponse, setErrorResponse] = useState(false);
-
-  const playerId = isHomeProfile
-    ? player?.profile.account_id.toString()
-    : playerIdSearch;
+  const [orderedList, setOrderedList] =
+    useState<HeroesPlayed[]>(heroesPlayedList);
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
-
-  useEffect(() => {
-    handleGetHeroesPlayed();
-  }, [player]);
-
-  const handleGetHeroesPlayed = async () => {
-    setIsLoading(true);
-
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
-    const heroesPlayedResponse = await getHeroesPlayed(
-      heroesPlayed,
-      setErrorResponse
-    );
-    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
-      setFinalList(heroesPlayedResponse);
-      setOrderedList(heroesPlayedResponse);
-    }
-    setIsLoading(false);
-  };
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
     if (order != orderToShow) {
-      const ordered = [...finalList].sort((a, b) => {
+      const ordered = [...heroesPlayedList].sort((a, b) => {
         if (order === "lastPlayed") {
           return b.last_played - a.last_played;
         } else if (order === "winrate") {
@@ -158,7 +131,33 @@ function HeroesPlayedComp({
     );
   }
 
-  if (errorResponse) return <ErrorComponent action={handleGetHeroesPlayed} />;
+  if (heroesPlayedList.length === 0)
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <Text style={{ fontFamily: "QuickSand-Bold", fontSize: 17 }}>
+          {englishLanguage ? "No heroes found!" : "Nenhum herói encontrado!"}
+        </Text>
+        <TouchableOpacity
+          onPress={refresh}
+          style={{
+            backgroundColor: ColorTheme.dark,
+            borderRadius: 7,
+            margin: 5,
+            padding: 7,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              padding: 5,
+              fontFamily: "QuickSand-Semibold",
+            }}
+          >
+            {englishLanguage ? "Refresh" : "Atualizar"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
 
   return (
     <View style={styles.container}>

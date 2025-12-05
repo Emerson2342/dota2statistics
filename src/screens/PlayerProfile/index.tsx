@@ -23,12 +23,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "../../components/Modals/ModalRemoveFavoritePlayer";
 import { TabBar, TabView } from "react-native-tab-view";
-import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
 import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
-import { Stack, useNavigation } from "expo-router";
+import { useNavigation } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { SetPlayerModel } from "../../utils/setPlayer";
+import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -51,9 +51,6 @@ export default function PlayerProfileScreen({
   const [index, setIndex] = useState(0);
   const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[] | []>([]);
   const [playerIdToRemove, setPlayerIdToRemove] = useState(0);
-  const [refresh, setRefresh] = useState(true);
-  const [errorHeroesPlayedResponse, setErrorHeroesPlayedResponse] =
-    useState(false);
 
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."
@@ -105,16 +102,23 @@ export default function PlayerProfileScreen({
 
   const handleSearch = async () => {
     setIsLoading(true);
-    console.log("*******************************");
-    console.log("entrou na busca do jogador: id " + playerId);
-
     const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
     const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/recentMatches`;
 
     await fetchData<PlayerModel>(searchPlayer)
-      .then((res) => {
+      .then(async (res) => {
         const playerResult = SetPlayerModel(res);
         setPlayer(playerResult);
+        const url = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
+        const heroesPlayedResponse = await getHeroesPlayed(url);
+        if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
+          setHeroesPlayed(heroesPlayedResponse);
+        }
+        await getRecentMatches(
+          recentMatchesUrl,
+          setHeroesPlayedId,
+          setRecentMatches
+        );
       })
       .catch((error) =>
         console.error(
@@ -124,26 +128,7 @@ export default function PlayerProfileScreen({
         )
       );
 
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
-
-    const heroesPlayedResponse = await getHeroesPlayed(
-      heroesPlayed,
-      setErrorHeroesPlayedResponse
-    );
-    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
-      setHeroesPlayed(heroesPlayedResponse);
-
-    console.log("Tamanho da lista de heroes: " + heroesPlayedResponse?.length);
-    console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
-
-    await getRecentMatches(
-      recentMatchesUrl,
-      setHeroesPlayedId,
-      setRecentMatches
-    );
-
     setIsLoading(false);
-    setRefresh(false);
   };
 
   const Header = useMemo(() => {
@@ -213,7 +198,12 @@ export default function PlayerProfileScreen({
           return Header;
         case "heroesPlayed":
           return (
-            <HeroesPlayedTabs PlayerId={playerId} IsPlayerProfile={false} />
+            <HeroesPlayedComponent
+              refresh={handleSearch}
+              heroesPlayedList={heroesPlayed}
+              isHomeProfile={false}
+              isLoading={isLoading}
+            />
           );
         default:
           return null;

@@ -3,11 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../../src/context/useThemeContext";
 import { useSettingsContext } from "../../../../src/context/useSettingsContext";
 import { usePlayerContext } from "../../../context/usePlayerContex";
-import {
-  PlayerModel,
-  RecentMatches,
-  ThemeColor,
-} from "../../../../src/services/props";
+import { ThemeColor } from "../../../../src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
@@ -17,16 +13,20 @@ import { getErro404Message } from "../../../../src/utils/textMessage";
 
 export function MyProfileTabs() {
   const { ColorTheme } = useTheme();
-  const { player, heroesPlayedId, recentMatches, isLoadingContext, handleFetchPlayerData } =
-    usePlayerContext();
+  const {
+    player,
+    heroesPlayedId,
+    recentMatches,
+    isLoadingContext,
+    handleFetchPlayerData,
+  } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const [isLoading, setIsLoading] = useState(true);
   const [showModalMessage, setShowModalMessage] = useState(false);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(ColorTheme);
 
-  const handleSave = (id: string) => {
+  const handleSave = async (id: string) => {
     if (!/^\d+$/.test(id)) {
       setShowModalMessage(true);
       return;
@@ -36,16 +36,12 @@ export function MyProfileTabs() {
       setShowModalMessage(true);
       return;
     }
-    setIsLoading(true);
-    setTimeout(async () => {
-      await handleFetchPlayerData(convertedId);
-    }, 300);
+    await handleFetchPlayerData(convertedId);
   };
 
   function renderSetSteamId() {
     return (
       <View style={styles.inputContainer}>
-        <Text>{JSON.stringify(player, null, 2)}</Text>
         <SearchComponent
           onSearch={handleSave}
           placeHolder="Steam ID"
@@ -71,8 +67,6 @@ export function MyProfileTabs() {
     );
 
   if (player == null || player.profile.account_id == 0) {
-    console.log("Carregou....");
-
     return renderSetSteamId();
   }
 
@@ -95,7 +89,11 @@ export function MyProfileTabs() {
           {player ? (
             <LastMatches
               playerId={player.profile.account_id.toString()}
-              onRefresh={() => handleFetchPlayerData(player.profile.account_id.toString())}
+              onRefresh={async () =>
+                await handleFetchPlayerData(
+                  player.profile.account_id.toString()
+                )
+              }
               recentMatches={recentMatches}
             />
           ) : null}
