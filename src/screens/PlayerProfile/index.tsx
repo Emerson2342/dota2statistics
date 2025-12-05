@@ -26,7 +26,7 @@ import { TabBar, TabView } from "react-native-tab-view";
 import { HeroesPlayedTabs } from "../../screens/Home/HeroesPlayedTabs";
 import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 import { SetPlayerModel } from "../../utils/setPlayer";
 
@@ -35,6 +35,7 @@ export default function PlayerProfileScreen({
 }: {
   playerId: string;
 }) {
+  const navigation = useNavigation();
   const { englishLanguage } = useSettingsContext();
   const { addFavoritePlayer, removeFavoritePlayer, favoritesPlayers } =
     useFavoritesPlayersContext();
@@ -62,13 +63,26 @@ export default function PlayerProfileScreen({
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-  useEffect(() => {
-    handleSearch();
-  }, []);
-
   const playerFound = favoritesPlayers.find(
     (p) => p.profile.account_id.toString() === playerId
   );
+
+  useEffect(() => {
+    handleSearch();
+  }, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={handleFavorites}>
+          <FontAwesome
+            name={playerFound ? "star" : "star-o"}
+            size={28}
+            color={playerFound ? "orange" : "#fff"}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [playerFound, player]);
 
   const handleFavorites = () => {
     if (playerFound) {
@@ -91,52 +105,48 @@ export default function PlayerProfileScreen({
 
   const handleSearch = async () => {
     setIsLoading(true);
-    setTimeout(async () => {
-      console.log("*******************************");
-      console.log("entrou na busca do jogador: id " + playerId);
+    console.log("*******************************");
+    console.log("entrou na busca do jogador: id " + playerId);
 
-      const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
-      const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/recentMatches`;
+    const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
+    const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/recentMatches`;
 
-      await fetchData<PlayerModel>(searchPlayer)
-        .then((res) => {
-          const playerResult = SetPlayerModel(res);
-          setPlayer(playerResult);
-        })
-        .catch((error) =>
-          console.error(
-            englishLanguage
-              ? "Erro trying to get data"
-              : "Erro ao tentar buscar os dados"
-          )
-        );
-
-      const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
-
-      const heroesPlayedResponse = await getHeroesPlayed(
-        heroesPlayed,
-        setErrorHeroesPlayedResponse
-      );
-      if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
-        setHeroesPlayed(heroesPlayedResponse);
-
-      console.log(
-        "Tamanho da lista de heroes: " + heroesPlayedResponse?.length
-      );
-      console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
-
-      await getRecentMatches(
-        recentMatchesUrl,
-        setHeroesPlayedId,
-        setRecentMatches
+    await fetchData<PlayerModel>(searchPlayer)
+      .then((res) => {
+        const playerResult = SetPlayerModel(res);
+        setPlayer(playerResult);
+      })
+      .catch((error) =>
+        console.error(
+          englishLanguage
+            ? "Erro trying to get data"
+            : "Erro ao tentar buscar os dados"
+        )
       );
 
-      setIsLoading(false);
-      setRefresh(false);
-    }, 500);
+    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
+
+    const heroesPlayedResponse = await getHeroesPlayed(
+      heroesPlayed,
+      setErrorHeroesPlayedResponse
+    );
+    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0)
+      setHeroesPlayed(heroesPlayedResponse);
+
+    console.log("Tamanho da lista de heroes: " + heroesPlayedResponse?.length);
+    console.log("Tamanho da lista do: " + heroesPlayedResponse?.length);
+
+    await getRecentMatches(
+      recentMatchesUrl,
+      setHeroesPlayedId,
+      setRecentMatches
+    );
+
+    setIsLoading(false);
+    setRefresh(false);
   };
 
-  const Header = React.memo(() => {
+  const Header = useMemo(() => {
     return (
       <View style={styles.container}>
         {Number(playerId) == 0 ? (
@@ -180,7 +190,7 @@ export default function PlayerProfileScreen({
         )}
       </View>
     );
-  });
+  }, [player, heroesPlayedId, recentMatches, modalFavoritesVisible]);
 
   const renderTabBar = (props: any) => (
     <TabBar
@@ -200,7 +210,7 @@ export default function PlayerProfileScreen({
     ({ route }: any) => {
       switch (route.key) {
         case "first":
-          return <Header />;
+          return Header;
         case "heroesPlayed":
           return (
             <HeroesPlayedTabs PlayerId={playerId} IsPlayerProfile={false} />
@@ -209,7 +219,7 @@ export default function PlayerProfileScreen({
           return null;
       }
     },
-    [modalFavoritesVisible, isLoading]
+    [modalFavoritesVisible, Header, playerId]
   );
 
   if (isLoading)
@@ -230,8 +240,26 @@ export default function PlayerProfileScreen({
       </View>
     );
   return (
-    <>
-      <Stack.Screen
+    <TabView
+      renderTabBar={renderTabBar}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+      //renderLazyPlaceholder={() => Loading}
+      lazy={true}
+      commonOptions={{
+        labelStyle: {
+          fontSize: Dimensions.get("screen").width * 0.037,
+          fontFamily: "QuickSand-Bold",
+          textAlign: "center",
+        },
+      }}
+    />
+  );
+
+  {
+    /* <Stack.Screen
         name="player-profile"
         options={{
           headerRight: () => (
@@ -247,23 +275,6 @@ export default function PlayerProfileScreen({
             </TouchableOpacity>
           ),
         }}
-      />
-      <TabView
-        renderTabBar={renderTabBar}
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        //renderLazyPlaceholder={() => Loading}
-        lazy={true}
-        commonOptions={{
-          labelStyle: {
-            fontSize: Dimensions.get("screen").width * 0.037,
-            fontFamily: "QuickSand-Bold",
-            textAlign: "center",
-          },
-        }}
-      />
-    </>
-  );
+      /> */
+  }
 }

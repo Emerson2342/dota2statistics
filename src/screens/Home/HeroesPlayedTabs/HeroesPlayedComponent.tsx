@@ -27,9 +27,11 @@ import { getHeroesPlayed } from "../../../../src/services/api";
 import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
 
 function HeroesPlayedComp({
+  playerIdSearch,
   isHomeProfile,
 }: {
   isHomeProfile: boolean;
+  playerIdSearch: string;
 }) {
   const { player } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
@@ -44,6 +46,10 @@ function HeroesPlayedComp({
   const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(finalList);
   const [errorResponse, setErrorResponse] = useState(false);
 
+  const playerId = isHomeProfile
+    ? player?.profile.account_id.toString()
+    : playerIdSearch;
+
   useEffect(() => {
     setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
     //if(isHomeProfile)
@@ -52,7 +58,8 @@ function HeroesPlayedComp({
 
   const handleGetHeroesPlayed = async () => {
     setIsLoading(true);
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${player?.profile.account_id}/heroes`;
+
+    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
     const heroesPlayedResponse = await getHeroesPlayed(
       heroesPlayed,
       setErrorResponse

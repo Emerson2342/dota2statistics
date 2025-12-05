@@ -11,7 +11,7 @@ type Props = {
 export function HeroesPlayedTabs({ PlayerId, IsPlayerProfile }: Props) {
   return (
     <HeroesPlayedComponent
-      PlayerId={PlayerId}
+      playerIdSearch={PlayerId}
       isHomeProfile={IsPlayerProfile}
     />
   );
