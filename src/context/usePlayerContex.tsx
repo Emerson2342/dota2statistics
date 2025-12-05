@@ -79,7 +79,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         if (res) {
           const playerRes = SetPlayerModel(res);
           setPlayer(playerRes);
-          console.log(JSON.stringify(player, null, 2))
           const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerRes.profile.account_id}/recentMatches`;
           await getRecentMatches(
             recentMatchesUrl,

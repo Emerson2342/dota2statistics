@@ -60,12 +60,12 @@ function Teams({
     if (playerId === undefined) {
       setModalMessageVisible(true);
     } else {
-      // router.push({
-      //   pathname: "/player-profile",
-      //   params: {
-      //     playerId: playerId.toString(),
-      //   },
-      // });
+      router.push({
+        pathname: "/player-profile",
+        params: {
+          playerId: playerId.toString(),
+        },
+      });
     }
   };
 
