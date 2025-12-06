@@ -55,17 +55,6 @@ function TeamFightsComponent({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-  const [visibleItems, setVisibleItems] = useState<Set<string>>(new Set());
-
-  const onViewableItemsChanged = useRef(
-    ({ viewableItems }: { viewableItems: { item: ProcessedFight }[] }) => {
-      const visibleIds = new Set(visibleItems);
-      viewableItems.forEach(({ item }) =>
-        visibleIds.add(item.start.toString())
-      );
-      setVisibleItems(visibleIds);
-    }
-  );
 
   const styles = createStyles(ColorTheme);
 
@@ -73,148 +62,46 @@ function TeamFightsComponent({
     return teamFights ? processTeamFights(teamFights, formatTime) : null;
   }, []);
 
-  const TeamFightItem = React.memo(
-    ({ fight, visible }: { fight: ProcessedFight; visible: boolean }) => {
-      return (
-        <View style={[styles.renderItemContainer]}>
-          <Text style={styles.textTime}>
-            {englishLanguage ? "Time: " : "Hora: "}
-            {fight.formattedTime} - {fight.endTime}
-          </Text>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <View style={{ width: "40%" }}>
-              <Text style={styles.textTitle} numberOfLines={1}>
-                {radTeamName}
-              </Text>
-              <View>
-                <View style={{ flexDirection: "row" }}>
-                  <RenderHeroIcon
-                    fight={fight}
-                    team={TeamSide.Radiant}
-                    heroNames={heroNames}
-                    color={ColorTheme}
-                  />
-                </View>
-                {visible ? (
-                  <>
-                    <View style={styles.barChart}>
-                      <BarChartComponent
-                        formattedData={fight.damageRad}
-                        color={RED}
-                      />
-                    </View>
-                    <View style={styles.barChart}>
-                      <BarChartComponent
-                        formattedData={fight.xpRad}
-                        color={GREEN}
-                      />
-                    </View>
-                    <View style={styles.barChart}>
-                      <BarChartComponent
-                        formattedData={fight.goldRad}
-                        color={GOLD}
-                      />
-                    </View>
-                  </>
-                ) : (
-                  <>
-                    <View style={[styles.barChart, { height: 150 }]} />
-                    <View style={[styles.barChart, { height: 150 }]} />
-                    <View style={[styles.barChart, { height: 150 }]} />
-                  </>
-                )}
-
-                <KillsImage
-                  color={ColorTheme}
-                  fight={fight}
-                  label={englishLanguage ? "Kills" : "Abates"}
-                  team={TeamSide.Radiant}
-                />
-                <AbilitiesUsages
-                  colors={ColorTheme}
-                  label={
-                    englishLanguage
-                      ? "Abilities Used"
-                      : "Habilidades Utilizadas"
-                  }
-                  fight={fight}
-                  team={TeamSide.Radiant}
-                />
-
-                <ItemsUsages
-                  color={ColorTheme}
-                  label={englishLanguage ? "Items Used" : "Itens Utilizados"}
-                  fight={fight}
-                  team={TeamSide.Radiant}
-                />
-              </View>
-            </View>
-            <View style={{ width: "20%" }}>
-              <Text style={styles.textTitle} />
-              <View style={styles.barChartLabel}>
-                <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
-                  {englishLanguage ? "Damage Caused" : "Dano Causado"}
-                </Text>
-              </View>
-              <View style={styles.barChartLabel}>
-                <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
-                  Xp
-                </Text>
-              </View>
-              <View style={styles.barChartLabel}>
-                <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
-                  {englishLanguage ? "Gold" : "Ouro"}
-                </Text>
-              </View>
-            </View>
-            <View style={{ width: "40%" }}>
-              <Text style={styles.textTitle} numberOfLines={1}>
-                {direTeamName}
-              </Text>
-
+  const TeamFightItem = React.memo(({ fight }: { fight: ProcessedFight }) => {
+    return (
+      <View style={[styles.renderItemContainer]}>
+        <Text style={styles.textTime}>
+          {englishLanguage ? "Time: " : "Hora: "}
+          {fight.formattedTime} - {fight.endTime}
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View style={{ width: "40%" }}>
+            <Text style={styles.textTitle} numberOfLines={1}>
+              {radTeamName}
+            </Text>
+            <View>
               <View style={{ flexDirection: "row" }}>
                 <RenderHeroIcon
                   fight={fight}
-                  team={TeamSide.Dire}
+                  team={TeamSide.Radiant}
                   heroNames={heroNames}
                   color={ColorTheme}
                 />
               </View>
-              {visible ? (
-                <>
-                  <View style={styles.barChart}>
-                    <BarChartComponent
-                      formattedData={fight.damageDire}
-                      color={RED}
-                    />
-                  </View>
-                  <View style={styles.barChart}>
-                    <BarChartComponent
-                      formattedData={fight.xpDire}
-                      color={GREEN}
-                    />
-                  </View>
-                  <View style={styles.barChart}>
-                    <BarChartComponent
-                      formattedData={fight.goldDire}
-                      color={GOLD}
-                    />
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={[styles.barChart, { height: 150 }]} />
-                  <View style={[styles.barChart, { height: 150 }]} />
-                  <View style={[styles.barChart, { height: 150 }]} />
-                </>
-              )}
+
+              <View style={styles.barChart}>
+                <BarChartComponent
+                  formattedData={fight.damageRad}
+                  color={RED}
+                />
+              </View>
+              <View style={styles.barChart}>
+                <BarChartComponent formattedData={fight.xpRad} color={GREEN} />
+              </View>
+              <View style={styles.barChart}>
+                <BarChartComponent formattedData={fight.goldRad} color={GOLD} />
+              </View>
+
               <KillsImage
                 color={ColorTheme}
                 fight={fight}
                 label={englishLanguage ? "Kills" : "Abates"}
-                team={TeamSide.Dire}
+                team={TeamSide.Radiant}
               />
               <AbilitiesUsages
                 colors={ColorTheme}
@@ -222,20 +109,82 @@ function TeamFightsComponent({
                   englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
                 }
                 fight={fight}
-                team={TeamSide.Dire}
+                team={TeamSide.Radiant}
               />
+
               <ItemsUsages
                 color={ColorTheme}
                 label={englishLanguage ? "Items Used" : "Itens Utilizados"}
                 fight={fight}
-                team={TeamSide.Dire}
+                team={TeamSide.Radiant}
               />
             </View>
           </View>
+          <View style={{ width: "20%" }}>
+            <Text style={styles.textTitle} />
+            <View style={styles.barChartLabel}>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+                {englishLanguage ? "Damage Caused" : "Dano Causado"}
+              </Text>
+            </View>
+            <View style={styles.barChartLabel}>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+                Xp
+              </Text>
+            </View>
+            <View style={styles.barChartLabel}>
+              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+                {englishLanguage ? "Gold" : "Ouro"}
+              </Text>
+            </View>
+          </View>
+          <View style={{ width: "40%" }}>
+            <Text style={styles.textTitle} numberOfLines={1}>
+              {direTeamName}
+            </Text>
+
+            <View style={{ flexDirection: "row" }}>
+              <RenderHeroIcon
+                fight={fight}
+                team={TeamSide.Dire}
+                heroNames={heroNames}
+                color={ColorTheme}
+              />
+            </View>
+            <View style={styles.barChart}>
+              <BarChartComponent formattedData={fight.damageDire} color={RED} />
+            </View>
+            <View style={styles.barChart}>
+              <BarChartComponent formattedData={fight.xpDire} color={GREEN} />
+            </View>
+            <View style={styles.barChart}>
+              <BarChartComponent formattedData={fight.goldDire} color={GOLD} />
+            </View>
+            <KillsImage
+              color={ColorTheme}
+              fight={fight}
+              label={englishLanguage ? "Kills" : "Abates"}
+              team={TeamSide.Dire}
+            />
+            <AbilitiesUsages
+              colors={ColorTheme}
+              label={
+                englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
+              }
+              fight={fight}
+              team={TeamSide.Dire}
+            />
+            <ItemsUsages
+              color={ColorTheme}
+              label={englishLanguage ? "Items Used" : "Itens Utilizados"}
+              fight={fight}
+              team={TeamSide.Dire}
+            />
+          </View>
         </View>
-      );
-    }
-  );
+      </View>
+    );
+  });
 
   if (teamFights?.length == 0) return <ErrorComponent action={update} />;
 
@@ -243,18 +192,12 @@ function TeamFightsComponent({
     <View style={[styles.container]}>
       <FlatList
         data={processedFights}
-        renderItem={({ item }) => (
-          <TeamFightItem
-            fight={item}
-            visible={visibleItems.has(item.start.toString())}
-          />
-        )}
+        renderItem={({ item }) => <TeamFightItem fight={item} />}
         keyExtractor={(item) => item.start.toString()}
-        initialNumToRender={1}
-        maxToRenderPerBatch={1}
+        initialNumToRender={3}
+        maxToRenderPerBatch={3}
         windowSize={3}
         removeClippedSubviews
-        onViewableItemsChanged={onViewableItemsChanged.current}
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
       />
     </View>

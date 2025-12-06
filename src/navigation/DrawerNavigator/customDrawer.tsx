@@ -3,15 +3,7 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, Modal } from "react-native";
 import { usePlayerContext } from "../../context/usePlayerContex";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ThemeColor } from "../../../src/services/props";
@@ -75,8 +67,9 @@ const createStyles = (colors: ThemeColor) =>
       flex: 1,
     },
     header: {
+      paddingTop: 50,
       alignItems: "center",
-      paddingVertical: 20,
+      paddingVertical: 30,
       backgroundColor: colors.semidark,
     },
     textName: {
