@@ -27,6 +27,7 @@ export const MatchDetailsScreen = ({
   lobbyType,
   gameMode,
 }: MatchDetailsProps) => {
+  const layout = useWindowDimensions();
   const { englishLanguage } = useSettingsContext();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]
@@ -46,7 +47,6 @@ export const MatchDetailsScreen = ({
     null
   );
 
-  const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
   const textMatchId = englishLanguage
@@ -81,7 +81,6 @@ export const MatchDetailsScreen = ({
   const heroNamesMemo = useMemo(() => {
     const players = matchDetails?.players;
     if (!players) return [];
-    // cria um array estável apenas quando players ou heroMap mudarem
     return players.map((p) => heroMap[p.hero_id]);
   }, [matchDetails?.players, heroMap]);
 
@@ -149,13 +148,12 @@ export const MatchDetailsScreen = ({
     switch (route.key) {
       case "first":
         return (
-          //<Text>first</Text>
           <OverViewTabs
             GameMode={gameMode}
             LobbyType={lobbyType}
             PlayerIdIndex={playerIdIndex}
-            direName={direName}
-            radName={radName}
+            radName={matchDetails?.radiant_team?.name ?? radName}
+            direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
             matchDetails={matchDetails}
             onRefresh={onRefreshCallback}
@@ -170,15 +168,15 @@ export const MatchDetailsScreen = ({
             matchDetails={matchDetails}
             onRefresh={async () => await onRefreshCallback()}
             refreshing={refreshing}
-            radName={radName}
-            direName={direName}
+            radName={matchDetails?.radiant_team?.name ?? radName}
+            direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
             key={playerIdIndex}
           />
         );
       case "third":
+        //return <Text>testes 3</Text>;
         return TeamFightComponent;
-      //return <Text>testes 3</Text>;
       default:
         return (
           <ActivityIndicatorCustom

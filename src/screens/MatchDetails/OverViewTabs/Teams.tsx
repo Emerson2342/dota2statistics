@@ -11,7 +11,6 @@ import {
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
-  RootStackParamList,
 } from "../../../services/props";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
@@ -23,12 +22,26 @@ import { ModalMessage } from "../../../components/Modals/ModalMessage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ModalHelpMatchDetails } from "../../../components/Modals/ModalHelpMatchDetails";
 import { useRouter } from "expo-router";
+
+const colorPercent = (percent: number): string => {
+  if (percent >= 0 && percent < 20) return "#ff4d4d";
+  if (percent >= 20 && percent < 35) return "#ff7934";
+  if (percent >= 35 && percent < 50) return "#ffae1a";
+  if (percent >= 50 && percent < 75) return "#66cc66";
+  if (percent >= 75) return "green";
+  return "gray";
+};
+
 function Teams({
   matchDetails,
   PlayerIdIndex,
+  radName,
+  direName,
 }: {
   matchDetails: MatchDetailsModel | null;
   PlayerIdIndex: string | undefined;
+  radName: string;
+  direName: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -41,20 +54,9 @@ function Teams({
     : "Este perfil é privado";
   const [modalVisible, setModalVisible] = useState(false);
 
-  const radName = englishLanguage ? "Radiant" : "Iluminados";
-  const direName = englishLanguage ? "Dire" : "Temidos";
   const winner = englishLanguage ? "Winner" : "Vencedor";
 
   const styles = createStyles(ColorTheme);
-
-  const colorPercent = (percent: number): string => {
-    if (percent >= 0 && percent < 20) return "#ff4d4d";
-    if (percent >= 20 && percent < 35) return "#ff7934";
-    if (percent >= 35 && percent < 50) return "#ffae1a";
-    if (percent >= 50 && percent < 75) return "#66cc66";
-    if (percent >= 75) return "green";
-    return "gray";
-  };
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {
@@ -136,8 +138,8 @@ function Teams({
             const personaName = player.personaname
               ? player.personaname
               : englishLanguage
-                ? "Private Profile"
-                : "Perfil Privado";
+              ? "Private Profile"
+              : "Perfil Privado";
 
             const playerName = player.name ? player.name : personaName;
 
@@ -179,34 +181,34 @@ function Teams({
                 onPress={() => HandleNavigateToProfile(player.account_id)}
                 disabled={
                   player &&
-                    player.account_id &&
-                    PlayerIdIndex === player.account_id.toString()
+                  player.account_id &&
+                  PlayerIdIndex === player.account_id.toString()
                     ? true
                     : false
                 }
                 key={index}
                 style={[
                   player &&
-                    player.account_id &&
-                    PlayerIdIndex === player.account_id.toString()
+                  player.account_id &&
+                  PlayerIdIndex === player.account_id.toString()
                     ? {
-                      backgroundColor: "#f7eba6",
-                      //borderRadius: 3,
-                      padding: "0.5%",
-                      borderBottomWidth: index === 4 ? 0 : 1,
-                      borderColor: "#ccc",
-                      borderBottomEndRadius: index === 4 ? 7 : 0,
-                      borderBottomStartRadius: index === 4 ? 7 : 0,
-                    }
+                        backgroundColor: "#f7eba6",
+                        //borderRadius: 3,
+                        padding: "0.5%",
+                        borderBottomWidth: index === 4 ? 0 : 1,
+                        borderColor: "#ccc",
+                        borderBottomEndRadius: index === 4 ? 7 : 0,
+                        borderBottomStartRadius: index === 4 ? 7 : 0,
+                      }
                     : {
-                      backgroundColor: "#fff",
-                      // marginTop: index == 0 ? 0 : "1%",
-                      padding: "0.5%",
-                      borderBottomWidth: index === 4 ? 0 : 1,
-                      borderColor: "#ccc",
-                      borderBottomEndRadius: index === 4 ? 7 : 0,
-                      borderBottomStartRadius: index === 4 ? 7 : 0,
-                    },
+                        backgroundColor: "#fff",
+                        // marginTop: index == 0 ? 0 : "1%",
+                        padding: "0.5%",
+                        borderBottomWidth: index === 4 ? 0 : 1,
+                        borderColor: "#ccc",
+                        borderBottomEndRadius: index === 4 ? 7 : 0,
+                        borderBottomStartRadius: index === 4 ? 7 : 0,
+                      },
                   {},
                 ]}
               >
@@ -259,15 +261,15 @@ function Teams({
                         <Text style={[styles.hDamage, styles.textData]}>
                           {player.hero_damage
                             ? player.hero_damage.toLocaleString(
-                              englishLanguage ? "en-US" : "pt-BR"
-                            )
+                                englishLanguage ? "en-US" : "pt-BR"
+                              )
                             : 0}
                         </Text>
                         <Text style={[styles.tDamage, styles.textData]}>
                           {player.tower_damage
                             ? player.tower_damage.toLocaleString(
-                              englishLanguage ? "en-US" : "pt-BR"
-                            )
+                                englishLanguage ? "en-US" : "pt-BR"
+                              )
                             : 0}
                         </Text>
                         <Text style={[styles.healing, styles.textData]}>
@@ -403,7 +405,7 @@ function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(0, 5)}
-              teamName={matchDetails?.radiant_team?.name ?? radName}
+              teamName={radName}
               radiantWin={item.radiant_win}
             />
           )}
@@ -417,7 +419,7 @@ function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(5, 10)}
-              teamName={matchDetails?.dire_team?.name ?? direName}
+              teamName={direName}
               radiantWin={!item.radiant_win}
             />
           )}

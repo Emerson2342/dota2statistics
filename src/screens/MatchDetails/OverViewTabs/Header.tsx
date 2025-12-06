@@ -18,22 +18,23 @@ function Header({
   matchDetails,
   lobbyType,
   gameMode,
+  radName,
+  direName,
 }: {
   matchDetails: MatchDetailsModel | null;
   lobbyType?: string;
   gameMode?: string;
+  radName: string;
+  direName: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
-  const radName = englishLanguage ? "Radiant" : "Iluminados";
 
   const textWarning = englishLanguage
     ? "This match does not have detailed data available. For more details, access the OpenDota link and request a match analysis. Once analyzed, please refresh the page by pulling down the screen."
     : "Esta partida não tem dados detalhados disponíveis. Para mais informações, acesse o site do OpenDota e solicite a análise. O OpenDota é um serviço externo e pode exigir tempo para processar os dados. " +
       "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
-
-  const direName = englishLanguage ? "Dire" : "Temidos";
 
   let formattedDuration;
   let formattedTime;
@@ -109,7 +110,7 @@ function Header({
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
-                {matchDetails?.radiant_team?.name ?? radName}{" "}
+                {radName}
               </Text>
               <Text style={styles.teamScore}>
                 {matchDetails?.radiant_score}
@@ -148,7 +149,7 @@ function Header({
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
-                {matchDetails?.dire_team?.name ?? direName}{" "}
+                {direName}
               </Text>
             </View>
           </View>

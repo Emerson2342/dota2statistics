@@ -5,30 +5,22 @@ import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
 import { useSettingsContext } from "../../../context/useSettingsContext";
 
-Animated.addWhitelistedNativeProps({ text: true });
 const width = Dimensions.get("screen").width * 0.93;
 
 const GraficsGoldAndXpTeam = ({
   radiant_gold_adv,
   radiant_xp_adv,
-  RadiantName,
-  DireName,
+  radName,
+  direName,
 }: {
   radiant_gold_adv: number[];
   radiant_xp_adv: number[];
-  RadiantName: string | undefined;
-  DireName: string | undefined;
+  radName: string | undefined;
+  direName: string | undefined;
 }) => {
   const { englishLanguage } = useSettingsContext();
 
   const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
-
-  const radiantName = RadiantName
-    ? RadiantName
-    : englishLanguage
-    ? "Radiant"
-    : "Iluminados";
-  const direName = DireName ? DireName : englishLanguage ? "Dire" : "Temidos";
 
   const combinedData = radiant_gold_adv.map((value, index) => ({
     gold: value,
@@ -38,9 +30,7 @@ const GraficsGoldAndXpTeam = ({
 
   return (
     <View style={{ width: width, height: 350 }}>
-      <Text style={[styles.textGraphic, { color: "green" }]}>
-        {radiantName}
-      </Text>
+      <Text style={[styles.textGraphic, { color: "green" }]}>{radName}</Text>
       <CartesianChart
         data={combinedData}
         xKey="x"

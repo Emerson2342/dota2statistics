@@ -186,10 +186,14 @@ function OverViewComponent({
           matchDetails={matchDetails}
           lobbyType={LobbyType}
           gameMode={GameMode}
+          radName={radName}
+          direName={direName}
         />
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}
+          radName={radName}
+          direName={direName}
         />
         {matchDetails &&
         matchDetails.picks_bans &&
@@ -385,8 +389,8 @@ function OverViewComponent({
               <GraficsGoldAndXpComponent
                 radiant_gold_adv={matchDetails.radiant_gold_adv}
                 radiant_xp_adv={matchDetails.radiant_xp_adv}
-                RadiantName={matchDetails?.radiant_team?.name ?? radName}
-                DireName={matchDetails?.dire_team?.name ?? direName}
+                radName={radName}
+                direName={direName}
               />
             </View>
           )}
