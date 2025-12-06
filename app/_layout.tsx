@@ -163,6 +163,22 @@ function Content() {
           }}
         />
         <Stack.Screen
+          name="team-fights"
+          options={{
+            headerShown: true,
+            title: "Team Fights",
+            headerStyle: {
+              backgroundColor: ColorTheme.dark,
+            },
+            headerTitleStyle: {
+              fontFamily: "QuickSand-Semibold",
+              fontSize: 20,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Stack.Screen
           name="league-matches"
           options={{
             headerShown: true,

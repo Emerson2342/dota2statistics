@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { HeaderComponent } from "./Header";
 import { TeamsComponent } from "./Teams";
@@ -19,6 +20,8 @@ import { createStyles } from "./styles";
 import { useTheme } from "../../../context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useRouter } from "expo-router";
+import { Feather } from "@expo/vector-icons";
 
 type Props = {
   refreshing: boolean;
@@ -30,6 +33,7 @@ type Props = {
   radName: string;
   direName: string;
   heroArray: HeroDetailsModel[];
+  hasTeamFights: boolean;
 };
 
 function OverViewComponent({
@@ -42,10 +46,13 @@ function OverViewComponent({
   radName,
   direName,
   heroArray,
+  hasTeamFights,
 }: Props) {
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
   const { englishLanguage } = useSettingsContext();
+
+  const router = useRouter();
 
   const radiantPlayers = matchDetails?.players.slice(0, 5) || [];
   const direPlayers = matchDetails?.players.slice(5, 10) || [];
@@ -189,6 +196,20 @@ function OverViewComponent({
           radName={radName}
           direName={direName}
         />
+        {hasTeamFights && (
+          <TouchableOpacity
+            style={styles.teamFightsButton}
+            onPress={() => router.push({ pathname: "team-fights" })}
+          >
+            <Text style={styles.textButton}>Team Fights</Text>
+            <Feather
+              name="external-link"
+              color={ColorTheme.semidark}
+              size={15}
+            />
+          </TouchableOpacity>
+        )}
+
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}

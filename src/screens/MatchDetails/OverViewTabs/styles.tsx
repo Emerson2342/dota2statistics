@@ -19,6 +19,21 @@ export const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       fontFamily: "QuickSand-Semibold",
     },
+    teamFightsButton: {
+      backgroundColor: colors.light,
+      borderRadius: 5,
+      alignSelf: "center",
+      padding: 7,
+      marginVertical: "3%",
+      marginTop: 0,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 7,
+    },
+    textButton: {
+      color: colors.semidark,
+      fontFamily: "QuickSand-Bold",
+    },
     detailsContainer: {
       width: "100%",
       alignItems: "center",

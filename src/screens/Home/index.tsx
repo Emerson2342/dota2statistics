@@ -131,6 +131,13 @@ export function Home() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
+        commonOptions={{
+          labelStyle: {
+            fontSize: Dimensions.get("screen").width * 0.03,
+            fontFamily: "QuickSand-Bold",
+            textAlign: "center",
+          },
+        }}
       />
     </View>
   );

@@ -14,6 +14,7 @@ import { AbilitiesUsages } from "./components/abilities";
 import { ItemsUsages } from "./components/items";
 import { processTeamFights } from "../../../../src/utils/ProcessedTemFight";
 import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
+import { useTeamFightsStore } from "../../../../src/store/teamFights";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -40,21 +41,11 @@ const formatTime = (seconds?: number) => {
   return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 };
 
-function TeamFightsComponent({
-  teamFights,
-  heroNames,
-  radTeamName,
-  direTeamName,
-  update,
-}: {
-  teamFights: TeamFightModel[] | undefined;
-  heroNames: string[];
-  radTeamName: string;
-  direTeamName: string;
-  update: () => Promise<void>;
-}) {
+function TeamFightsComponent() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
+  const { teamFights, heroNames, radTeamName, direTeamName, update } =
+    useTeamFightsStore((state) => state.data!);
 
   const styles = createStyles(ColorTheme);
 
@@ -186,7 +177,7 @@ function TeamFightsComponent({
     );
   });
 
-  if (teamFights?.length == 0) return <ErrorComponent action={update} />;
+  //if (teamFights?.length == 0) return <ErrorComponent action={update} />;
 
   return (
     <View style={[styles.container]}>

@@ -13,6 +13,7 @@ import { TeamFightsTabs } from "./TeamFightsTabs";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
 import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { useTeamFightsStore } from "../../../src/store/teamFights";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -46,6 +47,7 @@ export const MatchDetailsScreen = ({
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
+  const setTeamFightsData = useTeamFightsStore((state) => state.setData);
 
   const [index, setIndex] = useState(0);
 
@@ -70,13 +72,15 @@ export const MatchDetailsScreen = ({
 
   const heroArray = useMemo(
     () => Object.values(HeroesDetails) as HeroDetailsModel[],
-    [HeroesDetails]
+    []
   );
 
-  const heroMap = useMemo(
-    () => Object.fromEntries(heroArray.map((h) => [h.id, h.name])),
-    [heroArray]
-  );
+  const heroMap = useMemo(() => {
+    return heroArray.reduce((acc, hero) => {
+      acc[hero.id] = hero.name;
+      return acc;
+    }, {} as Record<number, string>);
+  }, [heroArray]);
 
   const heroNamesMemo = useMemo(() => {
     const players = matchDetails?.players;
@@ -112,6 +116,17 @@ export const MatchDetailsScreen = ({
     };
     loadMatchesList();
   }, []);
+  useEffect(() => {
+    if (!matchDetails) return;
+
+    setTeamFightsData({
+      teamFights: teamFightsMemo,
+      heroNames: heroNamesMemo,
+      radTeamName: matchDetails.radiant_team?.name ?? radName,
+      direTeamName: matchDetails.dire_team?.name ?? direName,
+      update: onRefreshCallback,
+    });
+  }, [matchDetails, teamFightsMemo, heroNamesMemo, radName, direName]);
 
   useEffect(() => {
     if (loadedeList && matchesDetailsList.length > 0) {
@@ -144,6 +159,8 @@ export const MatchDetailsScreen = ({
     fetchMatchDetails();
   }, [matchDetailsIndex, loadedeList]);
 
+  const hasTeamFights = !!matchDetails?.teamfights?.length;
+
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "first":
@@ -159,6 +176,7 @@ export const MatchDetailsScreen = ({
             onRefresh={onRefreshCallback}
             refreshing={refreshing}
             key={matchDetails?.match_id}
+            hasTeamFights={hasTeamFights}
           />
         );
       case "second":
@@ -174,9 +192,9 @@ export const MatchDetailsScreen = ({
             key={playerIdIndex}
           />
         );
-      case "third":
-        //return <Text>testes 3</Text>;
-        return TeamFightComponent;
+      //case "third":
+      //return <Text>testes 3</Text>;
+      //   return TeamFightComponent;
       default:
         return (
           <ActivityIndicatorCustom
@@ -208,7 +226,7 @@ export const MatchDetailsScreen = ({
     setRefreshing(false);
   }, [matchDetailsIndex, matchesDetailsList, handleSearchMatche]);
 
-  const TeamFightComponent = useMemo(() => {
+  /* const TeamFightComponent = useMemo(() => {
     return (
       <TeamFightsTabs
         heroNames={heroNamesMemo}
@@ -227,6 +245,7 @@ export const MatchDetailsScreen = ({
     radName,
     direName,
   ]);
+  */
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -234,13 +253,13 @@ export const MatchDetailsScreen = ({
       key: "second",
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
-    { key: "third", title: "Team Fights" },
+    //{ key: "third", title: "Team Fights" },
   ];
-  const hasTeamFights = !!matchDetails?.teamfights?.length;
+  // const hasTeamFights = !!matchDetails?.teamfights?.length;
 
-  const filteredRoutes = hasTeamFights
-    ? allRoutes
-    : allRoutes.filter((r) => r.key !== "third");
+  //const filteredRoutes = hasTeamFights
+  // ? allRoutes
+  //: allRoutes.filter((r) => r.key !== "third");
 
   const saveMatchesDetailsList = async () => {
     try {
@@ -317,7 +336,7 @@ export const MatchDetailsScreen = ({
     return (
       <TabView
         renderTabBar={renderTabBar}
-        navigationState={{ index, routes: filteredRoutes }}
+        navigationState={{ index, routes: allRoutes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
