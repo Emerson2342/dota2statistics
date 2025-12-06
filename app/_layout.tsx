@@ -18,6 +18,7 @@ import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Snowfall } from "react-native-snowfall";
 import { SafeAreaView } from "react-native-safe-area-context";
+import VersionCheck from "react-native-version-check";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -70,9 +71,9 @@ function Content() {
   const [modalVisible, setModalVisible] = useState(false);
   const { englishLanguage } = useSettingsContext();
 
-  // useEffect(() => {
-  //   checkForUpdates();
-  // }, []);
+  useEffect(() => {
+    checkForUpdates();
+  }, []);
 
   useEffect(() => {
     StatusBar.setBackgroundColor(ColorTheme.dark);
@@ -96,24 +97,24 @@ function Content() {
     return false;
   }
 
-  // async function checkForUpdates() {
-  //   try {
-  //     const androidPackageName = Constants.expoConfig?.android?.package;
-  //     if (!androidPackageName) return;
-  //     const currentVersion = Constants.expoConfig?.version;
-  //     if (!currentVersion) return;
-  //     const latestVersion = await VersionCheck.getLatestVersion({
-  //       provider: Platform.OS === "android" ? "playStore" : "appStore",
-  //       packageName: Platform.OS === "android" ? androidPackageName : "",
-  //     });
-  //     const hasUpdate = isNewerVersion(latestVersion, currentVersion);
-  //     if (!hasUpdate) {
-  //       setModalVisible(true);
-  //     }
-  //   } catch (error: any) {
-  //     console.error(error);
-  //   }
-  // }
+  async function checkForUpdates() {
+    try {
+      const androidPackageName = Constants.expoConfig?.android?.package;
+      if (!androidPackageName) return;
+      const currentVersion = Constants.expoConfig?.version;
+      if (!currentVersion) return;
+      const latestVersion = await VersionCheck.getLatestVersion({
+        provider: Platform.OS === "android" ? "playStore" : "appStore",
+        packageName: Platform.OS === "android" ? androidPackageName : "",
+      });
+      const hasUpdate = isNewerVersion(latestVersion, currentVersion);
+      if (hasUpdate) {
+        setModalVisible(true);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
 
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
