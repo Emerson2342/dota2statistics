@@ -18,7 +18,6 @@ import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Snowfall } from "react-native-snowfall";
 import { SafeAreaView } from "react-native-safe-area-context";
-import VersionCheck from "react-native-version-check-expo";
 
 SplashScreen.preventAutoHideAsync();
 
