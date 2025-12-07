@@ -1,7 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -14,6 +13,8 @@ import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { ModalRef, ThemeColor } from "../../../src/services/props";
 import { BannerAds } from "../Admob/BannerAds";
 import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TextComponent } from "../TextComponent";
 
 type Props = {
   urlImage: string;
@@ -41,7 +42,7 @@ export const ModaHeroLore = forwardRef<ModalRef, Props>(
         transparent={true}
         animationType="fade"
       >
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
             backgroundColor: "#000000cc",
@@ -61,23 +62,25 @@ export const ModaHeroLore = forwardRef<ModalRef, Props>(
                 style={styles.imgHero}
                 src={PICTURE_HERO_BASE_URL + urlImage}
               />
-              <Text style={styles.textName}>{localizedName}</Text>
+              <TextComponent weight="semibold" style={styles.textName}>
+                {localizedName}
+              </TextComponent>
               <ScrollView>
-                <Text style={styles.textLore}>
+                <TextComponent weight="semibold" style={styles.textLore}>
                   {"  "} {loreText}
-                </Text>
+                </TextComponent>
               </ScrollView>
               <TouchableOpacity
                 style={styles.buttonClose}
                 onPress={() => handleClose()}
               >
-                <Text style={styles.textButton}>
+                <TextComponent weight="bold" style={styles.textButton}>
                   {englishLanguage ? "Close" : "Fechar"}
-                </Text>
+                </TextComponent>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </SafeAreaView>
       </Modal>
     );
   }
@@ -108,11 +111,9 @@ const CreateStyles = (colors: ThemeColor) =>
     textName: {
       fontSize: Dimensions.get("screen").width * 0.053,
       paddingBottom: "7%",
-      fontFamily: "QuickSand-Bold",
       color: colors.semidark,
     },
     textLore: {
-      fontFamily: "QuickSand-Semibold",
       textAlign: "justify",
     },
     buttonClose: {
@@ -126,7 +127,6 @@ const CreateStyles = (colors: ThemeColor) =>
     },
     textButton: {
       color: "#fff",
-      fontFamily: "QuickSand-Bold",
       padding: "5%",
       textAlign: "center",
     },

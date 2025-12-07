@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Image,
   Dimensions,
   Modal,
@@ -15,6 +14,8 @@ import { useTheme } from "../../context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
 import { Feather } from "@expo/vector-icons";
 import EmptyImage from "../../images/emptyImage.png";
+import { TextComponent } from "../TextComponent";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
   ability: HeroAbilitiesDescriptionsModel | undefined;
@@ -57,7 +58,7 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
         transparent={true}
         onRequestClose={handleClose}
       >
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
             backgroundColor: "#000000AA",
@@ -66,7 +67,9 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
           <BannerAds />
           <View style={styles.modal}>
             <View style={styles.container}>
-              <Text style={styles.textTitle}>{ability?.dname}</Text>
+              <TextComponent weight="bold" style={styles.textTitle}>
+                {ability?.dname}
+              </TextComponent>
               <View style={{ flexDirection: "row", marginVertical: "3%" }}>
                 <Image
                   style={[styles.imgItem, { position: "absolute" }]}
@@ -84,10 +87,13 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
                       flexDirection: "row",
                       alignItems: "center",
                       display: ability?.cd ? "flex" : "none",
+                      gap: 5,
                     }}
                   >
                     <Feather name="clock" color={"#555"} />
-                    <Text style={styles.textDetails}> {coolDown}</Text>
+                    <TextComponent weight="semibold" style={styles.textDetails}>
+                      {coolDown}
+                    </TextComponent>
                   </View>
                   <View
                     style={{
@@ -104,18 +110,25 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
                         borderRadius: 3,
                       }}
                     />
-                    <Text style={styles.textDetails}> {mana}</Text>
+                    <TextComponent weight="semibold" style={styles.textDetails}>
+                      {" "}
+                      {mana}
+                    </TextComponent>
                   </View>
-                  <Text
+                  <TextComponent
+                    weight="semibold"
                     style={[
                       styles.textDetails,
                       { display: ability?.dmg_type ? "flex" : "none" },
                     ]}
                   >
                     Damage Type:{" "}
-                    <Text style={{ color: "#999" }}>{ability?.dmg_type}</Text>
-                  </Text>
-                  <Text
+                    <TextComponent weight="semibold" style={{ color: "#999" }}>
+                      {ability?.dmg_type}
+                    </TextComponent>
+                  </TextComponent>
+                  <TextComponent
+                    weight="semibold"
                     style={[
                       styles.textDetails,
                       {
@@ -124,9 +137,12 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
                     ]}
                   >
                     Pierce BKB:{" "}
-                    <Text style={{ color: "#999" }}>{ability?.bkbpierce}</Text>
-                  </Text>
-                  <Text
+                    <TextComponent weight="semibold" style={{ color: "#999" }}>
+                      {ability?.bkbpierce}
+                    </TextComponent>
+                  </TextComponent>
+                  <TextComponent
+                    weight="semibold"
                     style={[
                       styles.textDetails,
                       {
@@ -135,13 +151,14 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
                     ]}
                   >
                     Dispellable:{" "}
-                    <Text style={{ color: "#999" }}>
+                    <TextComponent weight="semibold" style={{ color: "#999" }}>
                       {ability?.dispellable}
-                    </Text>
-                  </Text>
+                    </TextComponent>
+                  </TextComponent>
                 </View>
               </View>
-              <Text
+              <TextComponent
+                weight="semibold"
                 style={[
                   styles.textDescription,
                   { display: ability?.desc ? "flex" : "none" },
@@ -149,16 +166,16 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
               >
                 {"     "}
                 {ability?.desc}
-              </Text>
+              </TextComponent>
 
-              <Text
+              <TextComponent
                 style={[
                   styles.textLore,
                   { display: ability?.lore ? "flex" : "none" },
                 ]}
               >
                 "{ability?.lore}"
-              </Text>
+              </TextComponent>
 
               <TouchableOpacity
                 style={[
@@ -167,13 +184,13 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
                 ]}
                 onPress={handleClose}
               >
-                <Text style={styles.textButton}>
+                <TextComponent weight="bold" style={styles.textButton}>
                   {englishLanguage ? "Close" : "Fechar"}
-                </Text>
+                </TextComponent>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </SafeAreaView>
       </Modal>
     );
   }
@@ -195,7 +212,6 @@ const styles = StyleSheet.create({
     padding: "3%",
   },
   textTitle: {
-    fontFamily: "QuickSand-Bold",
     fontSize: Dimensions.get("window").width * 0.05,
     marginBottom: "3%",
   },
@@ -206,17 +222,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textDetails: {
-    fontFamily: "QuickSand-Semibold",
     fontSize: Dimensions.get("screen").width * 0.033,
   },
-  textTitleDesc: {
-    fontFamily: "QuickSand-Semibold",
-    textAlign: "center",
-    fontSize: Dimensions.get("window").width * 0.04,
-    padding: "2%",
-  },
   textDescription: {
-    fontFamily: "QuickSand-Semibold",
     textAlign: "justify",
     color: "#333",
     fontSize: Dimensions.get("window").width * 0.03,
@@ -239,7 +247,6 @@ const styles = StyleSheet.create({
   textButton: {
     color: "#fff",
     textAlign: "center",
-    fontFamily: "QuickSand-Bold",
     fontSize: Dimensions.get("window").width * 0.04,
   },
 });
