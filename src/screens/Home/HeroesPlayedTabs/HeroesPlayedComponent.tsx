@@ -44,6 +44,7 @@ function HeroesPlayedComp({
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
+
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
     if (order != orderToShow) {

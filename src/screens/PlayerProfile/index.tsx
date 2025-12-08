@@ -112,7 +112,8 @@ export default function PlayerProfileScreen({
         const url = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
         const heroesPlayedResponse = await getHeroesPlayed(url);
         if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
-          setHeroesPlayed(heroesPlayedResponse);
+          const heroesResp = heroesPlayedResponse.filter((item) => item.games > 0);
+          setHeroesPlayed(heroesResp);
         }
         await getRecentMatches(
           recentMatchesUrl,

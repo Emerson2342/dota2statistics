@@ -101,7 +101,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
           const url = `${PLAYER_PROFILE_API_BASE_URL}${playerRes?.profile.account_id}/heroes`;
           const heroesPlayedResponse = await getHeroesPlayed(url);
           if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
-            setHeroesPlayed(heroesPlayedResponse);
+            const heroesRes = heroesPlayedResponse.filter(item => item.games > 0)
+            setHeroesPlayed(heroesRes);
           }
         } else {
           setPlayer(null);
