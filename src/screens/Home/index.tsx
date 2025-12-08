@@ -1,25 +1,23 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import {
-  PLAYER_PROFILE_API_BASE_URL,
   PRO_MATCHES_URL,
-} from "../../constants/player";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { fetchData, getHeroesPlayed, getHeroesStats } from "../../services/api";
+} from "@src/constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { fetchData, getHeroesStats } from "@src/services/api";
 import {
-  HeroesPlayed,
   HeroStats,
   LeagueMatches,
 } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
-import { ErrorComponent } from "../../../src/utils/ErrorComponent";
-import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches";
-import { usePlayerContext } from "../../../src/context/usePlayerContex";
+import { ErrorComponent } from "@src/utils/ErrorComponent";
+import { OrdererLeagueMatches } from "@src/services/ordererLeagueMatches";
+import { usePlayerContext } from "@src/context/usePlayerContex";
 
 export function Home() {
   const { player, heroesPlayed, handleFetchPlayerData, isLoadingContext } =

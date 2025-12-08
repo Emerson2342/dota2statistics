@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { FontModel, ThemeColor } from "../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 export const createStyles = (Color: ThemeColor) =>
   StyleSheet.create({
@@ -7,18 +7,19 @@ export const createStyles = (Color: ThemeColor) =>
       alignItems: "center",
       flex: 1,
       width: "100%",
-      //  backgroundColor: Color.light,
     },
-    containerEmpty: { flex: 1, justifyContent: "center", alignItems: "center" },
+    containerEmpty: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center"
+    },
     titleText: {
       fontSize: 20,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       color: Color.semidark,
       margin: "3%",
     },
     emptyText: {
-      fontFamily: "QuickSand-Semibold",
       color: Color.semidark,
       fontSize: Dimensions.get("screen").width * 0.04,
     },
@@ -44,22 +45,14 @@ export const createStyles = (Color: ThemeColor) =>
       justifyContent: "space-between",
       //
     },
-    textResult: {
-      width: "40%",
-      textAlign: "center",
-      color: "#aaa",
-      fontFamily: "QuickSand-Bold",
-    },
     teamName: {
       width: "80%",
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
     },
     teamScore: {
       width: "15%",
       textAlign: "center",
       fontSize: 13,
-      fontFamily: "QuickSand-Bold",
     },
     imageContainer: {
       flexDirection: "row",
@@ -76,16 +69,13 @@ export const createStyles = (Color: ThemeColor) =>
       width: "50%",
       flexDirection: "row",
     },
-
     timeContent: {
       flexDirection: "row",
       justifyContent: "space-around",
     },
     durationText: {
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       color: "#aaaaaa",
       fontSize: 13,
     },
-    dataText: {},
   });

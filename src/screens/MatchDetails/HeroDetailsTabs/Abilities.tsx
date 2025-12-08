@@ -1,35 +1,33 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
-  Text,
   Image,
   FlatList,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Modal,
 } from "react-native";
 import {
-  HeroAbilitiesDescriptionsJson,
   HeroAbilitiesDescriptionsModel,
   HeroDetailsModel,
   MatchDetailsModel,
   ModalRef,
   Player,
   ThemeColor,
-} from "../../../services/props";
-import AbilitiesList from "../../../components/Heroes/abilitiesIdsList.json";
-import TalentTree from "../../../components/Heroes/talentTree.jpg";
+} from "@src/services/props";
+import AbilitiesList from "@src/components/Heroes/abilitiesIdsList.json";
+import TalentTree from "@src/components/Heroes/talentTree.jpg";
 import {
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { ModalAbilityDetails } from "../../../components/Modals/ModalAbilityDetails";
+} from "@src/constants/player";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { ModalAbilityDetails } from "@src/components/Modals/ModalAbilityDetails";
 import { useRouter } from "expo-router";
-import { modalAbilitiesDetails } from "../../../../src/utils/matchDetailsUtils";
+import { modalAbilitiesDetails } from "@src/utils/matchDetailsUtils";
+import { TextComponent } from "@src/components/TextComponent";
 
 function Abilities({
   matchDetails,
@@ -80,11 +78,11 @@ function Abilities({
     ({ item }: { item: MatchDetailsModel }) => {
       return (
         <View style={styles.contentItem}>
-          <Text style={styles.title}>
+          <TextComponent weight="bold" style={styles.title}>
             {englishLanguage
               ? "Skill Progression"
               : "Construção de Habilidades"}
-          </Text>
+          </TextComponent>
           {item &&
             item.players.map((player: Player, index: number) => {
               const hero = heroesList.find(
@@ -95,7 +93,8 @@ function Abilities({
               return (
                 <View key={index}>
                   {index == 0 ? (
-                    <Text
+                    <TextComponent
+                      weight="bold"
                       style={[
                         styles.textTeam,
                         {
@@ -105,13 +104,14 @@ function Abilities({
                       ]}
                     >
                       {RadName ? RadName : radName}
-                    </Text>
+                    </TextComponent>
                   ) : (
                     <></>
                   )}
 
                   {index === 5 ? (
-                    <Text
+                    <TextComponent
+                      weight="bold"
                       style={[
                         styles.textTeam,
                         {
@@ -121,7 +121,7 @@ function Abilities({
                       ]}
                     >
                       {DireName ? DireName : direName}
-                    </Text>
+                    </TextComponent>
                   ) : (
                     <></>
                   )}
@@ -225,7 +225,6 @@ const createStyles = (Colors: ThemeColor) =>
       padding: "1%",
     },
     title: {
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       fontSize: 20,
       color: Colors.semidark,
@@ -233,7 +232,6 @@ const createStyles = (Colors: ThemeColor) =>
     },
     textTeam: {
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       fontSize: 15,
       color: Colors.semidark,
     },

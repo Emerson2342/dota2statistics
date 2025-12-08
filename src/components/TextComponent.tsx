@@ -5,11 +5,12 @@ type FontWeight = "regular" | "semibold" | "bold";
 
 type Props = {
   weight?: FontWeight;
-  style: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
   children: React.ReactNode;
+  numberOfLines?: number
 };
 
-export function TextComponent({ children, weight = "regular", style }: Props) {
+export function TextComponent({ children, weight = "regular", style, numberOfLines }: Props) {
   const fontMap = {
     regular: "QuickSand-Regular",
     semibold: "QuickSand-Semibold",
@@ -17,6 +18,6 @@ export function TextComponent({ children, weight = "regular", style }: Props) {
   };
 
   return (
-    <Text style={[{ fontFamily: fontMap[weight] }, style]}>{children}</Text>
+    <Text numberOfLines={numberOfLines} style={[{ fontFamily: fontMap[weight] }, style]}>{children}</Text>
   );
 }

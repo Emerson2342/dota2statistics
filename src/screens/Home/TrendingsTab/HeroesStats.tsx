@@ -1,17 +1,17 @@
 import React, { useMemo } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
   Image,
 } from "react-native";
-import { HeroStats, ThemeColor } from "../../../services/props";
+import { HeroStats, ThemeColor } from "@src/services/props";
 import { useRouter } from "expo-router";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { TextComponent } from "@src/components/TextComponent";
 
 function HeroesStatsComponent({
   heroesStats,
@@ -22,8 +22,6 @@ function HeroesStatsComponent({
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
   const router = useRouter();
-  // const navigation =
-  //   useNavigation<DrawerNavigationProp<RootStackParamList, "HeroDetails">>();
 
   const bestWinrate = useMemo(
     () =>
@@ -52,14 +50,13 @@ function HeroesStatsComponent({
 
   return (
     <View style={{ marginTop: "3%" }}>
-      <Text style={styles.textHeader}>
+      <TextComponent weight="bold" style={styles.textHeader}>
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
-      </Text>
+      </TextComponent>
       <View style={styles.content}>
-
-        <Text style={[styles.text, styles.textTitle]}>
+        <TextComponent weight="semibold" style={[styles.text, styles.textTitle]}>
           {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
-        </Text>
+        </TextComponent>
         <View style={styles.container}>
           {mostPicked &&
             mostPicked.slice(0, 8).map((item: HeroStats, index: number) => {
@@ -71,15 +68,15 @@ function HeroesStatsComponent({
                   key={index}
                 >
                   <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <Text style={styles.text}>{index + 1}°</Text>
+                  <TextComponent weight="semibold" style={styles.text}>{index + 1}°</TextComponent>
                 </TouchableOpacity>
               );
             })}
         </View>
 
-        <Text style={[styles.text, styles.textTitle]}>
+        <TextComponent weight="semibold" style={[styles.text, styles.textTitle]}>
           {englishLanguage ? "Win Rate" : "Aproveitamento"}
-        </Text>
+        </TextComponent>
         <View style={styles.container}>
           {bestWinrate &&
             bestWinrate.slice(0, 8).map((item: HeroStats, index: number) => {
@@ -91,7 +88,7 @@ function HeroesStatsComponent({
                   key={index}
                 >
                   <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <Text style={styles.text}>{item.winRate?.toFixed(2)}%</Text>
+                  <TextComponent weight="semibold" style={styles.text}>{item.winRate?.toFixed(2)}%</TextComponent>
                 </TouchableOpacity>
               );
             })}
@@ -121,7 +118,6 @@ const createStyles = (colors: ThemeColor) =>
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       color: colors.semidark,
       alignSelf: "center",
       width: "90%",
@@ -131,7 +127,6 @@ const createStyles = (colors: ThemeColor) =>
     text: {
       fontSize: Dimensions.get("window").width * 0.025,
       color: colors.semidark,
-      fontFamily: "QuickSand-Semibold",
       textAlign: "center",
     },
     imgHero: {

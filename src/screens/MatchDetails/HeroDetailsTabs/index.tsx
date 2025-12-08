@@ -4,7 +4,7 @@ import { GraficsGoldPlayersComponent } from "./GraficsGoldPlayers";
 import { HeroKillsDetailsComponent } from "./KillsDetails";
 import { ItemsComponent } from "./Items";
 import { AbilitiesComponent } from "./Abilities";
-import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
+import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { DamageComponent } from "./Damage";
 import { DamageTypeComponent } from "./DamageType";
 
@@ -33,8 +33,8 @@ function HeroesDetailsComponent({
       }
     >
       {matchDetails.players.length > 0 &&
-      matchDetails.players[0].gold_t &&
-      matchDetails.players[0].gold_t.length > 0 ? (
+        matchDetails.players[0].gold_t &&
+        matchDetails.players[0].gold_t.length > 0 ? (
         <View
           style={[
             styles.containerItem,

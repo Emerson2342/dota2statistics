@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   TextInput,
@@ -15,6 +14,7 @@ import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 import { toSteam32 } from "../../../src/utils/steam";
 import { usePlayerContext } from "../../context/usePlayerContex";
+import { TextComponent } from "../TextComponent";
 
 export default function ModalMyAccount({
   handleClose,
@@ -31,8 +31,6 @@ export default function ModalMyAccount({
   const [isLoading, setIsLoading] = useState(false);
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
-
-  const playerId = player?.profile.account_id ?? 0
 
   const titleMessage = englishLanguage ? "Message" : "Mensagem";
 
@@ -56,15 +54,15 @@ export default function ModalMyAccount({
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text
+        <TextComponent
           style={[
             styles.title,
             { color: "orange", fontSize: 20, fontFamily: "QuickSand-Bold" },
           ]}
         >
           {englishLanguage ? "My Account" : "Minha Conta"}
-        </Text>
-        <Text style={styles.header}>Id Steam</Text>
+        </TextComponent>
+        <TextComponent weight="semibold" style={styles.header}>Id Steam</TextComponent>
         <View
           style={{
             flexDirection: "row",
@@ -111,22 +109,21 @@ export default function ModalMyAccount({
             onPress={() => handleClose()}
             style={styles.buttonContent}
           >
-            <Text
+            <TextComponent weight="bold"
               style={{
                 color: ColorTheme.semidark,
-                fontFamily: "QuickSand-Semibold",
               }}
             >
               {englishLanguage ? "Back" : "Voltar"}
-            </Text>
+            </TextComponent>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleSave()}
             style={[styles.buttonContent, { backgroundColor: ColorTheme.dark }]}
           >
-            <Text style={{ color: "#fff", fontFamily: "QuickSand-Semibold" }}>
+            <TextComponent weight="bold" style={{ color: "#fff" }}>
               {englishLanguage ? "Save" : "Salvar"}
-            </Text>
+            </TextComponent>
           </TouchableOpacity>
         </View>
       </View>
@@ -176,7 +173,6 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       marginRight: "10%",
       color: colors.dark,
-      fontFamily: "QuickSand-Semibold",
     },
     inputContent: {
       margin: "3%",
@@ -193,7 +189,6 @@ const createStyles = (colors: ThemeColor) =>
       width: "90%",
       textAlign: "center",
       color: "#808080",
-      fontFamily: "QuickSand-Regular",
     },
     buttonContainer: {
       width: "90%",

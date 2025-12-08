@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   ActivityIndicator,
@@ -44,6 +43,7 @@ import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCus
 import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 import { Header } from "./header";
+import { TextComponent } from "../../../src/components/TextComponent";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
@@ -187,7 +187,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         ]}
         key={index}
       >
-        <Text style={styles.titleAbility}>{item?.dname}</Text>
+        <TextComponent weight="semibold" style={styles.titleAbility}>{item?.dname}</TextComponent>
         <View style={styles.abilityContent}>
           <View style={styles.content1}>
             <View style={{ width: "100%" }}>
@@ -210,7 +210,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                     }}
                   >
                     <Feather name="clock" color={"#555"} />
-                    <Text> {coolDown}</Text>
+                    <TextComponent> {coolDown}</TextComponent>
                   </View>
                   <View
                     style={{
@@ -227,53 +227,53 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                         borderRadius: 3,
                       }}
                     />
-                    <Text> {mana}</Text>
+                    <TextComponent> {mana}</TextComponent>
                   </View>
                 </View>
               </View>
-              <Text
+              <TextComponent
                 style={{
                   display: item?.bkbpierce ? "flex" : "none",
                   fontFamily: "QuickSand-Semibold",
                   color: "#888",
                 }}
               >
-                <Text style={{ color: "#333" }}>Pierce bkb:</Text>{" "}
+                <TextComponent style={{ color: "#333" }}>Pierce bkb:</TextComponent>{" "}
                 {item?.bkbpierce}
-              </Text>
+              </TextComponent>
             </View>
           </View>
 
           <View style={styles.content2}>
             <View style={{}}>
-              <Text
+              <TextComponent
                 style={{
                   display: item?.dispellable ? "flex" : "none",
                   fontFamily: "QuickSand-Semibold",
                   color: "#888",
                 }}
               >
-                <Text style={{ color: "#333" }}>Dispellable:</Text>{" "}
+                <TextComponent style={{ color: "#333" }}>Dispellable:</TextComponent>{" "}
                 {item?.dispellable}
-              </Text>
-              <Text
+              </TextComponent>
+              <TextComponent
                 style={{
                   display: item?.dmg_type ? "flex" : "none",
                   fontFamily: "QuickSand-Semibold",
                   color: "#888",
                 }}
               >
-                <Text style={{ color: "#333" }}>Damage Type:</Text>{" "}
+                <TextComponent style={{ color: "#333" }}>Damage Type:</TextComponent>{" "}
                 {item?.dmg_type}
-              </Text>
+              </TextComponent>
             </View>
           </View>
         </View>
-        <Text style={styles.textDescription}>
+        <TextComponent weight="semibold" style={styles.textDescription}>
           {"     "}
           {item?.desc}
-        </Text>
-        <Text
+        </TextComponent>
+        <TextComponent
           style={{
             display: item?.lore ? "flex" : "none",
             fontStyle: "italic",
@@ -283,7 +283,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           }}
         >
           "{item?.lore}"
-        </Text>
+        </TextComponent>
       </View>
     );
   };
@@ -306,106 +306,106 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         <ScrollView>
           {loadingItems ? (
             <View style={styles.itemsContainer}>
-              <Text style={styles.titleText}>
+              <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
-              </Text>
+              </TextComponent>
               <ActivityIndicator size={30} color={ColorTheme.semidark} />
             </View>
           ) : (
             <View style={styles.itemsContainer}>
-              <Text style={styles.titleText}>
+              <TextComponent style={styles.titleText}>
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
-              </Text>
-              <Text style={styles.textItem}>
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.textItem}>
                 {englishLanguage ? "Start Game" : "Itens Iniciais"}
-              </Text>
+              </TextComponent>
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.start_game_items
                   ? Object.entries(heroItems.start_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
-              <Text style={styles.textItem}>
+              <TextComponent weight="semibold" style={styles.textItem}>
                 {englishLanguage ? "Early Game" : "Início Jogo"}
-              </Text>
+              </TextComponent>
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.early_game_items
                   ? Object.entries(heroItems.early_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
-              <Text style={styles.textItem}>
+              <TextComponent weight="semibold" style={styles.textItem}>
                 {englishLanguage ? "Mid Game" : "Meio do Jogo"}
-              </Text>
+              </TextComponent>
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.mid_game_items
                   ? Object.entries(heroItems.mid_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
-              <Text style={styles.textItem}>
+              <TextComponent weight="semibold" style={styles.textItem}>
                 {englishLanguage ? "Late Game" : "Final do Jogo"}
-              </Text>
+              </TextComponent>
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.late_game_items
                   ? Object.entries(heroItems.late_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
+                    ([itemId, count]) => {
+                      const item = itemsList.find(
+                        (i) => i.id.toString() === itemId
+                      );
+                      return (
+                        <ItemHero
+                          key={itemId}
+                          imgUrl={item?.img}
+                          itemDetails={item}
+                        />
+                      );
+                    }
+                  )
                   : null}
               </View>
             </View>
           )}
           <View style={styles.itemsContainer}>
-            <Text style={styles.titleText}>
+            <TextComponent style={styles.titleText}>
               {englishLanguage ? "Abilities" : "Habilidades"}
-            </Text>
+            </TextComponent>
             {/* Habilidades */}
             <View style={styles.abilitiesContainer}>
               <FlatList
@@ -419,16 +419,16 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           </View>
           <View style={styles.itemsContainer}>
             <View style={styles.facetsContainer}>
-              <Text style={styles.titleText}>
+              <TextComponent style={styles.titleText}>
                 {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
-              </Text>
+              </TextComponent>
               <View style={{ width: "100%", alignItems: "center" }}>
-                <Text style={styles.textTitle2}>
+                <TextComponent weight="bold" style={styles.textTitle2}>
                   {aghanimHeroSelected?.scepter_skill_name}
-                </Text>
-                <Text style={styles.textDescription}>
+                </TextComponent>
+                <TextComponent weight="semibold" style={styles.textDescription}>
                   {"      " + aghanimHeroSelected?.scepter_desc}
-                </Text>
+                </TextComponent>
               </View>
             </View>
           </View>
@@ -439,25 +439,25 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             ]}
           >
             <View style={styles.facetsContainer}>
-              <Text style={styles.titleText}>
+              <TextComponent style={styles.titleText}>
                 {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
-              </Text>
+              </TextComponent>
               <View style={{ width: "100%", alignItems: "center" }}>
-                <Text style={styles.textTitle2}>
+                <TextComponent style={styles.textTitle2}>
                   {aghanimHeroSelected?.shard_skill_name}
-                </Text>
-                <Text style={styles.textDescription}>
+                </TextComponent>
+                <TextComponent weight="semibold" style={styles.textDescription}>
                   {"      " + aghanimHeroSelected?.shard_desc}
-                </Text>
+                </TextComponent>
               </View>
             </View>
           </View>
           <View style={styles.itemsContainer}>
             {/* Facetas */}
             <View style={styles.facetsContainer}>
-              <Text style={styles.titleText}>
+              <TextComponent style={styles.titleText}>
                 {englishLanguage ? "Facets" : "Facetas"}
-              </Text>
+              </TextComponent>
 
               {abilities?.facets.map((facets, index) => {
                 if (facets.deprecated) return;
@@ -468,12 +468,12 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                       width: "100%",
                     }}
                   >
-                    <Text style={styles.textTitle2} key={index}>
+                    <TextComponent style={styles.textTitle2} key={index}>
                       {facets.title}
-                    </Text>
-                    <Text style={styles.textDescription}>
+                    </TextComponent>
+                    <TextComponent weight="semibold" style={styles.textDescription}>
                       {" " + facets.description}
-                    </Text>
+                    </TextComponent>
                     <View
                       style={{
                         flexDirection: "row",

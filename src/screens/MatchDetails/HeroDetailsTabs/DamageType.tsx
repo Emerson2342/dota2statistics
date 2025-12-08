@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, FlatList, StyleSheet } from "react-native";
+import { View, Image, FlatList, StyleSheet } from "react-native";
 import {
   HeroAbilitiesDescriptionsJson,
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
   ThemeColor,
-} from "../../../services/props";
-import AbilitiesDescriptionsJson from "../../../components/Heroes/AbilitiesDescriptions.json";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
+} from "@src/services/props";
+import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { TextComponent } from "@src/components/TextComponent";
 
 type DamageType = "Magical" | "Physical" | "Pure";
 type DamageText = {
@@ -66,8 +67,8 @@ function DamageType({
         ? "Type of Damage Caused"
         : "Tipo de Dano Causado"
       : englishLanguage
-      ? "Type of Damage Received"
-      : "Tipo de Dano Recebido";
+        ? "Type of Damage Received"
+        : "Tipo de Dano Recebido";
 
   useEffect(() => {
     setTimeout(() => {
@@ -81,24 +82,24 @@ function DamageType({
   const TextDamage = ({ Physical, Magical, Pure }: DamageText) => {
     return (
       <>
-        <Text style={styles.labelDamage}>
+        <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Physical: " : "Físico: "}
-          <Text style={{ color: "#aaa" }}>
+          <TextComponent style={{ color: "#aaa" }}>
             {Physical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
-          </Text>
-        </Text>
-        <Text style={styles.labelDamage}>
+          </TextComponent>
+        </TextComponent>
+        <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Magical: " : "Mágico: "}
-          <Text style={{ color: "#aaa" }}>
+          <TextComponent style={{ color: "#aaa" }}>
             {Magical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
-          </Text>
-        </Text>
-        <Text style={styles.labelDamage}>
+          </TextComponent>
+        </TextComponent>
+        <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Pure: " : "Puro: "}
-          <Text style={{ color: "#aaa" }}>
+          <TextComponent style={{ color: "#aaa" }}>
             {Pure.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
-          </Text>
-        </Text>
+          </TextComponent>
+        </TextComponent>
       </>
     );
   };
@@ -123,35 +124,36 @@ function DamageType({
 
             const totalDamage = damage
               ? Object.entries(damage).reduce(
-                  (acc, [ability, value]) => {
-                    let dmgType: "Magical" | "Physical" | "Pure" | undefined;
+                (acc, [ability, value]) => {
+                  let dmgType: "Magical" | "Physical" | "Pure" | undefined;
 
-                    if (ability === "null") {
-                      dmgType = "Physical";
-                    } else if (itemDamageTypes[ability]) {
-                      dmgType = itemDamageTypes[ability];
-                    } else {
-                      const abilityInfo = heroAbilitiesDescriptions[ability];
-                      dmgType = abilityInfo?.dmg_type as
-                        | "Magical"
-                        | "Physical"
-                        | "Pure"
-                        | undefined;
-                    }
+                  if (ability === "null") {
+                    dmgType = "Physical";
+                  } else if (itemDamageTypes[ability]) {
+                    dmgType = itemDamageTypes[ability];
+                  } else {
+                    const abilityInfo = heroAbilitiesDescriptions[ability];
+                    dmgType = abilityInfo?.dmg_type as
+                      | "Magical"
+                      | "Physical"
+                      | "Pure"
+                      | undefined;
+                  }
 
-                    if (dmgType) {
-                      acc[dmgType] = (acc[dmgType] || 0) + value;
-                    }
+                  if (dmgType) {
+                    acc[dmgType] = (acc[dmgType] || 0) + value;
+                  }
 
-                    return acc;
-                  },
-                  { Physical: 0, Magical: 0, Pure: 0 }
-                )
+                  return acc;
+                },
+                { Physical: 0, Magical: 0, Pure: 0 }
+              )
               : { Physical: 0, Magical: 0, Pure: 0 };
 
             return (
               <View key={index}>
-                <Text
+                <TextComponent
+                  weight="bold"
                   numberOfLines={1}
                   style={[
                     styles.textTeam,
@@ -162,7 +164,7 @@ function DamageType({
                   ]}
                 >
                   {teamName}
-                </Text>
+                </TextComponent>
                 <View
                   style={{
                     flexDirection: "row",
@@ -191,7 +193,7 @@ function DamageType({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <TextComponent weight="bold" style={styles.title}>{title}</TextComponent>
       <View style={{ flexDirection: "row" }}>
         <FlatList
           data={matchDetails ? [matchDetails] : []}
@@ -235,7 +237,6 @@ const createStyles = (Colors: ThemeColor) =>
       padding: "1%",
     },
     title: {
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       fontSize: 20,
       color: Colors.semidark,
@@ -248,7 +249,6 @@ const createStyles = (Colors: ThemeColor) =>
     },
     textTeam: {
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       fontSize: 15,
       color: Colors.semidark,
     },
@@ -262,21 +262,7 @@ const createStyles = (Colors: ThemeColor) =>
       alignSelf: "center",
       borderRadius: 7,
     },
-    imageAbilityWrapper: {
-      //width: "65%",
-      //padding: 3,
-      //justifyContent: "center",
-      borderWidth: 1,
-    },
-
-    abilityImage: {
-      width: "9%",
-      height: 1,
-      aspectRatio: 1,
-      borderRadius: 50,
-    },
     labelDamage: {
-      fontFamily: "QuickSand-Bold",
       color: "#555",
       fontSize: 13,
     },

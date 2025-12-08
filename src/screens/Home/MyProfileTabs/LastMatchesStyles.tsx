@@ -28,7 +28,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.dark,
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.03,
-      fontFamily: "QuickSand-Semibold",
     },
     listTitle: {
       flexDirection: "row",
@@ -36,7 +35,6 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textList: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       alignSelf: "center",
       fontSize: width * 0.03,

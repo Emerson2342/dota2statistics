@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "../../../../src/context/useThemeContext";
-import { useSettingsContext } from "../../../../src/context/useSettingsContext";
-import { usePlayerContext } from "../../../context/usePlayerContex";
-import { ThemeColor } from "../../../../src/services/props";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import { useTheme } from "@src/context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { ThemeColor } from "@src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
-import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { toSteam32 } from "../../../../src/utils/steam";
-import { SearchComponent } from "../../../../src/utils/SearchComponent";
-import { getErro404Message } from "../../../../src/utils/textMessage";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { toSteam32 } from "@src/utils/steam";
+import { SearchComponent } from "@src/utils/SearchComponent";
+import { getErro404Message } from "@src/utils/textMessage";
+import { TextComponent } from "@src/components/TextComponent";
 
 export function MyProfileTabs() {
   const { ColorTheme } = useTheme();
@@ -48,7 +49,7 @@ export function MyProfileTabs() {
           showModalMessage={showModalMessage}
           setShowModalMessage={() => setShowModalMessage(false)}
         />
-        <Text style={styles.textErro}>{erro404}</Text>
+        <TextComponent weight="semibold" style={styles.textErro}>{erro404}</TextComponent>
       </View>
     );
   }

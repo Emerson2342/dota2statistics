@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { FontModel, ThemeColor } from "../../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -33,7 +33,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: "#aaa",
       textAlign: "center",
       fontSize: 13,
-      fontFamily: "QuickSand-Semibold",
     },
     imgHero: {
       width: Dimensions.get("screen").width * 0.083,
@@ -42,18 +41,12 @@ export const createStyles = (colors: ThemeColor) =>
       borderWidth: 1,
       borderColor: colors.standard,
     },
-    flatListHeroes: {
-      color: colors.semidark,
-      fontSize: 15,
-      fontFamily: "QuickSand-Semibold",
-    },
     textRank: {
       color: "#fff",
       position: "absolute",
       top: 55,
       left: 80,
       fontSize: Dimensions.get("screen").width * 0.03,
-      fontWeight: "bold",
       width: "23%",
       textAlign: "center",
     },

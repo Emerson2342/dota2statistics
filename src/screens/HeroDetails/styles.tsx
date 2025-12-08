@@ -20,7 +20,6 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textRegen: {
       color: "#202020",
-      fontFamily: "QuickSand-Regular",
       fontSize: 11,
     },
     averageContainer: {
@@ -32,7 +31,6 @@ export const createStyles = (colors: ThemeColor) =>
       elevation: 7,
     },
     titleText: {
-      fontFamily: "QuickSand-Bold",
       color: "#fff",
       alignSelf: "center",
       textAlign: "center",
@@ -48,11 +46,9 @@ export const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       paddingBottom: "1%",
       fontSize: 17,
-      fontFamily: "QuickSand-Bold",
     },
 
     textDescription: {
-      fontFamily: "QuickSand-Semibold",
       width: "100%",
       textAlign: "justify",
       color: "#555",
@@ -70,7 +66,6 @@ export const createStyles = (colors: ThemeColor) =>
     },
     titleAbility: {
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
       paddingBottom: "3%",
     },
@@ -106,13 +101,6 @@ export const createStyles = (colors: ThemeColor) =>
       paddingLeft: "1%",
       alignItems: "center",
     },
-    textInfo: {
-      fontFamily: "QuickSand-Semibold",
-      color: colors.semidark,
-    },
-    textData: {
-      color: "orange",
-    },
     itemsContainer: {
       flex: 1,
       padding: "3%",
@@ -124,42 +112,11 @@ export const createStyles = (colors: ThemeColor) =>
       width: "95%",
     },
     textItem: {
-      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
       backgroundColor: colors.light,
       padding: 3,
       paddingHorizontal: 15,
       margin: 5,
       borderRadius: 5,
-    },
-    textItems: {
-      textAlign: "center",
-      padding: "1%",
-      fontSize: 15,
-      fontFamily: "QuickSand-Semibold",
-      color: colors.semilight,
-    },
-    itemContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      paddingBottom: "3%",
-      width: "100%",
-    },
-    button: {
-      margin: "2%",
-      flexDirection: "row",
-      justifyContent: "center",
-      padding: "1.5%",
-      width: "45%",
-      alignItems: "center",
-      backgroundColor: colors.semidark,
-      borderRadius: 5,
-    },
-    textButton: {
-      fontSize: 15,
-      textAlign: "center",
-      fontFamily: "QuickSand-Bold",
-      color: "#fff",
     },
   });

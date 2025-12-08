@@ -1,17 +1,18 @@
 import React from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
+import { TextComponent } from "../TextComponent";
 
 export function ModalLoading() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   return (
     <View style={styles.container}>
-      <ActivityIndicator style={{}} size={30} color={ColorTheme.semilight} />
-      <Text style={styles.text}>
+      <ActivityIndicator style={{}} size={30} color="#fff" />
+      <TextComponent weight="bold" style={styles.text}>
         {englishLanguage ? "Loading..." : "Carregando"}
-      </Text>
+      </TextComponent>
     </View>
   );
 }
@@ -28,7 +29,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     padding: "2%",
-    fontFamily: "QuickSand-Semibold",
     //flex: 0.5,
   },
 });

@@ -3,17 +3,16 @@ import { View, Text, useWindowDimensions, Dimensions } from "react-native";
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import { HeroDetailsModel, MatchDetailsModel } from "../../services/props";
-import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { getMatchDetails } from "../../services/api";
-import { AsyncStorageService } from "../../services/StorageService";
-import { TeamFightsTabs } from "./TeamFightsTabs";
+import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
+import { MATCHE_DETAILS_API_BASE_URL } from "@src/constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { getMatchDetails } from "@src/services/api";
+import { AsyncStorageService } from "@src/services/StorageService";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { useTeamFightsStore } from "../../../src/store/teamFights";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { useTeamFightsStore } from "@src/store/teamFights";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -37,7 +36,7 @@ export const MatchDetailsScreen = ({
   const [loadingMatch, setLoadingMatch] = useState(true);
 
   const [loadedeList, setLoadedList] = useState(false);
-  //Wconst [];
+
   const storage = useMemo(() => new AsyncStorageService(), []);
 
   const [refreshing, setRefreshing] = useState(false);
@@ -146,9 +145,9 @@ export const MatchDetailsScreen = ({
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-            matchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
+          matchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);

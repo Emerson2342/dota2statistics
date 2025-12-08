@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   FlatList,
@@ -18,8 +17,9 @@ import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { usePlayerContext } from "../../../context/usePlayerContex";
-import { getSetProfile } from "../../../../src/utils/textMessage";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { getSetProfile } from "@src/utils/textMessage";
+import { TextComponent } from "@src/components/TextComponent";
 
 function HeroesPlayedComp({
   isHomeProfile,
@@ -98,16 +98,16 @@ function HeroesPlayedComp({
           style={styles.imageHero}
           source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
         />
-        <Text style={[styles.textInfo, { width: "33%" }]}>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "33%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
-        </Text>
-        <Text style={[styles.textInfo, { width: "17%" }]}>
+        </TextComponent>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>
           {winrate.toFixed(2)}%
-        </Text>
+        </TextComponent>
 
-        <Text style={[styles.textInfo, { width: "20%" }]}>{item.games}</Text>
-        <Text style={[styles.textInfo, { width: "17%" }]}>{item.win}</Text>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "20%" }]}>{item.games}</TextComponent>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>{item.win}</TextComponent>
       </View>
     );
   };
@@ -127,7 +127,7 @@ function HeroesPlayedComp({
   if (isHomeProfile && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
-        <Text style={styles.textErro}>{setSteamId}</Text>
+        <TextComponent weight="semibold" style={styles.textErro}>{setSteamId}</TextComponent>
       </View>
     );
   }
@@ -135,9 +135,9 @@ function HeroesPlayedComp({
   if (heroesPlayedList.length === 0)
     return (
       <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <Text style={{ fontFamily: "QuickSand-Bold", fontSize: 17 }}>
+        <TextComponent style={{ fontFamily: "QuickSand-Bold", fontSize: 17 }}>
           {englishLanguage ? "No heroes found!" : "Nenhum herói encontrado!"}
-        </Text>
+        </TextComponent>
         <TouchableOpacity
           onPress={refresh}
           style={{
@@ -147,7 +147,7 @@ function HeroesPlayedComp({
             padding: 7,
           }}
         >
-          <Text
+          <TextComponent
             style={{
               color: "#fff",
               padding: 5,
@@ -155,7 +155,7 @@ function HeroesPlayedComp({
             }}
           >
             {englishLanguage ? "Refresh" : "Atualizar"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </View>
     );
@@ -167,7 +167,8 @@ function HeroesPlayedComp({
           onPress={() => handleSetOrder("lastPlayed")}
           style={{ width: "37%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -177,13 +178,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Last Played" : "Último Jogo"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("winrate")}
           style={{ width: "21%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -191,13 +193,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Winrate" : "Taxa Vitória"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("matches")}
           style={{ width: "22%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -207,13 +210,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Matches" : "Partidas"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("wins")}
           style={{ width: "20%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -223,7 +227,7 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Wins" : "Vitórias"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -272,27 +276,12 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
       alignItems: "center",
     },
-    textError: {
-      fontFamily: "QuickSand-Semibold",
-      padding: "3%",
-      textAlign: "center",
-    },
-    textHeroName: {
-      fontFamily: "QuickSand-Bold",
-      textAlign: "center",
-      fontSize: Dimensions.get("screen").width * 0.037,
-      color: "orange",
-      margin: "1%",
-    },
-
     textInfo: {
       fontSize: Dimensions.get("screen").width * 0.035,
       color: colors.dark,
-      fontFamily: "QuickSand-Semibold",
       textAlign: "center",
     },
     textInfoTitle: {
-      fontFamily: "QuickSand-Bold",
       borderColor: "orange",
     },
     inputContainer: {
@@ -304,14 +293,6 @@ const createStyles = (colors: ThemeColor) =>
     textErro: {
       textAlign: "center",
       padding: "5%",
-      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
-    },
-    textInput: {
-      backgroundColor: "#fff",
-      textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
-      flexGrow: 1,
-      marginHorizontal: "5%",
     },
   });

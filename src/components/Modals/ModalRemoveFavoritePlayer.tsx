@@ -1,9 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
-import { PlayerModel, ThemeColor } from "../../services/props";
+import { ThemeColor } from "../../services/props";
+import { TextComponent } from "../TextComponent";
 
 export function ModalRemoveFavoritePlayer({
   message,
@@ -27,26 +28,24 @@ export function ModalRemoveFavoritePlayer({
   return (
     <View style={styles.container}>
       <View style={styles.modalContainer}>
-        <View>
-          <Text style={styles.textMessage}>{message}</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.buttonCancel}
-              onPress={() => handleClose()}
-            >
-              <Text style={[styles.textButton, { color: "#000" }]}>
-                {englishLanguage ? "Back" : "Não"}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleConfirm()}
-            >
-              <Text style={styles.textButton}>
-                {englishLanguage ? "Yes" : "Sim"}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <TextComponent weight="bold" style={styles.textMessage}>{message}</TextComponent>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonCancel}
+            onPress={() => handleClose()}
+          >
+            <TextComponent weight="semibold" style={[styles.textButton, { color: "#000" }]}>
+              {englishLanguage ? "Back" : "Não"}
+            </TextComponent>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleConfirm()}
+          >
+            <TextComponent weight="semibold" style={styles.textButton}>
+              {englishLanguage ? "Yes" : "Sim"}
+            </TextComponent>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -70,7 +69,6 @@ const createStyles = (colors: ThemeColor) =>
       borderRadius: 5,
     },
     textMessage: {
-      fontFamily: "QuickSand-Semibold",
       padding: "3%",
       textAlign: "center",
       fontSize: 15,
@@ -100,6 +98,5 @@ const createStyles = (colors: ThemeColor) =>
       color: "#fff",
       textAlign: "center",
       padding: "5%",
-      fontFamily: "QuickSand-Semibold",
     },
   });

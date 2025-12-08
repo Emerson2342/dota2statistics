@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import {
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
   RefreshControl,
@@ -10,13 +9,14 @@ import {
 
 import { createStylesStatics } from "./ProMatchesStyles";
 
-import { LeagueMatches } from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
+import { LeagueMatches } from "@src/services/props";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
-import { ActivityIndicatorCustom } from "../../../utils/ActivityIndicatorCustom";
-import { TeamSide } from "../../../../src/services/enum";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { TeamSide } from "@src/services/enum";
+import { TextComponent } from "@src/components/TextComponent";
 
 const WIN = "#257848";
 const LOS = "#9a2525";
@@ -118,11 +118,11 @@ function ProMatchesComponent({
 
     return (
       <View style={rowStyle}>
-        <Text style={[styles.score, { color: colorText }]}>{itemScore}</Text>
+        <TextComponent weight="semibold" style={[styles.score, { color: colorText }]}>{itemScore}</TextComponent>
 
-        <Text style={[styles.teamName, { color: colorText }]} numberOfLines={1}>
+        <TextComponent weight="semibold" style={[styles.teamName, { color: colorText }]} numberOfLines={1}>
           {itemName}
-        </Text>
+        </TextComponent>
       </View>
     );
   };
@@ -139,9 +139,9 @@ function ProMatchesComponent({
     return (
       <View key={item.match_id} style={styles.matchContainer}>
         <View style={{ flexDirection: "row", width: "100%" }}>
-          <Text style={styles.leagueName} numberOfLines={1}>
+          <TextComponent weight="bold" style={styles.leagueName} numberOfLines={1}>
             {item.league_name}
-          </Text>
+          </TextComponent>
         </View>
         <View
           style={{
@@ -153,16 +153,16 @@ function ProMatchesComponent({
           <TeamName item={item} team={TeamSide.Dire} />
         </View>
         <View style={styles.timeContainer}>
-          <Text style={styles.textData}>
+          <TextComponent weight="semibold" style={styles.textData}>
             {englishLanguage ? "Duration: " : "Duração: "}
             {formattedDuration}
-          </Text>
+          </TextComponent>
 
-          <Text style={styles.textData}>
+          <TextComponent weight="semibold" style={styles.textData}>
             {englishLanguage
               ? `Finished ${formattedEndDuration} ago`
               : `Finalizado ${formattedEndDuration} atrás`}
-          </Text>
+          </TextComponent>
         </View>
         <View style={styles.linkContainer}>
           <View style={{ width: "50%", alignItems: "center" }}>
@@ -172,10 +172,10 @@ function ProMatchesComponent({
               }
               style={styles.buttonContainer}
             >
-              <Text style={styles.textButton}>
+              <TextComponent weight="bold" style={styles.textButton}>
                 {englishLanguage ? "Tournament " : "Campeonato "}
                 <Feather name="external-link" />
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
           </View>
           <View style={{ width: "50%", alignItems: "center" }}>
@@ -183,10 +183,10 @@ function ProMatchesComponent({
               onPress={() => handleGoToMatch(item.match_id)}
               style={styles.buttonContainer}
             >
-              <Text style={styles.textButton}>
+              <TextComponent style={styles.textButton}>
                 {englishLanguage ? "Match " : "Partida "}
                 <Feather name="external-link" />
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
           </View>
         </View>
@@ -197,9 +197,9 @@ function ProMatchesComponent({
   if (loading)
     return (
       <View style={styles.container}>
-        <Text style={styles.textHeader}>
+        <TextComponent weight="bold" style={styles.textHeader}>
           {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
-        </Text>
+        </TextComponent>
         <ActivityIndicatorCustom
           message={
             englishLanguage
@@ -212,9 +212,9 @@ function ProMatchesComponent({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textHeader}>
+      <TextComponent weight="bold" style={styles.textHeader}>
         {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
-      </Text>
+      </TextComponent>
 
       <ScrollView
         refreshControl={

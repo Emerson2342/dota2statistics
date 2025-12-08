@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
   Image,
@@ -11,13 +10,14 @@ import {
   HeroDetailsModel,
   KillDetails,
   MatchDetailsModel,
-} from "../../../services/props";
+} from "@src/services/props";
 import {
   PICTURE_HERO_BASE_FULL_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
-import { useTheme } from "../../../context/useThemeContext";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+} from "@src/constants/player";
+import { useTheme } from "@src/context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { TextComponent } from "@src/components/TextComponent";
 
 function HeroKillsDetails({
   matchDetails,
@@ -47,27 +47,27 @@ function HeroKillsDetails({
       const playerName = player.name
         ? player.name
         : player.personaname
-        ? player.personaname
-        : englishLanguage
-        ? "Private Profile"
-        : "Perfil Privado";
+          ? player.personaname
+          : englishLanguage
+            ? "Private Profile"
+            : "Perfil Privado";
 
       const kills = player.killed
         ? Object.entries(player.killed)
-            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-            .map(([heroName, count]) => ({
-              heroName: heroName.replace("npc_dota_hero_", ""),
-              count,
-            }))
+          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+          .map(([heroName, count]) => ({
+            heroName: heroName.replace("npc_dota_hero_", ""),
+            count,
+          }))
         : [];
 
       const killedBy = player.killed_by
         ? Object.entries(player.killed_by)
-            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-            .map(([heroName, count]) => ({
-              heroName: heroName.replace("npc_dota_hero_", ""),
-              count,
-            }))
+          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+          .map(([heroName, count]) => ({
+            heroName: heroName.replace("npc_dota_hero_", ""),
+            count,
+          }))
         : [];
 
       return { playerName, heroName, kills, killedBy };
@@ -82,7 +82,8 @@ function HeroKillsDetails({
 
       return (
         <View>
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textTeamName,
               {
@@ -94,8 +95,9 @@ function HeroKillsDetails({
             ]}
           >
             {radName}
-          </Text>
-          <Text
+          </TextComponent>
+          <TextComponent
+            weight="bold"
             style={[
               styles.textTeamName,
               {
@@ -108,8 +110,8 @@ function HeroKillsDetails({
             ]}
           >
             {direName}
-          </Text>
-          <Text style={styles.textPlayerName}>{item.playerName}</Text>
+          </TextComponent>
+          <TextComponent weight="semibold" style={styles.textPlayerName}>{item.playerName}</TextComponent>
           <View style={styles.flatListRender}>
             <View
               style={{
@@ -124,7 +126,7 @@ function HeroKillsDetails({
                 return (
                   <View key={index} style={{ flexDirection: "row" }}>
                     <View>
-                      <Text style={styles.textKills}>{hero.count}x</Text>
+                      <TextComponent weight="semibold" style={styles.textKills}>{hero.count}x</TextComponent>
                       <View style={styles.imgContainer}>
                         <Image
                           style={styles.imgHero}
@@ -158,7 +160,7 @@ function HeroKillsDetails({
                     style={{ flexDirection: "row", alignItems: "center" }}
                   >
                     <View>
-                      <Text style={styles.textKills}>{hero.count}x</Text>
+                      <TextComponent weight="semibold" style={styles.textKills}>{hero.count}x</TextComponent>
                       <View
                         style={[
                           styles.imgContainer,
@@ -184,14 +186,15 @@ function HeroKillsDetails({
 
   return (
     <View style={styles.container}>
-      <Text
+      <TextComponent
+        weight="bold"
         style={[
           styles.textTeamName,
           { fontSize: 19, color: ColorTheme.semidark },
         ]}
       >
         {englishLanguage ? "Kills Details" : "Detalhes de Mortes"}
-      </Text>
+      </TextComponent>
       <View
         style={{
           width: "100%",
@@ -199,12 +202,12 @@ function HeroKillsDetails({
           justifyContent: "space-around",
         }}
       >
-        <Text style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
+        <TextComponent weight="bold" style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
           {englishLanguage ? "Kills" : "Mortes"}
-        </Text>
-        <Text style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
+        </TextComponent>
+        <TextComponent weight="bold" style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
           {englishLanguage ? "Deaths By" : "Morto por"}
-        </Text>
+        </TextComponent>
       </View>
       <FlatList
         data={killsDetails}
@@ -231,20 +234,17 @@ const styles = StyleSheet.create({
   },
   textPlayerName: {
     textAlign: "center",
-    fontFamily: "QuickSand-Semibold",
     fontSize: 10,
     color: "#888",
   },
   textTeamName: {
     textAlign: "center",
-    fontFamily: "QuickSand-Bold",
   },
   flatListRender: {
     flexDirection: "row",
     alignItems: "center",
   },
   textKills: {
-    fontFamily: "QuickSand-Semibold",
     color: "#555",
     fontSize: 10,
     textAlign: "center",

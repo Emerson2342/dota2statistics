@@ -2,14 +2,13 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
-  Text,
   Image,
   Dimensions,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
@@ -17,15 +16,16 @@ import {
   ModalRef,
   Player,
   ThemeColor,
-} from "../../../services/props";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import ItemsList from "../../../components/Itens/itemsList.json";
+} from "@src/services/props";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import ItemsList from "@src/components/Itens/itemsList.json";
 import {
   PICTURE_HERO_BASE_URL,
   PICTURE_ITEM_BASE_URL,
-} from "../../../constants/player";
-import { ModalItemDetails } from "../../../components/Modals/ModalItemDetails";
-import { handleItemDetails } from "../../../../src/utils/HandleItemDetails";
+} from "@src/constants/player";
+import { ModalItemDetails } from "@src/components/Modals/ModalItemDetails";
+import { handleItemDetails } from "@src/utils/HandleItemDetails";
+import { TextComponent } from "@src/components/TextComponent";
 
 const { width } = Dimensions.get("window");
 
@@ -61,9 +61,9 @@ function Items({
 
       return (
         <View style={styles.contentItem}>
-          <Text style={styles.title}>
+          <TextComponent weight="semibold" style={styles.title}>
             {englishLanguage ? "Items" : "Itens"}
-          </Text>
+          </TextComponent>
           <View style={styles.detailsContainer}>
             {players.map((player: Player, index: number) => {
               const hero = heroList.find((hero) => hero.id === player.hero_id);
@@ -120,7 +120,8 @@ function Items({
               return (
                 <View key={index}>
                   {index === 0 ? (
-                    <Text
+                    <TextComponent
+                      weight="bold"
                       style={[
                         styles.textTeam,
                         {
@@ -130,12 +131,13 @@ function Items({
                       ]}
                     >
                       {RadName ? RadName : radName}
-                    </Text>
+                    </TextComponent>
                   ) : (
                     <></>
                   )}
                   {index === 5 ? (
-                    <Text
+                    <TextComponent
+                      weight="bold"
                       style={[
                         styles.textTeam,
                         {
@@ -145,7 +147,7 @@ function Items({
                       ]}
                     >
                       {DireName ? DireName : direName}
-                    </Text>
+                    </TextComponent>
                   ) : (
                     <></>
                   )}
@@ -444,11 +446,9 @@ const createStyles = (colors: ThemeColor) =>
       fontSize: width * 0.05,
       color: colors.semidark,
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
     },
     textTeam: {
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       fontSize: 15,
       color: colors.semidark,
     },
