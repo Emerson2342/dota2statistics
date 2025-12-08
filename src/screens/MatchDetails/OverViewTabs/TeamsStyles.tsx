@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor } from "../../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 const width = Dimensions.get("window").width;
 
@@ -29,12 +29,10 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: width * 0.045,
       color: "#fff",
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
     },
     textHeader: {
       fontSize: width * 0.025,
       color: "#ddd",
-      fontFamily: "QuickSand-Bold",
     },
     detailsContainer: {
       width: "100%",
@@ -100,14 +98,12 @@ export const createStyles = (colors: ThemeColor) =>
     lvlText: {
       color: colors.semidark,
       fontSize: 10,
-      fontFamily: "QuickSand-Bold",
       width: "9%",
       textAlign: "center",
     },
     nameText: {
       color: "#006600",
       fontSize: 10,
-      fontFamily: "QuickSand-Bold",
       marginLeft: "1%",
     },
     containerImage: {
@@ -139,12 +135,10 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textData: {
       fontSize: width * 0.025,
-      fontFamily: "QuickSand-Bold",
       color: "#555",
     },
     textDataPercent: {
       fontSize: width * 0.023,
-      fontFamily: "QuickSand-Bold",
     },
     benchKills: {
       textAlign: "center",

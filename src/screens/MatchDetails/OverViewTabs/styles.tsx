@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor } from "../../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 const { width } = Dimensions.get("window");
 
@@ -17,7 +17,6 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: width * 0.05,
       color: colors.semidark,
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
     },
     teamFightsButton: {
       backgroundColor: colors.light,
@@ -32,7 +31,6 @@ export const createStyles = (colors: ThemeColor) =>
     },
     textButton: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
     },
     detailsContainer: {
       width: "100%",
@@ -48,7 +46,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.semidark,
       padding: "1%",
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
     },
     barRadiant: {
       backgroundColor: "#018c3b",
@@ -59,7 +56,6 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: width * 0.03,
       alignSelf: "center",
       color: "#888",
-      fontFamily: "QuickSand-Semibold",
     },
     barDire: {
       backgroundColor: "#981a33",
@@ -72,4 +68,5 @@ export const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
       borderRadius: 7,
     },
+    barContainer: { flexDirection: "row", width: "70%", gap: 3 },
   });

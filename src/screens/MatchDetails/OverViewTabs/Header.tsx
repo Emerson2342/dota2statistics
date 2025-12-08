@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   Modal,
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { MatchDetailsModel, ThemeColor } from "../../../services/props";
-import { ModalMessage } from "../../../components/Modals/ModalMessage";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { MatchDetailsModel, ThemeColor } from "@src/services/props";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { Ionicons } from "@expo/vector-icons";
+import { TextComponent } from "@src/components/TextComponent";
 
 function Header({
   matchDetails,
@@ -62,9 +62,9 @@ function Header({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitleLeague}>
+      <TextComponent weight="bold" style={styles.textTitleLeague}>
         {matchDetails?.league?.name ?? `${lobbyType} - ${gameMode}`}
-      </Text>
+      </TextComponent>
       <View style={{ width: "100%", alignItems: "center" }}>
         <View
           style={{
@@ -106,15 +106,16 @@ function Header({
                 alignItems: "center",
               }}
             >
-              <Text
+              <TextComponent
+                weight="bold"
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
                 {radName}
-              </Text>
-              <Text style={styles.teamScore}>
+              </TextComponent>
+              <TextComponent weight="bold" style={styles.teamScore}>
                 {matchDetails?.radiant_score}
-              </Text>
+              </TextComponent>
             </View>
           </View>
           <View
@@ -144,13 +145,16 @@ function Header({
               />
             )}
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
-              <Text
+              <TextComponent weight="bold" style={styles.teamScore}>
+                {matchDetails?.dire_score}
+              </TextComponent>
+              <TextComponent
+                weight="bold"
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
                 {direName}
-              </Text>
+              </TextComponent>
             </View>
           </View>
         </View>
@@ -162,40 +166,40 @@ function Header({
           }}
         >
           <View style={{ flexDirection: "row" }}>
-            <Text
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
               {englishLanguage ? "Duration: " : "Duração: "}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
               {formattedDuration}
-            </Text>
+            </TextComponent>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
               {englishLanguage ? "Date: " : "Data: "}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
               {formattedTime}
-            </Text>
+            </TextComponent>
           </View>
         </View>
       </View>
@@ -208,10 +212,10 @@ function Header({
           marginBottom: "3%",
         }}
       >
-        <Text style={styles.textId}>
+        <TextComponent weight="semibold" style={styles.textId}>
           {englishLanguage ? "Match Id: " : "Id da Partida: "}
           {matchDetails?.match_id}
-        </Text>
+        </TextComponent>
         <TouchableOpacity
           style={{
             marginLeft: 3,
@@ -261,7 +265,6 @@ const createStyles = (colors: ThemeColor) =>
     textTitleLeague: {
       fontSize: width * 0.05,
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       borderBottomWidth: 1,
       borderColor: "#ccc",
@@ -281,19 +284,16 @@ const createStyles = (colors: ThemeColor) =>
     },
     teamName: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       width: "80%",
     },
     teamScore: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.037,
       width: "20%",
     },
     textId: {
-      fontFamily: "QuickSand-Semibold",
       textAlign: "center",
       color: "#aaa",
     },

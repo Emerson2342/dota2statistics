@@ -118,9 +118,18 @@ function ProMatchesComponent({
 
     return (
       <View style={rowStyle}>
-        <TextComponent weight="semibold" style={[styles.score, { color: colorText }]}>{itemScore}</TextComponent>
+        <TextComponent
+          weight="semibold"
+          style={[styles.score, { color: colorText }]}
+        >
+          {itemScore}
+        </TextComponent>
 
-        <TextComponent weight="semibold" style={[styles.teamName, { color: colorText }]} numberOfLines={1}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.teamName, { color: colorText }]}
+          numberOfLines={1}
+        >
           {itemName}
         </TextComponent>
       </View>
@@ -139,7 +148,11 @@ function ProMatchesComponent({
     return (
       <View key={item.match_id} style={styles.matchContainer}>
         <View style={{ flexDirection: "row", width: "100%" }}>
-          <TextComponent weight="bold" style={styles.leagueName} numberOfLines={1}>
+          <TextComponent
+            weight="bold"
+            style={styles.leagueName}
+            numberOfLines={1}
+          >
             {item.league_name}
           </TextComponent>
         </View>
@@ -183,7 +196,7 @@ function ProMatchesComponent({
               onPress={() => handleGoToMatch(item.match_id)}
               style={styles.buttonContainer}
             >
-              <TextComponent style={styles.textButton}>
+              <TextComponent weight="bold" style={styles.textButton}>
                 {englishLanguage ? "Match " : "Partida "}
                 <Feather name="external-link" />
               </TextComponent>

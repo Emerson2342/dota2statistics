@@ -3,7 +3,6 @@ import {
   RefreshControl,
   ScrollView,
   View,
-  Text,
   FlatList,
   Image,
   TouchableOpacity,
@@ -15,13 +14,14 @@ import {
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
-} from "../../../services/props";
+} from "@src/services/props";
 import { createStyles } from "./styles";
-import { useTheme } from "../../../context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { TextComponent } from "@src/components/TextComponent";
 
 type Props = {
   refreshing: boolean;
@@ -121,9 +121,9 @@ function OverViewComponent({
 
     return (
       <View style={{ marginTop: "1%", marginBottom: "3%" }}>
-        <Text style={styles.title}>
+        <TextComponent weight="semibold" style={styles.title}>
           {englishLanguage ? "Heroes Banned" : "Heróis Banidos"}
-        </Text>
+        </TextComponent>
         <View
           style={{
             justifyContent: "center",
@@ -201,7 +201,9 @@ function OverViewComponent({
             style={styles.teamFightsButton}
             onPress={() => router.push({ pathname: "team-fights" })}
           >
-            <Text style={styles.textButton}>Team Fights</Text>
+            <TextComponent weight="semibold" style={styles.textButton}>
+              Team Fights
+            </TextComponent>
             <Feather
               name="external-link"
               color={ColorTheme.semidark}
@@ -238,155 +240,158 @@ function OverViewComponent({
             },
           ]}
         >
-          <Text style={styles.title}>Performance</Text>
+          <TextComponent weight="semibold" style={styles.title}>
+            Performance
+          </TextComponent>
           <View style={styles.detailsContainer}>
             <View style={{ flexDirection: "row" }}>
               <View style={styles.detailsContent}>
                 <View style={{ width: "100%" }}>
-                  <Text style={styles.textTitle}>Hero Damage</Text>
-                  <View style={{ flexDirection: "row", width: "70%" }}>
-                    <Text
+                  <TextComponent weight="semibold" style={styles.textTitle}>
+                    Hero Damage
+                  </TextComponent>
+                  <View style={styles.barContainer}>
+                    <View
                       style={[
                         styles.barRadiant,
                         { width: `${heroDamRadBar}%` },
                       ]}
                     />
-                    <Text style={styles.textResult}>
-                      {" "}
+                    <TextComponent style={styles.textResult}>
                       {radiantStats.heroDamage.toLocaleString(
                         englishLanguage ? "en-US" : "pt-BR"
                       )}
-                    </Text>
+                    </TextComponent>
                   </View>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barDire, { width: `${heroDamDireBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent style={styles.textResult}>
                     {direStats.heroDamage.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <Text style={styles.textTitle}>Tower Damage</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <TextComponent weight="semibold" style={styles.textTitle}>
+                  Tower Damage
+                </TextComponent>
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barRadiant, { width: `${towerDamRadBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {radiantStats.towerDamage.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barDire, { width: `${towerDamDireBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent style={styles.textResult}>
                     {direStats.towerDamage.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
 
-                <Text style={styles.textTitle}>Networth</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <TextComponent weight="semibold" style={styles.textTitle}>
+                  Networth
+                </TextComponent>
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barRadiant, { width: `${netWorthRadBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {radiantStats.netWorth.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barDire, { width: `${netWorthDireBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {direStats.netWorth.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
               </View>
               <View style={styles.detailsContent}>
-                <Text style={styles.textTitle}>Healing</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <TextComponent weight="semibold" style={styles.textTitle}>
+                  Healing
+                </TextComponent>
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barRadiant, { width: `${healingRadBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {radiantStats.healing.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barDire, { width: `${healingDireBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {direStats.healing.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <Text style={styles.textTitle}>
+                <TextComponent weight="semibold" style={styles.textTitle}>
                   {englishLanguage ? "Towers Destroied" : "Torres Destruídas"}
-                </Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                </TextComponent>
+                <View style={styles.barContainer}>
+                  <View
                     style={[
                       styles.barRadiant,
                       { width: `${(resultTowerDireBar / 11) * 100}%` },
                     ]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {resultTowerDireBar}/11
-                  </Text>
+                  </TextComponent>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <View style={styles.barContainer}>
+                  <View
                     style={[
                       styles.barDire,
                       { width: `${(resultTowerRadBar / 11) * 100}%` },
                     ]}
                   />
-                  <Text style={styles.textResult}> {resultTowerRadBar}/11</Text>
+                  <TextComponent weight="semibold" style={styles.textResult}>
+                    {resultTowerRadBar}/11
+                  </TextComponent>
                 </View>
 
-                <Text style={styles.textTitle}>Xp</Text>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text
+                <TextComponent weight="semibold" style={styles.textTitle}>
+                  Xp
+                </TextComponent>
+                <View style={styles.barContainer}>
+                  <View
                     style={[styles.barRadiant, { width: `${xpRadBar}%` }]}
                   />
-                  <Text style={styles.textResult}>
-                    {" "}
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {radiantStats.xp.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                  <Text style={[styles.barDire, { width: `${xpDireBar}%` }]} />
-                  <Text style={styles.textResult}>
-                    {" "}
+                <View style={styles.barContainer}>
+                  <View style={[styles.barDire, { width: `${xpDireBar}%` }]} />
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {direStats.xp.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
-                  </Text>
+                  </TextComponent>
                 </View>
               </View>
             </View>
