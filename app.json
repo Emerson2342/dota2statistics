@@ -7,7 +7,9 @@
     "icon": "./src/images/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "scheme": ["com.dota2stats.app"],
+    "scheme": [
+      "com.dota2stats.app"
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
