@@ -1,24 +1,25 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import { PlayerProvider } from "../src/context/usePlayerContex";
+import { Stack } from "expo-router";
+import { PlayerProvider } from "@src/context/usePlayerContex";
 import {
   SettingsProvider,
   useSettingsContext,
 } from "./../src/context/useSettingsContext";
-import { ThemeProvider, useTheme } from "./../src/context/useThemeContext";
-import { TeamsListProvider } from "./../src/context/useTeamContext";
+import { ThemeProvider, useTheme } from "@src/context/useThemeContext";
+import { TeamsListProvider } from "@src/context/useTeamContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
-import { FavoritesProvider } from "./../src/context/useFavoritesContext";
-import { Modal, Platform, StatusBar, View, Text } from "react-native";
+import { FavoritesProvider } from "@src/context/useFavoritesContext";
+import { Modal, Platform, StatusBar, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import Constants from "expo-constants";
-import { ModalHasUpdate } from "./../src/components/Modals/ModalHasUpdate";
+import { ModalHasUpdate } from "@src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Snowfall } from "react-native-snowfall";
 import { SafeAreaView } from "react-native-safe-area-context";
 import VersionCheck from "react-native-version-check";
+import { SantaHatComponent } from "@src/components/SantaHatComponent";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -151,6 +152,12 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Match Details" : "Detalhes da Partida",
+            headerTitle: () => (
+              <SantaHatComponent
+                englishName="Match Details"
+                portugueseName="Detalhes da Partida"
+              />
+            ),
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
@@ -167,6 +174,12 @@ function Content() {
           options={{
             headerShown: true,
             title: "Team Fights",
+            headerTitle: () => (
+              <SantaHatComponent
+                englishName="Team Fights"
+                portugueseName="Team Fights"
+              />
+            ),
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
@@ -183,6 +196,12 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "League Matches" : "Jogos do Campeonato",
+            headerTitle: () => (
+              <SantaHatComponent
+                englishName="League Matches"
+                portugueseName="Jogos do Campeonato"
+              />
+            ),
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
@@ -199,15 +218,17 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Hero Details" : "Detalhes do Herói",
+            headerTitle: () => (
+              <SantaHatComponent
+                englishName="Hero Details"
+                portugueseName="Detalhes do Herói"
+              />
+            ),
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
-            headerTitleStyle: {
-              fontFamily: "QuickSand-Semibold",
-              fontSize: 20,
-            },
           }}
         />
         <Stack.Screen
@@ -215,15 +236,17 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
+            headerTitle: () => (
+              <SantaHatComponent
+                englishName="Profile Player"
+                portugueseName="Perfil do Jogador"
+              />
+            ),
             headerStyle: {
               backgroundColor: ColorTheme.dark,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
-            headerTitleStyle: {
-              fontFamily: "QuickSand-Semibold",
-              fontSize: 20,
-            },
           }}
         />
       </Stack>

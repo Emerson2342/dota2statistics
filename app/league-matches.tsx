@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
-import { LeagueMatchesScreen } from "../src/screens/LeagueMatches/LeagueMatches";
-import { BannerAds } from "../src/components/Admob/BannerAds";
+import { LeagueMatchesScreen } from "@src/screens/LeagueMatches/LeagueMatches";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 import { View } from "react-native";
 
 type LeagueMatchesParams = {

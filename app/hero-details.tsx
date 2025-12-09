@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import HeroDetailsScreen from "../src/screens/HeroDetails";
 import { View } from "react-native";
-import { BannerAds } from "../src/components/Admob/BannerAds";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 
 type HeroDetailsParams = {
   heroId: string;

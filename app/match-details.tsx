@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
-import { MatchDetailsScreen } from "../src/screens/MatchDetails";
+import { MatchDetailsScreen } from "@src/screens/MatchDetails";
 import { View } from "react-native";
-import { BannerAds } from "../src/components/Admob/BannerAds";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 
 type MatchDetailsParams = {
   matchDetailsId: string;
