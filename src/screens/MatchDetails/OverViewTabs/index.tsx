@@ -115,6 +115,15 @@ function OverViewComponent({
   const resultTowerRadBar = 11 - (towerRad?.split("1").length - 1);
   const resultTowerDireBar = 11 - (towerDire?.split("1").length - 1);
 
+  const HandleGoToHeroDetails = (heroId: number | undefined) => {
+    router.push({
+      pathname: "/hero-details",
+      params: {
+        heroId: heroId,
+      },
+    });
+  };
+
   const renderItemBans = ({ item }: { item: MatchDetailsModel }) => {
     const heroBans = item.picks_bans?.filter((h) => !h.is_pick) || [];
     if (heroBans.length === 0) return null;
@@ -135,8 +144,9 @@ function OverViewComponent({
             const hero = heroArray.find((h) => h.id === ban.hero_id);
             let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
             return (
-              <View
-                key={index}
+              <TouchableOpacity
+                key={ban.hero_id}
+                onPress={() => HandleGoToHeroDetails(ban.hero_id)}
                 style={{
                   borderRadius: 5,
                   margin: 1,
@@ -174,7 +184,7 @@ function OverViewComponent({
                     }}
                   />
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>
@@ -197,19 +207,33 @@ function OverViewComponent({
           direName={direName}
         />
         {hasTeamFights && (
-          <TouchableOpacity
-            style={styles.teamFightsButton}
-            onPress={() => router.push({ pathname: "team-fights" })}
+          <View
+            style={{
+              alignSelf: "center",
+              width: "95%",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#fff",
+              marginBottom: "3%",
+              borderRadius: 9,
+              padding: "1%",
+              elevation: 7,
+            }}
           >
-            <TextComponent weight="semibold" style={styles.textButton}>
-              Team Fights
-            </TextComponent>
-            <Feather
-              name="external-link"
-              color={ColorTheme.semidark}
-              size={15}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.teamFightsButton}
+              onPress={() => router.push({ pathname: "team-fights" })}
+            >
+              <TextComponent weight="semibold" style={styles.textButton}>
+                Team Fights
+              </TextComponent>
+              <Feather
+                name="external-link"
+                color={ColorTheme.semidark}
+                size={15}
+              />
+            </TouchableOpacity>
+          </View>
         )}
 
         <TeamsComponent

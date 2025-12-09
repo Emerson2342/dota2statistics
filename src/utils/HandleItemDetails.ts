@@ -18,9 +18,10 @@ export const handleItemDetails = (
   setModalItemData(null);
   let modalData: ModalItemData | null = null;
 
+  if (!item) return;
   if (item?.name === "ultimate_scepter") {
     const scepter = aghaninAndShardDesc.find((s) => s.hero_id === heroId);
-    //alert(JSON.stringify(scepter, null, 2));
+
     if (scepter) {
       modalData = {
         aghanim: scepter,

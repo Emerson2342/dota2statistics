@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import {
   HeroAbilitiesDescriptionsJson,
@@ -15,15 +16,15 @@ import {
 } from "@src/services/props";
 import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
 import ItemsList from "@src/components/Itens/itemsList.json";
-import {
-  PICTURE_HERO_BASE_URL,
-} from "@src/constants/player";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EmptyImage from "@src/images/emptyImage.png";
 import { TextComponent } from "@src/components/TextComponent";
+import { useRouter } from "expo-router";
+import { handleItemDetails } from "@src/utils/HandleItemDetails";
 
 function Damage({
   matchDetails,
@@ -36,7 +37,7 @@ function Damage({
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-
+  const router = useRouter();
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
   // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
 
@@ -59,6 +60,15 @@ function Damage({
     ItemsList.map((item) => [item.name, item])
   );
 
+  const HandleGoToHeroDetails = (heroId: number | undefined) => {
+    router.push({
+      pathname: "/hero-details",
+      params: {
+        heroId: heroId,
+      },
+    });
+  };
+
   const RenderDamage = ({ players }: { players: Player[] }) => {
     return (
       <View style={styles.contentItem}>
@@ -72,7 +82,7 @@ function Damage({
 
             return (
               <View key={index}>
-                {index == 0 ? (
+                {index == 0 && (
                   <TextComponent
                     weight="bold"
                     style={[
@@ -82,7 +92,7 @@ function Damage({
                   >
                     {RadName ? RadName : radName}
                   </TextComponent>
-                ) : null}
+                )}
 
                 {index === 5 && (
                   <TextComponent
@@ -103,12 +113,15 @@ function Damage({
                     paddingBottom: index == 4 ? "3%" : 0,
                   }}
                 >
-                  <View style={styles.imageHeroWrapper}>
+                  <TouchableOpacity
+                    onPress={() => HandleGoToHeroDetails(hero?.id)}
+                    style={styles.imageHeroWrapper}
+                  >
                     <Image
                       style={styles.heroImage}
                       source={{ uri: imgSource }}
                     />
-                  </View>
+                  </TouchableOpacity>
                   <View style={styles.imageAbilityWrapper}>
                     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                       {player.damage_inflictor &&

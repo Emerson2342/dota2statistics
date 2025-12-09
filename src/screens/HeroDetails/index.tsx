@@ -187,7 +187,9 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         ]}
         key={index}
       >
-        <TextComponent weight="semibold" style={styles.titleAbility}>{item?.dname}</TextComponent>
+        <TextComponent weight="semibold" style={styles.titleAbility}>
+          {item?.dname}
+        </TextComponent>
         <View style={styles.abilityContent}>
           <View style={styles.content1}>
             <View style={{ width: "100%" }}>
@@ -238,14 +240,16 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                   color: "#888",
                 }}
               >
-                <TextComponent style={{ color: "#333" }}>Pierce bkb:</TextComponent>{" "}
+                <TextComponent weight="semibold" style={{ color: "#333" }}>
+                  Pierce bkb:
+                </TextComponent>{" "}
                 {item?.bkbpierce}
               </TextComponent>
             </View>
           </View>
 
           <View style={styles.content2}>
-            <View style={{}}>
+            <>
               <TextComponent
                 style={{
                   display: item?.dispellable ? "flex" : "none",
@@ -253,20 +257,24 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                   color: "#888",
                 }}
               >
-                <TextComponent style={{ color: "#333" }}>Dispellable:</TextComponent>{" "}
+                <TextComponent weight="semibold" style={{ color: "#333" }}>
+                  Dispellable:
+                </TextComponent>{" "}
                 {item?.dispellable}
               </TextComponent>
               <TextComponent
+                weight="semibold"
                 style={{
                   display: item?.dmg_type ? "flex" : "none",
-                  fontFamily: "QuickSand-Semibold",
                   color: "#888",
                 }}
               >
-                <TextComponent style={{ color: "#333" }}>Damage Type:</TextComponent>{" "}
+                <TextComponent weight="semibold" style={{ color: "#333" }}>
+                  Damage Type:
+                </TextComponent>{" "}
                 {item?.dmg_type}
               </TextComponent>
-            </View>
+            </>
           </View>
         </View>
         <TextComponent weight="semibold" style={styles.textDescription}>
@@ -313,7 +321,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             </View>
           ) : (
             <View style={styles.itemsContainer}>
-              <TextComponent style={styles.titleText}>
+              <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
               </TextComponent>
               <TextComponent weight="semibold" style={styles.textItem}>
@@ -322,19 +330,19 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.start_game_items
                   ? Object.entries(heroItems.start_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
               <TextComponent weight="semibold" style={styles.textItem}>
@@ -343,19 +351,19 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.early_game_items
                   ? Object.entries(heroItems.early_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
               <TextComponent weight="semibold" style={styles.textItem}>
@@ -364,19 +372,19 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.mid_game_items
                   ? Object.entries(heroItems.mid_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
               <TextComponent weight="semibold" style={styles.textItem}>
@@ -385,25 +393,25 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
               <View style={{ flexDirection: "row" }}>
                 {heroItems && heroItems.late_game_items
                   ? Object.entries(heroItems.late_game_items).map(
-                    ([itemId, count]) => {
-                      const item = itemsList.find(
-                        (i) => i.id.toString() === itemId
-                      );
-                      return (
-                        <ItemHero
-                          key={itemId}
-                          imgUrl={item?.img}
-                          itemDetails={item}
-                        />
-                      );
-                    }
-                  )
+                      ([itemId, count]) => {
+                        const item = itemsList.find(
+                          (i) => i.id.toString() === itemId
+                        );
+                        return (
+                          <ItemHero
+                            key={itemId}
+                            imgUrl={item?.img}
+                            itemDetails={item}
+                          />
+                        );
+                      }
+                    )
                   : null}
               </View>
             </View>
           )}
           <View style={styles.itemsContainer}>
-            <TextComponent style={styles.titleText}>
+            <TextComponent weight="bold" style={styles.titleText}>
               {englishLanguage ? "Abilities" : "Habilidades"}
             </TextComponent>
             {/* Habilidades */}
@@ -419,7 +427,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           </View>
           <View style={styles.itemsContainer}>
             <View style={styles.facetsContainer}>
-              <TextComponent style={styles.titleText}>
+              <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
               </TextComponent>
               <View style={{ width: "100%", alignItems: "center" }}>
@@ -439,11 +447,11 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             ]}
           >
             <View style={styles.facetsContainer}>
-              <TextComponent style={styles.titleText}>
+              <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
               </TextComponent>
               <View style={{ width: "100%", alignItems: "center" }}>
-                <TextComponent style={styles.textTitle2}>
+                <TextComponent weight="semibold" style={styles.textTitle2}>
                   {aghanimHeroSelected?.shard_skill_name}
                 </TextComponent>
                 <TextComponent weight="semibold" style={styles.textDescription}>
@@ -455,7 +463,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           <View style={styles.itemsContainer}>
             {/* Facetas */}
             <View style={styles.facetsContainer}>
-              <TextComponent style={styles.titleText}>
+              <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Facets" : "Facetas"}
               </TextComponent>
 
@@ -468,10 +476,17 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                       width: "100%",
                     }}
                   >
-                    <TextComponent style={styles.textTitle2} key={index}>
+                    <TextComponent
+                      weight="semibold"
+                      style={styles.textTitle2}
+                      key={index}
+                    >
                       {facets.title}
                     </TextComponent>
-                    <TextComponent weight="semibold" style={styles.textDescription}>
+                    <TextComponent
+                      weight="semibold"
+                      style={styles.textDescription}
+                    >
                       {" " + facets.description}
                     </TextComponent>
                     <View

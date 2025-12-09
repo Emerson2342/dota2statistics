@@ -1,11 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from "react-native";
+import { View, FlatList, StyleSheet, Image, Dimensions } from "react-native";
 import {
   HeroDetailsModel,
   KillDetails,
@@ -47,32 +41,32 @@ function HeroKillsDetails({
       const playerName = player.name
         ? player.name
         : player.personaname
-          ? player.personaname
-          : englishLanguage
-            ? "Private Profile"
-            : "Perfil Privado";
+        ? player.personaname
+        : englishLanguage
+        ? "Private Profile"
+        : "Perfil Privado";
 
       const kills = player.killed
         ? Object.entries(player.killed)
-          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-          .map(([heroName, count]) => ({
-            heroName: heroName.replace("npc_dota_hero_", ""),
-            count,
-          }))
+            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+            .map(([heroName, count]) => ({
+              heroName: heroName.replace("npc_dota_hero_", ""),
+              count,
+            }))
         : [];
 
       const killedBy = player.killed_by
         ? Object.entries(player.killed_by)
-          .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
-          .map(([heroName, count]) => ({
-            heroName: heroName.replace("npc_dota_hero_", ""),
-            count,
-          }))
+            .filter(([heroName]) => heroName.startsWith("npc_dota_hero"))
+            .map(([heroName, count]) => ({
+              heroName: heroName.replace("npc_dota_hero_", ""),
+              count,
+            }))
         : [];
 
       return { playerName, heroName, kills, killedBy };
     });
-  }, [matchDetails, heroArray, englishLanguage]);
+  }, [matchDetails, heroArray]);
 
   //alert(JSON.stringify(killsDetails, null, 2));
 
@@ -111,7 +105,9 @@ function HeroKillsDetails({
           >
             {direName}
           </TextComponent>
-          <TextComponent weight="semibold" style={styles.textPlayerName}>{item.playerName}</TextComponent>
+          <TextComponent weight="semibold" style={styles.textPlayerName}>
+            {item.playerName}
+          </TextComponent>
           <View style={styles.flatListRender}>
             <View
               style={{
@@ -126,7 +122,9 @@ function HeroKillsDetails({
                 return (
                   <View key={index} style={{ flexDirection: "row" }}>
                     <View>
-                      <TextComponent weight="semibold" style={styles.textKills}>{hero.count}x</TextComponent>
+                      <TextComponent weight="semibold" style={styles.textKills}>
+                        {hero.count}x
+                      </TextComponent>
                       <View style={styles.imgContainer}>
                         <Image
                           style={styles.imgHero}
@@ -160,7 +158,9 @@ function HeroKillsDetails({
                     style={{ flexDirection: "row", alignItems: "center" }}
                   >
                     <View>
-                      <TextComponent weight="semibold" style={styles.textKills}>{hero.count}x</TextComponent>
+                      <TextComponent weight="semibold" style={styles.textKills}>
+                        {hero.count}x
+                      </TextComponent>
                       <View
                         style={[
                           styles.imgContainer,
@@ -202,10 +202,16 @@ function HeroKillsDetails({
           justifyContent: "space-around",
         }}
       >
-        <TextComponent weight="bold" style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTeamName, { color: ColorTheme.semilight }]}
+        >
           {englishLanguage ? "Kills" : "Mortes"}
         </TextComponent>
-        <TextComponent weight="bold" style={[styles.textTeamName, { color: ColorTheme.semilight }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTeamName, { color: ColorTheme.semilight }]}
+        >
           {englishLanguage ? "Deaths By" : "Morto por"}
         </TextComponent>
       </View>

@@ -49,7 +49,9 @@ export function MyProfileTabs() {
           showModalMessage={showModalMessage}
           setShowModalMessage={() => setShowModalMessage(false)}
         />
-        <TextComponent weight="semibold" style={styles.textErro}>{erro404}</TextComponent>
+        <TextComponent weight="semibold" style={styles.textErro}>
+          {erro404}
+        </TextComponent>
       </View>
     );
   }
@@ -87,7 +89,7 @@ export function MyProfileTabs() {
       </View>
       <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
         <View style={{ flex: 1, paddingBottom: "1%" }}>
-          {player ? (
+          {player && (
             <LastMatches
               playerId={player.profile.account_id.toString()}
               onRefresh={async () =>
@@ -97,7 +99,7 @@ export function MyProfileTabs() {
               }
               recentMatches={recentMatches}
             />
-          ) : null}
+          )}
         </View>
       </View>
     </View>

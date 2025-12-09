@@ -135,7 +135,7 @@ function Items({
                   ) : (
                     <></>
                   )}
-                  {index === 5 ? (
+                  {index === 5 && (
                     <TextComponent
                       weight="bold"
                       style={[
@@ -148,8 +148,6 @@ function Items({
                     >
                       {DireName ? DireName : direName}
                     </TextComponent>
-                  ) : (
-                    <></>
                   )}
 
                   <View
