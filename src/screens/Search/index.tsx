@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   ActivityIndicator,
   Image,
@@ -11,15 +10,16 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { fetchData } from "../../services/api";
-import { SEARCH_PLAYER_BASE_URL } from "../../constants/player";
-import { SearchUserResult } from "../../services/props";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { fetchData } from "@src/services/api";
+import { SEARCH_PLAYER_BASE_URL } from "@src/constants/player";
+import { SearchUserResult } from "@src/services/props";
 import { ProgressBar, MD3Colors, RadioButton } from "react-native-paper";
-import { ModalMessage } from "../../components/Modals/ModalMessage";
-import { SearchComponent } from "../../../src/utils/SearchComponent";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
+import { SearchComponent } from "@src/utils/SearchComponent";
 import { useRouter } from "expo-router";
+import { TextComponent } from "@src/components/TextComponent";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsContext();
@@ -108,12 +108,12 @@ export const Search = () => {
           style={{ width: "20%", aspectRatio: 1, borderRadius: 5 }}
           src={item.avatarfull}
         />
-        <Text
+        <TextComponent
           numberOfLines={1}
           style={{ paddingLeft: "3%", width: "80%", color: "#555" }}
         >
           {item.personaname}
-        </Text>
+        </TextComponent>
       </TouchableOpacity>
     );
   };
@@ -164,7 +164,9 @@ export const Search = () => {
             status={searchType == "player" ? "checked" : "unchecked"}
             onPress={() => setSearchType("player")}
           />
-          <Text>{englishLanguage ? "Profile" : "Perfil"}</Text>
+          <TextComponent>
+            {englishLanguage ? "Profile" : "Perfil"}
+          </TextComponent>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <RadioButton
@@ -172,7 +174,7 @@ export const Search = () => {
             status={searchType === "match" ? "checked" : "unchecked"}
             onPress={() => setSearchType("match")}
           />
-          <Text>{englishLanguage ? "Match" : "Partida"}</Text>
+          <TextComponent>{englishLanguage ? "Match" : "Partida"}</TextComponent>
         </View>
       </View>
 
@@ -180,11 +182,11 @@ export const Search = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={{ textAlign: "center" }}>
+          <TextComponent style={{ textAlign: "center" }}>
             {englishLanguage
               ? `Searching for "${textSearch}"`
               : `Buscando por "${textSearch}"`}
-          </Text>
+          </TextComponent>
           <ActivityIndicator color={ColorTheme.semidark} size={30} />
           <ProgressBar indeterminate={true} color={MD3Colors.error100} />
         </View>
@@ -202,16 +204,16 @@ export const Search = () => {
                 setTextSearch(undefined), setUsersSearch([]);
               }}
             >
-              <Text style={{ color: "#fff", fontFamily: "QuickSand-Semibold" }}>
+              <TextComponent weight="semibold" style={{ color: "#fff" }}>
                 {englishLanguage ? "Clear Search" : "Limpar Pesquisa"}
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
           </View>
-          <Text
+          <TextComponent
+            weight="semibold"
             style={{
               textAlign: "center",
               marginVertical: "3%",
-              fontFamily: "QuickSand-Semibold",
               display: textSearch ? "flex" : "none",
             }}
           >
@@ -222,15 +224,16 @@ export const Search = () => {
               : englishLanguage
               ? `No results found for "${textSearch}"`
               : `Nenhum resultado encontrado para "${textSearch}"`}
-          </Text>
-          <Text
+          </TextComponent>
+          <TextComponent
+            weight="semibold"
             style={[
               styles.emptyList,
               { display: usersSearch.length === 0 ? "flex" : "none" },
             ]}
           >
             {searchType === "player" ? textInfoProfile : textInfoMatch}
-          </Text>
+          </TextComponent>
           <FlatList
             data={usersSearch}
             renderItem={renderPlayersList}

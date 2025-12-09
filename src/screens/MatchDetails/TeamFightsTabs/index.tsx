@@ -1,20 +1,20 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { View, Text, FlatList, Dimensions } from "react-native";
+import React, { useMemo } from "react";
+import { View, FlatList } from "react-native";
 
 import { createStyles } from "./styles";
-import { TeamFightModel } from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+import { TeamFightModel } from "@src/services/props";
+import { useSettingsContext } from "@src/context/useSettingsContext";
 
-import { useTheme } from "../../../context/useThemeContext";
+import { useTheme } from "@src/context/useThemeContext";
 import { BarChartComponent } from "./BarCharComponent";
-import { TeamSide } from "../../../../src/services/enum";
+import { TeamSide } from "@src/services/enum";
 import { RenderHeroIcon } from "./components/heroIcon";
 import { KillsImage } from "./components/killsImage";
 import { AbilitiesUsages } from "./components/abilities";
 import { ItemsUsages } from "./components/items";
-import { processTeamFights } from "../../../../src/utils/ProcessedTemFight";
-import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
-import { useTeamFightsStore } from "../../../../src/store/teamFights";
+import { processTeamFights } from "@src/utils/ProcessedTemFight";
+import { useTeamFightsStore } from "@src/store/teamFights";
+import { TextComponent } from "@src/components/TextComponent";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -56,15 +56,19 @@ function TeamFightsComponent() {
   const TeamFightItem = React.memo(({ fight }: { fight: ProcessedFight }) => {
     return (
       <View style={[styles.renderItemContainer]}>
-        <Text style={styles.textTime}>
+        <TextComponent style={styles.textTime}>
           {englishLanguage ? "Time: " : "Hora: "}
           {fight.formattedTime} - {fight.endTime}
-        </Text>
+        </TextComponent>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle} numberOfLines={1}>
+            <TextComponent
+              weight="bold"
+              style={styles.textTitle}
+              numberOfLines={1}
+            >
               {radTeamName}
-            </Text>
+            </TextComponent>
             <View>
               <View style={{ flexDirection: "row" }}>
                 <RenderHeroIcon
@@ -112,27 +116,39 @@ function TeamFightsComponent() {
             </View>
           </View>
           <View style={{ width: "20%" }}>
-            <Text style={styles.textTitle} />
             <View style={styles.barChartLabel}>
-              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+              <TextComponent
+                weight="bold"
+                style={[styles.textLabel, { borderBottomWidth: 0 }]}
+              >
                 {englishLanguage ? "Damage Caused" : "Dano Causado"}
-              </Text>
+              </TextComponent>
             </View>
             <View style={styles.barChartLabel}>
-              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+              <TextComponent
+                weight="bold"
+                style={[styles.textLabel, { borderBottomWidth: 0 }]}
+              >
                 Xp
-              </Text>
+              </TextComponent>
             </View>
             <View style={styles.barChartLabel}>
-              <Text style={[styles.textLabel, { borderBottomWidth: 0 }]}>
+              <TextComponent
+                weight="bold"
+                style={[styles.textLabel, { borderBottomWidth: 0 }]}
+              >
                 {englishLanguage ? "Gold" : "Ouro"}
-              </Text>
+              </TextComponent>
             </View>
           </View>
           <View style={{ width: "40%" }}>
-            <Text style={styles.textTitle} numberOfLines={1}>
+            <TextComponent
+              weight="bold"
+              style={styles.textTitle}
+              numberOfLines={1}
+            >
               {direTeamName}
-            </Text>
+            </TextComponent>
 
             <View style={{ flexDirection: "row" }}>
               <RenderHeroIcon

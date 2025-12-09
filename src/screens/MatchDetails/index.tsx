@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { View, Text, useWindowDimensions, Dimensions } from "react-native";
+import { View, useWindowDimensions, Dimensions } from "react-native";
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
@@ -13,6 +13,7 @@ import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { useTeamFightsStore } from "@src/store/teamFights";
+import { TextComponent } from "@src/components/TextComponent";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -145,9 +146,9 @@ export const MatchDetailsScreen = ({
       if (match) {
         console.log(
           "Partida Encontrada ID: " +
-          matchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
+            matchDetailsIndex +
+            " - Tamanho da Lista: " +
+            matchesDetailsList.length
         );
         setMatchDetails(match);
         setLoadingMatch(false);
@@ -327,7 +328,9 @@ export const MatchDetailsScreen = ({
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
-        <Text style={styles.textMatchId}>{textMatchId}</Text>
+        <TextComponent weight="bold" style={styles.textMatchId}>
+          {textMatchId}
+        </TextComponent>
       </View>
     );
 

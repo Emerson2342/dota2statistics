@@ -20,7 +20,7 @@ import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalR
 import { RectButton } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { TextComponent } from "../../../src/components/TextComponent";
-import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
 export function Favorites() {
   const { englishLanguage } = useSettingsContext();
@@ -94,7 +94,9 @@ export function Favorites() {
               source={{ uri: `${Medal(item.rank_tier)}` }}
               style={styles.imageMedal}
             />
-            <TextComponent style={styles.rankText}>{item?.leaderboard_rank}</TextComponent>
+            <TextComponent style={styles.rankText}>
+              {item?.leaderboard_rank}
+            </TextComponent>
             <Image style={styles.imageProfile} src={item.profile.avatarfull} />
           </View>
           <TextComponent weight="semibold" style={styles.textProfileName}>
@@ -111,6 +113,7 @@ export function Favorites() {
     <View style={styles.container}>
       <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
         <TextComponent
+          weight="bold"
           style={[
             styles.emptyList,
             {

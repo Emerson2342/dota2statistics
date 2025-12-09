@@ -45,7 +45,6 @@ export const createStyles = (colors: ThemeColor) =>
       margin: Dimensions.get("screen").width * 0.003,
     },
     textLabel: {
-      fontFamily: "QuickSand-Bold",
       fontSize: Dimensions.get("screen").width * 0.03,
       textAlign: "center",
       color: colors.semidark,
@@ -53,9 +52,7 @@ export const createStyles = (colors: ThemeColor) =>
       marginBottom: 3,
     },
     textTitle: {
-      fontFamily: "QuickSand-Bold",
       fontSize: Dimensions.get("screen").width * 0.04,
-      // padding: 3,
       color: colors.semidark,
       textAlign: "center",
     },

@@ -1,19 +1,20 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import {
   ModalItemData,
   ModalRef,
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
-} from "../../../../../src/services/props";
+} from "@src/services/props";
 import { createStyles } from "../styles";
-import { PICTURE_HERO_BASE_URL } from "../../../../../src/constants/player";
-import EmptyImage from "../../../../images/emptyImage.png";
-import { TeamSide } from "../../../../../src/services/enum";
-import ItemsList from "../../../../components/Itens/itemsList.json";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import EmptyImage from "@src/images/emptyImage.png";
+import { TeamSide } from "@src/services/enum";
+import ItemsList from "@src/components/Itens/itemsList.json";
 import { useRef, useState } from "react";
-import { handleItemDetails } from "../../../../../src/utils/HandleItemDetails";
-import { ModalItemDetails } from "../../../../../src/components/Modals/ModalItemDetails";
+import { handleItemDetails } from "@src/utils/HandleItemDetails";
+import { ModalItemDetails } from "@src/components/Modals/ModalItemDetails";
+import { TextComponent } from "@src/components/TextComponent";
 
 type ItemsUsageProps = {
   label: string;
@@ -37,7 +38,9 @@ export const ItemsUsages = ({ label, color, fight, team }: ItemsUsageProps) => {
 
   return (
     <>
-      <Text style={styles.textLabel}>{label}</Text>
+      <TextComponent weight="bold" style={styles.textLabel}>
+        {label}
+      </TextComponent>
       <View style={{ flexDirection: "row" }}>
         {fight.players
           ?.slice(start, end)

@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
-  Text,
-  ActivityIndicator,
   Modal,
   useWindowDimensions,
   Dimensions,
@@ -10,25 +8,26 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
 import {
   fetchData,
   getHeroesPlayed,
   getRecentMatches,
-} from "../../services/api";
-import { PLAYER_PROFILE_API_BASE_URL } from "../../constants/player";
-import { PlayerModel, RecentMatches, HeroesPlayed } from "../../services/props";
+} from "@src/services/api";
+import { PLAYER_PROFILE_API_BASE_URL } from "@src/constants/player";
+import { PlayerModel, RecentMatches, HeroesPlayed } from "@src/services/props";
 import { FontAwesome } from "@expo/vector-icons";
-import { useFavoritesPlayersContext } from "../../context/useFavoritesContext";
-import { ModalRemoveFavoritePlayer } from "../../components/Modals/ModalRemoveFavoritePlayer";
+import { useFavoritesPlayersContext } from "@src/context/useFavoritesContext";
+import { ModalRemoveFavoritePlayer } from "@src/components/Modals/ModalRemoveFavoritePlayer";
 import { TabBar, TabView } from "react-native-tab-view";
-import { ProfileHeader } from "../../screens/Home/MyProfileTabs/ProfileHeader";
-import { LastMatches } from "../../screens/Home/MyProfileTabs/LastMatches";
+import { ProfileHeader } from "@src/screens/Home/MyProfileTabs/ProfileHeader";
+import { LastMatches } from "@src/screens/Home/MyProfileTabs/LastMatches";
 import { useNavigation } from "expo-router";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { SetPlayerModel } from "../../utils/setPlayer";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { SetPlayerModel } from "@src/utils/setPlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
+import { TextComponent } from "@src/components/TextComponent";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -112,7 +111,9 @@ export default function PlayerProfileScreen({
         const url = `${PLAYER_PROFILE_API_BASE_URL}${playerId}/heroes`;
         const heroesPlayedResponse = await getHeroesPlayed(url);
         if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
-          const heroesResp = heroesPlayedResponse.filter((item) => item.games > 0);
+          const heroesResp = heroesPlayedResponse.filter(
+            (item) => item.games > 0
+          );
           setHeroesPlayed(heroesResp);
         }
         await getRecentMatches(
@@ -137,7 +138,9 @@ export default function PlayerProfileScreen({
       <View style={styles.container}>
         {Number(playerId) == 0 ? (
           <View style={styles.erroMessage}>
-            <Text style={styles.textErro}>{erro404}</Text>
+            <TextComponent weight="bold" style={styles.textErro}>
+              {erro404}
+            </TextComponent>
           </View>
         ) : (
           <View style={{ flex: 1 }}>
@@ -224,12 +227,6 @@ export default function PlayerProfileScreen({
       />
     );
 
-  if (recentMatches.length === 0 && !isLoading)
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={styles.textMessage}>{erro404}</Text>
-      </View>
-    );
   return (
     <TabView
       lazy
