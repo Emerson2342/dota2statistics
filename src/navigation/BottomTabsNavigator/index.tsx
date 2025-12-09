@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useState } from "react";
+import React from "react";
 import { ListaDeHerois } from "../../../src/screens/HeroesList";
 import { Leagues } from "../../../src/screens/Leagues/Leagues";
 import { Dimensions, StyleSheet } from "react-native";

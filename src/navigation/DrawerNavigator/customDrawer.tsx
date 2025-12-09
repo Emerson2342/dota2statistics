@@ -5,19 +5,20 @@ import {
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
   Modal,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
-import { usePlayerContext } from "../../../src/context/usePlayerContex";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { ThemeColor } from "../../../src/services/props";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { ModalAboutUs } from "../../components/Modals/ModalAboutUs";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { useTheme } from "@src/context/useThemeContext";
+import { ThemeColor } from "@src/services/props";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { ModalAboutUs } from "@src/components/Modals/ModalAboutUs";
 import Constants from "expo-constants";
+import { TextComponent } from "@src/components/TextComponent";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerContext();
@@ -36,27 +37,25 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={avatarSource} style={styles.image} />
-        <Text style={styles.textName}>
+        <TextComponent weight="bold" style={styles.textName}>
           {player?.profile.name != ""
             ? player?.profile.name
             : player?.profile.personaname}
-        </Text>
+        </TextComponent>
       </View>
 
       <View style={styles.drawerItems}>
         <DrawerItemList {...props} />
       </View>
-
-      <Text style={styles.textAboutUs}>
+      <TouchableOpacity onPress={() => setModalAboutUsVisible(true)}>
+        <TextComponent weight="semibold" style={styles.textAboutUs}>
+          {englishLanguage ? "About Us" : "Sobre Nós"}
+        </TextComponent>
+      </TouchableOpacity>
+      <TextComponent weight="semibold" style={styles.textAboutUs}>
         {englishLanguage ? "Version " : "Versão "}
         {Constants.expoConfig?.version}
-      </Text>
-      <Text
-        onPress={() => setModalAboutUsVisible(true)}
-        style={styles.textAboutUs}
-      >
-        {englishLanguage ? "About Us" : "Sobre Nós"}
-      </Text>
+      </TextComponent>
       <Modal
         visible={modalAboutUsVisible}
         transparent={true}
@@ -75,12 +74,12 @@ const createStyles = (colors: ThemeColor) =>
       flex: 1,
     },
     header: {
+      paddingTop: 50,
       alignItems: "center",
-      paddingVertical: 20,
+      paddingVertical: 30,
       backgroundColor: colors.semidark,
     },
     textName: {
-      fontFamily: "QuickSand-Bold",
       fontSize: Dimensions.get("screen").height * 0.027,
       color: colors.light,
     },
@@ -103,7 +102,6 @@ const createStyles = (colors: ThemeColor) =>
     textAboutUs: {
       marginVertical: Dimensions.get("screen").width * 0.03,
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
       color: "#888",
     },
   });

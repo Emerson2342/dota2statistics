@@ -1,22 +1,19 @@
 import React, { useCallback, useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
-  Modal,
   FlatList,
-  Image,
-  Button,
 } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
-import { League } from "../../services/props";
-import { LEAGUES_BASE_URL } from "../../../src/constants/player";
-import { useTheme } from "../../../src/context/useThemeContext";
+import { League } from "@src/services/props";
+import { LEAGUES_BASE_URL } from "@src/constants/player";
+import { useTheme } from "@src/context/useThemeContext";
 import { useFocusEffect, useRouter } from "expo-router";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { ErrorComponent } from "../../../src/utils/ErrorComponent";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { ErrorComponent } from "@src/utils/ErrorComponent";
+import { TextComponent } from "@src/components/TextComponent";
 
 export function Leagues() {
   const { ColorTheme } = useTheme();
@@ -31,7 +28,6 @@ export function Leagues() {
   const [errorRequest, setErrorRequest] = useState(false);
   useFocusEffect(
     useCallback(() => {
-      console.log("****Leagues List");
       loadLeagues();
     }, [])
   );
@@ -80,7 +76,7 @@ export function Leagues() {
         style={styles.containerCards}
         onPress={() => goToLeagueMatches(item.leagueid, item.name)}
       >
-        <Text style={styles.textLeagueName}>{item.name}</Text>
+        <TextComponent weight="bold" style={styles.textLeagueName}>{item.name}</TextComponent>
       </TouchableOpacity>
     );
   };

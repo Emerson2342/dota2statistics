@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
+import { BannerAds } from "../Admob/BannerAds";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TextComponent } from "../TextComponent";
 
 export function ModalAboutUs({ handleClose }: { handleClose: () => void }) {
   const { englishLanguage } = useSettingsContext();
@@ -18,47 +21,53 @@ export function ModalAboutUs({ handleClose }: { handleClose: () => void }) {
       "Todas as marcas registradas e propriedades intelectuais de Dota 2 pertencem à Valve Corporation.";
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <BannerAds />
       <View style={styles.content}>
-        <Text style={styles.text}>
-          {"     "}
-          {text}
-        </Text>
-        <TouchableOpacity
-          style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
-          onPress={() => handleClose()}
-        >
-          <Text style={styles.textButton}>
-            {englishLanguage ? "Close" : "Fechar"}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.modal}>
+          <TextComponent weight="semibold" style={styles.text}>
+            {"     "}
+            {text}
+          </TextComponent>
+          <TouchableOpacity
+            style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
+            onPress={() => handleClose()}
+          >
+            <TextComponent weight="semibold" style={styles.textButton}>
+              {englishLanguage ? "Close" : "Fechar"}
+            </TextComponent>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(0,0,0,0.7)",
-    justifyContent: "center",
     alignItems: "center",
     flex: 1,
     width: "100%",
+    justifyContent: "center",
   },
   content: {
+    flex: 1,
+    justifyContent: "center",
     width: "75%",
-    padding: 17,
-    backgroundColor: "#fff",
-    borderRadius: 9,
+  },
+  modal: {
+    width: "100%",
     alignItems: "center",
+    backgroundColor: "#fff",
+    padding: 17,
+    borderRadius: 9,
   },
   text: {
-    fontFamily: "QuickSand-Semibold",
     textAlign: "justify",
   },
   textButton: {
     fontSize: 15,
-    fontFamily: "QuickSand-Semibold",
     color: "white",
   },
   buttonSave: {

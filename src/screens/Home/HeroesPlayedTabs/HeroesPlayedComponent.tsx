@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   FlatList,
@@ -16,60 +15,40 @@ import {
 import { useSettingsContext } from "../../../context/useSettingsContext";
 import { useTheme } from "../../../context/useThemeContext";
 import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import {
-  PICTURE_HERO_BASE_URL,
-  PLAYER_PROFILE_API_BASE_URL,
-} from "../../../constants/player";
+import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
 import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { usePlayerContext } from "../../../../src/context/usePlayerContex";
-import { getSetProfile } from "../../../../src/utils/textMessage";
-import { getHeroesPlayed } from "../../../../src/services/api";
-import { ErrorComponent } from "../../../../src/utils/ErrorComponent";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { getSetProfile } from "@src/utils/textMessage";
+import { TextComponent } from "@src/components/TextComponent";
 
 function HeroesPlayedComp({
-  PlayerId,
   isHomeProfile,
+  heroesPlayedList,
+  refresh,
+  isLoading,
 }: {
-  PlayerId: string;
   isHomeProfile: boolean;
+  heroesPlayedList: HeroesPlayed[];
+  refresh: () => Promise<void>;
+  isLoading: boolean;
 }) {
+  const { player } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const [heroArray, setHeroArray] = useState<HeroDetailsModel[]>([]);
   const [orderToShow, setOrderToShow] = useState("matches");
 
-  const [isLoading, setIsLoading] = useState(true);
   const { ColorTheme } = useTheme();
-  const { player } = usePlayerContext();
   const styles = createStyles(ColorTheme);
   const setSteamId = getSetProfile(englishLanguage);
-  const [finalList, setFinalList] = useState<HeroesPlayed[] | []>([]);
-  const [orderedList, setOrderedList] = useState<HeroesPlayed[]>(finalList);
-  const [errorResponse, setErrorResponse] = useState(false);
+  const [orderedList, setOrderedList] =
+    useState<HeroesPlayed[]>(heroesPlayedList);
 
-  useEffect(() => {
-    setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-    //if(isHomeProfile)
-    handleGetHeroesPlayed();
-  }, [PlayerId]);
+  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
-  const handleGetHeroesPlayed = async () => {
-    setIsLoading(true);
-    const heroesPlayed = `${PLAYER_PROFILE_API_BASE_URL}${PlayerId}/heroes`;
-    const heroesPlayedResponse = await getHeroesPlayed(
-      heroesPlayed,
-      setErrorResponse
-    );
-    if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
-      setFinalList(heroesPlayedResponse);
-      setOrderedList(heroesPlayedResponse);
-    }
-    setIsLoading(false);
-  };
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
     if (order != orderToShow) {
-      const ordered = [...finalList].sort((a, b) => {
+      const ordered = [...heroesPlayedList].sort((a, b) => {
         if (order === "lastPlayed") {
           return b.last_played - a.last_played;
         } else if (order === "winrate") {
@@ -119,16 +98,16 @@ function HeroesPlayedComp({
           style={styles.imageHero}
           source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
         />
-        <Text style={[styles.textInfo, { width: "33%" }]}>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "33%" }]}>
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
-        </Text>
-        <Text style={[styles.textInfo, { width: "17%" }]}>
+        </TextComponent>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>
           {winrate.toFixed(2)}%
-        </Text>
+        </TextComponent>
 
-        <Text style={[styles.textInfo, { width: "20%" }]}>{item.games}</Text>
-        <Text style={[styles.textInfo, { width: "17%" }]}>{item.win}</Text>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "20%" }]}>{item.games}</TextComponent>
+        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>{item.win}</TextComponent>
       </View>
     );
   };
@@ -148,12 +127,38 @@ function HeroesPlayedComp({
   if (isHomeProfile && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
-        <Text style={styles.textErro}>{setSteamId}</Text>
+        <TextComponent weight="semibold" style={styles.textErro}>{setSteamId}</TextComponent>
       </View>
     );
   }
 
-  if (errorResponse) return <ErrorComponent action={handleGetHeroesPlayed} />;
+  if (heroesPlayedList.length === 0)
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <TextComponent style={{ fontFamily: "QuickSand-Bold", fontSize: 17 }}>
+          {englishLanguage ? "No heroes found!" : "Nenhum herói encontrado!"}
+        </TextComponent>
+        <TouchableOpacity
+          onPress={refresh}
+          style={{
+            backgroundColor: ColorTheme.dark,
+            borderRadius: 7,
+            margin: 5,
+            padding: 7,
+          }}
+        >
+          <TextComponent
+            style={{
+              color: "#fff",
+              padding: 5,
+              fontFamily: "QuickSand-Semibold",
+            }}
+          >
+            {englishLanguage ? "Refresh" : "Atualizar"}
+          </TextComponent>
+        </TouchableOpacity>
+      </View>
+    );
 
   return (
     <View style={styles.container}>
@@ -162,7 +167,8 @@ function HeroesPlayedComp({
           onPress={() => handleSetOrder("lastPlayed")}
           style={{ width: "37%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -172,13 +178,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Last Played" : "Último Jogo"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("winrate")}
           style={{ width: "21%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -186,13 +193,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Winrate" : "Taxa Vitória"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("matches")}
           style={{ width: "22%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -202,13 +210,14 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Matches" : "Partidas"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleSetOrder("wins")}
           style={{ width: "20%" }}
         >
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textInfo,
               styles.textInfoTitle,
@@ -218,7 +227,7 @@ function HeroesPlayedComp({
             ]}
           >
             {englishLanguage ? "Wins" : "Vitórias"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -267,27 +276,12 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
       alignItems: "center",
     },
-    textError: {
-      fontFamily: "QuickSand-Semibold",
-      padding: "3%",
-      textAlign: "center",
-    },
-    textHeroName: {
-      fontFamily: "QuickSand-Bold",
-      textAlign: "center",
-      fontSize: Dimensions.get("screen").width * 0.037,
-      color: "orange",
-      margin: "1%",
-    },
-
     textInfo: {
       fontSize: Dimensions.get("screen").width * 0.035,
       color: colors.dark,
-      fontFamily: "QuickSand-Semibold",
       textAlign: "center",
     },
     textInfoTitle: {
-      fontFamily: "QuickSand-Bold",
       borderColor: "orange",
     },
     inputContainer: {
@@ -299,14 +293,6 @@ const createStyles = (colors: ThemeColor) =>
     textErro: {
       textAlign: "center",
       padding: "5%",
-      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
-    },
-    textInput: {
-      backgroundColor: "#fff",
-      textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
-      flexGrow: 1,
-      marginHorizontal: "5%",
     },
   });

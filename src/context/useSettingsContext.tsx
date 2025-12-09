@@ -32,7 +32,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({
   children,
 }) => {
   const [englishLanguage, setEnglishLanguage] = useState(true);
-  const [globalTheme, setGlobalTheme] = useState("int");
+  const [globalTheme, setGlobalTheme] = useState("str");
 
   //carregando dados do AsyncStorage
   useEffect(() => {

@@ -5,7 +5,6 @@ export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      //backgroundColor: colors.light,
       width: "97%",
       alignSelf: "center",
       alignItems: "center",
@@ -51,7 +50,6 @@ export const createStyles = (colors: ThemeColor) =>
     textAll: {
       textAlign: "center",
       height: 27,
-      fontFamily: "QuickSand-Bold",
       fontSize: 15,
     },
     listaHeroi: {
@@ -75,13 +73,8 @@ export const createStyles = (colors: ThemeColor) =>
     },
     nameHeroText: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "left",
       fontSize: Dimensions.get("screen").width * 0.03,
       width: "100%",
-    },
-    textLoading: {
-      fontFamily: "QuickSand-Semibold",
-      color: colors.semidark,
     },
   });

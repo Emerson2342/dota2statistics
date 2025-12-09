@@ -13,14 +13,12 @@ export const createStylesStatics = (colors: ThemeColor) =>
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       color: colors.semidark,
       alignSelf: "center",
       borderRadius: 7,
       padding: 3,
       margin: 3,
       width: "90%",
-      //backgroundColor: colors.semidark,
     },
     titleContainer: {
       width: "100%",
@@ -47,7 +45,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       paddingVertical: "1%",
     },
     leagueName: {
-      fontFamily: "QuickSand-Bold",
       color: colors.dark,
       fontSize: Dimensions.get("window").width * 0.037,
       textAlign: "center",
@@ -62,12 +59,10 @@ export const createStylesStatics = (colors: ThemeColor) =>
     score: {
       width: "13%",
       textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
       fontSize: 11.3,
     },
     teamName: {
       width: "87%",
-      fontFamily: "QuickSand-Semibold",
       fontSize: Dimensions.get("screen").width * 0.037,
       textAlign: "center",
     },
@@ -85,9 +80,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       marginBottom: "1.7%",
     },
     textButton: {
-      fontFamily: "QuickSand-Bold",
       color: colors.semidark,
-
       padding: "1.5%",
       fontSize: Dimensions.get("screen").width * 0.027,
     },
@@ -97,7 +90,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontFamily: "QuickSand-Semibold",
       fontSize: Dimensions.get("screen").width * 0.03,
     },
     textLoading: {

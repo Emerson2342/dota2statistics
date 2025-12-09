@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { ThemeColor } from "../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -7,7 +7,6 @@ export const createStyles = (colors: ThemeColor) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      //backgroundColor: colors.light,
     },
     inputContainer: {
       marginTop: "3%",
@@ -16,13 +15,6 @@ export const createStyles = (colors: ThemeColor) =>
       justifyContent: "space-around",
       flexDirection: "row",
     },
-    textInput: {
-      backgroundColor: "#fff",
-      textAlign: "center",
-      fontFamily: "QuickSand-Semibold",
-      flexGrow: 1,
-      marginHorizontal: "5%",
-    },
     buttonCleanSearch: {
       marginTop: "5%",
       backgroundColor: colors.semidark,
@@ -30,24 +22,9 @@ export const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
       borderRadius: 5,
     },
-    textButton: {
-      fontFamily: "QuickSand-Semibold",
-      color: "#fff",
-    },
-    bodyContainer: {
-      // flex: 1,
-      width: "100%",
-    },
-    textMessage: {
-      textAlign: "center",
-      padding: "5%",
-      fontFamily: "QuickSand-Semibold",
-      color: colors.semidark,
-    },
     emptyList: {
       textAlign: "center",
       padding: "5%",
-      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
     },
   });

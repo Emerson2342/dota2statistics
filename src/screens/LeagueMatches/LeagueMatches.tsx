@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, TouchableOpacity, FlatList } from "react-native";
 
 import { createStyles } from "./LeagueMatchesStyles";
-import { useTheme } from "../../context/useThemeContext";
-import { LeagueMatches } from "../../services/props";
-import { LEAGUES_BASE_URL } from "../../constants/player";
-import { useTeamsListContext } from "../../context/useTeamContext";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { fetchData } from "../../services/api";
+import { useTheme } from "@src/context/useThemeContext";
+import { LeagueMatches } from "@src/services/props";
+import { LEAGUES_BASE_URL } from "@src/constants/player";
+import { useTeamsListContext } from "@src/context/useTeamContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { fetchData } from "@src/services/api";
 import { useRouter } from "expo-router";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { TextComponent } from "@src/components/TextComponent";
 
 type LeagueDetailsProps = {
   LeagueIdIndex: number;
@@ -99,57 +100,61 @@ export function LeagueMatchesScreen({
       >
         <View style={styles.teamContainer}>
           <View style={styles.singleTeamContainer}>
-            <Text
+            <TextComponent
+              weight="bold"
               style={[
                 styles.teamName,
                 { color: item.radiant_win ? "#2f6d4a" : "#893647" },
               ]}
             >
               {teamRad?.name ?? "Radiant Team"}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
+              weight="bold"
               style={[
                 styles.teamScore,
                 { color: item.radiant_win ? "#2f6d4a" : "#893647" },
               ]}
             >
               {item.radiant_score}
-            </Text>
+            </TextComponent>
           </View>
 
           <View style={styles.singleTeamContainer}>
-            <Text
+            <TextComponent
+              weight="bold"
               style={[
                 styles.teamScore,
                 { color: item.radiant_win ? "#893647" : "#2f6d4a" },
               ]}
             >
               {item.dire_score}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
+              weight="bold"
               style={[
                 styles.teamName,
                 { color: item.radiant_win ? "#893647" : "#2f6d4a" },
               ]}
             >
               {teamDire?.name ?? "Dire Team"}
-            </Text>
+            </TextComponent>
           </View>
         </View>
         <View style={styles.timeContent}>
-          <Text style={styles.durationText}>
-            <Text style={{ color: "#555" }}>
+          <TextComponent weight="bold" style={styles.durationText}>
+            <TextComponent style={{ color: "#555" }}>
               {englishLanguage ? "Duration: " : "Duração: "}
-            </Text>
+            </TextComponent>
             {hours > 0 ? hours + ":" : ""}
             {minutes}:{seconds}
-          </Text>
-          <Text style={styles.durationText}>
-            <Text style={{ color: "#555" }}>
+          </TextComponent>
+          <TextComponent style={styles.durationText}>
+            <TextComponent style={{ color: "#555" }}>
               {englishLanguage ? "Date: " : "Data: "}
-            </Text>
+            </TextComponent>
             {date}
-          </Text>
+          </TextComponent>
         </View>
       </TouchableOpacity>
     );
@@ -185,7 +190,7 @@ export function LeagueMatchesScreen({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>{LeagueName}</Text>
+      <TextComponent weight="bold" style={styles.titleText}>{LeagueName}</TextComponent>
       {renderGroupedMatches.length > 0 ? (
         <FlatList
           data={renderGroupedMatches}
@@ -195,9 +200,9 @@ export function LeagueMatchesScreen({
         />
       ) : (
         <View style={styles.containerEmpty}>
-          <Text style={styles.emptyText}>
+          <TextComponent weight="bold" style={styles.emptyText}>
             {englishLanguage ? "No Matches Found" : "Nenhum partida encontrada"}
-          </Text>
+          </TextComponent>
         </View>
       )}
     </View>

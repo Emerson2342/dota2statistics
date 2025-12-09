@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   Modal,
@@ -13,13 +12,15 @@ import { createStyles } from "./styles";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
-import { PlayerModel, RootStackParamList } from "../../../src/services/props";
+import { PlayerModel } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
 import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
-import { RectButton, Swipeable } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
+import { TextComponent } from "../../../src/components/TextComponent";
+import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
 export function Favorites() {
   const { englishLanguage } = useSettingsContext();
@@ -93,14 +94,16 @@ export function Favorites() {
               source={{ uri: `${Medal(item.rank_tier)}` }}
               style={styles.imageMedal}
             />
-            <Text style={styles.rankText}>{item?.leaderboard_rank}</Text>
+            <TextComponent style={styles.rankText}>
+              {item?.leaderboard_rank}
+            </TextComponent>
             <Image style={styles.imageProfile} src={item.profile.avatarfull} />
           </View>
-          <Text style={styles.textProfileName}>
+          <TextComponent weight="semibold" style={styles.textProfileName}>
             {item.profile.name != ""
               ? item.profile.name
               : item.profile.personaname}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </Swipeable>
     );
@@ -109,7 +112,8 @@ export function Favorites() {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, paddingTop: "7%", paddingBottom: "3%" }}>
-        <Text
+        <TextComponent
+          weight="bold"
           style={[
             styles.emptyList,
             {
@@ -118,8 +122,8 @@ export function Favorites() {
           ]}
         >
           {textEmpty}
-        </Text>
-        <ScrollView style={styles.scrollView}>
+        </TextComponent>
+        <ScrollView>
           <FlatList
             data={favoritesPlayers}
             renderItem={({ item }) => <SwipeableItem item={item} />}

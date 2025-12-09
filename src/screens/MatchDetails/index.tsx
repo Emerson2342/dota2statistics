@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { View, Text, useWindowDimensions, Dimensions } from "react-native";
+import { View, useWindowDimensions, Dimensions } from "react-native";
 import { createStyles } from "./styles";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import { HeroDetailsModel, MatchDetailsModel } from "../../services/props";
-import { MATCHE_DETAILS_API_BASE_URL } from "../../constants/player";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { getMatchDetails } from "../../services/api";
-import { AsyncStorageService } from "../../services/StorageService";
-import { TeamFightsTabs } from "./TeamFightsTabs";
+import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
+import { MATCHE_DETAILS_API_BASE_URL } from "@src/constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { getMatchDetails } from "@src/services/api";
+import { AsyncStorageService } from "@src/services/StorageService";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { useTeamFightsStore } from "@src/store/teamFights";
+import { TextComponent } from "@src/components/TextComponent";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -27,6 +28,7 @@ export const MatchDetailsScreen = ({
   lobbyType,
   gameMode,
 }: MatchDetailsProps) => {
+  const layout = useWindowDimensions();
   const { englishLanguage } = useSettingsContext();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]
@@ -35,7 +37,7 @@ export const MatchDetailsScreen = ({
   const [loadingMatch, setLoadingMatch] = useState(true);
 
   const [loadedeList, setLoadedList] = useState(false);
-  //Wconst [];
+
   const storage = useMemo(() => new AsyncStorageService(), []);
 
   const [refreshing, setRefreshing] = useState(false);
@@ -45,8 +47,8 @@ export const MatchDetailsScreen = ({
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
+  const setTeamFightsData = useTeamFightsStore((state) => state.setData);
 
-  const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
   const textMatchId = englishLanguage
@@ -70,18 +72,19 @@ export const MatchDetailsScreen = ({
 
   const heroArray = useMemo(
     () => Object.values(HeroesDetails) as HeroDetailsModel[],
-    [HeroesDetails]
+    []
   );
 
-  const heroMap = useMemo(
-    () => Object.fromEntries(heroArray.map((h) => [h.id, h.name])),
-    [heroArray]
-  );
+  const heroMap = useMemo(() => {
+    return heroArray.reduce((acc, hero) => {
+      acc[hero.id] = hero.name;
+      return acc;
+    }, {} as Record<number, string>);
+  }, [heroArray]);
 
   const heroNamesMemo = useMemo(() => {
     const players = matchDetails?.players;
     if (!players) return [];
-    // cria um array estável apenas quando players ou heroMap mudarem
     return players.map((p) => heroMap[p.hero_id]);
   }, [matchDetails?.players, heroMap]);
 
@@ -113,6 +116,17 @@ export const MatchDetailsScreen = ({
     };
     loadMatchesList();
   }, []);
+  useEffect(() => {
+    if (!matchDetails) return;
+
+    setTeamFightsData({
+      teamFights: teamFightsMemo,
+      heroNames: heroNamesMemo,
+      radTeamName: matchDetails.radiant_team?.name ?? radName,
+      direTeamName: matchDetails.dire_team?.name ?? direName,
+      update: onRefreshCallback,
+    });
+  }, [matchDetails, teamFightsMemo, heroNamesMemo, radName, direName]);
 
   useEffect(() => {
     if (loadedeList && matchesDetailsList.length > 0) {
@@ -145,22 +159,24 @@ export const MatchDetailsScreen = ({
     fetchMatchDetails();
   }, [matchDetailsIndex, loadedeList]);
 
+  const hasTeamFights = !!matchDetails?.teamfights?.length;
+
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "first":
         return (
-          //<Text>first</Text>
           <OverViewTabs
             GameMode={gameMode}
             LobbyType={lobbyType}
             PlayerIdIndex={playerIdIndex}
-            direName={direName}
-            radName={radName}
+            radName={matchDetails?.radiant_team?.name ?? radName}
+            direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
             matchDetails={matchDetails}
             onRefresh={onRefreshCallback}
             refreshing={refreshing}
             key={matchDetails?.match_id}
+            hasTeamFights={hasTeamFights}
           />
         );
       case "second":
@@ -170,15 +186,15 @@ export const MatchDetailsScreen = ({
             matchDetails={matchDetails}
             onRefresh={async () => await onRefreshCallback()}
             refreshing={refreshing}
-            radName={radName}
-            direName={direName}
+            radName={matchDetails?.radiant_team?.name ?? radName}
+            direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
             key={playerIdIndex}
           />
         );
-      case "third":
-        return TeamFightComponent;
+      //case "third":
       //return <Text>testes 3</Text>;
+      //   return TeamFightComponent;
       default:
         return (
           <ActivityIndicatorCustom
@@ -210,7 +226,7 @@ export const MatchDetailsScreen = ({
     setRefreshing(false);
   }, [matchDetailsIndex, matchesDetailsList, handleSearchMatche]);
 
-  const TeamFightComponent = useMemo(() => {
+  /* const TeamFightComponent = useMemo(() => {
     return (
       <TeamFightsTabs
         heroNames={heroNamesMemo}
@@ -229,6 +245,7 @@ export const MatchDetailsScreen = ({
     radName,
     direName,
   ]);
+  */
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -236,13 +253,13 @@ export const MatchDetailsScreen = ({
       key: "second",
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
-    { key: "third", title: "Team Fights" },
+    //{ key: "third", title: "Team Fights" },
   ];
-  const hasTeamFights = !!matchDetails?.teamfights?.length;
+  // const hasTeamFights = !!matchDetails?.teamfights?.length;
 
-  const filteredRoutes = hasTeamFights
-    ? allRoutes
-    : allRoutes.filter((r) => r.key !== "third");
+  //const filteredRoutes = hasTeamFights
+  // ? allRoutes
+  //: allRoutes.filter((r) => r.key !== "third");
 
   const saveMatchesDetailsList = async () => {
     try {
@@ -311,7 +328,9 @@ export const MatchDetailsScreen = ({
   if (!matchDetails && apiResponseMatch)
     return (
       <View style={styles.matchIdContainer}>
-        <Text style={styles.textMatchId}>{textMatchId}</Text>
+        <TextComponent weight="bold" style={styles.textMatchId}>
+          {textMatchId}
+        </TextComponent>
       </View>
     );
 
@@ -319,7 +338,7 @@ export const MatchDetailsScreen = ({
     return (
       <TabView
         renderTabBar={renderTabBar}
-        navigationState={{ index, routes: filteredRoutes }}
+        navigationState={{ index, routes: allRoutes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}

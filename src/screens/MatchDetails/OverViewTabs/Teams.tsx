@@ -1,34 +1,41 @@
 import React, { useCallback, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import { View, Image, FlatList, Modal, TouchableOpacity } from "react-native";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
   Player,
-  RootStackParamList,
-} from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { Medal } from "../../../components/Medals/MedalsList";
+} from "@src//services/props";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { Medal } from "@src/components/Medals/MedalsList";
 import { createStyles } from "./TeamsStyles";
-import { ModalMessage } from "../../../components/Modals/ModalMessage";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ModalHelpMatchDetails } from "../../../components/Modals/ModalHelpMatchDetails";
+import { ModalHelpMatchDetails } from "@src/components/Modals/ModalHelpMatchDetails";
 import { useRouter } from "expo-router";
+import { TextComponent } from "@src/components/TextComponent";
+
+const colorPercent = (percent: number): string => {
+  if (percent >= 0 && percent < 20) return "#ff4d4d";
+  if (percent >= 20 && percent < 35) return "#ff7934";
+  if (percent >= 35 && percent < 50) return "#ffae1a";
+  if (percent >= 50 && percent < 75) return "#66cc66";
+  if (percent >= 75) return "green";
+  return "gray";
+};
+
 function Teams({
   matchDetails,
   PlayerIdIndex,
+  radName,
+  direName,
 }: {
   matchDetails: MatchDetailsModel | null;
   PlayerIdIndex: string | undefined;
+  radName: string;
+  direName: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -41,20 +48,9 @@ function Teams({
     : "Este perfil é privado";
   const [modalVisible, setModalVisible] = useState(false);
 
-  const radName = englishLanguage ? "Radiant" : "Iluminados";
-  const direName = englishLanguage ? "Dire" : "Temidos";
   const winner = englishLanguage ? "Winner" : "Vencedor";
 
   const styles = createStyles(ColorTheme);
-
-  const colorPercent = (percent: number): string => {
-    if (percent >= 0 && percent < 20) return "#ff4d4d";
-    if (percent >= 20 && percent < 35) return "#ff7934";
-    if (percent >= 35 && percent < 50) return "#ffae1a";
-    if (percent >= 50 && percent < 75) return "#66cc66";
-    if (percent >= 75) return "green";
-    return "gray";
-  };
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {
@@ -86,7 +82,7 @@ function Teams({
           }}
         >
           <View style={[styles.headerContainer]}>
-            <Text
+            <TextComponent
               style={[
                 styles.title,
                 {
@@ -97,8 +93,10 @@ function Teams({
               ]}
             >
               {winner}
-            </Text>
-            <Text style={styles.title}>{teamName}</Text>
+            </TextComponent>
+            <TextComponent weight="semibold" style={styles.title}>
+              {teamName}
+            </TextComponent>
 
             <View style={[styles.detailsContainer]}>
               <View style={styles.helpButton}>
@@ -111,22 +109,54 @@ function Teams({
                 </TouchableOpacity>
               </View>
               <View style={styles.cabecalho}>
-                <Text style={[styles.k, styles.textHeader]}>K/D/A</Text>
-                <Text style={[styles.lhs, styles.textHeader]}>LH</Text>
-                <Text style={[styles.denies, styles.textHeader]}>D</Text>
-                <Text style={[styles.hDamage, styles.textHeader]}>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.k, styles.textHeader]}
+                >
+                  K/D/A
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.lhs, styles.textHeader]}
+                >
+                  LH
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.denies, styles.textHeader]}
+                >
+                  D
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.hDamage, styles.textHeader]}
+                >
                   {englishLanguage ? "Heroes Damage" : "Dano Heróis"}
-                </Text>
-                <Text style={[styles.tDamage, styles.textHeader]}>
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.tDamage, styles.textHeader]}
+                >
                   {englishLanguage ? "Tower Damage" : "Dano Torres"}
-                </Text>
-                <Text style={[styles.healing, styles.textHeader]}>
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.healing, styles.textHeader]}
+                >
                   {englishLanguage ? "Heal" : "Cura"}
-                </Text>
-                <Text style={[styles.xp, styles.textHeader]}>XPM</Text>
-                <Text style={[styles.netWorth, styles.textHeader]}>
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.xp, styles.textHeader]}
+                >
+                  XPM
+                </TextComponent>
+                <TextComponent
+                  weight="bold"
+                  style={[styles.netWorth, styles.textHeader]}
+                >
                   {englishLanguage ? "GPM" : "OPM"}
-                </Text>
+                </TextComponent>
               </View>
             </View>
           </View>
@@ -211,12 +241,20 @@ function Teams({
                 ]}
               >
                 <View style={{ flexDirection: "row" }}>
-                  <Text numberOfLines={1} style={styles.lvlText}>
+                  <TextComponent
+                    weight="bold"
+                    numberOfLines={1}
+                    style={styles.lvlText}
+                  >
                     {player.level}
-                  </Text>
-                  <Text numberOfLines={1} style={styles.nameText}>
+                  </TextComponent>
+                  <TextComponent
+                    weight="bold"
+                    numberOfLines={1}
+                    style={styles.nameText}
+                  >
                     {playerName}
-                  </Text>
+                  </TextComponent>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={styles.containerImage}>
@@ -236,60 +274,95 @@ function Teams({
                   <View style={{ width: "85%" }}>
                     <View key={index}>
                       <View style={styles.infoContainer}>
-                        <Text
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.k,
                             styles.textData,
                             { flexDirection: "row" },
                           ]}
                         >
-                          <Text style={{ color: "#555" }}>{player.kills}</Text>/
-                          <Text style={{ color: "555" }}>{player.deaths}</Text>/
-                          <Text style={{ color: "#555" }}>
+                          <TextComponent
+                            weight="bold"
+                            style={{ color: "#555" }}
+                          >
+                            {player.kills}
+                          </TextComponent>
+                          /
+                          <TextComponent weight="bold" style={{ color: "555" }}>
+                            {player.deaths}
+                          </TextComponent>
+                          /
+                          <TextComponent
+                            weight="bold"
+                            style={{ color: "#555" }}
+                          >
                             {player.assists}
-                          </Text>
-                        </Text>
+                          </TextComponent>
+                        </TextComponent>
 
-                        <Text style={[styles.lhs, styles.textData]}>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.lhs, styles.textData]}
+                        >
                           {player.last_hits}
-                        </Text>
-                        <Text style={[styles.denies, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.denies, styles.textData]}
+                        >
                           {player.denies}
-                        </Text>
-                        <Text style={[styles.hDamage, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.hDamage, styles.textData]}
+                        >
                           {player.hero_damage
                             ? player.hero_damage.toLocaleString(
                                 englishLanguage ? "en-US" : "pt-BR"
                               )
                             : 0}
-                        </Text>
-                        <Text style={[styles.tDamage, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.tDamage, styles.textData]}
+                        >
                           {player.tower_damage
                             ? player.tower_damage.toLocaleString(
                                 englishLanguage ? "en-US" : "pt-BR"
                               )
                             : 0}
-                        </Text>
-                        <Text style={[styles.healing, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.healing, styles.textData]}
+                        >
                           {player &&
                             player.hero_healing &&
                             player.hero_healing.toLocaleString(
                               englishLanguage ? "en-US" : "pt-BR"
                             )}
-                        </Text>
-                        <Text style={[styles.xp, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.xp, styles.textData]}
+                        >
                           {player &&
                             player.xp_per_min &&
                             player.xp_per_min.toLocaleString(
                               englishLanguage ? "en-US" : "pt-BR"
                             )}
-                        </Text>
-                        <Text style={[styles.netWorth, styles.textData]}>
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
+                          style={[styles.netWorth, styles.textData]}
+                        >
                           {player.gold_per_min}
-                        </Text>
+                        </TextComponent>
                       </View>
                       <View style={styles.infoContainerPercent}>
-                        <Text
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchKills,
                             styles.textDataPercent,
@@ -301,8 +374,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchLhs,
                             styles.textDataPercent,
@@ -314,8 +388,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchHerDa,
                             styles.textDataPercent,
@@ -327,8 +402,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchTowDa,
                             styles.textDataPercent,
@@ -340,8 +416,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchHeal,
                             styles.textDataPercent,
@@ -353,8 +430,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchXp,
                             styles.textDataPercent,
@@ -366,8 +444,9 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
-                        <Text
+                        </TextComponent>
+                        <TextComponent
+                          weight="bold"
                           style={[
                             styles.benchGold,
                             styles.textDataPercent,
@@ -381,7 +460,7 @@ function Teams({
                             : 0
                           ).toFixed(2)}
                           %
-                        </Text>
+                        </TextComponent>
                       </View>
                     </View>
                   </View>
@@ -403,7 +482,7 @@ function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(0, 5)}
-              teamName={matchDetails?.radiant_team?.name ?? radName}
+              teamName={radName}
               radiantWin={item.radiant_win}
             />
           )}
@@ -417,7 +496,7 @@ function Teams({
           renderItem={({ item }) => (
             <TeamRenderItem
               players={item.players.slice(5, 10)}
-              teamName={matchDetails?.dire_team?.name ?? direName}
+              teamName={direName}
               radiantWin={!item.radiant_win}
             />
           )}

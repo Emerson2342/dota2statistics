@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemeColor } from "../../services/props";
 
 export const createStyles = (colors: ThemeColor) =>

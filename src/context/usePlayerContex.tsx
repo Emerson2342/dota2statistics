@@ -8,13 +8,28 @@ import React, {
   SetStateAction,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LeagueMatches, PlayerModel, RecentMatches } from "../services/props";
+import {
+  HeroesPlayed,
+  LeagueMatches,
+  PlayerModel,
+  RecentMatches,
+} from "../services/props";
+import { PLAYER_PROFILE_API_BASE_URL } from "../constants/player";
+import {
+  fetchData,
+  getHeroesPlayed,
+  getRecentMatches,
+} from "../../src/services/api";
+import { SetPlayerModel } from "../utils/setPlayer";
+import { fail } from "assert";
 
 interface PlayerContextData {
   player: PlayerModel | null;
-  setPlayer: Dispatch<SetStateAction<PlayerModel | null>>;
   heroesPlayedId: number[] | [];
-  setHeroesPlayedId: Dispatch<SetStateAction<number[] | []>>;
+  heroesPlayed: HeroesPlayed[];
+  isLoadingContext: boolean;
+  recentMatches: RecentMatches[];
+  handleFetchPlayerData: (playerId: string | undefined) => Promise<void>;
 }
 
 const PlayerContext = createContext<PlayerContextData | undefined>(undefined);
@@ -24,6 +39,9 @@ interface PlayerProviderProps {
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [player, setPlayer] = useState<PlayerModel | null>(null);
   const [heroesPlayedId, setHeroesPlayedId] = useState<number[] | []>([]);
+  const [isLoadingContext, setIsLoadingContext] = useState(true);
+  const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
+  const [heroesPlayed, setHeroesPlayed] = useState<HeroesPlayed[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,27 +50,29 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         const storeHeroesPlayedId = await AsyncStorage.getItem(
           "heroesPlayedId"
         );
-        const storedProMatches = await AsyncStorage.getItem("proMatches");
 
         if (storedPlayerData) {
-          setPlayer(JSON.parse(storedPlayerData));
+          const parsed = JSON.parse(storedPlayerData);
+          setPlayer(parsed);
+          handleFetchPlayerData(parsed.profile.account_id.toString());
         }
         if (storeHeroesPlayedId) {
           setHeroesPlayedId(JSON.parse(storeHeroesPlayedId));
         }
       } catch (error) {
         console.error("Erro ao carregar dados do AsyncStorage:", error);
+      } finally {
+        setIsLoadingContext(false);
       }
     };
-
     loadData();
   }, []);
 
   useEffect(() => {
+    if (!player) return;
     const saveData = async () => {
       try {
         await AsyncStorage.setItem("playerData", JSON.stringify(player));
-
         await AsyncStorage.setItem(
           "heroesPlayedId",
           JSON.stringify(heroesPlayedId)
@@ -61,15 +81,47 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         console.error("Erro ao salvar dados no AsyncStorage:", error);
       }
     };
-
     saveData();
   }, [player, heroesPlayedId]);
 
+  const handleFetchPlayerData = async (playerId: string | undefined) => {
+    setIsLoadingContext(true);
+    const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${playerId}`;
+    await fetchData<PlayerModel>(searchPlayer)
+      .then(async (res) => {
+        if (res) {
+          const playerRes = SetPlayerModel(res);
+          setPlayer(playerRes);
+          const recentMatchesUrl = `${PLAYER_PROFILE_API_BASE_URL}${playerRes.profile.account_id}/recentMatches`;
+          await getRecentMatches(
+            recentMatchesUrl,
+            setHeroesPlayedId,
+            setRecentMatches
+          );
+          const url = `${PLAYER_PROFILE_API_BASE_URL}${playerRes?.profile.account_id}/heroes`;
+          const heroesPlayedResponse = await getHeroesPlayed(url);
+          if (heroesPlayedResponse && heroesPlayedResponse?.length > 0) {
+            const heroesRes = heroesPlayedResponse.filter(item => item.games > 0)
+            setHeroesPlayed(heroesRes);
+          }
+        } else {
+          setPlayer(null);
+        }
+      })
+      .catch((error) => {
+        console.log("Error trying to get profile", error.message);
+        setPlayer(null);
+      })
+      .finally(() => setIsLoadingContext(false));
+  };
+
   const contextValue: PlayerContextData = {
     player,
-    setPlayer,
+    heroesPlayed,
     heroesPlayedId,
-    setHeroesPlayedId,
+    isLoadingContext,
+    recentMatches,
+    handleFetchPlayerData,
   };
 
   return (

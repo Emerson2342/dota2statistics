@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import {
   View,
   TouchableOpacity,
-  Text,
   FlatList,
   Image,
   RefreshControl,
@@ -15,22 +14,22 @@ import {
   HeroDetailsModel,
   LobbyTypeNames,
   RecentMatches,
-  RootStackParamList,
 } from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
 
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import { usePlayerContext } from "../../../context/usePlayerContex";
-import { useTheme } from "../../../context/useThemeContext";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { useTheme } from "@src/context/useThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
-import { GameMode, LobbyType } from "../../../services/enum";
+import { GameMode, LobbyType } from "@src/services/enum";
 import { useRouter } from "expo-router";
 import {
   formatDuration,
   formatStartTime,
   overviewBar,
-} from "../../../utils/matchOverviewUtils";
+} from "@src/utils/matchOverviewUtils";
+import { TextComponent } from "@src/components/TextComponent";
 
 function LastMatchesComponent({
   playerId,
@@ -39,7 +38,7 @@ function LastMatchesComponent({
 }: {
   playerId: string | undefined;
   recentMatches: RecentMatches[] | null;
-  onRefresh: () => void;
+  onRefresh: () => Promise<void>;
 }) {
   const router = useRouter();
   const { englishLanguage } = useSettingsContext();
@@ -51,8 +50,8 @@ function LastMatchesComponent({
 
   const styles = createStyles(ColorTheme);
 
-  const refresh = useCallback(() => {
-    onRefresh();
+  const refresh = useCallback(async () => {
+    await onRefresh();
   }, [onRefresh]);
 
   const handleGoToMatch = (
@@ -96,7 +95,7 @@ function LastMatchesComponent({
     const team = item.player_slot < 5 ? 1 : 2;
     const finalResult =
       (team == 1 && item.radiant_win == true) ||
-      (team == 2 && item.radiant_win == false)
+        (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
@@ -129,7 +128,8 @@ function LastMatchesComponent({
             uri: imgSource,
           }}
         />
-        <Text
+        <TextComponent
+          weight="bold"
           style={[
             styles.textList,
             {
@@ -143,8 +143,9 @@ function LastMatchesComponent({
           ) : (
             <MaterialIcons name="thumb-down" size={15} color="#9a0c28" />
           )}
-        </Text>
-        <Text
+        </TextComponent>
+        <TextComponent
+          weight="bold"
           style={[
             styles.textList,
             { width: "28%", fontFamily: "QuickSand-Semibold" },
@@ -152,9 +153,10 @@ function LastMatchesComponent({
         >
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
-        </Text>
+        </TextComponent>
         <View style={{ width: "25%" }}>
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textList,
               {
@@ -164,19 +166,20 @@ function LastMatchesComponent({
             ]}
           >
             {LobbyTypeNames[lobbyTypeValue]}
-          </Text>
-          <Text style={[styles.textList, { color: ColorTheme.dark }]}>
+          </TextComponent>
+          <TextComponent weight="bold" style={[styles.textList, { color: ColorTheme.dark }]}>
             {GameModeNames[gameModeValue]}
-          </Text>
+          </TextComponent>
         </View>
-        <Text
+        <TextComponent
+          weight="semibold"
           style={[
             styles.textList,
-            { width: "10%", fontFamily: "QuickSand-Semibold" },
+            { width: "10%", },
           ]}
         >
           {formattedDuration}
-        </Text>
+        </TextComponent>
         <View style={{ width: "15%" }}>
           <View
             style={{
@@ -184,30 +187,33 @@ function LastMatchesComponent({
               justifyContent: "center",
             }}
           >
-            <Text
+            <TextComponent
+              weight="semibold"
               style={[
                 styles.textList,
-                { color: "#268626", fontFamily: "QuickSand-Semibold" },
+                { color: "#268626", },
               ]}
             >
               {item.kills}/
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
+              weight="semibold"
               style={[
                 styles.textList,
-                { color: "#9a0c28", fontFamily: "QuickSand-Semibold" },
+                { color: "#9a0c28" },
               ]}
             >
               {item.deaths}/
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
+              weight="semibold"
               style={[
                 styles.textList,
-                { color: "#c88304", fontFamily: "QuickSand-Semibold" },
+                { color: "#c88304" },
               ]}
             >
               {item.assists}
-            </Text>
+            </TextComponent>
           </View>
           <View
             style={{
@@ -249,19 +255,19 @@ function LastMatchesComponent({
   return (
     <View style={styles.flatListContainer}>
       <View style={styles.listTitle}>
-        <Text style={[styles.textTitleHeader, { width: "13%" }]}>
+        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "13%" }]}>
           {englishLanguage ? "Hero" : "Herói"}
-        </Text>
-        <Text style={[styles.textTitleHeader, { width: "40%" }]}>
+        </TextComponent>
+        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "40%" }]}>
           {englishLanguage ? "Date/Time" : "Data/Hora"}
-        </Text>
-        <Text style={[styles.textTitleHeader, { width: "17%" }]}>
+        </TextComponent>
+        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "17%" }]}>
           {englishLanguage ? "Mode" : "Modo"}
-        </Text>
-        <Text style={[styles.textTitleHeader, { width: "15%" }]}>
+        </TextComponent>
+        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "15%" }]}>
           {englishLanguage ? "Duration" : "Duração"}
-        </Text>
-        <Text style={[styles.textTitleHeader, { width: "13%" }]}>K/D/A</Text>
+        </TextComponent>
+        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "13%" }]}>K/D/A</TextComponent>
       </View>
       <FlatList
         data={recentMatches}

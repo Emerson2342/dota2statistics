@@ -1,8 +1,8 @@
 import { LinearGradient, useFont, vec } from "@shopify/react-native-skia";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Bar, CartesianChart } from "victory-native";
-import quickSand from "../../../Fonts/Quicksand_Bold.ttf";
+import quickSand from "@src/Fonts/Quicksand_Bold.ttf";
 
 function BarChartComp({
   formattedData,
@@ -11,18 +11,18 @@ function BarChartComp({
   formattedData: { y: number }[];
   color: string;
 }) {
-  const font = useFont(quickSand, 9);
-  const data = formattedData.map((item, index) => ({
-    x: index + 1,
-    y: item.y,
-  }));
-
   const [loading, setLoading] = useState(true);
+  const font = useFont(quickSand, 9);
+  const data = useMemo(() => {
+    return formattedData.map((item, index) => ({
+      x: index + 1,
+      y: item.y,
+    }));
+  }, [formattedData]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 750);
+    const timer = setTimeout(() => setLoading(false), 750);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading)

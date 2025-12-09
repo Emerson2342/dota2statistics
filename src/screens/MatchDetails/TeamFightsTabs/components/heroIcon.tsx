@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet, View, Image } from "react-native";
-import { PICTURE_HERO_BASE_URL } from "../../../../../src/constants/player";
-import { TeamSide } from "../../../../../src/services/enum";
+import { View, Image } from "react-native";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { TeamSide } from "@src/services/enum";
 import {
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
-} from "../../../../../src/services/props";
+} from "@src/services/props";
 import { createStyles } from "../styles";
 
 type TeamHeroesProps = {

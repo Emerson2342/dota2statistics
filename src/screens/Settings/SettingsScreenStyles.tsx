@@ -15,30 +15,26 @@ export const createStyles = (Colors: ThemeColor) =>
       padding: "3%",
     },
     title: {
-      fontFamily: "QuickSand-Bold",
       padding: "3%",
       fontSize: 20,
       color: "orange",
       textAlign: "center",
     },
     textAlert: {
-      fontFamily: "QuickSand-Semibold",
       color: "#e15a5a",
       textAlign: "center",
       marginVertical: 15,
     },
     profile: {
-      fontFamily: "QuickSand-Bold",
-      textAlign: "left",
+      flexDirection: "row",
       width: "100%",
       color: Colors.dark,
+      gap: 3,
     },
     textData: {
       color: "#000",
-      fontFamily: "QuickSand-Regular",
     },
     textOptions: {
-      fontFamily: "QuickSand-Bold",
       color: "#888",
     },
     buttonContainer: {
@@ -52,11 +48,9 @@ export const createStyles = (Colors: ThemeColor) =>
     },
     textButton: {
       fontSize: 15,
-      fontFamily: "QuickSand-Semibold",
       color: Colors.dark,
     },
     buttonSave: {
-      //backgroundColor: Colors.standard,
       backgroundColor: Colors.light,
       elevation: 7,
       padding: "2%",

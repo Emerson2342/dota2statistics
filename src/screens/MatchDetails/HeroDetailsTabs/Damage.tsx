@@ -1,34 +1,29 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   Image,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import {
   HeroAbilitiesDescriptionsJson,
   HeroDetailsModel,
-  ItemsJson,
-  ItemsModel,
   MatchDetailsModel,
   Player,
-  RootStackParamList,
   ThemeColor,
-} from "../../../services/props";
-import AbilitiesDescriptionsJson from "../../../components/Heroes/AbilitiesDescriptions.json";
-import ItemsList from "../../../components/Itens/itemsList.json";
+} from "@src/services/props";
+import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
+import ItemsList from "@src/components/Itens/itemsList.json";
 import {
-  ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
-} from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
+} from "@src/constants/player";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import EmptyImage from "../../../images/emptyImage.png";
+import EmptyImage from "@src/images/emptyImage.png";
+import { TextComponent } from "@src/components/TextComponent";
 
 function Damage({
   matchDetails,
@@ -67,9 +62,9 @@ function Damage({
   const RenderDamage = ({ players }: { players: Player[] }) => {
     return (
       <View style={styles.contentItem}>
-        <Text style={styles.title}>
+        <TextComponent weight="bold" style={styles.title}>
           {englishLanguage ? "Damage Inflictor" : "Origem do Dano"}
-        </Text>
+        </TextComponent>
         {players &&
           players.map((player: Player, index: number) => {
             const hero = heroList.find((hero) => hero.id === player.hero_id);
@@ -78,25 +73,27 @@ function Damage({
             return (
               <View key={index}>
                 {index == 0 ? (
-                  <Text
+                  <TextComponent
+                    weight="bold"
                     style={[
                       styles.textTeam,
                       { borderTopWidth: 1, borderColor: ColorTheme.semilight },
                     ]}
                   >
                     {RadName ? RadName : radName}
-                  </Text>
+                  </TextComponent>
                 ) : null}
 
                 {index === 5 && (
-                  <Text
+                  <TextComponent
+                    weight="bold"
                     style={[
                       styles.textTeam,
                       { borderTopWidth: 1, borderColor: ColorTheme.semilight },
                     ]}
                   >
                     {DireName ? DireName : direName}
-                  </Text>
+                  </TextComponent>
                 )}
 
                 <View
@@ -201,9 +198,9 @@ function Damage({
                                       }}
                                     />
                                   )}
-                                <Text
+                                <TextComponent
+                                  weight="semibold"
                                   style={{
-                                    fontFamily: "QuickSand-Semibold",
                                     fontSize:
                                       Dimensions.get("screen").width * 0.027,
                                     color: "#888",
@@ -212,29 +209,11 @@ function Damage({
                                   {damage.toLocaleString(
                                     englishLanguage ? "en-US" : "pt-BR"
                                   )}
-                                </Text>
+                                </TextComponent>
                               </View>
                             );
                           })}
                     </View>
-
-                    {/* {player.damage_inflictor &&
-                      Object.entries(player.damage_inflictor).map(
-                        ([ability, damage], index) => {
-                          const abilityInfo =
-                            heroAbilitiesDescriptions[ability];
-                          if (index == 0)
-                            return (
-                              <View key={index}>
-                                <Text>
-                                  {abilityInfo && abilityInfo.dmg_type
-                                    ? abilityInfo.dmg_type
-                                    : "asdfasdf"}
-                                </Text>
-                              </View>
-                            );
-                        }
-                      )} */}
                   </View>
                 </View>
               </View>
@@ -271,7 +250,6 @@ const createStyles = (Colors: ThemeColor) =>
       padding: "1%",
     },
     title: {
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       fontSize: 20,
       color: Colors.semidark,
@@ -279,7 +257,6 @@ const createStyles = (Colors: ThemeColor) =>
     },
     textTeam: {
       textAlign: "center",
-      fontFamily: "QuickSand-Bold",
       fontSize: 15,
       color: Colors.semidark,
     },

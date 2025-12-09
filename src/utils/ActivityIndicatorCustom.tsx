@@ -1,27 +1,19 @@
 import React, { useEffect } from "react";
 import {
-  ActivityIndicator,
   View,
-  Text,
   StyleSheet,
   Image,
-  Button,
-  Dimensions,
 } from "react-native";
 import { useTheme } from "../../src/context/useThemeContext";
 import { ThemeColor } from "../../src/services/props";
-import { BannerAds } from "../../src/components/Admob/BannerAds";
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withSequence,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
-
-const duration = 900;
+import { TextComponent } from "@src/components/TextComponent";
 
 export function ActivityIndicatorCustom({ message }: { message: string }) {
   const { ColorTheme } = useTheme();
@@ -69,7 +61,7 @@ export function ActivityIndicatorCustom({ message }: { message: string }) {
           }}
         />
       </Animated.View>
-      <Text style={styles.textLoading}>{message}</Text>
+      <TextComponent weight="bold" style={styles.textLoading}>{message}</TextComponent>
     </View>
   );
 }

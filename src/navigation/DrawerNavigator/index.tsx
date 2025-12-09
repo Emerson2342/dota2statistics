@@ -1,17 +1,18 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
 
-import { Home } from "../../../src/screens/Home";
-import { Search } from "../../../src/screens/Search";
-import { Favorites } from "../../../src/screens/Favorites";
-import { Leagues } from "../../../src/screens/Leagues/Leagues";
-import { ListaDeHerois } from "../../../src/screens/HeroesList";
-import { SettingsScreen } from "../../../src/screens/Settings/SettingsScreen";
+import { Home } from "@src/screens/Home";
+import { Search } from "@src/screens/Search";
+import { Favorites } from "@src/screens/Favorites";
+import { Leagues } from "@src/screens/Leagues/Leagues";
+import { ListaDeHerois } from "@src/screens/HeroesList";
+import { SettingsScreen } from "@src/screens/Settings/SettingsScreen";
 import { CustomDrawerContent } from "./customDrawer";
 import { Ionicons } from "@expo/vector-icons";
+import { SantaHatComponent } from "@src/components/SantaHatComponent";
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
 
@@ -42,7 +43,9 @@ export function DrawerNavigatorScreen() {
         name="Home"
         component={Home}
         options={{
-          title: englishLanguage ? "Home" : "Principal",
+          headerTitle: () => (
+            <SantaHatComponent englishName="Home" portugueseName="Principal" />
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -53,6 +56,12 @@ export function DrawerNavigatorScreen() {
         component={ListaDeHerois}
         options={{
           title: englishLanguage ? "Heroes List" : "Lista de Heróis",
+          headerTitle: () => (
+            <SantaHatComponent
+              englishName="Heroes List"
+              portugueseName="Lista de Heróis"
+            />
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="people-outline" size={size} color={color} />
           ),
@@ -62,7 +71,12 @@ export function DrawerNavigatorScreen() {
         name="Search"
         component={Search}
         options={{
-          title: englishLanguage ? "Search" : "Pesquisar",
+          headerTitle: () => (
+            <SantaHatComponent
+              englishName="Search"
+              portugueseName="Pesquisar"
+            />
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="search-outline" size={size} color={color} />
           ),
@@ -73,6 +87,12 @@ export function DrawerNavigatorScreen() {
         component={Favorites}
         options={{
           title: englishLanguage ? "Favorites" : "Favoritos",
+          headerTitle: () => (
+            <SantaHatComponent
+              englishName="Favorites"
+              portugueseName="Favoritos"
+            />
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="star-outline" size={size} color={color} />
           ),
@@ -83,6 +103,12 @@ export function DrawerNavigatorScreen() {
         component={Leagues}
         options={{
           title: englishLanguage ? "Tournament" : "Campeonatos",
+          headerTitle: () => (
+            <SantaHatComponent
+              englishName="Tournament"
+              portugueseName="Campeonatos"
+            />
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="trophy-outline" size={size} color={color} />
           ),
@@ -93,6 +119,13 @@ export function DrawerNavigatorScreen() {
         component={SettingsScreen}
         options={{
           title: englishLanguage ? "Settings" : "Configurações",
+          headerTitle: () => (
+            <SantaHatComponent
+              englishName="Settings"
+              portugueseName="Configurações"
+            />
+          ),
+
           drawerIcon: ({ color, size }) => (
             <Ionicons name="settings-outline" size={size} color={color} />
           ),

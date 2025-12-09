@@ -1,51 +1,76 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, useWindowDimensions } from "react-native";
 import {
   PRO_MATCHES_URL,
-} from "../../constants/player";
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useProfileContext } from "../../context/useProfileContext";
-import { useTheme } from "../../context/useThemeContext";
+} from "@src/constants/player";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { fetchData, getHeroesStats } from "@src/services/api";
 import {
-  fetchData,
-  getHeroesStats,
-} from "../../services/api";
-import { HeroStats, LeagueMatches } from "../../../src/services/props";
+  HeroStats,
+  LeagueMatches,
+} from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
-import { ErrorComponent } from "../../../src/utils/ErrorComponent";
-import { OrdererLeagueMatches } from "../../../src/services/ordererLeagueMatches";
+import { ErrorComponent } from "@src/utils/ErrorComponent";
+import { OrdererLeagueMatches } from "@src/services/ordererLeagueMatches";
+import { usePlayerContext } from "@src/context/usePlayerContex";
 
 export function Home() {
-  const { profile } = useProfileContext();
+  const { player, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
+    usePlayerContext();
   const { ColorTheme } = useTheme();
   const { englishLanguage } = useSettingsContext();
+  const layout = useWindowDimensions();
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
   const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
   const [errorRequest, setErrorRequest] = useState(false);
-
   const [index, setIndex] = useState(0);
+
+  const routes = useMemo(
+    () => [
+      { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
+      {
+        key: "myProfile",
+        title: englishLanguage ? "My Profile" : "Meu Perfil",
+      },
+      {
+        key: "heroesPlayed",
+        title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+      },
+    ],
+    [englishLanguage]
+  );
 
   useEffect(() => {
     handleLoadData();
   }, []);
+
+  const handleLoadData = async () => {
+    setIsLoading(true);
+    setErrorRequest(false);
+    try {
+      await getProMatches();
+      await getHeroesStats(setHeroesStats);
+    } catch (error: any) {
+      setErrorRequest(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
-      indicatorStyle={{
-        backgroundColor: "orange",
-      }}
-      activeColor={"#fff"}
-      inactiveColor={"#888"}
-      style={{
-        backgroundColor: ColorTheme.semidark,
-      }}
+      indicatorStyle={{ backgroundColor: "orange" }}
+      activeColor="#fff"
+      inactiveColor="#888"
+      style={{ backgroundColor: ColorTheme.semidark }}
     />
   );
 
@@ -65,56 +90,25 @@ export function Home() {
       case "heroesPlayed":
         return (
           <HeroesPlayedComponent
-            PlayerId={profile?.id_Steam ?? "1"}
+            isLoading={isLoadingContext}
+            heroesPlayedList={heroesPlayed}
             isHomeProfile={true}
+            refresh={async () =>
+              await handleFetchPlayerData(
+                player?.profile?.account_id?.toString()
+              )
+            }
           />
         );
       default:
         return null;
     }
   };
-  // const handleRefresh = useCallback(async () => {
-  //   await getProMatches(setProMatches);
-  // }, [getProMatches]);
 
   const getProMatches = async () => {
     await fetchData<LeagueMatches[]>(PRO_MATCHES_URL)
-      .then((res) => {
-        const matches = OrdererLeagueMatches(res);
-        setProMatches(matches);
-      })
+      .then((res) => setProMatches(OrdererLeagueMatches(res)))
       .catch(() => console.error("Error trying to get pro matches"));
-  };
-
-  const routes = useMemo(
-    () => [
-      { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
-      {
-        key: "myProfile",
-        title: englishLanguage ? "My Profile" : "Meu Perfil",
-      },
-      {
-        key: "heroesPlayed",
-        title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
-      },
-    ],
-    [englishLanguage]
-  );
-
-  const handleLoadData = async () => {
-    console.log("Carregando********************");
-    setIsLoading(true);
-    setErrorRequest(false);
-    setTimeout(async () => {
-      try {
-        await getProMatches();
-        await getHeroesStats(setHeroesStats);
-      } catch (error: any) {
-        setErrorRequest(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }, 500);
   };
 
   if (isLoading)
@@ -123,28 +117,18 @@ export function Home() {
         message={englishLanguage ? "Loading..." : "Carregando..."}
       />
     );
-
   if (errorRequest) return <ErrorComponent action={handleLoadData} />;
 
   return (
     <View style={{ flex: 1 }}>
       <TabView
+        key={index}
+        lazy={false}
         renderTabBar={renderTabBar}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: Dimensions.get("window").width }}
-        lazy
-        lazyPreloadDistance={0}
-        renderLazyPlaceholder={() => (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ActivityIndicatorCustom
-              message={englishLanguage ? "Loading..." : "Carregando..."}
-            />
-          </View>
-        )}
+        initialLayout={{ width: layout.width }}
         commonOptions={{
           labelStyle: {
             fontSize: Dimensions.get("screen").width * 0.03,

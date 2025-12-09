@@ -4,7 +4,7 @@ import { GraficsGoldPlayersComponent } from "./GraficsGoldPlayers";
 import { HeroKillsDetailsComponent } from "./KillsDetails";
 import { ItemsComponent } from "./Items";
 import { AbilitiesComponent } from "./Abilities";
-import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
+import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { DamageComponent } from "./Damage";
 import { DamageTypeComponent } from "./DamageType";
 
@@ -25,16 +25,16 @@ function HeroesDetailsComponent({
   direName,
   heroArray,
 }: Props) {
+  if (!matchDetails) return null;
   return (
     <ScrollView
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      {matchDetails &&
-      matchDetails.players.length > 0 &&
-      matchDetails.players[0].gold_t &&
-      matchDetails.players[0].gold_t.length > 0 ? (
+      {matchDetails.players.length > 0 &&
+        matchDetails.players[0].gold_t &&
+        matchDetails.players[0].gold_t.length > 0 ? (
         <View
           style={[
             styles.containerItem,
@@ -47,68 +47,62 @@ function HeroesDetailsComponent({
         >
           <GraficsGoldPlayersComponent
             matchDetails={matchDetails}
-            RadiantName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
+            RadiantName={radName}
+            DireName={direName}
           />
         </View>
       ) : null}
 
       <View style={styles.containerItem}>
-        {matchDetails ? (
-          <HeroKillsDetailsComponent
-            heroArray={heroArray}
-            matchDetails={matchDetails}
-            radName={matchDetails?.radiant_team?.name ?? radName}
-            direName={matchDetails?.dire_team?.name ?? direName}
-          />
-        ) : null}
+        <HeroKillsDetailsComponent
+          heroArray={heroArray}
+          matchDetails={matchDetails}
+          radName={radName}
+          direName={direName}
+        />
       </View>
-      {matchDetails && matchDetails.players[0]?.damage_inflictor && (
+      {matchDetails.players[0]?.damage_inflictor && (
         <View style={styles.containerItem}>
           <DamageComponent
-            RadName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
+            RadName={radName}
+            DireName={direName}
             matchDetails={matchDetails}
           />
         </View>
       )}
-      {matchDetails && matchDetails.players[0]?.damage_inflictor && (
+      {matchDetails.players[0]?.damage_inflictor && (
         <View style={styles.containerItem}>
           <DamageTypeComponent
-            RadName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
+            RadName={radName}
+            DireName={direName}
             matchDetails={matchDetails}
             damageInflictor="caused"
           />
         </View>
       )}
-      {matchDetails && matchDetails.players[0]?.damage_inflictor_received && (
+      {matchDetails.players[0]?.damage_inflictor_received && (
         <View style={styles.containerItem}>
           <DamageTypeComponent
-            RadName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
+            RadName={radName}
+            DireName={direName}
             matchDetails={matchDetails}
             damageInflictor="received"
           />
         </View>
       )}
       <View style={styles.containerItem}>
-        {matchDetails ? (
-          <ItemsComponent
-            matchDetails={matchDetails}
-            RadName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
-          />
-        ) : null}
+        <ItemsComponent
+          matchDetails={matchDetails}
+          RadName={radName}
+          DireName={direName}
+        />
       </View>
       <View style={styles.containerItem}>
-        {matchDetails ? (
-          <AbilitiesComponent
-            matchDetails={matchDetails}
-            RadName={matchDetails?.radiant_team?.name ?? radName}
-            DireName={matchDetails?.dire_team?.name ?? direName}
-          />
-        ) : null}
+        <AbilitiesComponent
+          matchDetails={matchDetails}
+          RadName={radName}
+          DireName={direName}
+        />
       </View>
     </ScrollView>
   );

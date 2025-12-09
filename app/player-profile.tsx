@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
-import PlayerProfileScreen from "../src/screens/PlayerProfile";
+import PlayerProfileScreen from "@src/screens/PlayerProfile";
 import { View } from "react-native";
-import { BannerAds } from "../src/components/Admob/BannerAds";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 
 type PlayerProfileParams = {
   playerId: string;

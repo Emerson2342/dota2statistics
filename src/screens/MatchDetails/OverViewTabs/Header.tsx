@@ -1,39 +1,40 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   Modal,
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import { MatchDetailsModel, ThemeColor } from "../../../services/props";
-import { ModalMessage } from "../../../components/Modals/ModalMessage";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { MatchDetailsModel, ThemeColor } from "@src/services/props";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { Ionicons } from "@expo/vector-icons";
+import { TextComponent } from "@src/components/TextComponent";
 
 function Header({
   matchDetails,
   lobbyType,
   gameMode,
+  radName,
+  direName,
 }: {
   matchDetails: MatchDetailsModel | null;
   lobbyType?: string;
   gameMode?: string;
+  radName: string;
+  direName: string;
 }) {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
-  const radName = englishLanguage ? "Radiant" : "Iluminados";
 
   const textWarning = englishLanguage
     ? "This match does not have detailed data available. For more details, access the OpenDota link and request a match analysis. Once analyzed, please refresh the page by pulling down the screen."
     : "Esta partida não tem dados detalhados disponíveis. Para mais informações, acesse o site do OpenDota e solicite a análise. O OpenDota é um serviço externo e pode exigir tempo para processar os dados. " +
       "Ao término da análise, favor atualizar os detalhes da partida puxando para baixo a tela.";
-
-  const direName = englishLanguage ? "Dire" : "Temidos";
 
   let formattedDuration;
   let formattedTime;
@@ -61,9 +62,9 @@ function Header({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitleLeague}>
+      <TextComponent weight="bold" style={styles.textTitleLeague}>
         {matchDetails?.league?.name ?? `${lobbyType} - ${gameMode}`}
-      </Text>
+      </TextComponent>
       <View style={{ width: "100%", alignItems: "center" }}>
         <View
           style={{
@@ -105,15 +106,16 @@ function Header({
                 alignItems: "center",
               }}
             >
-              <Text
+              <TextComponent
+                weight="bold"
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
-                {matchDetails?.radiant_team?.name ?? radName}{" "}
-              </Text>
-              <Text style={styles.teamScore}>
+                {radName}
+              </TextComponent>
+              <TextComponent weight="bold" style={styles.teamScore}>
                 {matchDetails?.radiant_score}
-              </Text>
+              </TextComponent>
             </View>
           </View>
           <View
@@ -143,13 +145,16 @@ function Header({
               />
             )}
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.teamScore}>{matchDetails?.dire_score}</Text>
-              <Text
+              <TextComponent weight="bold" style={styles.teamScore}>
+                {matchDetails?.dire_score}
+              </TextComponent>
+              <TextComponent
+                weight="bold"
                 numberOfLines={1}
                 style={[styles.teamName, { textAlign: "center" }]}
               >
-                {matchDetails?.dire_team?.name ?? direName}{" "}
-              </Text>
+                {direName}
+              </TextComponent>
             </View>
           </View>
         </View>
@@ -161,40 +166,40 @@ function Header({
           }}
         >
           <View style={{ flexDirection: "row" }}>
-            <Text
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
               {englishLanguage ? "Duration: " : "Duração: "}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
               {formattedDuration}
-            </Text>
+            </TextComponent>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
               {englishLanguage ? "Date: " : "Data: "}
-            </Text>
-            <Text
+            </TextComponent>
+            <TextComponent
               style={{
                 color: ColorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
               {formattedTime}
-            </Text>
+            </TextComponent>
           </View>
         </View>
       </View>
@@ -207,10 +212,10 @@ function Header({
           marginBottom: "3%",
         }}
       >
-        <Text style={styles.textId}>
+        <TextComponent weight="semibold" style={styles.textId}>
           {englishLanguage ? "Match Id: " : "Id da Partida: "}
           {matchDetails?.match_id}
-        </Text>
+        </TextComponent>
         <TouchableOpacity
           style={{
             marginLeft: 3,
@@ -260,7 +265,6 @@ const createStyles = (colors: ThemeColor) =>
     textTitleLeague: {
       fontSize: width * 0.05,
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       borderBottomWidth: 1,
       borderColor: "#ccc",
@@ -280,19 +284,16 @@ const createStyles = (colors: ThemeColor) =>
     },
     teamName: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       width: "80%",
     },
     teamScore: {
       color: colors.semidark,
-      fontFamily: "QuickSand-Bold",
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.037,
       width: "20%",
     },
     textId: {
-      fontFamily: "QuickSand-Semibold",
       textAlign: "center",
       color: "#aaa",
     },

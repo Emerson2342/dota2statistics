@@ -3,17 +3,17 @@ import {
   View,
   Dimensions,
   Image,
-  Text,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { CartesianChart, Line } from "victory-native";
 import { useFont } from "@shopify/react-native-skia";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { HeroDetailsModel, MatchDetailsModel } from "../../../services/props";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { useTheme } from "../../../context/useThemeContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { useTheme } from "@src/context/useThemeContext";
+import { TextComponent } from "@src/components/TextComponent";
 
 const GraficsGoldPlayers = ({
   matchDetails,
@@ -139,7 +139,8 @@ const GraficsGoldPlayers = ({
 
   return (
     <View style={{ width: width, height: height }}>
-      <Text
+      <TextComponent
+        weight="bold"
         style={[
           styles.textTeamName,
           {
@@ -151,8 +152,9 @@ const GraficsGoldPlayers = ({
         {englishLanguage
           ? "Net Worth Evolution"
           : "Evolução do Patrimônio Líquido"}
-      </Text>
-      <Text
+      </TextComponent>
+      <TextComponent
+        weight="bold"
         style={[
           styles.textTeamName,
           {
@@ -164,10 +166,10 @@ const GraficsGoldPlayers = ({
         {englishLanguage
           ? "*Click on a hero to see the evolution."
           : "*Clique em um herói para ver a evolução."}
-      </Text>
-      <Text style={[styles.textGraphic, { color: "green" }]}>
+      </TextComponent>
+      <TextComponent weight="semibold" style={[styles.textGraphic, { color: "green" }]}>
         {RadiantName}
-      </Text>
+      </TextComponent>
       <View style={styles.heroButtonContainer}>
         {matchDetails.players.slice(0, 5).map((player, index) => {
           const hero = heroArray.find((hero) => hero.id === player.hero_id);
@@ -183,14 +185,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                      ? colors[1]
-                      : index === 2 && hero3Selected
-                      ? colors[2]
-                      : index === 3 && hero4Selected
-                      ? colors[3]
-                      : index === 4 && hero5Selected
-                      ? colors[4]
-                      : "transparent",
+                        ? colors[1]
+                        : index === 2 && hero3Selected
+                          ? colors[2]
+                          : index === 3 && hero4Selected
+                            ? colors[3]
+                            : index === 4 && hero5Selected
+                              ? colors[4]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -307,7 +309,7 @@ const GraficsGoldPlayers = ({
           </>
         )}
       </CartesianChart>
-      <Text style={styles.textGraphic}>{DireName}</Text>
+      <TextComponent weight="semibold" style={styles.textGraphic}>{DireName}</TextComponent>
       <View style={styles.heroButtonContainer}>
         {matchDetails.players.slice(5, 10).map((player, index) => {
           const hero = heroArray.find((hero) => hero.id === player.hero_id);
@@ -324,14 +326,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                      ? colors[6]
-                      : index === 2 && hero8Selected
-                      ? colors[7]
-                      : index === 3 && hero9Selected
-                      ? colors[8]
-                      : index === 4 && hero10Selected
-                      ? colors[9]
-                      : "transparent",
+                        ? colors[6]
+                        : index === 2 && hero8Selected
+                          ? colors[7]
+                          : index === 3 && hero9Selected
+                            ? colors[8]
+                            : index === 4 && hero10Selected
+                              ? colors[9]
+                              : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >
@@ -369,11 +371,12 @@ const GraficsGoldPlayers = ({
           borderRadius: 7,
         }}
       >
-        <Text
-          style={{ padding: 7, color: "#fff", fontFamily: "QuickSand-Bold" }}
+        <TextComponent
+          weight="bold"
+          style={{ padding: 7, color: "#fff" }}
         >
           {englishLanguage ? "Clear Graphic" : "Limpar Gráfico"}
-        </Text>
+        </TextComponent>
       </TouchableOpacity>
     </View>
   );
@@ -385,7 +388,6 @@ GraficsGoldPlayersComponent.displayName = "GraficsGoldPlayersComponent";
 const styles = StyleSheet.create({
   textTeamName: {
     textAlign: "center",
-    fontFamily: "QuickSand-Bold",
   },
   textGraphic: {
     textAlign: "center",
@@ -393,7 +395,6 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     marginTop: 15,
     color: "#ff0000",
-    fontFamily: "QuickSand-Semibold",
   },
   heroButtonContainer: {
     width: "90%",
@@ -404,7 +405,6 @@ const styles = StyleSheet.create({
     marginTop: 9,
   },
   heroImage: {
-    //borderRadius: 1.7,
     borderTopLeftRadius: 9,
     borderTopRightRadius: 9,
     aspectRatio: 1.5,

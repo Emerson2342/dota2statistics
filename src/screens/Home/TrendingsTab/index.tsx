@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { HeroesStats } from "./HeroesStats";
 import { ProMatches } from "./ProMatches";
-import { HeroStats, LeagueMatches } from "../../../../src/services/props";
+import { HeroStats, LeagueMatches } from "@src/services/props";
 
 type Props = {
   color: string;
@@ -12,7 +12,6 @@ type Props = {
 };
 
 export function TrendingsTab({
-  color,
   heroesStats,
   onRefresh,
   proMatches,

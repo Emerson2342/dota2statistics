@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   TextInput,
   Modal,
 } from "react-native";
-import { HandleCloseInterface, ThemeColor, User } from "../../services/props";
+import { HandleCloseInterface, ThemeColor } from "../../services/props";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { useProfileContext } from "../../../src/context/useProfileContext";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { Ionicons } from "@expo/vector-icons";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
 import { toSteam32 } from "../../../src/utils/steam";
+import { usePlayerContext } from "../../context/usePlayerContex";
+import { TextComponent } from "../TextComponent";
 
 export default function ModalMyAccount({
   handleClose,
@@ -22,64 +22,47 @@ export default function ModalMyAccount({
   handleClose: HandleCloseInterface;
 }) {
 
-  const { profile, setProfile } = useProfileContext();
+  const { player, handleFetchPlayerData } =
+    usePlayerContext();
   const { englishLanguage } = useSettingsContext();
-  const [user, setUser] = useState<User>({
-    id_Steam: profile?.id_Steam ?? "",
-  });
+  const [userId, setUserId] = useState(player?.profile?.account_id ?? "0");
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [textMessage, setTextMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { ColorTheme } = useTheme();
+  const styles = createStyles(ColorTheme);
 
   const titleMessage = englishLanguage ? "Message" : "Mensagem";
-
-  const currentTimestamp = Math.floor(Date.now() / 1000);
-
-  const { ColorTheme } = useTheme();
-
-
 
   const messageSuccess = englishLanguage
     ? "Steam ID successfully changed"
     : "Id da Steam alterado com sucesso!";
 
-  const messageError = englishLanguage
-    ? "Error trying to change Steam ID"
-    : "Erro ao tentar alterar o Id da Steam";
-
-  const handleSave = () => {
-    const convertedId = toSteam32(user.id_Steam);
+  const handleSave = async () => {
+    const convertedId = toSteam32(userId);
     if (convertedId) {
-      const userReady = {
-        ...user,
-        id_Steam: convertedId,
-      };
-      setUser(userReady);
-
+      setUserId(convertedId);
       setIsLoading(true);
-      setTimeout(() => {
-        setTextMessage(messageSuccess);
-        setModalMessageVisible(true);
-        setIsLoading(false);
-        setProfile(userReady);
-      }, 300);
+      setTextMessage(messageSuccess);
+      setModalMessageVisible(true);
+      setIsLoading(false);
+      await handleFetchPlayerData(convertedId);
     }
-
   };
 
-  const styles = createStyles(ColorTheme);
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text
+        <TextComponent
           style={[
             styles.title,
             { color: "orange", fontSize: 20, fontFamily: "QuickSand-Bold" },
           ]}
         >
           {englishLanguage ? "My Account" : "Minha Conta"}
-        </Text>
-        <Text style={styles.header}>Id Steam</Text>
+        </TextComponent>
+        <TextComponent weight="semibold" style={styles.header}>Id Steam</TextComponent>
         <View
           style={{
             flexDirection: "row",
@@ -92,12 +75,12 @@ export default function ModalMyAccount({
               keyboardType="numeric"
               style={styles.inputText}
               onChangeText={(textId) =>
-                setUser((prevUser) => ({ ...prevUser, id_Steam: textId }))
+                setUserId(textId)
               }
             />
             <TouchableOpacity
               onPress={() =>
-                setUser((prevState) => ({ ...prevState, id_Steam: "" }))
+                setUserId("")
               }
             >
               <Ionicons
@@ -110,10 +93,7 @@ export default function ModalMyAccount({
           <TouchableOpacity
             style={{ justifyContent: "center", marginBottom: "3%" }}
             onPress={() => {
-              setUser((prevState) => ({
-                ...prevState,
-                id_Steam: profile?.id_Steam ?? "",
-              }));
+              setUserId(player?.profile.account_id ?? "");
             }}
           >
             <Ionicons
@@ -129,23 +109,21 @@ export default function ModalMyAccount({
             onPress={() => handleClose()}
             style={styles.buttonContent}
           >
-            <Text
+            <TextComponent weight="bold"
               style={{
                 color: ColorTheme.semidark,
-                fontFamily: "QuickSand-Semibold",
               }}
             >
               {englishLanguage ? "Back" : "Voltar"}
-            </Text>
+            </TextComponent>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleSave()}
-            //onPress={() => alert(JSON.stringify(user, null, 2))}
             style={[styles.buttonContent, { backgroundColor: ColorTheme.dark }]}
           >
-            <Text style={{ color: "#fff", fontFamily: "QuickSand-Semibold" }}>
+            <TextComponent weight="bold" style={{ color: "#fff" }}>
               {englishLanguage ? "Save" : "Salvar"}
-            </Text>
+            </TextComponent>
           </TouchableOpacity>
         </View>
       </View>
@@ -195,7 +173,6 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       marginRight: "10%",
       color: colors.dark,
-      fontFamily: "QuickSand-Semibold",
     },
     inputContent: {
       margin: "3%",
@@ -212,7 +189,6 @@ const createStyles = (colors: ThemeColor) =>
       width: "90%",
       textAlign: "center",
       color: "#808080",
-      fontFamily: "QuickSand-Regular",
     },
     buttonContainer: {
       width: "90%",

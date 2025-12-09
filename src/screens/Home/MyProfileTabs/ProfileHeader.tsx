@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   Image,
   FlatList,
@@ -9,19 +8,19 @@ import {
 } from "react-native";
 
 import { createStyles } from "./ProfileHeaderStyles";
-import { Medal } from "../../../components/Medals/MedalsList";
+import { Medal } from "@src/components/Medals/MedalsList";
 import {
-  FontModel,
   HeroDetailsModel,
   PlayerModel,
   RecentMatches,
 } from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
 
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import { useTheme } from "../../../context/useThemeContext";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
+import { TextComponent } from "@src/components/TextComponent";
 
 const NUMBER_COLUMNS = 10;
 
@@ -34,11 +33,6 @@ export function ProfileHeader({
   heroesId: number[];
   recentMatches: RecentMatches[] | null;
 }) {
-  // const Font: FontModel = {
-  //   font1: "QuickSand-Semibold",
-  //   font2: "QuickSand-Bold",
-  //   font3: "QuickSand-Regular",
-  // };
   const router = useRouter();
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
@@ -135,7 +129,8 @@ export function ProfileHeader({
               />
             </View>
           </View>
-          <Text
+          <TextComponent
+            weight="bold"
             style={[
               styles.textRank,
               {
@@ -144,14 +139,15 @@ export function ProfileHeader({
             ]}
           >
             {player?.leaderboard_rank}
-          </Text>
+          </TextComponent>
           <View
             style={{
               width: "55%",
               alignItems: "center",
             }}
           >
-            <Text
+            <TextComponent
+              weight="semibold"
               style={[
                 styles.textProfile,
                 {
@@ -164,10 +160,10 @@ export function ProfileHeader({
               {player?.profile.name === ""
                 ? player?.profile.personaname
                 : player?.profile.name}
-            </Text>
-            <Text style={[styles.textProfile, { color: "#fff" }]}>
+            </TextComponent>
+            <TextComponent weight="semibold" style={[styles.textProfile, { color: "#fff" }]}>
               {englishLanguage ? "Last 20 Matches" : "Últimas 20 Partidas"}
-            </Text>
+            </TextComponent>
             <View
               style={{
                 flexDirection: "row",
@@ -175,25 +171,25 @@ export function ProfileHeader({
                 justifyContent: "space-around",
               }}
             >
-              <Text style={styles.textProfile}>
+              <TextComponent weight="semibold" style={styles.textProfile}>
                 {englishLanguage ? "Win" : "Vitórias"}:{" "}
-                <Text style={[styles.textProfile, { color: "orange" }]}>
+                <TextComponent style={[styles.textProfile, { color: "orange" }]}>
                   {vitorias}
-                </Text>
-              </Text>
-              <Text style={styles.textProfile}>
+                </TextComponent>
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.textProfile}>
                 {englishLanguage ? "Loss" : "Derrotas"}:{" "}
-                <Text style={[styles.textProfile, { color: "orange" }]}>
+                <TextComponent weight="semibold" style={[styles.textProfile, { color: "orange" }]}>
                   {derrotas}
-                </Text>
-              </Text>
+                </TextComponent>
+              </TextComponent>
             </View>
-            <Text style={styles.textProfile}>
+            <TextComponent weight="semibold" style={styles.textProfile}>
               Winrate:
-              <Text style={[styles.textProfile, { color: "orange" }]}>
+              <TextComponent weight="semibold" style={[styles.textProfile, { color: "orange" }]}>
                 {winrate ? ` ${winrate}%` : ""}
-              </Text>
-            </Text>
+              </TextComponent>
+            </TextComponent>
             <View
               style={{
                 flexDirection: "row",

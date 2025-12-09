@@ -1,19 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   FlatList,
-  Text,
   TouchableOpacity,
   View,
   Image,
-  ActivityIndicator,
   Keyboard,
-  Button,
 } from "react-native";
-import { Searchbar, RadioButton } from "react-native-paper";
+import { Searchbar } from "react-native-paper";
 import { createStyles } from "./styles";
 
 import { useSettingsContext } from "../../context/useSettingsContext";
-import { HeroDetailsModel, RootStackParamList } from "../../services/props";
+import { HeroDetailsModel } from "../../services/props";
 
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { useTheme } from "../../../src/context/useThemeContext";
@@ -23,6 +20,8 @@ import AgiImg from "../../images/agi.png";
 import StrImg from "../../images/str.png";
 import AllImg from "../../images/all.png";
 import { useRouter } from "expo-router";
+import { TextComponent } from "../../../src/components/TextComponent";
+import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
 
 const COLUMNS: number = 2;
 
@@ -88,8 +87,8 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-      ? `No results found for: "${textResult}"`
-      : `Nenhum resultado encontrado para: "${textResult}"`;
+        ? `No results found for: "${textResult}"`
+        : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const GoToHeroDetails = (heroId: string) => {
     router.push({
@@ -176,7 +175,7 @@ export function ListaDeHerois() {
             ]}
             source={attImage}
           />
-          <Text style={styles.nameHeroText}>{item.localized_name}</Text>
+          <TextComponent weight="semibold" style={styles.nameHeroText}>{item.localized_name}</TextComponent>
         </TouchableOpacity>
       </View>
     );
@@ -207,7 +206,7 @@ export function ListaDeHerois() {
           ]}
           onPress={() => handleSelectAtt("")}
         >
-          <Text
+          <TextComponent weight="bold"
             style={[
               styles.textAll,
               {
@@ -217,7 +216,7 @@ export function ListaDeHerois() {
             ]}
           >
             {englishLanguage ? "All" : "Todos"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonOptions}
@@ -276,9 +275,9 @@ export function ListaDeHerois() {
           marginBottom: "3%",
         }}
       >
-        <Text style={{ fontFamily: "QuickSand-Semibold" }}>
+        <TextComponent style={{ fontFamily: "QuickSand-Semibold" }}>
           {textSearchResult}
-        </Text>
+        </TextComponent>
       </View>
       <View
         style={{
@@ -291,10 +290,7 @@ export function ListaDeHerois() {
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <ActivityIndicator size={30} color={ColorTheme.semidark} />
-            <Text style={styles.textLoading}>
-              {englishLanguage ? "Loading heroes..." : "Carregando heróis..."}
-            </Text>
+            <ActivityIndicatorCustom message={englishLanguage ? "Loading heroes..." : "Carregando heróis..."} />
           </View>
         ) : (
           <FlatList

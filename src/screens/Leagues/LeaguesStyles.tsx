@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { FontModel, ThemeColor } from "../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -21,7 +21,6 @@ export const createStyles = (colors: ThemeColor) =>
       borderLeftColor: colors.standard,
     },
     textLeagueName: {
-      fontFamily: "QuickSand-Bold",
       color: colors.semidark,
       textAlign: "center",
     },

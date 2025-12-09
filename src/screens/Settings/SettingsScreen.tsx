@@ -1,24 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  ActivityIndicator,
-} from "react-native";
-import { useSettingsContext } from "../../context/useSettingsContext";
+import React, { useCallback, useState } from "react";
+import { View, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
+import { useSettingsContext } from "@src/context/useSettingsContext";
 import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
-import { useTheme } from "../../context/useThemeContext";
-import { useProfileContext } from "../../context/useProfileContext";
-import ModalMyAccount from "../../components/Modals/ModalMyAccount";
+import { useTheme } from "@src/context/useThemeContext";
+import ModalMyAccount from "@src/components/Modals/ModalMyAccount";
 import { useFocusEffect } from "expo-router";
+import { usePlayerContext } from "@src/context/usePlayerContex";
+import { TextComponent } from "@src/components/TextComponent";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
     useSettingsContext();
 
-  const { profile } = useProfileContext();
+  const { player } = usePlayerContext();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -54,31 +49,35 @@ export function SettingsScreen() {
     <View style={styles.mainContainer}>
       <View style={[styles.container, { flex: 0.9 }]}>
         <View style={styles.container}>
-          <Text style={styles.title}>
+          <TextComponent weight="bold" style={styles.title}>
             {englishLanguage ? "My Account" : "Minha Conta"}
-          </Text>
-          <Text style={styles.profile}>
-            Id Steam: <Text style={styles.textData}>{profile?.id_Steam}</Text>
-          </Text>
+          </TextComponent>
+          <View style={styles.profile}>
+            <TextComponent weight="bold">Id Steam:</TextComponent>
+            <TextComponent style={styles.textData}>
+              {player?.profile.account_id}
+            </TextComponent>
+          </View>
           <TouchableOpacity
             style={[styles.buttonSave, { marginTop: 15 }]}
             onPress={() => setModalVisible(true)}
           >
-            <Text style={styles.textButton}>
+            <TextComponent weight="semibold" style={styles.textButton}>
               {englishLanguage ? "Edit" : "Editar"}
-            </Text>
+            </TextComponent>
           </TouchableOpacity>
         </View>
         <View style={styles.container}>
-          <Text style={styles.title}>
+          <TextComponent weight="bold" style={styles.title}>
             {englishLanguage ? "Language" : "Idioma"}
-          </Text>
+          </TextComponent>
           <View style={styles.options}>
             <TouchableOpacity
               style={{ marginTop: "2%", marginBottom: "2%" }}
               onPress={() => setIsEnglish(true)}
             >
-              <Text
+              <TextComponent
+                weight="bold"
                 style={
                   isEnglish
                     ? [styles.textOptions, { color: ColorTheme.dark }]
@@ -90,13 +89,14 @@ export function SettingsScreen() {
                   size={15}
                 />{" "}
                 {englishLanguage ? "English (EN-US)" : "Inglês (EN-US)"}
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
             <TouchableOpacity
               style={{ marginBottom: "2%" }}
               onPress={() => setIsEnglish(false)}
             >
-              <Text
+              <TextComponent
+                weight="bold"
                 style={
                   !isEnglish
                     ? [styles.textOptions, { color: ColorTheme.dark }]
@@ -108,8 +108,9 @@ export function SettingsScreen() {
                   size={15}
                 />{" "}
                 {englishLanguage ? "Portuguese (PT-BR)" : "Português (PT-BR) "}
-              </Text>
-              <Text
+              </TextComponent>
+              <TextComponent
+                weight="semibold"
                 style={[
                   styles.textAlert,
                   { display: isEnglish ? "none" : "flex" },
@@ -117,12 +118,14 @@ export function SettingsScreen() {
               >
                 Mesmo configurado em Português, alguns dados serão apresentados
                 em Inglês
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.container}>
-          <Text style={styles.title}>{englishLanguage ? "Theme" : "Tema"}</Text>
+          <TextComponent weight="bold" style={styles.title}>
+            {englishLanguage ? "Theme" : "Tema"}
+          </TextComponent>
           <View style={styles.options}>
             {Object.entries(themeKeys).map(
               ([themeKey, themeLabel]: [string, string], index: number) => (
@@ -131,7 +134,8 @@ export function SettingsScreen() {
                   style={{ marginTop: "2%" }}
                   onPress={() => setSelectTheme(themeKey)}
                 >
-                  <Text
+                  <TextComponent
+                    weight="bold"
                     style={
                       selectTheme === themeKey
                         ? [styles.textOptions, { color: ColorTheme.dark }]
@@ -145,7 +149,7 @@ export function SettingsScreen() {
                       size={15}
                     />{" "}
                     {themeLabel}
-                  </Text>
+                  </TextComponent>
                 </TouchableOpacity>
               )
             )}
@@ -164,9 +168,12 @@ export function SettingsScreen() {
           style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
           onPress={() => handleSaveChanges()}
         >
-          <Text style={[styles.textButton, { color: "#fff" }]}>
+          <TextComponent
+            weight="semibold"
+            style={[styles.textButton, { color: "#fff" }]}
+          >
             {englishLanguage ? "Save Changes" : "Salvar"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </View>
       <Modal
@@ -187,15 +194,15 @@ export function SettingsScreen() {
           }}
         >
           <ActivityIndicator size={35} color={ColorTheme.light} />
-          <Text
+          <TextComponent
+            weight="bold"
             style={{
               color: ColorTheme.light,
               margin: 15,
-              fontFamily: "QuickSand-Bold",
             }}
           >
             {englishLanguage ? "Saving..." : "Salvando..."}
-          </Text>
+          </TextComponent>
         </View>
       </Modal>
     </View>

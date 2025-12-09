@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import { View, Image } from "react-native";
 import {
   PlayerTeamFight,
   TeamFightModel,
   ThemeColor,
-} from "../../../../../src/services/props";
-import { PICTURE_HERO_BASE_FULL_URL } from "../../../../../src/constants/player";
-import { TeamSide } from "../../../../../src/services/enum";
+} from "@src/services/props";
+import { PICTURE_HERO_BASE_FULL_URL } from "@src/constants/player";
+import { TeamSide } from "@src/services/enum";
 import { createStyles } from "../styles";
+import { TextComponent } from "@src/components/TextComponent";
 
 type ProcessedFight = TeamFightModel & {
   formattedTime: string;
@@ -38,7 +39,9 @@ export const KillsImage = ({ fight, label, color, team }: KillsImageProps) => {
     <>
       {!fight.emptyRadKilledList && (
         <View>
-          <Text style={styles.textLabel}>{label}</Text>
+          <TextComponent weight="bold" style={styles.textLabel}>
+            {label}
+          </TextComponent>
           <View style={{ flexDirection: "row" }}>
             {fight.players
               ?.slice(start, end)

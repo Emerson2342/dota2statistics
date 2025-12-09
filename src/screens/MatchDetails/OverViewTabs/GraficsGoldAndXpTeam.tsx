@@ -1,34 +1,26 @@
 import React from "react";
-import { View, Dimensions, TextInput, Text, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import { CartesianChart, Line } from "victory-native";
-import Animated from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
-import { useSettingsContext } from "../../../context/useSettingsContext";
+import { useSettingsContext } from "@src/context/useSettingsContext";
+import { TextComponent } from "@src/components/TextComponent";
 
-Animated.addWhitelistedNativeProps({ text: true });
 const width = Dimensions.get("screen").width * 0.93;
 
 const GraficsGoldAndXpTeam = ({
   radiant_gold_adv,
   radiant_xp_adv,
-  RadiantName,
-  DireName,
+  radName,
+  direName,
 }: {
   radiant_gold_adv: number[];
   radiant_xp_adv: number[];
-  RadiantName: string | undefined;
-  DireName: string | undefined;
+  radName: string | undefined;
+  direName: string | undefined;
 }) => {
   const { englishLanguage } = useSettingsContext();
 
   const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
-
-  const radiantName = RadiantName
-    ? RadiantName
-    : englishLanguage
-    ? "Radiant"
-    : "Iluminados";
-  const direName = DireName ? DireName : englishLanguage ? "Dire" : "Temidos";
 
   const combinedData = radiant_gold_adv.map((value, index) => ({
     gold: value,
@@ -38,9 +30,12 @@ const GraficsGoldAndXpTeam = ({
 
   return (
     <View style={{ width: width, height: 350 }}>
-      <Text style={[styles.textGraphic, { color: "green" }]}>
-        {radiantName}
-      </Text>
+      <TextComponent
+        weight="semibold"
+        style={[styles.textGraphic, { color: "green" }]}
+      >
+        {radName}
+      </TextComponent>
       <CartesianChart
         data={combinedData}
         xKey="x"
@@ -75,25 +70,26 @@ const GraficsGoldAndXpTeam = ({
           </>
         )}
       </CartesianChart>
-      <Text style={styles.textGraphic}>{direName}</Text>
+      <TextComponent weight="semibold" style={styles.textGraphic}>
+        {direName}
+      </TextComponent>
       <View style={{ marginLeft: "5%" }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ width: "10%", backgroundColor: "#e5c250", height: 5 }}>
-            <Text />
-          </View>
-          <Text style={{ color: "#aaa", fontFamily: "QuickSand-Semibold" }}>
-            {" "}
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
+          <View
+            style={{ width: "10%", backgroundColor: "#e5c250", height: 5 }}
+          />
+
+          <TextComponent weight="semibold" style={{ color: "#aaa" }}>
             {englishLanguage ? "Networth" : "Patrimônio Líquido"}
-          </Text>
+          </TextComponent>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ width: "10%", backgroundColor: "#a3bee0", height: 5 }}>
-            <Text />
-          </View>
-          <Text style={{ color: "#aaa", fontFamily: "QuickSand-Semibold" }}>
-            {" "}
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
+          <View
+            style={{ width: "10%", backgroundColor: "#a3bee0", height: 5 }}
+          />
+          <TextComponent weight="semibold" style={{ color: "#aaa" }}>
             Xp
-          </Text>
+          </TextComponent>
         </View>
       </View>
     </View>
@@ -108,6 +104,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 17,
     color: "#ff0000",
-    fontFamily: "QuickSand-Semibold",
   },
 });

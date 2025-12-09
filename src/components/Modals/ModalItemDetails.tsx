@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Image,
   Dimensions,
   Modal,
@@ -20,6 +19,8 @@ import { BannerAds } from "../Admob/BannerAds";
 import AbilitiesDescriptions from "../../../src/components/Heroes/AbilitiesDescriptions.json";
 import { Feather } from "@expo/vector-icons";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TextComponent } from "../TextComponent";
 
 type Props = {
   data: ModalItemData | null;
@@ -59,7 +60,7 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
   const coolDown = coolDownTime(aghaninAndShardDesc?.cd);
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
-      <View
+      <SafeAreaView
         style={{
           flex: 1,
           backgroundColor: "#000000AA",
@@ -68,7 +69,9 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
         <BannerAds />
         <View style={styles.modal}>
           <View style={styles.container}>
-            <Text style={styles.textTitle}>{itemToShow.itemDname}</Text>
+            <TextComponent weight="bold" style={styles.textTitle}>
+              {itemToShow.itemDname}
+            </TextComponent>
             <View
               style={{
                 flexDirection: "row",
@@ -95,7 +98,10 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
                     }}
                   >
                     <Feather name="clock" color={"#555"} />
-                    <Text> {coolDown}</Text>
+                    <TextComponent weight="semibold" style={{}}>
+                      {" "}
+                      {coolDown}
+                    </TextComponent>
                   </View>
                   <View
                     style={{
@@ -112,63 +118,78 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
                         borderRadius: 3,
                       }}
                     />
-                    <Text> {mana}</Text>
+                    <TextComponent weight="semibold" style={{}}>
+                      {" "}
+                      {mana}
+                    </TextComponent>
                   </View>
                 </View>
-                <Text
+                <TextComponent
                   style={{
                     display: aghaninAndShardDesc?.bkbpierce ? "flex" : "none",
                     fontFamily: "QuickSand-Semibold",
                     color: "#888",
                   }}
                 >
-                  <Text style={{ color: "#333" }}>Pierce bkb:</Text>{" "}
+                  <TextComponent style={{ color: "#333" }}>
+                    Pierce bkb:
+                  </TextComponent>{" "}
                   {aghaninAndShardDesc?.bkbpierce}
-                </Text>
-                <Text
+                </TextComponent>
+                <TextComponent
+                  weight="semibold"
                   style={{
                     display: aghaninAndShardDesc?.dmg_type ? "flex" : "none",
                     fontFamily: "QuickSand-Semibold",
                     color: "#888",
                   }}
                 >
-                  <Text style={{ color: "#333" }}>Damage Type:</Text>{" "}
+                  <TextComponent style={{ color: "#333" }}>
+                    Damage Type:
+                  </TextComponent>{" "}
                   {aghaninAndShardDesc?.dmg_type}
-                </Text>
-                <Text
+                </TextComponent>
+                <TextComponent
                   style={{
                     display: aghaninAndShardDesc?.dispellable ? "flex" : "none",
                     fontFamily: "QuickSand-Semibold",
                     color: "#888",
                   }}
                 >
-                  <Text style={{ color: "#333" }}>Dispellable:</Text>{" "}
+                  <TextComponent weight="semibold" style={{ color: "#333" }}>
+                    Dispellable:
+                  </TextComponent>{" "}
                   {aghaninAndShardDesc?.dispellable}
-                </Text>
+                </TextComponent>
               </View>
             </View>
             {item?.abilities?.map((item, index) => {
               return (
                 <View key={index}>
-                  <Text style={styles.textTitleDesc}>{item.title}</Text>
-                  <Text style={styles.textDescription}>
+                  <TextComponent weight="bold" style={styles.textTitleDesc}>
+                    {item.title}
+                  </TextComponent>
+                  <TextComponent
+                    weight="semibold"
+                    style={styles.textDescription}
+                  >
                     {"     "}
                     {item.description}
-                  </Text>
+                  </TextComponent>
                 </View>
               );
             })}
             {shard || aghanim ? (
               <View>
-                <Text style={styles.textTitleDesc}>
+                <TextComponent style={styles.textTitleDesc}>
                   {aghaninAndShardDesc?.dname}
-                </Text>
-                <Text style={styles.textDescription}>
+                </TextComponent>
+                <TextComponent style={styles.textDescription}>
                   {"     "}
                   {shard?.shard_desc}
                   {aghanim?.scepter_desc}
-                </Text>
-                <Text
+                </TextComponent>
+                <TextComponent
                   style={{
                     display: aghaninAndShardDesc?.lore ? "flex" : "none",
                     fontStyle: "italic",
@@ -178,17 +199,17 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
                   }}
                 >
                   "{aghaninAndShardDesc?.lore}"
-                </Text>
+                </TextComponent>
               </View>
             ) : null}
-            <Text
+            <TextComponent
               style={[
                 styles.textLore,
                 { display: item?.lore ? "flex" : "none" },
               ]}
             >
               "{item?.lore}"
-            </Text>
+            </TextComponent>
             <TouchableOpacity
               style={[
                 styles.buttonContainer,
@@ -199,13 +220,13 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
                 handleClose;
               }}
             >
-              <Text style={styles.textButton}>
+              <TextComponent weight="bold" style={styles.textButton}>
                 {englishLanguage ? "Close" : "Fechar"}
-              </Text>
+              </TextComponent>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 });
@@ -226,7 +247,6 @@ const styles = StyleSheet.create({
     padding: "3%",
   },
   textTitle: {
-    fontFamily: "QuickSand-Bold",
     fontSize: Dimensions.get("window").width * 0.05,
     marginBottom: "3%",
   },
@@ -238,13 +258,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   textTitleDesc: {
-    fontFamily: "QuickSand-Bold",
     textAlign: "center",
     fontSize: Dimensions.get("window").width * 0.04,
     padding: "2%",
   },
   textDescription: {
-    fontFamily: "QuickSand-Semibold",
     textAlign: "justify",
     color: "#333",
     fontSize: Dimensions.get("window").width * 0.035,
@@ -266,7 +284,6 @@ const styles = StyleSheet.create({
   textButton: {
     color: "#fff",
     textAlign: "center",
-    fontFamily: "QuickSand-Bold",
     fontSize: Dimensions.get("window").width * 0.04,
   },
 });

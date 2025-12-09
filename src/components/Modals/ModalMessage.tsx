@@ -3,11 +3,11 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Dimensions,
   Linking,
 } from "react-native";
 import { useSettingsContext } from "../../context/useSettingsContext";
+import { TextComponent } from "../TextComponent";
 
 export function ModalMessage({
   handleClose,
@@ -29,16 +29,16 @@ export function ModalMessage({
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.textMessage}>
+        <TextComponent weight="bold" style={styles.titleText}>{title}</TextComponent>
+        <TextComponent weight="semibold" style={styles.textMessage}>
           {"   "}
           {message}
-        </Text>
+        </TextComponent>
         <TouchableOpacity
           style={{ display: link ? "flex" : "none" }}
           onPress={() => Linking.openURL(openDotaUrl)}
         >
-          <Text
+          <TextComponent
             style={{
               marginTop: 15,
               color: "blue",
@@ -47,12 +47,12 @@ export function ModalMessage({
             }}
           >
             {englishLanguage ? "Access OpenDota" : " Acessar OpenDota"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => handleClose()}>
-          <Text style={styles.textButton}>
+          <TextComponent weight="bold" style={styles.textButton}>
             {englishLanguage ? "Close" : "Fechar"}
-          </Text>
+          </TextComponent>
         </TouchableOpacity>
       </View>
     </View>
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: Dimensions.get("screen").width * 0.05,
-    fontFamily: "QuickSand-Bold",
     textAlign: "center",
     paddingTop: "2%",
     paddingBottom: "5%",
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
   textMessage: {
     fontSize: Dimensions.get("screen").width * 0.037,
     color: "#8e8e8e",
-    fontFamily: "QuickSand-Semibold",
     textAlign: "justify",
   },
   button: {
@@ -101,6 +99,5 @@ const styles = StyleSheet.create({
   textButton: {
     paddingHorizontal: "9%",
     color: "#fff",
-    fontFamily: "QuickSand-Bold",
   },
 });

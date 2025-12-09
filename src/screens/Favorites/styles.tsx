@@ -6,10 +6,6 @@ export const createStyles = (Colors: ThemeColor) =>
     container: {
       flex: 1,
       width: "100%",
-      // backgroundColor: Colors.light,
-    },
-    scrollView: {
-      //paddingTop: "7%"
     },
     itemContent: {
       flexDirection: "row",
@@ -48,12 +44,10 @@ export const createStyles = (Colors: ThemeColor) =>
     },
     textProfileName: {
       width: "55%",
-      fontFamily: "QuickSand-Semibold",
     },
     emptyList: {
       textAlign: "center",
       padding: "5%",
-      fontFamily: "QuickSand-Semibold",
       color: Colors.semidark,
     },
   });
