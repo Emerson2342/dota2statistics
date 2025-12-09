@@ -227,6 +227,15 @@ export default function PlayerProfileScreen({
       />
     );
 
+  if (recentMatches.length === 0 && !isLoading)
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <TextComponent weight="bold" style={styles.textMessage}>
+          {erro404}
+        </TextComponent>
+      </View>
+    );
+
   return (
     <TabView
       lazy

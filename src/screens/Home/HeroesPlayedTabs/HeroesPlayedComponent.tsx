@@ -42,8 +42,11 @@ function HeroesPlayedComp({
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(heroesPlayedList);
 
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+  const erro404 = englishLanguage
+    ? "Unable to access player data. The profile may be set to private."
+    : "Não foi possível acessar os dados do jogador. Perfil pode estar como privado.";
 
+  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
   const handleSetOrder = (order: string) => {
     setOrderToShow(order);
@@ -98,16 +101,32 @@ function HeroesPlayedComp({
           style={styles.imageHero}
           source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
         />
-        <TextComponent weight="semibold" style={[styles.textInfo, { width: "33%" }]}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.textInfo, { width: "33%" }]}
+        >
           {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
           {formattedTime}
         </TextComponent>
-        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.textInfo, { width: "17%" }]}
+        >
           {winrate.toFixed(2)}%
         </TextComponent>
 
-        <TextComponent weight="semibold" style={[styles.textInfo, { width: "20%" }]}>{item.games}</TextComponent>
-        <TextComponent weight="semibold" style={[styles.textInfo, { width: "17%" }]}>{item.win}</TextComponent>
+        <TextComponent
+          weight="semibold"
+          style={[styles.textInfo, { width: "20%" }]}
+        >
+          {item.games}
+        </TextComponent>
+        <TextComponent
+          weight="semibold"
+          style={[styles.textInfo, { width: "17%" }]}
+        >
+          {item.win}
+        </TextComponent>
       </View>
     );
   };
@@ -127,36 +146,19 @@ function HeroesPlayedComp({
   if (isHomeProfile && (player == null || player.profile.account_id == 0)) {
     return (
       <View style={{ flex: 1 }}>
-        <TextComponent weight="semibold" style={styles.textErro}>{setSteamId}</TextComponent>
+        <TextComponent weight="semibold" style={styles.textErro}>
+          {setSteamId}
+        </TextComponent>
       </View>
     );
   }
 
   if (heroesPlayedList.length === 0)
     return (
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <TextComponent style={{ fontFamily: "QuickSand-Bold", fontSize: 17 }}>
-          {englishLanguage ? "No heroes found!" : "Nenhum herói encontrado!"}
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <TextComponent weight="bold" style={styles.textMessage}>
+          {erro404}
         </TextComponent>
-        <TouchableOpacity
-          onPress={refresh}
-          style={{
-            backgroundColor: ColorTheme.dark,
-            borderRadius: 7,
-            margin: 5,
-            padding: 7,
-          }}
-        >
-          <TextComponent
-            style={{
-              color: "#fff",
-              padding: 5,
-              fontFamily: "QuickSand-Semibold",
-            }}
-          >
-            {englishLanguage ? "Refresh" : "Atualizar"}
-          </TextComponent>
-        </TouchableOpacity>
       </View>
     );
 
@@ -293,6 +295,12 @@ const createStyles = (colors: ThemeColor) =>
     textErro: {
       textAlign: "center",
       padding: "5%",
+      color: colors.semidark,
+    },
+    textMessage: {
+      textAlign: "center",
+      padding: "5%",
+      fontFamily: "QuickSand-Semibold",
       color: colors.semidark,
     },
   });
