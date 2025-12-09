@@ -1,15 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
-import {
-  PRO_MATCHES_URL,
-} from "@src/constants/player";
+import { PRO_MATCHES_URL } from "@src/constants/player";
 import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { fetchData, getHeroesStats } from "@src/services/api";
-import {
-  HeroStats,
-  LeagueMatches,
-} from "../../../src/services/props";
+import { HeroStats, LeagueMatches } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
@@ -86,7 +81,7 @@ export function Home() {
           />
         );
       case "myProfile":
-        return <MyProfileTabs />;
+        return <MyProfileTabs index={index} />;
       case "heroesPlayed":
         return (
           <HeroesPlayedComponent

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Animated } from "react-native";
 import { useTheme } from "@src/context/useThemeContext";
 import { useSettingsContext } from "@src/context/useSettingsContext";
 import { usePlayerContext } from "@src/context/usePlayerContex";
@@ -11,8 +11,13 @@ import { toSteam32 } from "@src/utils/steam";
 import { SearchComponent } from "@src/utils/SearchComponent";
 import { getErro404Message } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
+import { useFocusEffect } from "expo-router";
 
-export function MyProfileTabs() {
+type Props = {
+  index: number;
+};
+
+export function MyProfileTabs({ index }: Props) {
   const { ColorTheme } = useTheme();
   const {
     player,
@@ -23,6 +28,18 @@ export function MyProfileTabs() {
   } = usePlayerContext();
   const { englishLanguage } = useSettingsContext();
   const [showModalMessage, setShowModalMessage] = useState(false);
+  // const opacity = useRef(new Animated.Value(0.3)).current;
+
+  // useEffect(() => {
+  //   if (index == 1) {
+  //     opacity.setValue(0.3);
+  //     Animated.timing(opacity, {
+  //       toValue: 1,
+  //       duration: 1500,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   }
+  // }, [index]);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(ColorTheme);
@@ -74,7 +91,7 @@ export function MyProfileTabs() {
   }
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={styles.container}>
       <View
         style={{
           flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
@@ -102,7 +119,7 @@ export function MyProfileTabs() {
           )}
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

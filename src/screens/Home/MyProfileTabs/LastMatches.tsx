@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import {
   View,
   TouchableOpacity,
@@ -7,6 +7,7 @@ import {
   RefreshControl,
   Dimensions,
   DimensionValue,
+  Animated,
 } from "react-native";
 import { createStyles } from "./LastMatchesStyles";
 import {
@@ -95,7 +96,7 @@ function LastMatchesComponent({
     const team = item.player_slot < 5 ? 1 : 2;
     const finalResult =
       (team == 1 && item.radiant_win == true) ||
-        (team == 2 && item.radiant_win == false)
+      (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
@@ -167,16 +168,16 @@ function LastMatchesComponent({
           >
             {LobbyTypeNames[lobbyTypeValue]}
           </TextComponent>
-          <TextComponent weight="bold" style={[styles.textList, { color: ColorTheme.dark }]}>
+          <TextComponent
+            weight="bold"
+            style={[styles.textList, { color: ColorTheme.dark }]}
+          >
             {GameModeNames[gameModeValue]}
           </TextComponent>
         </View>
         <TextComponent
           weight="semibold"
-          style={[
-            styles.textList,
-            { width: "10%", },
-          ]}
+          style={[styles.textList, { width: "10%" }]}
         >
           {formattedDuration}
         </TextComponent>
@@ -189,28 +190,19 @@ function LastMatchesComponent({
           >
             <TextComponent
               weight="semibold"
-              style={[
-                styles.textList,
-                { color: "#268626", },
-              ]}
+              style={[styles.textList, { color: "#268626" }]}
             >
               {item.kills}/
             </TextComponent>
             <TextComponent
               weight="semibold"
-              style={[
-                styles.textList,
-                { color: "#9a0c28" },
-              ]}
+              style={[styles.textList, { color: "#9a0c28" }]}
             >
               {item.deaths}/
             </TextComponent>
             <TextComponent
               weight="semibold"
-              style={[
-                styles.textList,
-                { color: "#c88304" },
-              ]}
+              style={[styles.textList, { color: "#c88304" }]}
             >
               {item.assists}
             </TextComponent>
@@ -255,19 +247,36 @@ function LastMatchesComponent({
   return (
     <View style={styles.flatListContainer}>
       <View style={styles.listTitle}>
-        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "13%" }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTitleHeader, { width: "13%" }]}
+        >
           {englishLanguage ? "Hero" : "Herói"}
         </TextComponent>
-        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "40%" }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTitleHeader, { width: "40%" }]}
+        >
           {englishLanguage ? "Date/Time" : "Data/Hora"}
         </TextComponent>
-        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "17%" }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTitleHeader, { width: "17%" }]}
+        >
           {englishLanguage ? "Mode" : "Modo"}
         </TextComponent>
-        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "15%" }]}>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTitleHeader, { width: "15%" }]}
+        >
           {englishLanguage ? "Duration" : "Duração"}
         </TextComponent>
-        <TextComponent weight="bold" style={[styles.textTitleHeader, { width: "13%" }]}>K/D/A</TextComponent>
+        <TextComponent
+          weight="bold"
+          style={[styles.textTitleHeader, { width: "13%" }]}
+        >
+          K/D/A
+        </TextComponent>
       </View>
       <FlatList
         data={recentMatches}
