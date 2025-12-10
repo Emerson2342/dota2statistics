@@ -5,11 +5,9 @@ import {
   useSettingsContext,
 } from "./../src/context/useSettingsContext";
 import { ThemeProvider, useTheme } from "@src/context/useThemeContext";
-import { TeamsListProvider } from "@src/context/useTeamContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
-import { FavoritesProvider } from "@src/context/useFavoritesContext";
 import { Modal, Platform, StatusBar, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
@@ -51,14 +49,10 @@ export default function App() {
       <SettingsProvider>
         <ThemeProvider>
           <PlayerProvider>
-            <TeamsListProvider>
-              <PaperProvider>
-                <FavoritesProvider>
-                  {/* <Teste /> */}
-                  <Content />
-                </FavoritesProvider>
-              </PaperProvider>
-            </TeamsListProvider>
+            <PaperProvider>
+              {/* <Teste /> */}
+              <Content />
+            </PaperProvider>
           </PlayerProvider>
         </ThemeProvider>
       </SettingsProvider>

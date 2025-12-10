@@ -5,12 +5,13 @@ import { createStyles } from "./LeagueMatchesStyles";
 import { useTheme } from "@src/context/useThemeContext";
 import { LeagueMatches } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
-import { useTeamsListContext } from "@src/context/useTeamContext";
 import { useSettingsContext } from "@src/context/useSettingsContext";
 import { fetchData } from "@src/services/api";
 import { useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TextComponent } from "@src/components/TextComponent";
+import { useTeamStore } from "@src/store/teamsList";
+import { useShallow } from "zustand/react/shallow";
 
 type LeagueDetailsProps = {
   LeagueIdIndex: number;
@@ -27,22 +28,35 @@ export function LeagueMatchesScreen({
 
   const styles = createStyles(ColorTheme);
   const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[] | []>([]);
-  const { teamsList } = useTeamsListContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const { englishLanguage } = useSettingsContext();
+  const { teamsList, loading, fetchTeams } = useTeamStore(
+    useShallow((state) => ({
+      teamsList: state.teamsList,
+      loading: state.loading,
+      fetchTeams: state.fetchTeams,
+    }))
+  );
 
   useEffect(() => {
-    const handleLoadLeagueMatches = async () => {
+    const load = async () => {
       setIsLoading(true);
+      await fetchTeams();
+      await handleLoadLeagueMatches();
+      setIsLoading(false);
+    };
+    const handleLoadLeagueMatches = async () => {
       const searchLeagues = `${LEAGUES_BASE_URL}${LeagueIdIndex}/matches`;
 
       await fetchData<LeagueMatches[]>(searchLeagues)
         .then((res) => setLeagueMatches(res))
-        .catch(() => console.error("Error trying to get League Matches"))
-        .finally(() => setIsLoading(false));
+        .catch(() => console.error("Error trying to get League Matches"));
     };
-    handleLoadLeagueMatches();
+    load();
   }, []);
+
+  useEffect(() => {}, []);
 
   const handleGoToMatch = (matchId: number) => {
     route.push({
@@ -142,15 +156,15 @@ export function LeagueMatchesScreen({
           </View>
         </View>
         <View style={styles.timeContent}>
-          <TextComponent weight="bold" style={styles.durationText}>
-            <TextComponent style={{ color: "#555" }}>
+          <TextComponent weight="semibold" style={styles.durationText}>
+            <TextComponent weight="bold" style={{ color: "#555" }}>
               {englishLanguage ? "Duration: " : "Duração: "}
             </TextComponent>
             {hours > 0 ? hours + ":" : ""}
             {minutes}:{seconds}
           </TextComponent>
-          <TextComponent style={styles.durationText}>
-            <TextComponent style={{ color: "#555" }}>
+          <TextComponent weight="semibold" style={styles.durationText}>
+            <TextComponent weight="bold" style={{ color: "#555" }}>
               {englishLanguage ? "Date: " : "Data: "}
             </TextComponent>
             {date}
@@ -190,7 +204,9 @@ export function LeagueMatchesScreen({
 
   return (
     <View style={styles.container}>
-      <TextComponent weight="bold" style={styles.titleText}>{LeagueName}</TextComponent>
+      <TextComponent weight="bold" style={styles.titleText}>
+        {LeagueName}
+      </TextComponent>
       {renderGroupedMatches.length > 0 ? (
         <FlatList
           data={renderGroupedMatches}

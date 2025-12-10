@@ -11,7 +11,6 @@ import {
 import { createStyles } from "./styles";
 import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
-import { useFavoritesPlayersContext } from "../../../src/context/useFavoritesContext";
 import { PlayerModel } from "../../../src/services/props";
 import { Medal } from "../../../src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -21,12 +20,12 @@ import { RectButton } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { TextComponent } from "../../../src/components/TextComponent";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import { useFavoritePlayersStore } from "@src/store/favorites";
 
 export function Favorites() {
   const { englishLanguage } = useSettingsContext();
   const { ColorTheme } = useTheme();
-  const { removeFavoritePlayer, favoritesPlayers } =
-    useFavoritesPlayersContext();
+  const { removeFavoritePlayer, favoritePlayers } = useFavoritePlayersStore();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [playerIdIndex, setPlayerIdIndex] = useState<number>();
@@ -117,7 +116,7 @@ export function Favorites() {
           style={[
             styles.emptyList,
             {
-              display: favoritesPlayers.length == 0 ? "flex" : "none",
+              display: favoritePlayers.length == 0 ? "flex" : "none",
             },
           ]}
         >
@@ -125,7 +124,7 @@ export function Favorites() {
         </TextComponent>
         <ScrollView>
           <FlatList
-            data={favoritesPlayers}
+            data={favoritePlayers}
             renderItem={({ item }) => <SwipeableItem item={item} />}
             keyExtractor={(item) => item.profile.account_id.toString()}
             scrollEnabled={false}

@@ -18,7 +18,6 @@ import {
 import { PLAYER_PROFILE_API_BASE_URL } from "@src/constants/player";
 import { PlayerModel, RecentMatches, HeroesPlayed } from "@src/services/props";
 import { FontAwesome } from "@expo/vector-icons";
-import { useFavoritesPlayersContext } from "@src/context/useFavoritesContext";
 import { ModalRemoveFavoritePlayer } from "@src/components/Modals/ModalRemoveFavoritePlayer";
 import { TabBar, TabView } from "react-native-tab-view";
 import { ProfileHeader } from "@src/screens/Home/MyProfileTabs/ProfileHeader";
@@ -28,6 +27,7 @@ import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { SetPlayerModel } from "@src/utils/setPlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 import { TextComponent } from "@src/components/TextComponent";
+import { useFavoritePlayersStore } from "@src/store/favorites";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -36,8 +36,8 @@ export default function PlayerProfileScreen({
 }) {
   const navigation = useNavigation();
   const { englishLanguage } = useSettingsContext();
-  const { addFavoritePlayer, removeFavoritePlayer, favoritesPlayers } =
-    useFavoritesPlayersContext();
+  const { addFavoritePlayer, removeFavoritePlayer, favoritePlayers } =
+    useFavoritePlayersStore();
 
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
@@ -59,7 +59,7 @@ export default function PlayerProfileScreen({
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-  const playerFound = favoritesPlayers.find(
+  const playerFound = favoritePlayers.find(
     (p) => p.profile.account_id.toString() === playerId
   );
 
