@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import { useTheme } from "@src/context/useThemeContext";
-import { useSettingsContext } from "@src/context/useSettingsContext";
-import { usePlayerContext } from "@src/context/usePlayerContex";
 import { ThemeColor } from "@src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
@@ -11,7 +9,8 @@ import { toSteam32 } from "@src/utils/steam";
 import { SearchComponent } from "@src/utils/SearchComponent";
 import { getErro404Message } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
-import { useFocusEffect } from "expo-router";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   index: number;
@@ -20,26 +19,21 @@ type Props = {
 export function MyProfileTabs({ index }: Props) {
   const { ColorTheme } = useTheme();
   const {
+    playerId,
     player,
     heroesPlayedId,
     recentMatches,
     isLoadingContext,
     handleFetchPlayerData,
-  } = usePlayerContext();
-  const { englishLanguage } = useSettingsContext();
+    setPlayerId,
+  } = usePlayerStore();
+  const { englishLanguage } = useSettingsStore();
   const [showModalMessage, setShowModalMessage] = useState(false);
-  // const opacity = useRef(new Animated.Value(0.3)).current;
 
-  // useEffect(() => {
-  //   if (index == 1) {
-  //     opacity.setValue(0.3);
-  //     Animated.timing(opacity, {
-  //       toValue: 1,
-  //       duration: 1500,
-  //       useNativeDriver: true,
-  //     }).start();
-  //   }
-  // }, [index]);
+  useEffect(() => {
+    if (player) return;
+    handleFetchPlayerData(playerId ?? "");
+  }, []);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(ColorTheme);
@@ -54,6 +48,7 @@ export function MyProfileTabs({ index }: Props) {
       setShowModalMessage(true);
       return;
     }
+    setPlayerId(convertedId);
     await handleFetchPlayerData(convertedId);
   };
 

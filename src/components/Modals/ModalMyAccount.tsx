@@ -6,26 +6,24 @@ import {
   TextInput,
   Modal,
 } from "react-native";
-import { HandleCloseInterface, ThemeColor } from "../../services/props";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
+import { HandleCloseInterface, ThemeColor } from "@src/services/props";
+import { useTheme } from "@src/context/useThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
-import { toSteam32 } from "../../../src/utils/steam";
-import { usePlayerContext } from "../../context/usePlayerContex";
+import { toSteam32 } from "@src/utils/steam";
 import { TextComponent } from "../TextComponent";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 export default function ModalMyAccount({
   handleClose,
 }: {
   handleClose: HandleCloseInterface;
 }) {
-
-  const { player, handleFetchPlayerData } =
-    usePlayerContext();
-  const { englishLanguage } = useSettingsContext();
-  const [userId, setUserId] = useState(player?.profile?.account_id ?? "0");
+  const { playerId, handleFetchPlayerData, setPlayerId } = usePlayerStore();
+  const { englishLanguage } = useSettingsStore();
+  const [userId, setUserId] = useState(playerId);
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [textMessage, setTextMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -38,18 +36,16 @@ export default function ModalMyAccount({
     ? "Steam ID successfully changed"
     : "Id da Steam alterado com sucesso!";
 
-  const handleSave = async () => {
-    const convertedId = toSteam32(userId);
+  const handleSave = () => {
+    const convertedId = toSteam32(userId ?? "");
     if (convertedId) {
       setUserId(convertedId);
-      setIsLoading(true);
       setTextMessage(messageSuccess);
       setModalMessageVisible(true);
-      setIsLoading(false);
-      await handleFetchPlayerData(convertedId);
+      setPlayerId(convertedId);
+      handleFetchPlayerData(convertedId);
     }
   };
-
 
   return (
     <View style={styles.container}>
@@ -62,7 +58,9 @@ export default function ModalMyAccount({
         >
           {englishLanguage ? "My Account" : "Minha Conta"}
         </TextComponent>
-        <TextComponent weight="semibold" style={styles.header}>Id Steam</TextComponent>
+        <TextComponent weight="semibold" style={styles.header}>
+          Id Steam
+        </TextComponent>
         <View
           style={{
             flexDirection: "row",
@@ -72,17 +70,12 @@ export default function ModalMyAccount({
         >
           <View style={styles.inputContent}>
             <TextInput
+              value={userId ?? ""}
               keyboardType="numeric"
               style={styles.inputText}
-              onChangeText={(textId) =>
-                setUserId(textId)
-              }
+              onChangeText={(textId) => setUserId(textId)}
             />
-            <TouchableOpacity
-              onPress={() =>
-                setUserId("")
-              }
-            >
+            <TouchableOpacity onPress={() => setUserId("")}>
               <Ionicons
                 name="close"
                 size={15}
@@ -93,7 +86,7 @@ export default function ModalMyAccount({
           <TouchableOpacity
             style={{ justifyContent: "center", marginBottom: "3%" }}
             onPress={() => {
-              setUserId(player?.profile.account_id ?? "");
+              setUserId(playerId);
             }}
           >
             <Ionicons
@@ -109,7 +102,8 @@ export default function ModalMyAccount({
             onPress={() => handleClose()}
             style={styles.buttonContent}
           >
-            <TextComponent weight="bold"
+            <TextComponent
+              weight="bold"
               style={{
                 color: ColorTheme.semidark,
               }}
@@ -134,7 +128,7 @@ export default function ModalMyAccount({
         transparent={true}
       >
         <ModalMessage
-          handleClose={() => { setModalMessageVisible(false); () => handleClose() }}
+          handleClose={() => setModalMessageVisible(false)}
           message={textMessage}
           title={titleMessage}
         />

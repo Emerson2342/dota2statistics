@@ -18,10 +18,10 @@ import {
 import { createStyles } from "./styles";
 import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   refreshing: boolean;
@@ -50,7 +50,7 @@ function OverViewComponent({
 }: Props) {
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const router = useRouter();
 

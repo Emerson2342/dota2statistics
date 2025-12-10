@@ -10,9 +10,9 @@ import {
 import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type DamageType = "Magical" | "Physical" | "Pure";
 type DamageText = {
@@ -52,7 +52,7 @@ function DamageType({
   DireName: string | undefined;
   damageInflictor: string;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
@@ -67,8 +67,8 @@ function DamageType({
         ? "Type of Damage Caused"
         : "Tipo de Dano Causado"
       : englishLanguage
-        ? "Type of Damage Received"
-        : "Tipo de Dano Recebido";
+      ? "Type of Damage Received"
+      : "Tipo de Dano Recebido";
 
   useEffect(() => {
     setTimeout(() => {
@@ -124,30 +124,30 @@ function DamageType({
 
             const totalDamage = damage
               ? Object.entries(damage).reduce(
-                (acc, [ability, value]) => {
-                  let dmgType: "Magical" | "Physical" | "Pure" | undefined;
+                  (acc, [ability, value]) => {
+                    let dmgType: "Magical" | "Physical" | "Pure" | undefined;
 
-                  if (ability === "null") {
-                    dmgType = "Physical";
-                  } else if (itemDamageTypes[ability]) {
-                    dmgType = itemDamageTypes[ability];
-                  } else {
-                    const abilityInfo = heroAbilitiesDescriptions[ability];
-                    dmgType = abilityInfo?.dmg_type as
-                      | "Magical"
-                      | "Physical"
-                      | "Pure"
-                      | undefined;
-                  }
+                    if (ability === "null") {
+                      dmgType = "Physical";
+                    } else if (itemDamageTypes[ability]) {
+                      dmgType = itemDamageTypes[ability];
+                    } else {
+                      const abilityInfo = heroAbilitiesDescriptions[ability];
+                      dmgType = abilityInfo?.dmg_type as
+                        | "Magical"
+                        | "Physical"
+                        | "Pure"
+                        | undefined;
+                    }
 
-                  if (dmgType) {
-                    acc[dmgType] = (acc[dmgType] || 0) + value;
-                  }
+                    if (dmgType) {
+                      acc[dmgType] = (acc[dmgType] || 0) + value;
+                    }
 
-                  return acc;
-                },
-                { Physical: 0, Magical: 0, Pure: 0 }
-              )
+                    return acc;
+                  },
+                  { Physical: 0, Magical: 0, Pure: 0 }
+                )
               : { Physical: 0, Magical: 0, Pure: 0 };
 
             return (
@@ -193,7 +193,9 @@ function DamageType({
 
   return (
     <View style={styles.container}>
-      <TextComponent weight="bold" style={styles.title}>{title}</TextComponent>
+      <TextComponent weight="bold" style={styles.title}>
+        {title}
+      </TextComponent>
       <View style={{ flexDirection: "row" }}>
         <FlatList
           data={matchDetails ? [matchDetails] : []}

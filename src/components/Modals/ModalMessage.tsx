@@ -6,8 +6,8 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
-import { useSettingsContext } from "../../context/useSettingsContext";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalMessage({
   handleClose,
@@ -22,14 +22,16 @@ export function ModalMessage({
   link?: boolean;
   matchId?: number;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const openDotaUrl = `https://opendota.com/matches/${matchId?.toString()}`;
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <TextComponent weight="bold" style={styles.titleText}>{title}</TextComponent>
+        <TextComponent weight="bold" style={styles.titleText}>
+          {title}
+        </TextComponent>
         <TextComponent weight="semibold" style={styles.textMessage}>
           {"   "}
           {message}

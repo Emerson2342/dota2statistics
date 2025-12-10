@@ -10,13 +10,13 @@ import {
 import { createStylesStatics } from "./ProMatchesStyles";
 
 import { LeagueMatches } from "@src/services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TeamSide } from "@src/services/enum";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const WIN = "#257848";
 const LOS = "#9a2525";
@@ -28,7 +28,7 @@ function ProMatchesComponent({
   proMatches: LeagueMatches[] | [];
   onRefresh: () => Promise<void>;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const styles = createStylesStatics(ColorTheme);
   const [loading, setLoading] = useState(false);

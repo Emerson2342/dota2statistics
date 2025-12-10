@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { View, StyleSheet, Modal } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useTheme } from "../../src/context/useThemeContext";
-import { ModalMessage } from "../../src/components/Modals/ModalMessage";
+import { useTheme } from "@src/context/useThemeContext";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { getErro404Message } from "./textMessage";
-import { useSettingsContext } from "../../src/context/useSettingsContext";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   onSearch: (text: string) => Promise<void>;
@@ -21,7 +21,7 @@ export const SearchComponent = ({
 }: Props) => {
   const [text, setText] = useState("");
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const erro404 = getErro404Message(englishLanguage);
 
   return (

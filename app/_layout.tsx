@@ -1,9 +1,4 @@
 import { Stack } from "expo-router";
-import { PlayerProvider } from "@src/context/usePlayerContex";
-import {
-  SettingsProvider,
-  useSettingsContext,
-} from "./../src/context/useSettingsContext";
 import { ThemeProvider, useTheme } from "@src/context/useThemeContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
@@ -18,6 +13,7 @@ import { Snowfall } from "react-native-snowfall";
 import { SafeAreaView } from "react-native-safe-area-context";
 import VersionCheck from "react-native-version-check";
 import { SantaHatComponent } from "@src/components/SantaHatComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,25 +42,20 @@ export default function App() {
 
   return (
     <GestureHandlerRootView>
-      <SettingsProvider>
-        <ThemeProvider>
-          <PlayerProvider>
-            <PaperProvider>
-              {/* <Teste /> */}
-              <Content />
-            </PaperProvider>
-          </PlayerProvider>
-        </ThemeProvider>
-      </SettingsProvider>
+      <ThemeProvider>
+        <PaperProvider>
+          {/* <Teste /> */}
+          <Content />
+        </PaperProvider>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }
 
 function Content() {
   const { ColorTheme } = useTheme();
-  const { globalTheme } = useSettingsContext();
+  const { globalTheme, englishLanguage } = useSettingsStore();
   const [modalVisible, setModalVisible] = useState(false);
-  const { englishLanguage } = useSettingsContext();
 
   useEffect(() => {
     checkForUpdates();

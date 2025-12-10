@@ -9,21 +9,21 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { PlayerModel } from "../../../src/services/props";
-import { Medal } from "../../../src/components/Medals/MedalsList";
+import { useTheme } from "@src/context/useThemeContext";
+import { PlayerModel } from "@src/services/props";
+import { Medal } from "@src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ModalMessage } from "../../../src/components/Modals/ModalMessage";
-import { ModalRemoveFavoritePlayer } from "../../../src/components/Modals/ModalRemoveFavoritePlayer";
+import { ModalMessage } from "@src/components/Modals/ModalMessage";
+import { ModalRemoveFavoritePlayer } from "@src/components/Modals/ModalRemoveFavoritePlayer";
 import { RectButton } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import { TextComponent } from "../../../src/components/TextComponent";
+import { TextComponent } from "@src/components/TextComponent";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { useFavoritePlayersStore } from "@src/store/favorites";
+import { useSettingsStore } from "@src/store/settings";
 
 export function Favorites() {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const { removeFavoritePlayer, favoritePlayers } = useFavoritePlayersStore();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
@@ -54,8 +54,6 @@ export function Favorites() {
           playerId: playerId.toString(),
         },
       });
-
-      // navigation.navigate("PlayerProfile", { PlayerId: playerId.toString() });
     }
   };
 

@@ -674,3 +674,6 @@ export interface HeroMatchUps {
   wins: number;
   winrate: number;
 }
+
+export type ThemeProps = "int" | "agi" | "str" | "ti2025";
+export type LanguageProps = "pt" | "en";

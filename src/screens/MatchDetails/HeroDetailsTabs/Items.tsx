@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import {
   HeroDetailsModel,
@@ -26,6 +25,7 @@ import {
 import { ModalItemDetails } from "@src/components/Modals/ModalItemDetails";
 import { handleItemDetails } from "@src/utils/HandleItemDetails";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const { width } = Dimensions.get("window");
 
@@ -38,7 +38,7 @@ function Items({
   RadName: string | undefined;
   DireName: string | undefined;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   //const [modalVisible, setModalVisible] = useState(false);
 

@@ -2,8 +2,8 @@ import React from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
 import { CartesianChart, Line } from "victory-native";
 import { useFont } from "@shopify/react-native-skia";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const width = Dimensions.get("screen").width * 0.93;
 
@@ -18,7 +18,7 @@ const GraficsGoldAndXpTeam = ({
   radName: string | undefined;
   direName: string | undefined;
 }) => {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const font = useFont(require("../../../Fonts/Quicksand_SemiBold.ttf"));
 

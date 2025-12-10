@@ -120,48 +120,52 @@ export const getMatchDetails = async (url: string) => {
 };
 
 export const getRecentMatches = async (
-  url: string,
-  setHeroesPlayedId: React.Dispatch<React.SetStateAction<[] | number[]>>,
-  setRecentMatches?: React.Dispatch<React.SetStateAction<[] | RecentMatches[]>>
-) => {
+  url: string
+): Promise<{
+  recentMatchesFetch: RecentMatches[];
+  heroesPlayedIdFetch: number[];
+}> => {
   const response = await fetch(url);
   try {
-    if (response.status < 201) {
-      console.log("Endpoint recentMatches: " + url);
-      const data = (await response.json()) as RecentMatches[];
-      const matchDataResponse: RecentMatches[] = data.map((match) => ({
-        match_id: match.match_id,
-        player_slot: match.player_slot,
-        radiant_win: match.radiant_win,
-        hero_id: match.hero_id,
-        start_time: match.start_time,
-        duration: match.duration,
-        game_mode: match.game_mode,
-        lobby_type: match.lobby_type,
-        kills: match.kills,
-        deaths: match.deaths,
-        assists: match.assists,
-        average_rank: match.average_rank,
-        xp_per_min: match.xp_per_min,
-        gold_per_min: match.gold_per_min,
-        hero_damage: match.hero_damage,
-        tower_damage: match.tower_damage,
-        hero_healing: match.hero_healing,
-        last_hits: match.last_hits,
-        lane: match?.lane,
-        lane_role: match.lane_role,
-        leaver_status: match.leaver_status,
-      }));
-      setRecentMatches && setRecentMatches(matchDataResponse);
+    console.log("Endpoint recentMatches: " + url);
+    const data = (await response.json()) as RecentMatches[];
+    const recentMatchesFetch: RecentMatches[] | [] = data.map((match) => ({
+      match_id: match.match_id,
+      player_slot: match.player_slot,
+      radiant_win: match.radiant_win,
+      hero_id: match.hero_id,
+      start_time: match.start_time,
+      duration: match.duration,
+      game_mode: match.game_mode,
+      lobby_type: match.lobby_type,
+      kills: match.kills,
+      deaths: match.deaths,
+      assists: match.assists,
+      average_rank: match.average_rank,
+      xp_per_min: match.xp_per_min,
+      gold_per_min: match.gold_per_min,
+      hero_damage: match.hero_damage,
+      tower_damage: match.tower_damage,
+      hero_healing: match.hero_healing,
+      last_hits: match.last_hits,
+      lane: match?.lane,
+      lane_role: match.lane_role,
+      leaver_status: match.leaver_status,
+    }));
 
-      const heroesPlayedId: number[] = [
-        ...new Set(data.map((match) => match.hero_id)),
-      ];
-      setHeroesPlayedId(heroesPlayedId);
-    }
-    return response.status;
+    const heroesPlayedIdFetch: number[] | [] = [
+      ...new Set(data.map((match) => match.hero_id)),
+    ];
+    return {
+      recentMatchesFetch,
+      heroesPlayedIdFetch,
+    };
   } catch (error: any) {
-    console.log("Erro na solicitaçãosss:" + error.message);
+    console.log("Erro na solicitação:" + error.message);
+    return {
+      recentMatchesFetch: [],
+      heroesPlayedIdFetch: [],
+    };
   }
 };
 

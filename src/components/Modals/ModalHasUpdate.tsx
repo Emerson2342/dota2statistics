@@ -6,13 +6,13 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
-import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { ThemeColor } from "../../services/props";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalHasUpdate({ handleClose }: { handleClose(): void }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
 

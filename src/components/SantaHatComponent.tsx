@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, View } from "react-native";
 import { TextComponent } from "./TextComponent";
-import { useSettingsContext } from "@src/context/useSettingsContext";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   englishName: string;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function SantaHatComponent({ englishName, portugueseName }: Props) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <TextComponent weight="semibold" style={{ color: "#fff", fontSize: 20 }}>

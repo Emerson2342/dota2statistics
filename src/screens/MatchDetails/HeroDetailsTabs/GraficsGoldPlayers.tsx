@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import { CartesianChart, Line } from "victory-native";
 import { useFont } from "@shopify/react-native-skia";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const GraficsGoldPlayers = ({
   matchDetails,
@@ -24,7 +24,7 @@ const GraficsGoldPlayers = ({
   RadiantName: string | undefined;
   DireName: string | undefined;
 }) => {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const [hero1Selected, setHero1Selected] = useState(true);
@@ -167,7 +167,10 @@ const GraficsGoldPlayers = ({
           ? "*Click on a hero to see the evolution."
           : "*Clique em um herói para ver a evolução."}
       </TextComponent>
-      <TextComponent weight="semibold" style={[styles.textGraphic, { color: "green" }]}>
+      <TextComponent
+        weight="semibold"
+        style={[styles.textGraphic, { color: "green" }]}
+      >
         {RadiantName}
       </TextComponent>
       <View style={styles.heroButtonContainer}>
@@ -185,14 +188,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero1Selected
                       ? colors[0]
                       : index === 1 && hero2Selected
-                        ? colors[1]
-                        : index === 2 && hero3Selected
-                          ? colors[2]
-                          : index === 3 && hero4Selected
-                            ? colors[3]
-                            : index === 4 && hero5Selected
-                              ? colors[4]
-                              : "transparent",
+                      ? colors[1]
+                      : index === 2 && hero3Selected
+                      ? colors[2]
+                      : index === 3 && hero4Selected
+                      ? colors[3]
+                      : index === 4 && hero5Selected
+                      ? colors[4]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index)}
               >
@@ -309,7 +312,9 @@ const GraficsGoldPlayers = ({
           </>
         )}
       </CartesianChart>
-      <TextComponent weight="semibold" style={styles.textGraphic}>{DireName}</TextComponent>
+      <TextComponent weight="semibold" style={styles.textGraphic}>
+        {DireName}
+      </TextComponent>
       <View style={styles.heroButtonContainer}>
         {matchDetails.players.slice(5, 10).map((player, index) => {
           const hero = heroArray.find((hero) => hero.id === player.hero_id);
@@ -326,14 +331,14 @@ const GraficsGoldPlayers = ({
                     index === 0 && hero6Selected
                       ? colors[5]
                       : index === 1 && hero7Selected
-                        ? colors[6]
-                        : index === 2 && hero8Selected
-                          ? colors[7]
-                          : index === 3 && hero9Selected
-                            ? colors[8]
-                            : index === 4 && hero10Selected
-                              ? colors[9]
-                              : "transparent",
+                      ? colors[6]
+                      : index === 2 && hero8Selected
+                      ? colors[7]
+                      : index === 3 && hero9Selected
+                      ? colors[8]
+                      : index === 4 && hero10Selected
+                      ? colors[9]
+                      : "transparent",
                 }}
                 onPress={() => handleSelectHero(index + 5)}
               >
@@ -371,10 +376,7 @@ const GraficsGoldPlayers = ({
           borderRadius: 7,
         }}
       >
-        <TextComponent
-          weight="bold"
-          style={{ padding: 7, color: "#fff" }}
-        >
+        <TextComponent weight="bold" style={{ padding: 7, color: "#fff" }}>
           {englishLanguage ? "Clear Graphic" : "Limpar Gráfico"}
         </TextComponent>
       </TouchableOpacity>

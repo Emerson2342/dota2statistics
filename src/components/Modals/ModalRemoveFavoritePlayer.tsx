@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { useTheme } from "../../context/useThemeContext";
-import { ThemeColor } from "../../services/props";
+import { useTheme } from "@src/context/useThemeContext";
+import { ThemeColor } from "@src/services/props";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalRemoveFavoritePlayer({
   message,
@@ -15,7 +15,7 @@ export function ModalRemoveFavoritePlayer({
   handleClose: () => void;
   removePlayer: () => void;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const styles = createStyles(ColorTheme);
@@ -28,13 +28,18 @@ export function ModalRemoveFavoritePlayer({
   return (
     <View style={styles.container}>
       <View style={styles.modalContainer}>
-        <TextComponent weight="bold" style={styles.textMessage}>{message}</TextComponent>
+        <TextComponent weight="bold" style={styles.textMessage}>
+          {message}
+        </TextComponent>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonCancel}
             onPress={() => handleClose()}
           >
-            <TextComponent weight="semibold" style={[styles.textButton, { color: "#000" }]}>
+            <TextComponent
+              weight="semibold"
+              style={[styles.textButton, { color: "#000" }]}
+            >
               {englishLanguage ? "Back" : "Não"}
             </TextComponent>
           </TouchableOpacity>

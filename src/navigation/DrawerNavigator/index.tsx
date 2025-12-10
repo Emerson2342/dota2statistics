@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 
 import { Home } from "@src/screens/Home";
@@ -13,11 +12,12 @@ import { SettingsScreen } from "@src/screens/Settings/SettingsScreen";
 import { CustomDrawerContent } from "./customDrawer";
 import { Ionicons } from "@expo/vector-icons";
 import { SantaHatComponent } from "@src/components/SantaHatComponent";
+import { useSettingsStore } from "@src/store/settings";
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
 
 export function DrawerNavigatorScreen() {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   return (

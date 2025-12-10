@@ -9,24 +9,24 @@ import {
 import { Searchbar } from "react-native-paper";
 import { createStyles } from "./styles";
 
-import { useSettingsContext } from "../../context/useSettingsContext";
-import { HeroDetailsModel } from "../../services/props";
+import { HeroDetailsModel } from "@src/services/props";
 
-import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
-import IntImg from "../../images/int.png";
-import AgiImg from "../../images/agi.png";
-import StrImg from "../../images/str.png";
-import AllImg from "../../images/all.png";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { useTheme } from "@src/context/useThemeContext";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import IntImg from "@src/images/int.png";
+import AgiImg from "@src/images/agi.png";
+import StrImg from "@src/images/str.png";
+import AllImg from "@src/images/all.png";
 import { useRouter } from "expo-router";
-import { TextComponent } from "../../../src/components/TextComponent";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
+import { TextComponent } from "@src/components/TextComponent";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { useSettingsStore } from "@src/store/settings";
 
 const COLUMNS: number = 2;
 
 export function ListaDeHerois() {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const [textInputSearch, setTextInputSearch] = useState("");
   const [heroesSearched, setHereoesSearched] = useState<
@@ -87,8 +87,8 @@ export function ListaDeHerois() {
         ? `Results for: "${textResult}"`
         : `Resultados para: "${textResult}"`
       : englishLanguage
-        ? `No results found for: "${textResult}"`
-        : `Nenhum resultado encontrado para: "${textResult}"`;
+      ? `No results found for: "${textResult}"`
+      : `Nenhum resultado encontrado para: "${textResult}"`;
 
   const GoToHeroDetails = (heroId: string) => {
     router.push({
@@ -175,7 +175,9 @@ export function ListaDeHerois() {
             ]}
             source={attImage}
           />
-          <TextComponent weight="semibold" style={styles.nameHeroText}>{item.localized_name}</TextComponent>
+          <TextComponent weight="semibold" style={styles.nameHeroText}>
+            {item.localized_name}
+          </TextComponent>
         </TouchableOpacity>
       </View>
     );
@@ -206,7 +208,8 @@ export function ListaDeHerois() {
           ]}
           onPress={() => handleSelectAtt("")}
         >
-          <TextComponent weight="bold"
+          <TextComponent
+            weight="bold"
             style={[
               styles.textAll,
               {
@@ -290,7 +293,11 @@ export function ListaDeHerois() {
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <ActivityIndicatorCustom message={englishLanguage ? "Loading heroes..." : "Carregando heróis..."} />
+            <ActivityIndicatorCustom
+              message={
+                englishLanguage ? "Loading heroes..." : "Carregando heróis..."
+              }
+            />
           </View>
         ) : (
           <FlatList

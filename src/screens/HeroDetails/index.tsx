@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import { createStyles } from "./styles";
 
-import AbilitiesDetailsJson from "./../../components/Heroes/AbilitiesDetails.json";
-import AbilitiesDescriptionsJson from "./../../components/Heroes/AbilitiesDescriptions.json";
-import ItemsList from "./../../components/Itens/itemsList.json";
-import AghanimAndShardJson from "./../../components/Heroes/aghanimDescription.json";
+import AbilitiesDetailsJson from "@src/components/Heroes/AbilitiesDetails.json";
+import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
+import ItemsList from "@src/components/Itens/itemsList.json";
+import AghanimAndShardJson from "@src/components/Heroes/aghanimDescription.json";
 import {
   AghanimModel,
   HeroAbilitiesDescriptionsJson,
@@ -26,7 +26,6 @@ import {
   ModalItemData,
   ModalRef,
 } from "./../../services/props";
-import { useSettingsContext } from "./../../context/useSettingsContext";
 import { useTheme } from "./../../context/useThemeContext";
 
 import { Feather } from "@expo/vector-icons";
@@ -44,11 +43,12 @@ import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
 import { Header } from "./header";
 import { TextComponent } from "../../../src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
 export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const { ColorTheme } = useTheme();
   const heroDetails = useHeroDetails(Number(heroId));

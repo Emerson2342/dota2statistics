@@ -22,12 +22,12 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { ModalAbilityDetails } from "@src/components/Modals/ModalAbilityDetails";
 import { useRouter } from "expo-router";
 import { modalAbilitiesDetails } from "@src/utils/matchDetailsUtils";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 function Abilities({
   matchDetails,
@@ -38,7 +38,7 @@ function Abilities({
   RadName: string | undefined;
   DireName: string | undefined;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const router = useRouter();
   const modalRef = useRef<ModalRef>(null);

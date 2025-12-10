@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { MatchDetailsModel, ThemeColor } from "@src/services/props";
 import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { Ionicons } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 function Header({
   matchDetails,
@@ -27,7 +27,7 @@ function Header({
   radName: string;
   direName: string;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
 

@@ -1,7 +1,8 @@
 import { PlayerModel } from "@src/services/props";
 import { AsyncStorageService } from "@src/services/StorageService";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type FavoritePlayersStores = {
   favoritePlayers: PlayerModel[];
@@ -26,6 +27,7 @@ export const useFavoritePlayersStore = create<FavoritePlayersStores>()(
     }),
     {
       name: "favoritePlayers",
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );

@@ -1,18 +1,18 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { ThemeColor } from "../../../src/services/props";
 import { BannerAds } from "../Admob/BannerAds";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalHelpMatchDetails({
   handleClose,
 }: {
   handleClose: () => void;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const styles = createStyles(ColorTheme);

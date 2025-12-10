@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { fetchData } from "@src/services/api";
 import { SEARCH_PLAYER_BASE_URL } from "@src/constants/player";
@@ -20,9 +19,10 @@ import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { SearchComponent } from "@src/utils/SearchComponent";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export const Search = () => {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
   const [inputText, setInputText] = useState("");

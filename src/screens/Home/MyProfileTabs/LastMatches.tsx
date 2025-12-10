@@ -16,11 +16,9 @@ import {
   LobbyTypeNames,
   RecentMatches,
 } from "../../../services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
-import { usePlayerContext } from "@src/context/usePlayerContex";
 import { useTheme } from "@src/context/useThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GameMode, LobbyType } from "@src/services/enum";
@@ -31,6 +29,8 @@ import {
   overviewBar,
 } from "@src/utils/matchOverviewUtils";
 import { TextComponent } from "@src/components/TextComponent";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 function LastMatchesComponent({
   playerId,
@@ -42,9 +42,9 @@ function LastMatchesComponent({
   onRefresh: () => Promise<void>;
 }) {
   const router = useRouter();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
-  const { player } = usePlayerContext();
+  const { player } = usePlayerStore();
   const { ColorTheme } = useTheme();
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];

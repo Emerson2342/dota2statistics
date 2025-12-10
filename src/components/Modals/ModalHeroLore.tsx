@@ -8,13 +8,13 @@ import {
   Image,
   Modal,
 } from "react-native";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { ModalRef, ThemeColor } from "../../../src/services/props";
+import { useTheme } from "@src/context/useThemeContext";
+import { ModalRef, ThemeColor } from "@src/services/props";
 import { BannerAds } from "../Admob/BannerAds";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   urlImage: string;
@@ -25,7 +25,7 @@ type Props = {
 export const ModaHeroLore = forwardRef<ModalRef, Props>(
   ({ urlImage, localizedName, loreText }, ref) => {
     const { ColorTheme } = useTheme();
-    const { englishLanguage } = useSettingsContext();
+    const { englishLanguage } = useSettingsStore();
     const styles = CreateStyles(ColorTheme);
     const [visible, setVisible] = useState(false);
     const handleClose = () => setVisible(false);

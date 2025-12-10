@@ -1,9 +1,5 @@
 import React, { useCallback, useState } from "react";
-import {
-  View,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, TouchableOpacity, FlatList } from "react-native";
 
 import { createStyles } from "./LeaguesStyles";
 import { League } from "@src/services/props";
@@ -11,13 +7,13 @@ import { LEAGUES_BASE_URL } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { ErrorComponent } from "@src/utils/ErrorComponent";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function Leagues() {
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const styles = createStyles(ColorTheme);
 
@@ -76,7 +72,9 @@ export function Leagues() {
         style={styles.containerCards}
         onPress={() => goToLeagueMatches(item.leagueid, item.name)}
       >
-        <TextComponent weight="bold" style={styles.textLeagueName}>{item.name}</TextComponent>
+        <TextComponent weight="bold" style={styles.textLeagueName}>
+          {item.name}
+        </TextComponent>
       </TouchableOpacity>
     );
   };

@@ -12,18 +12,18 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import { usePlayerContext } from "@src/context/usePlayerContex";
 import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { ModalAboutUs } from "@src/components/Modals/ModalAboutUs";
 import Constants from "expo-constants";
 import { TextComponent } from "@src/components/TextComponent";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
-  const { player } = usePlayerContext();
+  const { player } = usePlayerStore();
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const [modalAboutUsVisible, setModalAboutUsVisible] =
     useState<boolean>(false);

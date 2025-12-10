@@ -5,7 +5,6 @@ import {
   MatchDetailsModel,
   Player,
 } from "@src//services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
@@ -16,6 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ModalHelpMatchDetails } from "@src/components/Modals/ModalHelpMatchDetails";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const colorPercent = (percent: number): string => {
   if (percent >= 0 && percent < 20) return "#ff4d4d";
@@ -37,7 +37,7 @@ function Teams({
   radName: string;
   direName: string;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const router = useRouter();

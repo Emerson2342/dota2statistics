@@ -3,7 +3,6 @@ import { View, FlatList } from "react-native";
 
 import { createStyles } from "./styles";
 import { TeamFightModel } from "@src/services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 
 import { useTheme } from "@src/context/useThemeContext";
 import { BarChartComponent } from "./BarCharComponent";
@@ -15,6 +14,7 @@ import { ItemsUsages } from "./components/items";
 import { processTeamFights } from "@src/utils/ProcessedTemFight";
 import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -42,7 +42,7 @@ const formatTime = (seconds?: number) => {
 };
 
 function TeamFightsComponent() {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const { teamFights, heroNames, radTeamName, direTeamName, update } =
     useTeamFightsStore((state) => state.data!);

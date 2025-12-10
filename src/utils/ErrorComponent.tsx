@@ -1,10 +1,10 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import ErrorImage from "../images/error.png";
-import { useSettingsContext } from "../../src/context/useSettingsContext";
-import { useTheme } from "../../src/context/useThemeContext";
+import { useTheme } from "@src/context/useThemeContext";
+import { useSettingsStore } from "@src/store/settings";
 
 export const ErrorComponent = ({ action }: { action: () => Promise<void> }) => {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const textError = englishLanguage

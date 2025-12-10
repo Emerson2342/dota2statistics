@@ -14,13 +14,13 @@ import {
   PlayerModel,
   RecentMatches,
 } from "../../../services/props";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 const NUMBER_COLUMNS = 10;
 
@@ -34,7 +34,7 @@ export function ProfileHeader({
   recentMatches: RecentMatches[] | null;
 }) {
   const router = useRouter();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
@@ -161,7 +161,10 @@ export function ProfileHeader({
                 ? player?.profile.personaname
                 : player?.profile.name}
             </TextComponent>
-            <TextComponent weight="semibold" style={[styles.textProfile, { color: "#fff" }]}>
+            <TextComponent
+              weight="semibold"
+              style={[styles.textProfile, { color: "#fff" }]}
+            >
               {englishLanguage ? "Last 20 Matches" : "Últimas 20 Partidas"}
             </TextComponent>
             <View
@@ -173,20 +176,28 @@ export function ProfileHeader({
             >
               <TextComponent weight="semibold" style={styles.textProfile}>
                 {englishLanguage ? "Win" : "Vitórias"}:{" "}
-                <TextComponent style={[styles.textProfile, { color: "orange" }]}>
+                <TextComponent
+                  style={[styles.textProfile, { color: "orange" }]}
+                >
                   {vitorias}
                 </TextComponent>
               </TextComponent>
               <TextComponent weight="semibold" style={styles.textProfile}>
                 {englishLanguage ? "Loss" : "Derrotas"}:{" "}
-                <TextComponent weight="semibold" style={[styles.textProfile, { color: "orange" }]}>
+                <TextComponent
+                  weight="semibold"
+                  style={[styles.textProfile, { color: "orange" }]}
+                >
                   {derrotas}
                 </TextComponent>
               </TextComponent>
             </View>
             <TextComponent weight="semibold" style={styles.textProfile}>
               Winrate:
-              <TextComponent weight="semibold" style={[styles.textProfile, { color: "orange" }]}>
+              <TextComponent
+                weight="semibold"
+                style={[styles.textProfile, { color: "orange" }]}
+              >
                 {winrate ? ` ${winrate}%` : ""}
               </TextComponent>
             </TextComponent>

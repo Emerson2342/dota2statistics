@@ -10,8 +10,8 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 function HeroKillsDetails({
   matchDetails,
@@ -25,7 +25,7 @@ function HeroKillsDetails({
   heroArray: HeroDetailsModel[];
 }) {
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
 
   const validPlayers = matchDetails.players.filter(
     (player) => player.killed || player.killed_by

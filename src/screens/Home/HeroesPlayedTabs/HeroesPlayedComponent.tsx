@@ -11,15 +11,15 @@ import {
   HeroDetailsModel,
   HeroesPlayed,
   ThemeColor,
-} from "../../../services/props";
-import { useSettingsContext } from "../../../context/useSettingsContext";
-import { useTheme } from "../../../context/useThemeContext";
-import HeroesDetails from "../../../components/Heroes/HeroesDetails.json";
-import { PICTURE_HERO_BASE_URL } from "../../../constants/player";
-import { ActivityIndicatorCustom } from "../../../../src/utils/ActivityIndicatorCustom";
-import { usePlayerContext } from "@src/context/usePlayerContex";
+} from "@src/services/props";
+import { useTheme } from "@src/context/useThemeContext";
+import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { getSetProfile } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 function HeroesPlayedComp({
   isHomeProfile,
@@ -32,8 +32,8 @@ function HeroesPlayedComp({
   refresh: () => Promise<void>;
   isLoading: boolean;
 }) {
-  const { player } = usePlayerContext();
-  const { englishLanguage } = useSettingsContext();
+  const { player } = usePlayerStore();
+  const { englishLanguage } = useSettingsStore();
   const [orderToShow, setOrderToShow] = useState("matches");
 
   const { ColorTheme } = useTheme();

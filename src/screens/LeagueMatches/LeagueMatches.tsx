@@ -5,13 +5,13 @@ import { createStyles } from "./LeagueMatchesStyles";
 import { useTheme } from "@src/context/useThemeContext";
 import { LeagueMatches } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { fetchData } from "@src/services/api";
 import { useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TextComponent } from "@src/components/TextComponent";
 import { useTeamStore } from "@src/store/teamsList";
 import { useShallow } from "zustand/react/shallow";
+import { useSettingsStore } from "@src/store/settings";
 
 type LeagueDetailsProps = {
   LeagueIdIndex: number;
@@ -25,12 +25,12 @@ export function LeagueMatchesScreen({
   const route = useRouter();
 
   const { ColorTheme } = useTheme();
+  const { englishLanguage } = useSettingsStore();
 
   const styles = createStyles(ColorTheme);
   const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[] | []>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const { englishLanguage } = useSettingsContext();
   const { teamsList, loading, fetchTeams } = useTeamStore(
     useShallow((state) => ({
       teamsList: state.teamsList,

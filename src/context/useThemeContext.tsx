@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { ThemeColor } from "../services/props";
-import { useSettingsContext } from "./useSettingsContext";
+import { useSettingsStore } from "@src/store/settings";
 
 const IntTheme: ThemeColor = {
   dark: "#002c3a",
@@ -41,7 +41,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { globalTheme } = useSettingsContext();
+  const { globalTheme } = useSettingsStore();
 
   var ColorTheme = IntTheme;
 

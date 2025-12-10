@@ -8,17 +8,17 @@ import {
 } from "react-native";
 import { HeroStats, ThemeColor } from "@src/services/props";
 import { useRouter } from "expo-router";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 function HeroesStatsComponent({
   heroesStats,
 }: {
   heroesStats: HeroStats[] | [];
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const styles = createStyles(ColorTheme);
   const router = useRouter();
@@ -54,7 +54,10 @@ function HeroesStatsComponent({
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
       </TextComponent>
       <View style={styles.content}>
-        <TextComponent weight="semibold" style={[styles.text, styles.textTitle]}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.text, styles.textTitle]}
+        >
           {englishLanguage ? "Pick Rate" : "Mais Escolhidos"}
         </TextComponent>
         <View style={styles.container}>
@@ -68,13 +71,18 @@ function HeroesStatsComponent({
                   key={index}
                 >
                   <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <TextComponent weight="semibold" style={styles.text}>{index + 1}°</TextComponent>
+                  <TextComponent weight="semibold" style={styles.text}>
+                    {index + 1}°
+                  </TextComponent>
                 </TouchableOpacity>
               );
             })}
         </View>
 
-        <TextComponent weight="semibold" style={[styles.text, styles.textTitle]}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.text, styles.textTitle]}
+        >
           {englishLanguage ? "Win Rate" : "Aproveitamento"}
         </TextComponent>
         <View style={styles.container}>
@@ -88,7 +96,9 @@ function HeroesStatsComponent({
                   key={index}
                 >
                   <Image source={{ uri: urlImg }} style={styles.imgHero} />
-                  <TextComponent weight="semibold" style={styles.text}>{item.winRate?.toFixed(2)}%</TextComponent>
+                  <TextComponent weight="semibold" style={styles.text}>
+                    {item.winRate?.toFixed(2)}%
+                  </TextComponent>
                 </TouchableOpacity>
               );
             })}

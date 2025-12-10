@@ -8,7 +8,6 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import {
   fetchData,
@@ -28,6 +27,7 @@ import { SetPlayerModel } from "@src/utils/setPlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 import { TextComponent } from "@src/components/TextComponent";
 import { useFavoritePlayersStore } from "@src/store/favorites";
+import { useSettingsStore } from "@src/store/settings";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -35,7 +35,7 @@ export default function PlayerProfileScreen({
   playerId: string;
 }) {
   const navigation = useNavigation();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { addFavoritePlayer, removeFavoritePlayer, favoritePlayers } =
     useFavoritePlayersStore();
 
@@ -116,11 +116,10 @@ export default function PlayerProfileScreen({
           );
           setHeroesPlayed(heroesResp);
         }
-        await getRecentMatches(
-          recentMatchesUrl,
-          setHeroesPlayedId,
-          setRecentMatches
-        );
+        const { heroesPlayedIdFetch, recentMatchesFetch } =
+          await getRecentMatches(recentMatchesUrl);
+        setHeroesPlayedId(heroesPlayedIdFetch);
+        setRecentMatches(recentMatchesFetch);
       })
       .catch((error) =>
         console.error(

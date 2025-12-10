@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { fetchData, getHeroesStats } from "@src/services/api";
 import { HeroStats, LeagueMatches } from "../../../src/services/props";
@@ -12,13 +11,14 @@ import { MyProfileTabs } from "./MyProfileTabs";
 import { HeroesPlayedComponent } from "./HeroesPlayedTabs/HeroesPlayedComponent";
 import { ErrorComponent } from "@src/utils/ErrorComponent";
 import { OrdererLeagueMatches } from "@src/services/ordererLeagueMatches";
-import { usePlayerContext } from "@src/context/usePlayerContex";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
 
 export function Home() {
-  const { player, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
-    usePlayerContext();
+  const { playerId, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
+    usePlayerStore();
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const layout = useWindowDimensions();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -88,11 +88,7 @@ export function Home() {
             isLoading={isLoadingContext}
             heroesPlayedList={heroesPlayed}
             isHomeProfile={true}
-            refresh={async () =>
-              await handleFetchPlayerData(
-                player?.profile?.account_id?.toString()
-              )
-            }
+            refresh={async () => await handleFetchPlayerData(playerId ?? "")}
           />
         );
       default:

@@ -18,13 +18,13 @@ import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescripti
 import ItemsList from "@src/components/Itens/itemsList.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EmptyImage from "@src/images/emptyImage.png";
 import { TextComponent } from "@src/components/TextComponent";
 import { useRouter } from "expo-router";
 import { handleItemDetails } from "@src/utils/HandleItemDetails";
+import { useSettingsStore } from "@src/store/settings";
 
 function Damage({
   matchDetails,
@@ -35,7 +35,7 @@ function Damage({
   RadName: string | undefined;
   DireName: string | undefined;
 }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const router = useRouter();
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);

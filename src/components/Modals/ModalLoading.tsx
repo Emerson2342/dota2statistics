@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
+import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalLoading() {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   return (
     <View style={styles.container}>

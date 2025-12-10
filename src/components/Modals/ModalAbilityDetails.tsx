@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import { HeroAbilitiesDescriptionsModel, ModalRef } from "../../services/props";
 import { PICTURE_ITEM_BASE_URL } from "../../constants/player";
-import { useSettingsContext } from "../../context/useSettingsContext";
 import { useTheme } from "../../context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
 import { Feather } from "@expo/vector-icons";
 import EmptyImage from "../../images/emptyImage.png";
 import { TextComponent } from "../TextComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   ability: HeroAbilitiesDescriptionsModel | undefined;
@@ -23,7 +23,7 @@ type Props = {
 
 export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
   ({ ability }, ref) => {
-    const { englishLanguage } = useSettingsContext();
+    const { englishLanguage } = useSettingsStore();
     const { ColorTheme } = useTheme();
 
     const [visible, setVisible] = useState(false);

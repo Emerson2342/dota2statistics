@@ -5,7 +5,6 @@ import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { MATCHE_DETAILS_API_BASE_URL } from "@src/constants/player";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { useTheme } from "@src/context/useThemeContext";
 import { getMatchDetails } from "@src/services/api";
 import { AsyncStorageService } from "@src/services/StorageService";
@@ -14,6 +13,7 @@ import { OverViewTabs } from "./OverViewTabs";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -29,7 +29,7 @@ export const MatchDetailsScreen = ({
   gameMode,
 }: MatchDetailsProps) => {
   const layout = useWindowDimensions();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]
   >([]);

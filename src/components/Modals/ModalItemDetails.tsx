@@ -12,15 +12,15 @@ import {
   ModalItemData,
   ModalRef,
 } from "../../../src/services/props";
-import { PICTURE_ITEM_BASE_URL } from "../../../src/constants/player";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import { useTheme } from "../../../src/context/useThemeContext";
+import { PICTURE_ITEM_BASE_URL } from "@src/constants/player";
+import { useTheme } from "@src/context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
-import AbilitiesDescriptions from "../../../src/components/Heroes/AbilitiesDescriptions.json";
+import AbilitiesDescriptions from "@src/components/Heroes/AbilitiesDescriptions.json";
 import { Feather } from "@expo/vector-icons";
-import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
+import { coolDownTime, manaCoust } from "@src/utils/HeroDetailsUtils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   data: ModalItemData | null;
@@ -28,7 +28,7 @@ type Props = {
 
 export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
   const [visible, setVisible] = useState(false);
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
   const handleClose = () => setVisible(false);
 

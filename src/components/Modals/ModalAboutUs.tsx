@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
 import { useTheme } from "../../../src/context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 export function ModalAboutUs({ handleClose }: { handleClose: () => void }) {
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const { ColorTheme } = useTheme();
 
   const text = englishLanguage

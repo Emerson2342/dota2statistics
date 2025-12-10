@@ -1,19 +1,20 @@
 import React, { useCallback, useState } from "react";
 import { View, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
-import { useSettingsContext } from "@src/context/useSettingsContext";
 import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
 import { useTheme } from "@src/context/useThemeContext";
 import ModalMyAccount from "@src/components/Modals/ModalMyAccount";
 import { useFocusEffect } from "expo-router";
-import { usePlayerContext } from "@src/context/usePlayerContex";
 import { TextComponent } from "@src/components/TextComponent";
+import { usePlayerStore } from "@src/store/player";
+import { useSettingsStore } from "@src/store/settings";
+import { ThemeProps } from "@src/services/props";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
-    useSettingsContext();
+    useSettingsStore();
 
-  const { player } = usePlayerContext();
+  const { playerId } = usePlayerStore();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
   const [selectTheme, setSelectTheme] = useState<string>(globalTheme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -40,7 +41,7 @@ export function SettingsScreen() {
     setIsLoading(true);
     setTimeout(() => {
       setEnglishLanguage(isEnglish);
-      setGlobalTheme(selectTheme);
+      setGlobalTheme(selectTheme as ThemeProps);
       setIsLoading(false);
     }, 300);
   };
@@ -55,7 +56,7 @@ export function SettingsScreen() {
           <View style={styles.profile}>
             <TextComponent weight="bold">Id Steam:</TextComponent>
             <TextComponent style={styles.textData}>
-              {player?.profile.account_id}
+              {playerId ?? "0000000000"}
             </TextComponent>
           </View>
           <TouchableOpacity

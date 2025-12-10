@@ -6,23 +6,23 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useTheme } from "../../../src/context/useThemeContext";
+import { useTheme } from "@src/context/useThemeContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import boots from "../../images/boots.png";
-import { HeroLore, ModalRef, ThemeColor } from "../../../src/services/props";
-import { useSettingsContext } from "../../../src/context/useSettingsContext";
-import useHeroDetails from "../../utils/getHeroDetails";
+import boots from "@src/images/boots.png";
+import { HeroLore, ModalRef, ThemeColor } from "@src/services/props";
+import useHeroDetails from "@src/utils/getHeroDetails";
 
-import int from "../../images/int.png";
-import agi from "../../images/agi.png";
-import str from "../../images/str.png";
-import all from "../../images/all.png";
-import { PICTURE_HERO_BASE_URL } from "../../../src/constants/player";
-import { ModaHeroLore } from "../../../src/components/Modals/ModalHeroLore";
-import HeroLoreJson from "./../../constants/Lore.json";
-import HeroLorePtBrJson from "./../../constants/LorePtBr.json";
-import { TextComponent } from "../../../src/components/TextComponent";
+import int from "@src/images/int.png";
+import agi from "@src/images/agi.png";
+import str from "@src/images/str.png";
+import all from "@src/images/all.png";
+import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
+import { ModaHeroLore } from "@src/components/Modals/ModalHeroLore";
+import HeroLoreJson from "@src/constants/Lore.json";
+import HeroLorePtBrJson from "@src/constants/LorePtBr.json";
+import { TextComponent } from "@src/components/TextComponent";
+import { useSettingsStore } from "@src/store/settings";
 
 type Props = {
   heroId: number;
@@ -30,7 +30,7 @@ type Props = {
 
 export function Header({ heroId }: Props) {
   const { ColorTheme } = useTheme();
-  const { englishLanguage } = useSettingsContext();
+  const { englishLanguage } = useSettingsStore();
   const heroDetails = useHeroDetails(Number(heroId));
   const styles = createStyles(ColorTheme);
 
@@ -94,7 +94,9 @@ export function Header({ heroId }: Props) {
           size={27}
         />
       </TouchableOpacity>
-      <TextComponent weight="semibold" style={styles.nameText}>{heroDetails.localized_name}</TextComponent>
+      <TextComponent weight="semibold" style={styles.nameText}>
+        {heroDetails.localized_name}
+      </TextComponent>
       <View
         style={{
           flexDirection: "row",
@@ -104,7 +106,10 @@ export function Header({ heroId }: Props) {
       >
         <Image style={{ width: 15, height: 15 }} source={attImage} />
 
-        <TextComponent weight="semibold" style={[styles.textAtributo, { color: "#bbb", fontSize: 13 }]}>
+        <TextComponent
+          weight="semibold"
+          style={[styles.textAtributo, { color: "#bbb", fontSize: 13 }]}
+        >
           {" "}
           {atributo}
         </TextComponent>
@@ -130,8 +135,12 @@ export function Header({ heroId }: Props) {
             }}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TextComponent weight="semibold" style={styles.shadowText}>{Math.round(baseHelth)}</TextComponent>
-              <TextComponent weight="semibold" style={styles.textHelth}>{baseHelth}</TextComponent>
+              <TextComponent weight="semibold" style={styles.shadowText}>
+                {Math.round(baseHelth)}
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.textHelth}>
+                {baseHelth}
+              </TextComponent>
             </View>
           </LinearGradient>
 
@@ -147,8 +156,12 @@ export function Header({ heroId }: Props) {
             }}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TextComponent weight="semibold" style={styles.shadowText}>{Math.round(baseMana)}</TextComponent>
-              <TextComponent weight="semibold" style={styles.textHelth}>{Math.round(baseMana)}</TextComponent>
+              <TextComponent weight="semibold" style={styles.shadowText}>
+                {Math.round(baseMana)}
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.textHelth}>
+                {Math.round(baseMana)}
+              </TextComponent>
             </View>
           </LinearGradient>
         </View>
@@ -162,22 +175,39 @@ export function Header({ heroId }: Props) {
           >
             <View style={styles.attContainer}>
               <Image style={{ width: 19, height: 19 }} source={str} />
-              <TextComponent weight="semibold" style={styles.attNumber}>{heroDetails.base_str}</TextComponent>
-              <TextComponent weight="semibold" style={styles.attGain}> + {heroDetails.str_gain}</TextComponent>
+              <TextComponent weight="semibold" style={styles.attNumber}>
+                {heroDetails.base_str}
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.attGain}>
+                {" "}
+                + {heroDetails.str_gain}
+              </TextComponent>
             </View>
             <View style={styles.attContainer}>
               <Image style={{ width: 19, height: 19 }} source={agi} />
-              <TextComponent weight="semibold" style={styles.attNumber}>{heroDetails.base_agi}</TextComponent>
-              <TextComponent weight="semibold" style={styles.attGain}> + {heroDetails.agi_gain}</TextComponent>
+              <TextComponent weight="semibold" style={styles.attNumber}>
+                {heroDetails.base_agi}
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.attGain}>
+                {" "}
+                + {heroDetails.agi_gain}
+              </TextComponent>
             </View>
             <View style={styles.attContainer}>
               <Image style={{ width: 19, height: 19 }} source={int} />
-              <TextComponent weight="semibold" style={styles.attNumber}>{heroDetails.base_int}</TextComponent>
-              <TextComponent weight="semibold" style={styles.attGain}> + {heroDetails.int_gain}</TextComponent>
+              <TextComponent weight="semibold" style={styles.attNumber}>
+                {heroDetails.base_int}
+              </TextComponent>
+              <TextComponent weight="semibold" style={styles.attGain}>
+                {" "}
+                + {heroDetails.int_gain}
+              </TextComponent>
             </View>
           </View>
           <View style={{ width: "65%", alignItems: "center" }}>
-            <TextComponent weight="semibold" style={styles.textAtributo}>{heroDetails.attack_type}</TextComponent>
+            <TextComponent weight="semibold" style={styles.textAtributo}>
+              {heroDetails.attack_type}
+            </TextComponent>
             <View
               style={{
                 flexWrap: "wrap",
@@ -187,7 +217,11 @@ export function Header({ heroId }: Props) {
               }}
             >
               {heroDetails.roles.map((role, index) => (
-                <TextComponent weight="semibold" key={index} style={styles.textName}>
+                <TextComponent
+                  weight="semibold"
+                  key={index}
+                  style={styles.textName}
+                >
                   {role}
                   {index !== heroDetails.roles.length - 1 ? ", " : ""}
                 </TextComponent>
@@ -211,7 +245,10 @@ export function Header({ heroId }: Props) {
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image style={{ width: 23, height: 23 }} source={boots} />
-                <TextComponent weight="semibold" style={[styles.attGain, { color: "#fff" }]}>
+                <TextComponent
+                  weight="semibold"
+                  style={[styles.attGain, { color: "#fff" }]}
+                >
                   {" "}
                   {heroDetails.move_speed}
                 </TextComponent>
