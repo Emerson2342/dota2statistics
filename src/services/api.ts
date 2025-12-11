@@ -191,15 +191,13 @@ export const getHeroesPlayed = async (
   }
 };
 
-export const getHeroesStats = async (
-  setHeroStatsList: React.Dispatch<React.SetStateAction<HeroStats[] | []>>
-) => {
+export const getHeroesStats = async (): Promise<HeroStats[]> => {
   try {
     console.log("Endpoint heroStats: " + HERO_STATS_URL);
     const response = await fetch(HERO_STATS_URL);
     const data = (await response.json()) as HeroStats[];
 
-    const filteredData = data.map((hero) => ({
+    const filteredData: HeroStats[] = data.map((hero) => ({
       id: hero.id,
       localized_name: hero.localized_name,
       img: hero.img,
@@ -212,8 +210,9 @@ export const getHeroesStats = async (
       pub_win: hero.pub_win,
       pub_win_trend: hero.pub_win_trend,
     }));
-    setHeroStatsList(filteredData);
+    return filteredData;
   } catch (error: any) {
     console.log("Erro ao buscar Hero Stats: " + error.message);
+    return [];
   }
 };

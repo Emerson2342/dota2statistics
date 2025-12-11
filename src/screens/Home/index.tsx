@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
 import { fetchData, getHeroesStats } from "@src/services/api";
-import { HeroStats, LeagueMatches } from "../../../src/services/props";
+import { LeagueMatches } from "../../../src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
 import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
@@ -13,6 +13,7 @@ import { ErrorComponent } from "@src/utils/ErrorComponent";
 import { OrdererLeagueMatches } from "@src/services/ordererLeagueMatches";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useQuery } from "@tanstack/react-query";
 
 export function Home() {
   const { playerId, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
@@ -21,11 +22,8 @@ export function Home() {
   const { englishLanguage } = useSettingsStore();
   const layout = useWindowDimensions();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [proMatches, setProMatches] = useState<LeagueMatches[] | []>([]);
-  const [heroesStats, setHeroesStats] = useState<HeroStats[] | []>([]);
-  const [errorRequest, setErrorRequest] = useState(false);
   const [index, setIndex] = useState(0);
+  const { proMatchesQuery, heroesStatsQuery } = useHomeData();
 
   const routes = useMemo(
     () => [
@@ -42,22 +40,25 @@ export function Home() {
     [englishLanguage]
   );
 
-  useEffect(() => {
-    handleLoadData();
-  }, []);
+  function useHomeData() {
+    const proMatchesQuery = useQuery({
+      queryKey: ["proMatches"],
+      queryFn: () =>
+        fetchData<LeagueMatches[]>(PRO_MATCHES_URL).then((res) =>
+          OrdererLeagueMatches(res)
+        ),
+    });
 
-  const handleLoadData = async () => {
-    setIsLoading(true);
-    setErrorRequest(false);
-    try {
-      await getProMatches();
-      await getHeroesStats(setHeroesStats);
-    } catch (error: any) {
-      setErrorRequest(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const heroesStatsQuery = useQuery({
+      queryKey: ["heroesStats"],
+      queryFn: () => getHeroesStats(),
+    });
+
+    return {
+      proMatchesQuery,
+      heroesStatsQuery,
+    };
+  }
 
   const renderTabBar = (props: any) => (
     <TabBar
@@ -75,9 +76,9 @@ export function Home() {
         return (
           <TrendingsTab
             color={ColorTheme.light}
-            heroesStats={heroesStats}
-            onRefresh={getProMatches}
-            proMatches={proMatches}
+            heroesStats={heroesStatsQuery.data ?? []}
+            onRefresh={proMatchesQuery.refetch}
+            proMatches={proMatchesQuery.data ?? []}
           />
         );
       case "myProfile":
@@ -96,19 +97,21 @@ export function Home() {
     }
   };
 
-  const getProMatches = async () => {
-    await fetchData<LeagueMatches[]>(PRO_MATCHES_URL)
-      .then((res) => setProMatches(OrdererLeagueMatches(res)))
-      .catch(() => console.error("Error trying to get pro matches"));
-  };
-
-  if (isLoading)
+  if (proMatchesQuery.isLoading || heroesStatsQuery.isLoading)
     return (
       <ActivityIndicatorCustom
         message={englishLanguage ? "Loading..." : "Carregando..."}
       />
     );
-  if (errorRequest) return <ErrorComponent action={handleLoadData} />;
+  if (proMatchesQuery.isError || heroesStatsQuery.isError)
+    return (
+      <ErrorComponent
+        action={async () => {
+          proMatchesQuery.refetch;
+          heroesStatsQuery.refetch;
+        }}
+      />
+    );
 
   return (
     <View style={{ flex: 1 }}>

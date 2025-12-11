@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { ThemeProvider, useTheme } from "@src/context/useThemeContext";
 import mobileAds from "react-native-google-mobile-ads";
@@ -5,7 +7,6 @@ import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { Modal, Platform, StatusBar, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
 import Constants from "expo-constants";
 import { ModalHasUpdate } from "@src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -23,6 +24,7 @@ export default function App() {
     .then((adapterStatuses) => {
       // Initialization complete!
     });
+  const queryClient = new QueryClient();
 
   const [fontsLoaded] = useFonts({
     "QuickSand-Regular": require("./../src/Fonts/Quicksand_Regular.ttf"),
@@ -44,8 +46,10 @@ export default function App() {
     <GestureHandlerRootView>
       <ThemeProvider>
         <PaperProvider>
-          {/* <Teste /> */}
-          <Content />
+          <QueryClientProvider client={queryClient}>
+            {/* <Teste /> */}
+            <Content />
+          </QueryClientProvider>
         </PaperProvider>
       </ThemeProvider>
     </GestureHandlerRootView>

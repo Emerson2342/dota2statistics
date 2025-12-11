@@ -1,6 +1,6 @@
 {
   "name": "dota2",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
@@ -16,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/drawer": "^7.0.5",
     "@shopify/react-native-skia": "2.2.12",
+    "@tanstack/react-query": "^5.90.12",
     "expo": "~54.0.27",
     "expo-build-properties": "~1.0.10",
     "expo-constants": "~18.0.11",

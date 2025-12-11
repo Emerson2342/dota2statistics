@@ -6,16 +6,12 @@ import { HeroStats, LeagueMatches } from "@src/services/props";
 
 type Props = {
   color: string;
-  heroesStats: [] | HeroStats[];
-  proMatches: [] | LeagueMatches[];
-  onRefresh: () => Promise<void>;
+  heroesStats: HeroStats[];
+  proMatches: LeagueMatches[];
+  onRefresh: () => Promise<any>;
 };
 
-export function TrendingsTab({
-  heroesStats,
-  onRefresh,
-  proMatches,
-}: Props) {
+export function TrendingsTab({ heroesStats, onRefresh, proMatches }: Props) {
   return (
     <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       <View style={{ flex: 0.35 }}>
