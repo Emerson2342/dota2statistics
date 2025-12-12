@@ -19,7 +19,6 @@ export const fetchData = async <T>(url: string): Promise<T> => {
     const data: T = await res.json();
     return data;
   } catch (error: any) {
-    console.log("Error - ", error.message);
     throw new Error("Error trying to get data from - " + url);
   }
 };

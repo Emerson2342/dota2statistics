@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
@@ -24,6 +24,10 @@ export function Home() {
 
   const [index, setIndex] = useState(0);
   const { proMatchesQuery, heroesStatsQuery } = useHomeData();
+
+  useEffect(() => {
+    handleFetchPlayerData(playerId ?? "");
+  }, []);
 
   const routes = useMemo(
     () => [

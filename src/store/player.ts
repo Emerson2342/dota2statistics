@@ -7,7 +7,6 @@ import {
 } from "@src/services/api";
 import { HeroesPlayed, PlayerModel, RecentMatches } from "@src/services/props";
 import { SetPlayerModel } from "@src/utils/setPlayer";
-import { isLoading } from "expo-font";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -20,6 +19,7 @@ type PlayerStorage = {
   recentMatches: RecentMatches[];
   handleFetchPlayerData: (id: string | undefined) => Promise<void>;
   setPlayerId: (id: string) => void;
+  hasFetchedInitialData: boolean;
 };
 
 export const usePlayerStore = create<PlayerStorage>()(
@@ -34,6 +34,7 @@ export const usePlayerStore = create<PlayerStorage>()(
       setPlayerId(id) {
         set({ playerId: id });
       },
+      hasFetchedInitialData: false,
 
       handleFetchPlayerData: async (id) => {
         set({ isLoadingContext: true });
@@ -64,10 +65,12 @@ export const usePlayerStore = create<PlayerStorage>()(
             }
           })
           .catch((error) => {
-            console.log("Error trying to get profile", error.message);
+            console.log(error.message);
             set({ player: null });
           })
-          .finally(() => set({ isLoadingContext: false }));
+          .finally(() =>
+            set({ isLoadingContext: false, hasFetchedInitialData: true })
+          );
       },
     }),
     {

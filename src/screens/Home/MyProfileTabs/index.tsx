@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
@@ -26,12 +26,15 @@ export function MyProfileTabs({ index }: Props) {
     isLoadingContext,
     handleFetchPlayerData,
     setPlayerId,
+    hasFetchedInitialData,
   } = usePlayerStore();
   const { englishLanguage } = useSettingsStore();
   const [showModalMessage, setShowModalMessage] = useState(false);
 
   useEffect(() => {
+    if (index != 1) return;
     if (player) return;
+    if (hasFetchedInitialData) return;
     handleFetchPlayerData(playerId ?? "");
   }, []);
 
@@ -86,7 +89,7 @@ export function MyProfileTabs({ index }: Props) {
   }
 
   return (
-    <Animated.View style={styles.container}>
+    <View style={styles.container}>
       <View
         style={{
           flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
@@ -114,7 +117,7 @@ export function MyProfileTabs({ index }: Props) {
           )}
         </View>
       </View>
-    </Animated.View>
+    </View>
   );
 }
 
