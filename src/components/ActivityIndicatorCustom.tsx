@@ -16,20 +16,23 @@ function ActivityIndicatorComponent({ message }: { message: string }) {
   const styles = createStyles(ColorTheme);
 
   const rotate = useSharedValue(0);
-  const defaultAnim = useSharedValue<number>(0);
+  const defaultAnim = useSharedValue<number>(-75);
 
   const animatedDefault = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotate.value}deg` }],
+    transform: [
+      { translateY: defaultAnim.value },
+      { rotate: `${rotate.value}deg` },
+    ],
     margin: 5,
   }));
 
   useEffect(() => {
     (defaultAnim.value = withTiming(30, {
-      duration: 800,
-      easing: Easing.out(Easing.exp),
+      duration: 3000,
+      easing: Easing.bounce,
     })),
       (rotate.value = withRepeat(
-        withTiming(360, { duration: 2000, easing: Easing.linear }),
+        withTiming(360, { duration: 2500, easing: Easing.linear }),
         -1
       ));
   }, []);
@@ -42,8 +45,7 @@ function ActivityIndicatorComponent({ message }: { message: string }) {
         flex: 1,
       }}
     >
-      <ActivityIndicator size="large" color={ColorTheme.semidark} />
-      {/* <Animated.View style={animatedDefault}>
+      <Animated.View style={animatedDefault}>
         <Image
           source={require("../images/icon.png")}
           style={{
@@ -52,7 +54,7 @@ function ActivityIndicatorComponent({ message }: { message: string }) {
             tintColor: ColorTheme.semidark,
           }}
         />
-      </Animated.View> */}
+      </Animated.View>
       <TextComponent weight="bold" style={styles.textLoading}>
         {message}
       </TextComponent>
