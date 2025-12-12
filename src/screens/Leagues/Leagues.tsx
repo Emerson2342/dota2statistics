@@ -6,8 +6,8 @@ import { League } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
 import { useTheme } from "@src/context/useThemeContext";
 import { useFocusEffect, useRouter } from "expo-router";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
-import { ErrorComponent } from "@src/utils/ErrorComponent";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
+import { ErrorComponent } from "@src/components/ErrorComponent";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 

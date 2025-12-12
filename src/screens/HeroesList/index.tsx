@@ -20,7 +20,7 @@ import StrImg from "@src/images/str.png";
 import AllImg from "@src/images/all.png";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { useSettingsStore } from "@src/store/settings";
 
 const COLUMNS: number = 2;

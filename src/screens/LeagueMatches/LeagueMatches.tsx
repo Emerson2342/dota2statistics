@@ -7,7 +7,7 @@ import { LeagueMatches } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
 import { fetchData } from "@src/services/api";
 import { useRouter } from "expo-router";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { TextComponent } from "@src/components/TextComponent";
 import { useTeamStore } from "@src/store/teamsList";
 import { useShallow } from "zustand/react/shallow";

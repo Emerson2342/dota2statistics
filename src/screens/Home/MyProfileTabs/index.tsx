@@ -4,7 +4,7 @@ import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { toSteam32 } from "@src/utils/steam";
 import { SearchComponent } from "@src/utils/SearchComponent";
 import { getErro404Message } from "@src/utils/textMessage";
@@ -78,7 +78,7 @@ export function MyProfileTabs({ index }: Props) {
           message={
             englishLanguage
               ? "Loading player details..."
-              : "Carrgando detalhes do jogador..."
+              : "Carregando detalhes do jogador..."
           }
         />
       </View>

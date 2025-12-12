@@ -22,7 +22,7 @@ import { TabBar, TabView } from "react-native-tab-view";
 import { ProfileHeader } from "@src/screens/Home/MyProfileTabs/ProfileHeader";
 import { LastMatches } from "@src/screens/Home/MyProfileTabs/LastMatches";
 import { useNavigation } from "expo-router";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { SetPlayerModel } from "@src/utils/setPlayer";
 import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComponent";
 import { TextComponent } from "@src/components/TextComponent";

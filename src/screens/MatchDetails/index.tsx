@@ -10,7 +10,7 @@ import { getMatchDetails } from "@src/services/api";
 import { AsyncStorageService } from "@src/services/StorageService";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";

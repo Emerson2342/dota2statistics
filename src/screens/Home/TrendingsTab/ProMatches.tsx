@@ -13,7 +13,7 @@ import { LeagueMatches } from "@src/services/props";
 import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { TeamSide } from "@src/services/enum";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";

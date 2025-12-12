@@ -26,23 +26,23 @@ import {
   ModalItemData,
   ModalRef,
 } from "./../../services/props";
-import { useTheme } from "./../../context/useThemeContext";
+import { useTheme } from "@src/context/useThemeContext";
 
 import { Feather } from "@expo/vector-icons";
 
-import { fetchData } from "./../../services/api";
-import { ModalItemDetails } from "./../../components/Modals/ModalItemDetails";
+import { fetchData } from "@src/services/api";
+import { ModalItemDetails } from "@src/components/Modals/ModalItemDetails";
 import {
   HERO_ITEM_BASE_URL,
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
 } from "./../../constants/player";
 import useHeroDetails from "../../utils/getHeroDetails";
-import { ActivityIndicatorCustom } from "../../../src/utils/ActivityIndicatorCustom";
-import { handleItemDetails } from "../../../src/utils/HandleItemDetails";
-import { coolDownTime, manaCoust } from "../../../src/utils/HeroDetailsUtils";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
+import { handleItemDetails } from "@src/utils/HandleItemDetails";
+import { coolDownTime, manaCoust } from "@src/utils/HeroDetailsUtils";
 import { Header } from "./header";
-import { TextComponent } from "../../../src/components/TextComponent";
+import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;

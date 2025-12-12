@@ -15,7 +15,7 @@ import {
 import { useTheme } from "@src/context/useThemeContext";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
-import { ActivityIndicatorCustom } from "@src/utils/ActivityIndicatorCustom";
+import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { getSetProfile } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
@@ -138,7 +138,7 @@ function HeroesPlayedComp({
           message={
             englishLanguage
               ? "Loading player details..."
-              : "Carrgando detalhes do jogador..."
+              : "Carregando detalhes do jogador..."
           }
         />
       </View>
