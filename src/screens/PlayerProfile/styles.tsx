@@ -5,10 +5,18 @@ export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 7,
-      marginBottom: 7,
+      // justifyContent: "center",
+      // alignItems: "center",
+      // marginTop: 7,
+      // marginBottom: 7,
+      backgroundColor: colors.dark,
+    },
+    background: {
+      position: "absolute",
+      left: 0,
+      right: 0,
+      top: 0,
+      height: 150,
     },
     inputContainer: {
       flex: 0.07,

@@ -4,12 +4,11 @@ import { ThemeColor } from "@src/services/props";
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     profile: {
-      alignItems: "center",
-      backgroundColor: colors.semidark,
-      borderRadius: 5,
+      //alignItems: "center",
+      //borderRadius: 5,
       width: "97%",
       alignSelf: "center",
-      padding: "3%",
+      //padding: "3%",
     },
     infoContainer: {
       width: "100%",
@@ -39,7 +38,7 @@ export const createStyles = (colors: ThemeColor) =>
       aspectRatio: 1,
       borderRadius: 35,
       borderWidth: 1,
-      borderColor: colors.standard,
+      borderColor: "orange",
     },
     textRank: {
       color: "#fff",

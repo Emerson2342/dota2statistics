@@ -73,11 +73,10 @@ export function ListaDeHerois() {
   }, [attSelected, heroesSearched, sortedList]);
 
   useEffect(() => {
-    setIsLoading(true);
+    setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
+    //setIsLoading(true);
 
     setTimeout(() => {
-      setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-
       setIsLoading(false);
     }, 500);
   }, []);
@@ -160,7 +159,7 @@ export function ListaDeHerois() {
     }
 
     return (
-      <View style={styles.listaHeroi}>
+      <View style={styles.heroList}>
         <TouchableOpacity
           style={{ width: "100%", flexDirection: "row", alignItems: "center" }}
           onPress={() => GoToHeroDetails(heroDetails?.id.toString() ?? "0")}
@@ -288,6 +287,7 @@ export function ListaDeHerois() {
           flex: 1,
           width: "100%",
           marginBottom: "3%",
+          alignItems: "center",
         }}
       >
         {isLoading ? (

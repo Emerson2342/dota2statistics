@@ -52,20 +52,18 @@ export const createStyles = (colors: ThemeColor) =>
       height: 27,
       fontSize: 15,
     },
-    listaHeroi: {
-      width: "49%",
+    heroList: {
+      width: "45%",
       backgroundColor: "#fff",
-      alignItems: "center",
       padding: "0.5%",
-      marginVertical: "0.5%",
-      marginHorizontal: "0.5%",
-      borderRadius: 3,
+      margin: "1%",
+      borderRadius: 23,
     },
     image: {
       alignSelf: "center",
       width: Dimensions.get("screen").width * 0.1,
       height: Dimensions.get("screen").width * 0.065,
-      borderRadius: 3,
+      borderRadius: 23,
     },
     imageRadioButton: {
       width: 27,

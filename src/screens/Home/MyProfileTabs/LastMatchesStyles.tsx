@@ -25,7 +25,7 @@ export const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
     },
     textTitleHeader: {
-      color: colors.dark,
+      color: colors.light,
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.03,
     },

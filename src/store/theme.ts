@@ -40,7 +40,6 @@ type ThemeStore = {
 export const useThemeStore = create<ThemeStore>((set) => ({
   colorTheme: IntTheme,
   setTheme: (theme) => {
-    console.log(theme);
     switch (theme) {
       case "int":
         set({ colorTheme: IntTheme });

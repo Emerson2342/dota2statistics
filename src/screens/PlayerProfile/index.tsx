@@ -28,6 +28,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { useFavoritePlayersStore } from "@src/store/favorites";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -144,6 +145,11 @@ export default function PlayerProfileScreen({
           </View>
         ) : (
           <View style={{ flex: 1 }}>
+            <LinearGradient
+              // Background Linear Gradient
+              colors={["rgba(0,0,0,0.8)", "transparent"]}
+              style={styles.background}
+            />
             <View style={{ flex: heroesPlayedId.length > 5 ? 0.3 : 0.25 }}>
               <ProfileHeader
                 player={player}

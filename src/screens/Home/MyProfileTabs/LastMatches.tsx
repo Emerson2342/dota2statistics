@@ -119,7 +119,8 @@ function LastMatchesComponent({
         style={[
           styles.listContainer,
           {
-            backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
+            backgroundColor:
+              index % 2 === 0 ? colorTheme.light : "rgba(255,255,255,0.7)",
           },
         ]}
       >

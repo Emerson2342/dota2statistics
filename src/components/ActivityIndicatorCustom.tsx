@@ -71,5 +71,6 @@ const createStyles = (colors: ThemeColor) =>
       fontFamily: "QuickSand-Bold",
       fontSize: 15,
       color: colors.semidark,
+      marginTop: 15,
     },
   });

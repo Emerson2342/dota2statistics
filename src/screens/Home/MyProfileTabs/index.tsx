@@ -11,6 +11,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Props = {
   index: number;
@@ -94,9 +95,13 @@ export function MyProfileTabs({ index }: Props) {
       <View
         style={{
           flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,
-          marginTop: "1%",
         }}
       >
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(0,0,0,0.8)", "transparent"]}
+          style={styles.background}
+        />
         <ProfileHeader
           player={player}
           heroesId={heroesPlayedId}
@@ -126,12 +131,21 @@ const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      //alignItems: "center",
+      //justifyContent: "center",
+      backgroundColor: colors.standard,
     },
     inputContainer: {
       flex: 1,
       width: "100%",
       alignItems: "center",
+    },
+    background: {
+      position: "absolute",
+      left: 0,
+      right: 0,
+      top: 0,
+      height: 150,
     },
     textErro: {
       textAlign: "center",
