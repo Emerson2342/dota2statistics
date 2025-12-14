@@ -9,20 +9,20 @@ import {
   StyleSheet,
   Dimensions,
   Modal,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
 import { ModalAboutUs } from "@src/components/Modals/ModalAboutUs";
 import Constants from "expo-constants";
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { englishLanguage } = useSettingsStore();
 
   const [modalAboutUsVisible, setModalAboutUsVisible] =
@@ -32,7 +32,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     ? { uri: player?.profile.avatarfull }
     : require("../../images/user.png");
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

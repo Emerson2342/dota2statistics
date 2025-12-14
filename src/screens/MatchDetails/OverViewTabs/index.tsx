@@ -16,12 +16,12 @@ import {
   Player,
 } from "@src/services/props";
 import { createStyles } from "./styles";
-import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   refreshing: boolean;
@@ -48,8 +48,9 @@ function OverViewComponent({
   heroArray,
   hasTeamFights,
 }: Props) {
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
   const { englishLanguage } = useSettingsStore();
 
   const router = useRouter();
@@ -229,7 +230,7 @@ function OverViewComponent({
               </TextComponent>
               <Feather
                 name="external-link"
-                color={ColorTheme.semidark}
+                color={colorTheme.semidark}
                 size={15}
               />
             </TouchableOpacity>

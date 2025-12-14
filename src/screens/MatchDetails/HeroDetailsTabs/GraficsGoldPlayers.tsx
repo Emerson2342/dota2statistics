@@ -11,9 +11,9 @@ import { useFont } from "@shopify/react-native-skia";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const GraficsGoldPlayers = ({
   matchDetails,
@@ -25,7 +25,7 @@ const GraficsGoldPlayers = ({
   DireName: string | undefined;
 }) => {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const [hero1Selected, setHero1Selected] = useState(true);
   const [hero2Selected, setHero2Selected] = useState(true);
@@ -145,7 +145,7 @@ const GraficsGoldPlayers = ({
           styles.textTeamName,
           {
             fontSize: Dimensions.get("screen").width * 0.05,
-            color: ColorTheme.semidark,
+            color: colorTheme.semidark,
           },
         ]}
       >
@@ -159,7 +159,7 @@ const GraficsGoldPlayers = ({
           styles.textTeamName,
           {
             fontSize: Dimensions.get("screen").width * 0.03,
-            color: ColorTheme.semilight,
+            color: colorTheme.semilight,
           },
         ]}
       >
@@ -372,7 +372,7 @@ const GraficsGoldPlayers = ({
         style={{
           alignSelf: "center",
           marginTop: 17,
-          backgroundColor: ColorTheme.semidark,
+          backgroundColor: colorTheme.semidark,
           borderRadius: 7,
         }}
       >

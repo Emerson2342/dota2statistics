@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { View, StyleSheet, Image, ActivityIndicator } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
+import { View, StyleSheet, Image } from "react-native";
 import { ThemeColor } from "@src/services/props";
 import Animated, {
   Easing,
@@ -10,10 +9,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { TextComponent } from "@src/components/TextComponent";
+import { useThemeStore } from "@src/store/theme";
 
 function ActivityIndicatorComponent({ message }: { message: string }) {
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+  const styles = createStyles(colorTheme);
 
   const rotate = useSharedValue(0);
   const defaultAnim = useSharedValue<number>(-75);
@@ -51,7 +51,7 @@ function ActivityIndicatorComponent({ message }: { message: string }) {
           style={{
             width: 75,
             height: 75,
-            tintColor: ColorTheme.semidark,
+            tintColor: colorTheme.semidark,
           }}
         />
       </Animated.View>

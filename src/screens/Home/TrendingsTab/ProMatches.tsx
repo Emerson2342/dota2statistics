@@ -10,13 +10,13 @@ import {
 import { createStylesStatics } from "./ProMatchesStyles";
 
 import { LeagueMatches } from "@src/services/props";
-import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { TeamSide } from "@src/services/enum";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const WIN = "#257848";
 const LOS = "#9a2525";
@@ -29,8 +29,9 @@ function ProMatchesComponent({
   onRefresh: () => Promise<void>;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
-  const styles = createStylesStatics(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStylesStatics(colorTheme);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -235,11 +236,11 @@ function ProMatchesComponent({
             refreshing={false}
             onRefresh={refresh}
             colors={[
-              ColorTheme.light,
-              ColorTheme.semilight,
-              ColorTheme.standard,
+              colorTheme.light,
+              colorTheme.semilight,
+              colorTheme.standard,
             ]}
-            progressBackgroundColor={ColorTheme.dark}
+            progressBackgroundColor={colorTheme.dark}
           />
         }
       >

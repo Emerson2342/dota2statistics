@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import { MatchDetailsModel, ThemeColor } from "@src/services/props";
 import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { Ionicons } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function Header({
   matchDetails,
@@ -28,7 +28,8 @@ function Header({
   direName: string;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
 
   const textWarning = englishLanguage
@@ -39,7 +40,7 @@ function Header({
   let formattedDuration;
   let formattedTime;
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   if (matchDetails) {
     const startDate = new Date(matchDetails?.start_time * 1000);
     const durationInMinutes = matchDetails?.duration;
@@ -168,7 +169,7 @@ function Header({
           <View style={{ flexDirection: "row" }}>
             <TextComponent
               style={{
-                color: ColorTheme.semidark,
+                color: colorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
@@ -176,7 +177,7 @@ function Header({
             </TextComponent>
             <TextComponent
               style={{
-                color: ColorTheme.semidark,
+                color: colorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >
@@ -186,7 +187,7 @@ function Header({
           <View style={{ flexDirection: "row" }}>
             <TextComponent
               style={{
-                color: ColorTheme.semidark,
+                color: colorTheme.semidark,
                 fontFamily: "QuickSand-Bold",
               }}
             >
@@ -194,7 +195,7 @@ function Header({
             </TextComponent>
             <TextComponent
               style={{
-                color: ColorTheme.semidark,
+                color: colorTheme.semidark,
                 fontFamily: "QuickSand-Semibold",
               }}
             >

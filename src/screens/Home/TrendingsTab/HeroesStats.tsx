@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import { HeroStats, ThemeColor } from "@src/services/props";
 import { useRouter } from "expo-router";
-import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function HeroesStatsComponent({
   heroesStats,
@@ -19,8 +19,9 @@ function HeroesStatsComponent({
   heroesStats: HeroStats[] | [];
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
   const router = useRouter();
 
   const bestWinrate = useMemo(

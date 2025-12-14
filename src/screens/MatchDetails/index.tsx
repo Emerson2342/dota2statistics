@@ -5,7 +5,6 @@ import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { MATCHE_DETAILS_API_BASE_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { getMatchDetails } from "@src/services/api";
 import { AsyncStorageService } from "@src/services/StorageService";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
@@ -14,6 +13,7 @@ import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom
 import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -42,7 +42,7 @@ export const MatchDetailsScreen = ({
 
   const [refreshing, setRefreshing] = useState(false);
 
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
@@ -59,7 +59,7 @@ export const MatchDetailsScreen = ({
     () => matchDetails?.teamfights ?? [],
     [matchDetails?.teamfights]
   );
-  const styles = useMemo(() => createStyles(ColorTheme), [ColorTheme]);
+  const styles = useMemo(() => createStyles(colorTheme), [colorTheme]);
 
   const radName = useMemo(
     () => (englishLanguage ? "Radiant" : "Iluminados"),
@@ -310,7 +310,7 @@ export const MatchDetailsScreen = ({
       activeColor={"#fff"}
       inactiveColor={"#888"}
       style={{
-        backgroundColor: ColorTheme.semidark,
+        backgroundColor: colorTheme.semidark,
       }}
     />
   );

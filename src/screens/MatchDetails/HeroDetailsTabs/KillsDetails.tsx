@@ -9,9 +9,9 @@ import {
   PICTURE_HERO_BASE_FULL_URL,
   PICTURE_HERO_BASE_URL,
 } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function HeroKillsDetails({
   matchDetails,
@@ -24,7 +24,7 @@ function HeroKillsDetails({
   radName: string;
   heroArray: HeroDetailsModel[];
 }) {
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
   const { englishLanguage } = useSettingsStore();
 
   const validPlayers = matchDetails.players.filter(
@@ -82,9 +82,9 @@ function HeroKillsDetails({
               styles.textTeamName,
               {
                 display: index == 0 ? "flex" : "none",
-                color: ColorTheme.standard,
+                color: colorTheme.standard,
                 borderTopWidth: index == 0 ? 1 : 0,
-                borderColor: ColorTheme.standard,
+                borderColor: colorTheme.standard,
               },
             ]}
           >
@@ -97,9 +97,9 @@ function HeroKillsDetails({
               {
                 display: index == 5 ? "flex" : "none",
                 borderTopWidth: index == 5 ? 1 : 0,
-                borderColor: ColorTheme.standard,
+                borderColor: colorTheme.standard,
                 marginTop: index == 5 ? 7 : 0,
-                color: ColorTheme.standard,
+                color: colorTheme.standard,
               },
             ]}
           >
@@ -190,7 +190,7 @@ function HeroKillsDetails({
         weight="bold"
         style={[
           styles.textTeamName,
-          { fontSize: 19, color: ColorTheme.semidark },
+          { fontSize: 19, color: colorTheme.semidark },
         ]}
       >
         {englishLanguage ? "Kills Details" : "Detalhes de Mortes"}
@@ -204,13 +204,13 @@ function HeroKillsDetails({
       >
         <TextComponent
           weight="bold"
-          style={[styles.textTeamName, { color: ColorTheme.semilight }]}
+          style={[styles.textTeamName, { color: colorTheme.semilight }]}
         >
           {englishLanguage ? "Kills" : "Mortes"}
         </TextComponent>
         <TextComponent
           weight="bold"
-          style={[styles.textTeamName, { color: ColorTheme.semilight }]}
+          style={[styles.textTeamName, { color: colorTheme.semilight }]}
         >
           {englishLanguage ? "Deaths By" : "Morto por"}
         </TextComponent>

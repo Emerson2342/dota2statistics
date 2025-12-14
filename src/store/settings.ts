@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LanguageProps, ThemeProps } from "@src/services/props";
+import { ThemeProps } from "@src/services/props";
 
 type SettingsStore = {
   englishLanguage: boolean;

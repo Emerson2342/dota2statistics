@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { fetchData, getHeroesStats } from "@src/services/api";
-import { LeagueMatches } from "../../../src/services/props";
+import { LeagueMatches } from "@src/services/props";
 import { TabBar, TabView } from "react-native-tab-view";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
@@ -14,11 +13,13 @@ import { OrdererLeagueMatches } from "@src/services/ordererLeagueMatches";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useQuery } from "@tanstack/react-query";
+import { useThemeStore } from "@src/store/theme";
 
 export function Home() {
   const { playerId, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
     usePlayerStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { englishLanguage } = useSettingsStore();
   const layout = useWindowDimensions();
 
@@ -70,7 +71,7 @@ export function Home() {
       indicatorStyle={{ backgroundColor: "orange" }}
       activeColor="#fff"
       inactiveColor="#888"
-      style={{ backgroundColor: ColorTheme.semidark }}
+      style={{ backgroundColor: colorTheme.semidark }}
     />
   );
 
@@ -79,7 +80,7 @@ export function Home() {
       case "trendings":
         return (
           <TrendingsTab
-            color={ColorTheme.light}
+            color={colorTheme.light}
             heroesStats={heroesStatsQuery.data ?? []}
             onRefresh={proMatchesQuery.refetch}
             proMatches={proMatchesQuery.data ?? []}
@@ -93,7 +94,6 @@ export function Home() {
             isLoading={isLoadingContext}
             heroesPlayedList={heroesPlayed}
             isHomeProfile={true}
-            refresh={async () => await handleFetchPlayerData(playerId ?? "")}
           />
         );
       default:

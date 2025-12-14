@@ -22,12 +22,12 @@ import {
   PICTURE_HERO_BASE_URL,
 } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useTheme } from "@src/context/useThemeContext";
 import { ModalAbilityDetails } from "@src/components/Modals/ModalAbilityDetails";
 import { useRouter } from "expo-router";
 import { modalAbilitiesDetails } from "@src/utils/matchDetailsUtils";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function Abilities({
   matchDetails,
@@ -39,7 +39,8 @@ function Abilities({
   DireName: string | undefined;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const router = useRouter();
   const modalRef = useRef<ModalRef>(null);
 
@@ -49,7 +50,7 @@ function Abilities({
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const heroesList = useMemo(() => {
     return Object.values(HeroesDetails) as HeroDetailsModel[];
@@ -99,7 +100,7 @@ function Abilities({
                         styles.textTeam,
                         {
                           borderTopWidth: 1,
-                          borderColor: ColorTheme.semilight,
+                          borderColor: colorTheme.semilight,
                         },
                       ]}
                     >
@@ -116,7 +117,7 @@ function Abilities({
                         styles.textTeam,
                         {
                           borderTopWidth: 1,
-                          borderColor: ColorTheme.semilight,
+                          borderColor: colorTheme.semilight,
                         },
                       ]}
                     >

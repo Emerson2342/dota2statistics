@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { ThemeColor } from "../../../src/services/props";
+import { ThemeColor } from "@src/services/props";
 import { BannerAds } from "../Admob/BannerAds";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function ModalHelpMatchDetails({
   handleClose,
@@ -13,9 +13,9 @@ export function ModalHelpMatchDetails({
   handleClose: () => void;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const text = englishLanguage
     ? "The percentage indicates your performance with the hero compared to other players who used the same hero in the same bracket. For example, if the Last Hits (LH) percentage is at 13%, it means your performance was better than 13% of the players in your bracket who played with this hero."

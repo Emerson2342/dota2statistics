@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { View, StyleSheet, Modal } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useTheme } from "@src/context/useThemeContext";
 import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { getErro404Message } from "./textMessage";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   onSearch: (text: string) => Promise<void>;
@@ -20,7 +20,7 @@ export const SearchComponent = ({
   setShowModalMessage,
 }: Props) => {
   const [text, setText] = useState("");
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
   const { englishLanguage } = useSettingsStore();
   const erro404 = getErro404Message(englishLanguage);
 
@@ -32,8 +32,8 @@ export const SearchComponent = ({
         value={text}
         onChangeText={setText}
         elevation={3}
-        iconColor={ColorTheme.semidark}
-        placeholderTextColor={ColorTheme.semilight}
+        iconColor={colorTheme.semidark}
+        placeholderTextColor={colorTheme.semilight}
         onIconPress={async () => await onSearch(text)}
       />
       <Modal

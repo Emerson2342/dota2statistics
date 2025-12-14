@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import {
   HeroDetailsModel,
   MatchDetailsModel,
@@ -26,6 +25,7 @@ import { ModalItemDetails } from "@src/components/Modals/ModalItemDetails";
 import { handleItemDetails } from "@src/utils/HandleItemDetails";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const { width } = Dimensions.get("window");
 
@@ -39,8 +39,7 @@ function Items({
   DireName: string | undefined;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
-  //const [modalVisible, setModalVisible] = useState(false);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const [modalData, setModalData] = useState<ModalItemData | null>(null);
 
@@ -49,7 +48,7 @@ function Items({
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const heroList = useMemo(() => {
     return Object.values(HeroesDetails) as HeroDetailsModel[];
@@ -126,7 +125,7 @@ function Items({
                         styles.textTeam,
                         {
                           borderTopWidth: 1,
-                          borderColor: ColorTheme.semilight,
+                          borderColor: colorTheme.semilight,
                         },
                       ]}
                     >
@@ -142,7 +141,7 @@ function Items({
                         styles.textTeam,
                         {
                           borderTopWidth: 1,
-                          borderColor: ColorTheme.semilight,
+                          borderColor: colorTheme.semilight,
                         },
                       ]}
                     >

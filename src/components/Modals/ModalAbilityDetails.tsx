@@ -7,15 +7,15 @@ import {
   Dimensions,
   Modal,
 } from "react-native";
-import { HeroAbilitiesDescriptionsModel, ModalRef } from "../../services/props";
-import { PICTURE_ITEM_BASE_URL } from "../../constants/player";
-import { useTheme } from "../../context/useThemeContext";
-import { BannerAds } from "../Admob/BannerAds";
+import { HeroAbilitiesDescriptionsModel, ModalRef } from "@src/services/props";
+import { PICTURE_ITEM_BASE_URL } from "@src/constants/player";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 import { Feather } from "@expo/vector-icons";
-import EmptyImage from "../../images/emptyImage.png";
-import { TextComponent } from "../TextComponent";
+import EmptyImage from "@src/images/emptyImage.png";
+import { TextComponent } from "@src/components/TextComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   ability: HeroAbilitiesDescriptionsModel | undefined;
@@ -24,7 +24,7 @@ type Props = {
 export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
   ({ ability }, ref) => {
     const { englishLanguage } = useSettingsStore();
-    const { ColorTheme } = useTheme();
+    const colorTheme = useThemeStore((state) => state.colorTheme);
 
     const [visible, setVisible] = useState(false);
     const handleClose = () => setVisible(false);
@@ -180,7 +180,7 @@ export const ModalAbilityDetails = forwardRef<ModalRef, Props>(
               <TouchableOpacity
                 style={[
                   styles.buttonContainer,
-                  { backgroundColor: ColorTheme.semidark },
+                  { backgroundColor: colorTheme.semidark },
                 ]}
                 onPress={handleClose}
               >

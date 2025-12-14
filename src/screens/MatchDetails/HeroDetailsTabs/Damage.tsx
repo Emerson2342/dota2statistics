@@ -18,13 +18,12 @@ import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescripti
 import ItemsList from "@src/components/Itens/itemsList.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useTheme } from "@src/context/useThemeContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EmptyImage from "@src/images/emptyImage.png";
 import { TextComponent } from "@src/components/TextComponent";
 import { useRouter } from "expo-router";
-import { handleItemDetails } from "@src/utils/HandleItemDetails";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function Damage({
   matchDetails,
@@ -36,7 +35,8 @@ function Damage({
   DireName: string | undefined;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const router = useRouter();
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
   // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
@@ -44,7 +44,7 @@ function Damage({
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   // const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
 
   useEffect(() => {
@@ -87,7 +87,7 @@ function Damage({
                     weight="bold"
                     style={[
                       styles.textTeam,
-                      { borderTopWidth: 1, borderColor: ColorTheme.semilight },
+                      { borderTopWidth: 1, borderColor: colorTheme.semilight },
                     ]}
                   >
                     {RadName ? RadName : radName}
@@ -99,7 +99,7 @@ function Damage({
                     weight="bold"
                     style={[
                       styles.textTeam,
-                      { borderTopWidth: 1, borderColor: ColorTheme.semilight },
+                      { borderTopWidth: 1, borderColor: colorTheme.semilight },
                     ]}
                   >
                     {DireName ? DireName : direName}

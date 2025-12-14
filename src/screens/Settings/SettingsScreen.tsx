@@ -2,17 +2,18 @@ import React, { useCallback, useState } from "react";
 import { View, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { createStyles } from "./SettingsScreenStyles";
-import { useTheme } from "@src/context/useThemeContext";
 import ModalMyAccount from "@src/components/Modals/ModalMyAccount";
 import { useFocusEffect } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { ThemeProps } from "@src/services/props";
+import { useThemeStore } from "@src/store/theme";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
     useSettingsStore();
+  const setTheme = useThemeStore((state) => state.setTheme);
 
   const { playerId } = usePlayerStore();
   const [isEnglish, setIsEnglish] = useState<boolean>(englishLanguage);
@@ -20,8 +21,8 @@ export function SettingsScreen() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+  const styles = createStyles(colorTheme);
 
   const themeKeys: Record<string, string> = {
     ti2025: "The International 2025",
@@ -42,6 +43,7 @@ export function SettingsScreen() {
     setTimeout(() => {
       setEnglishLanguage(isEnglish);
       setGlobalTheme(selectTheme as ThemeProps);
+      setTheme(selectTheme as ThemeProps);
       setIsLoading(false);
     }, 300);
   };
@@ -81,7 +83,7 @@ export function SettingsScreen() {
                 weight="bold"
                 style={
                   isEnglish
-                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    ? [styles.textOptions, { color: colorTheme.dark }]
                     : styles.textOptions
                 }
               >
@@ -100,7 +102,7 @@ export function SettingsScreen() {
                 weight="bold"
                 style={
                   !isEnglish
-                    ? [styles.textOptions, { color: ColorTheme.dark }]
+                    ? [styles.textOptions, { color: colorTheme.dark }]
                     : styles.textOptions
                 }
               >
@@ -139,7 +141,7 @@ export function SettingsScreen() {
                     weight="bold"
                     style={
                       selectTheme === themeKey
-                        ? [styles.textOptions, { color: ColorTheme.dark }]
+                        ? [styles.textOptions, { color: colorTheme.dark }]
                         : styles.textOptions
                     }
                   >
@@ -166,7 +168,7 @@ export function SettingsScreen() {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
+          style={[styles.buttonSave, { backgroundColor: colorTheme.dark }]}
           onPress={() => handleSaveChanges()}
         >
           <TextComponent
@@ -194,11 +196,11 @@ export function SettingsScreen() {
             justifyContent: "center",
           }}
         >
-          <ActivityIndicator size={35} color={ColorTheme.light} />
+          <ActivityIndicator size={35} color={colorTheme.light} />
           <TextComponent
             weight="bold"
             style={{
-              color: ColorTheme.light,
+              color: colorTheme.light,
               margin: 15,
             }}
           >

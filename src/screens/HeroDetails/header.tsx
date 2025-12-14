@@ -6,7 +6,6 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import boots from "@src/images/boots.png";
@@ -23,16 +22,18 @@ import HeroLoreJson from "@src/constants/Lore.json";
 import HeroLorePtBrJson from "@src/constants/LorePtBr.json";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   heroId: number;
 };
 
 export function Header({ heroId }: Props) {
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { englishLanguage } = useSettingsStore();
   const heroDetails = useHeroDetails(Number(heroId));
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const modalRef = useRef<ModalRef>(null);
 

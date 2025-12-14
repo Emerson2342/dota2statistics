@@ -10,9 +10,9 @@ import {
 import AbilitiesDescriptionsJson from "@src/components/Heroes/AbilitiesDescriptions.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type DamageType = "Magical" | "Physical" | "Pure";
 type DamageText = {
@@ -53,14 +53,14 @@ function DamageType({
   damageInflictor: string;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   const title =
     damageInflictor === "caused"
       ? englishLanguage
@@ -158,7 +158,7 @@ function DamageType({
                   style={[
                     styles.textTeam,
                     {
-                      borderColor: ColorTheme.semilight,
+                      borderColor: colorTheme.semilight,
                       display: index === 0 ? "flex" : "none",
                     },
                   ]}

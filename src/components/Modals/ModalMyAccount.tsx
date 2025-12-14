@@ -7,7 +7,6 @@ import {
   Modal,
 } from "react-native";
 import { HandleCloseInterface, ThemeColor } from "@src/services/props";
-import { useTheme } from "@src/context/useThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { ModalLoading } from "./ModalLoading";
 import { ModalMessage } from "./ModalMessage";
@@ -15,6 +14,7 @@ import { toSteam32 } from "@src/utils/steam";
 import { TextComponent } from "../TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export default function ModalMyAccount({
   handleClose,
@@ -27,8 +27,9 @@ export default function ModalMyAccount({
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [textMessage, setTextMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
 
   const titleMessage = englishLanguage ? "Message" : "Mensagem";
 
@@ -79,7 +80,7 @@ export default function ModalMyAccount({
               <Ionicons
                 name="close"
                 size={15}
-                color={ColorTheme.semidark + 90}
+                color={colorTheme.semidark + 90}
               />
             </TouchableOpacity>
           </View>
@@ -92,7 +93,7 @@ export default function ModalMyAccount({
             <Ionicons
               name="reload"
               size={15}
-              color={ColorTheme.semidark + 90}
+              color={colorTheme.semidark + 90}
             />
           </TouchableOpacity>
         </View>
@@ -105,7 +106,7 @@ export default function ModalMyAccount({
             <TextComponent
               weight="bold"
               style={{
-                color: ColorTheme.semidark,
+                color: colorTheme.semidark,
               }}
             >
               {englishLanguage ? "Back" : "Voltar"}
@@ -113,7 +114,7 @@ export default function ModalMyAccount({
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleSave()}
-            style={[styles.buttonContent, { backgroundColor: ColorTheme.dark }]}
+            style={[styles.buttonContent, { backgroundColor: colorTheme.dark }]}
           >
             <TextComponent weight="bold" style={{ color: "#fff" }}>
               {englishLanguage ? "Save" : "Salvar"}

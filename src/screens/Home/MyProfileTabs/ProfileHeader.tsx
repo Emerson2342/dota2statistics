@@ -13,14 +13,14 @@ import {
   HeroDetailsModel,
   PlayerModel,
   RecentMatches,
-} from "../../../services/props";
+} from "@src/services/props";
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const NUMBER_COLUMNS = 10;
 
@@ -35,10 +35,11 @@ export function ProfileHeader({
 }) {
   const router = useRouter();
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   let vitorias = 0;
   let derrotas = 0;
@@ -151,7 +152,7 @@ export function ProfileHeader({
               style={[
                 styles.textProfile,
                 {
-                  color: ColorTheme.light,
+                  color: colorTheme.light,
                   fontSize: Dimensions.get("screen").width * 0.047,
                 },
               ]}

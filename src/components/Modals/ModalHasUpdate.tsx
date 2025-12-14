@@ -6,15 +6,16 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
-import { useTheme } from "../../context/useThemeContext";
-import { ThemeColor } from "../../services/props";
+import { ThemeColor } from "@src/services/props";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function ModalHasUpdate({ handleClose }: { handleClose(): void }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
 
   const title = englishLanguage
     ? "Update Available!"
@@ -38,12 +39,12 @@ export function ModalHasUpdate({ handleClose }: { handleClose(): void }) {
         </TextComponent>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: ColorTheme.light }]}
+            style={[styles.button, { backgroundColor: colorTheme.light }]}
             onPress={() => handleClose()}
           >
             <TextComponent
               weight="bold"
-              style={[styles.textButton, { color: ColorTheme.dark }]}
+              style={[styles.textButton, { color: colorTheme.dark }]}
             >
               {englishLanguage ? "Close" : "Fechar"}
             </TextComponent>

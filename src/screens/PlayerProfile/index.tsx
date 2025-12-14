@@ -8,7 +8,6 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useTheme } from "@src/context/useThemeContext";
 import {
   fetchData,
   getHeroesPlayed,
@@ -28,6 +27,7 @@ import { HeroesPlayedComponent } from "../Home/HeroesPlayedTabs/HeroesPlayedComp
 import { TextComponent } from "@src/components/TextComponent";
 import { useFavoritePlayersStore } from "@src/store/favorites";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -39,8 +39,9 @@ export default function PlayerProfileScreen({
   const { addFavoritePlayer, removeFavoritePlayer, favoritePlayers } =
     useFavoritePlayersStore();
 
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
   const [player, setPlayer] = useState<PlayerModel | null>(null);
   const [recentMatches, setRecentMatches] = useState<RecentMatches[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -189,7 +190,7 @@ export default function PlayerProfileScreen({
       activeColor={"#fff"}
       inactiveColor={"#888"}
       style={{
-        backgroundColor: ColorTheme.semidark,
+        backgroundColor: colorTheme.semidark,
       }}
     />
   );
@@ -202,7 +203,6 @@ export default function PlayerProfileScreen({
         case "heroesPlayed":
           return (
             <HeroesPlayedComponent
-              refresh={handleSearch}
               heroesPlayedList={heroesPlayed}
               isHomeProfile={false}
               isLoading={isLoading}

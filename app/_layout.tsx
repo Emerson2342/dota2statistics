@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
-import { ThemeProvider, useTheme } from "@src/context/useThemeContext";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
@@ -15,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import VersionCheck from "react-native-version-check";
 import { SantaHatComponent } from "@src/components/SantaHatComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,30 +44,34 @@ export default function App() {
 
   return (
     <GestureHandlerRootView>
-      <ThemeProvider>
-        <PaperProvider>
-          <QueryClientProvider client={queryClient}>
-            {/* <Teste /> */}
-            <Content />
-          </QueryClientProvider>
-        </PaperProvider>
-      </ThemeProvider>
+      <PaperProvider>
+        <QueryClientProvider client={queryClient}>
+          {/* <Teste /> */}
+          <Content />
+        </QueryClientProvider>
+      </PaperProvider>
     </GestureHandlerRootView>
   );
 }
 
 function Content() {
-  const { ColorTheme } = useTheme();
-  const { globalTheme, englishLanguage } = useSettingsStore();
+  const { globalTheme } = useSettingsStore.getState();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const { englishLanguage } = useSettingsStore();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     checkForUpdates();
-  }, []);
+    useThemeStore.getState().setTheme(globalTheme);
 
-  useEffect(() => {
-    StatusBar.setBackgroundColor(ColorTheme.dark);
-  }, [globalTheme]);
+    const unsubscribe = useSettingsStore.subscribe((state, prevState) => {
+      if (state.globalTheme !== prevState.globalTheme) {
+        useThemeStore.getState().setTheme(state.globalTheme);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   function isNewerVersion(latest: string, current: string) {
     const latestParts = latest.split(".").map(Number);
@@ -127,7 +131,7 @@ function Content() {
           maxSize={30}
         />
       </View>
-      <StatusBar backgroundColor={ColorTheme.dark} barStyle={"light-content"} />
+      <StatusBar backgroundColor={colorTheme.dark} barStyle={"light-content"} />
       <Modal visible={modalVisible} transparent>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />
       </Modal>
@@ -148,7 +152,7 @@ function Content() {
               />
             ),
             headerStyle: {
-              backgroundColor: ColorTheme.dark,
+              backgroundColor: colorTheme.dark,
             },
             headerTitleStyle: {
               fontFamily: "QuickSand-Semibold",
@@ -170,7 +174,7 @@ function Content() {
               />
             ),
             headerStyle: {
-              backgroundColor: ColorTheme.dark,
+              backgroundColor: colorTheme.dark,
             },
             headerTitleStyle: {
               fontFamily: "QuickSand-Semibold",
@@ -192,7 +196,7 @@ function Content() {
               />
             ),
             headerStyle: {
-              backgroundColor: ColorTheme.dark,
+              backgroundColor: colorTheme.dark,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
@@ -214,7 +218,7 @@ function Content() {
               />
             ),
             headerStyle: {
-              backgroundColor: ColorTheme.dark,
+              backgroundColor: colorTheme.dark,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
@@ -232,7 +236,7 @@ function Content() {
               />
             ),
             headerStyle: {
-              backgroundColor: ColorTheme.dark,
+              backgroundColor: colorTheme.dark,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",

@@ -19,7 +19,6 @@ import {
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GameMode, LobbyType } from "@src/services/enum";
 import { useRouter } from "expo-router";
@@ -31,6 +30,7 @@ import {
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function LastMatchesComponent({
   playerId,
@@ -45,11 +45,11 @@ function LastMatchesComponent({
   const { englishLanguage } = useSettingsStore();
 
   const { player } = usePlayerStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const refresh = useCallback(async () => {
     await onRefresh();
@@ -119,7 +119,7 @@ function LastMatchesComponent({
         style={[
           styles.listContainer,
           {
-            backgroundColor: index % 2 === 0 ? ColorTheme.light : "#fff",
+            backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
           },
         ]}
       >
@@ -161,7 +161,7 @@ function LastMatchesComponent({
             style={[
               styles.textList,
               {
-                color: ColorTheme.semilight,
+                color: colorTheme.semilight,
                 fontSize: Dimensions.get("screen").width * 0.02,
               },
             ]}
@@ -170,7 +170,7 @@ function LastMatchesComponent({
           </TextComponent>
           <TextComponent
             weight="bold"
-            style={[styles.textList, { color: ColorTheme.dark }]}
+            style={[styles.textList, { color: colorTheme.dark }]}
           >
             {GameModeNames[gameModeValue]}
           </TextComponent>
@@ -289,11 +289,11 @@ function LastMatchesComponent({
             refreshing={false}
             onRefresh={refresh}
             colors={[
-              ColorTheme.light,
-              ColorTheme.semilight,
-              ColorTheme.standard,
+              colorTheme.light,
+              colorTheme.semilight,
+              colorTheme.standard,
             ]}
-            progressBackgroundColor={ColorTheme.dark}
+            progressBackgroundColor={colorTheme.dark}
           />
         }
       />

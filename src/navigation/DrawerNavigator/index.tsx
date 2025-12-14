@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Dimensions } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useTheme } from "@src/context/useThemeContext";
 
 import { Home } from "@src/screens/Home";
 import { Search } from "@src/screens/Search";
@@ -13,19 +12,20 @@ import { CustomDrawerContent } from "./customDrawer";
 import { Ionicons } from "@expo/vector-icons";
 import { SantaHatComponent } from "@src/components/SantaHatComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 const Drawer = createDrawerNavigator();
 const width = Dimensions.get("window").width;
 
 export function DrawerNavigatorScreen() {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor: ColorTheme.dark,
+          backgroundColor: colorTheme.dark,
         },
         headerTitleAlign: "center",
         headerTintColor: "#fff",
@@ -34,9 +34,9 @@ export function DrawerNavigatorScreen() {
           width: width * 0.7,
           textAlign: "center",
         },
-        drawerActiveTintColor: ColorTheme.semidark,
-        drawerActiveBackgroundColor: ColorTheme.light,
-        drawerInactiveTintColor: ColorTheme.semilight,
+        drawerActiveTintColor: colorTheme.semidark,
+        drawerActiveBackgroundColor: colorTheme.light,
+        drawerInactiveTintColor: colorTheme.semilight,
       }}
     >
       <Drawer.Screen

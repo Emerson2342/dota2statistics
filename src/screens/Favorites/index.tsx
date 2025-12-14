@@ -9,7 +9,6 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useTheme } from "@src/context/useThemeContext";
 import { PlayerModel } from "@src/services/props";
 import { Medal } from "@src/components/Medals/MedalsList";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -21,10 +20,12 @@ import { TextComponent } from "@src/components/TextComponent";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { useFavoritePlayersStore } from "@src/store/favorites";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function Favorites() {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { removeFavoritePlayer, favoritePlayers } = useFavoritePlayersStore();
   const [modalMessageVisible, setModalMessageVisible] = useState(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
@@ -42,7 +43,7 @@ export function Favorites() {
     ? "Do you wish remove this player from the favorite list?"
     : "Você deseja remover este jogador da lista de favoritos?";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {

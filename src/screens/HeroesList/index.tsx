@@ -12,7 +12,6 @@ import { createStyles } from "./styles";
 import { HeroDetailsModel } from "@src/services/props";
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
-import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import IntImg from "@src/images/int.png";
 import AgiImg from "@src/images/agi.png";
@@ -22,12 +21,14 @@ import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const COLUMNS: number = 2;
 
 export function ListaDeHerois() {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const [textInputSearch, setTextInputSearch] = useState("");
   const [heroesSearched, setHereoesSearched] = useState<
     HeroDetailsModel[] | undefined
@@ -40,7 +41,7 @@ export function ListaDeHerois() {
 
   const router = useRouter();
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   const textInput = englishLanguage ? "Search Hero" : "Procurar herói";
 
   const ordenar = (a: HeroDetailsModel, b: HeroDetailsModel): number => {
@@ -191,8 +192,8 @@ export function ListaDeHerois() {
           style={styles.textInput}
           value={textInputSearch}
           elevation={3}
-          iconColor={ColorTheme.semidark}
-          placeholderTextColor={ColorTheme.semilight}
+          iconColor={colorTheme.semidark}
+          placeholderTextColor={colorTheme.semilight}
           onChangeText={(text) => HandleSearchHero(text)}
           onClearIconPress={() => HandleClearSearchResults()}
         />
@@ -203,7 +204,7 @@ export function ListaDeHerois() {
             styles.buttonOptions,
             {
               backgroundColor:
-                attSelected === "" ? ColorTheme.semidark : "transparent",
+                attSelected === "" ? colorTheme.semidark : "transparent",
             },
           ]}
           onPress={() => handleSelectAtt("")}
@@ -213,7 +214,7 @@ export function ListaDeHerois() {
             style={[
               styles.textAll,
               {
-                color: attSelected === "" ? "#fff" : ColorTheme.semidark,
+                color: attSelected === "" ? "#fff" : colorTheme.semidark,
                 opacity: attSelected === "" ? 1 : 0.3,
               },
             ]}

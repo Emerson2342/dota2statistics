@@ -1,11 +1,11 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import ErrorImage from "../images/error.png";
-import { useTheme } from "@src/context/useThemeContext";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export const ErrorComponent = ({ action }: { action: () => Promise<any> }) => {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const textError = englishLanguage
     ? "Oops... An error occurred while loading the data."
@@ -26,7 +26,7 @@ export const ErrorComponent = ({ action }: { action: () => Promise<any> }) => {
       <Text
         style={{
           margin: 7,
-          color: ColorTheme.dark,
+          color: colorTheme.dark,
           fontFamily: "QuickSand-Bold",
         }}
       >
@@ -35,7 +35,7 @@ export const ErrorComponent = ({ action }: { action: () => Promise<any> }) => {
       <TouchableOpacity
         onPress={action}
         style={{
-          backgroundColor: ColorTheme.dark,
+          backgroundColor: colorTheme.dark,
           borderRadius: 7,
           margin: 5,
           padding: 7,

@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 import { createStyles } from "./styles";
-import { useTheme } from "@src/context/useThemeContext";
 import { fetchData } from "@src/services/api";
 import { SEARCH_PLAYER_BASE_URL } from "@src/constants/player";
 import { SearchUserResult } from "@src/services/props";
@@ -20,11 +19,12 @@ import { SearchComponent } from "@src/utils/SearchComponent";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+  const styles = createStyles(colorTheme);
   const [inputText, setInputText] = useState("");
   const [textSearch, setTextSearch] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
@@ -187,7 +187,7 @@ export const Search = () => {
               ? `Searching for "${textSearch}"`
               : `Buscando por "${textSearch}"`}
           </TextComponent>
-          <ActivityIndicator color={ColorTheme.semidark} size={30} />
+          <ActivityIndicator color={colorTheme.semidark} size={30} />
           <ProgressBar indeterminate={true} color={MD3Colors.error100} />
         </View>
       ) : (

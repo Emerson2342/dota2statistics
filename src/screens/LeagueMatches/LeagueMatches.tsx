@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, FlatList } from "react-native";
 
 import { createStyles } from "./LeagueMatchesStyles";
-import { useTheme } from "@src/context/useThemeContext";
 import { LeagueMatches } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
 import { fetchData } from "@src/services/api";
@@ -12,6 +11,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { useTeamStore } from "@src/store/teamsList";
 import { useShallow } from "zustand/react/shallow";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type LeagueDetailsProps = {
   LeagueIdIndex: number;
@@ -24,14 +24,15 @@ export function LeagueMatchesScreen({
 }: LeagueDetailsProps) {
   const route = useRouter();
 
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { englishLanguage } = useSettingsStore();
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
   const [leagueMatches, setLeagueMatches] = useState<LeagueMatches[] | []>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const { teamsList, loading, fetchTeams } = useTeamStore(
+  const { teamsList, fetchTeams } = useTeamStore(
     useShallow((state) => ({
       teamsList: state.teamsList,
       loading: state.loading,

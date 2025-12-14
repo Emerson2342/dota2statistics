@@ -4,7 +4,6 @@ import { View, FlatList } from "react-native";
 import { createStyles } from "./styles";
 import { TeamFightModel } from "@src/services/props";
 
-import { useTheme } from "@src/context/useThemeContext";
 import { BarChartComponent } from "./BarCharComponent";
 import { TeamSide } from "@src/services/enum";
 import { RenderHeroIcon } from "./components/heroIcon";
@@ -15,6 +14,7 @@ import { processTeamFights } from "@src/utils/ProcessedTemFight";
 import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const GREEN = "#71BD6A";
 const RED = "#D14B5A";
@@ -43,11 +43,11 @@ const formatTime = (seconds?: number) => {
 
 function TeamFightsComponent() {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
   const { teamFights, heroNames, radTeamName, direTeamName, update } =
     useTeamFightsStore((state) => state.data!);
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const processedFights = useMemo(() => {
     return teamFights ? processTeamFights(teamFights, formatTime) : null;
@@ -75,7 +75,7 @@ function TeamFightsComponent() {
                   fight={fight}
                   team={TeamSide.Radiant}
                   heroNames={heroNames}
-                  color={ColorTheme}
+                  color={colorTheme}
                 />
               </View>
 
@@ -93,13 +93,13 @@ function TeamFightsComponent() {
               </View>
 
               <KillsImage
-                color={ColorTheme}
+                color={colorTheme}
                 fight={fight}
                 label={englishLanguage ? "Kills" : "Abates"}
                 team={TeamSide.Radiant}
               />
               <AbilitiesUsages
-                colors={ColorTheme}
+                colors={colorTheme}
                 label={
                   englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
                 }
@@ -108,7 +108,7 @@ function TeamFightsComponent() {
               />
 
               <ItemsUsages
-                color={ColorTheme}
+                color={colorTheme}
                 label={englishLanguage ? "Items Used" : "Itens Utilizados"}
                 fight={fight}
                 team={TeamSide.Radiant}
@@ -155,7 +155,7 @@ function TeamFightsComponent() {
                 fight={fight}
                 team={TeamSide.Dire}
                 heroNames={heroNames}
-                color={ColorTheme}
+                color={colorTheme}
               />
             </View>
             <View style={styles.barChart}>
@@ -168,13 +168,13 @@ function TeamFightsComponent() {
               <BarChartComponent formattedData={fight.goldDire} color={GOLD} />
             </View>
             <KillsImage
-              color={ColorTheme}
+              color={colorTheme}
               fight={fight}
               label={englishLanguage ? "Kills" : "Abates"}
               team={TeamSide.Dire}
             />
             <AbilitiesUsages
-              colors={ColorTheme}
+              colors={colorTheme}
               label={
                 englishLanguage ? "Abilities Used" : "Habilidades Utilizadas"
               }
@@ -182,7 +182,7 @@ function TeamFightsComponent() {
               team={TeamSide.Dire}
             />
             <ItemsUsages
-              color={ColorTheme}
+              color={colorTheme}
               label={englishLanguage ? "Items Used" : "Itens Utilizados"}
               fight={fight}
               team={TeamSide.Dire}

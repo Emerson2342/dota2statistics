@@ -4,18 +4,19 @@ import { View, TouchableOpacity, FlatList } from "react-native";
 import { createStyles } from "./LeaguesStyles";
 import { League } from "@src/services/props";
 import { LEAGUES_BASE_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { ErrorComponent } from "@src/components/ErrorComponent";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function Leagues() {
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const { englishLanguage } = useSettingsStore();
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const [leagueList, setLeagueList] = useState<League[] | []>([]);
   const router = useRouter();

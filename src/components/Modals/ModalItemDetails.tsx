@@ -13,7 +13,6 @@ import {
   ModalRef,
 } from "../../../src/services/props";
 import { PICTURE_ITEM_BASE_URL } from "@src/constants/player";
-import { useTheme } from "@src/context/useThemeContext";
 import { BannerAds } from "../Admob/BannerAds";
 import AbilitiesDescriptions from "@src/components/Heroes/AbilitiesDescriptions.json";
 import { Feather } from "@expo/vector-icons";
@@ -21,6 +20,7 @@ import { coolDownTime, manaCoust } from "@src/utils/HeroDetailsUtils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   data: ModalItemData | null;
@@ -29,7 +29,8 @@ type Props = {
 export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
   const [visible, setVisible] = useState(false);
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const handleClose = () => setVisible(false);
 
   useImperativeHandle(ref, () => ({
@@ -213,7 +214,7 @@ export const ModalItemDetails = forwardRef<ModalRef, Props>(({ data }, ref) => {
             <TouchableOpacity
               style={[
                 styles.buttonContainer,
-                { backgroundColor: ColorTheme.semidark },
+                { backgroundColor: colorTheme.semidark },
               ]}
               onPress={() => {
                 setVisible(false);

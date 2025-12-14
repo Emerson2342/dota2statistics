@@ -12,7 +12,6 @@ import {
   HeroesPlayed,
   ThemeColor,
 } from "@src/services/props";
-import { useTheme } from "@src/context/useThemeContext";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
@@ -20,24 +19,24 @@ import { getSetProfile } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 function HeroesPlayedComp({
   isHomeProfile,
   heroesPlayedList,
-  refresh,
   isLoading,
 }: {
   isHomeProfile: boolean;
   heroesPlayedList: HeroesPlayed[];
-  refresh: () => Promise<void>;
   isLoading: boolean;
 }) {
   const { player } = usePlayerStore();
   const { englishLanguage } = useSettingsStore();
   const [orderToShow, setOrderToShow] = useState("matches");
 
-  const { ColorTheme } = useTheme();
-  const styles = createStyles(ColorTheme);
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
+  const styles = createStyles(colorTheme);
   const setSteamId = getSetProfile(englishLanguage);
   const [orderedList, setOrderedList] =
     useState<HeroesPlayed[]>(heroesPlayedList);
@@ -93,7 +92,7 @@ function HeroesPlayedComp({
         style={[
           styles.renderItemContainer,
           {
-            backgroundColor: index % 2 === 0 ? ColorTheme.light : "transparent",
+            backgroundColor: index % 2 === 0 ? colorTheme.light : "transparent",
           },
         ]}
       >

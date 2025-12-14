@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
 import { ProfileHeader } from "./ProfileHeader";
 import { LastMatches } from "./LastMatches";
@@ -11,13 +10,15 @@ import { getErro404Message } from "@src/utils/textMessage";
 import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   index: number;
 };
 
 export function MyProfileTabs({ index }: Props) {
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const {
     playerId,
     player,
@@ -39,7 +40,7 @@ export function MyProfileTabs({ index }: Props) {
   }, []);
 
   const erro404 = getErro404Message(englishLanguage);
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const handleSave = async (id: string) => {
     if (!/^\d+$/.test(id)) {

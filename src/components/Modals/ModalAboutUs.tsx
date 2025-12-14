@@ -1,14 +1,14 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../../../src/context/useThemeContext";
-import { BannerAds } from "../Admob/BannerAds";
+import { BannerAds } from "@src/components/Admob/BannerAds";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function ModalAboutUs({ handleClose }: { handleClose: () => void }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const text = englishLanguage
     ? "Dota Statistics is a stats app for Dota 2 players. " +
@@ -30,7 +30,7 @@ export function ModalAboutUs({ handleClose }: { handleClose: () => void }) {
             {text}
           </TextComponent>
           <TouchableOpacity
-            style={[styles.buttonSave, { backgroundColor: ColorTheme.dark }]}
+            style={[styles.buttonSave, { backgroundColor: colorTheme.dark }]}
             onPress={() => handleClose()}
           >
             <TextComponent weight="semibold" style={styles.textButton}>

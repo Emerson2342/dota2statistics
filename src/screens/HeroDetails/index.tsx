@@ -25,8 +25,7 @@ import {
   ItemPopularityData,
   ModalItemData,
   ModalRef,
-} from "./../../services/props";
-import { useTheme } from "@src/context/useThemeContext";
+} from "@src/services/props";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -36,21 +35,23 @@ import {
   HERO_ITEM_BASE_URL,
   ITEM_IMAGE_BASE_URL,
   PICTURE_HERO_BASE_URL,
-} from "./../../constants/player";
-import useHeroDetails from "../../utils/getHeroDetails";
+} from "@src/constants/player";
+import useHeroDetails from "@src/utils/getHeroDetails";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { handleItemDetails } from "@src/utils/HandleItemDetails";
 import { coolDownTime, manaCoust } from "@src/utils/HeroDetailsUtils";
 import { Header } from "./header";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
 
 export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const { englishLanguage } = useSettingsStore();
 
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const heroDetails = useHeroDetails(Number(heroId));
 
   const [abilities, setAbilities] = useState<HeroAbilitiesDetailsModel>();
@@ -70,7 +71,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
   let itemsResponse: ItemPopularityData;
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   useEffect(() => {
     if (heroDetails.id === 0) return;
@@ -317,7 +318,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
               <TextComponent weight="bold" style={styles.titleText}>
                 {englishLanguage ? "Popular Items" : "Itens Populares"}
               </TextComponent>
-              <ActivityIndicator size={30} color={ColorTheme.semidark} />
+              <ActivityIndicator size={30} color={colorTheme.semidark} />
             </View>
           ) : (
             <View style={styles.itemsContainer}>

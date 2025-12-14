@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-import { useTheme } from "@src/context/useThemeContext";
 import { ThemeColor } from "@src/services/props";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
+import { useThemeStore } from "@src/store/theme";
 
 export function ModalRemoveFavoritePlayer({
   message,
@@ -16,9 +16,9 @@ export function ModalRemoveFavoritePlayer({
   removePlayer: () => void;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const handleConfirm = () => {
     removePlayer();

@@ -5,7 +5,6 @@ import {
   MatchDetailsModel,
   Player,
 } from "@src//services/props";
-import { useTheme } from "@src/context/useThemeContext";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { Medal } from "@src/components/Medals/MedalsList";
@@ -16,15 +15,8 @@ import { ModalHelpMatchDetails } from "@src/components/Modals/ModalHelpMatchDeta
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
-
-const colorPercent = (percent: number): string => {
-  if (percent >= 0 && percent < 20) return "#ff4d4d";
-  if (percent >= 20 && percent < 35) return "#ff7934";
-  if (percent >= 35 && percent < 50) return "#ffae1a";
-  if (percent >= 50 && percent < 75) return "#66cc66";
-  if (percent >= 75) return "green";
-  return "gray";
-};
+import { useThemeStore } from "@src/store/theme";
+import { colorPercent } from "@src/utils/colorPercent";
 
 function Teams({
   matchDetails,
@@ -38,7 +30,8 @@ function Teams({
   direName: string;
 }) {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+  const colorTheme = useThemeStore((state) => state.colorTheme);
+
   const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
   const router = useRouter();
 
@@ -50,7 +43,7 @@ function Teams({
 
   const winner = englishLanguage ? "Winner" : "Vencedor";
 
-  const styles = createStyles(ColorTheme);
+  const styles = createStyles(colorTheme);
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
     if (playerId === undefined) {

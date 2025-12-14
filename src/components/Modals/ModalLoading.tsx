@@ -1,12 +1,11 @@
 import React from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
-import { useTheme } from "@src/context/useThemeContext";
 import { TextComponent } from "../TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 
 export function ModalLoading() {
   const { englishLanguage } = useSettingsStore();
-  const { ColorTheme } = useTheme();
+
   return (
     <View style={styles.container}>
       <ActivityIndicator style={{}} size={30} color="#fff" />
