@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   View,
   Image,
@@ -44,8 +44,14 @@ import { Header } from "./header";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 const imgWidth = Dimensions.get("screen").width * 0.075;
+
+type TitleContainerProps = {
+  engText: string;
+  ptText: string;
+};
 
 export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
   const { englishLanguage } = useSettingsStore();
@@ -308,6 +314,23 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
       />
     );
 
+  function TitleContainer({ engText, ptText }: TitleContainerProps) {
+    return (
+      <View
+        style={{
+          width: "60%",
+          backgroundColor: colorTheme.semilight,
+          borderRadius: 7,
+        }}
+      >
+        <LinearGradientComponent />
+        <TextComponent weight="bold" style={styles.titleText}>
+          {englishLanguage ? engText : ptText}
+        </TextComponent>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -315,16 +338,26 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
         <ScrollView>
           {loadingItems ? (
             <View style={styles.itemsContainer}>
-              <TextComponent weight="bold" style={styles.titleText}>
-                {englishLanguage ? "Popular Items" : "Itens Populares"}
-              </TextComponent>
+              <TitleContainer
+                engText="Popular Items"
+                ptText="Itens Populares"
+              />
               <ActivityIndicator size={30} color={colorTheme.semidark} />
             </View>
           ) : (
             <View style={styles.itemsContainer}>
-              <TextComponent weight="bold" style={styles.titleText}>
-                {englishLanguage ? "Popular Items" : "Itens Populares"}
-              </TextComponent>
+              <View
+                style={{
+                  width: "50%",
+                  backgroundColor: colorTheme.semilight,
+                  borderRadius: 7,
+                }}
+              >
+                <LinearGradientComponent />
+                <TextComponent weight="bold" style={styles.titleText}>
+                  {englishLanguage ? "Popular Items" : "Itens Populares"}
+                </TextComponent>
+              </View>
               <TextComponent weight="semibold" style={styles.textItem}>
                 {englishLanguage ? "Start Game" : "Itens Iniciais"}
               </TextComponent>
@@ -412,9 +445,7 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             </View>
           )}
           <View style={styles.itemsContainer}>
-            <TextComponent weight="bold" style={styles.titleText}>
-              {englishLanguage ? "Abilities" : "Habilidades"}
-            </TextComponent>
+            <TitleContainer engText="Abilities" ptText="Habilidades" />
             {/* Habilidades */}
             <View style={styles.abilitiesContainer}>
               <FlatList
@@ -428,9 +459,10 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           </View>
           <View style={styles.itemsContainer}>
             <View style={styles.facetsContainer}>
-              <TextComponent weight="bold" style={styles.titleText}>
-                {englishLanguage ? "Aghanim's Scepter" : "Cetro de Aghanim"}
-              </TextComponent>
+              <TitleContainer
+                engText="Aghanim's Scepter"
+                ptText="Cetro de Aghanim"
+              />
               <View style={{ width: "100%", alignItems: "center" }}>
                 <TextComponent weight="bold" style={styles.textTitle2}>
                   {aghanimHeroSelected?.scepter_skill_name}
@@ -448,9 +480,10 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
             ]}
           >
             <View style={styles.facetsContainer}>
-              <TextComponent weight="bold" style={styles.titleText}>
-                {englishLanguage ? "Aghanim's Shard" : "Aghanim Shard"}
-              </TextComponent>
+              <TitleContainer
+                engText="Aghanim's Shard"
+                ptText="Aghanim Shard"
+              />
               <View style={{ width: "100%", alignItems: "center" }}>
                 <TextComponent weight="semibold" style={styles.textTitle2}>
                   {aghanimHeroSelected?.shard_skill_name}
@@ -464,58 +497,58 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
           <View style={styles.itemsContainer}>
             {/* Facetas */}
             <View style={styles.facetsContainer}>
-              <TextComponent weight="bold" style={styles.titleText}>
-                {englishLanguage ? "Facets" : "Facetas"}
-              </TextComponent>
+              <TitleContainer engText="Facets" ptText="Facetas" />
 
-              {abilities?.facets.map((facets, index) => {
-                if (facets.deprecated) return;
-                return (
-                  <View
-                    key={index}
-                    style={{
-                      width: "100%",
-                    }}
-                  >
-                    <TextComponent
-                      weight="semibold"
-                      style={styles.textTitle2}
-                      key={index}
-                    >
-                      {facets.title}
-                    </TextComponent>
-                    <TextComponent
-                      weight="semibold"
-                      style={styles.textDescription}
-                    >
-                      {" " + facets.description}
-                    </TextComponent>
+              {abilities &&
+                abilities.facets &&
+                abilities.facets.map((facets, index) => {
+                  if (facets.deprecated) return;
+                  return (
                     <View
+                      key={index}
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: 7,
-                        marginBottom: 7,
+                        width: "100%",
                       }}
                     >
-                      {facets.abilities &&
-                        facets.abilities?.map((abi, index) => {
-                          const imgFacet = ITEM_IMAGE_BASE_URL + abi + ".png";
-                          return (
-                            <Image
-                              key={index}
-                              width={35}
-                              height={35}
-                              source={{ uri: imgFacet }}
-                              style={{ borderRadius: 7, marginHorizontal: 5 }}
-                            />
-                          );
-                        })}
+                      <TextComponent
+                        weight="semibold"
+                        style={styles.textTitle2}
+                        key={index}
+                      >
+                        {facets.title}
+                      </TextComponent>
+                      <TextComponent
+                        weight="semibold"
+                        style={styles.textDescription}
+                      >
+                        {" " + facets.description}
+                      </TextComponent>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: 7,
+                          marginBottom: 7,
+                        }}
+                      >
+                        {facets.abilities &&
+                          facets.abilities?.map((abi, index) => {
+                            const imgFacet = ITEM_IMAGE_BASE_URL + abi + ".png";
+                            return (
+                              <Image
+                                key={index}
+                                width={35}
+                                height={35}
+                                source={{ uri: imgFacet }}
+                                style={{ borderRadius: 7, marginHorizontal: 5 }}
+                              />
+                            );
+                          })}
+                      </View>
                     </View>
-                  </View>
-                );
-              })}
+                  );
+                })}
             </View>
           </View>
         </ScrollView>

@@ -120,6 +120,9 @@ function LastMatchesComponent({
           styles.listContainer,
           {
             backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
+            marginVertical: 1.5,
+            borderWidth: 1,
+            borderColor: colorTheme.light,
           },
         ]}
       >

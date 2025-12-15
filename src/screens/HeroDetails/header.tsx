@@ -23,6 +23,7 @@ import HeroLorePtBrJson from "@src/constants/LorePtBr.json";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 type Props = {
   heroId: number;
@@ -87,6 +88,7 @@ export function Header({ heroId }: Props) {
 
   return (
     <View style={styles.headerContainer}>
+      <LinearGradientComponent />
       <TouchableOpacity onPress={() => modalRef.current?.open()}>
         <Ionicons
           name="information-circle"

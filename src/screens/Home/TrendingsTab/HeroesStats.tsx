@@ -51,7 +51,7 @@ function HeroesStatsComponent({
 
   return (
     <View style={{ marginTop: "3%" }}>
-      <TextComponent weight="bold" style={styles.textHeader}>
+      <TextComponent weight="semibold" style={styles.textHeader}>
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
       </TextComponent>
       <View style={styles.content}>
@@ -131,9 +131,7 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
-      width: "90%",
-      borderRadius: 7,
-      padding: 3,
+      marginBottom: 7,
     },
     text: {
       fontSize: Dimensions.get("window").width * 0.025,

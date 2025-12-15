@@ -21,6 +21,7 @@ import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 const NUMBER_COLUMNS = 10;
 
@@ -115,6 +116,7 @@ export function ProfileHeader({
           },
         ]}
       >
+        <LinearGradientComponent />
         <View style={styles.infoContainer}>
           <View style={styles.imgContainer}>
             <View style={{ width: "50%", alignItems: "center" }}>

@@ -15,10 +15,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
-      borderRadius: 7,
-      padding: 3,
-      margin: 3,
-      width: "90%",
     },
     titleContainer: {
       width: "100%",

@@ -14,6 +14,7 @@ import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useQuery } from "@tanstack/react-query";
 import { useThemeStore } from "@src/store/theme";
+import { WaveTrendings } from "@src/components/Waves";
 
 export function Home() {
   const { playerId, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
@@ -103,9 +104,12 @@ export function Home() {
 
   if (proMatchesQuery.isLoading || heroesStatsQuery.isLoading)
     return (
-      <ActivityIndicatorCustom
-        message={englishLanguage ? "Loading..." : "Carregando..."}
-      />
+      <>
+        <WaveTrendings />
+        <ActivityIndicatorCustom
+          message={englishLanguage ? "Loading..." : "Carregando..."}
+        />
+      </>
     );
   if (proMatchesQuery.isError || heroesStatsQuery.isError)
     return (

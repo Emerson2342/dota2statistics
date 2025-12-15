@@ -17,6 +17,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { colorPercent } from "@src/utils/colorPercent";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 function Teams({
   matchDetails,
@@ -75,6 +76,7 @@ function Teams({
           }}
         >
           <View style={[styles.headerContainer]}>
+            <LinearGradientComponent />
             <TextComponent
               style={[
                 styles.title,

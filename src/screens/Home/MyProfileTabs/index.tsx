@@ -11,6 +11,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { WaveProfile } from "@src/components/Waves";
 
 type Props = {
   index: number;
@@ -75,6 +76,7 @@ export function MyProfileTabs({ index }: Props) {
   if (isLoadingContext)
     return (
       <View style={{ flex: 1 }}>
+        <WaveProfile />
         <ActivityIndicatorCustom
           message={
             englishLanguage
@@ -91,6 +93,7 @@ export function MyProfileTabs({ index }: Props) {
 
   return (
     <View style={styles.container}>
+      <WaveProfile />
       <View
         style={{
           flex: heroesPlayedId.length > 5 ? 0.3 : 0.28,

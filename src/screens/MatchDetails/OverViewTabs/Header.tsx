@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 function Header({
   matchDetails,
@@ -63,6 +64,7 @@ function Header({
 
   return (
     <View style={styles.container}>
+      <LinearGradientComponent />
       <TextComponent weight="bold" style={styles.textTitleLeague}>
         {matchDetails?.league?.name ?? `${lobbyType} - ${gameMode}`}
       </TextComponent>
@@ -168,17 +170,17 @@ function Header({
         >
           <View style={{ flexDirection: "row" }}>
             <TextComponent
+              weight="bold"
               style={{
-                color: colorTheme.semidark,
-                fontFamily: "QuickSand-Bold",
+                color: colorTheme.light,
               }}
             >
               {englishLanguage ? "Duration: " : "Duração: "}
             </TextComponent>
             <TextComponent
+              weight="bold"
               style={{
-                color: colorTheme.semidark,
-                fontFamily: "QuickSand-Semibold",
+                color: colorTheme.light,
               }}
             >
               {formattedDuration}
@@ -186,17 +188,17 @@ function Header({
           </View>
           <View style={{ flexDirection: "row" }}>
             <TextComponent
+              weight="bold"
               style={{
-                color: colorTheme.semidark,
-                fontFamily: "QuickSand-Bold",
+                color: colorTheme.light,
               }}
             >
               {englishLanguage ? "Date: " : "Data: "}
             </TextComponent>
             <TextComponent
+              weight="bold"
               style={{
-                color: colorTheme.semidark,
-                fontFamily: "QuickSand-Semibold",
+                color: colorTheme.light,
               }}
             >
               {formattedTime}
@@ -257,7 +259,7 @@ const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       alignSelf: "center",
-      backgroundColor: "#fff",
+      backgroundColor: colors.semidark,
       margin: "3%",
       borderRadius: 9,
       padding: "1%",
@@ -265,7 +267,7 @@ const createStyles = (colors: ThemeColor) =>
     },
     textTitleLeague: {
       fontSize: width * 0.05,
-      color: colors.semidark,
+      color: colors.light,
       textAlign: "center",
       borderBottomWidth: 1,
       borderColor: "#ccc",
@@ -284,18 +286,18 @@ const createStyles = (colors: ThemeColor) =>
       alignSelf: "flex-start",
     },
     teamName: {
-      color: colors.semidark,
+      color: colors.light,
       textAlign: "center",
       width: "80%",
     },
     teamScore: {
-      color: colors.semidark,
+      color: colors.light,
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.037,
       width: "20%",
     },
     textId: {
       textAlign: "center",
-      color: "#aaa",
+      color: "#ddd",
     },
   });

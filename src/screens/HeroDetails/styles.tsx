@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor, FontModel } from "./../../services/props";
+import { ThemeColor } from "@src/services/props";
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -35,11 +35,7 @@ export const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
       textAlign: "center",
       fontSize: Dimensions.get("screen").width * 0.03,
-      borderRadius: 5,
-      marginBottom: "1%",
-      width: "50%",
-      padding: "1%",
-      backgroundColor: colors.semidark,
+      padding: "3%",
     },
 
     textTitle2: {

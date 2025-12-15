@@ -20,6 +20,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { WaveProfile } from "@src/components/Waves";
 
 function HeroesPlayedComp({
   isHomeProfile,
@@ -163,6 +164,7 @@ function HeroesPlayedComp({
 
   return (
     <View style={styles.container}>
+      <WaveProfile />
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => handleSetOrder("lastPlayed")}
