@@ -132,6 +132,7 @@ export const MatchDetailsScreen = ({
     if (loadedeList && matchesDetailsList.length > 0) {
       saveMatchesDetailsList();
     }
+    console.log(JSON.stringify(matchDetails?.teamfights, null, 2));
   }, [matchesDetailsList, loadedeList]);
 
   useEffect(() => {
