@@ -17,8 +17,13 @@ import { useThemeStore } from "@src/store/theme";
 import { WaveTrendings } from "@src/components/Waves";
 
 export function Home() {
-  const { playerId, heroesPlayed, handleFetchPlayerData, isLoadingContext } =
-    usePlayerStore();
+  const {
+    playerId,
+    heroesPlayed,
+    handleFetchPlayerData,
+    isLoadingContext,
+    hasFetchedInitialData,
+  } = usePlayerStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const { englishLanguage } = useSettingsStore();
@@ -28,8 +33,11 @@ export function Home() {
   const { proMatchesQuery, heroesStatsQuery } = useHomeData();
 
   useEffect(() => {
-    handleFetchPlayerData(playerId ?? "");
-  }, []);
+    if (!playerId) return;
+    if (hasFetchedInitialData) return;
+
+    handleFetchPlayerData(playerId);
+  }, [playerId, hasFetchedInitialData]);
 
   const routes = useMemo(
     () => [

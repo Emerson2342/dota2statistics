@@ -28,6 +28,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { useFavoritePlayersStore } from "@src/store/favorites";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { WaveProfile } from "@src/components/Waves";
 
 export default function PlayerProfileScreen({
   playerId,
@@ -144,6 +145,7 @@ export default function PlayerProfileScreen({
           </View>
         ) : (
           <View style={{ flex: 1 }}>
+            <WaveProfile />
             <View style={{ flex: heroesPlayedId.length > 5 ? 0.3 : 0.25 }}>
               <ProfileHeader
                 player={player}

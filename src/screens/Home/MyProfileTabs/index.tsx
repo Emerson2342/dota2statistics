@@ -33,12 +33,12 @@ export function MyProfileTabs({ index }: Props) {
   const { englishLanguage } = useSettingsStore();
   const [showModalMessage, setShowModalMessage] = useState(false);
 
-  useEffect(() => {
-    if (index != 1) return;
-    if (!playerId) return;
-    if (hasFetchedInitialData) return;
-    handleFetchPlayerData(playerId);
-  }, [playerId, index, hasFetchedInitialData]);
+  // useEffect(() => {
+  //   if (index != 1) return;
+  //   if (!playerId) return;
+  //   if (hasFetchedInitialData) return;
+  //   handleFetchPlayerData(playerId);
+  // }, [playerId, index, hasFetchedInitialData]);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(colorTheme);

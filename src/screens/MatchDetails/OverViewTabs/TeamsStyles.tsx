@@ -132,7 +132,6 @@ export const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
       width: "100%",
       justifyContent: "space-around",
-      display: "none",
     },
     textData: {
       fontSize: width * 0.025,
