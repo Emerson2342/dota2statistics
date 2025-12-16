@@ -1,6 +1,6 @@
 {
   "name": "dota2",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
@@ -49,8 +49,8 @@
     "zustand": "^5.0.9"
   },
   "overrides": {
-  "react": "19.1.0",
-  "react-dom": "19.1.0"
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

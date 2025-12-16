@@ -35,10 +35,10 @@ export function MyProfileTabs({ index }: Props) {
 
   useEffect(() => {
     if (index != 1) return;
-    if (player) return;
+    if (!playerId) return;
     if (hasFetchedInitialData) return;
-    handleFetchPlayerData(playerId ?? "");
-  }, []);
+    handleFetchPlayerData(playerId);
+  }, [playerId, index, hasFetchedInitialData]);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(colorTheme);

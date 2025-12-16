@@ -17,7 +17,7 @@ type PlayerStorage = {
   heroesPlayed: HeroesPlayed[];
   isLoadingContext: boolean;
   recentMatches: RecentMatches[];
-  handleFetchPlayerData: (id: string | undefined) => Promise<void>;
+  handleFetchPlayerData: (id: string) => Promise<void>;
   setPlayerId: (id: string) => void;
   hasFetchedInitialData: boolean;
 };
@@ -37,6 +37,7 @@ export const usePlayerStore = create<PlayerStorage>()(
       hasFetchedInitialData: false,
 
       handleFetchPlayerData: async (id) => {
+        if (!id) return;
         set({ isLoadingContext: true });
 
         const searchPlayer = `${PLAYER_PROFILE_API_BASE_URL}${id}`;
