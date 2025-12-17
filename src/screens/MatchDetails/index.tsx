@@ -14,6 +14,7 @@ import { useTeamFightsStore } from "@src/store/teamFights";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { ErrorComponent } from "@src/components/ErrorComponent";
 
 type MatchDetailsProps = {
   matchDetailsIndex: string;
@@ -21,6 +22,7 @@ type MatchDetailsProps = {
   lobbyType?: string;
   gameMode?: string;
 };
+const fontSize = Dimensions.get("screen").width * 0.03;
 
 export const MatchDetailsScreen = ({
   matchDetailsIndex,
@@ -33,6 +35,7 @@ export const MatchDetailsScreen = ({
   const [matchesDetailsList, setMatchesDetailsList] = useState<
     MatchDetailsModel[]
   >([]);
+  const setTeamFightsData = useTeamFightsStore((state) => state.setData);
   const [apiResponseMatch, setApiResponseMatch] = useState(false);
   const [loadingMatch, setLoadingMatch] = useState(true);
 
@@ -47,13 +50,8 @@ export const MatchDetailsScreen = ({
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
-  const setTeamFightsData = useTeamFightsStore((state) => state.setData);
 
   const [index, setIndex] = useState(0);
-
-  const textMatchId = englishLanguage
-    ? "Match not found. Please, check the ID MATCH!"
-    : "Partida não encontrada. Por favor, verifique o ID DA PARTIDA!";
 
   const teamFightsMemo = useMemo(
     () => matchDetails?.teamfights ?? [],
@@ -136,28 +134,28 @@ export const MatchDetailsScreen = ({
 
   useEffect(() => {
     if (!loadedeList) return;
-
-    const fetchMatchDetails = async () => {
-      const match =
-        matchDetailsIndex &&
-        matchesDetailsList.find(
-          (m: MatchDetailsModel) => m.match_id === Number(matchDetailsIndex)
-        );
-      if (match) {
-        console.log(
-          "Partida Encontrada ID: " +
-            matchDetailsIndex +
-            " - Tamanho da Lista: " +
-            matchesDetailsList.length
-        );
-        setMatchDetails(match);
-        setLoadingMatch(false);
-      } else {
-        await handleSearchMatche();
-      }
-    };
     fetchMatchDetails();
   }, [matchDetailsIndex, loadedeList]);
+
+  const fetchMatchDetails = async () => {
+    const match =
+      matchDetailsIndex &&
+      matchesDetailsList.find(
+        (m: MatchDetailsModel) => m.match_id === Number(matchDetailsIndex)
+      );
+    if (match) {
+      console.log(
+        "Partida Encontrada ID: " +
+          matchDetailsIndex +
+          " - Tamanho da Lista: " +
+          matchesDetailsList.length
+      );
+      setMatchDetails(match);
+      setLoadingMatch(false);
+    } else {
+      await handleSearchMatche();
+    }
+  };
 
   const hasTeamFights = !!matchDetails?.teamfights?.length;
 
@@ -181,7 +179,6 @@ export const MatchDetailsScreen = ({
         );
       case "second":
         return (
-          //<Text>second</Text>
           <HeroesDetailsTabs
             matchDetails={matchDetails}
             onRefresh={async () => await onRefreshCallback()}
@@ -192,9 +189,6 @@ export const MatchDetailsScreen = ({
             key={playerIdIndex}
           />
         );
-      //case "third":
-      //return <Text>testes 3</Text>;
-      //   return TeamFightComponent;
       default:
         return (
           <ActivityIndicatorCustom
@@ -226,40 +220,13 @@ export const MatchDetailsScreen = ({
     setRefreshing(false);
   }, [matchDetailsIndex, matchesDetailsList, handleSearchMatche]);
 
-  /* const TeamFightComponent = useMemo(() => {
-    return (
-      <TeamFightsTabs
-        heroNames={heroNamesMemo}
-        teamFights={teamFightsMemo}
-        radTeamName={matchDetails?.radiant_team?.name ?? radName}
-        direTeamName={matchDetails?.dire_team?.name ?? direName}
-        update={onRefreshCallback}
-      />
-    );
-  }, [
-    heroNamesMemo,
-    teamFightsMemo,
-    matchDetails?.radiant_team?.name,
-    matchDetails?.dire_team?.name,
-    onRefreshCallback,
-    radName,
-    direName,
-  ]);
-  */
-
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
     {
       key: "second",
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
-    //{ key: "third", title: "Team Fights" },
   ];
-  // const hasTeamFights = !!matchDetails?.teamfights?.length;
-
-  //const filteredRoutes = hasTeamFights
-  // ? allRoutes
-  //: allRoutes.filter((r) => r.key !== "third");
 
   const saveMatchesDetailsList = async () => {
     try {
@@ -326,13 +293,7 @@ export const MatchDetailsScreen = ({
       />
     );
   if (!matchDetails && apiResponseMatch)
-    return (
-      <View style={styles.matchIdContainer}>
-        <TextComponent weight="bold" style={styles.textMatchId}>
-          {textMatchId}
-        </TextComponent>
-      </View>
-    );
+    return <ErrorComponent action={fetchMatchDetails} />;
 
   if (matchDetails)
     return (
@@ -346,7 +307,7 @@ export const MatchDetailsScreen = ({
         lazyPreloadDistance={2}
         commonOptions={{
           labelStyle: {
-            fontSize: Dimensions.get("screen").width * 0.03,
+            fontSize: fontSize,
             fontFamily: "QuickSand-Bold",
             textAlign: "center",
           },

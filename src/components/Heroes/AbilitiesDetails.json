@@ -4,7 +4,7 @@
       "antimage_mana_break",
       "antimage_blink",
       "antimage_counterspell",
-      "antimage_counterspell_ally",
+      "generic_hidden",
       "antimage_persectur",
       "antimage_mana_void"
     ],
@@ -16,7 +16,7 @@
         "color": "Purple",
         "gradient_id": 1,
         "title": "Magebane's Mirror",
-        "description": "Spells countered by Counterspell or Counterspell Ally will immediately burn a percentage of its mana cost from the enemy and deal damage based on the burned mana cost."
+        "description": "Spells countered by Counterspell will immediately burn a percentage of its mana cost from the enemy and deal damage based on the burned mana cost."
       },
       {
         "id": 1,
@@ -237,7 +237,7 @@
         "color": "Red",
         "gradient_id": 1,
         "title": "Tectonic Buildup",
-        "description": "Aftershock radius is increased by 40 for every level of Echo Slam."
+        "description": "Aftershock radius is increased by 30 for every level of Echo Slam."
       },
       {
         "id": 1,
@@ -314,7 +314,7 @@
         "color": "Blue",
         "gradient_id": 1,
         "title": "Moonlight Shadow Facet",
-        "description": "Mirana's Ultimate grants allies invisiblity and movement speed.",
+        "description": "Mirana's Ultimate grants allies invisibility and movement speed.",
         "abilities": [
           "mirana_invis"
         ]
@@ -415,7 +415,7 @@
         "color": "Red",
         "gradient_id": 0,
         "title": "Flow",
-        "description": "Morphling's Primary Attribute is now Strength. Adaptive Strike stuns based on Morphling's strength. Morphling gains 1% Spell Amp per 4 Agility.",
+        "description": "Morphling's Primary Attribute is now Strength. Morphling gains 1% Spell Amp per 4 Agility.",
         "abilities": [
           "morphling_flow"
         ]
@@ -445,6 +445,7 @@
       {
         "id": 1,
         "name": "phantom_lancer_divergence",
+        "deprecated": "true",
         "icon": "summons",
         "color": "Blue",
         "gradient_id": 2,
@@ -454,11 +455,21 @@
       {
         "id": 2,
         "name": "phantom_lancer_lancelot",
+        "deprecated": "true",
         "icon": "phantom_lance",
         "color": "Yellow",
         "gradient_id": 1,
         "title": "Lancelot",
-        "description": "Spirit Lances from Phantom Lancer's illusions deal 25% Lance Damage."
+        "description": "Spirit Lances from Phantom Lancer's illusions deal {s:bonus_illusion_lance_damage_pct}% Lance Damage."
+      },
+      {
+        "id": 3,
+        "name": "phantom_lancer_lancer",
+        "icon": "phantom_lance",
+        "color": "Yellow",
+        "gradient_id": 2,
+        "title": "Fractured",
+        "description": "This facet doesn't do anything. Azwraith is out spear fishing..."
       }
     ]
   },
@@ -1012,7 +1023,7 @@
         "color": "Red",
         "gradient_id": 1,
         "title": "Massive Serpent Ward",
-        "description": "Summons a single massive Serpent Ward with 12x damage and 10x health and bounty values."
+        "description": "Summons a single massive Serpent Ward with 12x damage and 9x health and bounty values."
       }
     ]
   },
@@ -1143,6 +1154,7 @@
       {
         "id": 0,
         "name": "riki_contract_killer",
+        "deprecated": "true",
         "icon": "xp",
         "color": "Gray",
         "gradient_id": 3,
@@ -1152,11 +1164,21 @@
       {
         "id": 1,
         "name": "riki_exterminator",
+        "deprecated": "true",
         "icon": "agility",
         "color": "Purple",
         "gradient_id": 2,
         "title": "Exterminator",
         "description": "Tricks of the Trade has 4.5x Agility Bonus when attacking non-hero units. When Riki kills a non-hero unit during Tricks of the Trade, the cooldown is reduced by 0.75s."
+      },
+      {
+        "id": 2,
+        "name": "riki_riki",
+        "icon": "execute",
+        "color": "Purple",
+        "gradient_id": 2,
+        "title": "Cutthroat",
+        "description": "This facet doesn't do anything. Riki is still looking to avenge the House of Tahlin..."
       }
     ]
   },
@@ -1369,7 +1391,7 @@
         "color": "Blue",
         "gradient_id": 0,
         "title": "Succubus Facet",
-        "description": "All sources of Spell Lifesteal also apply to Pure Damage. Queen of Pain gains Spell Lifesteal that increases with proximity to her enemies. Lifesteal is at its maximum when the enemy is 300 units or closer to her and at its minimum when the enemy is 800 units or further from her.",
+        "description": "All sources of Spell Lifesteal also apply to Pure Damage. Queen of Pain gains Spell Lifesteal that increases with proximity to her enemies. Lifesteal is at its maximum when the enemy is 150 units or closer to her and at its minimum when the enemy is 800 units or further from her.",
         "abilities": [
           "queenofpain_succubus"
         ]
@@ -1821,7 +1843,8 @@
       "rattletrap_overclocking",
       "rattletrap_jetpack",
       "rattletrap_hookshot",
-      "rattletrap_armor_power"
+      "rattletrap_armor_power",
+      "rattletrap_jetpack_toggle"
     ],
     "facets": [
       {
@@ -1903,7 +1926,7 @@
         "color": "Green",
         "gradient_id": 0,
         "title": "Soothing Saplings",
-        "description": "After Sprout is cast, all trees in a 1200 radius heal nearby allies."
+        "description": "After Sprout is cast, all trees in a 900 radius heal nearby allies."
       },
       {
         "id": 1,
@@ -2038,17 +2061,18 @@
   "clinkz": {
     "abilities": [
       "clinkz_strafe",
-      "clinkz_tar_bomb",
+      "clinkz_searing_arrows",
       "clinkz_death_pact",
       "clinkz_burning_barrage",
       "clinkz_burning_army",
       "clinkz_wind_walk",
-      "clinkz_bone_and_arrow"
+      "clinkz_infernal_shred"
     ],
     "facets": [
       {
         "id": 0,
         "name": "clinkz_suppressive_fire",
+        "deprecated": "1",
         "icon": "no_vision",
         "color": "Gray",
         "gradient_id": 3,
@@ -2058,11 +2082,21 @@
       {
         "id": 1,
         "name": "clinkz_engulfing_step",
+        "deprecated": "1",
         "icon": "teleport",
         "color": "Yellow",
         "gradient_id": 0,
         "title": "Engulfing Step",
         "description": "Death Pact teleports Clinkz towards his victim. Reduces Death Pact cooldown."
+      },
+      {
+        "id": 2,
+        "name": "clinkz_clinkz",
+        "icon": "nuke",
+        "color": "Yellow",
+        "gradient_id": 0,
+        "title": "Trial By Pyre",
+        "description": "This facet doesn't do anything. Clinkz is still burning with revenge..."
       }
     ]
   },
@@ -2241,7 +2275,7 @@
         "color": "Gray",
         "gradient_id": 0,
         "title": "Necrotic Webs",
-        "description": "Reduces health regeneration of enemies on webs."
+        "description": "Reduces health restoration of enemies on webs."
       },
       {
         "id": 1,
@@ -2477,31 +2511,41 @@
   "spectre": {
     "abilities": [
       "spectre_spectral_dagger",
-      "spectre_desolate",
+      "spectre_shadow_step",
       "spectre_dispersion",
       "spectre_reality",
-      "spectre_haunt",
-      "spectre_haunt_single",
-      "spectre_spectral"
+      "spectre_desolate",
+      "spectre_haunt"
     ],
     "facets": [
       {
         "id": 0,
         "name": "spectre_forsaken",
+        "deprecated": "true",
         "icon": "spectre",
         "color": "Gray",
         "gradient_id": 0,
         "title": "Forsaken",
-        "description": "Spectre deals 2x damage with Desolate. Spectre's illusions no longer have Desolate."
+        "description": "Spectre deals {s:bonus_bonus_damage_multiplier_tooltip}x damage with Desolate. Spectre's illusions no longer have Desolate."
       },
       {
         "id": 1,
         "name": "spectre_twist_the_knife",
+        "deprecated": "true",
         "icon": "nuke",
         "color": "Purple",
         "gradient_id": 2,
         "title": "Twist the Knife",
-        "description": "Reality also casts Spectral Dagger on the target."
+        "description": "Reality also casts Spectral Dagger on the Haunt illusion's target."
+      },
+      {
+        "id": 2,
+        "name": "spectre_spectre",
+        "icon": "spirit",
+        "color": "Gray",
+        "gradient_id": 0,
+        "title": "Ephemeral",
+        "description": "This facet doesn't do anything. Spectre is still transcending between Planes..."
       }
     ]
   },
@@ -2528,6 +2572,7 @@
       {
         "id": 1,
         "name": "doom_bringer_boost_selling",
+        "deprecated": "true",
         "icon": "gold",
         "color": "Yellow",
         "gradient_id": 0,
@@ -2903,15 +2948,15 @@
       "brewmaster_thunder_clap",
       "brewmaster_cinder_brew",
       "brewmaster_drunken_brawler",
-      "brewmaster_primal_companion",
+      "brewmaster_liquid_courage",
       "generic_hidden",
-      "brewmaster_primal_split",
-      "brewmaster_belligerent"
+      "brewmaster_primal_split"
     ],
     "facets": [
       {
         "id": 0,
         "name": "brewmaster_roll_out_the_barrel",
+        "deprecated": "True",
         "icon": "nuke",
         "color": "Red",
         "gradient_id": 1,
@@ -2921,11 +2966,21 @@
       {
         "id": 1,
         "name": "brewmaster_drunken_master",
+        "deprecated": "True",
         "icon": "speed",
         "color": "Yellow",
         "gradient_id": 1,
         "title": "Drunken Master",
-        "description": "When brewed up, Brewmaster moves with a varying amount of movement speed, altering between 15% slower and 50% faster for the duration."
+        "description": "When brewed up, Brewmaster moves with a varying amount of movement speed, altering between {s:bonus_min_movement}% slower and {s:bonus_max_movement}% faster for the duration."
+      },
+      {
+        "id": 2,
+        "name": "brewmaster_brewmaster",
+        "icon": "bubbles",
+        "color": "Yellow",
+        "gradient_id": 1,
+        "title": "Hungover",
+        "description": "This facet doesn't do anything. Brewmaster is still recovering from a drunken stupor..."
       }
     ]
   },
@@ -2965,18 +3020,19 @@
   },
   "lone_druid": {
     "abilities": [
-      "lone_druid_spirit_bear",
+      "lone_druid_entangle",
       "lone_druid_spirit_link",
       "lone_druid_savage_roar",
-      "generic_hidden",
+      "lone_druid_spirit_bear",
       "generic_hidden",
       "lone_druid_true_form",
-      "lone_druid_gift_bearer"
+      "generic_hidden"
     ],
     "facets": [
       {
         "id": 0,
         "name": "lone_druid_bear_with_me",
+        "deprecated": "1",
         "icon": "healing",
         "color": "Green",
         "gradient_id": 1,
@@ -2996,6 +3052,7 @@
       {
         "id": 2,
         "name": "lone_druid_bear_necessities",
+        "deprecated": "1",
         "icon": "item",
         "color": "Gray",
         "gradient_id": 1,
@@ -3004,6 +3061,15 @@
         "abilities": [
           "lone_druid_bear_necessities"
         ]
+      },
+      {
+        "id": 3,
+        "name": "lone_druid_lone_druid",
+        "icon": "overshadow",
+        "color": "Green",
+        "gradient_id": 1,
+        "title": "Forbearance",
+        "description": "This facet doesn't do anything. Lone Druid is still attuning to nature..."
       }
     ]
   },
@@ -3120,6 +3186,7 @@
       {
         "id": 0,
         "name": "treant_primeval_power",
+        "deprecated": "1",
         "icon": "damage",
         "color": "Yellow",
         "gradient_id": 2,
@@ -3132,11 +3199,21 @@
       {
         "id": 1,
         "name": "treant_sapling",
+        "deprecated": "1",
         "icon": "tree",
         "color": "Green",
         "gradient_id": 2,
         "title": "Sapling",
         "description": "Leech Seed can be ground targeted to plant a tree."
+      },
+      {
+        "id": 2,
+        "name": "treant_treant",
+        "icon": "tree",
+        "color": "Green",
+        "gradient_id": 2,
+        "title": "Uprooted",
+        "description": "This facet doesn't do anything. Treant Protector is still finding his roots..."
       }
     ]
   },
@@ -3158,7 +3235,7 @@
         "color": "Red",
         "gradient_id": 0,
         "title": "Fat Chance",
-        "description": "Multicast chance is increased by  0.06% of Ogre Magi's Strength."
+        "description": "Each point of Ogre Magi's Strength adds 0.06% to Ogre Magi's Multicast chance."
       },
       {
         "id": 1,
@@ -3253,7 +3330,7 @@
         "color": "Red",
         "gradient_id": 1,
         "title": "Thunderstorm",
-        "description": "Thunder Strike additionally hits all enemies within Kinetic Field. Thunder Strike Slow duration is doubled."
+        "description": "Thunder Strike additionally hits all enemies within Kinetic Field. Thunder Strike Slow duration is increased."
       },
       {
         "id": 1,
@@ -3273,7 +3350,7 @@
         "icon": "vortex_out",
         "color": "Gray",
         "gradient_id": 0,
-        "title": "Transferrence",
+        "title": "Transference",
         "description": "Electromagnetic Repulsion can be activated manually, be cast on allies and deals damage equal to a percentage of Disruptor's current health."
       }
     ]
@@ -3463,15 +3540,16 @@
     "abilities": [
       "slark_dark_pact",
       "slark_pounce",
-      "slark_essence_shift",
+      "slark_saltwater_shiv",
       "slark_depth_shroud",
-      "slark_barracuda",
+      "slark_essence_shift",
       "slark_shadow_dance"
     ],
     "facets": [
       {
         "id": 0,
         "name": "slark_leeching_leash",
+        "deprecated": "true",
         "icon": "agility",
         "color": "Green",
         "gradient_id": 2,
@@ -3481,11 +3559,21 @@
       {
         "id": 1,
         "name": "slark_dark_reef_renegade",
+        "deprecated": "true",
         "icon": "cooldown",
         "color": "Blue",
         "gradient_id": 2,
         "title": "Dark Reef Renegade",
         "description": "Barracuda lingers after being revealed to the enemy if Slark is not nearby allied heroes. Slark's attacks reduce the target's armor while Slark is under the effects of Barracuda."
+      },
+      {
+        "id": 2,
+        "name": "slark_slark",
+        "icon": "broken_chain",
+        "color": "Blue",
+        "gradient_id": 2,
+        "title": "Fugitive",
+        "description": "This facet doesn't do anything. Slark is still reeling from nightmares about Dark Reef..."
       }
     ]
   },
@@ -3579,8 +3667,8 @@
       "centaur_hoof_stomp",
       "centaur_double_edge",
       "centaur_return",
-      "centaur_mount",
       "centaur_work_horse",
+      "centaur_mount",
       "centaur_stampede",
       "centaur_rawhide"
     ],
@@ -3969,6 +4057,7 @@
       {
         "id": 0,
         "name": "earth_spirit_resonance",
+        "deprecated": "true",
         "icon": "damage",
         "color": "Green",
         "gradient_id": 0,
@@ -3978,6 +4067,7 @@
       {
         "id": 1,
         "name": "earth_spirit_stepping_stone",
+        "deprecated": "true",
         "icon": "cooldown",
         "color": "Gray",
         "gradient_id": 2,
@@ -3987,11 +4077,21 @@
       {
         "id": 2,
         "name": "earth_spirit_ready_to_roll",
+        "deprecated": "true",
         "icon": "spinning",
         "color": "Yellow",
         "gradient_id": 1,
         "title": "Ready to Roll",
         "description": "Rolling Boulder can roll over allied heroes for additional bonuses."
+      },
+      {
+        "id": 3,
+        "name": "earth_spirit_earth_spirit",
+        "icon": "spinning",
+        "color": "Green",
+        "gradient_id": 0,
+        "title": "Reformation",
+        "description": "This facet doesn't do anything. Earth Spirit is still not fully grounded..."
       }
     ]
   },
@@ -4103,9 +4203,10 @@
       "techies_sticky_bomb",
       "techies_reactive_tazer",
       "techies_suicide",
-      "techies_reactive_tazer_stop",
+      "generic_hidden",
       "techies_minefield_sign",
-      "techies_land_mines"
+      "techies_land_mines",
+      "techies_reactive_tazer_stop"
     ],
     "facets": [
       {
@@ -4332,16 +4433,18 @@
       "pangolier_swashbuckle",
       "pangolier_shield_crash",
       "pangolier_lucky_shot",
-      "pangolier_fortune_favors_the_bold",
+      "generic_hidden",
       "pangolier_rollup",
       "pangolier_gyroshell",
       "pangolier_gyroshell_stop",
-      "pangolier_rollup_stop"
+      "pangolier_rollup_stop",
+      "pangolier_fortune_favors_the_bold"
     ],
     "facets": [
       {
         "id": 0,
         "name": "pangolier_double_jump",
+        "deprecated": "true",
         "icon": "double_bounce",
         "color": "Red",
         "gradient_id": 1,
@@ -4351,11 +4454,21 @@
       {
         "id": 1,
         "name": "pangolier_thunderbolt",
+        "deprecated": "true",
         "icon": "speed",
         "color": "Yellow",
         "gradient_id": 1,
         "title": "Thunderbolt",
         "description": "Rolling Thunder movement and turn speed increased, but duration is decreased."
+      },
+      {
+        "id": 2,
+        "name": "pangolier_pangolier",
+        "icon": "cooldown",
+        "color": "Blue",
+        "gradient_id": 1,
+        "title": "Dangerous Liaisons",
+        "description": "This facet doesn't do anything. Pangolier is still recovering from a heroic exploit..."
       }
     ]
   },
@@ -4541,9 +4654,9 @@
       "hoodwink_scurry",
       "hoodwink_decoy",
       "hoodwink_hunters_boomerang",
-      "hoodwink_mistwoods_wayfarer",
       "hoodwink_sharpshooter",
-      "hoodwink_sharpshooter_release"
+      "hoodwink_sharpshooter_release",
+      "hoodwink_mistwoods_wayfarer"
     ],
     "facets": [
       {
@@ -4683,6 +4796,7 @@
       {
         "id": 4,
         "name": "marci_fleeting_fury",
+        "deprecated": "true",
         "icon": "fist",
         "color": "Yellow",
         "gradient_id": 0,
@@ -4851,7 +4965,7 @@
         "color": "Yellow",
         "gradient_id": 1,
         "title": "Flutter",
-        "description": "Kez deals extra damage on the first attack or ability after switching to Katana, and gains bonus movement speed after switching to Sai."
+        "description": "Kez deals extra damage on the first attack after switching to Katana, and gains bonus movement speed after switching to Sai."
       },
       {
         "id": 1,
@@ -4864,6 +4978,35 @@
         "abilities": [
           "kez_shadowhawk_passive"
         ]
+      }
+    ]
+  },
+  "largo": {
+    "abilities": [
+      "largo_catchy_lick",
+      "largo_frogstomp",
+      "largo_croak_of_genius",
+      "largo_encore",
+      "generic_hidden",
+      "largo_amphibian_rhapsody",
+      "generic_hidden",
+      "largo_song_fight_song",
+      "largo_song_double_time",
+      "largo_song_good_vibrations",
+      "generic_hidden",
+      "generic_hidden",
+      "generic_hidden",
+      "generic_hidden"
+    ],
+    "facets": [
+      {
+        "id": 0,
+        "name": "largo_largo",
+        "icon": "guitar",
+        "color": "Green",
+        "gradient_id": 1,
+        "title": "Musical pilgrimmage",
+        "description": "This facet doesn't do anything. Largo just arrived from the island of Velu'Mar..."
       }
     ]
   }

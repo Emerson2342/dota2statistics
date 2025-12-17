@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { View, Dimensions, useWindowDimensions } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
 import { fetchData, getHeroesStats } from "@src/services/api";
@@ -16,14 +16,20 @@ import { useQuery } from "@tanstack/react-query";
 import { useThemeStore } from "@src/store/theme";
 import { WaveTrendings } from "@src/components/Waves";
 
+const fontSize = Dimensions.get("screen").width * 0.03;
+
 export function Home() {
-  const {
-    playerId,
-    heroesPlayed,
-    handleFetchPlayerData,
-    isLoadingContext,
-    hasFetchedInitialData,
-  } = usePlayerStore();
+  const playerId = usePlayerStore((state) => state.playerId);
+  const heroesPlayed = usePlayerStore((state) => state.heroesPlayed);
+  const isLoadingContext = usePlayerStore((state) => state.isLoadingContext);
+  const hasFetchedInitialData = usePlayerStore(
+    (state) => state.hasFetchedInitialData
+  );
+
+  const handleFetchPlayerData = usePlayerStore(
+    (state) => state.handleFetchPlayerData
+  );
+
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const { englishLanguage } = useSettingsStore();
@@ -39,20 +45,15 @@ export function Home() {
     handleFetchPlayerData(playerId);
   }, [playerId, hasFetchedInitialData]);
 
-  const routes = useMemo(
-    () => [
-      { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
-      {
-        key: "myProfile",
-        title: englishLanguage ? "My Profile" : "Meu Perfil",
-      },
-      {
-        key: "heroesPlayed",
-        title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
-      },
-    ],
-    [englishLanguage]
-  );
+  const routesRef = useRef([
+    { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
+    { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
+    {
+      key: "heroesPlayed",
+      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+    },
+  ]);
+  const routes = routesRef.current;
 
   function useHomeData() {
     const proMatchesQuery = useQuery({
@@ -84,15 +85,18 @@ export function Home() {
     />
   );
 
+  const heroesStats = heroesStatsQuery.data ?? [];
+  const proMatches = proMatchesQuery.data ?? [];
+
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "trendings":
         return (
           <TrendingsTab
             color={colorTheme.light}
-            heroesStats={heroesStatsQuery.data ?? []}
+            heroesStats={heroesStats}
+            proMatches={proMatches}
             onRefresh={proMatchesQuery.refetch}
-            proMatches={proMatchesQuery.data ?? []}
           />
         );
       case "myProfile":
@@ -132,16 +136,16 @@ export function Home() {
   return (
     <View style={{ flex: 1 }}>
       <TabView
-        key={index}
-        lazy={false}
+        lazy
+        lazyPreloadDistance={2}
         renderTabBar={renderTabBar}
-        navigationState={{ index, routes }}
+        navigationState={{ index, routes: routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         commonOptions={{
           labelStyle: {
-            fontSize: Dimensions.get("screen").width * 0.03,
+            fontSize: fontSize,
             fontFamily: "QuickSand-Bold",
             textAlign: "center",
           },

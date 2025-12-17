@@ -44,7 +44,7 @@
       "Hidden"
     ],
     "target_team": "Enemy",
-    "mc": "75",
+    "mc": "30",
     "img": "/apps/dota2/images/dota_react/abilities/twin_gate_portal_warp.png"
   },
   "backdoor_protection": {
@@ -191,8 +191,10 @@
   "courier_take_stash_and_transfer_items": {
     "behavior": [
       "Hidden",
-      "No Target"
+      "Unit Target"
     ],
+    "target_team": "Friendly",
+    "target_type": "Hero",
     "img": "/apps/dota2/images/dota_react/abilities/courier_take_stash_and_transfer_items.png"
   },
   "courier_shield": {
@@ -290,7 +292,10 @@
   },
   "roshan_revengeroar": {
     "dname": "Roar of Retribution",
-    "behavior": "No Target",
+    "behavior": [
+      "No Target",
+      "Instant Cast"
+    ],
     "dmg_type": "Magical",
     "dispellable": "Yes",
     "mc": "0",
@@ -680,7 +685,7 @@
   "flagbearer_creep_aura_effect": {
     "dname": "Inspiration Aura",
     "behavior": "Passive",
-    "desc": "The Flagbearer inspires all allies, granting them bonus health regeneration.",
+    "desc": "The Flagbearer inspires all allied creeps, granting them bonus health regeneration and magic resistance.",
     "img": "/apps/dota2/images/dota_react/abilities/flagbearer_creep_aura_effect.png"
   },
   "granite_golem_hp_aura": {
@@ -723,7 +728,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "The Satyr Mindstealer removes a fragment of his enemy's soul, burning away mana equal to 20 + 2x the target's intelligence, and dealing damage equal to the amount of mana burned.",
+    "desc": "The Satyr Mindstealer removes a fragment of his enemy's soul, burning away mana equal to 20 + 1x the target's intelligence, and dealing damage equal to the amount of mana burned.",
     "mc": "50",
     "cd": "18",
     "img": "/apps/dota2/images/dota_react/abilities/satyr_soulstealer_mana_burn.png"
@@ -1900,6 +1905,7 @@
     "img": "/apps/dota2/images/dota_react/abilities/seasonal_diretide2020_high_five.png"
   },
   "seasonal_party_hat": {
+    "dname": "Spirit of Frostivus",
     "behavior": [
       "Unit Target",
       "Channeled"
@@ -1911,6 +1917,7 @@
       "Hero",
       "Basic"
     ],
+    "desc": "CHANNELED. Steals an enemy hero's stack of Frostivus hats, or gives your stack to an allied hero.",
     "mc": "0",
     "cd": "1",
     "img": "/apps/dota2/images/dota_react/abilities/seasonal_party_hat.png"
@@ -1974,6 +1981,7 @@
   },
   "antimage_persectur": {
     "dname": "Persecutor",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "No",
     "desc": "Attacks slow enemies based on how much mana they are missing. Min slow at 50% mana, up to max slow at 0% mana. No effect if enemy is above 50% mana.",
@@ -2077,23 +2085,23 @@
     "desc": "Axe taunts nearby enemy units, forcing them to attack him while he gains bonus armor during the duration.",
     "lore": "Mogul Khan's warcry taunts opponents into engaging in an unconquerable battle with the Axe.",
     "mc": [
-      "80",
       "90",
       "100",
-      "110"
+      "110",
+      "120"
     ],
     "cd": [
-      "17",
-      "15",
-      "13",
-      "11"
+      "18",
+      "16",
+      "14",
+      "12"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/axe_berserkers_call.png"
   },
   "axe_battle_hunger": {
     "dname": "Battle Hunger",
     "behavior": "Unit Target",
-    "dmg_type": "Physical",
+    "dmg_type": "Pure",
     "bkbpierce": "No",
     "dispellable": "Yes",
     "target_team": "Enemy",
@@ -2101,7 +2109,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The damage is increased by a factor of Axe's armor. The enemy is also slowed as long as they are facing away from Axe.",
+    "desc": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from Axe.",
     "lore": "Ordinary heroes cannot withstand Mogul Khan's rage for battle, such that it injures them until it is satisfied.",
     "mc": [
       "50",
@@ -2164,6 +2172,7 @@
   },
   "axe_coat_of_blood": {
     "dname": "Coat of Blood",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Axe permanently drenches his blade every time he kills an enemy Hero, gaining 0.2 bonus armor for each stack. Killing with Culling Blade gives 3x stacks.",
     "img": "/apps/dota2/images/dota_react/abilities/axe_coat_of_blood.png"
@@ -2265,10 +2274,10 @@
       "150"
     ],
     "cd": [
-      "24",
-      "21",
-      "18",
-      "15"
+      "25",
+      "22",
+      "19",
+      "16"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/bane_nightmare.png"
   },
@@ -2284,18 +2293,16 @@
   },
   "bane_ichor_of_nyctasha": {
     "dname": "Ichor of Nyctasha",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Bane's attribute gains are always evenly distributed across all three attributes (items that grant +3 Strength will now grant +1 Str/Agi/Int).",
     "img": "/apps/dota2/images/dota_react/abilities/bane_ichor_of_nyctasha.png"
   },
   "bloodseeker_bloodrage": {
     "dname": "Bloodrage",
-    "behavior": [
-      "Unit Target",
-      "Instant Cast"
-    ],
+    "behavior": "Unit Target",
     "dmg_type": "Pure",
-    "bkbpierce": "Yes",
+    "bkbpierce": "No",
     "dispellable": "Yes",
     "target_team": "Friendly",
     "target_type": "Hero",
@@ -2388,9 +2395,10 @@
   },
   "bloodseeker_sanguivore": {
     "dname": "Sanguivore",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "Yes",
-    "desc": "Bloodseeker restores some life when he kills a unit, equal to 1.5% of the units max health per Bloodseeker's Level plus a base of 25.\n\nRestores for half values if an ally kills a nearby enemy hero.",
+    "desc": "Bloodseeker restores some life when he kills a unit, equal to 30 health plus a percentage of the units max health.\n\nRestores for half values if an ally kills a nearby enemy hero.",
     "img": "/apps/dota2/images/dota_react/abilities/bloodseeker_sanguivore.png"
   },
   "crystal_maiden_let_it_go": {
@@ -2509,6 +2517,7 @@
   },
   "crystal_maiden_blueheart_floe": {
     "dname": "Blueheart Floe",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -2605,6 +2614,7 @@
   },
   "drow_ranger_trueshot": {
     "dname": "Precision Aura",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Grants Drow bonus agility based on Drow's current agility and level. Nearby ranged heroes received 50% of the bonus agility.",
     "lore": "Traxex' time spent alone in the forests of her Drow home has allowed her to teach other archers how to improve their bow skills.",
@@ -2620,7 +2630,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Drow's experiences in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. This ability is disabled if there is an enemy hero within 400 range.",
+    "desc": "Drow's experiences in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. This ability is disabled if there is an enemy hero within 325 range.",
     "lore": "The Drow Ranger is the epitome of archery prowess.",
     "img": "/apps/dota2/images/dota_react/abilities/drow_ranger_marksmanship.png"
   },
@@ -2733,6 +2743,7 @@
   },
   "earthshaker_spirit_cairn": {
     "dname": "Spirit Cairn",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "No",
     "desc": "When Earthshaker dies, a 75 radius fissure is created where he died. This fissure blocks movement and allows Earthshaker to continue to gain experience around it. It remains until Earthshaker respawns.",
@@ -2740,6 +2751,7 @@
   },
   "earthshaker_slugger": {
     "dname": "Slugger",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Enemies killed with Enchant Totem or Earthshaker's other abilities are sent flying, dealing damage to enemies they hit.",
@@ -2763,12 +2775,7 @@
     "dispellable": "No",
     "desc": "Causes a bladestorm of destructive force around Juggernaut, rendering him debuff immune, increasing his magic resistance by 80%, and dealing damage every 0.2s to nearby enemy units. Applies a strong dispel at the end of the spin.",
     "lore": "Yurnero's renowned katana techniques are feared by warriors and sorcerors alike.",
-    "mc": [
-      "105",
-      "110",
-      "115",
-      "120"
-    ],
+    "mc": "120",
     "cd": [
       "36",
       "30",
@@ -2830,6 +2837,7 @@
   },
   "juggernaut_duelist": {
     "dname": "Duelist",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Juggernaut deals 12% more damage to targets that are facing him. Damage bonus always applies during Omnislash.",
     "img": "/apps/dota2/images/dota_react/abilities/juggernaut_duelist.png"
@@ -2863,7 +2871,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Strong Dispels Only",
-    "desc": "Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The stun duration ranges from 0.01 to 2.6 seconds, with bonus damage up to 150 added, based on the distance the arrow travels to its target. Instantly kills the first non-ancient creep it hits.",
+    "desc": "Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The stun duration ranges from 0.01 to 2.6 seconds, with bonus damage up to 180 added, based on the distance the arrow travels to its target. Instantly kills the first non-ancient creep it hits.",
     "lore": "Lunar energies make the Princess of the Moon's arrows more deadly than most.",
     "mc": "90",
     "cd": [
@@ -2883,8 +2891,8 @@
     "lore": "Her tenure with Selemene allows Mirana to eclipse the ground, wrapping her allies in a cloak of shadows.",
     "mc": "125",
     "cd": [
-      "140",
       "120",
+      "110",
       "100"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/mirana_invis.png"
@@ -2897,8 +2905,8 @@
     "desc": "Gradually increases attack speed and damage of Mirana and all allied heroes, reaching maximum power after 6s. \n\n Allies receive 50% of the bonus.",
     "mc": "125",
     "cd": [
-      "140",
       "120",
+      "110",
       "100"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/mirana_solar_flare.png"
@@ -2931,6 +2939,7 @@
   },
   "mirana_selemenes_faithful": {
     "dname": "Selemene's Faithful",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Healing Lotuses are 50% more effective on Mirana and her allies.",
     "img": "/apps/dota2/images/dota_react/abilities/mirana_selemenes_faithful.png"
@@ -2973,8 +2982,9 @@
   },
   "nevermore_necromastery": {
     "dname": "Necromastery",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Shadow Fiend steals the soul from units he kills, gaining bonus damage. Hero kills grant 3 souls. On death, he releases 30% of them from bondage.",
+    "desc": "Shadow Fiend steals the soul from units he kills, gaining bonus damage. Hero kills grant 4 souls. On death, he releases 30% of them from bondage.",
     "lore": "Harvested souls swirl in and out of the Abysm, empowering the Shadow Fiend to increase the size of his collection.",
     "img": "/apps/dota2/images/dota_react/abilities/nevermore_necromastery.png"
   },
@@ -3051,7 +3061,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Launches a surge of water toward an enemy unit, dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used.\n\nThe target is also knocked back based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance is used.",
+    "desc": "Launches a surge of water toward an enemy unit, dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used.\n\nThe target is also knocked back and stunned based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun is used.",
     "lore": "The Morphling calls upon his elements to crush his opponents with waves.",
     "mc": [
       "40",
@@ -3098,7 +3108,7 @@
       "Passive",
       "Hidden"
     ],
-    "desc": "Morphling's Primary Attribute is now Strength. Adaptive Strike stuns based on Morphling's strength. Morphling gains 1% Spell Amp per 4 Agility.",
+    "desc": "Morphling's Primary Attribute is now Strength. Morphling gains 1% Spell Amp per 4 Agility.",
     "img": "/apps/dota2/images/dota_react/abilities/morphling_flow.png"
   },
   "morphling_replicate": {
@@ -3144,6 +3154,7 @@
   },
   "morphling_accumulation": {
     "dname": "Accumulation",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Morphling receives 50% of stat growth bonuses every half level instead of the full bonus at level up. All Attributes bonuses from skill points in the Talent Tree provide an additional +3 to Morphling's primary attribute.",
     "img": "/apps/dota2/images/dota_react/abilities/morphling_accumulation.png"
@@ -3202,21 +3213,23 @@
       "Instant Cast",
       "No Target"
     ],
+    "dmg_type": "Physical",
     "dispellable": "Yes",
-    "desc": "When targeting an enemy for an attack, Phantom Lancer quickly charges into range, gaining a temporary agility boost. Phantom Lancer's illusions also have this ability.",
+    "desc": "When targeting an enemy for an attack, Phantom Lancer quickly charges into range, gaining bonus movement speed and evasion. Phantom Lancer's illusions also have this ability.",
     "lore": "Azwraith knows that on the field of battle, speed can mean everything.",
     "cd": [
-      "13",
-      "10",
+      "15",
+      "11",
       "7",
-      "4"
+      "3"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/phantom_lancer_phantom_edge.png"
   },
   "phantom_lancer_illusory_armaments": {
     "dname": "Illusory Armaments",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Items, abilities, and auras that grant bonus damage instead grant base damage.",
+    "desc": "Whenever an illusion of Phantom Lancer is created, its outgoing damage cannot go below a fixed value for 3 seconds.",
     "img": "/apps/dota2/images/dota_react/abilities/phantom_lancer_illusory_armaments.png"
   },
   "puck_illusory_orb": {
@@ -3249,8 +3262,9 @@
   },
   "puck_puckish": {
     "dname": "Puckish",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Whenever Puck disjoints an attack, it restores 10 + 2% of its max mana and 10 + 2% of its max health. Dodging a targeted spell projectile restores 3.5x that amount.",
+    "desc": "Whenever Puck disjoints an attack, it restores 10 + 2% of its max mana and 10 + 2% of its max health. Dodging a targeted spell projectile restores 3.5x that amount. Does not apply to attacks by Towers.",
     "img": "/apps/dota2/images/dota_react/abilities/puck_puckish.png"
   },
   "puck_waning_rift": {
@@ -3287,7 +3301,6 @@
     "desc": "CHANNELED - Puck briefly shifts into another dimension where it is immune from harm.",
     "lore": "With a quip and flash, Puck returns to the alien dimension from whence it came.",
     "mc": "0",
-    "dmg_type": "Magical",
     "cd": [
       "8",
       "7.5",
@@ -3406,6 +3419,7 @@
   },
   "pudge_innate_graft_flesh": {
     "dname": "Flesh Heap",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Pudge's skin thickens permanently every time he kills an enemy Hero, gaining 1.1 bonus Strength for each stack.",
     "img": "/apps/dota2/images/dota_react/abilities/pudge_innate_graft_flesh.png"
@@ -3441,9 +3455,9 @@
     "lore": "Razor's polarity channels electricity into his being, draining the power of his opposition.",
     "mc": "65",
     "cd": [
-      "50",
-      "40",
-      "30",
+      "44",
+      "36",
+      "28",
       "20"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/razor_static_link.png"
@@ -3458,6 +3472,7 @@
   },
   "razor_unstable_current": {
     "dname": "Unstable Current",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/razor_unstable_current.png"
   },
@@ -3507,10 +3522,10 @@
     "desc": "Sand King burrows into the ground and tunnels forward, damaging and stunning enemy units above him as he resurfaces. Adds Caustic Finale poison to heroes hit\n\n Can be put on alt-cast to immediately cast in the desired direction, without walking towards the targeted location.",
     "lore": "Crixalis often lies in wait, burrowing under the surface to ambush his adversaries.",
     "mc": [
+      "100",
       "110",
       "120",
-      "130",
-      "140"
+      "130"
     ],
     "cd": [
       "14",
@@ -3539,6 +3554,7 @@
   },
   "sandking_caustic_finale": {
     "dname": "Caustic Finale",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -3579,7 +3595,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Sand King strikes an area, performing an attack on all enemies in the area of effect, dealing extra damage to each. Enemies within an innermost radius of 125 take 40% extra damage. Applies Caustic Finale and a slow to all enemies hit.",
+    "desc": "Sand King strikes an area, performing an attack on all enemies in the area of effect, dealing extra damage. Enemies within an innermost radius of 125 take 40% extra damage. Applies Caustic Finale and a slow to all enemies hit.",
     "lore": "Crixalis is certainly capable of mercy, but the soul of the sand finds few foes worth sparing.",
     "mc": [
       "35",
@@ -3604,7 +3620,7 @@
     "bkbpierce": "No",
     "dispellable": "No",
     "desc": "Grants Storm Spirit and allied heroes within 750 AoE of him 3 Overload charges. Provides 40 Attack Speed. Lasts up to 12 seconds or until the charges are depleted.",
-    "mc": "150",
+    "mc": "100",
     "cd": "30",
     "img": "/apps/dota2/images/dota_react/abilities/storm_spirit_electric_rave.png"
   },
@@ -3672,9 +3688,10 @@
   },
   "storm_spirit_galvanized": {
     "dname": "Galvanized",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
-    "desc": "Storm Spirit gains a charge of 0.2 mana regeneration per kill. Loses 3 charges per death. Leveling Ball Lightning gives Storm Spirit 3 bonus charges. Additionally every time he gains a charge he also gains 0.1 Mana Regen permanently.",
+    "desc": "Storm Spirit gains a charge of 0.2 mana regeneration per kill. Loses 2 charges per death. Leveling Ball Lightning gives Storm Spirit 3 bonus charges. Additionally every time he gains a charge he also gains 0.1 Mana Regen permanently.",
     "img": "/apps/dota2/images/dota_react/abilities/storm_spirit_galvanized.png"
   },
   "sven_storm_bolt": {
@@ -3711,7 +3728,6 @@
     "dname": "Great Cleave",
     "behavior": "Passive",
     "bkbpierce": "Yes",
-    "dmg_type": "Physical",
     "desc": "Sven strikes with great force, cleaving all nearby enemy units with his attack.",
     "lore": "The Vigil Knights still seek to reclaim the stolen Outcast Blade from Sven, a weapon capable of cutting wide swaths through lesser warriors.",
     "img": "/apps/dota2/images/dota_react/abilities/sven_great_cleave.png"
@@ -3733,10 +3749,10 @@
       "45"
     ],
     "cd": [
-      "40",
-      "35",
-      "30",
-      "25"
+      "36",
+      "32",
+      "28",
+      "24"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/sven_warcry.png"
   },
@@ -3744,7 +3760,7 @@
     "dname": "God's Strength",
     "behavior": "No Target",
     "dispellable": "No",
-    "desc": "Sven channels his rogue strength, granting bonus damage and slow resistance for 35 seconds.",
+    "desc": "Sven channels his rogue strength, granting bonus damage and slow resistance for 30 seconds.",
     "lore": "With the strength that shattered the Sacred Helm, the Rogue Knight stands unopposed in melee combat.",
     "mc": [
       "100",
@@ -3760,6 +3776,7 @@
   },
   "sven_vanquisher": {
     "dname": "Vanquisher",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Sven's attacks deal 20% bonus damage to stunned enemies.",
     "img": "/apps/dota2/images/dota_react/abilities/sven_vanquisher.png"
@@ -3825,6 +3842,7 @@
   },
   "tiny_craggy_exterior": {
     "dname": "Craggy Exterior",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "desc": "Enemies that attack Tiny receive a stacking debuff that lowers their attack damage with each stack.",
@@ -3891,12 +3909,14 @@
     "img": "/apps/dota2/images/dota_react/abilities/tiny_grow.png"
   },
   "tiny_rocksteady": {
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "img": "/apps/dota2/images/dota_react/abilities/tiny_rocksteady.png"
   },
   "tiny_insurmountable": {
     "dname": "Insurmountable",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -3925,10 +3945,10 @@
       "105"
     ],
     "cd": [
-      "16",
       "14",
+      "13",
       "12",
-      "10"
+      "11"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png"
   },
@@ -3992,6 +4012,7 @@
   },
   "vengefulspirit_retribution": {
     "dname": "Retribution",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Whenever an enemy hero kills Vengeful Spirit, they get a debuff until their next death, causing Vengeful Spirit to deal 20% bonus damage to them.",
@@ -4116,6 +4137,7 @@
   },
   "windrunner_easy_breezy": {
     "dname": "Easy Breezy",
+    "is_innate": true,
     "behavior": "Passive",
     "target_team": "Friendly",
     "desc": "Windranger's movement speed cannot be lower than 240 and can reach 600.",
@@ -4158,12 +4180,7 @@
     ],
     "desc": "Hurls a bolt of lightning that leaps through nearby enemy units that deal damage.",
     "lore": "Arc Lightning is Zeus' favorite spell to use against puny mortals.",
-    "mc": [
-      "75",
-      "85",
-      "95",
-      "105"
-    ],
+    "mc": "75 85 95 105",
     "cd": "1.6",
     "img": "/apps/dota2/images/dota_react/abilities/zuus_arc_lightning.png"
   },
@@ -4207,6 +4224,7 @@
   },
   "zuus_static_field": {
     "dname": "Static Field",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -4263,7 +4281,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it for the duration. Enemies cannot attack while being dragged.",
+    "desc": "Releases a Tidal Wave that spawns behind Kunkka. Deals damage and drags enemies along it. Enemies cannot attack while being dragged.",
     "lore": "A good sailor knows the timing of the tides like the back of his hand.",
     "mc": "75",
     "cd": "12",
@@ -4336,9 +4354,9 @@
     "lore": "The Admiral's set of arcane abilities includes some that can be used for battle as well as entertainment.",
     "mc": "50",
     "cd": [
-      "30",
       "24",
-      "18",
+      "20",
+      "16",
       "12"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/kunkka_x_marks_the_spot.png"
@@ -4377,6 +4395,7 @@
   },
   "kunkka_admirals_rum": {
     "dname": "Admiral's Rum",
+    "is_innate": true,
     "behavior": "Passive",
     "cd": "60",
     "img": "/apps/dota2/images/dota_react/abilities/kunkka_admirals_rum.png"
@@ -4492,6 +4511,7 @@
   },
   "lina_combustion": {
     "dname": "Combustion",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "target_type": "Hero",
@@ -4539,12 +4559,13 @@
   },
   "lich_death_charge": {
     "dname": "Death Charge",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
     ],
     "target_team": "Friendly",
-    "desc": "Lich cannot gain passive mana regeneration, but any unit dying within 1500 range of Lich restores 2.5% of his Max Mana (Dying heroes restore 15% of Lich's Max Mana). Instant mana restoration from items and abilities apply to Lich as normal.",
+    "desc": "Lich cannot gain passive mana regeneration, but any unit dying within 1500 range of Lich restores 2.5% of his Max Mana (Dying heroes restore 25% of Lich's Max Mana). Instant mana restoration from items and abilities apply to Lich as normal.",
     "cd": [
       "60",
       "50",
@@ -4710,9 +4731,9 @@
     "desc": "Transforms an enemy unit into a harmless beast, with all special abilities disabled.",
     "lore": "Lion is compelled to share his transfiguration, twisting the essence of those who oppose him.",
     "mc": [
-      "125",
-      "150",
-      "175",
+      "110",
+      "140",
+      "170",
       "200"
     ],
     "cd": [
@@ -4768,14 +4789,15 @@
       "600"
     ],
     "cd": [
-      "130",
-      "85",
+      "120",
+      "80",
       "40"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png"
   },
   "lion_to_hell_and_back": {
     "dname": "To Hell and Back",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Lion gains 20% debuff duration and 20% spell amplification for 90s after respawning.",
@@ -4856,10 +4878,10 @@
       "170"
     ],
     "cd": [
+      "14",
       "13",
       "12",
-      "11",
-      "10"
+      "11"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/shadow_shaman_shackles.png"
   },
@@ -4878,7 +4900,11 @@
       "350",
       "550"
     ],
-    "cd": "110",
+    "cd": [
+      "110",
+      "105",
+      "100"
+    ],
     "img": "/apps/dota2/images/dota_react/abilities/shadow_shaman_mass_serpent_ward.png"
   },
   "shadow_shaman_serpentine": {
@@ -4895,6 +4921,7 @@
   },
   "shadow_shaman_fowl_play": {
     "dname": "Fowl Play",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "When taking lethal damage, Shadow Shaman receives a strong dispel and survives as a 1 HP chicken. Incoming damage is reduced to zero for 1s.Cooldown is reset upon respawning.\n\nDISPEL TYPE: Strong Dispel",
     "lore": "Rhasta had to learn early on how to stay one step ahead of those who (rightfully or wrongfully) wished him harm.",
@@ -4925,6 +4952,7 @@
   },
   "slardar_seaborn_sentinel": {
     "dname": "Seaborn Sentinel",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Slardar gains bonus movement speed, health regeneration, attack damage, and armor while in a puddle, trail, or river.",
     "img": "/apps/dota2/images/dota_react/abilities/slardar_seaborn_sentinel.png"
@@ -5106,6 +5134,7 @@
   },
   "tidehunter_blubber": {
     "dname": "Blubber",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Tidehunter's hide removes negative status effects if he takes more than 450 damage. Removes most debuffs, even if they are generally not purgable.\n\nDISPEL TYPE: Strong Dispel",
     "img": "/apps/dota2/images/dota_react/abilities/tidehunter_blubber.png"
@@ -5145,12 +5174,7 @@
     "dispellable": "No",
     "desc": "Witch Doctor focuses his magic to heal nearby allied units, costing Witch Doctor mana every second Voodoo Restoration is active.",
     "lore": "Zharvakko's hocus pocus is not limited only to hexxing his opponents and is quite adept at curing ailments.",
-    "mc": [
-      "35",
-      "40",
-      "45",
-      "50"
-    ],
+    "mc": "25",
     "cd": "0",
     "img": "/apps/dota2/images/dota_react/abilities/witch_doctor_voodoo_restoration.png"
   },
@@ -5164,7 +5188,7 @@
     "bkbpierce": "No",
     "dispellable": "No",
     "target_type": "Hero",
-    "desc": "Curses all enemy Heroes in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began.",
+    "desc": "Curses all enemy Heroes and player-controlled units in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began.",
     "lore": "Certain voodoo magics can make an enemy regret engaging the Witch Doctor.",
     "mc": [
       "105",
@@ -5217,6 +5241,7 @@
   },
   "witch_doctor_gris_gris": {
     "dname": "Gris-Gris",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Witch Doctor gets a Gris-Gris, an item that cannot be dropped or placed in the backpack. When the owner dies, 100% of the gold lost from death is added to the item, and will be refunded when the item is consumed. The value of the Gris-Gris is increased by 1 every 3s. \n\n Right-click to consume and permanently remove the item.",
     "img": "/apps/dota2/images/dota_react/abilities/witch_doctor_gris_gris.png"
@@ -5265,11 +5290,11 @@
   "riki_blink_strike": {
     "dname": "Blink Strike",
     "behavior": "Unit Target",
-    "dmg_type": "Magical",
+    "dmg_type": "Physical",
     "bkbpierce": "Yes",
     "target_team": [],
     "target_type": [],
-    "desc": "Teleports behind the target unit, momentarily slowing them and striking for bonus damage if it is an enemy.",
+    "desc": "Teleports behind the target unit, momentarily slowing them and attacking them with bonus damage if it is an enemy.",
     "lore": "The Stealth Assassin's agile movement makes him impossible to escape.",
     "mc": [
       "50",
@@ -5277,7 +5302,12 @@
       "60",
       "65"
     ],
-    "cd": "0.1",
+    "cd": [
+      "13",
+      "10",
+      "7",
+      "4"
+    ],
     "img": "/apps/dota2/images/dota_react/abilities/riki_blink_strike.png"
   },
   "riki_backstab": {
@@ -5285,15 +5315,19 @@
     "behavior": "Passive",
     "bkbpierce": "Yes",
     "dispellable": "No",
-    "desc": "Riki fades into the shadows, becoming invisible. When Riki attacks, he becomes visible.",
+    "desc": "Riki fades into the shadows, becoming invisible until he attacks. Hero kills and assists grant additional experience.",
     "lore": "Riki comes for you.",
     "img": "/apps/dota2/images/dota_react/abilities/riki_backstab.png"
   },
   "riki_innate_backstab": {
     "dname": "Backstab",
-    "behavior": "Passive",
+    "is_innate": true,
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
     "dmg_type": "Physical",
-    "desc": "Every time Riki strikes his enemy from behind, he deals bonus damage based on his Agility.",
+    "desc": "Every time Riki strikes his enemy from behind, he deals additional bonus damage equal to a multiple of his Agility.",
     "img": "/apps/dota2/images/dota_react/abilities/riki_innate_backstab.png"
   },
   "riki_permanent_invisibility": {
@@ -5310,21 +5344,20 @@
       "AOE",
       "Channeled"
     ],
+    "dmg_type": "Physical",
     "bkbpierce": "Yes",
     "target_team": "Friendly",
-    "target_type": "Hero",
-    "desc": "CHANNELED - Riki phases out of the world while striking random enemy units from behind in an area around him. While phased out his attack damage is reduced, but his Agility greatly increases.",
-    "lore": "The Stealth Assassin is not afraid to fight dirty, and specializes in attacking his opponents from behind.",
-    "mc": [
-      "45",
-      "55",
-      "65",
-      "75"
+    "target_type": [
+      "Hero",
+      "Basic"
     ],
+    "desc": "CHANNELED - Riki phases out of the world and periodically strikes 2 random enemy units from behind in an area around him. He has fixed attack damage while phased out.",
+    "lore": "The Stealth Assassin is not afraid to fight dirty, and specializes in attacking his opponents from behind.",
+    "mc": "65",
     "cd": [
+      "21",
       "18",
-      "16",
-      "14",
+      "15",
       "12"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/riki_tricks_of_the_trade.png"
@@ -5384,7 +5417,7 @@
     ],
     "dmg_type": "Magical",
     "bkbpierce": "Yes",
-    "desc": "Steeps an area in dark resonance, dealing 5 + a percentage of the enemies current HP as damage.",
+    "desc": "Steeps an area in dark resonance, dealing damage to enemies every 0.5s.",
     "lore": "A section of the world slowly descends into the void.",
     "mc": [
       "65",
@@ -5425,6 +5458,7 @@
   },
   "enigma_gravity_well": {
     "dname": "Gravity Well",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Allies within 500 distance from Enigma have up to 9% Damage Reduction. Effect starts at 0% at max distance and increases to its maximum strength when the ally is at 200 distance. Does not affect Enigma itself.",
@@ -5482,11 +5516,12 @@
     "desc": "CHANNELED - Teleport to a target friendly structure. Level 2 allows teleporting to friendly units and Level 3 to friendly heroes.",
     "lore": "As Boush likes to say, 'There is nothing the arcane can accomplish that the curious mind cannot reproduce given time. And proper funding, of course.'",
     "mc": "75",
-    "cd": "80",
+    "cd": "50",
     "img": "/apps/dota2/images/dota_react/abilities/tinker_keen_teleport.png"
   },
   "tinker_eureka": {
     "dname": "Eureka!",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Tinker gains 1% item cooldown reduction per 3 Intelligence, up to a maximum of 60%.",
     "img": "/apps/dota2/images/dota_react/abilities/tinker_eureka.png"
@@ -5543,7 +5578,10 @@
     "img": "/apps/dota2/images/dota_react/abilities/tinker_shrink_ray.png"
   },
   "tinker_heat_seeking_missile": {
-    "behavior": "No Target",
+    "behavior": [
+      "No Target",
+      "Hidden"
+    ],
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "target_type": [
@@ -5698,7 +5736,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Sniper locks onto a target enemy unit and, after a short aiming duration, fires a devastating shot that deals Sniper's attack damage plus bonus damage at long range and mini-stuns the target. Whenever Sniper kills an enemy hero, Assassinate is refreshed.",
+    "desc": "Sniper locks onto a target enemy unit and, after a short aiming duration, fires a devastating shot that delivers an amplified attack plus bonus damage at long range and mini-stuns the target. Whenever Sniper kills an enemy hero, Assassinate is refreshed.",
     "lore": "In order to fulfill the prophecy and return to his home town, Kardel must make another shot as perfect as the one on the day of his ancient test.",
     "mc": "175",
     "cd": [
@@ -5710,6 +5748,7 @@
   },
   "sniper_keen_scope": {
     "dname": "Keen Scope",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Increases Sniper's attack range.",
     "img": "/apps/dota2/images/dota_react/abilities/sniper_keen_scope.png"
@@ -5771,6 +5810,7 @@
   },
   "necrolyte_sadist": {
     "dname": "Sadist",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Necrophos gains stacking regen for 8 seconds for each unit he kills. Hero kills multiply the effect.",
     "img": "/apps/dota2/images/dota_react/abilities/necrolyte_sadist.png"
@@ -5830,7 +5870,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Binds several enemy units together, causing a percentage of the damage dealt to one of them to be felt by the others.",
+    "desc": "Binds several visible enemy units together, causing a percentage of the damage dealt to one of them to be felt by the others.",
     "lore": "An ancient incantation that links the vital energies of multiple lifeforms into one collective body.",
     "mc": [
       "120",
@@ -5909,7 +5949,7 @@
       "400",
       "600"
     ],
-    "cd": "160",
+    "cd": "165",
     "img": "/apps/dota2/images/dota_react/abilities/warlock_rain_of_chaos.png"
   },
   "warlock_golem_flaming_fists": {
@@ -5942,6 +5982,7 @@
   },
   "warlock_eldritch_summoning": {
     "dname": "Eldritch Summoning",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -6039,6 +6080,7 @@
   "beastmaster_call_of_the_wild_hawk": {
     "dname": "Call of the Wild Hawk",
     "behavior": "No Target",
+    "dmg_type": "Magical",
     "target_team": "Enemy",
     "target_type": [
       "Hero",
@@ -6113,7 +6155,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Beastmaster lets loose a deafening roar that stuns, and shoves open a path to its target. All units in the path of the roar are damaged, while units shoved aside by the roar have their movement and attack speed slowed. Additionally, Beastmaster and his units gain 40% movement speed for 3 seconds.",
+    "desc": "Beastmaster lets loose a deafening roar that stuns, and shoves open a path to its target. All units in the path of the roar are damaged, while units shoved aside by the roar have their movement and attack speed slowed. Additionally, Beastmaster and his units gain 40% movement speed for 2 seconds.",
     "lore": "The Beastmaster has learned to channel his primal instincts into an animalistic roar, causing devastation in the ranks of enemies.",
     "mc": [
       "100",
@@ -6139,8 +6181,9 @@
   },
   "beastmaster_rugged": {
     "dname": "Rugged",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Beastmaster's melee hero Damage Block Chance is increased from 50% to 100% versus non-hero units.",
+    "desc": "Beastmaster's melee hero Damage Block Chance is increased from 50% to 100% versus non-hero units and non-building units.",
     "img": "/apps/dota2/images/dota_react/abilities/beastmaster_rugged.png"
   },
   "queenofpain_shadow_strike": {
@@ -6230,8 +6273,9 @@
   },
   "queenofpain_succubus": {
     "dname": "Succubus",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "All sources of Spell Lifesteal also apply to Pure Damage. Queen of Pain gains Spell Lifesteal that increases with proximity to her enemies. Lifesteal is at its maximum when the enemy is 300 units or closer to her and at its minimum when the enemy is 800 units or further from her.",
+    "desc": "All sources of Spell Lifesteal also apply to Pure Damage. Queen of Pain gains Spell Lifesteal that increases with proximity to her enemies. Lifesteal is at its maximum when the enemy is 150 units or closer to her and at its minimum when the enemy is 800 units or further from her.",
     "img": "/apps/dota2/images/dota_react/abilities/queenofpain_succubus.png"
   },
   "queenofpain_bondage": {
@@ -6241,7 +6285,7 @@
       "Hidden"
     ],
     "bkbpierce": "No",
-    "desc": "Whenever an enemy within 1200 range deals spell damage to Queen of Pain, she returns 20% of the damage dealt.",
+    "desc": "Whenever an enemy within 1200 range deals spell damage to Queen of Pain, she returns 16% of the damage dealt.",
     "img": "/apps/dota2/images/dota_react/abilities/queenofpain_bondage.png"
   },
   "venomancer_area_poison": {
@@ -6355,6 +6399,7 @@
   },
   "venomancer_sepsis": {
     "dname": "Septic Shock",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -6379,6 +6424,7 @@
   },
   "faceless_void_distortion_field": {
     "dname": "Distortion Field",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Enemy Attack Projectiles within 600 radius are slowed by 35%.",
     "img": "/apps/dota2/images/dota_react/abilities/faceless_void_distortion_field.png"
@@ -6416,7 +6462,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Faceless Void traps all nearby enemies in a time dilation field for 8 seconds, extending their cooldowns and slowing their movement and attack speed by 7% for each cooldown extended. Deals bonus damage per second for each cooldown.",
+    "desc": "Faceless Void traps all nearby enemies in a time dilation field for 7 seconds, extending their cooldowns and slowing their movement and attack speed by 4%, amplified by each cooldown extended. Deals bonus damage per second for each cooldown.",
     "mc": "90",
     "cd": [
       "28",
@@ -6442,9 +6488,9 @@
       "275"
     ],
     "cd": [
-      "160",
-      "150",
-      "140"
+      "155",
+      "145",
+      "135"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/faceless_void_chronosphere.png"
   },
@@ -6464,9 +6510,9 @@
       "275"
     ],
     "cd": [
-      "130",
       "125",
-      "120"
+      "120",
+      "115"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/faceless_void_time_zone.png"
   },
@@ -6548,7 +6594,7 @@
     "dispellable": "Yes",
     "target_team": "Friendly",
     "target_type": "Hero",
-    "desc": "Wraith King's form regroups after death, allowing him to resurrect when killed in battle. Upon death, enemy units in a 900 radius are slowed. Can be self-cast to kill Wraith King instantly.",
+    "desc": "Wraith King's form regroups after death, allowing him to resurrect when killed in battle. Upon death, enemy units in a 600 radius are slowed. Can be self-cast to kill Wraith King instantly.",
     "lore": "Conspirators against the Wraith King wonder why he never stays dead.",
     "mc": "225",
     "cd": [
@@ -6560,6 +6606,7 @@
   },
   "skeleton_king_vampiric_spirit": {
     "dname": "Vampiric Spirit",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Grants Wraith King Lifesteal. When slain Wraith King turns into a free pathing Wraith with Bonus Attack and Movement Speed for a short duration, delaying his death. Wraith King cannot reincarnate after being a Wraith.",
     "img": "/apps/dota2/images/dota_react/abilities/skeleton_king_vampiric_spirit.png"
@@ -6619,6 +6666,7 @@
   },
   "death_prophet_witchcraft": {
     "dname": "Witchcraft",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/death_prophet_witchcraft.png"
   },
@@ -6644,7 +6692,7 @@
     "dmg_type": "Physical",
     "bkbpierce": "Yes",
     "dispellable": "No",
-    "desc": "Unleashes evil spirits to drain the life of nearby enemy units and structures. Spirits need to return back to Death Prophet in order to attack again. At the end of the spell's duration, Death Prophet is healed in proportion to the damage dealt. Deals 50% damage to buildings. Lasts 40 seconds.Increases Death Prophet's movement speed while active.",
+    "desc": "Unleashes evil spirits to drain the life of nearby enemy units and structures. Spirits need to return back to Death Prophet in order to attack again. At the end of the spell's duration, Death Prophet is healed in proportion to the damage dealt. Deals 50% damage to buildings. Lasts 40 seconds.",
     "lore": "Over time, the banshee remnants of her previous lives return to haunt the present.",
     "mc": [
       "200",
@@ -6673,6 +6721,7 @@
   },
   "death_prophet_mourning_ritual": {
     "dname": "Mourning Ritual",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -6686,7 +6735,7 @@
       "Hidden"
     ],
     "dmg_type": "Physical",
-    "dispellable": "Yes",
+    "dispellable": "No",
     "desc": "Phantom Assassin releases sharp blades around her, dealing a percentage of each victim's max health on impact and applying Break.",
     "lore": "A sister is generally given a single name, but powerful names often have plentiful allies.",
     "mc": "80",
@@ -6721,12 +6770,7 @@
       "45",
       "50"
     ],
-    "cd": [
-      "11",
-      "9",
-      "7",
-      "5"
-    ],
+    "cd": "0.1",
     "img": "/apps/dota2/images/dota_react/abilities/phantom_assassin_phantom_strike.png"
   },
   "phantom_assassin_immaterial": {
@@ -6737,6 +6781,7 @@
   },
   "phantom_assassin_blur": {
     "dname": "Blur",
+    "is_innate": true,
     "behavior": "No Target",
     "dispellable": "No",
     "target_team": "Friendly",
@@ -6744,12 +6789,7 @@
     "desc": "Phantom Assassin blurs her body, disjointing incoming projectiles, increasing her movement speed, causing her to be impossible to see until she comes near enemy heroes or towers.",
     "lore": "Meditation allows a Veiled Sister to carefully anticipate her opponents in combat.",
     "mc": "50",
-    "cd": [
-      "60",
-      "55",
-      "50",
-      "45"
-    ],
+    "cd": "45",
     "img": "/apps/dota2/images/dota_react/abilities/phantom_assassin_blur.png"
   },
   "phantom_assassin_coup_de_grace": {
@@ -6834,6 +6874,7 @@
   },
   "pugna_oblivion_savant": {
     "dname": "Oblivion Savant",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Pugna can cast spells and use items while channeling.",
     "img": "/apps/dota2/images/dota_react/abilities/pugna_oblivion_savant.png"
@@ -6849,7 +6890,7 @@
     "dispellable": "No",
     "desc": "Templar Assassin becomes highly elusive, gaining a small barrier and bonus to her damage. The damage and avoidance effects are separate, and have a limited number of instances. If a barrier is consumed, a new one is created as long as there are charges left. If an instance of damage would deal more damage than the remaining barrier, all of the damage is absorbed.",
     "lore": "Manipulating her psionic veil, Lanaya bends nature's law to her will.",
-    "mc": "85",
+    "mc": "95",
     "cd": "14",
     "img": "/apps/dota2/images/dota_react/abilities/templar_assassin_refraction.png"
   },
@@ -6890,7 +6931,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Templar Assassin places mystical traps that invisibly monitor enemy movement. When sprung at her command, they deal a small amount of damage and exert a slowing influence of 20% in the area. Traps charge up to slow 50% after 3.5 seconds. Deals bonus damage when fully charged.",
+    "desc": "Templar Assassin places mystical traps that invisibly monitor enemy movement. When sprung at her command, they deal a small amount of damage and exert a slowing influence of 20% in a 400 radius. Traps charge up to slow 50% after 3.5 seconds. Deals bonus damage when fully charged.",
     "lore": "Calling upon the reach of the Hidden Temple, none escape the eye of the Templar.",
     "mc": "15",
     "cd": [
@@ -6902,6 +6943,7 @@
   },
   "templar_assassin_third_eye": {
     "dname": "Third Eye",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Templar Assassin and her teammates can see Roshan's respawn timer.",
@@ -6909,6 +6951,7 @@
   },
   "templar_assassin_hidden_gates": {
     "dname": "Hidden Gates",
+    "is_innate": true,
     "behavior": [
       "Unit Target",
       "Channeled"
@@ -6939,7 +6982,7 @@
       "Hidden",
       "Channeled"
     ],
-    "desc": "CHANNELED - Allows Templar Assassin to teleport to any Psionic Trap after channeling for 2 seconds, detonating it upon arrival as if it was fully charged and instantly dealing 375 bonus damage. Channeling Psionic Projection does not break Meld.",
+    "desc": "CHANNELED - Allows Templar Assassin to teleport to any Psionic Trap after channeling for 2 seconds, detonating it upon arrival as if it was fully charged and instantly dealing 400 bonus damage. Channeling Psionic Projection does not break Meld.",
     "lore": "In reward for her service, Lanaya has been granted access to secrets that unlock new techniques for her psionic gifts.",
     "mc": "50",
     "cd": "10",
@@ -6975,7 +7018,7 @@
     ],
     "desc": "Intensifies Viper's venom, adding an effect to his normal attack that applies a stacking movement speed slow and magic resistance deduction while dealing damage over time. Stacks up to 6 times.",
     "lore": "The Netherdrake's inborn toxic breath quickly drains the vitality of its afflicted.",
-    "mc": "22",
+    "mc": "20",
     "cd": "0",
     "img": "/apps/dota2/images/dota_react/abilities/viper_poison_attack.png"
   },
@@ -7005,6 +7048,7 @@
   },
   "viper_predator": {
     "dname": "Predator",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Physical",
     "bkbpierce": "No",
@@ -7087,7 +7131,7 @@
     "dmg_type": "Physical",
     "bkbpierce": "Yes",
     "dispellable": "No",
-    "desc": "Creates 4 glaives that rotate 250 radius around Luna. Any enemy unit that collides with a glaive will take a percentage of Luna's Attack Damage.",
+    "desc": "Creates 4 glaives that rotate 225 radius around Luna. Any enemy unit that collides with a glaive will take a percentage of Luna's Attack Damage.",
     "lore": "None may approach Selemene's chosen without favor from the goddess herself.",
     "mc": [
       "65",
@@ -7113,13 +7157,14 @@
   },
   "luna_lunar_blessing": {
     "dname": "Lunar Blessing",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
     ],
     "bkbpierce": "Yes",
     "target_team": "Friendly",
-    "desc": "Grants 1 attack damage per level to Luna and nearby allied heroes, with Luna receiving double the attack damage bonuses. At night, Lunar Blessing is global, and Luna is blessed with 250 bonus night vision + 25 per level.",
+    "desc": "Grants attack damage to Luna and nearby allied heroes, with Luna receiving double the attack damage bonuses. At night, Lunar Blessing is global, and Luna is blessed with additional night vision.",
     "lore": "The Goddess of the Moon smiles upon her kin.",
     "img": "/apps/dota2/images/dota_react/abilities/luna_lunar_blessing.png"
   },
@@ -7155,7 +7200,7 @@
       "200",
       "250"
     ],
-    "cd": "110",
+    "cd": "105",
     "img": "/apps/dota2/images/dota_react/abilities/luna_eclipse.png"
   },
   "dragon_knight_fireball": {
@@ -7233,13 +7278,13 @@
   "dragon_knight_dragon_blood": {
     "dname": "Wyrm's Wrath",
     "behavior": "Passive",
-    "dmg_type": "Magical",
     "desc": "The life blood of the Dragon improves Dragon Knight's attacks. When in Dragon form, these effects are stronger.",
     "lore": "Slyrak's blood still courses through Davion's veins, giving him twice the vitality of an ordinary knight.",
     "img": "/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_blood.png"
   },
   "dragon_knight_inherited_vigor": {
     "dname": "Dragon Blood",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "The life blood of the Dragon improves Dragon Knight's health regeneration and armor. Amount for both values is increased by 0.5 per level and is multiplied when in Dragon Form.",
     "img": "/apps/dota2/images/dota_react/abilities/dragon_knight_inherited_vigor.png"
@@ -7330,7 +7375,7 @@
     ],
     "desc": "Sends out a bolt of power that arcs between allies, healing them while damaging any enemy units standing nearby. Dazzle is always healed by Shadow Wave.",
     "lore": "While it is a simplistic and routine rite among Shadow Priests, the Shadow Wave is also the most critical for success.",
-    "mc": "75",
+    "mc": "90",
     "cd": [
       "10",
       "9",
@@ -7393,6 +7438,7 @@
   },
   "dazzle_innate_weave": {
     "dname": "Weave",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Dazzle's abilities apply Weave to both allies and enemies they affect, increasing allied armor and reducing enemy armor. Multiple instances of this effect stack.",
     "lore": "His ethereal journey into the Nothl realm has allowed Dazzle to mend together the powers of light and dark, creating shifting waves of enchantments.",
@@ -7414,11 +7460,21 @@
       "Hidden"
     ],
     "dispellable": "Yes",
-    "desc": "Clockwerk activates a jetpack, gaining flying movement, flying vision, and bonus movement speed. Clockwerk has a severely-limited turn rate during this time and cannot attack. Jetpack is cancelled upon casting Hookshot.",
+    "desc": "Clockwerk activates a jetpack, gaining flying movement, flying vision, and bonus movement speed. Clockwerk has a severely-limited turn rate during this time and cannot attack. Jetpack can be toggled on and off for the duration of the buff.",
     "lore": "Sure it's blown up over fourteen testing dummies, but at least they all flew!",
     "mc": "75",
     "cd": "16",
     "img": "/apps/dota2/images/dota_react/abilities/rattletrap_jetpack.png"
+  },
+  "rattletrap_jetpack_toggle": {
+    "dname": "Jetpack Toggle",
+    "behavior": [
+      "Hidden",
+      "No Target"
+    ],
+    "desc": "Toggles Jetpack on and off.",
+    "cd": "1",
+    "img": "/apps/dota2/images/dota_react/abilities/rattletrap_jetpack_toggle.png"
   },
   "rattletrap_overclocking": {
     "dname": "Overclocking",
@@ -7517,6 +7573,7 @@
   },
   "rattletrap_armor_power": {
     "dname": "Armor Power",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Clockwerk's outgoing damage increases by 0.25% per point of armor.",
     "img": "/apps/dota2/images/dota_react/abilities/rattletrap_armor_power.png"
@@ -7641,6 +7698,7 @@
   },
   "leshrac_defilement": {
     "dname": "Defilement",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/leshrac_defilement.png"
   },
@@ -7721,7 +7779,7 @@
     ],
     "desc": "Converts an area of trees into Treants under the command of Nature's Prophet.",
     "lore": "Verodicia bestowed the Prophet with the ability to summon the Treant Guard, a mythical sentient army of the wild.",
-    "mc": "120",
+    "mc": "100",
     "cd": [
       "45",
       "40",
@@ -7759,7 +7817,7 @@
     "dispellable": "Yes",
     "target_team": "Enemy",
     "target_type": "Hero",
-    "desc": "Applies a curse on all enemy heroes within 1200 range, displaying them in fog, slowing them, and dealing damage over time based on the number of trees within 250 radius. Treants count as trees for this purpose.",
+    "desc": "Applies a curse on all enemy heroes within 900 range, displaying them in fog, slowing them, and dealing damage over time based on the number of trees within 250 radius. Treants count as trees for this purpose.",
     "lore": "Though powerful, Nature's Prophet's gifts do not include all-sight, and he must rely heavily upon reconnaissance and aid from a long-standing network of stalwart friends.",
     "mc": "80",
     "cd": "18",
@@ -7810,14 +7868,21 @@
   },
   "furion_spirit_of_the_forest": {
     "dname": "Spirit of the Forest",
-    "behavior": "Passive",
+    "is_innate": true,
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
     "dispellable": "No",
-    "desc": "Nature's Prophet gains 3% bonus damage for each tree within 300 and a multiplier of that same bonus for each treant within 1200 distance of him.",
+    "desc": "Nature's Prophet gains 2% bonus damage for each tree within 300 and a multiplier of that same bonus for each treant within 1200 distance of him.",
     "img": "/apps/dota2/images/dota_react/abilities/furion_spirit_of_the_forest.png"
   },
   "furion_natures_profit": {
     "dname": "Nature's Profit",
-    "behavior": "Passive",
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
     "dispellable": "No",
     "img": "/apps/dota2/images/dota_react/abilities/furion_natures_profit.png"
   },
@@ -7873,6 +7938,7 @@
   },
   "life_stealer_feast": {
     "dname": "Feast",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Physical",
     "bkbpierce": "Yes",
@@ -8134,6 +8200,7 @@
   },
   "dark_seer_mental_fortitude": {
     "dname": "Mental Fortitude",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Dark Seer's Intelligence cannot be lower than the average of his Strength and Agility.",
@@ -8141,6 +8208,7 @@
   },
   "dark_seer_aggrandize": {
     "dname": "Aggrandize",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "When Dark Seer levels up, he restores a percentage of his max health and mana. Restore percentage is equal to 10% + 1.5% per hero level.",
@@ -8160,7 +8228,7 @@
       "Basic",
       "Building"
     ],
-    "desc": "Clinkz gains attack speed and has bonus attack range. Any current Skeleton Archers within a 1200 radius of Clinkz also gain bonus attack range and 60% of the attack speed bonus. \n\n Casting Strafe does not break Skeleton Walk invisibility.",
+    "desc": "Clinkz gains attack speed and has bonus attack range. Any current Skeleton Archers within a 1200 radius of Clinkz also gain bonus attack range and 50% of the attack speed bonus. \n\n Casting Strafe does not break Skeleton Walk invisibility.",
     "lore": "The closest Clinkz can come to peace is knowing that this was the last thing Maraxiform ever saw.",
     "mc": [
       "60",
@@ -8189,7 +8257,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "CHANNELED - Clinkz channels and shoots multiple piercing arrows in the target direction that hit all enemy units dealing a percentage of Clinkz' attack damage and applying attack modifiers, and dousing enemies with Tar Bomb slow.",
+    "desc": "CHANNELED - Clinkz channels and shoots multiple piercing arrows in the target direction that hit all enemy units dealing a percentage of Clinkz' attack damage and applying attack modifiers.",
     "lore": "It's hard to say whether the blur around the Bone Fletcher is from his flaming heart or his speed with the quiver.",
     "mc": "40",
     "cd": "17",
@@ -8210,7 +8278,7 @@
       "Basic",
       "Building"
     ],
-    "desc": "Imbues Clinkz's arrows with fire for extra damage.",
+    "desc": "Imbues Clinkz's arrows with fire for extra damage.\n\nSkeleton Archers will fire Searing Arrows at targets Clinkz attacks for 50% damage.",
     "lore": "Clinkz simply lights his arrows from his flaming essence for quite the destructive effect.",
     "mc": "10",
     "cd": "0",
@@ -8223,7 +8291,7 @@
       "Instant Cast"
     ],
     "dispellable": "No",
-    "desc": "Clinkz moves invisibly through units until the moment he attacks or uses items. Leaving Skeleton Walk creates Skeleton Archers.",
+    "desc": "Clinkz moves invisibly through units until the moment he attacks or uses items. Leaving Skeleton Walk creates Skeleton Archers.\n\nSkeleton Archers are immobile and die within multiple attacks from a hero or tower. Skeleton Archers deal a percentage of Clinkz' damage, and deal 25% less damage to buildings. Attack range is equal to Clinkz' attack range.",
     "lore": "With a burst of fire and puff of smoke, the Bone Fletcher was nowhere to be seen.",
     "mc": [
       "80",
@@ -8261,7 +8329,7 @@
     "dname": "Death Pact",
     "behavior": "Unit Target",
     "dispellable": "No",
-    "desc": "Clinkz consumes the target enemy creep or friendly Skeleton Archer and creates a Skeleton Archer in their place, healing and gaining max health. Does not take Clinkz out of Skeleton Walk. \n\nOnly one archer can be summoned from Death Pact at a time.",
+    "desc": "Clinkz consumes the target enemy creep or friendly Skeleton Archer, healing and gaining max health. Does not take Clinkz out of Skeleton Walk.",
     "lore": "Sutherex' bond of life and death has become a part of Clinkz, and his old bones are refreshed with repetition of the pact on lesser beings.",
     "mc": "60",
     "cd": "0",
@@ -8269,9 +8337,10 @@
   },
   "clinkz_bone_and_arrow": {
     "dname": "Bone and Arrow",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
-    "desc": "Clinkz summons a Skeleton Archer when he dies. Skeleton Archers are immobile and die within multiple attacks from a hero. Skeleton Archers deal a percentage of Clinkz' damage, and deal less damage to buildings. Attack range is equal to Clinkz' attack range.\n\nSome of Clinkz' other abilities can also summon Skeleton Archers.",
+    "desc": "Clinkz summons a Skeleton Archer when he dies. ",
     "mc": "0",
     "cd": "0",
     "img": "/apps/dota2/images/dota_react/abilities/clinkz_bone_and_arrow.png"
@@ -8311,6 +8380,14 @@
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/clinkz_empty1.png"
   },
+  "clinkz_infernal_shred": {
+    "dname": "Infernal Shred",
+    "is_innate": true,
+    "behavior": "Passive",
+    "dispellable": "No",
+    "desc": "Clinkz and his skeletons apply a stacking debuff that causes their attacks to pierce up to 20% of the target's total physical armor (does not reduce their armor). Clinkz applies 2% per attack, and skeletons apply 1%. \n\nLasts 5 seconds.",
+    "img": "/apps/dota2/images/dota_react/abilities/clinkz_infernal_shred.png"
+  },
   "omniknight_hammer_of_purity": {
     "dname": "Hammer of Purity",
     "behavior": [
@@ -8330,10 +8407,10 @@
     "lore": "The knight is merely a means to move the hammer.",
     "mc": "0",
     "cd": [
-      "16",
-      "12",
-      "8",
-      "4"
+      "20",
+      "15",
+      "10",
+      "5"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/omniknight_hammer_of_purity.png"
   },
@@ -8413,6 +8490,7 @@
   },
   "omniknight_degen_aura": {
     "dname": "Degen Aura",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "No",
     "target_team": "Enemy",
@@ -8446,10 +8524,10 @@
       "135"
     ],
     "cd": [
-      "55",
       "50",
       "45",
-      "40"
+      "40",
+      "35"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/omniknight_martyr.png"
   },
@@ -8474,9 +8552,9 @@
       "225"
     ],
     "cd": [
-      "110",
       "100",
-      "90"
+      "90",
+      "80"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/omniknight_guardian_angel.png"
   },
@@ -8548,7 +8626,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Enchantress charms an enemy. If the enemy is a hero, they are dispelled and slowed for 3.5s.\n\n If the enemy is a creep, she brings it under her control and receives 35% of their experience bounty. Enchantress can control creeps for up to 30s. \n\nDISPEL TYPE: Basic Dispel",
+    "desc": "Enchantress charms an enemy. If the enemy is a hero, they are dispelled and slowed for 3.5s.\n\n If the enemy is a creep, she brings it under her control and receives 40% of their experience bounty. Enchantress can control creeps for up to 30s. \n\nDISPEL TYPE: Basic Dispel",
     "lore": "A true steward of the forest, Aiushtha befriends all within it - from lowly trolls to powerful centaurs.",
     "mc": "70",
     "cd": [
@@ -8602,13 +8680,14 @@
   },
   "enchantress_rabblerouser": {
     "dname": "Rabble-Rouser",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
     ],
     "bkbpierce": "Yes",
     "target_team": "Enemy",
-    "desc": "All neutral camps deal more damage to enemy heroes. Damage increase is 10% + 4% per Enchantress's hero level.",
+    "desc": "All neutral camps and Creeps under Enchantress' control deal more damage to enemy heroes.",
     "img": "/apps/dota2/images/dota_react/abilities/enchantress_rabblerouser.png"
   },
   "huskar_inner_vitality": {
@@ -8678,9 +8757,10 @@
   },
   "huskar_blood_magic": {
     "dname": "Blood Magic",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
-    "desc": "Huskar does not have mana. Mana costs of items are converted into health costs.",
+    "desc": "Huskar does not have mana. Mana costs of items are converted into health costs.Huskar's Health Costs are Magical Damage and can be reduced by Magic Resist.",
     "img": "/apps/dota2/images/dota_react/abilities/huskar_blood_magic.png"
   },
   "huskar_life_break": {
@@ -8777,8 +8857,9 @@
   },
   "night_stalker_heart_of_darkness": {
     "dname": "Heart of Darkness",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "During the night, Night Stalker's health regeneration is increased by 20%, and during the day it is decreased by 20%.",
+    "desc": "During the night, Night Stalker's health regeneration is increased by 20%.",
     "img": "/apps/dota2/images/dota_react/abilities/night_stalker_heart_of_darkness.png"
   },
   "night_stalker_night_reign": {
@@ -8841,6 +8922,7 @@
   },
   "broodmother_spiders_milk": {
     "dname": "Spider's Milk",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Whenever Broodmother kills a unit, she and all units under her control in a 600 radius receive a buff that heals them for a percentage of the victims health every 0.5 seconds. Healing from creeps is reduced by 40%.",
@@ -9032,6 +9114,7 @@
   },
   "bounty_hunter_cutpurse": {
     "dname": "Cutpurse",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -9042,6 +9125,7 @@
   },
   "bounty_hunter_big_game_hunter": {
     "dname": "Big Game Hunter",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "When getting a kill or assist on an enemy that has a killing streak, Bounty Hunter receives 20% extra gold.",
     "img": "/apps/dota2/images/dota_react/abilities/bounty_hunter_big_game_hunter.png"
@@ -9129,6 +9213,7 @@
   },
   "weaver_rewoven": {
     "dname": "Rewoven",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -9236,7 +9321,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Jakiro chill his enemies with ice added to his attack, slowing movement for 4 seconds and increasing damage taken from Jakiro's attacks and abilities. This effect does not apply to buildings. Shares a cooldown with Liquid Fire.",
+    "desc": "Jakiro chill his enemies with ice added to his attack, slowing movement for 5 seconds and increasing damage taken from Jakiro's attacks and abilities. This effect does not apply to buildings. Shares a cooldown with Liquid Fire.",
     "lore": "The right maw of Jakiro opens, punishing all with bitter frost.",
     "cd": [
       "13",
@@ -9273,6 +9358,7 @@
   },
   "jakiro_double_trouble": {
     "dname": "Double Trouble",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Jakiro's attacks launch an attack from each head, but deal less damage each.",
@@ -9300,6 +9386,7 @@
   },
   "batrider_smoldering_resin": {
     "dname": "Smoldering Resin",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Batrider's attacks apply a debuff that deals 20% of the attack damage every 1s for 2s.",
     "img": "/apps/dota2/images/dota_react/abilities/batrider_smoldering_resin.png"
@@ -9391,6 +9478,7 @@
   "chen_penitence": {
     "dname": "Penitence",
     "behavior": "Unit Target",
+    "dmg_type": "Pure",
     "bkbpierce": "No",
     "dispellable": "Yes",
     "target_team": "Enemy",
@@ -9398,18 +9486,18 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Forces an enemy unit to move slower and for allies to attack it more quickly. Chen can attack the Penitence target with bonus attack range.",
+    "desc": "Damages enemy unit, forces it to move slower and lets allies attack it more quickly.",
     "lore": "Although Chen's brand of animal enthrallment isn't quite strong enough to control the minds of enemy heroes, it still tests their resolve in combat.",
     "mc": [
-      "70",
-      "75",
       "80",
-      "85"
+      "90",
+      "100",
+      "110"
     ],
     "cd": [
+      "20",
+      "17",
       "14",
-      "13",
-      "12",
       "11"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/chen_penitence.png"
@@ -9512,6 +9600,7 @@
   },
   "chen_summon_convert": {
     "dname": "Summon Convert",
+    "is_innate": true,
     "behavior": "No Target",
     "desc": "Chen summons a convert to fight for him. The convert gains bonuses from Holy Persuasion and dies if Chen dies. Its maximum health is set to 220 + 80 per Chen Level.\n\n The spell stays on cooldown while the convert is alive, but refreshes whenever Chen respawns. The Convert counts towards Holy Persuasion max unit count. The Convert's ability level increases with Chen's level of Holy Persuasion.",
     "lore": "Chen's true strength is knowing which forces to call upon in battle.",
@@ -9536,10 +9625,10 @@
     "desc": "Spectre flings a dagger to draw a Shadow Path, dealing damage and slowing the movement speed of any enemies along the trail. Units hit by the dagger also trail a Shadow Path. While treading the path, Spectre moves faster and phases through otherwise impassable terrain.",
     "lore": "Mercurial's dagger eclipses the physical plane in shadow, a state in which mortals cower, but spectres thrive.",
     "mc": [
+      "100",
       "110",
       "120",
-      "130",
-      "140"
+      "130"
     ],
     "cd": [
       "22",
@@ -9551,10 +9640,14 @@
   },
   "spectre_desolate": {
     "dname": "Desolate",
-    "behavior": "Passive",
+    "is_innate": true,
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
     "dmg_type": "Pure",
     "bkbpierce": "Yes",
-    "desc": "Deals bonus damage whenever Spectre attacks an enemy that does not have any allied units within a 350 radius around them.",
+    "desc": "Spectre and her illusions deal bonus Pure damage if attacking an enemy that does not have any allied units within a 350 radius around them.",
     "lore": "Often times, warriors find themselves alone with a vision of Mercurial - the fated question is if it is the true Spectre.",
     "img": "/apps/dota2/images/dota_react/abilities/spectre_desolate.png"
   },
@@ -9570,40 +9663,59 @@
     "dname": "Haunt",
     "behavior": "No Target",
     "bkbpierce": "Yes",
-    "desc": "Creates a spectral nemesis to attack each enemy hero. Illusions spawned from this ability follow the same rules as Shadow Step illusions and can also be swapped to by using Reality.",
+    "desc": "Creates a spectral nemesis to haunt all enemy Heroes.\n\nHaunt illusions are uncontrollable, take extra damage, and deal less damage than Spectre herself. They ignore terrain.\n\nThe Reality sub-ability may be used to teleport to the illusion, destroying it.",
     "lore": "At the height of combat, Mercurial's physical manifestation shatters, and the shadowy pieces haunt those who still cling to life.",
-    "mc": "150",
-    "cd": "160",
+    "mc": [
+      "125",
+      "150",
+      "175"
+    ],
+    "cd": [
+      "180",
+      "160",
+      "140"
+    ],
     "img": "/apps/dota2/images/dota_react/abilities/spectre_haunt.png"
   },
-  "spectre_haunt_single": {
+  "spectre_shadow_step": {
     "dname": "Shadow Step",
-    "behavior": "Unit Target",
+    "behavior": [
+      "Unit Target",
+      "AOE"
+    ],
     "bkbpierce": "Yes",
     "target_team": "Enemy",
     "target_type": "Hero",
-    "desc": "Creates a spectral nemesis to haunt a single visible enemy hero. At any moment during the duration, Spectre can use Reality to exchange places with any haunting illusion.\n\nHaunt illusions are uncontrollable, take extra damage, and deal less damage than Spectre herself. They ignore terrain.",
+    "desc": "Thrusts an uncontrollable illusion at the target. The illusion receives 200% damage.\n\nThe Reality sub-ability may be used to teleport to the illusion, destroying it.",
     "lore": "With great focus of will, Mercurial can sometimes limit the extent of her division.",
-    "mc": "150",
-    "cd": [
+    "mc": [
       "60",
-      "55",
-      "50"
+      "65",
+      "70",
+      "75"
     ],
-    "img": "/apps/dota2/images/dota_react/abilities/spectre_haunt_single.png"
+    "cd": [
+      "32",
+      "28",
+      "24",
+      "20"
+    ],
+    "img": "/apps/dota2/images/dota_react/abilities/spectre_shadow_step.png"
   },
   "spectre_reality": {
     "dname": "Reality",
     "behavior": "Point Target",
-    "desc": "Spectre exchanges places with a chosen Haunt.",
+    "desc": "Spectre assumes the target Shadow Step or Haunt illusion, destroying it.",
     "lore": "The scattered shadows unite into the one true Spectre.",
+    "mc": "25",
     "cd": "1.5",
     "img": "/apps/dota2/images/dota_react/abilities/spectre_reality.png"
   },
   "spectre_spectral": {
     "dname": "Spectral",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Spectre and her illusions are permanently phased.",
+    "desc": "When targeting a unit for attack, Spectre gains phased collision. If she moves through a unit, she gains 50 movement speed. This effect lingers for 0.3s.\n\nSpectre's illusions always have phased collision, and cannot gain the speed bonus.",
     "img": "/apps/dota2/images/dota_react/abilities/spectre_spectral.png"
   },
   "doom_bringer_devour": {
@@ -9625,6 +9737,7 @@
   },
   "doom_bringer_lvl_pain": {
     "dname": "Lvl ? Pain",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Doom's attacks deal 25% bonus damage to heroes whose level is lower than Doom's level.",
@@ -9827,6 +9940,7 @@
   },
   "ancient_apparition_death_rime": {
     "dname": "Death Rime",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -9917,14 +10031,15 @@
     "lore": "Ulfsaar succumbs to his ancient spirit, becoming the most ferocious creature on the battlefield.",
     "mc": "0",
     "cd": [
-      "70",
-      "50",
+      "60",
+      "45",
       "30"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/ursa_enrage.png"
   },
   "ursa_maul": {
     "dname": "Maul",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Ursa gains bonus damage equal to a percentage of his Current HP.",
     "img": "/apps/dota2/images/dota_react/abilities/ursa_maul.png"
@@ -10056,6 +10171,7 @@
   },
   "spirit_breaker_herd_mentality": {
     "dname": "Herd Mentality",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "The hero on your team whose level is lower than anybody else's on your team gains 50% more experience.",
@@ -10173,6 +10289,7 @@
   },
   "gyrocopter_chop_shop": {
     "dname": "Chop Shop",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Gyrocopter can disassemble most items.",
     "img": "/apps/dota2/images/dota_react/abilities/gyrocopter_chop_shop.png"
@@ -10206,12 +10323,7 @@
     "bkbpierce": "No",
     "desc": "Sprays high-pressure acid across a target area. Enemy units who step across the contaminated terrain take damage per second and have their armor reduced.",
     "lore": "Using traditional Alchemy from the Darkbrew family, Razzil concocts an acid that dissolves even the toughest metals.",
-    "mc": [
-      "105",
-      "110",
-      "115",
-      "120"
-    ],
+    "mc": "120",
     "cd": [
       "22",
       "21",
@@ -10250,6 +10362,7 @@
   },
   "alchemist_goblins_greed": {
     "dname": "Greevil's Greed",
+    "is_innate": true,
     "behavior": "Passive",
     "target_team": "Friendly",
     "target_type": "Hero",
@@ -10332,6 +10445,7 @@
   },
   "invoker_invoke": {
     "dname": "Invoke",
+    "is_innate": true,
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -10426,7 +10540,7 @@
     "target_type": "Hero",
     "desc": "Invoker infuses an ally with an immense surge of energy, increasing their attack speed based on the level of Wex and their damage based on the level of Exort.",
     "lore": "Gaster's Mandate of Impetuous Strife.",
-    "mc": "90",
+    "mc": "75",
     "cd": "15",
     "img": "/apps/dota2/images/dota_react/abilities/invoker_alacrity.png"
   },
@@ -10513,6 +10627,7 @@
   },
   "invoker_mastermind": {
     "dname": "Mastermind",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "When Invoker denies a lane creep, he gets 25% of the XP.",
     "img": "/apps/dota2/images/dota_react/abilities/invoker_mastermind.png"
@@ -10656,7 +10771,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Curses the target area, dealing damage and causing enemy heroes to take damage over time and slowing their movement speed. Silenced enemies take 1.5x slow and damage. Anytime affected enemies cast a spell, the duration is increased. The duration is paused as long as the target is silenced.",
+    "desc": "Curses the target area, dealing damage and causing enemy heroes to take damage over time and slowing their movement speed. Silenced enemies take 1.25x slow and damage. Anytime affected enemies cast a spell, the duration is increased. The duration is paused as long as the target is silenced.",
     "lore": "Nortrom's lack of incantations is less of a problem for him than it is for his adversaries.",
     "mc": [
       "120",
@@ -10743,6 +10858,7 @@
   },
   "silencer_brain_drain": {
     "dname": "Brain Drain",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "If Silencer kills an enemy hero, he permanently steals Intelligence.",
     "img": "/apps/dota2/images/dota_react/abilities/silencer_brain_drain.png"
@@ -10781,15 +10897,16 @@
     "lore": "Harbinger's outworldly knowledge allows it to tap into the ebb and flow of all spiritual energy, infusing it into his being.",
     "mc": "0",
     "cd": [
-      "6",
-      "4",
-      "2",
+      "4.5",
+      "3",
+      "1.5",
       "0"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/obsidian_destroyer_arcane_orb.png"
   },
   "obsidian_destroyer_ominous_discernment": {
     "dname": "Ominous Discernment",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Outworld Destroyer gains an additional 2.5 mana per point of Intelligence.",
     "img": "/apps/dota2/images/dota_react/abilities/obsidian_destroyer_ominous_discernment.png"
@@ -10979,6 +11096,7 @@
   },
   "lycan_apex_predator": {
     "dname": "Apex Predator",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Lycan and units he controls deal 2% extra damage to neutral creeps per hero level.",
     "img": "/apps/dota2/images/dota_react/abilities/lycan_apex_predator.png"
@@ -10991,12 +11109,7 @@
     "dispellable": "Yes",
     "desc": "Slams the ground, dealing damage and slowing the movement speed and attack rate of nearby enemy units.",
     "lore": "A slam of Mangix' mighty keg starts the festivities.",
-    "mc": [
-      "90",
-      "100",
-      "110",
-      "120"
-    ],
+    "mc": "100",
     "cd": [
       "18",
       "16",
@@ -11029,7 +11142,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Drenches himself and an area in alcohol, causing enemy units to move slower and ignite once they take any Magic or Pure damage. Duration is increased by 3 seconds when enemies are ignited. While Brewmaster is Brewed Up, His Drunken Brawler Stances are stronger. Dealing or receiving magic damage extends Brewmaster's Brewed Up duration.",
+    "desc": "Rolls a barrel of ale at enemies that damages enemies along its path and spills out at the target location.\n\nAny enemy in the path or the spill area is drenched in cinder brew, becoming slowed. If the enemy receives Magic or Pure damage, they will be ignited, extending the duration by 3s and causing them to take damage over time.",
     "lore": "The Order of the Oyo's solution to all problems - another round!",
     "mc": [
       "50",
@@ -11052,28 +11165,39 @@
       "Instant Cast"
     ],
     "dispellable": "No",
-    "desc": "Brewmaster can switch stances based on the elements he controls, gaining passive bonuses that improve against enemies when Brewed Up.\nEarth Brawler - Grants 2 armor and 5% Magic Resistance. Bonuses are 2.5x when Brewed Up.\nStorm Brawler - Grants 15% evasion and 4% Bonus Move Speed. Bonuses are 2.5x when Brewed Up.\nFire Brawler - Grants 20% chance to critical strike for 120% of your attack damage and 10 Attack Speed. Crit Chance and Attack Speed is 2.5x when Brewed Up.\n Void Brawler - Grants 5% bonus Status Resistance to Brewmaster and applies a 10% Slow for 2s on attack. Slow and Status Resistance are 2.5x when affected by Cinder Brew.",
+    "desc": "Brewmaster can switch stances based on the elements he controls.\n\nWhenever Brewmaster casts an ability, he becomes Brewed Up, increasing his stance power by 150% for 5s. If he casts another ability while Brewed Up, the duration is extended by 1s. After Brewed Up expires, he is hungover and cannot Brew Up again for 9s.\n\nEarth Brawler gains bonus Magic Resistance and Armor.\n\nStorm Brawler gains bonus Evasion and Movement Speed.\n\nFire Brawler gains bonus Attack Speed and chance to critical strike.",
     "lore": "When Mangix won his title as the Brewmaster of the Order of Oyo, he also claimed his place in the mastery of inebriation.",
     "mc": "0",
     "cd": "0",
     "img": "/apps/dota2/images/dota_react/abilities/brewmaster_drunken_brawler.png"
   },
-  "brewmaster_belligerent": {
-    "dname": "Belligerent",
+  "brewmaster_drunken_brawler_brew_up": {
+    "dname": "Drunken Brawler - Brew Up",
+    "behavior": "Passive",
+    "desc": "Whenever Brewmaster casts an ability, he becomes Brewed Up and his stance becomes empowered. If he casts another ability while Brewed Up, the duration is extended. The cooldown starts when the effect ends.",
+    "cd": "9",
+    "img": "/apps/dota2/images/dota_react/abilities/brewmaster_drunken_brawler_brew_up.png"
+  },
+  "brewmaster_liquid_courage": {
+    "dname": "Liquid Courage",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
-    "desc": "Brewmaster gains 25% bonus attack damage for 15s when he comes out of Primal Split and for 45s when he respawns.",
-    "img": "/apps/dota2/images/dota_react/abilities/brewmaster_belligerent.png"
+    "desc": "When Brewmaster drops below 50% Health he gains a Status Resistance buff and his movement speed alternates every 1s between being faster and being slower. The effect becomes stronger at lower health, scaling from 0 up to max values at 20% Health.",
+    "mc": "0",
+    "cd": "0",
+    "img": "/apps/dota2/images/dota_react/abilities/brewmaster_liquid_courage.png"
   },
   "brewmaster_primal_split": {
     "dname": "Primal Split",
     "behavior": "No Target",
     "dispellable": "No",
-    "desc": "Splits Brewmaster into elements, forming 4 specialized warriors, adept at survival, each with their own abilities. If any of them survive until the end of their summoned timer, the Brewmaster is reborn.",
+    "desc": "Splits Brewmaster into elements, forming 3 specialized warriors, adept at survival, each with their own abilities. If any of them survive until the end of their summoned timer, the Brewmaster is reborn. Each Warrior gains its respective Drunken Brawler stance.",
     "lore": "It isn't clear whether Mangix is consciously aware of his potent bond with nature, as it often occurs in the midst of a drunken stupor.",
     "mc": [
       "150",
       "200",
+      "250",
       "250"
     ],
     "cd": [
@@ -11128,9 +11252,9 @@
     "img": "/apps/dota2/images/dota_react/abilities/brewmaster_void_astral_pulse.png"
   },
   "brewmaster_earth_spell_immunity": {
-    "dname": "Debuff Immunity",
+    "dname": "Earth Element",
     "behavior": "Passive",
-    "desc": "Immune to debuffs. Magic resistance increased by 80%.",
+    "desc": "Magic and status resistance increased.",
     "img": "/apps/dota2/images/dota_react/abilities/brewmaster_earth_spell_immunity.png"
   },
   "brewmaster_earth_pulverize": {
@@ -11176,7 +11300,8 @@
     "cd": [
       "20",
       "14",
-      "8"
+      "8",
+      "6"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/brewmaster_storm_wind_walk.png"
   },
@@ -11197,8 +11322,7 @@
     "desc": "Provides the Brewling with phased movement and bonus Status Resistance.",
     "img": "/apps/dota2/images/dota_react/abilities/brewmaster_fire_phase.png"
   },
-  "brewmaster_void_astral_pull": {
-    "dname": "Astral Pull",
+  "brewmaster_fire_pull": {
     "behavior": "Unit Target",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -11208,10 +11332,9 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Pulls the target and the Void Brewling in the target direction. Enemies are damaged upon arrival.",
     "mc": "50",
     "cd": "8",
-    "img": "/apps/dota2/images/dota_react/abilities/brewmaster_void_astral_pull.png"
+    "img": "/apps/dota2/images/dota_react/abilities/brewmaster_fire_pull.png"
   },
   "shadow_demon_disruption": {
     "dname": "Disruption",
@@ -11353,6 +11476,7 @@
   },
   "shadow_demon_menace": {
     "dname": "Menace",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Shadow Demon's Attacks apply a stacking 2.5% Amplify Damage debuff to the enemy for 8 seconds.",
@@ -11360,6 +11484,7 @@
   },
   "lone_druid_gift_bearer": {
     "dname": "Gift Bearer",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Lone Druid's Spirit Bear receives a copy of his Neutral Item that has an independent cooldown.",
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_gift_bearer.png"
@@ -11375,16 +11500,12 @@
   },
   "lone_druid_spirit_bear": {
     "dname": "Summon Spirit Bear",
+    "is_innate": true,
     "behavior": "No Target",
-    "desc": "Summons a powerful Spirit Bear companion that can equip items.\n\nIf the bear moves 500 distance away from the Lone Druid, it cannot attack. Lone Druid suffers 20% of his max health as backlash damage if the Spirit Bear dies.\nSpirit Bear has the Return, Demolish and Entangling Claws abilities.",
+    "desc": "Summons a powerful Spirit Bear companion that can equip items.\n\nIf the bear moves 1100 distance away from the Lone Druid, it cannot attack. Lone Druid suffers 20% of his max health as backlash damage if the Spirit Bear dies.\nSpirit Bear has Demolish, Return, Entangling Claws, Savage Roar, and Spirit Link abilities.",
     "lore": "Sylla's lifelong companion is symbiotic with his spirit and heart, coming to aid him in any time of need.",
     "mc": "75",
-    "cd": [
-      "150",
-      "140",
-      "130",
-      "120"
-    ],
+    "cd": "120",
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_spirit_bear.png"
   },
   "lone_druid_rabid": {
@@ -11400,14 +11521,20 @@
   "lone_druid_spirit_link": {
     "dname": "Spirit Link",
     "behavior": "Passive",
-    "dispellable": "Yes",
-    "target_team": "Friendly",
-    "target_type": "Hero",
-    "desc": "Links Lone Druid and the Spirit Bear, increasing their attack speed as well as sharing a percentage of their armor and lifesteal with each other.",
+    "desc": "Links Lone Druid and the Spirit Bear, increasing their movement speed as well as sharing a percentage of their lifesteal with each other.",
     "lore": "Sylla is emboldened by the presence of his companion, his vitality replenished with each swipe of the Spirit Bear's claws.",
     "mc": "0",
     "cd": "0",
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_spirit_link.png"
+  },
+  "lone_druid_spirit_bear_spirit_link": {
+    "dname": "Spirit Link",
+    "behavior": "Passive",
+    "desc": "Links Lone Druid and the Spirit Bear, increasing their movement speed as well as sharing a percentage of their lifesteal with each other.",
+    "lore": "Sylla is emboldened by the presence of his companion, his vitality replenished with each swipe of the Spirit Bear's claws.",
+    "mc": "0",
+    "cd": "0",
+    "img": "/apps/dota2/images/dota_react/abilities/lone_druid_spirit_bear_spirit_link.png"
   },
   "lone_druid_savage_roar": {
     "dname": "Savage Roar",
@@ -11427,10 +11554,7 @@
   },
   "lone_druid_savage_roar_bear": {
     "dname": "Savage Roar",
-    "behavior": [
-      "No Target",
-      "Hidden"
-    ],
+    "behavior": "No Target",
     "bkbpierce": "No",
     "dispellable": "Yes",
     "desc": "Lone Druid and the Spirit Bear roar fiercely causing nearby enemies to flee towards their base in terror. Their movement speed is increased by 20%.",
@@ -11447,10 +11571,14 @@
     "dname": "True Form",
     "behavior": "No Target",
     "dispellable": "No",
-    "desc": "Lone Druid starts a transformation into a raging bear that has enhanced attack and defensive capabilities.",
+    "desc": "Lone Druid morphs himself into a raging bear, losing his ranged advantage, but gaining bonus armor, bonus health, and bonus attack damage.",
     "lore": "The mighty bear is the king of the forest, possessing the throne through raw power.",
-    "mc": "200",
-    "cd": "100",
+    "mc": "80",
+    "cd": [
+      "60",
+      "55",
+      "50"
+    ],
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_true_form.png"
   },
   "lone_druid_true_form_druid": {
@@ -11489,34 +11617,34 @@
     "dname": "Entangling Claws",
     "behavior": "Passive",
     "dmg_type": "Magical",
-    "bkbpierce": "No",
+    "bkbpierce": "Yes",
     "dispellable": "Yes",
-    "desc": "Attacks have a chance to cause roots to burst from the ground, immobilizing the attacked enemy unit, and dealing damage per second.",
-    "cd": "5",
+    "desc": "Allows Spirit Bear to Entangle enemy heroes once they gain 5 stacks. Entangled enemies are rooted and take damage over time.\n\nSpirit Bear's attacks are permanently empowered, making them apply 1 stack with each attack on enemy heroes. Enemies cannot gain stacks while Entangled.",
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_spirit_bear_entangle.png"
   },
-  "lone_druid_entangling_claws": {
-    "behavior": "Unit Target",
-    "bkbpierce": "No",
-    "dispellable": "Yes",
+  "lone_druid_entangle": {
+    "dname": "Entangle",
+    "behavior": [
+      "Point Target",
+      "AOE"
+    ],
+    "dmg_type": "Magical",
+    "bkbpierce": "Yes",
+    "dispellable": "No",
     "target_team": "Enemy",
     "target_type": [
       "Hero",
       "Basic"
     ],
-    "mc": [
-      "75",
-      "90",
-      "105",
-      "120"
-    ],
+    "desc": "Allows Lone Druid to Entangle enemies once they gain 5 stacks. Entangled enemies are rooted and take damage over time.\n\nWhen cast, applies 2 stacks to each enemy hero in the area and 5 stacks to enemy creeps. Also empowers Lone Druid for 10s, making him apply 1 stack with each attack on enemy heroes. Enemies cannot gain stacks while Entangled.\n\nLeveling this ability also levels Spirit Bear's Entangling Claws ability.",
+    "mc": "60",
     "cd": [
-      "16",
-      "14",
-      "12",
-      "10"
+      "24",
+      "22",
+      "20",
+      "18"
     ],
-    "img": "/apps/dota2/images/dota_react/abilities/lone_druid_entangling_claws.png"
+    "img": "/apps/dota2/images/dota_react/abilities/lone_druid_entangle.png"
   },
   "lone_druid_spirit_bear_defender": {
     "behavior": "Passive",
@@ -11543,8 +11671,9 @@
   },
   "lone_druid_spirit_bear_demolish": {
     "dname": "Demolish",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Increases the power of the Spirit Bear, causing it to deal more damage to buildings and have additional magic resistance.",
+    "desc": "Spirit Bear deals more damage to buildings.",
     "img": "/apps/dota2/images/dota_react/abilities/lone_druid_spirit_bear_demolish.png"
   },
   "chaos_knight_chaos_bolt": {
@@ -11624,6 +11753,7 @@
   },
   "chaos_knight_reins_of_chaos": {
     "dname": "Reins of Chaos",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Whenever illusions of Chaos Knight are created, there is a 50% chance that an additional 1 extra illusion will spawn.",
     "img": "/apps/dota2/images/dota_react/abilities/chaos_knight_reins_of_chaos.png"
@@ -11758,6 +11888,7 @@
   },
   "meepo_sticky_fingers": {
     "dname": "Sticky Fingers",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Has an extra choice of neutral item to select from.",
@@ -11765,9 +11896,11 @@
   },
   "treant_natures_guise": {
     "dname": "Nature's Guise",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Provides Treant with Tree Walking whenever he hasn't taken damage for 2.75 seconds. While nearby trees or affected by Nature's Grasp, Treant gains bonus movement speed.",
+    "desc": "Grants bonus movement speed when near trees. Treant Protector additionally has Tree Walking if he has not taken damage for 2.75 seconds. While Tree Walking, Nature's Guise can be activated to grant Treant invisibility until he attacks or is no longer near a tree.",
     "lore": "The Protectors don't often come into vision; their natural state being nestled within their leafy brethren.",
+    "cd": "50",
     "img": "/apps/dota2/images/dota_react/abilities/treant_natures_guise.png"
   },
   "treant_innate_attack_damage": {
@@ -11783,7 +11916,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "target_type": "Tree",
-    "desc": "Creates vines towards the target location. Vines slow down and deal damage to enemies that walk through. Vines deal 50% more damage if they touch a tree. Does half damage to creeps.",
+    "desc": "Creates vines towards the target location. Vines slow down and deal damage to enemies that walk through. Does 35% less damage to creeps.",
     "lore": "The tendrils of Rooftrellen's influence stretch to all corners of the forest.",
     "mc": "90",
     "cd": [
@@ -11798,7 +11931,8 @@
     "dname": "Leech Seed",
     "behavior": [
       "Unit Target",
-      "AOE"
+      "Autocast",
+      "Attack Modifier"
     ],
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -11808,19 +11942,13 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Treant plants a life-sapping seed in an enemy unit, draining its health, while simultaneously slowing it. The seed heals friendly units around it. Healing to creeps is reduced by 50%.",
+    "desc": "Treant's attack plants a life-sapping seed in an enemy unit, dealing additional magic damage. The unit is then bound for a short duration and emits 2 healing pulses to up to 5 nearby allies of Treant Protector based on a flat amount and the damage dealt by the attack.",
     "lore": "Rooftrellen nurtures the beings under his stewardship, sustained by the lifeforce of trespassers into his sacred ground.",
-    "mc": [
-      "80",
-      "90",
-      "100",
-      "110"
-    ],
     "cd": [
-      "24",
-      "20",
-      "16",
-      "12"
+      "15",
+      "12",
+      "9",
+      "6"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/treant_leech_seed.png"
   },
@@ -11838,7 +11966,7 @@
       "Basic",
       "Building"
     ],
-    "desc": "Infuses the target hero or structure with a protective coating which heals the target and provides bonus armor.",
+    "desc": "Infuses the target hero or structure with a protective coating which heals the target and blocks damage from player-controlled sources. Each time this spell blocks damage, the block amount is decreased. If the damage block is decreased to 0, the buff is removed early.",
     "lore": "The roots and tendrils of the Treant Protectors are far-reaching, stimulating the growth and rejuvenation of all of nature.",
     "mc": [
       "40",
@@ -11881,10 +12009,22 @@
       "Hidden"
     ],
     "target_type": "Tree",
-    "desc": "Treant Protector enchants a tree, which grants him unobstructed vision in that location. If Overgrowth is cast, units within a radius of an enchanted tree will be entangled and damaged. Passively causes all trees to respawn much faster.",
+    "desc": "Treant Protector enchants a tree, which grants him unobstructed vision in that location. The eyes last for 300 seconds and are invisible, but are destroyed if their host tree is destroyed or if they are attacked directly.",
     "lore": "One can never be too certain who, or what, might need protecting.",
-    "mc": "100",
+    "mc": "30",
     "img": "/apps/dota2/images/dota_react/abilities/treant_eyes_in_the_forest.png"
+  },
+  "treant_super_bloom": {
+    "dname": "Super Bloom",
+    "behavior": [
+      "Hidden",
+      "No Target",
+      "Instant Cast"
+    ],
+    "desc": "Treant grows massive in size for 15 seconds. While enlarged, he gains phased movement with a fixed speed of 310, 120% bonus Strength, and a splashing attack that deals 60% of his attack damage in a 300 unit radius.",
+    "mc": "150",
+    "cd": "60",
+    "img": "/apps/dota2/images/dota_react/abilities/treant_super_bloom.png"
   },
   "treant_lifebomb_explode": {
     "behavior": "Passive",
@@ -11892,6 +12032,7 @@
   },
   "ogre_magi_dumb_luck": {
     "dname": "Dumb Luck",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "img": "/apps/dota2/images/dota_react/abilities/ogre_magi_dumb_luck.png"
@@ -12077,9 +12218,9 @@
       "110"
     ],
     "cd": [
-      "18",
-      "14",
-      "10",
+      "15",
+      "12",
+      "9",
       "6"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/undying_soul_rip.png"
@@ -12158,30 +12299,9 @@
     "cd": "10",
     "img": "/apps/dota2/images/dota_react/abilities/undying_tombstone_unit_grab.png"
   },
-  "undying_zombie_master": {
-    "behavior": [
-      "Unit Target",
-      "Autocast",
-      "Attack Modifier"
-    ],
-    "dmg_type": "Physical",
-    "bkbpierce": "Yes",
-    "target_team": "Enemy",
-    "target_type": [
-      "Hero",
-      "Basic",
-      "Building"
-    ],
-    "cd": [
-      "3",
-      "2",
-      "1",
-      "0"
-    ],
-    "img": "/apps/dota2/images/dota_react/abilities/undying_zombie_master.png"
-  },
   "undying_ceaseless_dirge": {
     "dname": "Ceaseless Dirge",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "lore": "Only when the Dirge of the Dead God ceases will this soldier's march finally end.",
@@ -12214,6 +12334,7 @@
     "behavior": [
       "Point Target",
       "Hidden",
+      "Instant Cast",
       "AOE"
     ],
     "desc": "Chooses the location the target will land when Telekinesis finishes.",
@@ -12274,6 +12395,7 @@
   },
   "rubick_might_and_magus": {
     "dname": "Might and Magus",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Each 1% Spell Amplification also increases Rubick's attack damage by 0.75% and Magic Resistance by 0.75%.",
     "img": "/apps/dota2/images/dota_react/abilities/rubick_might_and_magus.png"
@@ -12334,7 +12456,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Repeatedly strikes the targeted unit with lightning. Each strike damages nearby enemy units in a small radius and slows enemy movement and attack speed by 100% for x2 seconds. Provides vision of its target.",
+    "desc": "Repeatedly strikes the targeted unit with lightning. Each strike damages nearby enemy units in a small radius and slows enemy movement and attack speed by 100% for x1.75 seconds. Provides vision of its target.",
     "lore": "Disruptor's charged coils occasionally overload, and a singed armor plate or tuft of fur is the enemy's result.",
     "mc": [
       "125",
@@ -12419,20 +12541,21 @@
       "225"
     ],
     "cd": [
-      "90",
-      "80",
+      "100",
+      "85",
       "70"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png"
   },
   "disruptor_electromagnetic_repulsion": {
     "dname": "Electromagnetic Repulsion",
-    "behavior": "Passive",
+    "is_innate": true,
+    "behavior": [],
     "dispellable": "No",
     "desc": "Whenever Disruptor takes more than 250 damage from any source within 400 radius, all nearby enemies within are pushed back up to a 400 unit distance.",
     "lore": "Safe harbor found inside the storm.",
     "mc": "undefined",
-    "cd": "4",
+    "cd": "5",
     "img": "/apps/dota2/images/dota_react/abilities/disruptor_electromagnetic_repulsion.png"
   },
   "disruptor_innate_kinetic_circle": {
@@ -12527,7 +12650,6 @@
   },
   "nyx_assassin_spiked_carapace": {
     "dname": "Spiked Carapace",
-    "dmg_type": "Physical",
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -12593,6 +12715,7 @@
   },
   "nyx_assassin_nyxth_sense": {
     "dname": "Nyxth Sense",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Nyx Assassin can detect heroes within 400 units of himself.",
@@ -12635,7 +12758,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Interrupts the target and traps them in place, preventing movement or blinking. Can target invulnerable and sleeping units.",
+    "desc": "Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the Siren.",
     "lore": "The only way to escape the onslaught of a Slithereen is to never oppose one in the first place.",
     "mc": [
       "70",
@@ -12674,15 +12797,16 @@
     "lore": "There's no use trying to run through deep water.",
     "mc": "80",
     "cd": [
-      "10",
+      "13",
+      "11",
       "9",
-      "8",
       "7"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/naga_siren_deluge.png"
   },
   "naga_siren_eelskin": {
     "dname": "Eelskin",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Naga Siren gets 8% evasion per other Naga Siren within 900 radius.",
@@ -12740,6 +12864,15 @@
     "mc": "0",
     "cd": "8",
     "img": "/apps/dota2/images/dota_react/abilities/naga_siren_reel_in.png"
+  },
+  "naga_siren_reel_in_ad": {
+    "behavior": [
+      "No Target",
+      "Channeled",
+      "Hidden",
+      "Autocast"
+    ],
+    "img": "/apps/dota2/images/dota_react/abilities/naga_siren_reel_in_ad.png"
   },
   "keeper_of_the_light_illuminate": {
     "dname": "Illuminate",
@@ -12920,11 +13053,13 @@
     "img": "/apps/dota2/images/dota_react/abilities/keeper_of_the_light_illuminate_end.png"
   },
   "keeper_of_the_light_mana_magnifier": {
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/keeper_of_the_light_mana_magnifier.png"
   },
   "keeper_of_the_light_special_reserve": {
     "dname": "Special Reserve",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Keeper of the Light cannot go below 75 mana.",
     "img": "/apps/dota2/images/dota_react/abilities/keeper_of_the_light_special_reserve.png"
@@ -12954,17 +13089,12 @@
     "desc": "Summon five particle spirits that dance in a circle around Io. If a particle collides with an enemy hero, it explodes, damaging all enemy units in an area around it. Creeps take minor damage from touching a particle spirit, but do not cause them to explode. When its duration ends, any remaining Spirits explode.",
     "lore": "Io twists the particles of the universe with its unimaginable capabilities.",
     "mc": [
+      "90",
       "100",
       "110",
-      "120",
-      "130"
+      "120"
     ],
-    "cd": [
-      "26",
-      "24",
-      "22",
-      "20"
-    ],
+    "cd": "15",
     "img": "/apps/dota2/images/dota_react/abilities/wisp_spirits.png"
   },
   "wisp_overcharge": {
@@ -13035,6 +13165,7 @@
   },
   "wisp_sight_seer": {
     "dname": "Sight Seer",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
     "desc": "Io's Team takes 1s less to take watchers, and their watchers have 300 bonus vision.",
@@ -13042,9 +13173,10 @@
   },
   "wisp_essence_conduction": {
     "dname": "Wellspring",
+    "is_innate": true,
     "behavior": "Passive",
     "dispellable": "No",
-    "desc": "Io regenerates from consumables 2x faster.",
+    "desc": "Io regenerates from consumables and certain items 2x faster.",
     "img": "/apps/dota2/images/dota_react/abilities/wisp_essence_conduction.png"
   },
   "visage_grave_chill": {
@@ -13062,7 +13194,7 @@
     ],
     "desc": "Visage drains the movement and attack speed of the targeted unit, gaining it for itself and nearby familiars.",
     "lore": "The warmth of the sun is never felt in the dark cold of the Narrow Maze.",
-    "mc": "90",
+    "mc": "75",
     "cd": [
       "17",
       "15",
@@ -13155,9 +13287,23 @@
   },
   "visage_lurker": {
     "dname": "Lurker",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Visage's ability cooldown durations are accelerated as long as he's not taking damage.\n\nGrants a stack every 2s that Visage does not take damage. Each stack grants 2% cooldown acceleration with a max of 8 stacks. Stacks fade after 2s upon taking any damage.",
     "img": "/apps/dota2/images/dota_react/abilities/visage_lurker.png"
+  },
+  "visage_summon_familiars_recall": {
+    "dname": "Recall Familiar",
+    "behavior": [
+      "No Target",
+      "Instant Cast"
+    ],
+    "dmg_type": "Magical",
+    "bkbpierce": "No",
+    "dispellable": "Strong Dispels Only",
+    "desc": "Recall this familiar to Visage after 4s, during which it cannot attack or act.",
+    "cd": "10",
+    "img": "/apps/dota2/images/dota_react/abilities/visage_summon_familiars_recall.png"
   },
   "slark_fish_bait": {
     "behavior": [
@@ -13227,18 +13373,16 @@
   },
   "slark_essence_shift": {
     "dname": "Essence Shift",
-    "behavior": "Passive",
+    "is_innate": true,
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
     "bkbpierce": "Yes",
     "dispellable": "No",
-    "desc": "Slark steals the life essence of enemy heroes with his attacks, draining each of their attributes and converting them to bonus Agility. If Slark kills an affected enemy hero, he permanently steals 1 Agility.",
+    "desc": "Slark steals the life essence of enemy heroes with his attacks, draining 1 of each of their attributes and converting them to bonus 3 Agility. If Slark kills an affected enemy hero, he permanently steals 1 Agility.",
     "lore": "With each strike at his adversaries, Slark's knowledge of their weaknesses improves.",
     "img": "/apps/dota2/images/dota_react/abilities/slark_essence_shift.png"
-  },
-  "slark_barracuda": {
-    "dname": "Barracuda",
-    "behavior": "Passive",
-    "desc": "When not visible to the enemy team, Slark gains bonus movement speed and health regeneration.",
-    "img": "/apps/dota2/images/dota_react/abilities/slark_barracuda.png"
   },
   "slark_shadow_dance": {
     "dname": "Shadow Dance",
@@ -13247,7 +13391,7 @@
       "No Target"
     ],
     "dispellable": "No",
-    "desc": "When used, Slark hides himself in a cloud of shadows, becoming immune to detection. Attacking, casting spells, and using items will not reveal Slark.",
+    "desc": "When not visible to the enemy team, Slark passively gains bonus movement speed and health regeneration. If Slark is damaged by a neutral unit, the passive movement and health regeneration bonuses are lost for 2 seconds.\n\nWhen activated, Slark hides himself in a cloud of shadows, becoming immune to detection. Attacking, casting spells, and using items will not reveal Slark, but enemies can see the cloud itself.",
     "lore": "The hidden Thirteenth is a slippery foe.",
     "mc": "100",
     "cd": [
@@ -13256,6 +13400,28 @@
       "30"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/slark_shadow_dance.png"
+  },
+  "slark_saltwater_shiv": {
+    "dname": "Saltwater Shiv",
+    "behavior": [
+      "Unit Target",
+      "Autocast",
+      "Attack Modifier"
+    ],
+    "dmg_type": "Physical",
+    "bkbpierce": "No",
+    "dispellable": "Yes",
+    "target_team": "Enemy",
+    "target_type": "Hero",
+    "desc": "Slark slices the target with his salty shiv, stealing a portion of the target's movement speed, Health Regen and Health Restoration. This effect stacks.",
+    "mc": "20",
+    "cd": [
+      "10",
+      "8",
+      "6",
+      "4"
+    ],
+    "img": "/apps/dota2/images/dota_react/abilities/slark_saltwater_shiv.png"
   },
   "medusa_cold_blooded": {
     "dname": "Cold Blooded",
@@ -13277,7 +13443,6 @@
   },
   "medusa_split_shot": {
     "dname": "Split Shot",
-    "dmg_type": "Physical",
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -13316,6 +13481,7 @@
   },
   "medusa_mana_shield": {
     "dname": "Mana Shield",
+    "is_innate": true,
     "behavior": [
       "No Target",
       "Passive"
@@ -13403,6 +13569,7 @@
   },
   "troll_warlord_switch_stance": {
     "dname": "Battle Stance",
+    "is_innate": true,
     "behavior": [
       "No Target",
       "Instant Cast"
@@ -13595,11 +13762,12 @@
     "desc": "Centaur hitches a cart behind him. While active, Centaur gains the benefit of Stampede for the current level of Stampede, and can cast Hitch a Ride on a target ally.",
     "lore": "It is a great honor to be offered a ride by Centaur Warrunner and a grave mistake to refuse it.",
     "mc": "75",
-    "cd": "24",
+    "cd": "35",
     "img": "/apps/dota2/images/dota_react/abilities/centaur_work_horse.png"
   },
   "centaur_horsepower": {
     "dname": "Horsepower",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Centaur Warrunner gains Movement Speed based on his Strength.",
     "img": "/apps/dota2/images/dota_react/abilities/centaur_horsepower.png"
@@ -13635,11 +13803,12 @@
   },
   "centaur_rawhide": {
     "dname": "Rawhide",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
     ],
-    "desc": "Permanently gain 30 max health every 120s.",
+    "desc": "Permanently gain 25 max health every 120s.",
     "img": "/apps/dota2/images/dota_react/abilities/centaur_rawhide.png"
   },
   "magnataur_horn_toss": {
@@ -13732,7 +13901,7 @@
     "bkbpierce": "No",
     "dispellable": "Yes",
     "target_type": "Hero",
-    "desc": "Magnus rushes forward, goring enemy units on his massive tusk. Heroes hit on the way will be dragged to the destination, then damaged and affected by slowed movement and attack speed. The damage is increased based on distance traveled.",
+    "desc": "Magnus rushes forward, goring enemy units on his massive tusk. Heroes hit on the way will be dragged to the destination, then damaged and affected by slowed movement speed. The damage is increased based on distance traveled.",
     "lore": "Magnoceros horns are valuable in direct proportion to their danger to prospective merchants.",
     "mc": "80",
     "cd": [
@@ -13755,7 +13924,7 @@
       "225",
       "300"
     ],
-    "cd": "120",
+    "cd": "115",
     "img": "/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png"
   },
   "magnus_magnetic_horn": {
@@ -13765,6 +13934,7 @@
   },
   "magnataur_solid_core": {
     "dname": "Solid Core",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Magnus has slow resistance and suffers less knockback from enemy's abilities and items.",
@@ -13837,7 +14007,7 @@
     "behavior": "Passive",
     "dmg_type": "Magical",
     "dispellable": "No",
-    "desc": "Each time Timbersaw is attacked, he gains increased health regen and armor. Hero attacks are counted as 3x the amount.",
+    "desc": "Each time Timbersaw is attacked, he gains increased health regen and armor. Hero attacks are counted as 4x the amount.",
     "lore": "The saw-suit is equipped to react to the slightest touch with fortified defenses.",
     "mc": "undefined",
     "cd": "undefined",
@@ -13922,6 +14092,7 @@
   },
   "shredder_exposure_therapy": {
     "dname": "Exposure Therapy",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Whenever Timbersaw destroys a tree, he gains 4 mana.",
     "img": "/apps/dota2/images/dota_react/abilities/shredder_exposure_therapy.png"
@@ -13956,7 +14127,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Covers a target in snot, causing it to have reduced armor and movement speed for 6 seconds. Multiple casts stack and refresh the duration.",
+    "desc": "Covers a target in snot, causing it to have reduced armor and movement speed for 5 seconds. Multiple casts stack and refresh the duration.",
     "lore": "Having caught a cold while stuck in the snow, Bristleback turns it to his advantage.",
     "mc": [
       "12",
@@ -13992,6 +14163,7 @@
   },
   "bristleback_prickly": {
     "dname": "Prickly",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Physical",
     "bkbpierce": "No",
@@ -14048,7 +14220,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Tusk begins rolling into a snowball. Allies within a 350 radius can also be added to the snowball by right-clicking on them, even while the snowball is moving. Once launched, any enemies caught in the snowball's path will be stunned and take damage. Each allied Hero in the snowball will add to its damage and stun duration.",
+    "desc": "Tusk begins rolling into a snowball. Allies within a 325 radius can also be added to the snowball by right-clicking on them, even while the snowball is moving. Once launched, any enemies caught in the snowball's path will be stunned and take damage. Each allied Hero in the snowball will add to its damage and stun duration.",
     "lore": "Tales are still told of the wild feat that ended the grand brawl at White Fields.",
     "mc": "75",
     "cd": [
@@ -14128,8 +14300,9 @@
   },
   "tusk_bitter_chill": {
     "dname": "Bitter Chill",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Passively slows the attack speed of all enemies within 350 radius.",
+    "desc": "Passively slows the attack speed of all enemy heroes within 350 radius by 20.",
     "img": "/apps/dota2/images/dota_react/abilities/tusk_bitter_chill.png"
   },
   "tusk_walrus_punch": {
@@ -14265,7 +14438,7 @@
   "skywrath_mage_shield_of_the_scion": {
     "dname": "Shield of the Scion",
     "behavior": "Passive",
-    "desc": "Every time Skywrath Mage deals magic damage to an enemy hero with an ability, he gains a magic damage barrier equal to 10 + 1 per his hero level. Each buff stacks independently.",
+    "desc": "Every time Skywrath Mage deals magic damage to an enemy hero with an ability, he gains a magic damage barrier. Each buff stacks independently.",
     "lore": "The court mages of Skywrath may only deploy their magic in defense of the kingdom and the throne.",
     "img": "/apps/dota2/images/dota_react/abilities/skywrath_mage_shield_of_the_scion.png"
   },
@@ -14278,6 +14451,7 @@
   },
   "skywrath_mage_ruin_and_restoration": {
     "dname": "Ruin and Restoration",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Skywrath Mage has 25% Spell Lifesteal.",
     "img": "/apps/dota2/images/dota_react/abilities/skywrath_mage_ruin_and_restoration.png"
@@ -14298,9 +14472,9 @@
       "65"
     ],
     "cd": [
-      "6.5",
+      "8",
+      "7",
       "6",
-      "5.5",
       "5"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/abaddon_death_coil.png"
@@ -14344,6 +14518,7 @@
   },
   "abaddon_withering_mist": {
     "dname": "Withering Mist",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Damaging enemies applies the Withering Mist debuff for 5s. Affected enemies have their Health Restoration reduced by 35% if they are below 40% HP.",
     "img": "/apps/dota2/images/dota_react/abilities/abaddon_withering_mist.png"
@@ -14370,8 +14545,8 @@
     "mc": "0",
     "cd": [
       "90",
-      "80",
-      "70"
+      "85",
+      "80"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/abaddon_borrowed_time.png"
   },
@@ -14522,6 +14697,7 @@
   },
   "elder_titan_tip_the_scales": {
     "dname": "Tip the Scales",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "No",
     "desc": "Allied creeps and buildings affected by Glyph of Fortification or Roshan's Banner deal 100% bonus damage.",
@@ -14536,7 +14712,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Turns the enemies' numbers against them, dealing damage per unit or per hero and granting you bonus attack speed. Deals bonus damage to illusions and summoned units as a percent of their current health. Can be cast during Duel.",
+    "desc": "Turns the foes' numbers against them, dealing damage to all enemies in the area. Damage increases with each enemy unit or hero in the area. Also grants bonus Attack Speed to Legion Commander. Can be cast during Duel.",
     "lore": "The archers of Stonehall are ready at Tresdin's command.",
     "mc": [
       "90",
@@ -14559,7 +14735,7 @@
     ],
     "desc": "Removes debuffs and disables from the target friendly unit, and grants bonus movement speed and health regen for a short time.\n\nDISPEL TYPE: Strong Dispel",
     "lore": "The rallying horn of the Bronze Legion is able to inspire any heart.",
-    "mc": "110",
+    "mc": "100",
     "cd": [
       "16",
       "15",
@@ -14574,10 +14750,10 @@
     "desc": "When attacked, Legion Commander has a chance to immediately counterattack with bonus lifesteal.",
     "lore": "Tresdin knows that an enemy's most vulnerable moment often follows their fiercest stroke.",
     "cd": [
-      "1.9",
-      "1.5",
+      "1.7",
+      "1.4",
       "1.1",
-      "0.7"
+      "0.8"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/legion_commander_moment_of_courage.png"
   },
@@ -14600,6 +14776,7 @@
   },
   "legion_commander_outfight_them": {
     "dname": "Outfight Them!",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Attacking an enemy hero that is equal or higher level than you increases your Health Restoration by 30% for 4s.",
     "img": "/apps/dota2/images/dota_react/abilities/legion_commander_outfight_them.png"
@@ -14614,9 +14791,9 @@
     "lore": "Xin's harshest lessons often employed the use of red-hot chains.",
     "mc": [
       "95",
-      "100",
       "105",
-      "110"
+      "115",
+      "125"
     ],
     "cd": [
       "13",
@@ -14664,11 +14841,12 @@
       "95",
       "110"
     ],
-    "cd": "35",
+    "cd": "32",
     "img": "/apps/dota2/images/dota_react/abilities/ember_spirit_flame_guard.png"
   },
   "ember_spirit_immolation": {
     "dname": "Immolation",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": "Magical",
     "bkbpierce": "No",
@@ -14717,10 +14895,10 @@
     "lore": "It is with the power of a mountain that Earth Spirit strikes his enemies.",
     "mc": "100",
     "cd": [
-      "22",
-      "18",
+      "20",
+      "17",
       "14",
-      "10"
+      "11"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/earth_spirit_boulder_smash.png"
   },
@@ -14752,7 +14930,7 @@
     "dispellable": "Yes",
     "target_team": "Friendly",
     "target_type": "Hero",
-    "desc": "Earth Spirit pulls the target Stone Remnant. Enemies struck by the gripped target will be silenced and take damage.",
+    "desc": "Earth Spirit pulls the target Stone Remnant or Allied Unit. Enemies struck by the gripped target will be silenced.\n\nPulled Remnants also deal damage to struck enemies.\n\nCast range is reduced when targeting an ally.",
     "lore": "Like calls to like. Even the minerals found in the blood and bones of living beings are not immune to the call of the Earth Spirit.",
     "mc": "75",
     "cd": "13",
@@ -14760,8 +14938,9 @@
   },
   "earth_spirit_stone_caller": {
     "dname": "Stone Remnant",
+    "is_innate": true,
     "behavior": "Point Target",
-    "desc": "Call a Stone Remnant to the target location. Stone Remnants have no vision and are invulnerable, and can be used with Earth Spirit's abilities. Calling a Stone Remnant consumes a charge, which recharge over time. Gains additional charges every 5 hero levels.",
+    "desc": "Call a Stone Remnant to the target location. Stone Remnants have no vision and are invulnerable, and can be used with Earth Spirit's abilities. Calling a Stone Remnant consumes a charge, which recharge over time. Stone Remnant has 7 charges.\n\nEarth Spirit passively gains 2.5% bonus damage per unused Stone Remnant charge, and gains an additional 7.5% bonus damage for 10s when a Stone Remnant is targeted with an ability (does not stack).",
     "lore": "Earth Spirit calls forth a remnant of his stone army, long buried with him in the dark embrace of the Earth.",
     "mc": "0",
     "cd": "0",
@@ -14914,8 +15093,9 @@
   },
   "terrorblade_dark_unity": {
     "dname": "Dark Unity",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Illusions under Terrorblade's control that are within range receive a damage bonus. Illusions outside of the range receive a damage penalty.",
+    "desc": "Nearby Illusions created by Terrorblade have bonus attack damage.",
     "img": "/apps/dota2/images/dota_react/abilities/terrorblade_dark_unity.png"
   },
   "phoenix_icarus_dive": {
@@ -15049,6 +15229,7 @@
   },
   "phoenix_blinding_sun": {
     "dname": "Blinding Sun",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Phoenix ability debuffs apply a stackable 2% Miss chance per second. Lasts 4 seconds.",
@@ -15093,19 +15274,14 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Oracle enraptures a target, disarming them if they are an enemy and granting them 100% magic damage resistance if they are an ally.",
+    "desc": "Oracle enraptures a target, disarming them and granting them 100% magic damage resistance.",
     "lore": "An unbreakable prophecy resounds: a chosen ally shall briefly suffer no magics.  Other kinds of suffering however...",
-    "mc": [
-      "95",
-      "100",
-      "105",
-      "110"
-    ],
+    "mc": "70",
     "cd": [
-      "20",
       "17",
       "14",
-      "11"
+      "11",
+      "8"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/oracle_fates_edict.png"
   },
@@ -15186,6 +15362,7 @@
   },
   "oracle_prognosticate": {
     "dname": "Prognosticate",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/oracle_prognosticate.png"
   },
@@ -15198,7 +15375,7 @@
     "dmg_type": "Magical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Plant an invisible mine that cannot be detected by True Sight, but is visible if an enemy is within the active 500 AoE of the mine. Mines detonate if an enemy is standing within the active AoE for 1 seconds dealing damage and temporarily reducing the enemy's Magic Resistance. The explosion deals full damage if the target is within 150 radius and decreases up to 50% on the edge. Deals 30% damage to buildings.",
+    "desc": "Plant an invisible mine that cannot be detected by True Sight, but is visible if an enemy is within the active 500 AoE of the mine. Mines detonate if an enemy is standing within the active AoE for 1 seconds dealing damage and temporarily reducing the enemy's Magic Resistance. The explosion deals full damage if the target is within 150 radius and decreases up to 60% on the edge. Deals 30% damage to buildings.",
     "lore": "The bane of Toterin!",
     "mc": [
       "110",
@@ -15294,10 +15471,10 @@
     "lore": "A steady bomb hand prefers an abundance of personal space.",
     "mc": "60",
     "cd": [
-      "30",
-      "25",
-      "20",
-      "15"
+      "26",
+      "22",
+      "18",
+      "14"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/techies_reactive_tazer.png"
   },
@@ -15354,6 +15531,7 @@
   },
   "techies_minefield_sign": {
     "dname": "Minefield Sign",
+    "is_innate": true,
     "behavior": [
       "Point Target",
       "AOE"
@@ -15478,6 +15656,7 @@
   },
   "winter_wyvern_eldwurm_scholar": {
     "dname": "Eldwurm Scholar",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "When a Shrine of Wisdom grants experience to allies, Winter Wyvern shares the knowledge with her entire team, granting 20% of the experience to each of the 3 heroes that did not collect the initial bonus.",
     "img": "/apps/dota2/images/dota_react/abilities/winter_wyvern_eldwurm_scholar.png"
@@ -15538,10 +15717,10 @@
     "desc": "Arc Warden generates a circular distortion field of magnetic energy. The magnetic field grants bonus attack speed and protects allied units within it by evading attacks coming from outside the field.",
     "lore": "Time and space are of little consequence to one as old as Zet.",
     "mc": [
-      "50",
+      "60",
       "70",
-      "90",
-      "110"
+      "80",
+      "90"
     ],
     "cd": [
       "20",
@@ -15588,6 +15767,7 @@
   },
   "arc_warden_runic_infusion": {
     "dname": "Runic Infusion",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Upon activating any rune, gain the Regeneration Rune buff for 4s.",
     "img": "/apps/dota2/images/dota_react/abilities/arc_warden_runic_infusion.png"
@@ -15686,7 +15866,7 @@
     "dispellable": "Yes",
     "desc": "Opens 2 portals, one next to Underlord and one in the target location. Heroes can channel a portal for 3.5 seconds to teleport to the other side. Portals have to be at least 1500 away from each other.\n\nDouble-click to teleport to your team's base, in front of your fountain.",
     "lore": "They come without warning, leaving fire and blood where kingdoms once flourished.",
-    "mc": "200",
+    "mc": "175",
     "cd": [
       "110",
       "105",
@@ -15705,6 +15885,7 @@
   },
   "abyssal_underlord_raid_boss": {
     "dname": "Invading Force",
+    "is_innate": true,
     "behavior": [
       "Passive",
       "Hidden"
@@ -15770,6 +15951,7 @@
   },
   "monkey_king_mischief": {
     "dname": "Mischief",
+    "is_innate": true,
     "behavior": "No Target",
     "desc": "Changes Monkey King's shape to deceive opponents, using the environment nearby as inspiration for the disguise. Taking damage, attacking, or using any item or ability breaks Monkey King's disguise. Grants damage immunity for 0.1 seconds upon transforming.",
     "lore": "Watch out for that tree.",
@@ -15798,7 +15980,7 @@
     "behavior": "Unit Target",
     "target_team": "Enemy",
     "target_type": "Tree",
-    "desc": "Monkey King jumps to a tree and perches atop it. While perched, he gains the Primal Spring ability-a channeled leap attack. If Monkey King's tree is destroyed, he falls and is stunned for 4 seconds. Taking damage while on the ground puts Tree Dance on cooldown.",
+    "desc": "Monkey King jumps to a tree and perches atop it. While perched, he gains the Primal Spring ability-a channeled leap attack. If Monkey King's tree is destroyed, he falls and is stunned for 3 seconds. Taking damage while on the ground puts Tree Dance on cooldown.",
     "lore": "Sun Wukong dances nimbly along the treetop canopy, always just out of arm's reach.",
     "mc": "0",
     "cd": [
@@ -15885,7 +16067,7 @@
     "behavior": "Point Target",
     "dmg_type": "Physical",
     "bkbpierce": "Yes",
-    "desc": "Pangolier dashes along the target line, then slashes all enemies in the drawn direction with several quick swipes.\n\nLucky Shot has a chance to activate from this damage.",
+    "desc": "Pangolier dashes along the target line, then slashes and briefly slows all enemies in the drawn direction with several quick swipes.\n\nLucky Shot has a chance to activate from this damage.",
     "lore": "The Pangolier's blade is even nimbler than his tongue.",
     "mc": [
       "75",
@@ -15894,10 +16076,10 @@
       "90"
     ],
     "cd": [
-      "21",
-      "18",
-      "15",
-      "12"
+      "20",
+      "17",
+      "14",
+      "11"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/pangolier_swashbuckle.png"
   },
@@ -15910,19 +16092,14 @@
     "dmg_type": "Physical",
     "bkbpierce": "No",
     "dispellable": "Yes",
-    "desc": "Pangolier jumps in the air and slams back to the ground in front of his current position, damaging and slowing all enemies in a radius. For each enemy hero hit, he gains an all damage shield for a short time.\n\nForward movement is maintained if Shield Crash is used while Rolling Thunder is active, and allows Rolling Thunder to clear walls or cliffs.\n\n Shield Crash cooldown during Rolling Thunder is decreased.",
+    "desc": "Pangolier jumps in the air and slams back to the ground in front of his current position damaging all enemies in a radius. Pangolier gains an all damage barrier for a short time if Shield Crash hits an enemy hero.\n\nForward movement is maintained if Shield Crash is used while Rolling Thunder is active, and allows Rolling Thunder to clear walls or cliffs.",
     "lore": "Only in the midst of his enemies does the Pangolier truly thrive.",
-    "mc": [
-      "70",
-      "80",
-      "90",
-      "100"
-    ],
+    "mc": "75",
     "cd": [
-      "18",
       "16",
-      "14",
-      "12"
+      "13",
+      "10",
+      "7"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/pangolier_shield_crash.png"
   },
@@ -15947,7 +16124,7 @@
     "dmg_type": "Physical",
     "bkbpierce": "No",
     "dispellable": "No",
-    "desc": "Pangolier curls into a debuff immune ball with 60% additional magic resistance and rolls out. When rolling, he moves at an increased speed and can move through trees, but has a decreased ability to turn. Striking enemies knocks them back, inflicting damage proportional to his attack damage and stunning them when they land. \n\nColliding with walls or cliffs will cause a temporary pause while Pangolier reverses in direction.\n\n During Rolling Thunder, Shield Crash cooldown is reduced.\n\nDISPEL TYPE: Basic Dispel",
+    "desc": "Pangolier curls into a debuff immune ball with 60% additional magic resistance and rolls out. When rolling, he moves at an increased speed and can move through trees, but has a decreased ability to turn. Striking enemies knocks them back, inflicting damage proportional to his attack damage and stunning them when they land. \n\nColliding with walls or cliffs will cause a temporary pause while Pangolier reverses in direction.\n\nDISPEL TYPE: Basic Dispel",
     "lore": "Where his ancestors sought only refuge, the Pangolier saw opportunity...",
     "mc": [
       "100",
@@ -15963,6 +16140,7 @@
   },
   "pangolier_fortune_favors_the_bold": {
     "dname": "Fortune Favors the Bold",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Random item and ability effects of enemies near Pangolier have a reduced chance to affect him.",
     "img": "/apps/dota2/images/dota_react/abilities/pangolier_fortune_favors_the_bold.png"
@@ -16080,10 +16258,10 @@
     "desc": "Dark Willow recedes into the shadows, becoming untargetable. Her next attack has 600 bonus attack range and deals bonus magic damage, and will end Shadow Realm. Damage scales based on how long she remains under the effects of Shadow Realm, the maximum being reached after 3 seconds.",
     "lore": "What you can't see will most definitely hurt you.",
     "mc": [
-      "70",
       "80",
       "90",
-      "100"
+      "100",
+      "110"
     ],
     "cd": [
       "21",
@@ -16121,6 +16299,7 @@
   },
   "dark_willow_pixie_dust": {
     "dname": "Pixie Dust",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Whenever a skill makes Dark Willow become untargetable, she gains +150% HP Regen and +150% Mana Regen while in that state.",
@@ -16168,9 +16347,9 @@
       "140"
     ],
     "cd": [
-      "36",
       "30",
-      "24",
+      "26",
+      "22",
       "18"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/grimstroke_ink_creature.png"
@@ -16269,6 +16448,7 @@
   },
   "grimstroke_ink_trail": {
     "dname": "Ink Trail",
+    "is_innate": true,
     "behavior": "Passive",
     "bkbpierce": "No",
     "desc": "Adds an effect to Grimstroke's attacks that causes enemy heroes to leave a trail of ink behind them for 4s.",
@@ -16323,6 +16503,7 @@
   },
   "mars_dauntless": {
     "dname": "Dauntless",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Mars gets more HP Regen the more he and his allies are outnumbered by enemy heroes in 700 radius.",
     "img": "/apps/dota2/images/dota_react/abilities/mars_dauntless.png"
@@ -16450,6 +16631,7 @@
   },
   "void_spirit_intrinsic_edge": {
     "dname": "Intrinsic Edge",
+    "is_innate": true,
     "behavior": "Passive",
     "dmg_type": [],
     "desc": "Void Spirit gains 25% more HP regen from Strength, armor from Agility, and mana regen and magic resistance from Intelligence.",
@@ -16552,24 +16734,20 @@
     "target_type": "Hero",
     "desc": "Snapfire feeds a potent cookie to Mortimer or an ally, causing them to hop a short distance. The hopping unit stuns and damages enemies in the landing zone.",
     "lore": "With the help of a secret mixture that pairs Beadie's baking skills with her passion for black powder, these battle biscuits pack a punch.",
-    "mc": [
-      "85",
-      "90",
-      "95",
-      "100"
-    ],
+    "mc": "105",
     "cd": [
-      "21",
-      "19",
+      "18",
       "17",
+      "16",
       "15"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/snapfire_firesnap_cookie.png"
   },
   "snapfire_buckshot": {
     "dname": "Buckshot",
+    "is_innate": true,
     "behavior": "Passive",
-    "desc": "Snapfire deals 30% more damage with her auto attacks, but has a 25% chance of a glancing shot, dealing 60% damage.",
+    "desc": "When attacking enemy heroes, Snapfire deals 30% more damage with her auto attacks, but has a 25% chance of a glancing shot, dealing 60% damage.",
     "img": "/apps/dota2/images/dota_react/abilities/snapfire_buckshot.png"
   },
   "snapfire_lil_shredder": {
@@ -16719,6 +16897,7 @@
   },
   "hoodwink_mistwoods_wayfarer": {
     "dname": "Mistwoods Wayfarer",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/hoodwink_mistwoods_wayfarer.png"
   },
@@ -16773,7 +16952,6 @@
       "Instant Cast"
     ],
     "bkbpierce": "No",
-    "dmg_type": "Magical",
     "dispellable": "No",
     "desc": "Dawnbreaker recalls her hammer, pulling them together so they meet in the middle.",
     "mc": "0",
@@ -16822,6 +17000,7 @@
   },
   "dawnbreaker_break_of_dawn": {
     "dname": "Break of Dawn",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Whenever the sun comes out, Dawnbreaker gains bonus base damage and vision that decreases throughout the course of the day.",
     "img": "/apps/dota2/images/dota_react/abilities/dawnbreaker_break_of_dawn.png"
@@ -16879,7 +17058,7 @@
     "dispellable": "Strong Dispels Only",
     "target_team": "Friendly",
     "target_type": "Hero",
-    "desc": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands.\n\n The ally receives 15% bonus movement speed for 4s.",
+    "desc": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies in a 275 radius where she lands.\n\n The ally receives 15% bonus movement speed for 4s.",
     "lore": "With a friendly or brazen boost, Marci can find her way into the midst of any fight.",
     "mc": [
       "70",
@@ -16927,6 +17106,7 @@
   },
   "marci_special_delivery": {
     "dname": "Special Delivery",
+    "is_innate": true,
     "behavior": "No Target",
     "desc": "Marci whistles to instantly summon her courier to her.\n\nPassively grants all allied couriers 3 bonus levels and 1 bonus health.",
     "lore": "Professional courtesy, from one courier to another.",
@@ -17017,8 +17197,8 @@
     "mc": "100",
     "cd": [
       "40",
-      "36",
-      "32"
+      "35",
+      "30"
     ],
     "img": "/apps/dota2/images/dota_react/abilities/primal_beast_pulverize.png"
   },
@@ -17039,11 +17219,12 @@
     "desc": "Primal Beast throws a rock at the target location that stuns and damages enemies. The rock cannot be thrown within a minimum range of Primal Beast. After landing, the rock splits into 3 additional fragments that land behind the initial target location.\n\n Rock Throw increases stacks of Uproar for each hero hit.",
     "lore": "AGAIN WITH THE ROCKS!",
     "mc": "85",
-    "cd": "25",
+    "cd": "20",
     "img": "/apps/dota2/images/dota_react/abilities/primal_beast_rock_throw.png"
   },
   "primal_beast_colossal": {
     "dname": "Colossal",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/primal_beast_colossal.png"
   },
@@ -17091,10 +17272,10 @@
     "bkbpierce": "No",
     "dispellable": "Yes",
     "mc": [
-      "140",
-      "155",
-      "170",
-      "185"
+      "135",
+      "150",
+      "165",
+      "180"
     ],
     "cd": "30",
     "img": "/apps/dota2/images/dota_react/abilities/muerta_the_calling.png"
@@ -17134,6 +17315,7 @@
   },
   "muerta_supernatural": {
     "dname": "Supernatural",
+    "is_innate": true,
     "behavior": "Passive",
     "img": "/apps/dota2/images/dota_react/abilities/muerta_supernatural.png"
   },
@@ -17268,9 +17450,9 @@
     "desc": "Ringmaster rolls the Wheel of Wonder to the targeted location, knocking aside enemies along the way. After it reaches its target, enemies in range of the wheel take damage over time and are slowed by -50%.\n\nEnemy heroes who face the wheel for more than 0.5 seconds are mesmerized and drawn towards it. The first enemy to be mesmerized triggers a timer for the wheel to explode. If the timer is not triggered, it will automatically explode after 4 seconds.",
     "lore": "No, brave friends, illusions are for charlatans and card sharks. What you witness today is the power of true magic. But only if you dare set your gaze upon...the mesmerizing wheel.",
     "mc": [
-      "175",
-      "275",
-      "375"
+      "150",
+      "225",
+      "300"
     ],
     "cd": [
       "90",
@@ -17299,6 +17481,7 @@
   },
   "ringmaster_dark_carnival_souvenirs": {
     "dname": "Dark Carnival Barker",
+    "is_innate": true,
     "behavior": "Passive",
     "desc": "Ringmaster receives a random single-use Dark Carnival Souvenir whenever an enemy hero dies within 925 units of him. Additional Souvenirs are held as charges.\n\nIf Ringmaster does not have a Souvenir when he dies he will be granted one.",
     "img": "/apps/dota2/images/dota_react/abilities/ringmaster_dark_carnival_souvenirs.png"
@@ -17358,7 +17541,7 @@
       "Hero",
       "Basic"
     ],
-    "desc": "Use: Toss Pie Knocks enemies back, slows them by 45% and reduces their vision to 50 recovering over 2 seconds, and prevents them from receiving vision from their allies for the duration. Instantly kills any non-ancient creep.",
+    "desc": "Use: Toss Pie Knocks enemies back, slows them by 45% and reduces their vision to 50 recovering over 3 seconds, and prevents them from receiving vision from their allies for the duration. Instantly kills any non-ancient creep.",
     "cd": "3",
     "img": "/apps/dota2/images/dota_react/abilities/ringmaster_weighted_pie.png"
   },
@@ -17369,19 +17552,20 @@
       "AOE",
       "Hidden"
     ],
-    "desc": "Use: Clairvoyance Scans a targeted 450 area with global range for 4 seconds. Indicates whether there are enemy heroes in that area for the duration. Reveals invisible units and wards in the scanned area, but does not provide vision. The reveal effect lingers for 1 second.",
+    "desc": "Use: Clairvoyance Scans a targeted 450 area with global range for 5 seconds. Indicates whether there are enemy heroes in that area for the duration. Reveals invisible units and wards in the scanned area, but does not provide vision. The reveal effect lingers for 1 second.",
     "cd": "3",
     "img": "/apps/dota2/images/dota_react/abilities/ringmaster_crystal_ball.png"
   },
   "kez_switch_weapons": {
     "dname": "Switch Discipline",
+    "is_innate": true,
     "behavior": [
       "No Target",
       "Instant Cast"
     ],
-    "desc": "Kez switches between his Kazurai Katana and Shodo Sai.\n\nHe gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.\n\nSwitch Discipline cooldown decreases by 0.2s per Hero level.",
+    "desc": "Kez switches between his Kazurai Katana and Shodo Sai.\n\nHe gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.",
     "lore": "As former followers of the Shodo, the leaders of the Kazurai Order can switch effortlessly between twin disciplines of martial mastery over sai and blade.",
-    "cd": "8",
+    "cd": "7.75",
     "img": "/apps/dota2/images/dota_react/abilities/kez_switch_weapons.png"
   },
   "kez_echo_slash": {
@@ -17396,10 +17580,10 @@
     "desc": "Kez slashes forward in a line with his Katana, attacking enemies in an area and applying a brief slow. After a short delay, the area is attacked again. Heroes take bonus damage.",
     "lore": "Kez and his master Kraw have worked tirelessly to train the Kazurai new ways to keep the flyers off balance by improving upon ancient techniques.",
     "mc": [
-      "85",
-      "100",
-      "115",
-      "130"
+      "75",
+      "90",
+      "105",
+      "120"
     ],
     "cd": [
       "21",
@@ -17446,7 +17630,7 @@
     ],
     "desc": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage as additional damage over time. \n\nKez may activate the ability to impale the target with his attack, preventing them from moving or turning. The target's Katana debuff bursts, causing some of the stacks to deal damage instantly.",
     "lore": "To fight back against the reach of Imperia and her Queensguard, the Kazurai had to become skilled in the ways of attrition.",
-    "mc": "50",
+    "mc": "40",
     "cd": [
       "20",
       "15",
@@ -17491,7 +17675,7 @@
     ],
     "dispellable": "Yes",
     "target_team": "Enemy",
-    "desc": "Kez gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, Kez has phased collision, slow resistance, and an attack rate that is less affected by attack speed.",
+    "desc": "Kez gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, Kez has phased collision and slow resistance.",
     "lore": "An ancient Shodo technique used to hunt faster aerial foes, stealing the advantage and delivering multiple attacks within a single flap of their prey's panicking wings.",
     "mc": [
       "85",
@@ -17530,7 +17714,12 @@
     ],
     "desc": "Kez throws a Sai at the target unit, applying a fixed damage attack and silence.",
     "lore": "The Shodo learned to rely upon distance and disorientation to survive against much stronger opposition.",
-    "mc": "75",
+    "mc": [
+      "60",
+      "65",
+      "70",
+      "75"
+    ],
     "cd": [
       "13",
       "11",
@@ -17555,7 +17744,7 @@
     ],
     "bkbpierce": "Yes",
     "dispellable": "Strong Dispels Only",
-    "desc": "Kez's attacks and abilities with the Sai have a chance to Mark enemies. The next attack or ability damage from Kez will stun the enemy and deal a critical strike, consuming the buff.\n\nKez may activate the ability to disarm himself, lock his facing, and parry attacks and attack effects from the targeted direction for 2 seconds. If an attack is parried from an enemy Hero in this way, that Hero is stunned and Marked.\n\nThe sub-ability may be used to cancel the blocking early.",
+    "desc": "Kez's attacks and abilities with the Sai have a chance to Mark enemies. The next attack or ability damage from Kez will stun the enemy and deal a critical strike, consuming the buff.\n\nKez may activate the ability to disarm himself, lock his facing, and parry attacks and attack effects from the targeted direction for 2 seconds. If an attack is parried from an enemy Hero in this way, that Hero is stunned and gains a stronger Mark that stuns for longer and deals 4% * Target Hero Level bonus critical strike.\n\nThe sub-ability may be used to cancel the blocking early.",
     "lore": "The Shodo may have lost their way, but Kez and the Kazurai can still use Shodo knowledge for the good of the people.",
     "mc": [
       "30",
@@ -17625,5 +17814,147 @@
     ],
     "desc": "Triggering a Shodo Sai Mark from invisibility deals bonus critical damage. Increases Raven's Veil invisibility duration.",
     "img": "/apps/dota2/images/dota_react/abilities/kez_shadowhawk_passive.png"
+  },
+  "largo_amphibian_rhapsody": {
+    "dname": "Amphibian Rhapsody",
+    "behavior": [
+      "No Target",
+      "Instant Cast"
+    ],
+    "dmg_type": "Magical",
+    "desc": "Largo gets ready to groove. He is disarmed and his ability bar switches to 3 song abilities, each with different effects. Songs are only effective if strummed on the beat.\n\nEvery time he strums successfully, he gains a stack of Groovin'. Each stack gives him bonus armor and reduces the mana cost of every song, but he loses a stack if he misses a beat. Stacks linger for a short duration when Largo's song ends.",
+    "lore": "The very first Bard Monk played a song that summoned a living island and saved the Murkroot exiles from a salt-worn death.",
+    "mc": "0",
+    "cd": "2",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_amphibian_rhapsody.png"
+  },
+  "largo_song_fight_song": {
+    "dname": "Bullbelly Blitz",
+    "behavior": [
+      "No Target",
+      "Instant Cast",
+      "Hidden"
+    ],
+    "desc": "Largo plays a song that increases nearby allied heroes' spell amplification and grants their attacks additional magic damage.",
+    "lore": "'Hey, when a beach brawl breaks out, you gotta learn to throw your musical weight around or the party's over proper quick.'",
+    "mc": [
+      "20",
+      "32",
+      "44"
+    ],
+    "cd": "0.2",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_song_fight_song.png"
+  },
+  "largo_song_double_time": {
+    "dname": "Hotfeet Hustle",
+    "behavior": [
+      "No Target",
+      "Instant Cast",
+      "Hidden"
+    ],
+    "desc": "Largo plays a song that increases nearby friendly units' movement speed and grants a brief slow resistance.",
+    "lore": "'It's like that old story about the scary swamp witch. You better watch just where you're jumping when you're trying to do it lickety-split.'",
+    "mc": [
+      "20",
+      "32",
+      "44"
+    ],
+    "cd": "0.2",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_song_double_time.png"
+  },
+  "largo_song_good_vibrations": {
+    "dname": "Island Elixir",
+    "behavior": [
+      "No Target",
+      "Instant Cast",
+      "Hidden"
+    ],
+    "desc": "Largo plays a song that heals nearby friendly heroes.",
+    "lore": "'If this song can heal an ageless isaloth, it can handle a few cuts and bruises on the lot of you.'",
+    "mc": [
+      "20",
+      "32",
+      "44"
+    ],
+    "cd": "0.2",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_song_good_vibrations.png"
+  },
+  "largo_frogstomp": {
+    "dname": "Frogstomp",
+    "behavior": [
+      "Point Target",
+      "AOE"
+    ],
+    "dmg_type": "Magical",
+    "bkbpierce": "No",
+    "desc": "Largo tosses froglings to an area. They stomp the ground every 1 second, dealing damage and ministuns, and enemies in the area have reduced movement speed.",
+    "lore": "Most Bard Monks spend decades mastering the musical arts, but even the top frog Largo has to admit that his young disciples have already grown shockingly good at counting a proper beat.",
+    "mc": [
+      "85",
+      "95",
+      "105",
+      "115"
+    ],
+    "cd": [
+      "20",
+      "18",
+      "16",
+      "14"
+    ],
+    "img": "/apps/dota2/images/dota_react/abilities/largo_frogstomp.png"
+  },
+  "largo_croak_of_genius": {
+    "dname": "Croak of Genius",
+    "behavior": "Unit Target",
+    "dmg_type": "Magical",
+    "dispellable": "Yes",
+    "target_team": "Friendly",
+    "target_type": "Hero",
+    "desc": "Largo strums a tune to a friendly hero. The hero's items and abilities have reduced mana cost and a percentage of their damage reverberates over the following 5 seconds. When an affected hero spends mana, the remaining buff duration is reduced by 0.5s.",
+    "lore": "Largo loves to help his friends find glory through the power of music, never missing a chance at a killer duet.",
+    "mc": [
+      "25",
+      "35",
+      "45",
+      "55"
+    ],
+    "cd": "25",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_croak_of_genius.png"
+  },
+  "largo_catchy_lick": {
+    "dname": "Catchy Lick",
+    "behavior": "Unit Target",
+    "dmg_type": "Magical",
+    "bkbpierce": "No",
+    "target_team": [
+      "Friendly",
+      "Enemy"
+    ],
+    "target_type": "Hero",
+    "desc": "Largo licks the targeted unit with his tongue, pulling it back a short distance, applying a basic dispel, and dealing damage if it's an enemy.\n\nDispelling an effect from a target grants Largo temporary health regeneration.\n\nDISPEL TYPE: Basic Dispel",
+    "lore": "After generations spent living on the ancient isaloth Velu'Mar, the descendants of the Murkroot exiles have grown resilient, happily sampling toxins that would've struck their ancestors dead.",
+    "mc": [
+      "80",
+      "85",
+      "90",
+      "95"
+    ],
+    "cd": [
+      "13",
+      "11",
+      "9",
+      "7"
+    ],
+    "img": "/apps/dota2/images/dota_react/abilities/largo_catchy_lick.png"
+  },
+  "largo_encore": {
+    "dname": "Encore",
+    "is_innate": true,
+    "behavior": [
+      "Passive",
+      "Hidden"
+    ],
+    "desc": "Buffs that Largo applies to himself or his team have extended duration.",
+    "img": "/apps/dota2/images/dota_react/abilities/largo_encore.png"
   }
 }
