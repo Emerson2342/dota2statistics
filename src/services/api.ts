@@ -1,5 +1,8 @@
 import React, { Dispatch } from "react";
-import { HERO_STATS_URL } from "../constants/player";
+import {
+  HERO_STATS_URL,
+  MATCHE_DETAILS_API_BASE_URL,
+} from "../constants/player";
 import {
   HeroesPlayed,
   HeroStats,
@@ -23,7 +26,8 @@ export const fetchData = async <T>(url: string): Promise<T> => {
   }
 };
 
-export const getMatchDetails = async (url: string) => {
+export const getMatchDetails = async (matchId: string) => {
+  const url = `${MATCHE_DETAILS_API_BASE_URL}/${matchId}`;
   try {
     console.log("Endpoint matchDetails: " + url);
     const response = await fetch(url);

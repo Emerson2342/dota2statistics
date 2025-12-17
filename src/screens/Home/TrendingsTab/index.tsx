@@ -16,12 +16,8 @@ export function TrendingsTab({ heroesStats, onRefresh, proMatches }: Props) {
   return (
     <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       <WaveTrendings />
-      <View style={{ flex: 0.35 }}>
-        <HeroesStats heroesStats={heroesStats} />
-      </View>
-      <View style={{ flex: 0.65 }}>
-        <ProMatches onRefresh={onRefresh} proMatches={proMatches} />
-      </View>
+      <HeroesStats heroesStats={heroesStats} />
+      <ProMatches onRefresh={onRefresh} proMatches={proMatches} />
     </View>
   );
 }

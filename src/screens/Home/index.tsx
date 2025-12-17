@@ -41,7 +41,6 @@ export function Home() {
   useEffect(() => {
     if (!playerId) return;
     if (hasFetchedInitialData) return;
-
     handleFetchPlayerData(playerId);
   }, [playerId, hasFetchedInitialData]);
 
@@ -137,7 +136,7 @@ export function Home() {
     <View style={{ flex: 1 }}>
       <TabView
         lazy
-        lazyPreloadDistance={2}
+        lazyPreloadDistance={0}
         renderTabBar={renderTabBar}
         navigationState={{ index, routes: routes }}
         renderScene={renderScene}

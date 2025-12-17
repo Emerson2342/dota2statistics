@@ -131,7 +131,6 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
-      marginBottom: 7,
     },
     text: {
       fontSize: Dimensions.get("window").width * 0.025,
@@ -150,7 +149,6 @@ const createStyles = (colors: ThemeColor) =>
       width: "50%",
       alignSelf: "center",
       padding: 3,
-      margin: 5,
       borderRadius: 7,
     },
   });

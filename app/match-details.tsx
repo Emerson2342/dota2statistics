@@ -16,7 +16,7 @@ export default function MatchDetails() {
   return (
     <View style={{ flex: 1 }}>
       <MatchDetailsScreen
-        matchDetailsIndex={matchDetailsId}
+        matchDetailsId={matchDetailsId}
         gameMode={gameMode}
         lobbyType={lobbyType}
         playerIdIndex={playerIdIndex}

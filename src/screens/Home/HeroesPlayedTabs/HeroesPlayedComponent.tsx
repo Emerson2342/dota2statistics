@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -39,8 +39,13 @@ function HeroesPlayedComp({
 
   const styles = createStyles(colorTheme);
   const setSteamId = getSetProfile(englishLanguage);
-  const [orderedList, setOrderedList] =
-    useState<HeroesPlayed[]>(heroesPlayedList);
+  const [orderedList, setOrderedList] = useState<HeroesPlayed[]>([]);
+
+  useEffect(() => {
+    if (heroesPlayedList.length > 0) {
+      setOrderedList(heroesPlayedList);
+    }
+  }, [heroesPlayedList]);
 
   const erro404 = englishLanguage
     ? "Unable to access player data. The profile may be set to private."

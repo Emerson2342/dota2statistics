@@ -6,7 +6,7 @@ export const SEARCH_PLAYER_BASE_URL = "https://api.opendota.com/api/search?q=";
 export const HEROES_API_BASE_URL = "https://api.opendota.com/api/heroStats";
 
 export const MATCHE_DETAILS_API_BASE_URL =
-  "https://api.opendota.com/api/matches/";
+  "https://api.opendota.com/api/matches";
 
 export const PICTURE_HERO_BASE_URL = "https://cdn.cloudflare.steamstatic.com";
 

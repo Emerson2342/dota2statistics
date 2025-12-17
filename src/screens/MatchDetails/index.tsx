@@ -1,23 +1,20 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { View, useWindowDimensions, Dimensions } from "react-native";
-import { createStyles } from "./styles";
+import React, { useState, useEffect, useMemo } from "react";
+import { useWindowDimensions, Dimensions } from "react-native";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
-import { MATCHE_DETAILS_API_BASE_URL } from "@src/constants/player";
 import { getMatchDetails } from "@src/services/api";
-import { AsyncStorageService } from "@src/services/StorageService";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { useTeamFightsStore } from "@src/store/teamFights";
-import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { ErrorComponent } from "@src/components/ErrorComponent";
+import { useQuery } from "@tanstack/react-query";
 
 type MatchDetailsProps = {
-  matchDetailsIndex: string;
+  matchDetailsId: string;
   playerIdIndex?: string;
   lobbyType?: string;
   gameMode?: string;
@@ -25,48 +22,34 @@ type MatchDetailsProps = {
 const fontSize = Dimensions.get("screen").width * 0.03;
 
 export const MatchDetailsScreen = ({
-  matchDetailsIndex,
+  matchDetailsId,
   playerIdIndex,
   lobbyType,
   gameMode,
 }: MatchDetailsProps) => {
   const layout = useWindowDimensions();
   const { englishLanguage } = useSettingsStore();
-  const [matchesDetailsList, setMatchesDetailsList] = useState<
-    MatchDetailsModel[]
-  >([]);
+
   const setTeamFightsData = useTeamFightsStore((state) => state.setData);
-  const [apiResponseMatch, setApiResponseMatch] = useState(false);
-  const [loadingMatch, setLoadingMatch] = useState(true);
-
-  const [loadedeList, setLoadedList] = useState(false);
-
-  const storage = useMemo(() => new AsyncStorageService(), []);
-
-  const [refreshing, setRefreshing] = useState(false);
-
   const colorTheme = useThemeStore((state) => state.colorTheme);
-
   const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
     null
   );
-
   const [index, setIndex] = useState(0);
+
+  const matchDetailsQuery = useQuery({
+    queryKey: ["matchDetails"],
+    queryFn: () => getMatchDetails(matchDetailsId),
+  });
 
   const teamFightsMemo = useMemo(
     () => matchDetails?.teamfights ?? [],
     [matchDetails?.teamfights]
   );
-  const styles = useMemo(() => createStyles(colorTheme), [colorTheme]);
 
-  const radName = useMemo(
-    () => (englishLanguage ? "Radiant" : "Iluminados"),
-    [englishLanguage]
-  );
-  const direName = useMemo(
-    () => (englishLanguage ? "Dire" : "Temidos"),
-    [englishLanguage]
-  );
+  const radName = englishLanguage ? "Radiant" : "Iluminados";
+  const direName = englishLanguage ? "Dire" : "Temidos";
+  const hasTeamFights = !!matchDetails?.teamfights?.length;
 
   const heroArray = useMemo(
     () => Object.values(HeroesDetails) as HeroDetailsModel[],
@@ -88,34 +71,6 @@ export const MatchDetailsScreen = ({
 
   useEffect(() => {
     if (!matchDetails) return;
-  }, [matchDetails]);
-
-  useEffect(() => {
-    const loadMatchesList = async () => {
-      try {
-        const storedMatchesList = await storage.getItem<MatchDetailsModel[]>(
-          "matchesDetailsList"
-        );
-        if (storedMatchesList) {
-          setMatchesDetailsList((prevList) => {
-            if (
-              JSON.stringify(prevList) !== JSON.stringify(storedMatchesList)
-            ) {
-              return storedMatchesList;
-            }
-            return prevList;
-          });
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados do AsyncStorage:", error);
-      } finally {
-        setLoadedList(true);
-      }
-    };
-    loadMatchesList();
-  }, []);
-  useEffect(() => {
-    if (!matchDetails) return;
 
     setTeamFightsData({
       teamFights: teamFightsMemo,
@@ -125,39 +80,6 @@ export const MatchDetailsScreen = ({
       update: onRefreshCallback,
     });
   }, [matchDetails, teamFightsMemo, heroNamesMemo, radName, direName]);
-
-  useEffect(() => {
-    if (loadedeList && matchesDetailsList.length > 0) {
-      saveMatchesDetailsList();
-    }
-  }, [matchesDetailsList, loadedeList]);
-
-  useEffect(() => {
-    if (!loadedeList) return;
-    fetchMatchDetails();
-  }, [matchDetailsIndex, loadedeList]);
-
-  const fetchMatchDetails = async () => {
-    const match =
-      matchDetailsIndex &&
-      matchesDetailsList.find(
-        (m: MatchDetailsModel) => m.match_id === Number(matchDetailsIndex)
-      );
-    if (match) {
-      console.log(
-        "Partida Encontrada ID: " +
-          matchDetailsIndex +
-          " - Tamanho da Lista: " +
-          matchesDetailsList.length
-      );
-      setMatchDetails(match);
-      setLoadingMatch(false);
-    } else {
-      await handleSearchMatche();
-    }
-  };
-
-  const hasTeamFights = !!matchDetails?.teamfights?.length;
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
@@ -172,7 +94,7 @@ export const MatchDetailsScreen = ({
             heroArray={heroArray}
             matchDetails={matchDetails}
             onRefresh={onRefreshCallback}
-            refreshing={refreshing}
+            refreshing={false}
             key={matchDetails?.match_id}
             hasTeamFights={hasTeamFights}
           />
@@ -182,7 +104,7 @@ export const MatchDetailsScreen = ({
           <HeroesDetailsTabs
             matchDetails={matchDetails}
             onRefresh={async () => await onRefreshCallback()}
-            refreshing={refreshing}
+            refreshing={false}
             radName={matchDetails?.radiant_team?.name ?? radName}
             direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
@@ -201,24 +123,6 @@ export const MatchDetailsScreen = ({
         );
     }
   };
-  const onRefreshCallback = useCallback(async () => {
-    setRefreshing(true);
-    const match =
-      matchDetailsIndex &&
-      matchesDetailsList.find(
-        (m: MatchDetailsModel) => m.match_id === Number(matchDetailsIndex)
-      );
-    if (match) {
-      setMatchDetails(null);
-      const prevList = matchesDetailsList.filter(
-        (m) => m.match_id != match.match_id
-      );
-      setMatchesDetailsList(prevList);
-      await handleSearchMatche();
-    }
-    setIndex(0);
-    setRefreshing(false);
-  }, [matchDetailsIndex, matchesDetailsList, handleSearchMatche]);
 
   const allRoutes = [
     { key: "first", title: englishLanguage ? "Overview" : "Resumo" },
@@ -227,47 +131,6 @@ export const MatchDetailsScreen = ({
       title: englishLanguage ? "Hero Details" : "Detalhes por Herói",
     },
   ];
-
-  const saveMatchesDetailsList = async () => {
-    try {
-      await storage.setItem("matchesDetailsList", matchesDetailsList);
-    } catch (error) {
-      console.error("Erro ao salvar dados no AsyncStorage:", error);
-    }
-  };
-
-  async function handleSearchMatche() {
-    setApiResponseMatch(false);
-    try {
-      setLoadingMatch(true);
-      const recentMatchesUrl = `${MATCHE_DETAILS_API_BASE_URL}${matchDetailsIndex}`;
-      const matchDataResponse = await getMatchDetails(recentMatchesUrl);
-      if (matchDataResponse) {
-        setMatchDetails(matchDataResponse);
-        addMatchToList(matchDataResponse);
-        console.log("Partida buscada no servidor ID: " + matchDetailsIndex);
-      }
-      setApiResponseMatch(true);
-    } catch (error) {
-      console.log(
-        "Erro ao buscar detalhes da partida: ID " + matchDetailsIndex,
-        error
-      );
-    } finally {
-      setLoadingMatch(false);
-    }
-  }
-
-  const addMatchToList = (match: MatchDetailsModel) => {
-    setMatchesDetailsList((prevList) => {
-      const updatedList = [...prevList, match];
-      if (updatedList.length > 20) {
-        return updatedList.slice(1);
-      }
-      return updatedList;
-    });
-  };
-
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}

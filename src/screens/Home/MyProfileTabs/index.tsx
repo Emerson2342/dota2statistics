@@ -21,24 +21,15 @@ export function MyProfileTabs({ index }: Props) {
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const {
-    playerId,
     player,
     heroesPlayedId,
     recentMatches,
     isLoadingContext,
     handleFetchPlayerData,
     setPlayerId,
-    hasFetchedInitialData,
   } = usePlayerStore();
   const { englishLanguage } = useSettingsStore();
   const [showModalMessage, setShowModalMessage] = useState(false);
-
-  // useEffect(() => {
-  //   if (index != 1) return;
-  //   if (!playerId) return;
-  //   if (hasFetchedInitialData) return;
-  //   handleFetchPlayerData(playerId);
-  // }, [playerId, index, hasFetchedInitialData]);
 
   const erro404 = getErro404Message(englishLanguage);
   const styles = createStyles(colorTheme);
