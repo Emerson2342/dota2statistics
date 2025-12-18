@@ -182,7 +182,7 @@ export const Search = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <TextComponent style={{ textAlign: "center" }}>
+          <TextComponent weight="bold" style={{ textAlign: "center" }}>
             {englishLanguage
               ? `Searching for "${textSearch}"`
               : `Buscando por "${textSearch}"`}

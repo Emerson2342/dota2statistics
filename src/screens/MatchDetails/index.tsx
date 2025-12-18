@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useWindowDimensions, Dimensions } from "react-native";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
+import { HeroDetailsModel } from "@src/services/props";
 import { getMatchDetails } from "@src/services/api";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
@@ -12,6 +12,7 @@ import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { ErrorComponent } from "@src/components/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
+import { WaveProfile, WaveTrendings } from "@src/components/Waves";
 
 type MatchDetailsProps = {
   matchDetailsId: string;
@@ -38,10 +39,13 @@ export const MatchDetailsScreen = ({
   const matchDetailsQuery = useQuery({
     queryKey: ["matchDetails"],
     queryFn: () => getMatchDetails(matchDetailsId),
+    staleTime: 0,
   });
   const matchDetails = matchDetailsQuery.data;
 
   const teamFightsMemo = matchDetails?.teamfights ?? [];
+  const isLoadingScreen =
+    matchDetailsQuery.isLoading || matchDetailsQuery.isFetching;
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
@@ -77,15 +81,18 @@ export const MatchDetailsScreen = ({
     return players.map((p) => heroMap[p.hero_id]);
   }, [matchDetails?.players, heroMap]);
 
-  if (matchDetailsQuery.isLoading)
+  if (isLoadingScreen)
     return (
-      <ActivityIndicatorCustom
-        message={
-          englishLanguage
-            ? "Loading Match Details..."
-            : "Carregando Detalhes da Partida..."
-        }
-      />
+      <>
+        <WaveTrendings />
+        <ActivityIndicatorCustom
+          message={
+            englishLanguage
+              ? "Loading Match Details..."
+              : "Carregando Detalhes da Partida..."
+          }
+        />
+      </>
     );
   if (!matchDetails || matchDetailsQuery.isError)
     return <ErrorComponent action={matchDetailsQuery.refetch} />;
@@ -121,15 +128,7 @@ export const MatchDetailsScreen = ({
           />
         );
       default:
-        return (
-          <ActivityIndicatorCustom
-            message={
-              englishLanguage
-                ? "Loading Match Details..."
-                : "Carregando Detalhes da Partida..."
-            }
-          />
-        );
+        return null;
     }
   };
 
@@ -163,7 +162,6 @@ export const MatchDetailsScreen = ({
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         lazy
-        lazyPreloadDistance={2}
         commonOptions={{
           labelStyle: {
             fontSize: fontSize,

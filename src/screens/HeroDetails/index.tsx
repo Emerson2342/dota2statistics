@@ -74,6 +74,10 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
 
   const [loadingItems, setLoadingItems] = useState(true);
 
+  const emptyText = englishLanguage
+    ? "No items to show"
+    : "Nenhum item para mostrar";
+
   const aaghanimDescription = AghanimAndShardJson as AghanimModel[];
   let itemsResponse: ItemPopularityData;
 
@@ -354,94 +358,107 @@ export default function HeroDetailsScreen({ heroId }: { heroId: string }) {
                 }}
               >
                 <LinearGradientComponent />
-                <TextComponent weight="bold" style={styles.titleText}>
+                <TextComponent weight="semibold" style={styles.titleText}>
                   {englishLanguage ? "Popular Items" : "Itens Populares"}
                 </TextComponent>
               </View>
-              <TextComponent weight="semibold" style={styles.textItem}>
-                {englishLanguage ? "Start Game" : "Itens Iniciais"}
-              </TextComponent>
-              <View style={{ flexDirection: "row" }}>
-                {heroItems && heroItems.start_game_items
-                  ? Object.entries(heroItems.start_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
-                  : null}
-              </View>
-              <TextComponent weight="semibold" style={styles.textItem}>
-                {englishLanguage ? "Early Game" : "Início Jogo"}
-              </TextComponent>
-              <View style={{ flexDirection: "row" }}>
-                {heroItems && heroItems.early_game_items
-                  ? Object.entries(heroItems.early_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
-                  : null}
-              </View>
-              <TextComponent weight="semibold" style={styles.textItem}>
-                {englishLanguage ? "Mid Game" : "Meio do Jogo"}
-              </TextComponent>
-              <View style={{ flexDirection: "row" }}>
-                {heroItems && heroItems.mid_game_items
-                  ? Object.entries(heroItems.mid_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
-                  : null}
-              </View>
-              <TextComponent weight="semibold" style={styles.textItem}>
-                {englishLanguage ? "Late Game" : "Final do Jogo"}
-              </TextComponent>
-              <View style={{ flexDirection: "row" }}>
-                {heroItems && heroItems.late_game_items
-                  ? Object.entries(heroItems.late_game_items).map(
-                      ([itemId, count]) => {
-                        const item = itemsList.find(
-                          (i) => i.id.toString() === itemId
-                        );
-                        return (
-                          <ItemHero
-                            key={itemId}
-                            imgUrl={item?.img}
-                            itemDetails={item}
-                          />
-                        );
-                      }
-                    )
-                  : null}
-              </View>
+              {heroItems &&
+              Object.entries(heroItems.start_game_items).length == 0 &&
+              heroItems &&
+              Object.entries(heroItems.early_game_items).length == 0 &&
+              heroItems &&
+              Object.entries(heroItems.mid_game_items).length == 0 &&
+              heroItems &&
+              Object.entries(heroItems.late_game_items).length == 0 ? (
+                <TextComponent weight="bold">{emptyText}</TextComponent>
+              ) : (
+                <>
+                  <TextComponent weight="semibold" style={styles.textItem}>
+                    {englishLanguage ? "Start Game" : "Itens Iniciais"}
+                  </TextComponent>
+                  <View style={{ flexDirection: "row" }}>
+                    {heroItems &&
+                      heroItems.start_game_items &&
+                      Object.entries(heroItems.start_game_items).map(
+                        ([itemId, count]) => {
+                          const item = itemsList.find(
+                            (i) => i.id.toString() === itemId
+                          );
+                          return (
+                            <ItemHero
+                              key={itemId}
+                              imgUrl={item?.img}
+                              itemDetails={item}
+                            />
+                          );
+                        }
+                      )}
+                  </View>
+                  <TextComponent weight="semibold" style={styles.textItem}>
+                    {englishLanguage ? "Early Game" : "Início Jogo"}
+                  </TextComponent>
+                  <View style={{ flexDirection: "row" }}>
+                    {heroItems && heroItems.early_game_items
+                      ? Object.entries(heroItems.early_game_items).map(
+                          ([itemId, count]) => {
+                            const item = itemsList.find(
+                              (i) => i.id.toString() === itemId
+                            );
+                            return (
+                              <ItemHero
+                                key={itemId}
+                                imgUrl={item?.img}
+                                itemDetails={item}
+                              />
+                            );
+                          }
+                        )
+                      : null}
+                  </View>
+                  <TextComponent weight="semibold" style={styles.textItem}>
+                    {englishLanguage ? "Mid Game" : "Meio do Jogo"}
+                  </TextComponent>
+                  <View style={{ flexDirection: "row" }}>
+                    {heroItems && heroItems.mid_game_items
+                      ? Object.entries(heroItems.mid_game_items).map(
+                          ([itemId, count]) => {
+                            const item = itemsList.find(
+                              (i) => i.id.toString() === itemId
+                            );
+                            return (
+                              <ItemHero
+                                key={itemId}
+                                imgUrl={item?.img}
+                                itemDetails={item}
+                              />
+                            );
+                          }
+                        )
+                      : null}
+                  </View>
+                  <TextComponent weight="semibold" style={styles.textItem}>
+                    {englishLanguage ? "Late Game" : "Final do Jogo"}
+                  </TextComponent>
+                  <View style={{ flexDirection: "row" }}>
+                    {heroItems && heroItems.late_game_items
+                      ? Object.entries(heroItems.late_game_items).map(
+                          ([itemId, count]) => {
+                            const item = itemsList.find(
+                              (i) => i.id.toString() === itemId
+                            );
+                            return (
+                              <ItemHero
+                                key={itemId}
+                                imgUrl={item?.img}
+                                itemDetails={item}
+                              />
+                            );
+                          }
+                        )
+                      : null}
+                  </View>
+                </>
+              )}
             </View>
           )}
           <View style={styles.itemsContainer}>

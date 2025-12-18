@@ -61,11 +61,13 @@ export function Home() {
         fetchData<LeagueMatches[]>(PRO_MATCHES_URL).then((res) =>
           OrdererLeagueMatches(res)
         ),
+      staleTime: 0,
     });
 
     const heroesStatsQuery = useQuery({
       queryKey: ["heroesStats"],
       queryFn: () => getHeroesStats(),
+      staleTime: 0,
     });
 
     return {

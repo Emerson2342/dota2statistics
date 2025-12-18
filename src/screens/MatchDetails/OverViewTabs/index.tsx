@@ -282,7 +282,7 @@ function OverViewComponent({
                         { width: `${heroDamRadBar}%` },
                       ]}
                     />
-                    <TextComponent style={styles.textResult}>
+                    <TextComponent weight="semibold" style={styles.textResult}>
                       {radiantStats.heroDamage.toLocaleString(
                         englishLanguage ? "en-US" : "pt-BR"
                       )}
@@ -293,7 +293,7 @@ function OverViewComponent({
                   <View
                     style={[styles.barDire, { width: `${heroDamDireBar}%` }]}
                   />
-                  <TextComponent style={styles.textResult}>
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {direStats.heroDamage.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}
@@ -316,7 +316,7 @@ function OverViewComponent({
                   <View
                     style={[styles.barDire, { width: `${towerDamDireBar}%` }]}
                   />
-                  <TextComponent style={styles.textResult}>
+                  <TextComponent weight="semibold" style={styles.textResult}>
                     {direStats.towerDamage.toLocaleString(
                       englishLanguage ? "en-US" : "pt-BR"
                     )}

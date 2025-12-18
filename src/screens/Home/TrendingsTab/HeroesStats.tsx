@@ -124,7 +124,7 @@ const createStyles = (colors: ThemeColor) =>
       marginHorizontal: "2%",
       paddingVertical: "1%",
       backgroundColor: "#fff",
-      elevation: 13,
+      elevation: 7,
     },
     textHeader: {
       fontSize: Dimensions.get("screen").width * 0.05,
