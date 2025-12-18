@@ -26,7 +26,7 @@ import { useThemeStore } from "@src/store/theme";
 type Props = {
   refreshing: boolean;
   onRefresh: () => void;
-  matchDetails: MatchDetailsModel | null;
+  matchDetails: MatchDetailsModel;
   LobbyType: string | undefined;
   GameMode: string | undefined;
   PlayerIdIndex: string | undefined;

@@ -11,7 +11,7 @@ import { DamageTypeComponent } from "./DamageType";
 type Props = {
   matchDetails: MatchDetailsModel | null;
   refreshing: boolean;
-  onRefresh: () => Promise<void>;
+  onRefresh: () => Promise<any>;
   radName: string;
   direName: string;
   heroArray: HeroDetailsModel[];
@@ -33,8 +33,8 @@ function HeroesDetailsComponent({
       }
     >
       {matchDetails.players.length > 0 &&
-        matchDetails.players[0].gold_t &&
-        matchDetails.players[0].gold_t.length > 0 ? (
+      matchDetails.players[0].gold_t &&
+      matchDetails.players[0].gold_t.length > 0 ? (
         <View
           style={[
             styles.containerItem,

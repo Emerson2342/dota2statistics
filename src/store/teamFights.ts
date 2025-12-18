@@ -6,7 +6,7 @@ export type TeamFightsParams = {
   heroNames: string[];
   radTeamName: string;
   direTeamName: string;
-  update: () => Promise<void>;
+  //update: () => Promise<any>;
 };
 
 type TeamFightsStore = {

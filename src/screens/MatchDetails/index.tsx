@@ -32,24 +32,32 @@ export const MatchDetailsScreen = ({
 
   const setTeamFightsData = useTeamFightsStore((state) => state.setData);
   const colorTheme = useThemeStore((state) => state.colorTheme);
-  const [matchDetails, setMatchDetails] = useState<MatchDetailsModel | null>(
-    null
-  );
+
   const [index, setIndex] = useState(0);
 
   const matchDetailsQuery = useQuery({
     queryKey: ["matchDetails"],
     queryFn: () => getMatchDetails(matchDetailsId),
   });
+  const matchDetails = matchDetailsQuery.data;
 
-  const teamFightsMemo = useMemo(
-    () => matchDetails?.teamfights ?? [],
-    [matchDetails?.teamfights]
-  );
+  const teamFightsMemo = matchDetails?.teamfights ?? [];
 
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
   const hasTeamFights = !!matchDetails?.teamfights?.length;
+
+  useEffect(() => {
+    if (!matchDetails) return;
+
+    setTeamFightsData({
+      teamFights: teamFightsMemo,
+      heroNames: heroNamesMemo,
+      radTeamName: matchDetails.radiant_team?.name ?? radName,
+      direTeamName: matchDetails.dire_team?.name ?? direName,
+      //update: matchDetailsQuery.refetch,
+    });
+  }, [matchDetails]);
 
   const heroArray = useMemo(
     () => Object.values(HeroesDetails) as HeroDetailsModel[],
@@ -69,17 +77,18 @@ export const MatchDetailsScreen = ({
     return players.map((p) => heroMap[p.hero_id]);
   }, [matchDetails?.players, heroMap]);
 
-  useEffect(() => {
-    if (!matchDetails) return;
-
-    setTeamFightsData({
-      teamFights: teamFightsMemo,
-      heroNames: heroNamesMemo,
-      radTeamName: matchDetails.radiant_team?.name ?? radName,
-      direTeamName: matchDetails.dire_team?.name ?? direName,
-      update: onRefreshCallback,
-    });
-  }, [matchDetails, teamFightsMemo, heroNamesMemo, radName, direName]);
+  if (matchDetailsQuery.isLoading)
+    return (
+      <ActivityIndicatorCustom
+        message={
+          englishLanguage
+            ? "Loading Match Details..."
+            : "Carregando Detalhes da Partida..."
+        }
+      />
+    );
+  if (!matchDetails || matchDetailsQuery.isError)
+    return <ErrorComponent action={matchDetailsQuery.refetch} />;
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
@@ -93,7 +102,7 @@ export const MatchDetailsScreen = ({
             direName={matchDetails?.dire_team?.name ?? direName}
             heroArray={heroArray}
             matchDetails={matchDetails}
-            onRefresh={onRefreshCallback}
+            onRefresh={matchDetailsQuery.refetch}
             refreshing={false}
             key={matchDetails?.match_id}
             hasTeamFights={hasTeamFights}
@@ -103,7 +112,7 @@ export const MatchDetailsScreen = ({
         return (
           <HeroesDetailsTabs
             matchDetails={matchDetails}
-            onRefresh={async () => await onRefreshCallback()}
+            onRefresh={matchDetailsQuery.refetch}
             refreshing={false}
             radName={matchDetails?.radiant_team?.name ?? radName}
             direName={matchDetails?.dire_team?.name ?? direName}
@@ -145,19 +154,6 @@ export const MatchDetailsScreen = ({
     />
   );
 
-  if (loadingMatch)
-    return (
-      <ActivityIndicatorCustom
-        message={
-          englishLanguage
-            ? "Loading Match Details..."
-            : "Carregando Detalhes da Partida..."
-        }
-      />
-    );
-  if (!matchDetails && apiResponseMatch)
-    return <ErrorComponent action={fetchMatchDetails} />;
-
   if (matchDetails)
     return (
       <TabView
@@ -177,5 +173,4 @@ export const MatchDetailsScreen = ({
         }}
       />
     );
-  //return null;
 };
