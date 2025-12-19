@@ -1,5 +1,9 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { ThemeColor } from "../../../services/props";
+import { ThemeColor } from "@src/services/props";
+
+const fontSizeHeader = Dimensions.get("screen").width * 0.05;
+const fontSizeLeagueName = Dimensions.get("window").width * 0.037;
+const fontSizeButton = Dimensions.get("screen").width * 0.027;
 
 export const createStylesStatics = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -11,55 +15,43 @@ export const createStylesStatics = (colors: ThemeColor) =>
       alignSelf: "center",
     },
     textHeader: {
-      fontSize: Dimensions.get("screen").width * 0.05,
+      fontSize: fontSizeHeader,
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
     },
-    titleContainer: {
-      width: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "row",
-    },
-    content: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      alignItems: "center",
-      flex: 1,
-    },
     matchContainer: {
-      width: "97%",
       alignSelf: "center",
       backgroundColor: "#fff",
       borderColor: colors.standard,
       elevation: 3,
       borderLeftWidth: 5,
       borderRadius: 5,
-      marginTop: "1.7%",
-      paddingVertical: "1%",
+      marginTop: 7,
+      paddingVertical: 3,
     },
     leagueName: {
       color: colors.dark,
-      fontSize: Dimensions.get("window").width * 0.037,
+      fontSize: fontSizeLeagueName,
       textAlign: "center",
       flexWrap: "nowrap",
-      width: "100%",
+      flex: 1,
     },
     teamRow: {
       flexDirection: "row",
       alignItems: "center",
-      width: "50%",
+      flex: 1,
     },
     score: {
-      width: "13%",
+      //width: "13%",
+      flex: 1,
       textAlign: "center",
       fontSize: 11.3,
     },
     teamName: {
-      width: "87%",
-      fontSize: Dimensions.get("screen").width * 0.037,
+      // width: "87%",
+      flex: 5,
+      fontSize: fontSizeLeagueName,
       textAlign: "center",
     },
     linkContainer: {
@@ -71,14 +63,14 @@ export const createStylesStatics = (colors: ThemeColor) =>
     buttonContainer: {
       backgroundColor: `${colors.light}`,
       alignItems: "center",
-      width: "75%",
+      paddingHorizontal: 35,
       borderRadius: 5,
-      marginBottom: "1.7%",
+      marginBottom: 5,
     },
     textButton: {
       color: colors.semidark,
-      padding: "1.5%",
-      fontSize: Dimensions.get("screen").width * 0.027,
+      padding: 3,
+      fontSize: fontSizeButton,
     },
     timeContainer: {
       alignItems: "center",
@@ -86,12 +78,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontSize: Dimensions.get("screen").width * 0.03,
-    },
-    textLoading: {
-      fontFamily: "QuickSand-Bold",
-      fontSize: 15,
-      color: colors.dark,
-      marginBottom: "1%",
+      fontSize: fontSizeButton,
     },
   });

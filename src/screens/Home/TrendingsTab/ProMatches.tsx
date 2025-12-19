@@ -21,6 +21,8 @@ import { useThemeStore } from "@src/store/theme";
 const WIN = "#257848";
 const LOS = "#9a2525";
 
+const currentTimestamp = Math.floor(Date.now() / 1000);
+
 function ProMatchesComponent({
   proMatches,
   onRefresh,
@@ -41,8 +43,6 @@ function ProMatchesComponent({
     await onRefresh();
     setLoading(false);
   }, []);
-
-  const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const formattedTimeMatch = useMemo(() => {
     return proMatches.map((item) => {
@@ -92,121 +92,121 @@ function ProMatchesComponent({
     });
   };
 
-  const TeamName = ({
-    item,
-    team,
-  }: {
-    item: LeagueMatches;
-    team: TeamSide;
-  }) => {
-    const isRadiant = team === TeamSide.Radiant;
+  const TeamName = useCallback(
+    ({ item, team }: { item: LeagueMatches; team: TeamSide }) => {
+      const isRadiant = team === TeamSide.Radiant;
 
-    const isWinner = isRadiant ? !!item.radiant_win : !item.radiant_win;
+      const isWinner = isRadiant ? !!item.radiant_win : !item.radiant_win;
 
-    const colorText = isWinner ? WIN : LOS;
+      const colorText = isWinner ? WIN : LOS;
 
-    const itemName = isRadiant
-      ? item.radiant_name || "Radiant"
-      : item.dire_name || "Dire";
+      const itemName = isRadiant
+        ? item.radiant_name || "Radiant"
+        : item.dire_name || "Dire";
 
-    const itemScore =
-      team === TeamSide.Radiant ? item.radiant_score : item.dire_score;
+      const itemScore =
+        team === TeamSide.Radiant ? item.radiant_score : item.dire_score;
 
-    const rowStyle = [
-      styles.teamRow,
-      isRadiant && { flexDirection: "row-reverse" as const },
-    ];
+      const rowStyle = [
+        styles.teamRow,
+        isRadiant && { flexDirection: "row-reverse" as const },
+      ];
 
-    return (
-      <View style={rowStyle}>
-        <TextComponent
-          weight="semibold"
-          style={[styles.score, { color: colorText }]}
-        >
-          {itemScore}
-        </TextComponent>
-
-        <TextComponent
-          weight="semibold"
-          style={[styles.teamName, { color: colorText }]}
-          numberOfLines={1}
-        >
-          {itemName}
-        </TextComponent>
-      </View>
-    );
-  };
-
-  const ProMatchItem = ({
-    item,
-    formattedEndDuration,
-    formattedDuration,
-  }: {
-    item: LeagueMatches;
-    formattedEndDuration: string;
-    formattedDuration: string;
-  }) => {
-    return (
-      <View key={item.match_id} style={styles.matchContainer}>
-        <View style={{ flexDirection: "row", width: "100%" }}>
+      return (
+        <View style={rowStyle}>
           <TextComponent
-            weight="bold"
-            style={styles.leagueName}
+            weight="semibold"
+            style={[styles.score, { color: colorText }]}
+          >
+            {itemScore}
+          </TextComponent>
+
+          <TextComponent
+            weight="semibold"
+            style={[styles.teamName, { color: colorText }]}
             numberOfLines={1}
           >
-            {item.league_name}
+            {itemName}
           </TextComponent>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-          }}
-        >
-          <TeamName item={item} team={TeamSide.Radiant} />
-          <TeamName item={item} team={TeamSide.Dire} />
-        </View>
-        <View style={styles.timeContainer}>
-          <TextComponent weight="semibold" style={styles.textData}>
-            {englishLanguage ? "Duration: " : "Duração: "}
-            {formattedDuration}
-          </TextComponent>
+      );
+    },
+    []
+  );
 
-          <TextComponent weight="semibold" style={styles.textData}>
-            {englishLanguage
-              ? `Finished ${formattedEndDuration} ago`
-              : `Finalizado ${formattedEndDuration} atrás`}
-          </TextComponent>
-        </View>
-        <View style={styles.linkContainer}>
-          <View style={{ width: "50%", alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() =>
-                handleGoToLeagueMatches(item.leagueid, item.league_name)
-              }
-              style={styles.buttonContainer}
+  const ProMatchItem = useCallback(
+    ({
+      item,
+      formattedEndDuration,
+      formattedDuration,
+    }: {
+      item: LeagueMatches;
+      formattedEndDuration: string;
+      formattedDuration: string;
+    }) => {
+      return (
+        <View key={item.match_id} style={styles.matchContainer}>
+          <View style={{ flexDirection: "row" }}>
+            <TextComponent
+              weight="bold"
+              style={styles.leagueName}
+              numberOfLines={1}
             >
-              <TextComponent weight="bold" style={styles.textButton}>
-                {englishLanguage ? "Tournament " : "Campeonato "}
-                <Feather name="external-link" />
-              </TextComponent>
-            </TouchableOpacity>
+              {item.league_name}
+            </TextComponent>
           </View>
-          <View style={{ width: "50%", alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => handleGoToMatch(item.match_id)}
-              style={styles.buttonContainer}
-            >
-              <TextComponent weight="bold" style={styles.textButton}>
-                {englishLanguage ? "Match " : "Partida "}
-                <Feather name="external-link" />
-              </TextComponent>
-            </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "row",
+              // width: "100%",
+            }}
+          >
+            <TeamName item={item} team={TeamSide.Radiant} />
+            <TeamName item={item} team={TeamSide.Dire} />
+          </View>
+          <View style={styles.timeContainer}>
+            <TextComponent weight="semibold" style={styles.textData}>
+              {englishLanguage ? "Duration: " : "Duração: "}
+              {formattedDuration}
+            </TextComponent>
+
+            <TextComponent weight="semibold" style={styles.textData}>
+              {englishLanguage
+                ? `Finished ${formattedEndDuration} ago`
+                : `Finalizado ${formattedEndDuration} atrás`}
+            </TextComponent>
+          </View>
+          <View style={styles.linkContainer}>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() =>
+                  handleGoToLeagueMatches(item.leagueid, item.league_name)
+                }
+                style={styles.buttonContainer}
+              >
+                <TextComponent weight="bold" style={styles.textButton}>
+                  {englishLanguage ? "Tournament " : "Campeonato "}
+                  <Feather name="external-link" />
+                </TextComponent>
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 1, alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() => handleGoToMatch(item.match_id)}
+                style={styles.buttonContainer}
+              >
+                <TextComponent weight="bold" style={styles.textButton}>
+                  {englishLanguage ? "Match " : "Partida "}
+                  <Feather name="external-link" />
+                </TextComponent>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    );
-  };
+      );
+    },
+    []
+  );
 
   if (loading)
     return (
@@ -254,8 +254,9 @@ function ProMatchesComponent({
             />
           )}
           keyExtractor={(item) => item.match_id.toString()}
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
+          initialNumToRender={5}
+          maxToRenderPerBatch={5}
+          removeClippedSubviews
           scrollEnabled={false}
         />
       </ScrollView>
