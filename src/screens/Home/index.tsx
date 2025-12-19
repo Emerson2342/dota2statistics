@@ -24,8 +24,6 @@ const initialLayout = {
   width: Dimensions.get("window").width,
 };
 
-
-
 export function Home() {
   const playerId = usePlayerStore((state) => state.playerId);
   const heroesPlayed = usePlayerStore((state) => state.heroesPlayed);
@@ -42,7 +40,6 @@ export function Home() {
 
   const { englishLanguage } = useSettingsStore();
 
-
   const [index, setIndex] = useState(0);
   const { proMatchesQuery, heroesStatsQuery } = useHomeData();
 
@@ -55,7 +52,10 @@ export function Home() {
   const routes = useMemo(
     () => [
       { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
-      { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
+      {
+        key: "myProfile",
+        title: englishLanguage ? "My Profile" : "Meu Perfil",
+      },
       {
         key: "heroesPlayed",
         title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
@@ -99,7 +99,6 @@ export function Home() {
   const heroesStats = heroesStatsQuery.data ?? [];
   const proMatches = proMatchesQuery.data ?? [];
 
-
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "trendings":
@@ -114,9 +113,11 @@ export function Home() {
           </View>
         );
       case "myProfile":
-        return <View style={{ flex: 1 }}>
-          <MyProfileTabs index={index} />
-        </View>
+        return (
+          <View style={{ flex: 1 }}>
+            <MyProfileTabs index={index} />
+          </View>
+        );
       case "heroesPlayed":
         return (
           <View style={{ flex: 1 }}>

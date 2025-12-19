@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -74,67 +74,64 @@ function HeroesPlayedComp({
     }
   };
 
-  const RenderItem = ({
-    item,
-    index,
-  }: {
-    item: HeroesPlayed;
-    index: number;
-  }) => {
-    const startDate = new Date(item.last_played * 1000);
-    const hoursDate = startDate.getHours();
-    const minutesDate = startDate.getMinutes();
+  const heroMap = useMemo(() => {
+    const map: Record<number, HeroDetailsModel> = {};
+    heroArray.forEach((h) => {
+      map[h.id] = h;
+    });
+    return map;
+  }, [heroArray]);
 
-    const formattedTime = `${hoursDate
-      .toString()
-      .padStart(2, "0")}:${minutesDate.toString().padStart(2, "0")}`;
+  const RenderItem = useCallback(
+    ({ item, index }: { item: HeroesPlayed; index: number }) => {
+      const startDate = new Date(item.last_played * 1000);
+      const hoursDate = startDate.getHours();
+      const minutesDate = startDate.getMinutes();
 
-    const heroIndex = heroArray.find((hero) => hero.id === item.hero_id);
+      const formattedTime = `${hoursDate
+        .toString()
+        .padStart(2, "0")}:${minutesDate.toString().padStart(2, "0")}`;
 
-    const winrate = (item.win / item.games) * 100;
+      const heroIndex = heroMap[item.hero_id];
 
-    return (
-      <View
-        style={[
-          styles.renderItemContainer,
-          {
-            backgroundColor: index % 2 === 0 ? colorTheme.light : "transparent",
-          },
-        ]}
-      >
-        <Image
-          style={styles.imageHero}
-          source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
-        />
-        <TextComponent
-          weight="semibold"
-          style={[styles.textInfo, { width: "33%" }]}
+      const winrate = (item.win / item.games) * 100;
+
+      return (
+        <View
+          style={[
+            styles.renderItemContainer,
+            {
+              backgroundColor:
+                index % 2 === 0 ? colorTheme.light : "transparent",
+            },
+          ]}
         >
-          {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
-          {formattedTime}
-        </TextComponent>
-        <TextComponent
-          weight="semibold"
-          style={[styles.textInfo, { width: "17%" }]}
-        >
-          {winrate.toFixed(2)}%
-        </TextComponent>
+          <Image
+            style={styles.imageHero}
+            source={{ uri: PICTURE_HERO_BASE_URL + heroIndex?.img }}
+          />
+          <TextComponent
+            weight="semibold"
+            style={[styles.textInfo, { flex: 2 }]}
+          >
+            {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
+            {formattedTime}
+          </TextComponent>
+          <TextComponent weight="semibold" style={styles.textInfo}>
+            {winrate.toFixed(2)}%
+          </TextComponent>
 
-        <TextComponent
-          weight="semibold"
-          style={[styles.textInfo, { width: "20%" }]}
-        >
-          {item.games}
-        </TextComponent>
-        <TextComponent
-          weight="semibold"
-          style={[styles.textInfo, { width: "17%" }]}
-        >
-          {item.win}
-        </TextComponent>
-      </View>
-    );
-  };
+          <TextComponent weight="semibold" style={styles.textInfo}>
+            {item.games}
+          </TextComponent>
+          <TextComponent weight="semibold" style={styles.textInfo}>
+            {item.win}
+          </TextComponent>
+        </View>
+      );
+    },
+    [heroesPlayedList]
+  );
 
   if (isLoading)
     return (
@@ -173,7 +170,10 @@ function HeroesPlayedComp({
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => handleSetOrder("lastPlayed")}
-          style={{ width: "37%" }}
+          style={{
+            width: "37%",
+            justifyContent: "flex-end",
+          }}
         >
           <TextComponent
             weight="bold"
@@ -200,7 +200,7 @@ function HeroesPlayedComp({
               { borderBottomWidth: orderToShow === "winrate" ? 2 : 0 },
             ]}
           >
-            {englishLanguage ? "Winrate" : "Taxa Vitória"}
+            Winrate
           </TextComponent>
         </TouchableOpacity>
         <TouchableOpacity
@@ -242,7 +242,10 @@ function HeroesPlayedComp({
         data={orderedList}
         renderItem={RenderItem}
         keyExtractor={(item) => item.hero_id.toLocaleString()}
-        initialNumToRender={20}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        windowSize={5}
+        removeClippedSubviews
       />
     </View>
   );
@@ -258,15 +261,17 @@ const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
       justifyContent: "center",
       alignSelf: "center",
-      width: "97%",
+      width: "95%",
     },
     renderItemContainer: {
+      flex: 1,
+      width: "100%",
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
     },
     imageHero: {
-      width: "13%",
+      width: 47,
       aspectRatio: 1.7,
       resizeMode: "contain",
       borderRadius: 3,
@@ -275,9 +280,10 @@ const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
       width: "87%",
       alignSelf: "flex-end",
-      alignItems: "baseline",
-      marginVertical: "1.5%",
+      alignItems: "flex-end",
+      marginVertical: "2%",
       justifyContent: "space-around",
+      height: "4%",
     },
     contentError: {
       flex: 0.9,
@@ -285,18 +291,13 @@ const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
     },
     textInfo: {
-      fontSize: Dimensions.get("screen").width * 0.035,
+      //fontSize: Dimensions.get("screen").width * 0.035,
       color: colors.dark,
       textAlign: "center",
+      flex: 1,
     },
     textInfoTitle: {
       borderColor: "orange",
-    },
-    inputContainer: {
-      marginTop: "3%",
-      width: "95%",
-      alignItems: "center",
-      justifyContent: "space-around",
     },
     textErro: {
       textAlign: "center",
