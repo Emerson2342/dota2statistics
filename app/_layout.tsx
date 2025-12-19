@@ -44,6 +44,25 @@ export default function App() {
 
   return (
     <GestureHandlerRootView>
+      <View
+        style={{
+          position: "absolute",
+          zIndex: 150,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+        pointerEvents="none"
+      >
+        <Snowfall
+          imagePath={require("../src/images/snowFlake.png")}
+          count={150}
+          duration={10000}
+          minSize={10}
+          maxSize={30}
+        />
+      </View>
       <PaperProvider>
         <QueryClientProvider client={queryClient}>
           {/* <Teste /> */}
@@ -112,25 +131,6 @@ function Content() {
 
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
-      <View
-        style={{
-          position: "absolute",
-          zIndex: 150,
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
-        pointerEvents="none"
-      >
-        <Snowfall
-          imagePath={require("../src/images/snowFlake.png")}
-          count={150}
-          duration={10000}
-          minSize={10}
-          maxSize={30}
-        />
-      </View>
       <StatusBar backgroundColor={colorTheme.dark} barStyle={"light-content"} />
       <Modal visible={modalVisible} transparent>
         <ModalHasUpdate handleClose={() => setModalVisible(false)} />

@@ -156,12 +156,13 @@ export const MatchDetailsScreen = ({
   if (matchDetails)
     return (
       <TabView
+        lazy
+        lazyPreloadDistance={1}
         renderTabBar={renderTabBar}
         navigationState={{ index, routes: allRoutes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        lazy
         commonOptions={{
           labelStyle: {
             fontSize: fontSize,

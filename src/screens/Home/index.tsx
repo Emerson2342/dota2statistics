@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { View, Dimensions, useWindowDimensions } from "react-native";
+import { View, Dimensions, ViewBase } from "react-native";
 import { PRO_MATCHES_URL } from "@src/constants/player";
 import { fetchData, getHeroesStats } from "@src/services/api";
 import { LeagueMatches } from "@src/services/props";
-import { TabBar, TabView } from "react-native-tab-view";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { TrendingsTab } from "./TrendingsTab";
 import { MyProfileTabs } from "./MyProfileTabs";
@@ -15,8 +15,16 @@ import { useSettingsStore } from "@src/store/settings";
 import { useQuery } from "@tanstack/react-query";
 import { useThemeStore } from "@src/store/theme";
 import { WaveTrendings } from "@src/components/Waves";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TextComponent } from "@src/components/TextComponent";
 
 const fontSize = Dimensions.get("screen").width * 0.03;
+
+const initialLayout = {
+  width: Dimensions.get("window").width,
+};
+
+
 
 export function Home() {
   const playerId = usePlayerStore((state) => state.playerId);
@@ -33,7 +41,7 @@ export function Home() {
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const { englishLanguage } = useSettingsStore();
-  const layout = useWindowDimensions();
+
 
   const [index, setIndex] = useState(0);
   const { proMatchesQuery, heroesStatsQuery } = useHomeData();
@@ -44,15 +52,17 @@ export function Home() {
     handleFetchPlayerData(playerId);
   }, [playerId, hasFetchedInitialData]);
 
-  const routesRef = useRef([
-    { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
-    { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
-    {
-      key: "heroesPlayed",
-      title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
-    },
-  ]);
-  const routes = routesRef.current;
+  const routes = useMemo(
+    () => [
+      { key: "trendings", title: englishLanguage ? "Trendings" : "Populares" },
+      { key: "myProfile", title: englishLanguage ? "My Profile" : "Meu Perfil" },
+      {
+        key: "heroesPlayed",
+        title: englishLanguage ? "Heroes Played" : "Heróis Jogados",
+      },
+    ],
+    [englishLanguage]
+  );
 
   function useHomeData() {
     const proMatchesQuery = useQuery({
@@ -89,29 +99,34 @@ export function Home() {
   const heroesStats = heroesStatsQuery.data ?? [];
   const proMatches = proMatchesQuery.data ?? [];
 
+
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "trendings":
         return (
-          <TrendingsTab
-            color={colorTheme.light}
-            heroesStats={heroesStats}
-            proMatches={proMatches}
-            onRefresh={proMatchesQuery.refetch}
-          />
+          <View style={{ flex: 1 }}>
+            <TrendingsTab
+              color={colorTheme.light}
+              heroesStats={heroesStats}
+              proMatches={proMatches}
+              onRefresh={proMatchesQuery.refetch}
+            />
+          </View>
         );
       case "myProfile":
-        return <MyProfileTabs index={index} />;
+        return <View style={{ flex: 1 }}>
+          <MyProfileTabs index={index} />
+        </View>
       case "heroesPlayed":
         return (
-          <HeroesPlayedComponent
-            isLoading={isLoadingContext}
-            heroesPlayedList={heroesPlayed}
-            isHomeProfile={true}
-          />
+          <View style={{ flex: 1 }}>
+            <HeroesPlayedComponent
+              isLoading={isLoadingContext}
+              heroesPlayedList={heroesPlayed}
+              isHomeProfile={true}
+            />
+          </View>
         );
-      default:
-        return null;
     }
   };
 
@@ -135,15 +150,15 @@ export function Home() {
     );
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaProvider style={{ flex: 1 }}>
       <TabView
         lazy
-        lazyPreloadDistance={0}
+        lazyPreloadDistance={2}
         renderTabBar={renderTabBar}
-        navigationState={{ index, routes: routes }}
+        navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
+        initialLayout={initialLayout}
         commonOptions={{
           labelStyle: {
             fontSize: fontSize,
@@ -152,6 +167,6 @@ export function Home() {
           },
         }}
       />
-    </View>
+    </SafeAreaProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   View,
   TouchableOpacity,
@@ -8,10 +8,12 @@ import {
   Dimensions,
   DimensionValue,
   Animated,
+  ScrollView,
 } from "react-native";
 import { createStyles } from "./LastMatchesStyles";
 import {
   GameModeNames,
+  Hero,
   HeroDetailsModel,
   LobbyTypeNames,
   RecentMatches,
@@ -32,6 +34,9 @@ import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 
+const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
+const fontSize = Dimensions.get("screen").width * 0.02
+
 function LastMatchesComponent({
   playerId,
   recentMatches,
@@ -41,13 +46,12 @@ function LastMatchesComponent({
   recentMatches: RecentMatches[] | null;
   onRefresh: () => Promise<void>;
 }) {
+
   const router = useRouter();
   const { englishLanguage } = useSettingsStore();
 
   const { player } = usePlayerStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
-
-  const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 
   const styles = createStyles(colorTheme);
 
@@ -72,7 +76,15 @@ function LastMatchesComponent({
     });
   };
 
-  const renderItem = ({
+  const heroMap = useMemo(() => {
+    const map: Record<number, HeroDetailsModel> = {};
+    heroArray.forEach(h => {
+      map[h.id] = h;
+    });
+    return map;
+  }, [heroArray]);
+
+  const renderItem = useCallback(({
     item,
     index,
   }: {
@@ -84,7 +96,7 @@ function LastMatchesComponent({
     const formattedTime = formatStartTime(item.start_time);
     const formattedDuration = formatDuration(item.duration);
 
-    const { killsWidth, deathsWidth, assisWidth } = overviewBar(
+    const { killsWidth } = overviewBar(
       item.kills,
       item.deaths,
       item.assists
@@ -96,156 +108,159 @@ function LastMatchesComponent({
     const team = item.player_slot < 5 ? 1 : 2;
     const finalResult =
       (team == 1 && item.radiant_win == true) ||
-      (team == 2 && item.radiant_win == false)
+        (team == 2 && item.radiant_win == false)
         ? true
         : false;
 
-    const hero = heroArray.find((hero) => hero.id === item.hero_id);
+    const hero = heroMap[item.hero_id];
 
     let imgSource = PICTURE_HERO_BASE_URL + hero?.img;
     return (
-      <TouchableOpacity
-        onPress={() =>
-          handleGoToMatch(
-            item.match_id,
-            playerId
-              ? playerId
-              : player && player?.profile.account_id.toString(),
-            LobbyTypeNames[lobbyTypeValue].toString(),
-            GameModeNames[gameModeValue].toString()
-          )
-        }
-        key={index}
-        style={[
-          styles.listContainer,
-          {
-            backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
-            marginVertical: 1.5,
-            borderWidth: 1,
-            borderColor: colorTheme.light,
-          },
-        ]}
+      <View
+        key={`match-${item.match_id}`}
       >
-        <Image
-          style={styles.imageHero} // 13%
-          source={{
-            uri: imgSource,
-          }}
-        />
-        <TextComponent
-          weight="bold"
+        <TouchableOpacity
           style={[
-            styles.textList,
+            styles.listContainer,
             {
-              color: finalResult ? "#268626" : "#9a0c28",
-              width: "7%",
-            },
+              backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
+              marginVertical: 2,
+              borderWidth: 1,
+              borderColor: colorTheme.light,
+            }
           ]}
+          onPress={() =>
+            handleGoToMatch(
+              item.match_id,
+              playerId
+                ? playerId
+                : player && player?.profile.account_id.toString(),
+              LobbyTypeNames[lobbyTypeValue].toString(),
+              GameModeNames[gameModeValue].toString()
+            )
+          }
         >
-          {finalResult ? (
-            <MaterialIcons name="thumb-up" size={15} color="#268626" />
-          ) : (
-            <MaterialIcons name="thumb-down" size={15} color="#9a0c28" />
-          )}
-        </TextComponent>
-        <TextComponent
-          weight="bold"
-          style={[
-            styles.textList,
-            { width: "28%", fontFamily: "QuickSand-Semibold" },
-          ]}
-        >
-          {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
-          {formattedTime}
-        </TextComponent>
-        <View style={{ width: "25%" }}>
-          <TextComponent
-            weight="bold"
-            style={[
-              styles.textList,
-              {
-                color: colorTheme.semilight,
-                fontSize: Dimensions.get("screen").width * 0.02,
-              },
-            ]}
-          >
-            {LobbyTypeNames[lobbyTypeValue]}
-          </TextComponent>
-          <TextComponent
-            weight="bold"
-            style={[styles.textList, { color: colorTheme.dark }]}
-          >
-            {GameModeNames[gameModeValue]}
-          </TextComponent>
-        </View>
-        <TextComponent
-          weight="semibold"
-          style={[styles.textList, { width: "10%" }]}
-        >
-          {formattedDuration}
-        </TextComponent>
-        <View style={{ width: "15%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
+          <View style={{ flex: 1.5, flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+            <Image
+              style={styles.imageHero}
+              source={{
+                uri: imgSource,
+              }}
+            />
             <TextComponent
-              weight="semibold"
-              style={[styles.textList, { color: "#268626" }]}
+              weight="bold"
+              style={{ color: finalResult ? "#268626" : "#9a0c28" }}
             >
-              {item.kills}/
-            </TextComponent>
-            <TextComponent
-              weight="semibold"
-              style={[styles.textList, { color: "#9a0c28" }]}
-            >
-              {item.deaths}/
-            </TextComponent>
-            <TextComponent
-              weight="semibold"
-              style={[styles.textList, { color: "#c88304" }]}
-            >
-              {item.assists}
+              {finalResult ? (
+                <MaterialIcons name="thumb-up" size={15} color="#268626" />
+              ) : (
+                <MaterialIcons name="thumb-down" size={15} color="#9a0c28" />
+              )}
             </TextComponent>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              height: 3,
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "#268626",
-                width: killsWidth as DimensionValue,
-                borderTopLeftRadius: 3,
-                borderBottomLeftRadius: 3,
-              }}
-            />
-            <View
-              style={{
-                backgroundColor: "#9a0c28",
-                width: deathsWidth as DimensionValue,
-                borderTopLeftRadius: killsWidth === "0%" ? 3 : 0,
-                borderBottomLeftRadius: killsWidth === "0%" ? 3 : 0,
-              }}
-            />
-            <View
-              style={{
-                backgroundColor: "#c88304",
-                width: assisWidth as DimensionValue,
-                borderTopRightRadius: 3,
-                borderBottomRightRadius: 3,
-              }}
-            />
+          <View style={{ flex: 3 }}>
+            <TextComponent
+              weight="bold"
+              style={[
+                styles.textList,
+                { fontFamily: "QuickSand-Semibold" },
+              ]}
+            >
+              {startDate.toLocaleDateString(englishLanguage ? "en-US" : "pt-BR")}-
+              {formattedTime}
+            </TextComponent>
           </View>
-        </View>
-      </TouchableOpacity>
+          <View style={{ flex: 2 }}>
+            <TextComponent
+              weight="bold"
+              style={[
+                styles.textList,
+                {
+                  color: colorTheme.semilight,
+                  fontSize: fontSize,
+                },
+              ]}
+            >
+              {LobbyTypeNames[lobbyTypeValue]}
+            </TextComponent>
+            <TextComponent
+              weight="bold"
+              style={[styles.textList, { color: colorTheme.dark }]}
+            >
+              {GameModeNames[gameModeValue]}
+            </TextComponent>
+          </View>
+          <View style={{ flex: 1 }}>
+
+            <TextComponent
+              weight="semibold"
+              style={styles.textList}
+            >
+              {formattedDuration}
+            </TextComponent>
+          </View>
+          <View style={{ flex: 2 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <TextComponent
+                weight="semibold"
+                style={[styles.textList, { color: "#268626" }]}
+              >
+                {item.kills}/
+              </TextComponent>
+              <TextComponent
+                weight="semibold"
+                style={[styles.textList, { color: "#9a0c28" }]}
+              >
+                {item.deaths}/
+              </TextComponent>
+              <TextComponent
+                weight="semibold"
+                style={[styles.textList, { color: "#c88304" }]}
+              >
+                {item.assists}
+              </TextComponent>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                height: 3,
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "#268626",
+                  flex: item.kills,
+                  borderTopLeftRadius: 3,
+                  borderBottomLeftRadius: 3,
+                }}
+              />
+              <View
+                style={{
+                  backgroundColor: "#9a0c28",
+                  flex: item.deaths,
+                  borderTopLeftRadius: killsWidth === "0%" ? 3 : 0,
+                  borderBottomLeftRadius: killsWidth === "0%" ? 3 : 0,
+                }}
+              />
+              <View
+                style={{
+                  backgroundColor: "#c88304",
+                  flex: item.assists,
+                  borderTopRightRadius: 3,
+                  borderBottomRightRadius: 3,
+                }}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
-  };
+  }, [playerId]);
 
   return (
     <View style={styles.flatListContainer}>
@@ -285,7 +300,10 @@ function LastMatchesComponent({
         data={recentMatches}
         renderItem={renderItem}
         keyExtractor={(item: RecentMatches) => item.match_id.toString()}
-        initialNumToRender={20}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        windowSize={5}
+        removeClippedSubviews
         indicatorStyle="black"
         refreshControl={
           <RefreshControl
