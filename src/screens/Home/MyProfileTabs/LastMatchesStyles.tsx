@@ -16,6 +16,7 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 3,
     },
     flatListContainer: {
+      marginHorizontal: 1,
       flex: 1,
       alignSelf: "center",
     },
@@ -25,6 +26,7 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: 12,
     },
     listTitle: {
+      width: "100%",
       flexDirection: "row",
       justifyContent: "space-around",
     },
@@ -32,6 +34,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.semidark,
       textAlign: "center",
       alignSelf: "center",
-      fontSize: 12
+      fontSize: 12,
     },
   });

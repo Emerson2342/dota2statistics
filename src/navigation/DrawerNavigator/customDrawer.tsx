@@ -18,6 +18,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerStore();
@@ -36,6 +37,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <LinearGradientComponent />
         <Image source={avatarSource} style={styles.image} />
         <TextComponent weight="bold" style={styles.textName}>
           {player?.profile.name != ""

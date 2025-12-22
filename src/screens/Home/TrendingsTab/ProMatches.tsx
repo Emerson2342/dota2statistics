@@ -17,6 +17,7 @@ import { TeamSide } from "@src/services/enum";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 const WIN = "#257848";
 const LOS = "#9a2525";

@@ -57,7 +57,7 @@ export default function App() {
       >
         <Snowfall
           imagePath={require("../src/images/snowFlake.png")}
-          count={150}
+          count={130}
           duration={10000}
           minSize={10}
           maxSize={30}

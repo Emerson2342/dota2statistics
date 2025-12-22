@@ -98,7 +98,11 @@ function HeroesStatsComponent({
                 >
                   <Image source={{ uri: urlImg }} style={styles.imgHero} />
                   <TextComponent weight="semibold" style={styles.text}>
-                    {item.winRate?.toFixed(2)}%
+                    {item.winRate?.toLocaleString(
+                      englishLanguage ? "en-US" : "pt-BR",
+                      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+                    )}
+                    %
                   </TextComponent>
                 </TouchableOpacity>
               );

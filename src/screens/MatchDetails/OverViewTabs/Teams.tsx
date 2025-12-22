@@ -367,7 +367,13 @@ function Teams({
                           {(player.benchmarks.kills_per_min.pct
                             ? player.benchmarks.kills_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -381,7 +387,13 @@ function Teams({
                           {(player.benchmarks.last_hits_per_min.pct
                             ? player.benchmarks.last_hits_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -395,7 +407,13 @@ function Teams({
                           {(player.benchmarks.hero_damage_per_min.pct
                             ? player.benchmarks.hero_damage_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -409,7 +427,13 @@ function Teams({
                           {(player.benchmarks.tower_damage.pct
                             ? player.benchmarks.tower_damage.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -423,7 +447,13 @@ function Teams({
                           {(player.benchmarks.hero_healing_per_min.pct
                             ? player.benchmarks.hero_healing_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -437,7 +467,13 @@ function Teams({
                           {(player.benchmarks.xp_per_min.pct
                             ? player.benchmarks.xp_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                         <TextComponent
@@ -453,7 +489,13 @@ function Teams({
                           {(player.benchmarks.gold_per_min.pct
                             ? player.benchmarks.gold_per_min.pct * 100
                             : 0
-                          ).toFixed(2)}
+                          ).toLocaleString(
+                            englishLanguage ? "en-US" : "pt-BR",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}
                           %
                         </TextComponent>
                       </View>

@@ -155,13 +155,13 @@ export default function PlayerProfileScreen({
             </View>
             <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.75 }}>
               <View style={{ flex: 1, paddingBottom: "1%" }}>
-                {player ? (
+                {player && (
                   <LastMatches
                     playerId={playerId}
                     onRefresh={() => handleSearch()}
                     recentMatches={recentMatches}
                   />
-                ) : null}
+                )}
               </View>
             </View>
 

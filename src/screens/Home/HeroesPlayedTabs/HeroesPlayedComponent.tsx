@@ -118,19 +118,23 @@ function HeroesPlayedComp({
             {formattedTime}
           </TextComponent>
           <TextComponent weight="semibold" style={styles.textInfo}>
-            {winrate.toFixed(2)}%
+            {winrate.toLocaleString(englishLanguage ? "en-us" : "pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+            %
           </TextComponent>
 
           <TextComponent weight="semibold" style={styles.textInfo}>
-            {item.games}
+            {item.games.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
           </TextComponent>
           <TextComponent weight="semibold" style={styles.textInfo}>
-            {item.win}
+            {item.win.toLocaleString(englishLanguage ? "en-US" : "pt-BR")}
           </TextComponent>
         </View>
       );
     },
-    [heroesPlayedList]
+    [heroesPlayedList, englishLanguage]
   );
 
   if (isLoading)

@@ -9,6 +9,7 @@ import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { ThemeProps } from "@src/services/props";
 import { useThemeStore } from "@src/store/theme";
+import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
@@ -168,9 +169,10 @@ export function SettingsScreen() {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.buttonSave, { backgroundColor: colorTheme.dark }]}
+          style={[styles.buttonSave, { backgroundColor: colorTheme.standard }]}
           onPress={() => handleSaveChanges()}
         >
+          <LinearGradientComponent />
           <TextComponent
             weight="semibold"
             style={[styles.textButton, { color: "#fff" }]}
