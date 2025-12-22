@@ -21,8 +21,6 @@ import { useThemeStore } from "@src/store/theme";
 const WIN = "#257848";
 const LOS = "#9a2525";
 
-const currentTimestamp = Math.floor(Date.now() / 1000);
-
 function ProMatchesComponent({
   proMatches,
   onRefresh,
@@ -30,12 +28,16 @@ function ProMatchesComponent({
   proMatches: LeagueMatches[] | [];
   onRefresh: () => Promise<void>;
 }) {
+  const currentTimestamp = Math.floor(Date.now() / 1000);
   const { englishLanguage } = useSettingsStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const styles = createStylesStatics(colorTheme);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const radName = englishLanguage ? "Radiant" : "Iluminados";
+  const direName = englishLanguage ? "Dire" : "Temidos";
 
   const refresh = useCallback(async () => {
     console.log("Refresh pro matches");
@@ -101,8 +103,8 @@ function ProMatchesComponent({
       const colorText = isWinner ? WIN : LOS;
 
       const itemName = isRadiant
-        ? item.radiant_name || "Radiant"
-        : item.dire_name || "Dire";
+        ? item.radiant_name || radName
+        : item.dire_name || direName;
 
       const itemScore =
         team === TeamSide.Radiant ? item.radiant_score : item.dire_score;
@@ -131,7 +133,7 @@ function ProMatchesComponent({
         </View>
       );
     },
-    []
+    [englishLanguage, proMatches]
   );
 
   const ProMatchItem = useCallback(
@@ -205,7 +207,7 @@ function ProMatchesComponent({
         </View>
       );
     },
-    []
+    [proMatches, englishLanguage]
   );
 
   if (loading)
