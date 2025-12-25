@@ -15,6 +15,7 @@ import { TextComponent } from "../TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { TextInputComponent } from "../TextInputComponent";
 
 export default function ModalMyAccount({
   handleClose,
@@ -42,9 +43,10 @@ export default function ModalMyAccount({
     if (convertedId) {
       setUserId(convertedId);
       setTextMessage(messageSuccess);
-      setModalMessageVisible(true);
+      // setModalMessageVisible(true);
       setPlayerId(convertedId);
       handleFetchPlayerData(convertedId);
+      handleClose();
     }
   };
 
@@ -59,9 +61,6 @@ export default function ModalMyAccount({
         >
           {englishLanguage ? "My Account" : "Minha Conta"}
         </TextComponent>
-        <TextComponent weight="semibold" style={styles.header}>
-          Id Steam
-        </TextComponent>
         <View
           style={{
             flexDirection: "row",
@@ -70,11 +69,12 @@ export default function ModalMyAccount({
           }}
         >
           <View style={styles.inputContent}>
-            <TextInput
+            <TextInputComponent
               value={userId ?? ""}
               keyboardType="numeric"
               style={styles.inputText}
               onChangeText={(textId) => setUserId(textId)}
+              label="Id Steam"
             />
             <TouchableOpacity onPress={() => setUserId("")}>
               <Ionicons
@@ -172,7 +172,7 @@ const createStyles = (colors: ThemeColor) =>
     inputContent: {
       margin: "3%",
       marginTop: 0,
-      borderWidth: 1,
+      // borderWidth: 1,
       borderColor: colors.semidark + 90,
       borderRadius: 5,
       width: "80%",

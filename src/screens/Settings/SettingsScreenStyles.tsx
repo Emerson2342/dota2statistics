@@ -29,7 +29,7 @@ export const createStyles = (Colors: ThemeColor) =>
       flexDirection: "row",
       width: "100%",
       color: Colors.dark,
-      gap: 3,
+      justifyContent: "space-between",
     },
     textData: {
       color: "#000",
@@ -44,7 +44,7 @@ export const createStyles = (Colors: ThemeColor) =>
     },
     options: {
       width: "100%",
-      justifyContent: "space-between",
+      //justifyContent: "space-",
     },
     textButton: {
       fontSize: 15,
@@ -58,5 +58,8 @@ export const createStyles = (Colors: ThemeColor) =>
       borderRadius: 7,
       borderWidth: 1,
       borderColor: Colors.dark,
+    },
+    editButton: {
+      margin: 3,
     },
   });

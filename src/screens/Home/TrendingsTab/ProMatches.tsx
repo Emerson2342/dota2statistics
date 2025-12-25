@@ -208,7 +208,7 @@ function ProMatchesComponent({
         </View>
       );
     },
-    [proMatches, englishLanguage]
+    [proMatches, englishLanguage, colorTheme]
   );
 
   if (loading)

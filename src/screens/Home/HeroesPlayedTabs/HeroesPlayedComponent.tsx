@@ -134,7 +134,7 @@ function HeroesPlayedComp({
         </View>
       );
     },
-    [heroesPlayedList, englishLanguage]
+    [heroesPlayedList, englishLanguage, colorTheme]
   );
 
   if (isLoading)

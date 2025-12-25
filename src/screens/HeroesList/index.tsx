@@ -22,6 +22,8 @@ import { TextComponent } from "@src/components/TextComponent";
 import { ActivityIndicatorCustom } from "@src/components/ActivityIndicatorCustom";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { TextInputComponent } from "@src/components/TextInputComponent";
+import { Ionicons } from "@expo/vector-icons";
 
 const COLUMNS: number = 2;
 
@@ -77,7 +79,6 @@ export function ListaDeHerois() {
 
     setTimeout(() => {
       setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-
       setIsLoading(false);
     }, 500);
   }, []);
@@ -187,16 +188,14 @@ export function ListaDeHerois() {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Searchbar
-          placeholder={textInput}
-          style={styles.textInput}
-          value={textInputSearch}
-          elevation={3}
-          iconColor={colorTheme.semidark}
-          placeholderTextColor={colorTheme.semilight}
+        <TextInputComponent
           onChangeText={(text) => HandleSearchHero(text)}
-          onClearIconPress={() => HandleClearSearchResults()}
+          label={textInput}
+          value={textInputSearch}
         />
+        <TouchableOpacity onPress={() => HandleClearSearchResults()}>
+          <Ionicons name="close" size={15} color={colorTheme.semidark} />
+        </TouchableOpacity>
       </View>
       <View style={styles.radioButtonContainer}>
         <TouchableOpacity

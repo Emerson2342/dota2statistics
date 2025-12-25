@@ -10,10 +10,12 @@ export const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
     },
     inputContainer: {
+      marginVertical: 13,
       alignItems: "center",
       flexDirection: "row",
-      width: "95%",
+      width: "70%",
       justifyContent: "center",
+      gap: 7,
     },
     textInput: {
       backgroundColor: "#fff",

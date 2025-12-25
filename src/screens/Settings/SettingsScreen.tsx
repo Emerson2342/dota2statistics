@@ -10,6 +10,7 @@ import { useSettingsStore } from "@src/store/settings";
 import { ThemeProps } from "@src/services/props";
 import { useThemeStore } from "@src/store/theme";
 import { LinearGradientComponent } from "@src/components/LinearGradient";
+import { WaveProfile, WaveTrendings } from "@src/components/Waves";
 
 export function SettingsScreen() {
   const { englishLanguage, setEnglishLanguage, globalTheme, setGlobalTheme } =
@@ -51,35 +52,30 @@ export function SettingsScreen() {
 
   return (
     <View style={styles.mainContainer}>
+      <WaveTrendings />
       <View style={[styles.container, { flex: 0.9 }]}>
         <View style={styles.container}>
           <TextComponent weight="bold" style={styles.title}>
             {englishLanguage ? "My Account" : "Minha Conta"}
           </TextComponent>
           <View style={styles.profile}>
-            <TextComponent weight="bold">Id Steam:</TextComponent>
-            <TextComponent style={styles.textData}>
-              {playerId ?? "0000000000"}
-            </TextComponent>
+            <View style={{ flexDirection: "row", gap: 7 }}>
+              <TextComponent weight="bold">Id Steam:</TextComponent>
+              <TextComponent style={styles.textData}>
+                {playerId ?? "0000000000"}
+              </TextComponent>
+            </View>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Feather name="edit" size={17} color={colorTheme.semidark} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={[styles.buttonSave, { marginTop: 15 }]}
-            onPress={() => setModalVisible(true)}
-          >
-            <TextComponent weight="semibold" style={styles.textButton}>
-              {englishLanguage ? "Edit" : "Editar"}
-            </TextComponent>
-          </TouchableOpacity>
         </View>
         <View style={styles.container}>
           <TextComponent weight="bold" style={styles.title}>
             {englishLanguage ? "Language" : "Idioma"}
           </TextComponent>
           <View style={styles.options}>
-            <TouchableOpacity
-              style={{ marginTop: "2%", marginBottom: "2%" }}
-              onPress={() => setIsEnglish(true)}
-            >
+            <TouchableOpacity onPress={() => setIsEnglish(true)}>
               <TextComponent
                 weight="bold"
                 style={
@@ -169,10 +165,9 @@ export function SettingsScreen() {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.buttonSave, { backgroundColor: colorTheme.standard }]}
+          style={[styles.buttonSave, { backgroundColor: colorTheme.semidark }]}
           onPress={() => handleSaveChanges()}
         >
-          <LinearGradientComponent />
           <TextComponent
             weight="semibold"
             style={[styles.textButton, { color: "#fff" }]}

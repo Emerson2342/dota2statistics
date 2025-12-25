@@ -251,7 +251,7 @@ function LastMatchesComponent({
         </View>
       );
     },
-    [playerId]
+    [playerId, colorTheme]
   );
 
   return (
