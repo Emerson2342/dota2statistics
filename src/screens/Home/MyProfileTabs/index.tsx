@@ -123,6 +123,7 @@ const createStyles = (colors: ThemeColor) =>
       backgroundColor: "#fff",
     },
     inputContainer: {
+      marginVertical: 15,
       flex: 1,
       width: "100%",
       alignItems: "center",

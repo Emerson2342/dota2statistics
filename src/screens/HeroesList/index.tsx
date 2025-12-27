@@ -6,7 +6,6 @@ import {
   Image,
   Keyboard,
 } from "react-native";
-import { Searchbar } from "react-native-paper";
 import { createStyles } from "./styles";
 
 import { HeroDetailsModel } from "@src/services/props";

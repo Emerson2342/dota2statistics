@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import mobileAds from "react-native-google-mobile-ads";
 import { useFonts } from "expo-font";
-import { PaperProvider } from "react-native-paper";
 import { Modal, Platform, StatusBar, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import Constants from "expo-constants";
@@ -63,12 +62,10 @@ export default function App() {
           maxSize={30}
         />
       </View>
-      <PaperProvider>
-        <QueryClientProvider client={queryClient}>
-          {/* <Teste /> */}
-          <Content />
-        </QueryClientProvider>
-      </PaperProvider>
+      <QueryClientProvider client={queryClient}>
+        {/* <Teste /> */}
+        <Content />
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { View, StyleSheet, Modal, TouchableOpacity } from "react-native";
-import { Searchbar } from "react-native-paper";
 import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { getErro404Message } from "./textMessage";
 import { useSettingsStore } from "@src/store/settings";
@@ -29,7 +28,6 @@ export const SearchComponent = ({
   return (
     <View
       style={{
-        marginTop: 20,
         width: "75%",
         flexDirection: "row",
         alignItems: "center",
@@ -45,6 +43,9 @@ export const SearchComponent = ({
         value={text}
         onChangeText={setText}
       />
+      <TouchableOpacity onPress={() => setText("")}>
+        <Ionicons name="close" size={23} color={colorTheme.semidark} />
+      </TouchableOpacity>
       <Modal
         visible={showModalMessage}
         animationType="slide"

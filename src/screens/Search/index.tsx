@@ -7,28 +7,30 @@ import {
   FlatList,
   Keyboard,
   Modal,
+  Switch,
 } from "react-native";
 
 import { createStyles } from "./styles";
 import { fetchData } from "@src/services/api";
 import { SEARCH_PLAYER_BASE_URL } from "@src/constants/player";
 import { SearchUserResult } from "@src/services/props";
-import { ProgressBar, MD3Colors, RadioButton } from "react-native-paper";
 import { ModalMessage } from "@src/components/Modals/ModalMessage";
 import { SearchComponent } from "@src/utils/SearchComponent";
 import { useRouter } from "expo-router";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { Feather, Fontisto, Ionicons, MaterialIcons } from "@expo/vector-icons";
+
+type SearchType = "player" | "match";
 
 export const Search = () => {
   const { englishLanguage } = useSettingsStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
   const styles = createStyles(colorTheme);
-  const [inputText, setInputText] = useState("");
   const [textSearch, setTextSearch] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchType, setSearchType] = useState("player");
+  const [searchType, setSearchType] = useState<SearchType>("player");
   const [modalMessage, setModalMessage] = useState(false);
   const [modalMessageInput, setModalMessageInput] = useState(false);
 
@@ -46,6 +48,9 @@ export const Search = () => {
   const textLength = englishLanguage
     ? "Type at least 4 characters"
     : "Digite pelo menos 4 caracteres";
+
+  const playerSelected = searchType === "player";
+  const matchSelected = searchType === "match";
 
   const handleSearchPlayer = async (text: string) => {
     if (text.length < 4) {
@@ -69,7 +74,6 @@ export const Search = () => {
         )
       );
     //await searchPlayersByName(searchPlayerUrl, setUsersSearch);
-    setInputText("");
     Keyboard.dismiss();
     setIsLoading(false);
   };
@@ -138,10 +142,18 @@ export const Search = () => {
       handleGoToMatch(input);
     }
   };
-  console.log(inputText);
 
   return (
     <View style={styles.container}>
+      <TextComponent
+        weight="semibold"
+        style={[
+          styles.emptyList,
+          { display: usersSearch.length === 0 ? "flex" : "none" },
+        ]}
+      >
+        {searchType === "player" ? textInfoProfile : textInfoMatch}
+      </TextComponent>
       <View style={styles.inputContainer}>
         <SearchComponent
           onSearch={handleSearch}
@@ -158,23 +170,40 @@ export const Search = () => {
           justifyContent: "space-around",
         }}
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <RadioButton
-            value="player"
-            status={searchType == "player" ? "checked" : "unchecked"}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 13,
+            marginVertical: 7,
+          }}
+        >
+          <TouchableOpacity
             onPress={() => setSearchType("player")}
-          />
-          <TextComponent>
-            {englishLanguage ? "Profile" : "Perfil"}
-          </TextComponent>
-        </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <RadioButton
-            value="match"
-            status={searchType === "match" ? "checked" : "unchecked"}
+            style={{ flexDirection: "row", gap: 7 }}
+          >
+            <MaterialIcons
+              name={playerSelected ? "radio-button-on" : "radio-button-off"}
+              color={colorTheme.semidark}
+              size={23}
+            />
+            <TextComponent weight="bold" style={{ color: colorTheme.dark }}>
+              {englishLanguage ? "Profile" : "Perfil"}
+            </TextComponent>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flexDirection: "row", gap: 7 }}
             onPress={() => setSearchType("match")}
-          />
-          <TextComponent>{englishLanguage ? "Match" : "Partida"}</TextComponent>
+          >
+            <MaterialIcons
+              name={matchSelected ? "radio-button-on" : "radio-button-off"}
+              color={colorTheme.semidark}
+              size={23}
+            />
+            <TextComponent style={{ color: colorTheme.dark }} weight="bold">
+              {englishLanguage ? "Match" : "Partida"}
+            </TextComponent>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -188,7 +217,6 @@ export const Search = () => {
               : `Buscando por "${textSearch}"`}
           </TextComponent>
           <ActivityIndicator color={colorTheme.semidark} size={30} />
-          <ProgressBar indeterminate={true} color={MD3Colors.error100} />
         </View>
       ) : (
         <View style={{ flex: 1 }}>
@@ -224,15 +252,6 @@ export const Search = () => {
               : englishLanguage
               ? `No results found for "${textSearch}"`
               : `Nenhum resultado encontrado para "${textSearch}"`}
-          </TextComponent>
-          <TextComponent
-            weight="semibold"
-            style={[
-              styles.emptyList,
-              { display: usersSearch.length === 0 ? "flex" : "none" },
-            ]}
-          >
-            {searchType === "player" ? textInfoProfile : textInfoMatch}
           </TextComponent>
           <FlatList
             data={usersSearch}

@@ -9,22 +9,28 @@ export const createStyles = (colors: ThemeColor) =>
       alignItems: "center",
     },
     inputContainer: {
-      marginTop: "3%",
-      width: "95%",
+      marginVertical: "3%",
       alignItems: "center",
-      justifyContent: "space-around",
       flexDirection: "row",
+    },
+    buttonSearch: {
+      padding: 7,
+      width: "50%",
+      alignItems: "center",
+      borderRadius: 7,
+      borderWidth: 1,
+      borderColor: colors.semidark,
     },
     buttonCleanSearch: {
       marginTop: "5%",
       backgroundColor: colors.semidark,
-      padding: "2.7%",
+      padding: "3%",
       alignItems: "center",
       borderRadius: 5,
     },
     emptyList: {
+      marginTop: "3%",
       textAlign: "center",
-      padding: "5%",
       color: colors.semidark,
     },
   });
