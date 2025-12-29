@@ -193,7 +193,7 @@ export function ListaDeHerois() {
           value={textInputSearch}
         />
         <TouchableOpacity onPress={() => HandleClearSearchResults()}>
-          <Ionicons name="close" size={15} color={colorTheme.semidark} />
+          <Ionicons name="close" size={23} color={colorTheme.semidark} />
         </TouchableOpacity>
       </View>
       <View style={styles.radioButtonContainer}>
