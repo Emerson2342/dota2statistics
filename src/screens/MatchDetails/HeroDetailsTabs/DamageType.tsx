@@ -55,10 +55,10 @@ function DamageType({
   const { englishLanguage } = useSettingsStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
-  const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
-
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
+
+  const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
 
   const styles = createStyles(colorTheme);
   const title =
@@ -70,12 +70,6 @@ function DamageType({
       ? "Type of Damage Received"
       : "Tipo de Dano Recebido";
 
-  useEffect(() => {
-    setTimeout(() => {
-      setHeroList(Object.values(HeroesDetails) as HeroDetailsModel[]);
-    }, 500);
-  }, []);
-
   const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
     AbilitiesDescriptionsJson;
 
@@ -84,19 +78,19 @@ function DamageType({
       <>
         <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Physical: " : "Físico: "}
-          <TextComponent style={{ color: "#aaa" }}>
+          <TextComponent weight="bold" style={{ color: "#aaa" }}>
             {Physical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </TextComponent>
         </TextComponent>
         <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Magical: " : "Mágico: "}
-          <TextComponent style={{ color: "#aaa" }}>
+          <TextComponent weight="bold" style={{ color: "#aaa" }}>
             {Magical.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </TextComponent>
         </TextComponent>
         <TextComponent weight="bold" style={styles.labelDamage}>
           {englishLanguage ? "Pure: " : "Puro: "}
-          <TextComponent style={{ color: "#aaa" }}>
+          <TextComponent weight="bold" style={{ color: "#aaa" }}>
             {Pure.toLocaleString(englishLanguage ? "en-USA" : "pt-BR")}
           </TextComponent>
         </TextComponent>

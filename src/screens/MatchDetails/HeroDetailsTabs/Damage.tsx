@@ -38,20 +38,12 @@ function Damage({
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
   const router = useRouter();
-  const [heroList, setHeroList] = useState<HeroDetailsModel[]>([]);
-  // setHeroArray(Object.values(HeroesDetails) as HeroDetailsModel[]);
-
+  const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
 
   const styles = createStyles(colorTheme);
   // const heroList = Object.values(HeroesDetails) as HeroDetailsModel[];
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHeroList(Object.values(HeroesDetails) as HeroDetailsModel[]);
-    }, 500);
-  }, []);
 
   const heroAbilitiesDescriptions: HeroAbilitiesDescriptionsJson =
     AbilitiesDescriptionsJson;

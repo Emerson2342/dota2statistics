@@ -57,8 +57,6 @@ export function LeagueMatchesScreen({
     load();
   }, []);
 
-  useEffect(() => {}, []);
-
   const handleGoToMatch = (matchId: number) => {
     route.push({
       pathname: "match-details",
