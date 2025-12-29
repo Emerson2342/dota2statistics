@@ -323,6 +323,7 @@ export interface MatchDetailsModel {
     tag?: string;
     logo_url?: string;
   };
+  lobby_type: number;
 }
 
 export interface Player {
@@ -677,3 +678,10 @@ export interface HeroMatchUps {
 
 export type ThemeProps = "int" | "agi" | "str" | "ti2025";
 export type LanguageProps = "pt" | "en";
+
+export interface ApiResponse<T> {
+  success: boolean;
+  status: number;
+  data?: T;
+  message: string;
+}

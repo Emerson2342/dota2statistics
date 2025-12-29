@@ -6,19 +6,15 @@ import { BannerAds } from "@src/components/Admob/BannerAds";
 type MatchDetailsParams = {
   matchDetailsId: string;
   playerIdIndex?: string;
-  lobbyType?: string;
-  gameMode?: string;
 };
 
 export default function MatchDetails() {
-  const { matchDetailsId, playerIdIndex, lobbyType, gameMode } =
+  const { matchDetailsId, playerIdIndex } =
     useLocalSearchParams<MatchDetailsParams>();
   return (
     <View style={{ flex: 1 }}>
       <MatchDetailsScreen
         matchDetailsId={matchDetailsId}
-        gameMode={gameMode}
-        lobbyType={lobbyType}
         playerIdIndex={playerIdIndex}
       />
       <BannerAds />

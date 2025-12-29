@@ -69,8 +69,6 @@ function LastMatchesComponent({
       params: {
         matchDetailsId: matchIdIndex.toString(),
         playerIdIndex: playerIdIndex,
-        lobbyType: lobbyType,
-        gameMode: gameMode,
       },
     });
   };

@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useWindowDimensions, Dimensions } from "react-native";
+import { useWindowDimensions, Dimensions, View } from "react-native";
 import HeroesDetails from "../../components/Heroes/HeroesDetails.json";
 import { TabView, TabBar } from "react-native-tab-view";
-import { HeroDetailsModel } from "@src/services/props";
+import {
+  GameModeNames,
+  HeroDetailsModel,
+  LobbyTypeNames,
+} from "@src/services/props";
 import { getMatchDetails } from "@src/services/api";
 import { HeroesDetailsTabs } from "./HeroDetailsTabs";
 import { OverViewTabs } from "./OverViewTabs";
@@ -13,20 +17,18 @@ import { useThemeStore } from "@src/store/theme";
 import { ErrorComponent } from "@src/components/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
 import { WaveProfile, WaveTrendings } from "@src/components/Waves";
+import { TextComponent } from "@src/components/TextComponent";
+import { GameMode, LobbyType } from "@src/services/enum";
 
 type MatchDetailsProps = {
   matchDetailsId: string;
   playerIdIndex?: string;
-  lobbyType?: string;
-  gameMode?: string;
 };
 const fontSize = Dimensions.get("screen").width * 0.03;
 
 export const MatchDetailsScreen = ({
   matchDetailsId,
   playerIdIndex,
-  lobbyType,
-  gameMode,
 }: MatchDetailsProps) => {
   const layout = useWindowDimensions();
   const { englishLanguage } = useSettingsStore();
@@ -36,12 +38,20 @@ export const MatchDetailsScreen = ({
 
   const [index, setIndex] = useState(0);
 
+  const text404 = englishLanguage
+    ? "Match not found, please, check the match ID!"
+    : "Partida não encontrada, por favor, verifique o ID da partida!";
+
+  const textError = englishLanguage
+    ? "Error trying to get the match, please, try again later!"
+    : "Erro ao buscar a partida, por favor, tente novamente mais tarde";
+
   const matchDetailsQuery = useQuery({
     queryKey: ["matchDetails"],
     queryFn: () => getMatchDetails(matchDetailsId),
     staleTime: 0,
   });
-  const matchDetails = matchDetailsQuery.data;
+  const matchDetails = matchDetailsQuery.data?.data;
 
   const teamFightsMemo = matchDetails?.teamfights ?? [];
   const isLoadingScreen =
@@ -50,6 +60,9 @@ export const MatchDetailsScreen = ({
   const radName = englishLanguage ? "Radiant" : "Iluminados";
   const direName = englishLanguage ? "Dire" : "Temidos";
   const hasTeamFights = !!matchDetails?.teamfights?.length;
+
+  const lobbyTypeValue = matchDetails?.lobby_type as LobbyType;
+  const gameModeValue = matchDetails?.game_mode as GameMode;
 
   useEffect(() => {
     if (!matchDetails) return;
@@ -94,16 +107,39 @@ export const MatchDetailsScreen = ({
         />
       </>
     );
-  if (!matchDetails || matchDetailsQuery.isError)
+  if (matchDetailsQuery.data?.status === 404)
+    return (
+      <>
+        <WaveTrendings />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <TextComponent weight="bold">{text404}</TextComponent>
+        </View>
+      </>
+    );
+
+  if (matchDetailsQuery.data?.success == false)
     return <ErrorComponent action={matchDetailsQuery.refetch} />;
+  if (!matchDetails)
+    return (
+      <>
+        <WaveTrendings />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <TextComponent>{textError}</TextComponent>
+        </View>
+      </>
+    );
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
       case "first":
         return (
           <OverViewTabs
-            GameMode={gameMode}
-            LobbyType={lobbyType}
+            GameMode={GameModeNames[gameModeValue].toString()}
+            LobbyType={LobbyTypeNames[lobbyTypeValue].toString()}
             PlayerIdIndex={playerIdIndex}
             radName={matchDetails?.radiant_team?.name ?? radName}
             direName={matchDetails?.dire_team?.name ?? direName}

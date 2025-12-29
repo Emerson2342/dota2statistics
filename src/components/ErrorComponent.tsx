@@ -3,7 +3,13 @@ import ErrorImage from "../images/error.png";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 
-export const ErrorComponent = ({ action }: { action: () => Promise<any> }) => {
+export const ErrorComponent = ({
+  action,
+  title,
+}: {
+  action: () => Promise<any>;
+  title?: string;
+}) => {
   const { englishLanguage } = useSettingsStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
 
@@ -30,7 +36,7 @@ export const ErrorComponent = ({ action }: { action: () => Promise<any> }) => {
           fontFamily: "QuickSand-Bold",
         }}
       >
-        {textError}
+        {title ?? textError}
       </Text>
       <TouchableOpacity
         onPress={action}
