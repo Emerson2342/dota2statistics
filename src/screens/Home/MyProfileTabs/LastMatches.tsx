@@ -17,7 +17,7 @@ import {
   HeroDetailsModel,
   LobbyTypeNames,
   RecentMatches,
-} from "../../../services/props";
+} from "@src/services/props";
 
 import HeroesDetails from "@src/components/Heroes/HeroesDetails.json";
 import { PICTURE_HERO_BASE_URL } from "@src/constants/player";
