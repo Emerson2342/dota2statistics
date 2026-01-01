@@ -8,10 +8,8 @@ import * as SplashScreen from "expo-splash-screen";
 import Constants from "expo-constants";
 import { ModalHasUpdate } from "@src/components/Modals/ModalHasUpdate";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Snowfall } from "react-native-snowfall";
 import { SafeAreaView } from "react-native-safe-area-context";
 import VersionCheck from "react-native-version-check";
-import { SantaHatComponent } from "@src/components/SantaHatComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 
@@ -43,25 +41,6 @@ export default function App() {
 
   return (
     <GestureHandlerRootView>
-      <View
-        style={{
-          position: "absolute",
-          zIndex: 150,
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
-        pointerEvents="none"
-      >
-        <Snowfall
-          imagePath={require("../src/images/snowFlake.png")}
-          count={130}
-          duration={10000}
-          minSize={10}
-          maxSize={30}
-        />
-      </View>
       <QueryClientProvider client={queryClient}>
         {/* <Teste /> */}
         <Content />
@@ -142,12 +121,6 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Match Details" : "Detalhes da Partida",
-            headerTitle: () => (
-              <SantaHatComponent
-                englishName="Match Details"
-                portugueseName="Detalhes da Partida"
-              />
-            ),
             headerStyle: {
               backgroundColor: colorTheme.dark,
             },
@@ -164,12 +137,6 @@ function Content() {
           options={{
             headerShown: true,
             title: "Team Fights",
-            headerTitle: () => (
-              <SantaHatComponent
-                englishName="Team Fights"
-                portugueseName="Team Fights"
-              />
-            ),
             headerStyle: {
               backgroundColor: colorTheme.dark,
             },
@@ -186,12 +153,6 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "League Matches" : "Jogos do Campeonato",
-            headerTitle: () => (
-              <SantaHatComponent
-                englishName="League Matches"
-                portugueseName="Jogos do Campeonato"
-              />
-            ),
             headerStyle: {
               backgroundColor: colorTheme.dark,
             },
@@ -208,12 +169,6 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Hero Details" : "Detalhes do Herói",
-            headerTitle: () => (
-              <SantaHatComponent
-                englishName="Hero Details"
-                portugueseName="Detalhes do Herói"
-              />
-            ),
             headerStyle: {
               backgroundColor: colorTheme.dark,
             },
@@ -226,12 +181,6 @@ function Content() {
           options={{
             headerShown: true,
             title: englishLanguage ? "Profile Player" : "Perfil do Jogador",
-            headerTitle: () => (
-              <SantaHatComponent
-                englishName="Profile Player"
-                portugueseName="Perfil do Jogador"
-              />
-            ),
             headerStyle: {
               backgroundColor: colorTheme.dark,
             },
