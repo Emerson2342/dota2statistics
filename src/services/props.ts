@@ -402,6 +402,8 @@ export interface Player {
     [key: string]: number;
   };
   gold_t?: number[];
+  lane?: number;
+  lane_role?: number;
 }
 
 export interface GoldPlayers {

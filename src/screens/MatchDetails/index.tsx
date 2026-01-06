@@ -16,7 +16,7 @@ import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { ErrorComponent } from "@src/components/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
-import { WaveProfile, WaveTrendings } from "@src/components/Waves";
+import { WaveTrendings } from "@src/components/Waves";
 import { TextComponent } from "@src/components/TextComponent";
 import { GameMode, LobbyType } from "@src/services/enum";
 

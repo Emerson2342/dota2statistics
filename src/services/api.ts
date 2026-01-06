@@ -105,6 +105,8 @@ export const getMatchDetails = async (
           damage_inflictor_received: player.damage_inflictor_received,
           damage_inflictor: player.damage_inflictor,
           gold_t: player.gold_t,
+          lane: player.lane,
+          lane_role: player.lane_role,
         })
       ),
       radiant_win: data.radiant_win,

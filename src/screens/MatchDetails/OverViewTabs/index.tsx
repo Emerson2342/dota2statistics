@@ -22,6 +22,7 @@ import { Feather } from "@expo/vector-icons";
 import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { MapRoleComponent } from "./MapRole";
 
 type Props = {
   refreshing: boolean;
@@ -237,6 +238,7 @@ function OverViewComponent({
           </View>
         )}
 
+        <MapRoleComponent playersLane={matchDetails.players} />
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}
