@@ -238,7 +238,10 @@ function OverViewComponent({
           </View>
         )}
 
-        <MapRoleComponent playersLane={matchDetails.players} />
+        <MapRoleComponent
+          playersLane={matchDetails.players}
+          heroesDetails={heroArray}
+        />
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}
