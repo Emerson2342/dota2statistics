@@ -41,7 +41,7 @@ export const getMatchDetails = async (
       try {
         const errorBody = await response.json();
         message = errorBody?.error ?? message;
-      } catch {}
+      } catch { }
 
       return {
         success: false,
@@ -105,8 +105,8 @@ export const getMatchDetails = async (
           damage_inflictor_received: player.damage_inflictor_received,
           damage_inflictor: player.damage_inflictor,
           gold_t: player.gold_t,
-          lane: player.lane,
-          lane_role: player.lane_role,
+          lane: player.lane ?? 0,
+          lane_role: player.lane_role ?? 0,
         })
       ),
       radiant_win: data.radiant_win,
@@ -176,8 +176,8 @@ export const getRecentMatches = async (
       tower_damage: match.tower_damage,
       hero_healing: match.hero_healing,
       last_hits: match.last_hits,
-      lane: match?.lane,
-      lane_role: match.lane_role,
+      lane: match?.lane ?? 0,
+      lane_role: match.lane_role ?? 0,
       leaver_status: match.leaver_status,
     }));
 
