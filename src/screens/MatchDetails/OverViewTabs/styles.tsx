@@ -22,10 +22,10 @@ export const createStyles = (colors: ThemeColor) =>
       backgroundColor: colors.light,
       borderRadius: 5,
       alignSelf: "center",
-      padding: 7,
-      marginVertical: "1%",
+      padding: 9,
       flexDirection: "row",
       alignItems: "center",
+      elevation: 9,
       gap: 7,
     },
     textButton: {

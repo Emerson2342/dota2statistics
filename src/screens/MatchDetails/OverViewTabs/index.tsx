@@ -208,6 +208,10 @@ function OverViewComponent({
           radName={radName}
           direName={direName}
         />
+        <MapRoleComponent
+          playersLane={matchDetails.players}
+          heroesDetails={heroArray}
+        />
         {hasTeamFights && (
           <View
             style={{
@@ -215,33 +219,25 @@ function OverViewComponent({
               width: "95%",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#fff",
               marginBottom: "3%",
-              borderRadius: 9,
-              padding: "1%",
-              elevation: 7,
             }}
           >
             <TouchableOpacity
               style={styles.teamFightsButton}
               onPress={() => router.push({ pathname: "team-fights" })}
             >
-              <TextComponent weight="semibold" style={styles.textButton}>
+              <TextComponent weight="bold" style={styles.textButton}>
                 Team Fights
               </TextComponent>
               <Feather
                 name="external-link"
                 color={colorTheme.semidark}
-                size={15}
+                size={17}
               />
             </TouchableOpacity>
           </View>
         )}
 
-        <MapRoleComponent
-          playersLane={matchDetails.players}
-          heroesDetails={heroArray}
-        />
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}

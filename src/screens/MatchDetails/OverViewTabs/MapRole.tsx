@@ -14,19 +14,26 @@ const width = Dimensions.get("window").width;
 
 type HeroPos = {
   icon: string;
-  lane: number
-}
+  lane: number;
+};
 
 function MapRole({ playersLane, heroesDetails }: MapRoleProps) {
-
   const herosPos = useMemo(() => {
-    let array: HeroPos[] = []
+    let array: HeroPos[] = [];
     playersLane.map((item, index) => {
-      array.push({ icon: heroesDetails.find((h) => h.id === playersLane[index].hero_id)?.icon ?? "", lane: item.lane ?? 0 })
-    })
+      array.push({
+        icon:
+          heroesDetails.find((h) => h.id === playersLane[index].hero_id)
+            ?.icon ?? "",
+        lane: item.lane ?? 0,
+      });
+    });
     return array;
-  }, [playersLane])
+  }, [playersLane]);
 
+  const hasValidLaneData = herosPos.every((item) => item.lane === 0);
+
+  if (hasValidLaneData) return;
 
   return (
     <View
@@ -40,31 +47,43 @@ function MapRole({ playersLane, heroesDetails }: MapRoleProps) {
         style={{
           width: width * 0.9,
           height: width * 0.9,
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: "center",
+          justifyContent: "center",
           aspectRatio: 1,
-          position: 'relative'
+          position: "relative",
         }}
-      >{herosPos.map((item, index) => {
-        const img = PICTURE_HERO_BASE_URL + item?.icon
+      >
+        {herosPos.map((item, index) => {
+          const img = PICTURE_HERO_BASE_URL + item?.icon;
 
-        const heroPosition = getHeroPosition(item.lane, index)
-        return <Image
-          key={item.icon}
-          source={{ uri: img }}
-          style={[{
-            position: 'absolute',
-            zIndex: 999,
-            aspectRatio: 1,
-            width: width * 0.1,
-          }, heroPosition]}
-        />
-      })}
+          const sameLaneIndex = herosPos
+            .slice(0, index)
+            .filter((h) => h.lane === item.lane).length;
+
+          const heroPosition = getHeroPosition(item.lane, index, sameLaneIndex);
+          return (
+            <Image
+              key={item.icon}
+              source={{ uri: img }}
+              style={[
+                {
+                  position: "absolute",
+                  zIndex: 999,
+                  aspectRatio: 1,
+                  width: width * 0.1,
+                },
+                heroPosition,
+              ]}
+            />
+          );
+        })}
         <Image
           source={MapImage}
           style={{
             width: width * 0.9,
-            height: width * 0.9, borderRadius: 15, position: 'absolute'
+            height: width * 0.9,
+            borderRadius: 15,
+            position: "absolute",
           }}
           resizeMode="contain"
         />
