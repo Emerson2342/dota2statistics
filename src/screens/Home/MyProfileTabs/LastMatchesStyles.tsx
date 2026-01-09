@@ -16,7 +16,6 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 3,
     },
     flatListContainer: {
-      marginHorizontal: 1,
       flex: 1,
       alignSelf: "center",
     },

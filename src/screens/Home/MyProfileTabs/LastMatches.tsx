@@ -33,6 +33,7 @@ import { TextComponent } from "@src/components/TextComponent";
 import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
+import { hexToRgba } from "@src/utils/convertHexToRgba";
 
 const heroArray = Object.values(HeroesDetails) as HeroDetailsModel[];
 const fontSize = Dimensions.get("screen").width * 0.02;
@@ -109,9 +110,12 @@ function LastMatchesComponent({
             style={[
               styles.listContainer,
               {
-                backgroundColor: index % 2 === 0 ? colorTheme.light : "#fff",
-                marginVertical: 2,
-                borderWidth: 1,
+                backgroundColor:
+                  index % 2 === 0
+                    ? hexToRgba(colorTheme.light, 0.5)
+                    : hexToRgba("#ffffff", 0.8),
+                //marginVertical: 2,
+                //borderWidth: 1,
                 borderColor: colorTheme.light,
               },
             ]}
@@ -208,7 +212,7 @@ function LastMatchesComponent({
                 </TextComponent>
                 <TextComponent
                   weight="semibold"
-                  style={[styles.textList, { color: "#c88304" }]}
+                  style={[styles.textList, { color: "#ff8f05" }]}
                 >
                   {item.assists}
                 </TextComponent>
@@ -237,7 +241,7 @@ function LastMatchesComponent({
                 />
                 <View
                   style={{
-                    backgroundColor: "#c88304",
+                    backgroundColor: "#ff8f05",
                     flex: item.assists,
                     borderTopRightRadius: 3,
                     borderBottomRightRadius: 3,
