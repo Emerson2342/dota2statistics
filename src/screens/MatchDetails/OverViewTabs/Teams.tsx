@@ -42,8 +42,6 @@ function Teams({
     : "Este perfil é privado";
   const [modalVisible, setModalVisible] = useState(false);
 
-  const winner = englishLanguage ? "Winner" : "Vencedor";
-
   const styles = createStyles(colorTheme);
 
   const HandleNavigateToProfile = (playerId: number | undefined) => {
@@ -77,18 +75,6 @@ function Teams({
         >
           <View style={[styles.headerContainer]}>
             <LinearGradientComponent />
-            <TextComponent
-              style={[
-                styles.title,
-                {
-                  fontSize: 13,
-                  color: "#ccc",
-                  display: radiantWin ? "flex" : "none",
-                },
-              ]}
-            >
-              {winner}
-            </TextComponent>
             <TextComponent weight="semibold" style={styles.title}>
               {teamName}
             </TextComponent>

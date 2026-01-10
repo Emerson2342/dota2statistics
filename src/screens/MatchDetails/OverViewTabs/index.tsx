@@ -209,35 +209,12 @@ function OverViewComponent({
           direName={direName}
         />
         <MapRoleComponent
+          radWin={matchDetails.radiant_win}
+          radName={radName}
+          direName={direName}
           playersLane={matchDetails.players}
           heroesDetails={heroArray}
         />
-        {hasTeamFights && (
-          <View
-            style={{
-              alignSelf: "center",
-              width: "95%",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "3%",
-            }}
-          >
-            <TouchableOpacity
-              style={styles.teamFightsButton}
-              onPress={() => router.push({ pathname: "team-fights" })}
-            >
-              <TextComponent weight="bold" style={styles.textButton}>
-                Team Fights
-              </TextComponent>
-              <Feather
-                name="external-link"
-                color={colorTheme.semidark}
-                size={17}
-              />
-            </TouchableOpacity>
-          </View>
-        )}
-
         <TeamsComponent
           matchDetails={matchDetails}
           PlayerIdIndex={PlayerIdIndex}
@@ -245,17 +222,17 @@ function OverViewComponent({
           direName={direName}
         />
         {matchDetails &&
-        matchDetails.picks_bans &&
-        matchDetails.picks_bans.map((p) => p.is_pick) ? (
-          <View style={styles.containerItem}>
-            <FlatList
-              data={matchDetails ? [matchDetails] : []}
-              renderItem={renderItemBans}
-              keyExtractor={(item) => item.match_id.toString()}
-              scrollEnabled={false}
-            />
-          </View>
-        ) : null}
+          matchDetails.picks_bans &&
+          matchDetails.picks_bans.map((p) => p.is_pick) && (
+            <View style={styles.containerItem}>
+              <FlatList
+                data={matchDetails ? [matchDetails] : []}
+                renderItem={renderItemBans}
+                keyExtractor={(item) => item.match_id.toString()}
+                scrollEnabled={false}
+              />
+            </View>
+          )}
         <View
           style={[
             styles.containerItem,
@@ -423,6 +400,31 @@ function OverViewComponent({
             </View>
           </View>
         </View>
+        {hasTeamFights && (
+          <View
+            style={{
+              alignSelf: "center",
+              width: "95%",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "3%",
+            }}
+          >
+            <TouchableOpacity
+              style={styles.teamFightsButton}
+              onPress={() => router.push({ pathname: "team-fights" })}
+            >
+              <TextComponent weight="bold" style={styles.textButton}>
+                Team Fights
+              </TextComponent>
+              <Feather
+                name="external-link"
+                color={colorTheme.semidark}
+                size={17}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         {matchDetails &&
           matchDetails.radiant_gold_adv &&
           matchDetails.radiant_gold_adv.length > 0 &&
