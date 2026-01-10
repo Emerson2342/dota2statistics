@@ -7,6 +7,7 @@ import { AbilitiesComponent } from "./Abilities";
 import { HeroDetailsModel, MatchDetailsModel } from "@src/services/props";
 import { DamageComponent } from "./Damage";
 import { DamageTypeComponent } from "./DamageType";
+import { useThemeStore } from "@src/store/theme";
 
 type Props = {
   matchDetails: MatchDetailsModel | null;
@@ -25,9 +26,11 @@ function HeroesDetailsComponent({
   direName,
   heroArray,
 }: Props) {
+  const colroTheme = useThemeStore((state) => state.colorTheme);
   if (!matchDetails) return null;
   return (
     <ScrollView
+      style={{ backgroundColor: colroTheme.light }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -117,7 +120,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: "3%",
     borderRadius: 9,
-    backgroundColor: "#fff",
     elevation: 7,
   },
 });
