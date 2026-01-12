@@ -13,6 +13,10 @@ import { TextComponent } from "@src/components/TextComponent";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 
+const fontSize = Dimensions.get("screen").width * 0.05;
+const fontSizeWinrate = Dimensions.get("window").width * 0.025;
+const imgWidth = Dimensions.get("screen").width * 0.1;
+
 function HeroesStatsComponent({
   heroesStats,
 }: {
@@ -125,31 +129,33 @@ const createStyles = (colors: ThemeColor) =>
     },
     content: {
       borderRadius: 13,
-      marginHorizontal: "2%",
+      marginHorizontal: "7%",
       paddingVertical: "1%",
       backgroundColor: "#fff",
       elevation: 7,
+      maxWidth: 750,
+      alignSelf: "center",
     },
     textHeader: {
-      fontSize: Dimensions.get("screen").width * 0.05,
+      fontSize: fontSize > 20 ? 20 : fontSize,
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
     },
     text: {
-      fontSize: Dimensions.get("window").width * 0.025,
+      fontSize: fontSizeWinrate > 15 ? 15 : fontSizeWinrate,
       color: colors.semidark,
       textAlign: "center",
     },
     imgHero: {
-      width: Dimensions.get("screen").width * 0.1,
+      width: imgWidth > 75 ? 75 : imgWidth,
       height: undefined,
       aspectRatio: 1.5,
       marginHorizontal: "0.5%",
       borderRadius: 3,
     },
     textTitle: {
-      fontSize: Dimensions.get("screen").width * 0.037,
+      fontSize: fontSize > 20 ? 20 : fontSize,
       width: "50%",
       alignSelf: "center",
       padding: 3,

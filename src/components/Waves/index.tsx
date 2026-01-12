@@ -22,9 +22,9 @@ export function WaveTrendings() {
     >
       <Svg
         id="visual"
-        width="540"
+        width={width}
         height="960"
-        viewBox="0 0 540 960"
+        viewBox={`0 0 ${width} 960`}
         preserveAspectRatio="none"
       >
         <G>

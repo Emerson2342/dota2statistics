@@ -162,7 +162,7 @@ export function Home() {
         initialLayout={initialLayout}
         commonOptions={{
           labelStyle: {
-            fontSize: fontSize,
+            fontSize: fontSize > 15 ? 15 : fontSize,
             fontFamily: "QuickSand-Bold",
             textAlign: "center",
           },

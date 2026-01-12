@@ -14,7 +14,12 @@ type Props = {
 
 export function TrendingsTab({ heroesStats, onRefresh, proMatches }: Props) {
   return (
-    <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#f5f5f5",
+      }}
+    >
       <WaveTrendings />
       <HeroesStats heroesStats={heroesStats} />
       <ProMatches onRefresh={onRefresh} proMatches={proMatches} />
