@@ -20,6 +20,8 @@ import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { LinearGradientComponent } from "@src/components/LinearGradient";
 
+const imgWidth = Dimensions.get("screen").width * 0.27;
+
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { player } = usePlayerStore();
   const colorTheme = useThemeStore((state) => state.colorTheme);
@@ -82,14 +84,14 @@ const createStyles = (colors: ThemeColor) =>
       backgroundColor: colors.semidark,
     },
     textName: {
-      fontSize: Dimensions.get("screen").height * 0.027,
+      fontSize: 15,
       color: colors.light,
     },
     image: {
-      width: Dimensions.get("screen").width * 0.27,
+      width: imgWidth > 120 ? 120 : imgWidth,
+      height: imgWidth > 120 ? 120 : imgWidth,
       resizeMode: "contain",
       aspectRatio: 1,
-      height: undefined,
       borderRadius: 15,
     },
     drawerItems: {
@@ -102,7 +104,7 @@ const createStyles = (colors: ThemeColor) =>
       flexDirection: "row",
     },
     textAboutUs: {
-      marginVertical: Dimensions.get("screen").width * 0.03,
+      marginVertical: 7,
       textAlign: "center",
       color: "#888",
     },

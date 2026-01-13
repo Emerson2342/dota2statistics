@@ -120,7 +120,7 @@ export const MatchDetailsScreen = ({
     );
 
   if (matchDetailsQuery.data?.success == false)
-    return <ErrorComponent action={matchDetailsQuery.refetch} />;
+    return <ErrorComponent action={() => matchDetailsQuery.refetch()} />;
   if (!matchDetails)
     return (
       <>

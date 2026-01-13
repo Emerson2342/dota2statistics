@@ -11,11 +11,12 @@ export const createStylesStatics = (colors: ThemeColor) =>
       flex: 1,
       alignItems: "center",
       width: "95%",
+      maxWidth: 800,
       borderRadius: 7,
       alignSelf: "center",
     },
     textHeader: {
-      fontSize: fontSizeHeader,
+      fontSize: fontSizeHeader > 20 ? 20 : fontSizeHeader,
       textAlign: "center",
       color: colors.semidark,
       alignSelf: "center",
@@ -32,7 +33,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
     },
     leagueName: {
       color: colors.dark,
-      fontSize: fontSizeLeagueName,
+      fontSize: fontSizeLeagueName > 20 ? 20 : fontSizeLeagueName,
       textAlign: "center",
       flexWrap: "nowrap",
       flex: 1,
@@ -46,12 +47,12 @@ export const createStylesStatics = (colors: ThemeColor) =>
       //width: "13%",
       flex: 1,
       textAlign: "center",
-      fontSize: 11.3,
+      fontSize: fontSizeButton > 15 ? 15 : fontSizeButton,
     },
     teamName: {
       // width: "87%",
       flex: 5,
-      fontSize: fontSizeLeagueName,
+      fontSize: fontSizeLeagueName > 20 ? 20 : fontSizeLeagueName,
       textAlign: "center",
     },
     linkContainer: {
@@ -70,7 +71,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
     textButton: {
       color: colors.semidark,
       padding: 3,
-      fontSize: fontSizeButton,
+      fontSize: fontSizeButton > 15 ? 15 : fontSizeButton,
     },
     timeContainer: {
       alignItems: "center",
@@ -78,6 +79,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontSize: fontSizeButton,
+      fontSize: fontSizeButton > 15 ? 15 : fontSizeButton,
     },
   });

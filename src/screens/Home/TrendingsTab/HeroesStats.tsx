@@ -54,8 +54,8 @@ function HeroesStatsComponent({
   };
 
   return (
-    <View style={{ marginTop: "3%" }}>
-      <TextComponent weight="semibold" style={styles.textHeader}>
+    <View style={{ marginTop: 7 }}>
+      <TextComponent weight="bold" style={styles.textHeader}>
         {englishLanguage ? "Trending Heroes" : "Heróis Em Alta"}
       </TextComponent>
       <View style={styles.content}>
@@ -128,12 +128,13 @@ const createStyles = (colors: ThemeColor) =>
       justifyContent: "center",
     },
     content: {
+      width: "95%",
       borderRadius: 13,
-      marginHorizontal: "7%",
-      paddingVertical: "1%",
+      //marginHorizontal: "7%",
+      paddingBottom: 15,
       backgroundColor: "#fff",
       elevation: 7,
-      maxWidth: 750,
+      maxWidth: 800,
       alignSelf: "center",
     },
     textHeader: {
@@ -148,14 +149,14 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
     },
     imgHero: {
-      width: imgWidth > 75 ? 75 : imgWidth,
+      width: imgWidth > 70 ? 70 : imgWidth,
       height: undefined,
       aspectRatio: 1.5,
-      marginHorizontal: "0.5%",
+      marginHorizontal: 1,
       borderRadius: 3,
     },
     textTitle: {
-      fontSize: fontSize > 20 ? 20 : fontSize,
+      fontSize: 17,
       width: "50%",
       alignSelf: "center",
       padding: 3,

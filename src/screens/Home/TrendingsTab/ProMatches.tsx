@@ -229,7 +229,7 @@ function ProMatchesComponent({
 
   return (
     <View style={styles.container}>
-      <TextComponent weight="semibold" style={styles.textHeader}>
+      <TextComponent weight="bold" style={styles.textHeader}>
         {englishLanguage ? "Pro Matches" : "Partidas Profissionais"}
       </TextComponent>
 

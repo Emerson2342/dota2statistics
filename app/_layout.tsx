@@ -69,6 +69,7 @@ function Content() {
   }, []);
 
   function isNewerVersion(latest: string, current: string) {
+    if (!latest || !current) return;
     const latestParts = latest.split(".").map(Number);
     const currentParts = current.split(".").map(Number);
 

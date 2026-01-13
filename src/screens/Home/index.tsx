@@ -144,8 +144,8 @@ export function Home() {
     return (
       <ErrorComponent
         action={async () => {
-          proMatchesQuery.refetch;
-          heroesStatsQuery.refetch;
+          proMatchesQuery.refetch();
+          heroesStatsQuery.refetch();
         }}
       />
     );

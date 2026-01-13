@@ -25,6 +25,8 @@ import { LinearGradientComponent } from "@src/components/LinearGradient";
 
 const NUMBER_COLUMNS = 10;
 
+const textSize = Dimensions.get("screen").width * 0.047;
+
 export function ProfileHeader({
   player,
   heroesId,
@@ -155,7 +157,7 @@ export function ProfileHeader({
                 styles.textProfile,
                 {
                   color: colorTheme.light,
-                  fontSize: Dimensions.get("screen").width * 0.047,
+                  fontSize: textSize > 15 ? 15 : textSize,
                 },
               ]}
               numberOfLines={2}

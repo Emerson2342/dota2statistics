@@ -9,7 +9,7 @@ import Svg, {
   Rect,
 } from "react-native-svg";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export function WaveTrendings() {
   const colorTheme = useThemeStore((state) => state.colorTheme);
@@ -18,13 +18,15 @@ export function WaveTrendings() {
     <View
       style={{
         position: "absolute",
+        flex: 1,
+        width: "100%",
       }}
     >
       <Svg
         id="visual"
         width={width}
-        height="960"
-        viewBox={`0 0 ${width} 960`}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="none"
       >
         <G>
