@@ -11,7 +11,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       flex: 1,
       alignItems: "center",
       width: "95%",
-      maxWidth: 800,
+      maxWidth: 650,
       borderRadius: 7,
       alignSelf: "center",
     },

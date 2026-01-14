@@ -97,7 +97,11 @@ export function MyProfileTabs({ index }: Props) {
           recentMatches={recentMatches}
         />
       </View>
-      <View style={{ flex: heroesPlayedId.length > 5 ? 0.7 : 0.72 }}>
+      <View
+        style={{
+          flex: heroesPlayedId.length > 5 ? 0.7 : 0.72,
+        }}
+      >
         <View style={{ flex: 1, paddingBottom: "1%" }}>
           {player && (
             <LastMatches

@@ -23,7 +23,7 @@ import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { LinearGradientComponent } from "@src/components/LinearGradient";
 
-const NUMBER_COLUMNS = 10;
+const NUMBER_COLUMNS = Dimensions.get("screen").width > 850 ? 20 : 10;
 
 const textSize = Dimensions.get("screen").width * 0.047;
 
@@ -132,19 +132,19 @@ export function ProfileHeader({
                 source={{ uri: `${Medal(player?.rank_tier)}` }}
                 style={styles.imgAvatar}
               />
+              <TextComponent
+                weight="bold"
+                style={[
+                  styles.textRank,
+                  {
+                    display: player && player?.rank_tier < 80 ? "none" : "flex",
+                  },
+                ]}
+              >
+                {player?.leaderboard_rank}
+              </TextComponent>
             </View>
           </View>
-          <TextComponent
-            weight="bold"
-            style={[
-              styles.textRank,
-              {
-                display: player && player?.rank_tier < 80 ? "none" : "flex",
-              },
-            ]}
-          >
-            {player?.leaderboard_rank}
-          </TextComponent>
           <View
             style={{
               width: "55%",
@@ -157,7 +157,7 @@ export function ProfileHeader({
                 styles.textProfile,
                 {
                   color: colorTheme.light,
-                  fontSize: textSize > 15 ? 15 : textSize,
+                  fontSize: textSize > 20 ? 20 : textSize,
                 },
               ]}
               numberOfLines={2}
@@ -179,7 +179,7 @@ export function ProfileHeader({
                 justifyContent: "space-around",
               }}
             >
-              <TextComponent weight="semibold" style={styles.textProfile}>
+              <TextComponent weight="bold" style={styles.textProfile}>
                 {englishLanguage ? "Win" : "Vitórias"}:{" "}
                 <TextComponent
                   style={[styles.textProfile, { color: "orange" }]}
@@ -187,7 +187,7 @@ export function ProfileHeader({
                   {vitorias}
                 </TextComponent>
               </TextComponent>
-              <TextComponent weight="semibold" style={styles.textProfile}>
+              <TextComponent weight="bold" style={styles.textProfile}>
                 {englishLanguage ? "Loss" : "Derrotas"}:{" "}
                 <TextComponent
                   weight="semibold"
@@ -197,10 +197,10 @@ export function ProfileHeader({
                 </TextComponent>
               </TextComponent>
             </View>
-            <TextComponent weight="semibold" style={styles.textProfile}>
+            <TextComponent weight="bold" style={styles.textProfile}>
               Winrate:
               <TextComponent
-                weight="semibold"
+                weight="bold"
                 style={[styles.textProfile, { color: "orange" }]}
               >
                 {winrate ? ` ${winrate}%` : ""}

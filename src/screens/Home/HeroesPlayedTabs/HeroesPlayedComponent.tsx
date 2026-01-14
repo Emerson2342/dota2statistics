@@ -21,6 +21,7 @@ import { usePlayerStore } from "@src/store/player";
 import { useSettingsStore } from "@src/store/settings";
 import { useThemeStore } from "@src/store/theme";
 import { WaveProfile } from "@src/components/Waves";
+import { hexToRgba } from "@src/utils/convertHexToRgba";
 
 function HeroesPlayedComp({
   isHomeProfile,
@@ -102,7 +103,9 @@ function HeroesPlayedComp({
             styles.renderItemContainer,
             {
               backgroundColor:
-                index % 2 === 0 ? colorTheme.light : "transparent",
+                index % 2 === 0
+                  ? hexToRgba(colorTheme.light, 0.5)
+                  : hexToRgba("#fff", 0.8),
             },
           ]}
         >
@@ -262,6 +265,7 @@ const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      maxWidth: 650,
       alignItems: "center",
       justifyContent: "center",
       alignSelf: "center",

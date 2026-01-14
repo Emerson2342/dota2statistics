@@ -149,9 +149,17 @@ function LastMatchesComponent({
                 style={{ color: finalResult ? "#268626" : "#9a0c28" }}
               >
                 {finalResult ? (
-                  <MaterialIcons name="thumb-up" size={15} color="#268626" />
+                  <MaterialIcons
+                    name="thumb-up"
+                    size={fontSize > 15 ? fontSize : 15}
+                    color="#268626"
+                  />
                 ) : (
-                  <MaterialIcons name="thumb-down" size={15} color="#9a0c28" />
+                  <MaterialIcons
+                    name="thumb-down"
+                    size={fontSize > 15 ? fontSize : 15}
+                    color="#9a0c28"
+                  />
                 )}
               </TextComponent>
             </View>
@@ -173,7 +181,7 @@ function LastMatchesComponent({
                   styles.textList,
                   {
                     color: colorTheme.semilight,
-                    fontSize: fontSize,
+                    fontSize: fontSize > 13 ? 13 : fontSize,
                   },
                 ]}
               >

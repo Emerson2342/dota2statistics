@@ -134,7 +134,7 @@ const createStyles = (colors: ThemeColor) =>
       paddingBottom: 15,
       backgroundColor: "#fff",
       elevation: 7,
-      maxWidth: 800,
+      maxWidth: 650,
       alignSelf: "center",
     },
     textHeader: {
@@ -149,7 +149,7 @@ const createStyles = (colors: ThemeColor) =>
       textAlign: "center",
     },
     imgHero: {
-      width: imgWidth > 70 ? 70 : imgWidth,
+      width: imgWidth > 60 ? 60 : imgWidth,
       height: undefined,
       aspectRatio: 1.5,
       marginHorizontal: 1,
