@@ -265,7 +265,7 @@ const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      maxWidth: 650,
+      maxWidth: 500,
       alignItems: "center",
       justifyContent: "center",
       alignSelf: "center",

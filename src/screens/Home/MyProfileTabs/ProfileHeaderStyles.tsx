@@ -12,7 +12,7 @@ export const createStyles = (colors: ThemeColor) =>
       backgroundColor: colors.semidark,
       borderRadius: 5,
       width: "97%",
-      maxWidth: 650,
+      maxWidth: 600,
       alignSelf: "center",
       padding: "3%",
     },
@@ -40,7 +40,7 @@ export const createStyles = (colors: ThemeColor) =>
       fontSize: fontSize > 13 ? 15 : fontSize,
     },
     imgHero: {
-      width: imgWidth > 35 ? imgWidth : 35,
+      width: 35,
       aspectRatio: 1,
       borderRadius: 99,
       borderWidth: 1,

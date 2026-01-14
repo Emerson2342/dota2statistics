@@ -181,7 +181,7 @@ function LastMatchesComponent({
                   styles.textList,
                   {
                     color: colorTheme.semilight,
-                    fontSize: fontSize > 13 ? 13 : fontSize,
+                    fontSize: fontSize > 10 ? 10 : fontSize,
                   },
                 ]}
               >

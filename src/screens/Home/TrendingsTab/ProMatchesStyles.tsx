@@ -2,7 +2,6 @@ import { Dimensions, StyleSheet } from "react-native";
 import { ThemeColor } from "@src/services/props";
 
 const fontSizeHeader = Dimensions.get("screen").width * 0.05;
-const fontSizeLeagueName = Dimensions.get("window").width * 0.037;
 const fontSizeButton = Dimensions.get("screen").width * 0.027;
 
 export const createStylesStatics = (colors: ThemeColor) =>
@@ -11,7 +10,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
       flex: 1,
       alignItems: "center",
       width: "95%",
-      maxWidth: 650,
+      maxWidth: 500,
       borderRadius: 7,
       alignSelf: "center",
     },
@@ -29,11 +28,11 @@ export const createStylesStatics = (colors: ThemeColor) =>
       borderLeftWidth: 5,
       borderRadius: 5,
       marginTop: 7,
-      paddingVertical: 3,
+      paddingVertical: 7,
     },
     leagueName: {
       color: colors.dark,
-      fontSize: fontSizeLeagueName > 20 ? 20 : fontSizeLeagueName,
+      fontSize: 15,
       textAlign: "center",
       flexWrap: "nowrap",
       flex: 1,
@@ -52,7 +51,7 @@ export const createStylesStatics = (colors: ThemeColor) =>
     teamName: {
       // width: "87%",
       flex: 5,
-      fontSize: fontSizeLeagueName > 20 ? 20 : fontSizeLeagueName,
+      fontSize: 15,
       textAlign: "center",
     },
     linkContainer: {
@@ -62,16 +61,15 @@ export const createStylesStatics = (colors: ThemeColor) =>
       alignItems: "center",
     },
     buttonContainer: {
-      backgroundColor: `${colors.light}`,
+      backgroundColor: colors.light,
       alignItems: "center",
       paddingHorizontal: 35,
       borderRadius: 5,
-      marginBottom: 5,
     },
     textButton: {
       color: colors.semidark,
       padding: 3,
-      fontSize: fontSizeButton > 15 ? 15 : fontSizeButton,
+      fontSize: 13,
     },
     timeContainer: {
       alignItems: "center",
@@ -79,6 +77,6 @@ export const createStylesStatics = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontSize: fontSizeButton > 15 ? 15 : fontSizeButton,
+      fontSize: fontSizeButton > 12 ? 12 : fontSizeButton,
     },
   });

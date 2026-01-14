@@ -2,7 +2,8 @@ import { Dimensions, StyleSheet } from "react-native";
 import { ThemeColor } from "@src/services/props";
 
 const fontSize = Dimensions.get("screen").width * 0.03;
-const imgWidth = Dimensions.get("screen").width * 0.05;
+const imgWidth = Dimensions.get("screen").width * 0.04;
+const isTablet = Dimensions.get("screen").width > 600;
 
 export const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
@@ -20,15 +21,16 @@ export const createStyles = (colors: ThemeColor) =>
     },
     flatListContainer: {
       flex: 1,
-      maxWidth: 650,
+      maxWidth: 600,
       alignSelf: "center",
     },
     textTitleHeader: {
       color: colors.dark,
       textAlign: "center",
-      fontSize: fontSize > 13 ? 15 : fontSize,
+      fontSize: fontSize > 13 ? 13 : fontSize,
     },
     listTitle: {
+      marginTop: isTablet ? 15 : undefined,
       width: "100%",
       flexDirection: "row",
       justifyContent: "space-around",
@@ -37,6 +39,6 @@ export const createStyles = (colors: ThemeColor) =>
       color: colors.semidark,
       textAlign: "center",
       alignSelf: "center",
-      fontSize: fontSize > 13 ? 15 : fontSize,
+      fontSize: fontSize > 15 ? 15 : fontSize,
     },
   });
