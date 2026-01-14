@@ -211,8 +211,7 @@ function Header({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: "3%",
-          marginBottom: "3%",
+          marginVertical: 9,
         }}
       >
         <TextComponent weight="semibold" style={styles.textId}>
@@ -254,25 +253,24 @@ function Header({
 export const HeaderComponent = React.memo(Header);
 HeaderComponent.displayName = "HeaderComponent";
 
-const { width } = Dimensions.get("window");
 const createStyles = (colors: ThemeColor) =>
   StyleSheet.create({
     container: {
       alignSelf: "center",
       backgroundColor: colors.semidark,
-      margin: "3%",
+      margin: "1%",
+      width: "95%",
       borderRadius: 9,
       padding: "1%",
-      elevation: 7,
     },
     textTitleLeague: {
-      fontSize: width * 0.05,
+      fontSize: 15,
       color: colors.light,
       textAlign: "center",
       borderBottomWidth: 1,
       borderColor: "#ccc",
-      marginBottom: 7,
-      paddingBottom: 7,
+      marginBottom: 5,
+      paddingBottom: 5,
     },
     scoreContainer: {
       flexDirection: "row",
@@ -293,7 +291,7 @@ const createStyles = (colors: ThemeColor) =>
     teamScore: {
       color: colors.light,
       textAlign: "center",
-      fontSize: Dimensions.get("screen").width * 0.037,
+      fontSize: 15,
       width: "20%",
     },
     textId: {

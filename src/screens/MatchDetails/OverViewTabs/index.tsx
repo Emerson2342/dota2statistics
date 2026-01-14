@@ -198,8 +198,7 @@ function OverViewComponent({
     <View
       style={{
         flex: 1,
-        backgroundColor: colorTheme.light,
-        //maxWidth: 650,
+        maxWidth: 650,
         alignSelf: "center",
       }}
     >

@@ -14,7 +14,7 @@ export const createStyles = (colors: ThemeColor) =>
       elevation: 7,
     },
     title: {
-      fontSize: width * 0.05,
+      fontSize: 17,
       color: colors.semidark,
       textAlign: "center",
     },
@@ -41,7 +41,7 @@ export const createStyles = (colors: ThemeColor) =>
       width: "48%",
     },
     textTitle: {
-      fontSize: width * 0.035,
+      fontSize: width * 0.035 > 15 ? 15 : width * 0.035,
       color: colors.semidark,
       padding: "1%",
       textAlign: "center",
@@ -52,7 +52,7 @@ export const createStyles = (colors: ThemeColor) =>
       borderRadius: 3,
     },
     textResult: {
-      fontSize: width * 0.03,
+      fontSize: width * 0.03 > 15 ? 15 : width * 0.03,
       alignSelf: "center",
       color: "#888",
     },
@@ -67,5 +67,5 @@ export const createStyles = (colors: ThemeColor) =>
       alignSelf: "center",
       borderRadius: 7,
     },
-    barContainer: { flexDirection: "row", width: "70%", gap: 3 },
+    barContainer: { flexDirection: "row", width: "70%", gap: 3, height: 20 },
   });

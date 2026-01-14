@@ -29,7 +29,7 @@ const GraficsGoldAndXpTeam = ({
   }));
 
   return (
-    <View style={{ width: width, height: 350 }}>
+    <View style={{ width: width * 0.97, maxWidth: 600, height: 350 }}>
       <TextComponent
         weight="semibold"
         style={[styles.textGraphic, { color: "green" }]}

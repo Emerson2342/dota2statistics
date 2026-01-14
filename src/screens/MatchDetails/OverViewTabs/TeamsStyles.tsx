@@ -26,12 +26,12 @@ export const createStyles = (colors: ThemeColor) =>
       borderTopEndRadius: 7,
     },
     title: {
-      fontSize: width * 0.045,
+      fontSize: width * 0.017 > 15 ? width * 0.017 : 15,
       color: "#fff",
       textAlign: "center",
     },
     textHeader: {
-      fontSize: width * 0.025,
+      fontSize: width * 0.01 > 10 ? width * 0.01 : 10,
       color: "#ddd",
     },
     detailsContainer: {
@@ -113,13 +113,13 @@ export const createStyles = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     imageMedal: {
-      width: "50%",
+      width: 30,
       aspectRatio: 1,
       resizeMode: "contain",
       alignSelf: "center",
     },
     imageHero: {
-      width: "50%",
+      width: 30,
       aspectRatio: 1,
       borderRadius: 3,
     },
@@ -134,11 +134,11 @@ export const createStyles = (colors: ThemeColor) =>
       justifyContent: "space-around",
     },
     textData: {
-      fontSize: width * 0.025,
+      fontSize: width * 0.01 > 10 ? width * 0.01 : 10,
       color: "#555",
     },
     textDataPercent: {
-      fontSize: width * 0.023,
+      fontSize: width * 0.009 > 8 ? width * 0.009 : 8,
     },
     benchKills: {
       textAlign: "center",

@@ -16,7 +16,8 @@ type MapRoleProps = {
   radWin: boolean;
 };
 
-const width = Dimensions.get("window").width;
+const width =
+  Dimensions.get("window").width > 600 ? 600 : Dimensions.get("window").width;
 
 type HeroPos = {
   icon: string;

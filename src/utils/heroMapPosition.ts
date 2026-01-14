@@ -1,6 +1,7 @@
 import { Dimensions } from "react-native";
 
-const width = Dimensions.get("window").width;
+const width =
+  Dimensions.get("window").width > 600 ? 600 : Dimensions.get("window").width;
 
 export const getHeroPosition = (
   lane: number,
